@@ -1,0 +1,43 @@
+---
+title: "Project 1: Chebyshev Interpolation"
+collection: project
+type: "Workshop"
+permalink: /project/2024-summer-project-1
+#venue: "University 1, Department"
+date: 2024-07
+location: "Macau, China"
+---
+
+Chebyshev interpolation is a method used to approximate a function using Chebyshev polynomials. It is particularly useful when dealing with functions that have oscillatory behavior or when a high degree of accuracy is required.
+
+The key idea behind Chebyshev interpolation is to choose interpolation points that are the roots of Chebyshev polynomials. These points are known as Chebyshev nodes and are distributed in a way that minimizes the error of the interpolation.
+
+By using Chebyshev interpolation, we can obtain accurate approximations of functions with fewer interpolation points compared to other methods. This makes it an efficient and powerful technique in numerical analysis and scientific computing.
+
+In this project, we will delve into the theory and implementation of Chebyshev interpolation. We will learn how to choose the interpolation points, compute the interpolating polynomial, and evaluate the accuracy of the approximation. Through practical examples and exercises, you will gain hands-on experience in applying Chebyshev interpolation to real-world problems.
+
+Join us on this exciting exploration of Chebyshev interpolation and unlock its potential in numerical computation and data analysis.
+
+
+Chebyshev Polynomials
+======
+Chebyshev polynomials are a family of orthogonal polynomials that arise in various mathematical contexts, including approximation theory, numerical analysis, and signal processing. They are named after the Russian mathematician Pafnuty Chebyshev and are defined on the interval [-1, 1]. The Chebyshev polynomials of the first kind are denoted by T_n(x) and are given by the recursive formula:
+$$
+T_0(x) = 1, \quad T_1(x) = x, \quad T_{n+1}(x) = 2xT_n(x) - T_{n-1}(x) \quad \text{for} \quad n \geq 1.
+$$
+
+Chebyshev Nodes
+======
+Unlike Lagrangian interpolation, which uses equidistant nodes, Chebyshev interpolation employs Chebyshev nodes, which are the roots of the Chebyshev polynomials of the first kind. The Chebyshev nodes are defined as:
+$$
+x_k = \cos\left(\frac{2k-1}{2n}\pi\right) \quad \text{for} \quad k = 1, 2, \ldots, n.
+$$
+
+Runge's Phenomenon
+======
+One of the challenges in polynomial interpolation is **Runge's phenomenon**, which refers to the oscillations that occur at the edges of the interval when using high-degree polynomials to approximate a function. This phenomenon can lead to large errors in the interpolation and is a common issue in numerical analysis.
+
+My Project
+======
+In this project, I will explore Chebyshev interpolation and its applications in numerical analysis. I will implement the Chebyshev interpolation algorithm in Python and demonstrate its effectiveness in approximating functions with oscillatory behavior. By comparing the results of Chebyshev interpolation with other interpolation methods, I aim to showcase the advantages of using Chebyshev polynomials for accurate function approximation.
+[Link](https://skckenneth.github.io/ScienceProject/Interpolation/Chebyshev.html)
