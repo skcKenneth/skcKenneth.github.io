@@ -1,13 +1,13 @@
 ---
-title: "Paper Title Number 1"
+title: "Predicting Earth's Carrying Capacity of Human Population as the Predator and the Natural Resources as the Prey in the Modified Lotka-Volterra Equations with Time-dependent Parameters"
 collection: publications
-permalink: /publication/2009-10-01-paper-title-number-1
-excerpt: 'This paper is about the number 1. The number 2 is left for future work.'
-date: 2009-10-01
-venue: 'Journal 1'
-slidesurl: 'http://academicpages.github.io/files/slides1.pdf'
-paperurl: 'http://academicpages.github.io/files/paper1.pdf'
-citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 1</i>. 1(1).'
+permalink: /publication/2019-04-10-paper-title-number-1
+#excerpt: 'This paper is about the number 1. The number 2 is left for future work.'
+date: 2019-04-10
+#venue: 'Journal 1'
+#slidesurl: 'http://academicpages.github.io/files/slides1.pdf'
+paperurl: 'https://arxiv.org/pdf/1904.05002'
+citation: 'Kin, Cheng Sok, et al. "Predicting earth's carrying capacity of human population as the predator and the natural resources as the prey in the modified lotka-volterra equations with time-dependent parameters." arXiv preprint arXiv:1904.05002 (2019).'
 ---
 
-The contents above will be part of a list of publications, if the user clicks the link for the publication than the contents of section will be rendered as a full page, allowing you to provide more information about the paper for the reader. When publications are displayed as a single page, the contents of the above "citation" field will automatically be included below this section in a smaller font.
+We modified the Lotka-Volterra Equations with the assumption that two of the original four constant parameters in the traditional equations are time-dependent. In the first place, we assumed that the human population (borrowed from the T-Function) plays the role as the prey while all lethal factors that jeopardize the existence of the human race as the predator. Although we could still calculate the time-dependent lethal function, the idea of treating the lethal factors as the prey was too general to recognize the meaning of them. Hence, in the second part of the modified Lotka-Volterra Equations, we exchanged the roles between the prey and the predator. This time, we treated the prey as the natural resources while the predator as the human population (still borrowed from the T-Function). After carefully choosing appropriate parameters to match the maximum carrying capacity with the saturated number of the human population predicted by the T-Function, we successfully calculated the natural resources as a function of time. Contrary to our intuition, the carrying capacity is constant over time rather than a time-varying function, with the constant value of 10.2 billion people.
