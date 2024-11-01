@@ -77,13 +77,17 @@ layout: default
     {% if site.comments.provider and page.comments %}
       {% include comments.html %}
     {% endif %}
-    <script src="https://utteranc.es/client.js"
-        repo="skcKenenth/https://skckenneth.github.io"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-    </script>
+    <div class="page__comments">
+      <h4 class="page__comments-title">Comments</h4>
+      <script src="https://utteranc.es/client.js"
+              repo="skcKenneth/skcKenneth.github.io"
+              issue-term="title"
+              label="comment"
+              theme="github-light"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
   </article>
 
   {% comment %}<!-- only show related on a post page when not disabled -->{% endcomment %}
