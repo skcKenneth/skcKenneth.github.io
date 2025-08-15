@@ -1,7 +1,7 @@
 ---
 title: "🎵 HarmonyMath AI: Music-to-Math Converter"
 excerpt: "Real-time music-to-mathematical-equation converter that transforms audio into beautiful mathematical representations using FFT analysis and harmonic detection."
-collection: portfolio
+collection: projects
 ---
 
 ## Project Overview

@@ -1,7 +1,7 @@
 ---
 title: "🔍 Interactive Fractal Dimension Explorer"
 excerpt: "Educational web application for analyzing fractal dimensions in images, providing interactive tools for mathematical exploration and visualization."
-collection: portfolio
+collection: projects
 ---
 
 ## Project Overview

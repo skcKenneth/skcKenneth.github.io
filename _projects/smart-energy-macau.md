@@ -1,7 +1,7 @@
 ---
 title: "🏢 Smart Energy Macau"
 excerpt: "AI-powered system optimizing energy consumption in Macau's high-rise buildings through intelligent monitoring and predictive analytics."
-collection: portfolio
+collection: projects
 ---
 
 ## Project Overview

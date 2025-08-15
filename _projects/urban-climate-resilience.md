@@ -1,7 +1,7 @@
 ---
 title: "🌆 Urban Climate Resilience"
 excerpt: "Mathematical framework modeling climate-epidemiological-network dynamics for comprehensive urban resilience analysis and planning."
-collection: portfolio
+collection: projects
 ---
 
 ## Project Overview
