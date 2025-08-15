@@ -1,6 +1,6 @@
 ---
 title: "🏢 Smart Energy Macau: AI-Powered Building Optimization"
-excerpt: "Comprehensive AI-driven energy optimization system specifically designed for Macau's high-rise urban environment, featuring predictive analytics, IoT integration, and advanced machine learning for sustainable energy management."
+excerpt: "AI-driven energy optimization system specifically designed for Macau's high-rise urban environment, featuring predictive analytics, IoT integration, and advanced machine learning for sustainable energy management."
 collection: projects
 ---
 
