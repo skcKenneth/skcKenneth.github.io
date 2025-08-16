@@ -185,20 +185,6 @@ Subject to:
 - **Citizen-Centric Platforms**: Community-driven resilience building and monitoring tools
 - **Planetary Health Integration**: Global-scale modeling of urban-climate-health interactions
 
-## 🌱 Sustainability & Social Impact
-
-### **Environmental Justice**
-- **Vulnerability Mapping**: Identification of climate-health hotspots in disadvantaged communities
-- **Equitable Adaptation**: Resource allocation algorithms prioritizing vulnerable populations
-- **Community Resilience**: Grassroots capacity building support through mathematical modeling
-- **Environmental Racism**: Quantitative analysis of differential climate impact exposure
-
-### **Sustainable Development Goals**
-- **SDG 3**: Health and well-being through climate-health risk reduction
-- **SDG 11**: Sustainable cities through resilience planning and adaptation
-- **SDG 13**: Climate action through evidence-based urban adaptation strategies
-- **SDG 17**: Partnerships through international collaboration and knowledge sharing
-
 **[🔗 View Project on GitHub](https://github.com/skcKenneth/urban_climate_resilience)**  
 
 ---
