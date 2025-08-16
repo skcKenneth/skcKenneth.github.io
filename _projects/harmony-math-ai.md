@@ -234,16 +234,6 @@ python main.py --batch --input-dir /audio/files/ --output-dir /results/
 
 ## 🤝 Community Impact
 
-### **Educational Institutions**
-- Used in university signal processing courses
-- High school STEM program integration
-- Music conservatory harmonic analysis training
-
-### **Research Community**
-- Cited in academic papers on music information retrieval
-- Contributed to open-source scientific computing ecosystem
-- Collaborative development with international researchers
-
 **[🔗 View Project on GitHub](https://github.com/skcKenneth/harmony-math-ai)**  
 
 ---
