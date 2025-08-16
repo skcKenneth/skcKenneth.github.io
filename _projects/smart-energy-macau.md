@@ -170,20 +170,6 @@ $$EES = \frac{1}{N} \sum_{i=1}^{N} w_i \cdot \frac{E_{baseline,i} - E_{actual,i}
 - **Climate Adaptation**: Advanced algorithms for climate change adaptation and resilience
 - **International Expansion**: Adaptation for tropical and subtropical cities worldwide
 
-## 🏆 Awards & Recognition
-
-### **Project Achievements**
-- **Smart City Innovation Award**: Macau Science and Technology Development Fund
-- **Green Building Excellence**: Macau Environmental Protection Bureau recognition
-- **Energy Efficiency Leadership**: APEC Energy Working Group acknowledgment
-- **Academic Publications**: Peer-reviewed papers in Energy and Buildings, Applied Energy journals
-
-### **Industry Partnerships**
-- **CEM Collaboration**: Official partnership with Companhia de Electricidade de Macau
-- **University of Macau**: Research collaboration on urban sustainability
-- **Building Automation Companies**: Integration partnerships with major BMS providers
-- **Government Support**: Endorsement from Macau Environmental Protection Bureau
-
 **[🔗 View Project on GitHub](https://github.com/skcKenneth/smart-energy-macau)**
 
 ---
