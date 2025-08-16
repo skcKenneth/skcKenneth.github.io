@@ -224,16 +224,6 @@ python main.py --batch --input-dir /audio/files/ --output-dir /results/
 - **Mobile Application**: iOS/Android apps for portable analysis
 - **API Development**: RESTful API for integration with other tools
 
-## 🌟 Key Achievements
-
-- **Open Source**: MIT licensed for educational and commercial use
-- **Copyright-Free Samples**: Included royalty-free audio for testing
-- **Academic Quality**: Publication-ready mathematical analysis
-- **Cross-Platform**: Compatible with Windows, macOS, and Linux
-- **Extensible Architecture**: Modular design for easy feature addition
-
-## 🤝 Community Impact
-
 **[🔗 View Project on GitHub](https://github.com/skcKenneth/harmony-math-ai)**  
 
 ---
