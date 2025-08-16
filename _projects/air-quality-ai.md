@@ -167,26 +167,6 @@ Implemented through Monte Carlo Dropout and ensemble variance estimation.
 - **Error Handling**: Robust exception management with graceful degradation and user feedback
 - **Scalability**: Linear scaling with dataset size, supporting city-wide deployment scenarios
 
-## 🌟 Research Applications & Case Studies
-
-### **Urban Air Quality Analysis**
-- **Multi-City Comparison**: Comprehensive analysis across Hong Kong, Macau, Shenzhen, and Guangzhou
-- **Temporal Pattern Discovery**: Identification of daily, weekly, and seasonal pollution cycles
-- **Meteorological Correlations**: Quantitative analysis of weather impacts on air quality variations
-- **Pollution Source Attribution**: Statistical techniques for identifying dominant emission sources and transport pathways
-
-### **Public Health Integration**
-- **Health Risk Assessment**: AQI-based health advisory system with personalized recommendations
-- **Vulnerable Population Analysis**: Special consideration for children, elderly, and individuals with respiratory conditions
-- **Early Warning Systems**: Predictive alerts for high pollution episodes and health-protective behavior recommendations
-- **Policy Impact Evaluation**: Quantitative assessment of environmental regulation effectiveness
-
-### **Educational Research Platform**
-- **Student Projects**: Structured assignments covering data science, environmental science, and public policy applications
-- **Research Collaboration**: Framework for academic partnerships and collaborative research initiatives
-- **Open Science**: Reproducible research practices with open-source code and comprehensive documentation
-- **Interdisciplinary Learning**: Integration across STEAM disciplines through real-world environmental challenges
-
 ## 🔮 Future Development Roadmap
 
 ### **Short-Term Enhancements (6 months)**
@@ -206,40 +186,6 @@ Implemented through Monte Carlo Dropout and ensemble variance estimation.
 - **Climate Integration**: Comprehensive modeling of climate change impacts on future air quality patterns
 - **AI Advancement**: Next-generation neural architectures including transformers and graph neural networks
 - **Societal Impact**: Integration with urban planning, transportation systems, and public health infrastructure
-
-## 🌱 Open Science & Community Impact
-
-### **Educational Outreach**
-- **University Integration**: Course materials and laboratory exercises for environmental science and data science programs
-- **K-12 Adaptation**: Simplified versions for secondary school STEM education and science fair projects
-- **Teacher Training**: Professional development workshops for educators incorporating air quality science
-- **Community Engagement**: Public workshops and citizen science initiatives for environmental awareness
-
-### **Research Collaboration**
-- **Academic Partnerships**: Collaborative projects with universities, research institutes, and government agencies
-- **Open Data Initiative**: Freely available datasets for research community use and validation studies
-- **Methodology Sharing**: Publication of algorithms, validation procedures, and best practices for reproducible science
-- **International Networks**: Participation in global air quality research consortiums and data sharing agreements
-
-### **Social Responsibility**
-- **Environmental Justice**: Special focus on air quality monitoring in underserved communities and pollution hotspots
-- **Public Health Advocacy**: Supporting evidence-based policy development and environmental regulation
-- **Technology Transfer**: Facilitating adoption of open-source tools by government agencies and NGOs
-- **Capacity Building**: Training programs for researchers and practitioners in developing countries
-
-## 🏅 Recognition & Academic Impact
-
-### **Scientific Contributions**
-- **Publications**: Featured in Environmental Science & Technology, Atmospheric Environment journals
-- **Conference Presentations**: Accepted at AGU, EGU, and environmental science conferences
-- **Educational Awards**: Recognition for excellence in STEAM education and interdisciplinary learning
-- **Open Source Impact**: 1,500+ GitHub stars, contributions from global research community
-
-### **User Community**
-- **Educational Institutions**: Used in 30+ universities for environmental science and data science courses
-- **Research Organizations**: Adopted by environmental monitoring agencies and public health departments
-- **Government Applications**: Implementation in air quality management and policy development
-- **Citizen Science**: Integration with community-based environmental monitoring initiatives
 
 **[🔗 View Project on GitHub](https://github.com/skcKenneth/air-quality-ai)**
 
