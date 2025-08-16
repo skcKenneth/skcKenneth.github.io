@@ -151,34 +151,6 @@ Subject to:
 - **Tokyo Transportation**: Earthquake preparedness through network redundancy analysis
 - **London Water Systems**: Climate adaptation planning for aging infrastructure networks
 
-## 🌍 Global Applications & Collaborations
-
-### **International Research Network**
-- **UN-Habitat Partnership**: Global urban resilience assessment methodology development
-- **IPCC Contribution**: Urban climate risk assessment framework for AR6 reporting
-- **WHO Collaboration**: Climate-health indicator development for urban settings
-- **World Bank Integration**: Infrastructure investment decision support tools
-
-### **Smart City Integration**
-- **Barcelona Implementation**: Real-time resilience monitoring using IoT sensor networks
-- **Toronto Pilot**: Predictive analytics for climate-health early warning systems
-- **Seoul Platform**: Integration with existing smart city infrastructure and services
-- **Amsterdam Network**: Multi-city comparative resilience assessment platform
-
-## 🎯 Policy Impact & Decision Support
-
-### **Evidence-Based Policy Tools**
-- **Resilience Dashboard**: Real-time monitoring and assessment platform for city officials
-- **Scenario Planning**: Climate projection impact assessment for long-term planning
-- **Investment ROI Analysis**: Cost-effectiveness evaluation of resilience interventions
-- **Equity Assessment**: Environmental justice analysis for intervention prioritization
-
-### **Stakeholder Engagement Framework**
-- **Community Participatory Modeling**: Citizen input integration in resilience assessment
-- **Multi-Stakeholder Platforms**: Collaborative decision-making support tools
-- **Communication Interfaces**: Public-facing visualization of resilience metrics and projections
-- **Educational Modules**: Training materials for planners and policymakers
-
 ## 📊 Performance Validation & Metrics
 
 ### **Model Validation Framework**
