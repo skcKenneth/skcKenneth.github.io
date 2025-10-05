@@ -2,6 +2,7 @@
 title: "🔍 Interactive Fractal Dimension Explorer: Advanced Mathematical Analysis Tool"
 excerpt: "Educational web application for analyzing fractal dimensions in images, featuring advanced mathematical algorithms, real-time visualization, and interactive tools for exploring fractal geometry and chaos theory."
 collection: projects
+date: 2024-06-10
 ---
 
 ## 🎯 Project Overview
