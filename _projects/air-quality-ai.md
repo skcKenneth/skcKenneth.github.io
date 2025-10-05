@@ -2,7 +2,7 @@
 title: "🌬️ AI-Powered Air Quality Prediction System: Advanced STEAM Research Platform"
 excerpt: "Cutting-edge STEAM research project combining PyTorch deep learning, XGBoost ensemble methods, and mathematical modeling for real-time urban air quality prediction and analysis, featuring GPU acceleration and interactive dashboards."
 collection: projects
-date: 2024-08-15
+date: 2024-08-15 00:00:00 -0000
 ---
 
 ## 🎯 Project Overview
