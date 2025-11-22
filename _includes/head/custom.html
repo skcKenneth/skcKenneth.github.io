@@ -44,71 +44,50 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>
-  // Fix and reprocess math after MathJax loads
+  // Debug and fix math after MathJax loads
   (function() {
-    function fixAndReprocessMath() {
+    function debugAndFixMath() {
       if (!document.body || !window.MathJax) return;
       
-      var html = document.body.innerHTML;
-      var original = html;
-      
-      // Fix double backslashes in math expressions: \\theta -> \theta
-      html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
-        // Fix double backslashes: \\theta -> \theta (but preserve \\\\ for line breaks)
-        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-          if (m === '\\\\\\\\') return m;
-          return m.replace(/^\\\\/, '\\');
-        });
-        // Fix escaped underscores and braces
-        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
-        return '$' + math.trim() + '$';
-      });
-      
-      html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
-        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-          if (m === '\\\\\\\\') return m;
-          return m.replace(/^\\\\/, '\\');
-        });
-        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
-        return '$$' + math.trim() + '$$';
-      });
-      
-      if (html !== original) {
-        document.body.innerHTML = html;
-        console.log('Fixed math expressions, reprocessing...');
-        
-        // Reprocess with MathJax
-        if (window.MathJax.typesetPromise) {
-          window.MathJax.typesetPromise().then(function() {
-            console.log('Math reprocessed successfully');
-          }).catch(function(err) {
-            console.error('MathJax reprocess error:', err);
-          });
+      // First, check what MathJax sees
+      var mathExpressions = document.body.innerHTML.match(/\$[^$\n]+\$/g);
+      console.log('Found', mathExpressions ? mathExpressions.length : 0, 'math expressions in HTML');
+      if (mathExpressions && mathExpressions.length > 0) {
+        console.log('First math expression:', mathExpressions[0]);
+        // Check if backslashes are double-escaped
+        if (mathExpressions[0].includes('\\\\')) {
+          console.log('WARNING: Double backslashes detected!');
         }
-      } else {
-        // Even if no changes, try to reprocess
-        if (window.MathJax.typesetPromise) {
-          window.MathJax.typesetPromise().then(function() {
-            console.log('Math processed');
-          });
-        }
+      }
+      
+      // Check if MathJax has already processed anything
+      var mathjaxElements = document.querySelectorAll('.MathJax, [id^="MathJax"]');
+      console.log('MathJax elements found:', mathjaxElements.length);
+      
+      // Force reprocess
+      if (window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise().then(function() {
+          console.log('MathJax reprocessed');
+          // Check again
+          var afterElements = document.querySelectorAll('.MathJax, [id^="MathJax"]');
+          console.log('MathJax elements after reprocess:', afterElements.length);
+        }).catch(function(err) {
+          console.error('MathJax error:', err);
+        });
       }
     }
     
-    // Wait for MathJax to be ready
+    // Wait for MathJax
     function waitForMathJax() {
       if (window.MathJax && window.MathJax.startup) {
         window.MathJax.startup.promise.then(function() {
-          setTimeout(fixAndReprocessMath, 100);
-        }).catch(function() {
-          setTimeout(fixAndReprocessMath, 500);
+          setTimeout(debugAndFixMath, 200);
         });
       } else {
         setTimeout(waitForMathJax, 100);
       }
     }
     
-    // Start waiting
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', waitForMathJax);
     } else {
