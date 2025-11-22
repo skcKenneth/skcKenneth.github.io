@@ -38,7 +38,8 @@
       
       // Fix double backslashes in math expressions: \\theta -> \theta
       // But preserve \\\\ for line breaks
-      html = html.replace(/\$([^$]+?)\$/g, function(match, math) {
+      // Handle both $...$ and $ ... $ (with spaces) - normalize to $...$ for MathJax
+      html = html.replace(/\$\s*([^$]+?)\s*\$/g, function(match, math) {
         // Replace \\command with \command, but keep \\\\
         math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
           if (m === '\\\\\\\\') return m;
@@ -46,16 +47,17 @@
         });
         // Fix escaped underscores and braces
         math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
-        return '$' + math + '$';
+        // Remove spaces and return normalized format for MathJax
+        return '$' + math.trim() + '$';
       });
       
-      html = html.replace(/\$\$([^$]+?)\$\$/g, function(match, math) {
+      html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
         math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
           if (m === '\\\\\\\\') return m;
           return m.replace(/^\\\\/, '\\');
         });
         math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
-        return '$$' + math + '$$';
+        return '$$' + math.trim() + '$$';
       });
       
       if (html !== original) {
@@ -79,7 +81,10 @@
       inlineMath: [['$','$'], ['\\(','\\)']],
       displayMath: [['$$','$$'], ['\\[','\\]']],
       processEscapes: true,
-      processEnvironments: true
+      processEnvironments: true,
+      macros: {
+        degree: '^{\\circ}'
+      }
     },
     options: {
       skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
