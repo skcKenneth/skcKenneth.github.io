@@ -53,20 +53,23 @@
           var html = document.body.innerHTML;
           var original = html;
           
-          // Fix double backslashes in math: \\theta -> \theta (but preserve \\\\ for line breaks)
-          html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
-            // Replace \\command with \command
+          // Fix double backslashes in inline math: \\theta -> \theta
+          html = html.replace(/\$([^$\n]+?)\$/g, function(match, math) {
+            // Replace \\command with \command (but preserve \\\\ for line breaks)
             math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-              // Don't replace \\\\ (line breaks)
-              if (m.length > 2 && m[2] === '\\') return m;
+              // Don't replace \\\\ (line breaks) - check if next char is also backslash
+              var idx = m.indexOf('\\', 2);
+              if (idx > 0 && m[idx] === '\\') return m;
               return m.replace(/^\\\\/, '\\');
             });
             return '$' + math.trim() + '$';
           });
           
-          html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
+          // Fix double backslashes in display math
+          html = html.replace(/\$\$([^$]+?)\$\$/g, function(match, math) {
             math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-              if (m.length > 2 && m[2] === '\\') return m;
+              var idx = m.indexOf('\\', 2);
+              if (idx > 0 && m[idx] === '\\') return m;
               return m.replace(/^\\\\/, '\\');
             });
             return '$$' + math.trim() + '$$';
@@ -87,84 +90,4 @@
   };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script>
-  // Find and fix unprocessed math expressions
-  (function() {
-    function findAndFixUnprocessed() {
-      if (!document.body || !window.MathJax) return;
-      
-      // Find text nodes that still contain $...$ (unprocessed math)
-      var walker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-      );
-      
-      var unprocessed = [];
-      var node;
-      while (node = walker.nextNode()) {
-        var text = node.textContent;
-        // Look for $...$ that's not inside MathJax elements
-        if (text.includes('$') && !/\$[^$]*\$/.test(text)) {
-          // Check if parent is already a MathJax element
-          var parent = node.parentElement;
-          var isInMathJax = false;
-          while (parent) {
-            if (parent.classList && (parent.classList.contains('MathJax') || parent.id && parent.id.startsWith('MathJax'))) {
-              isInMathJax = true;
-              break;
-            }
-            parent = parent.parentElement;
-          }
-          
-          if (!isInMathJax && /\$[^$\n]+\$/.test(text)) {
-            unprocessed.push({node: node, text: text});
-          }
-        }
-      }
-      
-      if (unprocessed.length > 0) {
-        console.log('Found', unprocessed.length, 'unprocessed math expressions');
-        
-        // Fix double backslashes and reprocess
-        var html = document.body.innerHTML;
-        html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
-          math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-            if (m.length > 2 && m[2] === '\\') return m;
-            return m.replace(/^\\\\/, '\\');
-          });
-          return '$' + math.trim() + '$';
-        });
-        
-        document.body.innerHTML = html;
-        
-        // Reprocess with MathJax
-        if (window.MathJax.typesetPromise) {
-          window.MathJax.typesetPromise().then(function() {
-            console.log('Reprocessed', unprocessed.length, 'expressions');
-          });
-        }
-      }
-    }
-    
-    // Wait for MathJax and run after it processes
-    function waitForMathJax() {
-      if (window.MathJax && window.MathJax.startup) {
-        window.MathJax.startup.promise.then(function() {
-          // Wait a bit for initial processing, then check for unprocessed
-          setTimeout(findAndFixUnprocessed, 500);
-        });
-      } else {
-        setTimeout(waitForMathJax, 100);
-      }
-    }
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', waitForMathJax);
-    } else {
-      waitForMathJax();
-    }
-  })();
-</script>
 <!-- end custom head snippets -->
