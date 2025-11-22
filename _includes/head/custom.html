@@ -27,6 +27,53 @@
 
 <!-- Support for MathJax 3.0 -->
 <script>
+  // Fix Kramdown's double-escaped backslashes by processing HTML directly
+  (function() {
+    function fixEscapes() {
+      if (!document.body) return;
+      
+      // Process the entire body HTML to fix escaped backslashes in math
+      let html = document.body.innerHTML;
+      const original = html;
+      
+      // Fix double backslashes in math expressions: \\theta -> \theta
+      // But preserve \\\\ for line breaks
+      html = html.replace(/\$([^$]+?)\$/g, function(match, math) {
+        // Replace \\command with \command, but keep \\\\
+        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+          if (m === '\\\\\\\\') return m;
+          return m.replace(/^\\\\/, '\\');
+        });
+        // Fix escaped underscores and braces
+        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
+        return '$' + math + '$';
+      });
+      
+      html = html.replace(/\$\$([^$]+?)\$\$/g, function(match, math) {
+        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+          if (m === '\\\\\\\\') return m;
+          return m.replace(/^\\\\/, '\\');
+        });
+        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
+        return '$$' + math + '$$';
+      });
+      
+      if (html !== original) {
+        document.body.innerHTML = html;
+      }
+    }
+    
+    // Run immediately
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fixEscapes);
+    } else {
+      fixEscapes();
+    }
+    
+    // Also run after a short delay to catch any late-loading content
+    setTimeout(fixEscapes, 50);
+  })();
+
   window.MathJax = {
     tex: {
       inlineMath: [['$','$'], ['\\(','\\)']],
@@ -41,57 +88,4 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script>
-  // Fix double-escaped backslashes from Kramdown
-  // This runs after DOM is ready but before MathJax processes
-  (function() {
-    function fixEscapedBackslashes() {
-      // Get all text nodes in the document
-      const walker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-      );
-      
-      const replacements = [];
-      let node;
-      while (node = walker.nextNode()) {
-        const originalText = node.textContent;
-        // Fix double backslashes in LaTeX commands (but preserve \\ for line breaks)
-        let fixedText = originalText.replace(/\$\$([^$]*?)\$\$/g, function(match, math) {
-          return '$$' + math.replace(/\\\\([a-zA-Z{])/g, '\\$1').replace(/\\\\\s*\\\\/g, '\\\\\\\\') + '$$';
-        });
-        fixedText = fixedText.replace(/\$([^$\n]*?)\$/g, function(match, math) {
-          return '$' + math.replace(/\\\\([a-zA-Z{])/g, '\\$1') + '$';
-        });
-        fixedText = fixedText.replace(/\\\[([^\]]*?)\\\]/g, function(match, math) {
-          return '\\[' + math.replace(/\\\\([a-zA-Z{])/g, '\\$1').replace(/\\\\\s*\\\\/g, '\\\\\\\\') + '\\]';
-        });
-        fixedText = fixedText.replace(/\\\(([^)]*?)\\\)/g, function(match, math) {
-          return '\\(' + math.replace(/\\\\([a-zA-Z{])/g, '\\$1') + '\\)';
-        });
-        
-        if (fixedText !== originalText) {
-          replacements.push({node: node, text: fixedText});
-        }
-      }
-      
-      // Apply replacements
-      replacements.forEach(function(item) {
-        item.node.textContent = item.text;
-      });
-    }
-    
-    // Run immediately if DOM is ready, otherwise wait
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fixEscapedBackslashes);
-    } else {
-      fixEscapedBackslashes();
-    }
-    
-    // Also run after a short delay to catch any dynamically loaded content
-    setTimeout(fixEscapedBackslashes, 100);
-  })();
-</script>
 <!-- end custom head snippets -->
