@@ -39,49 +39,85 @@
     },
     options: {
       skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    startup: {
+      ready: function() {
+        var MathJax = window.MathJax;
+        var startup = MathJax.startup;
+        var document = startup.document;
+        
+        // Fix double backslashes BEFORE MathJax processes
+        function fixDoubleBackslashes() {
+          if (!document.body) return;
+          
+          var html = document.body.innerHTML;
+          var original = html;
+          
+          // Fix double backslashes in math: \\theta -> \theta (but preserve \\\\ for line breaks)
+          html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
+            // Replace \\command with \command
+            math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+              // Don't replace \\\\ (line breaks)
+              if (m.length > 2 && m[2] === '\\') return m;
+              return m.replace(/^\\\\/, '\\');
+            });
+            return '$' + math.trim() + '$';
+          });
+          
+          html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
+            math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+              if (m.length > 2 && m[2] === '\\') return m;
+              return m.replace(/^\\\\/, '\\');
+            });
+            return '$$' + math.trim() + '$$';
+          });
+          
+          if (html !== original) {
+            document.body.innerHTML = html;
+          }
+        }
+        
+        // Run fix BEFORE MathJax processes
+        fixDoubleBackslashes();
+        
+        // Call default ready to process math
+        return startup.defaultReady();
+      }
     }
   };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>
-  // Debug and fix math after MathJax loads
+  // Also fix and reprocess after page loads as backup
   (function() {
-    function debugAndFixMath() {
+    function fixAndReprocess() {
       if (!document.body || !window.MathJax) return;
       
-      // First, check what MathJax sees
-      var mathExpressions = document.body.innerHTML.match(/\$[^$\n]+\$/g);
-      console.log('Found', mathExpressions ? mathExpressions.length : 0, 'math expressions in HTML');
-      if (mathExpressions && mathExpressions.length > 0) {
-        console.log('First math expression:', mathExpressions[0]);
-        // Check if backslashes are double-escaped
-        if (mathExpressions[0].includes('\\\\')) {
-          console.log('WARNING: Double backslashes detected!');
-        }
-      }
+      var html = document.body.innerHTML;
+      var original = html;
       
-      // Check if MathJax has already processed anything
-      var mathjaxElements = document.querySelectorAll('.MathJax, [id^="MathJax"]');
-      console.log('MathJax elements found:', mathjaxElements.length);
+      // Fix double backslashes
+      html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
+        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+          if (m.length > 2 && m[2] === '\\') return m;
+          return m.replace(/^\\\\/, '\\');
+        });
+        return '$' + math.trim() + '$';
+      });
       
-      // Force reprocess
-      if (window.MathJax.typesetPromise) {
-        window.MathJax.typesetPromise().then(function() {
-          console.log('MathJax reprocessed');
-          // Check again
-          var afterElements = document.querySelectorAll('.MathJax, [id^="MathJax"]');
-          console.log('MathJax elements after reprocess:', afterElements.length);
-        }).catch(function(err) {
-          console.error('MathJax error:', err);
+      if (html !== original && window.MathJax.typesetPromise) {
+        document.body.innerHTML = html;
+        window.MathJax.typesetPromise().catch(function(err) {
+          console.error('MathJax reprocess error:', err);
         });
       }
     }
     
-    // Wait for MathJax
+    // Wait for MathJax to be ready
     function waitForMathJax() {
       if (window.MathJax && window.MathJax.startup) {
         window.MathJax.startup.promise.then(function() {
-          setTimeout(debugAndFixMath, 200);
+          setTimeout(fixAndReprocess, 300);
         });
       } else {
         setTimeout(waitForMathJax, 100);
