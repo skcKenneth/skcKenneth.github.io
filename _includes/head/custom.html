@@ -88,36 +88,72 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>
-  // Also fix and reprocess after page loads as backup
+  // Find and fix unprocessed math expressions
   (function() {
-    function fixAndReprocess() {
+    function findAndFixUnprocessed() {
       if (!document.body || !window.MathJax) return;
       
-      var html = document.body.innerHTML;
-      var original = html;
+      // Find text nodes that still contain $...$ (unprocessed math)
+      var walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
       
-      // Fix double backslashes
-      html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
-        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-          if (m.length > 2 && m[2] === '\\') return m;
-          return m.replace(/^\\\\/, '\\');
+      var unprocessed = [];
+      var node;
+      while (node = walker.nextNode()) {
+        var text = node.textContent;
+        // Look for $...$ that's not inside MathJax elements
+        if (text.includes('$') && !/\$[^$]*\$/.test(text)) {
+          // Check if parent is already a MathJax element
+          var parent = node.parentElement;
+          var isInMathJax = false;
+          while (parent) {
+            if (parent.classList && (parent.classList.contains('MathJax') || parent.id && parent.id.startsWith('MathJax'))) {
+              isInMathJax = true;
+              break;
+            }
+            parent = parent.parentElement;
+          }
+          
+          if (!isInMathJax && /\$[^$\n]+\$/.test(text)) {
+            unprocessed.push({node: node, text: text});
+          }
+        }
+      }
+      
+      if (unprocessed.length > 0) {
+        console.log('Found', unprocessed.length, 'unprocessed math expressions');
+        
+        // Fix double backslashes and reprocess
+        var html = document.body.innerHTML;
+        html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
+          math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+            if (m.length > 2 && m[2] === '\\') return m;
+            return m.replace(/^\\\\/, '\\');
+          });
+          return '$' + math.trim() + '$';
         });
-        return '$' + math.trim() + '$';
-      });
-      
-      if (html !== original && window.MathJax.typesetPromise) {
+        
         document.body.innerHTML = html;
-        window.MathJax.typesetPromise().catch(function(err) {
-          console.error('MathJax reprocess error:', err);
-        });
+        
+        // Reprocess with MathJax
+        if (window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise().then(function() {
+            console.log('Reprocessed', unprocessed.length, 'expressions');
+          });
+        }
       }
     }
     
-    // Wait for MathJax to be ready
+    // Wait for MathJax and run after it processes
     function waitForMathJax() {
       if (window.MathJax && window.MathJax.startup) {
         window.MathJax.startup.promise.then(function() {
-          setTimeout(fixAndReprocess, 300);
+          // Wait a bit for initial processing, then check for unprocessed
+          setTimeout(findAndFixUnprocessed, 500);
         });
       } else {
         setTimeout(waitForMathJax, 100);
