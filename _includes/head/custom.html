@@ -27,55 +27,6 @@
 
 <!-- Support for MathJax 3.0 -->
 <script>
-  // Fix Kramdown's double-escaped backslashes by processing HTML directly
-  (function() {
-    function fixEscapes() {
-      if (!document.body) return;
-      
-      // Process the entire body HTML to fix escaped backslashes in math
-      let html = document.body.innerHTML;
-      const original = html;
-      
-      // Fix double backslashes in math expressions: \\theta -> \theta
-      // But preserve \\\\ for line breaks
-      // Handle both $...$ and $ ... $ (with spaces) - normalize to $...$ for MathJax
-      html = html.replace(/\$\s*([^$]+?)\s*\$/g, function(match, math) {
-        // Replace \\command with \command, but keep \\\\
-        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-          if (m === '\\\\\\\\') return m;
-          return m.replace(/^\\\\/, '\\');
-        });
-        // Fix escaped underscores and braces
-        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
-        // Remove spaces and return normalized format for MathJax
-        return '$' + math.trim() + '$';
-      });
-      
-      html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
-        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-          if (m === '\\\\\\\\') return m;
-          return m.replace(/^\\\\/, '\\');
-        });
-        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
-        return '$$' + math.trim() + '$$';
-      });
-      
-      if (html !== original) {
-        document.body.innerHTML = html;
-      }
-    }
-    
-    // Run immediately
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fixEscapes);
-    } else {
-      fixEscapes();
-    }
-    
-    // Also run after a short delay to catch any late-loading content
-    setTimeout(fixEscapes, 50);
-  })();
-
   window.MathJax = {
     tex: {
       inlineMath: [['$','$'], ['\\(','\\)']],
@@ -88,6 +39,52 @@
     },
     options: {
       skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    startup: {
+      ready: function() {
+        // Fix Kramdown's double-escaped backslashes before MathJax processes
+        function fixEscapes() {
+          if (!document.body) return;
+          
+          // Process the entire body HTML to fix escaped backslashes in math
+          let html = document.body.innerHTML;
+          const original = html;
+          
+          // Fix double backslashes in math expressions: \\theta -> \theta
+          // But preserve \\\\ for line breaks
+          // Handle both $...$ and $ ... $ (with spaces) - normalize to $...$ for MathJax
+          html = html.replace(/\$\s*([^$]+?)\s*\$/g, function(match, math) {
+            // Replace \\command with \command, but keep \\\\
+            math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+              if (m === '\\\\\\\\') return m;
+              return m.replace(/^\\\\/, '\\');
+            });
+            // Fix escaped underscores and braces
+            math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
+            // Remove spaces and return normalized format for MathJax
+            return '$' + math.trim() + '$';
+          });
+          
+          html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
+            math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+              if (m === '\\\\\\\\') return m;
+              return m.replace(/^\\\\/, '\\');
+            });
+            math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
+            return '$$' + math.trim() + '$$';
+          });
+          
+          if (html !== original) {
+            document.body.innerHTML = html;
+          }
+        }
+        
+        // Run fix before MathJax processes
+        fixEscapes();
+        
+        // Call the default ready function
+        return MathJax.startup.defaultReady();
+      }
     }
   };
 </script>
