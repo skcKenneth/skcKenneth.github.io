@@ -46,27 +46,29 @@
         var startup = MathJax.startup;
         var document = startup.document;
         
-        // Fix Kramdown escapes BEFORE MathJax processes
+        // Fix Kramdown HTML escapes BEFORE MathJax processes
         function fixKramdownEscapes() {
           if (!document.body) return;
           
-          // Process entire body HTML to fix escaped backslashes
           var html = document.body.innerHTML;
           var original = html;
           
-          // Fix inline math: replace \\theta with \theta, etc.
+          // Fix HTML-escaped dollar signs: &#36; -> $
+          html = html.replace(/&#36;/g, '$');
+          
+          // Fix HTML-escaped backslashes: &#92; -> \
+          html = html.replace(/&#92;/g, '\\');
+          
+          // Fix double backslashes in math: \\theta -> \theta
           html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
-            // Fix double backslashes: \\theta -> \theta (but preserve \\\\ for line breaks)
             math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
               if (m === '\\\\\\\\') return m;
               return m.replace(/^\\\\/, '\\');
             });
-            // Fix escaped underscores and braces
             math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
             return '$' + math.trim() + '$';
           });
           
-          // Fix display math
           html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
             math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
               if (m === '\\\\\\\\') return m;
@@ -78,17 +80,58 @@
           
           if (html !== original) {
             document.body.innerHTML = html;
+            console.log('Fixed Kramdown escapes');
           }
         }
         
         // Run fix BEFORE MathJax processes
         fixKramdownEscapes();
         
-        // Call default ready function to process math
+        // Call default ready to process math
         return startup.defaultReady();
       }
     }
   };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+  // Also fix on page load as backup
+  (function() {
+    function fixAndReprocess() {
+      if (!document.body) return;
+      
+      var html = document.body.innerHTML;
+      var original = html;
+      
+      // Fix HTML-escaped dollar signs
+      html = html.replace(/&#36;/g, '$');
+      html = html.replace(/&#92;/g, '\\');
+      
+      // Fix double backslashes
+      html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
+        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+          if (m === '\\\\\\\\') return m;
+          return m.replace(/^\\\\/, '\\');
+        });
+        return '$' + math.trim() + '$';
+      });
+      
+      if (html !== original) {
+        document.body.innerHTML = html;
+        // Reprocess with MathJax if available
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise().catch(function(err) {
+            console.error('MathJax reprocess error:', err);
+          });
+        }
+      }
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fixAndReprocess);
+    } else {
+      setTimeout(fixAndReprocess, 100);
+    }
+  })();
+</script>
 <!-- end custom head snippets -->
