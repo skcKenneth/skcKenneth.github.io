@@ -33,12 +33,25 @@
       displayMath: [['$$','$$'], ['\\[','\\]']],
       processEscapes: true,
       processEnvironments: true,
+      tags: 'ams',
       macros: {
-        degree: '^{\\circ}'
+        degree: '^{\\circ}',
+        lbrack: '[',
+        rbrack: ']',
+        langle: '\\langle',
+        rangle: '\\rangle',
+        norm: ['\\lVert #1 \\rVert', 1],
+        abs: ['\\lvert #1 \\rvert', 1],
+        arccos: '\\operatorname{arccos}',
+        arcsin: '\\operatorname{arcsin}',
+        arctan: '\\operatorname{arctan}',
+        argmax: '\\operatorname{arg\\,max}',
+        argmin: '\\operatorname{arg\\,min}'
       }
     },
     options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      ignoreHtmlClass: 'no-mathjax'
     },
     startup: {
       ready: function() {
@@ -55,24 +68,26 @@
           
           // Fix double backslashes in inline math: \\theta -> \theta
           html = html.replace(/\$([^$\n]+?)\$/g, function(match, math) {
+            // Skip if already processing escaped dollar signs
+            if (match.match(/\\\\?\$/)) return match;
+            
             // Replace \\command with \command (but preserve \\\\ for line breaks)
-            math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-              // Don't replace \\\\ (line breaks) - check if next char is also backslash
-              var idx = m.indexOf('\\', 2);
-              if (idx > 0 && m[idx] === '\\') return m;
-              return m.replace(/^\\\\/, '\\');
+            math = math.replace(/\\\\([a-zA-Z@{}()\[\]]+)/g, function(m, cmd) {
+              // Preserve \\\\ for intentional line breaks or spacing
+              if (cmd.match(/^[\\]/)) return m;
+              return '\\' + cmd;
             });
-            return '$' + math.trim() + '$';
+            return '$' + math + '$';
           });
           
           // Fix double backslashes in display math
-          html = html.replace(/\$\$([^$]+?)\$\$/g, function(match, math) {
-            math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-              var idx = m.indexOf('\\', 2);
-              if (idx > 0 && m[idx] === '\\') return m;
-              return m.replace(/^\\\\/, '\\');
+          html = html.replace(/\$\$([^$]+?)\$\$/gs, function(match, math) {
+            math = math.replace(/\\\\([a-zA-Z@{}()\[\]]+)/g, function(m, cmd) {
+              // Preserve \\\\ for intentional line breaks
+              if (cmd.match(/^[\\]/)) return m;
+              return '\\' + cmd;
             });
-            return '$$' + math.trim() + '$$';
+            return '$$' + math + '$$';
           });
           
           if (html !== original) {
