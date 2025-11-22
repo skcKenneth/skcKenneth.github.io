@@ -27,54 +27,6 @@
 
 <!-- Support for MathJax 3.0 -->
 <script>
-  // Fix Kramdown escapes BEFORE MathJax loads
-  (function() {
-    function fixMathBeforeMathJax() {
-      if (!document.body) return;
-      
-      // Process entire body HTML to fix escaped backslashes
-      let html = document.body.innerHTML;
-      const original = html;
-      
-      // Fix inline math: replace \\theta with \theta, etc.
-      html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
-        // Fix double backslashes: \\theta -> \theta (but preserve \\\\ for line breaks)
-        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-          if (m === '\\\\\\\\') return m;
-          return m.replace(/^\\\\/, '\\');
-        });
-        // Fix escaped underscores and braces
-        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
-        return '$' + math.trim() + '$';
-      });
-      
-      // Fix display math
-      html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
-        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
-          if (m === '\\\\\\\\') return m;
-          return m.replace(/^\\\\/, '\\');
-        });
-        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
-        return '$$' + math.trim() + '$$';
-      });
-      
-      if (html !== original) {
-        document.body.innerHTML = html;
-      }
-    }
-    
-    // Run immediately if body exists, otherwise wait
-    if (document.body) {
-      fixMathBeforeMathJax();
-    } else {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixMathBeforeMathJax);
-      } else {
-        setTimeout(fixMathBeforeMathJax, 0);
-      }
-    }
-  })();
-
   window.MathJax = {
     tex: {
       inlineMath: [['$','$'], ['\\(','\\)']],
@@ -87,33 +39,56 @@
     },
     options: {
       skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    startup: {
+      ready: function() {
+        var MathJax = window.MathJax;
+        var startup = MathJax.startup;
+        var document = startup.document;
+        
+        // Fix Kramdown escapes BEFORE MathJax processes
+        function fixKramdownEscapes() {
+          if (!document.body) return;
+          
+          // Process entire body HTML to fix escaped backslashes
+          var html = document.body.innerHTML;
+          var original = html;
+          
+          // Fix inline math: replace \\theta with \theta, etc.
+          html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
+            // Fix double backslashes: \\theta -> \theta (but preserve \\\\ for line breaks)
+            math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+              if (m === '\\\\\\\\') return m;
+              return m.replace(/^\\\\/, '\\');
+            });
+            // Fix escaped underscores and braces
+            math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
+            return '$' + math.trim() + '$';
+          });
+          
+          // Fix display math
+          html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
+            math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+              if (m === '\\\\\\\\') return m;
+              return m.replace(/^\\\\/, '\\');
+            });
+            math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
+            return '$$' + math.trim() + '$$';
+          });
+          
+          if (html !== original) {
+            document.body.innerHTML = html;
+          }
+        }
+        
+        // Run fix BEFORE MathJax processes
+        fixKramdownEscapes();
+        
+        // Call default ready function to process math
+        return startup.defaultReady();
+      }
     }
   };
 </script>
-<script>
-  // Load MathJax synchronously to ensure it's available
-  (function() {
-    var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-    script.async = false;
-    script.onload = function() {
-      console.log('MathJax loaded successfully');
-      // Ensure MathJax processes the page after load
-      if (window.MathJax && window.MathJax.typesetPromise) {
-        window.MathJax.typesetPromise().catch(function(err) {
-          console.error('MathJax typeset error:', err);
-        });
-      }
-    };
-    script.onerror = function() {
-      console.error('MathJax failed to load from CDN');
-      // Try alternative CDN
-      var altScript = document.createElement('script');
-      altScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js';
-      altScript.async = false;
-      document.head.appendChild(altScript);
-    };
-    document.head.appendChild(script);
-  })();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <!-- end custom head snippets -->
