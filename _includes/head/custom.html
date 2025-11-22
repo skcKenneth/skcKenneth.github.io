@@ -27,6 +27,54 @@
 
 <!-- Support for MathJax 3.0 -->
 <script>
+  // Fix Kramdown escapes BEFORE MathJax loads
+  (function() {
+    function fixMathBeforeMathJax() {
+      if (!document.body) return;
+      
+      // Process entire body HTML to fix escaped backslashes
+      let html = document.body.innerHTML;
+      const original = html;
+      
+      // Fix inline math: replace \\theta with \theta, etc.
+      html = html.replace(/\$\s*([^$\n]+?)\s*\$/g, function(match, math) {
+        // Fix double backslashes: \\theta -> \theta (but preserve \\\\ for line breaks)
+        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+          if (m === '\\\\\\\\') return m;
+          return m.replace(/^\\\\/, '\\');
+        });
+        // Fix escaped underscores and braces
+        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
+        return '$' + math.trim() + '$';
+      });
+      
+      // Fix display math
+      html = html.replace(/\$\$\s*([^$]+?)\s*\$\$/g, function(match, math) {
+        math = math.replace(/\\\\([a-zA-Z@{}[\]]+|\\[a-zA-Z]+)/g, function(m) {
+          if (m === '\\\\\\\\') return m;
+          return m.replace(/^\\\\/, '\\');
+        });
+        math = math.replace(/\\_/g, '_').replace(/\\{/g, '{').replace(/\\}/g, '}');
+        return '$$' + math.trim() + '$$';
+      });
+      
+      if (html !== original) {
+        document.body.innerHTML = html;
+      }
+    }
+    
+    // Run immediately if body exists, otherwise wait
+    if (document.body) {
+      fixMathBeforeMathJax();
+    } else {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixMathBeforeMathJax);
+      } else {
+        setTimeout(fixMathBeforeMathJax, 0);
+      }
+    }
+  })();
+
   window.MathJax = {
     tex: {
       inlineMath: [['$','$'], ['\\(','\\)']],
