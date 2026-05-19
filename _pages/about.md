@@ -1,31 +1,75 @@
 ---
 permalink: /
-title: "Home Page"
+title: "Kenneth Cheng — Mathematics, Modeling, Curiosity."
+excerpt: "Secondary mathematics teacher in Macau exploring mathematical modeling, data science, and the math behind interesting things."
 author_profile: true
-redirect_from: 
+redirect_from:
   - /about/
   - /about.html
 ---
 
-This is the home page of Kenneth, Cheng Sok Kin. I am a secondary mathematics teacher in Macau, China. I am passionate about teaching and learning mathematics; furthermore, I am interested in mathematical modeling, data science, and educational technology. I am also a lifelong learner and a self-taught programmer. Please feel free to explore my website and contact me if you have any questions or suggestions. Thank you for visiting my website!
+I am **Cheng Sok Kin (Kenneth)** — a secondary mathematics teacher in Macau. I build mathematical models for a living and for fun: epidemics on spatial grids, drone delivery networks, orbital debris cascades, music-to-equation converters. If a real-world problem has a curve hiding inside it, I want to find it.
 
-Introduction:
-======
-Dear visitor,
+I run a [mathematical modeling course](https://skckenneth.github.io/Material-for-Mathematical-Modeling/) for my students and write [a blog](/year-archive/) where I work problems out in public, complete with code, equations, and the wrong turns along the way.
 
-Greetings, and welcome to my personal website! I hope you find the resources on this website helpful. Please feel free to contact me if you have any questions or suggestions. Thank you for visiting my website! Have a great day!
+---
 
-To My Students in Mathematical Modeling Class:
-======
-Welcome to the Mathematical Modeling Class! I am excited to work with you on various projects. I hope you enjoy the process of learning and applying mathematical modeling to real-world problems. Please feel free to contact me if you have any questions or suggestions. Thank you for your hard work and dedication! Let's have fun and learn together!
+## What I'm currently exploring
 
-Best regards,
+- 🦟 **Climate-driven epidemics** — reaction-diffusion models for dengue with temperature-dependent mosquito ecology and $R_0$ fields
+- 🚁 **Last-mile drone delivery** — ant-colony heuristics on networks with no-fly zones
+- 🛰️ **Orbital debris cascades** — parallelized Cowell's formulation for the Kessler syndrome
+- 🌊 **Coastal defense optimization** — sea level rise, storm surges, and where to spend the dollar
 
-Kenneth, Cheng Sok Kin
+→ Browse all [55+ blog posts](/year-archive/) or the [project portfolio](/projects/).
 
-Hobbies
-======
-- Reading books (especially mathematics, science, and technology)
-- Watching movies (especially classics and drama)
-- Listening to music (I DO love Pink Floyd!)
-- Watching Cartoons (currently watching "Chiikawa", you may notice it for my profile picture)
+---
+
+## Featured projects
+
+| Project | One line |
+|---|---|
+| [🌆 Urban Climate Resilience](/projects/urban-climate-resilience/) | Climate × epidemiology × network dynamics for resilient cities |
+| [🏢 Smart Energy Macau](/projects/smart-energy-macau/) | AI-driven energy optimization for Macau's high-rises |
+| [🌬️ Air Quality AI](/projects/air-quality-ai/) | PyTorch + XGBoost for real-time urban air quality prediction |
+| [🎵 HarmonyMath AI](/projects/harmony-math-ai/) | Real-time music-to-equation converter via FFT and harmonic analysis |
+| [🔍 Fractal Dimension Explorer](/projects/interactive-fractal-explorer/) | Web app for analyzing fractal dimensions in images |
+
+---
+
+## Recent writing
+
+<ul>
+{% for post in site.posts limit:5 %}
+  <li>
+    <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+    <span style="color: #888; font-size: 0.9em;"> · {{ post.date | date: "%b %Y" }}</span>
+  </li>
+{% endfor %}
+</ul>
+
+→ [See all blog posts by year](/year-archive/)
+
+---
+
+## For my modeling students
+
+Welcome — you're in the right place. The [course materials](https://skckenneth.github.io/Material-for-Mathematical-Modeling/) and the [blog archive](/year-archive/) are both for you. Many of the posts started life as worked examples for class.
+
+If you're stuck on a problem, try this in order:
+1. Write down what you know and what you want — in symbols, not sentences.
+2. Simplify until the problem is obviously solvable, then add the complications back one at a time.
+3. Plot something. Always plot something.
+4. If still stuck, [email me](mailto:sokkincheng@gmail.com).
+
+---
+
+## Elsewhere
+
+- 📧 [sokkincheng@gmail.com](mailto:sokkincheng@gmail.com)
+- 💻 [github.com/skcKenneth](https://github.com/skcKenneth)
+- 📍 Macau
+
+---
+
+*Off the clock you'll find me re-reading old mathematics, getting lost in Pink Floyd, or watching Chiikawa (yes — that's where the avatar comes from).*

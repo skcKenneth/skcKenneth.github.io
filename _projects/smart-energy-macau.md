@@ -3,6 +3,10 @@ title: "🏢 Smart Energy Macau: AI-Powered Building Optimization"
 excerpt: "AI-driven energy optimization system specifically designed for Macau's high-rise urban environment, featuring predictive analytics, IoT integration, and advanced machine learning for sustainable energy management."
 collection: projects
 date: 2024-09-05 00:00:00 -0000
+header:
+  teaser: /assets/images/projects/smart-energy-macau.png
+  overlay_image: /assets/images/projects/smart-energy-macau.png
+  overlay_filter: 0.5
 ---
 
 ## 🎯 Project Overview

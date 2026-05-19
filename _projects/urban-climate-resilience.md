@@ -3,6 +3,10 @@ title: "🌆 Urban Climate Resilience: Integrated Mathematical Framework"
 excerpt: "Mathematical framework modeling climate-epidemiological-network dynamics with advanced simulation capabilities, machine learning integration, and multi-scale analysis for building resilient cities in the era of climate change."
 collection: projects
 date: 2024-10-01 00:00:00 -0000
+header:
+  teaser: /assets/images/projects/urban-climate-resilience.png
+  overlay_image: /assets/images/projects/urban-climate-resilience.png
+  overlay_filter: 0.5
 ---
 
 ## 🎯 Project Overview

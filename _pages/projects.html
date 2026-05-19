@@ -7,7 +7,8 @@ author_profile: true
 
 {% include base_path %}
 
+A small but growing collection of mathematical modeling, AI, and visualization projects. Each one started as a question I wanted to answer for myself — code, math, and writeup all live on GitHub.
 
-{% for post in site.projects %}
+{% for post in site.projects reversed %}
   {% include archive-single.html %}
 {% endfor %}
