@@ -30,7 +30,7 @@ The research question is:
 
 This wording fixes three things before looking at the result. First, the task is *localisation*: choosing among candidate leak zones, not detecting an unknown leak onset. Second, the failure model removes one pressure sensor, not an arbitrary part of the network. Third, the evidence comes from controlled signatures, not field pressure data.
 
-The proposed contribution is therefore deliberately narrow. It consists of:
+The study is therefore deliberately narrow. It consists of:
 
 1. a scale-invariant way to measure how distinguishable candidate leak signatures are;
 2. a placement objective that tests every possible one-sensor removal;
@@ -38,7 +38,7 @@ The proposed contribution is therefore deliberately narrow. It consists of:
 4. a paired Monte Carlo benchmark against random, degree-based, and nominal greedy layouts;
 5. reporting that includes aggregate, top-3, and worst-zone performance.
 
-The study does **not** claim a new hydraulic solver, real-time deployment, or validation on a named city. Its current status is *manuscript in preparation—synthetic benchmark only*.
+The study does **not** claim a new hydraulic solver, real-time deployment, or validation on a named city. Its current status is *synthetic benchmark only*—useful for comparing placement ideas, not for claiming field performance.
 
 ![Research pipeline from network construction to stress evaluation.](/science/resilient-water-leak-localization/method-pipeline.svg)
 
@@ -108,7 +108,7 @@ while |S| < sensor budget:
 return S
 ```
 
-This is not globally optimal. Forward selection can commit early to a sensor that later prevents a better combination. Its advantages are transparency, deterministic output, and a direct link between the objective and the selected locations. A submission-grade comparison should include exhaustive search on small networks and stronger combinatorial or population-based methods on larger networks.
+This is not globally optimal. Forward selection can commit early to a sensor that later prevents a better combination. Its advantages are transparency, deterministic output, and a direct link between the objective and the selected locations. A more thorough comparison would include exhaustive search on small networks and stronger combinatorial or population-based methods on larger networks.
 
 Three comparisons keep the proposal honest:
 
@@ -188,7 +188,7 @@ This interpretation is consistent with the objective, but it is not causal proof
 
 ## Validity threats
 
-A conference-style result is stronger when it states how it could be wrong.
+A careful account is stronger when it states how it could be wrong.
 
 ### Construct validity
 
@@ -205,26 +205,6 @@ One synthetic network cannot establish performance on tree-like, highly looped, 
 ### Statistical conclusion validity
 
 There are 1,225 trials per method-condition pair, but trials share leak zones and network structure. Aggregate binomial intervals do not model every dependence. A stronger analysis should retain paired trial outcomes, report paired bootstrap intervals, repeat random layouts, and pre-register one or more primary conditions before comparison.
-
-## What would make this conference-ready
-
-The present package is best understood as a complete research prototype: question, method, baselines, ablation, reproducible experiment, vector figures, and explicit claim boundary. It is not yet a submission-ready empirical study.
-
-The next version should replace the Laplacian proxy with EPANET 2.2 pressure-dependent simulations on at least two recognised benchmark networks. It should vary demand patterns and pipe roughness, add bias drift and correlated noise, evaluate two simultaneous sensor failures, and compare with mutual-information and population-based placement methods. Random placement should become a distribution over many layouts rather than one fixed baseline. Runtime and scaling should be reported as the number of leak scenarios and candidate sensors grows.
-
-Most importantly, benchmark hydraulics still would not equal field validation. A controlled test bed or utility dataset would be needed before making operational claims.
-
-A concrete extension sequence is:
-
-1. reproduce the present result on recognised EPANET networks;
-2. replace the linear response with pressure-dependent demand simulations;
-3. sample demand, roughness, leak magnitude, and sensor bias jointly;
-4. evaluate zero, one, and two sensor failures;
-5. compare multiple optimisation families at matched runtime budgets;
-6. use paired uncertainty estimates and report computational scaling;
-7. test the final method on experimental or utility pressure data.
-
-This sequence separates algorithm development from hydraulic validation and field validation. Passing one stage should not be presented as evidence for the next.
 
 ## Reproducing the study
 
@@ -256,7 +236,7 @@ That separation is part of the research method. Computation should make a claim 
 
 The synthetic pilot supports one careful conclusion: explicitly representing a missing pressure sensor changes the selected layout and improves the designated stress-case result over a nominal signature-based ablation. The observed gain is modest in aggregate top-1 accuracy and larger for the least accurate leak zone. It is not uniform under every noise setting.
 
-That is enough to justify the next experiment, but not enough to justify deployment language. The value of the project is the complete chain from a precise question to reproducible evidence, an ablation, limitations, and a falsifiable extension plan.
+That is enough to motivate a follow-up study, but not enough to justify deployment language. The value here is the chain from a narrow question to reproducible evidence, an ablation, limitations, and a written plan for what would need to change before the result could leave the benchmark.
 
 ## Technical sources
 

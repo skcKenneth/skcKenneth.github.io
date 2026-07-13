@@ -4,7 +4,7 @@ slug: resilient-water-leak-localization
 summary: A dropout-aware pressure-sensor placement study for distinguishing leak zones when measurements are noisy and one sensor may be unavailable.
 year: 2026
 lastUpdated: 2026-07-13
-status: Manuscript in preparation
+status: Exploratory study
 featured: true
 topics: [Reliability and Uncertainty, Infrastructure Monitoring]
 methods: [Graph-based hydraulic proxy, Greedy sensor placement, Monte Carlo evaluation]
@@ -49,4 +49,4 @@ Every method-condition pair contains 1,225 trials. Common random seeds make the 
 
 ## Reproduction
 
-The technical repository contains the source, tests, complete metric table, approved vector figures, conference-paper draft, and a project-local reproduction guide. The next research step is to replace the graph proxy with EPANET benchmark hydraulics and add demand and topology uncertainty.
+The technical repository contains the source, tests, complete metric table, approved vector figures, long-form technical write-up, and a project-local reproduction guide. A natural follow-up would be to replace the graph proxy with EPANET benchmark hydraulics and add demand and topology uncertainty.

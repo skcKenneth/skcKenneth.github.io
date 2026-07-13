@@ -146,7 +146,7 @@ The temperature threshold looks best if only detection and lead time are conside
 
 This is not evidence that temperature thresholds are intrinsically poor. Production systems can use sensor diagnostics, voting, persistence rules, multiple thresholds, current and voltage context, or redundant estimation. It is evidence that a nominally calibrated maximum rule is a fragile baseline under the particular bias mechanism represented here.
 
-The comparison between the two CUSUM methods is more informative. Graph-CUSUM improves the combined-stress point estimate for timely detection by 4.4 percentage points and the median lead by one second. Its false-alarm rate rises by 1.25 percentage points. The detection intervals—89.7–97.0% for graph-CUSUM and 84.4–93.8% for independent CUSUM—overlap. A defensible abstract can report the values, but it should not claim decisive statistical superiority.
+The comparison between the two CUSUM methods is more informative. Graph-CUSUM improves the combined-stress point estimate for timely detection by 4.4 percentage points and the median lead by one second. Its false-alarm rate rises by 1.25 percentage points. The detection intervals—89.7–97.0% for graph-CUSUM and 84.4–93.8% for independent CUSUM—overlap. A careful summary can report the values, but it should not claim decisive statistical superiority.
 
 ## What the ablation reveals
 
@@ -180,19 +180,20 @@ One 4 × 4 geometry cannot represent cylindrical, prismatic, and pouch modules w
 
 There are 160 trajectories per class and condition. Wilson and bootstrap intervals make that uncertainty visible, but several comparisons remain unresolved. A future study should preregister the primary metric, define an equivalence or superiority margin, and choose sample size from the effect size worth detecting.
 
-## Why this still has conference potential
+## What a follow-up study would need
 
-The project is not submission-ready, but it has a credible route toward one because the missing evidence is identifiable.
+The benchmark is intentionally small. It is useful because the limits stay visible, not because it is close to a finished safety product.
 
-1. Replace the proxy-only evaluation with instrumented module replay or a public abuse-test dataset.
+A more informative next step would:
+
+1. Test on instrumented module data or a public abuse-test dataset, not only on the internal proxy.
 2. Define event timing independently of the detector, including self-heating onset and venting where available.
-3. Calibrate on cells or modules separated from the test hardware, not random windows from the same unit.
-4. Compare against credible production-oriented logic, not only four simple statistical baselines.
+3. Separate calibration hardware from test hardware rather than using random windows from the same unit.
+4. Compare against realistic battery-management logic, not only four simple statistical baselines.
 5. Add negative controls: ambient ramps, load transients, cooling faults, sensor step bias, intermittent packet loss, and multiple missing channels.
-6. Report alarm computation time, memory, and behaviour on embedded hardware.
-7. Lock an IEEE venue and use its exact template, page policy, anonymity rules, and graphics requirements only when that target is chosen.
+6. Report alarm computation time, memory, and behaviour on embedded hardware if the method is meant for onboard use.
 
-The strongest possible paper would not advertise a clever score. It would show that a transparent graph-aware detector adds reliable warning value under hardware-separated validation and clearly defined failure costs.
+The interesting question is not whether the score is clever. It is whether a transparent graph-aware detector still adds warning value once the data and failure costs are defined outside this generator.
 
 ## Reproduction and editorial control
 
@@ -210,4 +211,4 @@ These sources motivate the model and evaluation question. None validates the num
 
 The graph view contributes one useful idea: a local thermal warning should be supported by the neighbourhood in which heat physically moves. In this benchmark, that idea modestly improves timely detection over independent CUSUM under combined drift and dropout, at a small false-alarm cost. It also fails to eliminate drift sensitivity, and its advantage is not statistically decisive across every condition.
 
-That is a productive research outcome. The project now has a falsifiable method, matched baselines, uncertainty, an ablation, explicit counterevidence, and a clear next experiment. The honest next sentence is not “the battery is safe.” It is “the method is ready to be tested against real module data.”
+That is a useful intermediate outcome. The benchmark shows a modest trade-off, matched baselines, uncertainty bands, an ablation, and explicit counterevidence. The appropriate next sentence is not “the battery is safe.” It is “this idea still needs testing on data that were not used to design the proxy.”

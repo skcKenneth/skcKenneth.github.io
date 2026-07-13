@@ -4,7 +4,7 @@ slug: battery-pack-thermal-early-warning
 summary: A calibrated graph-CUSUM benchmark for warning of local battery-pack thermal faults when a temperature sensor drifts or becomes unavailable.
 year: 2026
 lastUpdated: 2026-07-13
-status: Manuscript in preparation
+status: Exploratory study
 featured: true
 topics: [Reliability and Uncertainty, Battery Safety Monitoring]
 methods: [Coupled thermal-network proxy, Graph-CUSUM change detection, Held-out threshold calibration]
@@ -51,4 +51,4 @@ The maximum-temperature baseline is a useful failure case: positive measurement 
 
 ## Reproduction and next evidence
 
-The technical repository contains configuration, source, unit tests, complete CSV results, thresholds, approved SVG figures, a claim-evidence map, a source ledger, and a conference-oriented draft. The next high-information step is external replay on instrumented module data with independently recorded fault timing and sensor calibration histories.
+The technical repository contains configuration, source, unit tests, complete CSV results, thresholds, approved SVG figures, a claim-evidence map, a source ledger, and a long-form technical write-up. A natural follow-up would be replay on instrumented module data with independently recorded fault timing and sensor calibration histories.
