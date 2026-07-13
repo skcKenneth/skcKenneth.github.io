@@ -17,6 +17,16 @@ approved figures. `npm run sync:science` may update only:
 
 It never writes inside `src/content`.
 
+The Projects section has two deliberately separate levels:
+
+- every ScienceProject top-level directory appears as a generated technical
+  catalogue entry with file inventory, source link, and review limitations;
+- selected projects receive manually written editorial overviews in
+  `src/content/projects` after their evidence has been reviewed.
+
+Refreshing the catalogue does not promote an inventory entry into an editorial
+overview and does not create a Writing article.
+
 ## Add a technical project
 
 1. Complete the ScienceProject README, provenance, status, reproduction command,
@@ -27,6 +37,11 @@ It never writes inside `src/content`.
    to `ScienceProject/site-manifest/projects.json`.
 4. Validate there, then run `npm run sync:science` here.
 5. Add or update a curated project overview in `src/content/projects`.
+
+For a newly added top-level ScienceProject directory, first run
+`node scripts/build-public-catalog.mjs` in ScienceProject. This guarantees that
+the directory becomes discoverable even before it is selected for editorial
+promotion.
 
 Supported public media: PNG, JPEG, WebP, AVIF, GIF, and SVG. SVG is preserved
 as SVG. Sync reports missing files, hash changes, and stale managed files. It

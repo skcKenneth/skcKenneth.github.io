@@ -3,7 +3,7 @@ import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 
 const loader = (base: string) => glob({ pattern: "**/*.{md,mdx}", base });
-const status = z.enum(["Concept", "Exploratory study", "Prototype", "Reproducible study", "Manuscript in preparation", "Submitted", "Published", "Teaching case", "Archived"]);
+const status = z.enum(["Catalogue entry", "Concept", "Exploratory study", "Prototype", "Reproducible study", "Manuscript in preparation", "Submitted", "Published", "Teaching case", "Archived"]);
 const base = { title: z.string(), slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/), summary: z.string().min(20), date: z.coerce.date().optional(), lastUpdated: z.coerce.date(), featured: z.boolean().default(false), topics: z.array(z.string()).default([]), heroImage: z.string().optional(), draft: z.boolean().default(false) };
 
 const projects = defineCollection({ loader: loader("./src/content/projects"), schema: z.object({

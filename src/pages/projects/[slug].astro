@@ -1,9 +1,64 @@
 ---
-import { getCollection, render } from "astro:content"; import BaseLayout from "../../layouts/BaseLayout.astro"; import StatusBadge from "../../components/StatusBadge.astro"; import Figure from "../../components/Figure.astro";
-export async function getStaticPaths(){return (await getCollection("projects",({data})=>!data.draft)).map(entry=>({params:{slug:entry.data.slug},props:{entry}}));}
-const {entry}=Astro.props; const {Content}=await render(entry); const d=entry.data;
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import Figure from "../../components/Figure.astro";
+import scienceProjects from "../../data/generated/science-projects.json";
+
+export async function getStaticPaths() {
+  const curated = await getCollection("projects", ({ data }) => !data.draft);
+  const curatedSlugs = new Set(curated.map((entry) => entry.data.slug));
+  return [
+    ...curated.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } })),
+    ...scienceProjects.filter((project) => !curatedSlugs.has(project.slug)).map((catalogue) => ({ params: { slug: catalogue.slug }, props: { catalogue } }))
+  ];
+}
+
+const { entry, catalogue } = Astro.props as { entry?: any; catalogue?: any };
+const rendered = entry ? await render(entry) : null;
+const Content = rendered?.Content;
+const d: any = entry?.data ?? catalogue;
+const updated = entry ? d.lastUpdated : new Date(`${d.last_updated}T00:00:00Z`);
+const inventory = Object.entries(catalogue?.inventory ?? {}).filter(([, value]) => Number(value) > 0);
 ---
-<BaseLayout title={d.title} description={d.summary} image={d.heroImage} type="Projects"><header class="page-head"><div class="container"><p class="eyebrow">Project overview</p><h1>{d.title}</h1><p class="lead">{d.researchQuestion}</p><div class="meta-line"><StatusBadge status={d.status}/><span>Updated {d.lastUpdated.toLocaleDateString("en-GB",{dateStyle:"medium"})}</span></div></div></header>
-<div class="container content-shell"><aside><dl class="metadata"><div><dt>Status</dt><dd>{d.status}</dd></div><div><dt>Period</dt><dd>{d.period||d.year}</dd></div><div><dt>Methods</dt><dd>{d.methods.join(" · ")}</dd></div><div><dt>Code</dt><dd>{d.codeAvailable?"Available":"Not listed"}</dd></div><div><dt>Data</dt><dd>{d.dataType||"Not specified"}</dd></div></dl><div class="actions">{d.technicalUrl&&<a class="button" href={d.technicalUrl}>Technical article</a>}{d.repositoryUrl&&<a class="button secondary" href={d.repositoryUrl}>View code</a>}{d.teachingUrl&&<a class="button secondary" href={d.teachingUrl}>Teaching material</a>}</div></aside>
-<article class="prose">{d.heroImage&&<Figure src={d.heroImage} alt={`Technical figure from ${d.title}`} caption="A generated research figure synchronized from ScienceProject. The original aspect ratio and labels are preserved." source={d.technicalUrl}/>}<Content />
-<h2>Key findings</h2><ul>{d.keyFindings.map(x=><li>{x}</li>)}</ul><h2>Limitations</h2><div class="notice"><ul>{d.limitations.map(x=><li>{x}</li>)}</ul></div><h2>Technical record</h2><p>The detailed source, calculations, generated figures, and reproduction instructions remain in ScienceProject. <a href={d.technicalUrl}>Open the technical project</a>.</p><h2>Version history</h2><p><strong>{d.lastUpdated.toISOString().slice(0,10)}</strong> — Curated project overview reviewed against repository evidence.</p></article></div></BaseLayout>
+<BaseLayout title={d.title} description={d.summary} image={d.heroImage} type="Projects">
+  <header class="page-head"><div class="container">
+    <p class="eyebrow">{entry ? "Editorial project overview" : "Technical catalogue entry"}</p>
+    <h1>{d.title}</h1>
+    <p class="lead">{d.researchQuestion ?? d.research_question}</p>
+    <div class="meta-line"><StatusBadge status={d.status}/><span>Updated {updated.toLocaleDateString("en-GB", { dateStyle: "medium" })}</span></div>
+  </div></header>
+  <div class="container content-shell">
+    <aside>
+      <dl class="metadata">
+        <div><dt>Status</dt><dd>{d.status}</dd></div>
+        <div><dt>Period</dt><dd>{d.period || d.year}</dd></div>
+        <div><dt>Methods</dt><dd>{d.methods.join(" · ")}</dd></div>
+        <div><dt>Code</dt><dd>{(d.codeAvailable ?? d.code_available) ? "Present" : "Not listed"}</dd></div>
+        <div><dt>Data</dt><dd>{d.dataType || d.data_type || "Not specified"}</dd></div>
+      </dl>
+      <div class="actions">
+        {entry && d.technicalUrl && <a class="button" href={d.technicalUrl}>Technical article</a>}
+        <a class="button secondary" href={d.repositoryUrl ?? d.repository_url}>View source directory</a>
+        {entry && d.teachingUrl && <a class="button secondary" href={d.teachingUrl}>Teaching material</a>}
+      </div>
+    </aside>
+    <article class="prose">
+      {entry && Content ? <Fragment>
+        {d.heroImage && <Figure src={d.heroImage} alt={`Technical figure from ${d.title}`} caption="A reviewed research figure synchronized from ScienceProject. The original aspect ratio and labels are preserved." source={d.technicalUrl}/>}<Content />
+        <h2>Key findings</h2><ul>{d.keyFindings.map((finding: string) => <li>{finding}</li>)}</ul>
+        <h2>Limitations</h2><div class="notice"><ul>{d.limitations.map((limitation: string) => <li>{limitation}</li>)}</ul></div>
+        <h2>Technical record</h2><p>Detailed source, calculations, generated figures, and reproduction instructions remain in ScienceProject. <a href={d.technicalUrl}>Open the technical project</a>.</p>
+        <h2>Version history</h2><p><strong>{d.lastUpdated.toISOString().slice(0,10)}</strong> — Curated overview reviewed against repository evidence.</p>
+      </Fragment> : <Fragment>
+        <div class="notice"><strong>Inventory, not endorsement.</strong> This page makes the project discoverable without turning its notebooks, source files, or raw outputs into an editorial article. Findings will only be summarized after manual technical and editorial review.</div>
+        <h2>Repository inventory</h2>
+        <p>{d.summary}</p>
+        <dl class="metadata inventory-grid">{inventory.map(([label, value]) => <div><dt>{label.replaceAll("_", " ")}</dt><dd>{value}</dd></div>)}</dl>
+        {d.subprojects?.length > 0 && <Fragment><h2>Included problem areas</h2><ul>{d.subprojects.map((subproject: string) => <li>{subproject}</li>)}</ul></Fragment>}
+        <h2>Current limitations</h2><div class="notice"><ul>{d.limitations.map((limitation: string) => <li>{limitation}</li>)}</ul></div>
+        <h2>Promotion path</h2><p>To become an editorial project overview, this directory needs a reviewed question, provenance, reproducibility instructions, verified outputs, explicit limitations, and any public figures approved through <code>figures/publish/</code>.</p>
+      </Fragment>}
+    </article>
+  </div>
+</BaseLayout>

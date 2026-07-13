@@ -86,6 +86,47 @@
     "local_hero_image": "/science/intelligent-ev-dispatch/pareto-frontier.png"
   },
   {
+    "slug": "phantom-traffic-stability",
+    "title": "Phantom Traffic-Jam Stability",
+    "summary": "Microscopic traffic experiments use IDM-style car following to examine when small disturbances grow and how mixed vehicle behavior changes the response.",
+    "status": "Exploratory study",
+    "year": 2026,
+    "topics": [
+      "Urban and Mobility Systems"
+    ],
+    "methods": [
+      "Microscopic simulation",
+      "IDM",
+      "Stability analysis"
+    ],
+    "featured": true,
+    "project_root": "traffic-idm",
+    "hero_image": "traffic-idm/figures/publish/traffic-heatmap.png",
+    "publish_assets": [
+      {
+        "filename": "traffic-heatmap.png",
+        "alt": "Space-time heat map of speed in a synthetic microscopic traffic simulation",
+        "caption": "Synthetic traffic-wave heat map.",
+        "generated_by": "traffic-idm/main.py",
+        "source_path": "traffic-idm/figures/publish/traffic-heatmap.png"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/traffic-idm",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/traffic-idm",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "Synthetic traffic simulation",
+    "research_question": "Under which modeled conditions do local speed disturbances become persistent stop-and-go waves?",
+    "limitations": [
+      "The scenarios are synthetic.",
+      "Driver and controller parameters do not establish performance on a real road network."
+    ],
+    "reproduce_command": "python traffic-idm/main.py",
+    "last_updated": "2026-01-10",
+    "local_hero_image": "/science/phantom-traffic-stability/traffic-heatmap.png"
+  },
+  {
     "slug": "climate-driven-dengue",
     "title": "Climate-Driven Dengue on a Spatial Grid",
     "summary": "A reaction–diffusion model combines temperature-dependent mosquito ecology, long-range dispersal, vaccination allocation and numerical checks.",
@@ -127,47 +168,6 @@
     "reproduce_command": "python dengue_climate_model/run_experiment_matrix.py --tfinal 365 --grid 30 --dt 0.2 --save 30 --forcing default",
     "last_updated": "2026-01-30",
     "local_hero_image": "/science/climate-driven-dengue/incidence-matrix.png"
-  },
-  {
-    "slug": "phantom-traffic-stability",
-    "title": "Phantom Traffic-Jam Stability",
-    "summary": "Microscopic traffic experiments use IDM-style car following to examine when small disturbances grow and how mixed vehicle behavior changes the response.",
-    "status": "Exploratory study",
-    "year": 2026,
-    "topics": [
-      "Urban and Mobility Systems"
-    ],
-    "methods": [
-      "Microscopic simulation",
-      "IDM",
-      "Stability analysis"
-    ],
-    "featured": true,
-    "project_root": "traffic-idm",
-    "hero_image": "traffic-idm/figures/publish/traffic-heatmap.png",
-    "publish_assets": [
-      {
-        "filename": "traffic-heatmap.png",
-        "alt": "Space-time heat map of speed in a synthetic microscopic traffic simulation",
-        "caption": "Synthetic traffic-wave heat map.",
-        "generated_by": "traffic-idm/main.py",
-        "source_path": "traffic-idm/figures/publish/traffic-heatmap.png"
-      }
-    ],
-    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/traffic-idm",
-    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/traffic-idm",
-    "code_available": true,
-    "data_available": true,
-    "student_suitable": true,
-    "data_type": "Synthetic traffic simulation",
-    "research_question": "Under which modeled conditions do local speed disturbances become persistent stop-and-go waves?",
-    "limitations": [
-      "The scenarios are synthetic.",
-      "Driver and controller parameters do not establish performance on a real road network."
-    ],
-    "reproduce_command": "python traffic-idm/main.py",
-    "last_updated": "2026-01-10",
-    "local_hero_image": "/science/phantom-traffic-stability/traffic-heatmap.png"
   },
   {
     "slug": "coastal-defence-optimization",
@@ -212,6 +212,750 @@
     "local_hero_image": "/science/coastal-defence-optimization/optimization-frontier.png"
   },
   {
+    "slug": "immc2026",
+    "title": "IMMC2026",
+    "summary": "Technical catalogue entry for IMMC2026, recording 43 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2026,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "IMMC2026",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/IMMC2026",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/IMMC2026",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "11 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the IMMC2026 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2026-02-13",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 149,
+      "notebooks": 0,
+      "python": 43,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 11
+    },
+    "subprojects": [
+      "Problem D",
+      "Problem D.zip",
+      "Problem E",
+      "Problem E.zip",
+      "ProblemC"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "drone-network",
+    "title": "Last Mile Drone Dilemma - IMMC Simulation",
+    "summary": "Technical catalogue entry for Last Mile Drone Dilemma - IMMC Simulation, recording 10 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2026,
+    "topics": [
+      "Robotics, Aerospace, and Physics"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "drone_network",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/drone_network",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/drone_network",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "4 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Last Mile Drone Dilemma - IMMC Simulation project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2026-02-15",
+    "catalog_only": true,
+    "category": "Robotics, Aerospace, and Physics",
+    "inventory": {
+      "files": 39,
+      "notebooks": 0,
+      "python": 10,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 4
+    },
+    "subprojects": [],
+    "readme_path": "drone_network/README.md"
+  },
+  {
+    "slug": "optomechanical-dde-project",
+    "title": "Project: Nonlinear Dynamics and Bifurcation Analysis of an Optomechanically Levitated Nanoparticle under Delayed Feedback Control",
+    "summary": "Technical catalogue entry for Project: Nonlinear Dynamics and Bifurcation Analysis of an Optomechanically Levitated Nanoparticle under Delayed Feedback Control, recording 9 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2026,
+    "topics": [
+      "Robotics, Aerospace, and Physics"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "optomechanical_dde_project",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/optomechanical_dde_project",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/optomechanical_dde_project",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Project: Nonlinear Dynamics and Bifurcation Analysis of an Optomechanically Levitated Nanoparticle under Delayed Feedback Control project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2026-02-23",
+    "catalog_only": true,
+    "category": "Robotics, Aerospace, and Physics",
+    "inventory": {
+      "files": 26,
+      "notebooks": 0,
+      "python": 9,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": "optomechanical_dde_project/README.md"
+  },
+  {
+    "slug": "sjmma2026",
+    "title": "SJMMA 2026 Problem Collection",
+    "summary": "Technical catalogue entry for SJMMA 2026 Problem Collection, recording 190 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2026,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "SJMMA2026",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SJMMA2026",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SJMMA2026",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "150 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the SJMMA 2026 Problem Collection project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2026-07-13",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 836,
+      "notebooks": 0,
+      "python": 190,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 150
+    },
+    "subprojects": [
+      "ProblemA",
+      "ProblemB",
+      "ProblemC",
+      "ProblemD",
+      "ProblemE"
+    ],
+    "readme_path": "SJMMA2026/ProblemA/README.md"
+  },
+  {
+    "slug": "warhawk-stochastic",
+    "title": "The Duel: Warhawk vs. Death Lord",
+    "summary": "Technical catalogue entry for The Duel: Warhawk vs. Death Lord, recording 16 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2026,
+    "topics": [
+      "Applied Analysis and Simulation"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "WARHAWK_STOCHASTIC",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/WARHAWK_STOCHASTIC",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/WARHAWK_STOCHASTIC",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "2 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the The Duel: Warhawk vs. Death Lord project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2026-01-17",
+    "catalog_only": true,
+    "category": "Applied Analysis and Simulation",
+    "inventory": {
+      "files": 39,
+      "notebooks": 0,
+      "python": 16,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 2
+    },
+    "subprojects": [
+      "problem_statement"
+    ],
+    "readme_path": "WARHAWK_STOCHASTIC/README.md"
+  },
+  {
+    "slug": "orbital-debris-sim",
+    "title": "The Kessler Horizon: Orbital Debris Simulator",
+    "summary": "Technical catalogue entry for The Kessler Horizon: Orbital Debris Simulator, recording 6 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2026,
+    "topics": [
+      "Robotics, Aerospace, and Physics"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "orbital-debris-sim",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/orbital-debris-sim",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/orbital-debris-sim",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the The Kessler Horizon: Orbital Debris Simulator project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2026-01-17",
+    "catalog_only": true,
+    "category": "Robotics, Aerospace, and Physics",
+    "inventory": {
+      "files": 15,
+      "notebooks": 0,
+      "python": 6,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": "orbital-debris-sim/README.md"
+  },
+  {
+    "slug": "satellite-collision-avoidance",
+    "title": "Autonomous Satellite Collision Avoidance System",
+    "summary": "Technical catalogue entry for Autonomous Satellite Collision Avoidance System, recording 23 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Robotics, Aerospace, and Physics"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "satellite_collision_avoidance",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/satellite_collision_avoidance",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/satellite_collision_avoidance",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Autonomous Satellite Collision Avoidance System project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-11-02",
+    "catalog_only": true,
+    "category": "Robotics, Aerospace, and Physics",
+    "inventory": {
+      "files": 54,
+      "notebooks": 0,
+      "python": 23,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": "satellite_collision_avoidance/README.md"
+  },
+  {
+    "slug": "casino-operation-simulation",
+    "title": "Casino Operation Simulation",
+    "summary": "Technical catalogue entry for Casino Operation Simulation, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Applied Analysis and Simulation"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "CasinoOperationSimulation",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/CasinoOperationSimulation",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/CasinoOperationSimulation",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Casino Operation Simulation project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-02-23",
+    "catalog_only": true,
+    "category": "Applied Analysis and Simulation",
+    "inventory": {
+      "files": 2,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "citi-bike-modeling-system",
+    "title": "Citi Bike Modeling System",
+    "summary": "Technical catalogue entry for Citi Bike Modeling System, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Urban and Mobility Systems"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "CitiBikeModelingSystem",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/CitiBikeModelingSystem",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/CitiBikeModelingSystem",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "1 tracked structured-data file; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Citi Bike Modeling System project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-07-23",
+    "catalog_only": true,
+    "category": "Urban and Mobility Systems",
+    "inventory": {
+      "files": 8,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 1
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "computational-robotics-arm",
+    "title": "Computational Physics Model: 3-DOF Planar Robotic Arm",
+    "summary": "Technical catalogue entry for Computational Physics Model: 3-DOF Planar Robotic Arm, recording 17 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Robotics, Aerospace, and Physics"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "computational_robotics_arm",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/computational_robotics_arm",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/computational_robotics_arm",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Computational Physics Model: 3-DOF Planar Robotic Arm project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-12-26",
+    "catalog_only": true,
+    "category": "Robotics, Aerospace, and Physics",
+    "inventory": {
+      "files": 38,
+      "notebooks": 0,
+      "python": 17,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": "computational_robotics_arm/README.md"
+  },
+  {
+    "slug": "cumcm2025",
+    "title": "CUMCM2025",
+    "summary": "Technical catalogue entry for CUMCM2025, recording 2 tracked files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Technical project archive"
+    ],
+    "featured": false,
+    "project_root": "CUMCM2025",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/CUMCM2025",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/CUMCM2025",
+    "code_available": false,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "1 tracked structured-data file; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the CUMCM2025 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-10-03",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 2,
+      "notebooks": 0,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 1
+    },
+    "subprojects": [
+      "ProblemC"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "ecosystem-dynamics-project",
+    "title": "Ecosystem Dynamics Mathematical Modeling Project",
+    "summary": "Technical catalogue entry for Ecosystem Dynamics Mathematical Modeling Project, recording 29 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Environmental and Ecosystem Modeling"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "ecosystem_dynamics_project",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/ecosystem_dynamics_project",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/ecosystem_dynamics_project",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "6 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Ecosystem Dynamics Mathematical Modeling Project project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-10-07",
+    "catalog_only": true,
+    "category": "Environmental and Ecosystem Modeling",
+    "inventory": {
+      "files": 65,
+      "notebooks": 0,
+      "python": 29,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 6
+    },
+    "subprojects": [],
+    "readme_path": "ecosystem_dynamics_project/README.md"
+  },
+  {
+    "slug": "traffic-optimization",
+    "title": "Enhanced Urban Traffic Emissions Optimization System",
+    "summary": "Technical catalogue entry for Enhanced Urban Traffic Emissions Optimization System, recording 26 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Urban and Mobility Systems"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "traffic_optimization",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/traffic_optimization",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/traffic_optimization",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "8 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Enhanced Urban Traffic Emissions Optimization System project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-12-26",
+    "catalog_only": true,
+    "category": "Urban and Mobility Systems",
+    "inventory": {
+      "files": 66,
+      "notebooks": 0,
+      "python": 26,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 8
+    },
+    "subprojects": [],
+    "readme_path": "traffic_optimization/README.md"
+  },
+  {
+    "slug": "ev3-robot-car",
+    "title": "Ev3 Robot Car",
+    "summary": "Technical catalogue entry for Ev3 Robot Car, recording 3 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Applied Analysis and Simulation"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "ev3-robot-car",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/ev3-robot-car",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/ev3-robot-car",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Ev3 Robot Car project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-12-05",
+    "catalog_only": true,
+    "category": "Applied Analysis and Simulation",
+    "inventory": {
+      "files": 3,
+      "notebooks": 0,
+      "python": 3,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "haps-optimization",
+    "title": "Haps Optimization",
+    "summary": "Technical catalogue entry for Haps Optimization, recording 13 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Robotics, Aerospace, and Physics"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "haps_optimization",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/haps_optimization",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/haps_optimization",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Haps Optimization project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-12-19",
+    "catalog_only": true,
+    "category": "Robotics, Aerospace, and Physics",
+    "inventory": {
+      "files": 32,
+      "notebooks": 0,
+      "python": 13,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "constellation-modeling",
+    "title": "IMMC 2026 Problem A: New Constellations",
+    "summary": "Technical catalogue entry for IMMC 2026 Problem A: New Constellations, recording 13 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Robotics, Aerospace, and Physics"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "constellation_modeling",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/constellation_modeling",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/constellation_modeling",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "5 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the IMMC 2026 Problem A: New Constellations project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-12-18",
+    "catalog_only": true,
+    "category": "Robotics, Aerospace, and Physics",
+    "inventory": {
+      "files": 35,
+      "notebooks": 0,
+      "python": 13,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 5
+    },
+    "subprojects": [],
+    "readme_path": "constellation_modeling/README.md"
+  },
+  {
+    "slug": "immc2025",
+    "title": "IMMC2025",
+    "summary": "Technical catalogue entry for IMMC2025, recording 3 notebooks. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "IMMC2025",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/IMMC2025",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/IMMC2025",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the IMMC2025 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-01-20",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 20,
+      "notebooks": 3,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [
+      "ProblemA",
+      "ProblemB",
+      "ProblemC"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "mcm2025",
+    "title": "MCM2025",
+    "summary": "Technical catalogue entry for MCM2025, recording 2 notebooks. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "MCM2025",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2025",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2025",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "5 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the MCM2025 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-07-03",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 17,
+      "notebooks": 2,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 5
+    },
+    "subprojects": [
+      "ProblemA",
+      "ProblemB",
+      "ProblemC"
+    ],
+    "readme_path": null
+  },
+  {
     "slug": "pollination-ecosystem",
     "title": "Pollination Ecosystem Trade-offs",
     "summary": "An agent-based C++ simulation compares pollinator populations, agricultural yield and management assumptions across configured scenarios.",
@@ -251,5 +995,1402 @@
     "reproduce_command": "cmake -S pollination_ecosystem_model -B pollination_ecosystem_model/build && cmake --build pollination_ecosystem_model/build --config Release",
     "last_updated": "2025-11-01",
     "local_hero_image": "/science/pollination-ecosystem/scenario-comparison.png"
+  },
+  {
+    "slug": "quantum-resource-competition",
+    "title": "Quantum Resource Competition in Multi-Agent Particle Systems",
+    "summary": "Technical catalogue entry for Quantum Resource Competition in Multi-Agent Particle Systems, recording 19 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Information and Network Systems"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "quantum_resource_competition",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/quantum_resource_competition",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/quantum_resource_competition",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "5 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Quantum Resource Competition in Multi-Agent Particle Systems project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-12-26",
+    "catalog_only": true,
+    "category": "Information and Network Systems",
+    "inventory": {
+      "files": 46,
+      "notebooks": 0,
+      "python": 19,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 5
+    },
+    "subprojects": [],
+    "readme_path": "quantum_resource_competition/README.md"
+  },
+  {
+    "slug": "secondary-4-evaluation",
+    "title": "Secondary 4 Evaluation",
+    "summary": "Technical catalogue entry for Secondary 4 Evaluation, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "Secondary 4 Evaluation",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Secondary%204%20Evaluation",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Secondary%204%20Evaluation",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "1 tracked structured-data file; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Secondary 4 Evaluation project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-06-30",
+    "catalog_only": true,
+    "category": "Mathematical Modeling Education",
+    "inventory": {
+      "files": 4,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 1
+    },
+    "subprojects": [
+      "Algebra"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "secondary-5-evaluation",
+    "title": "Secondary 5 Evaluation",
+    "summary": "Technical catalogue entry for Secondary 5 Evaluation, recording 2 notebooks. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "Secondary 5 Evaluation",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Secondary%205%20Evaluation",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Secondary%205%20Evaluation",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "2 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Secondary 5 Evaluation project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-07-02",
+    "catalog_only": true,
+    "category": "Mathematical Modeling Education",
+    "inventory": {
+      "files": 8,
+      "notebooks": 2,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 2
+    },
+    "subprojects": [
+      "Algebra",
+      "Geometry"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "shared-mobility-optimization",
+    "title": "Shared Micro-Mobility Optimization System",
+    "summary": "Technical catalogue entry for Shared Micro-Mobility Optimization System, recording 16 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Urban and Mobility Systems"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "shared_mobility_optimization",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/shared_mobility_optimization",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/shared_mobility_optimization",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "4 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Shared Micro-Mobility Optimization System project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-10-11",
+    "catalog_only": true,
+    "category": "Urban and Mobility Systems",
+    "inventory": {
+      "files": 42,
+      "notebooks": 0,
+      "python": 16,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 4
+    },
+    "subprojects": [],
+    "readme_path": "shared_mobility_optimization/README.md"
+  },
+  {
+    "slug": "sjmma2025",
+    "title": "SJMMA 2025 Problem Collection",
+    "summary": "Technical catalogue entry for SJMMA 2025 Problem Collection, recording 46 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "SJMMA2025",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SJMMA2025",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SJMMA2025",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "17 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the SJMMA 2025 Problem Collection project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2026-04-01",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 158,
+      "notebooks": 0,
+      "python": 46,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 17
+    },
+    "subprojects": [
+      "ProblemB",
+      "ProblemD"
+    ],
+    "readme_path": "SJMMA2025/ProblemB/README.md"
+  },
+  {
+    "slug": "smart-microgrid-simulation",
+    "title": "Smart Microgrid Energy Trading Simulation",
+    "summary": "Technical catalogue entry for Smart Microgrid Energy Trading Simulation, recording 35 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Energy Systems"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "smart_microgrid_simulation",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/smart_microgrid_simulation",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/smart_microgrid_simulation",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "1 tracked structured-data file; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Smart Microgrid Energy Trading Simulation project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-11-29",
+    "catalog_only": true,
+    "category": "Energy Systems",
+    "inventory": {
+      "files": 67,
+      "notebooks": 0,
+      "python": 35,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 1
+    },
+    "subprojects": [
+      "problem.md"
+    ],
+    "readme_path": "smart_microgrid_simulation/README.md"
+  },
+  {
+    "slug": "solar-tracker-analysis",
+    "title": "Solar Tracker Cost-Effectiveness Analysis",
+    "summary": "Technical catalogue entry for Solar Tracker Cost-Effectiveness Analysis, recording 13 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Energy Systems"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "solar-tracker-analysis",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/solar-tracker-analysis",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/solar-tracker-analysis",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Solar Tracker Cost-Effectiveness Analysis project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-11-23",
+    "catalog_only": true,
+    "category": "Energy Systems",
+    "inventory": {
+      "files": 40,
+      "notebooks": 0,
+      "python": 13,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": "solar-tracker-analysis/README.md"
+  },
+  {
+    "slug": "stock-market",
+    "title": "Stock Market",
+    "summary": "Technical catalogue entry for Stock Market, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Applied Analysis and Simulation"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "Stock Market",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Stock%20Market",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Stock%20Market",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "3 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Stock Market project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-07-01",
+    "catalog_only": true,
+    "category": "Applied Analysis and Simulation",
+    "inventory": {
+      "files": 11,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 3
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "information-spread-modeling",
+    "title": "Strategic Information Dynamics in Multi-Layer Social Networks",
+    "summary": "Technical catalogue entry for Strategic Information Dynamics in Multi-Layer Social Networks, recording 23 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Information and Network Systems"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "information_spread_modeling",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/information_spread_modeling",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/information_spread_modeling",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "1 tracked structured-data file; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Strategic Information Dynamics in Multi-Layer Social Networks project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-10-25",
+    "catalog_only": true,
+    "category": "Information and Network Systems",
+    "inventory": {
+      "files": 49,
+      "notebooks": 0,
+      "python": 23,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 1
+    },
+    "subprojects": [],
+    "readme_path": "information_spread_modeling/README.md"
+  },
+  {
+    "slug": "sustainable-urban-mobility",
+    "title": "Sustainable Urban Mobility",
+    "summary": "Technical catalogue entry for Sustainable Urban Mobility, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Urban and Mobility Systems"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "SustainableUrbanMobility",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SustainableUrbanMobility",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SustainableUrbanMobility",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Sustainable Urban Mobility project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-07-25",
+    "catalog_only": true,
+    "category": "Urban and Mobility Systems",
+    "inventory": {
+      "files": 2,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "urban-microclimate-model",
+    "title": "Urban Microclimate Modeling System",
+    "summary": "Technical catalogue entry for Urban Microclimate Modeling System, recording 18 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Environmental and Ecosystem Modeling"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "urban-microclimate-model",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/urban-microclimate-model",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/urban-microclimate-model",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Urban Microclimate Modeling System project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-10-18",
+    "catalog_only": true,
+    "category": "Environmental and Ecosystem Modeling",
+    "inventory": {
+      "files": 41,
+      "notebooks": 0,
+      "python": 18,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": "urban-microclimate-model/README.md"
+  },
+  {
+    "slug": "vertical-lettuce-farming",
+    "title": "Vertical Lettuce Farming",
+    "summary": "Technical catalogue entry for Vertical Lettuce Farming, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Environmental and Ecosystem Modeling"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "VerticalLettuceFarming",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/VerticalLettuceFarming",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/VerticalLettuceFarming",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "8 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Vertical Lettuce Farming project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-07-24",
+    "catalog_only": true,
+    "category": "Environmental and Ecosystem Modeling",
+    "inventory": {
+      "files": 15,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 8
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "weather-analysis",
+    "title": "Weather Analysis",
+    "summary": "Technical catalogue entry for Weather Analysis, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Environmental and Ecosystem Modeling"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "WeatherAnalysis",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/WeatherAnalysis",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/WeatherAnalysis",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Weather Analysis project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-07-02",
+    "catalog_only": true,
+    "category": "Environmental and Ecosystem Modeling",
+    "inventory": {
+      "files": 1,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "zoo-design-midmcm",
+    "title": "Zoo Design MIDMCM",
+    "summary": "Technical catalogue entry for Zoo Design MIDMCM, recording 9 Python files. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2025,
+    "topics": [
+      "Applied Analysis and Simulation"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "zoo-design-midmcm",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/zoo-design-midmcm",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/zoo-design-midmcm",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "3 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the Zoo Design MIDMCM project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2025-12-26",
+    "catalog_only": true,
+    "category": "Applied Analysis and Simulation",
+    "inventory": {
+      "files": 32,
+      "notebooks": 0,
+      "python": 9,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 3
+    },
+    "subprojects": [],
+    "readme_path": "zoo-design-midmcm/README.md"
+  },
+  {
+    "slug": "comparing-real-numbers",
+    "title": "Comparing Real Numbers",
+    "summary": "Technical catalogue entry for Comparing Real Numbers, recording 1 Python file. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Python"
+    ],
+    "featured": false,
+    "project_root": "ComparingRealNumbers",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/ComparingRealNumbers",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/ComparingRealNumbers",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Comparing Real Numbers project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-09-14",
+    "catalog_only": true,
+    "category": "Mathematical Modeling Education",
+    "inventory": {
+      "files": 2,
+      "notebooks": 0,
+      "python": 1,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "cumcm2024",
+    "title": "CUMCM2024",
+    "summary": "Technical catalogue entry for CUMCM2024, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "CUMCM2024",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/CUMCM2024",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/CUMCM2024",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the CUMCM2024 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-09-06",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 1,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [
+      "ProblemB.ipynb"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "hi-mcm2024",
+    "title": "HiMCM 2024",
+    "summary": "Technical catalogue entry for HiMCM 2024, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "HiMCM2024",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2024",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2024",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the HiMCM 2024 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-12-23",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 11,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [
+      "ProblemB"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "immc2024",
+    "title": "IMMC2024",
+    "summary": "Technical catalogue entry for IMMC2024, recording 2 notebooks. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "IMMC2024",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/IMMC2024",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/IMMC2024",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "3 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the IMMC2024 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-11-01",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 10,
+      "notebooks": 2,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 3
+    },
+    "subprojects": [
+      "Winter"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "interpolation",
+    "title": "Interpolation",
+    "summary": "Technical catalogue entry for Interpolation, recording 3 notebooks. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "Interpolation",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Interpolation",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Interpolation",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Interpolation project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-07-25",
+    "catalog_only": true,
+    "category": "Mathematical Modeling Education",
+    "inventory": {
+      "files": 5,
+      "notebooks": 3,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "mcm2024",
+    "title": "MCM2024",
+    "summary": "Technical catalogue entry for MCM2024, recording 3 notebooks. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "MCM2024",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2024",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2024",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the MCM2024 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-09-08",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 9,
+      "notebooks": 3,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [
+      "ProblemA",
+      "ProblemB"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "model-fitting",
+    "title": "Model Fitting",
+    "summary": "Technical catalogue entry for Model Fitting, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "Model Fitting",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Model%20Fitting",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Model%20Fitting",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Model Fitting project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-08-04",
+    "catalog_only": true,
+    "category": "Mathematical Modeling Education",
+    "inventory": {
+      "files": 2,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "modeling-with-a-differential-equation",
+    "title": "Modeling With A Differential Equation",
+    "summary": "Technical catalogue entry for Modeling With A Differential Equation, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "Modeling with a Differential Equation",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Modeling%20with%20a%20Differential%20Equation",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Modeling%20with%20a%20Differential%20Equation",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Modeling With A Differential Equation project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-08-18",
+    "catalog_only": true,
+    "category": "Mathematical Modeling Education",
+    "inventory": {
+      "files": 9,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "simulation-modeling",
+    "title": "Simulation Modeling",
+    "summary": "Technical catalogue entry for Simulation Modeling, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2024,
+    "topics": [
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "Simulation Modeling",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Simulation%20Modeling",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/Simulation%20Modeling",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the Simulation Modeling project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-08-17",
+    "catalog_only": true,
+    "category": "Mathematical Modeling Education",
+    "inventory": {
+      "files": 2,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "hi-mcm2023",
+    "title": "HiMCM 2023",
+    "summary": "Technical catalogue entry for HiMCM 2023, recording 2 notebooks. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2023,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "HiMCM2023",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2023",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2023",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the HiMCM 2023 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-09-08",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 12,
+      "notebooks": 2,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [
+      "ProblemA",
+      "ProblemB"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "hi-mcm2022",
+    "title": "HiMCM 2022",
+    "summary": "Technical catalogue entry for HiMCM 2022, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2022,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "HiMCM2022",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2022",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2022",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "1 tracked structured-data file; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the HiMCM 2022 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-08-21",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 5,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 1
+    },
+    "subprojects": [
+      "ProblemB"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "mcm2022",
+    "title": "MCM2022",
+    "summary": "Technical catalogue entry for MCM2022, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2022,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "MCM2022",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2022",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2022",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "2 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the MCM2022 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-10-05",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 14,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 2
+    },
+    "subprojects": [
+      "ProblemC"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "hi-mcm2021",
+    "title": "HiMCM 2021",
+    "summary": "Technical catalogue entry for HiMCM 2021, recording 2 notebooks. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2021,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "HiMCM2021",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2021",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2021",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "2 tracked structured-data files; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the HiMCM 2021 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-09-29",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 27,
+      "notebooks": 2,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 2
+    },
+    "subprojects": [
+      "ProblemA",
+      "ProblemB"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "mcm2021",
+    "title": "MCM2021",
+    "summary": "Technical catalogue entry for MCM2021, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2021,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "MCM2021",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2021",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2021",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the MCM2021 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-09-28",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 5,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "mcm2020",
+    "title": "MCM2020",
+    "summary": "Technical catalogue entry for MCM2020, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2020,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "MCM2020",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2020",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM2020",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the MCM2020 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-10-05",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 1,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [
+      "ProblemA"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "hi-mcm2019",
+    "title": "HiMCM 2019",
+    "summary": "Technical catalogue entry for HiMCM 2019, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2019,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "HiMCM2019",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2019",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2019",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the HiMCM 2019 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-09-14",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 7,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [
+      "ProblemB"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "immc2018",
+    "title": "IMMC2018",
+    "summary": "Technical catalogue entry for IMMC2018, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2018,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "IMMC2018",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/IMMC2018",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/IMMC2018",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "1 tracked structured-data file; licensing and provenance require project review",
+    "research_question": "What technical material is currently present in the IMMC2018 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-10-05",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 2,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 1
+    },
+    "subprojects": [
+      "WinterProblemA"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "hi-mcm2011",
+    "title": "HiMCM 2011",
+    "summary": "Technical catalogue entry for HiMCM 2011, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2011,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "HiMCM2011",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2011",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2011",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the HiMCM 2011 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-10-27",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 7,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [
+      "ProblemB"
+    ],
+    "readme_path": null
+  },
+  {
+    "slug": "hi-mcm2002",
+    "title": "HiMCM 2002",
+    "summary": "Technical catalogue entry for HiMCM 2002, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 2002,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "HiMCM2002",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2002",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/HiMCM2002",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the HiMCM 2002 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-08-19",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 2,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
+  },
+  {
+    "slug": "mcm1986",
+    "title": "MCM1986",
+    "summary": "Technical catalogue entry for MCM1986, recording 1 notebook. Outputs remain unreviewed until promoted into an editorial project overview.",
+    "status": "Catalogue entry",
+    "year": 1986,
+    "topics": [
+      "Competition Case Studies"
+    ],
+    "methods": [
+      "Jupyter notebooks"
+    ],
+    "featured": false,
+    "project_root": "MCM1986",
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM1986",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/MCM1986",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "No public-data claim made",
+    "research_question": "What technical material is currently present in the MCM1986 project directory?",
+    "limitations": [
+      "This is an inventory-level catalogue entry, not a reviewed research claim.",
+      "Code, notebooks, and generated outputs have not been treated as proof of validation or reproducibility."
+    ],
+    "last_updated": "2024-08-19",
+    "catalog_only": true,
+    "category": "Competition Case Studies",
+    "inventory": {
+      "files": 2,
+      "notebooks": 1,
+      "python": 0,
+      "cpp": 0,
+      "matlab": 0,
+      "javascript": 0,
+      "data": 0
+    },
+    "subprojects": [],
+    "readme_path": null
   }
 ]

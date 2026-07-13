@@ -14,9 +14,10 @@
     "check:redirects": "node scripts/check-redirects.mjs",
     "check:links": "node scripts/check-built-links.mjs",
     "check:output": "node scripts/check-output.mjs",
+    "check:science": "node scripts/check-science-catalog.mjs",
     "build:site": "astro build",
     "index:search": "pagefind --site dist",
-    "build": "node scripts/sync-science-projects.mjs && astro check && astro build && pagefind --site dist && node scripts/check-built-links.mjs && node scripts/check-output.mjs",
+    "build": "node scripts/sync-science-projects.mjs && astro check && astro build && pagefind --site dist && node scripts/check-science-catalog.mjs && node scripts/check-built-links.mjs && node scripts/check-output.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

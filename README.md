@@ -50,6 +50,7 @@ to internal links.
 - `public/science/<project-slug>/` — managed copies of approved figures;
 - `public/science/asset-manifest.json` — hashes, provenance, status, and stale records;
 - `src/data/generated` — validated fallback snapshots;
+- `/projects/` — complete technical catalogue plus reviewed editorial overviews;
 - `legacy-jekyll` — exact pre-rebuild implementation.
 
 Read [CONTENT_GUIDE.md](CONTENT_GUIDE.md), [DEPLOYMENT.md](DEPLOYMENT.md),
