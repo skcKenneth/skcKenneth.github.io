@@ -1,0 +1,8 @@
+---
+import { getCollection } from "astro:content"; import BaseLayout from "../../layouts/BaseLayout.astro";
+const items = await getCollection("research", ({data})=>!data.draft);
+---
+<BaseLayout title="Research" description="Research programmes spanning mobility, uncertainty, environment, and mathematical modeling education." type="Research">
+  <header class="page-head"><div class="container"><p class="eyebrow">Research</p><h1>Questions that travel across projects.</h1><p class="lead">A programme-based view of models, methods, evidence, and open limitations.</p></div></header>
+  <section class="section"><div class="container grid">{items.map(item=><article class="card wide"><p class="eyebrow">{item.data.programme}</p><h2><a class="title-link" href={`/research/${item.data.slug}/`}>{item.data.title}</a></h2><p>{item.data.summary}</p><div class="tag-list">{item.data.methods.map(m=><span class="tag">{m}</span>)}</div></article>)}</div></section>
+</BaseLayout>

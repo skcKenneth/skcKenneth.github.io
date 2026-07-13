@@ -1,0 +1,6 @@
+---
+import { getCollection, render } from "astro:content"; import BaseLayout from "../../layouts/BaseLayout.astro";
+export async function getStaticPaths(){ return (await getCollection("research",({data})=>!data.draft)).map(entry=>({params:{slug:entry.data.slug},props:{entry}})); }
+const { entry }=Astro.props; const { Content }=await render(entry);
+---
+<BaseLayout title={entry.data.title} description={entry.data.summary} type="Research"><header class="page-head"><div class="container"><p class="eyebrow">Research programme</p><h1>{entry.data.title}</h1><p class="lead">{entry.data.summary}</p></div></header><div class="container content-shell"><aside><h2>Questions</h2><ul>{entry.data.questions.map(q=><li>{q}</li>)}</ul><h3>Methods</h3><div class="tag-list">{entry.data.methods.map(m=><span class="tag">{m}</span>)}</div></aside><article class="prose"><Content /><h2>Related projects</h2><p><a href={`/projects/?topic=${encodeURIComponent(entry.data.programme)}`}>Browse projects in this programme</a>.</p></article></div></BaseLayout>

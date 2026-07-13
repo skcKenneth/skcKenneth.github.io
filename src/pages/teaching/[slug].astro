@@ -1,0 +1,5 @@
+---
+import {getCollection,render} from "astro:content"; import BaseLayout from "../../layouts/BaseLayout.astro";
+export async function getStaticPaths(){return (await getCollection("teaching",({data})=>!data.draft)).map(entry=>({params:{slug:entry.data.slug},props:{entry}}));} const {entry}=Astro.props; const {Content}=await render(entry);
+---
+<BaseLayout title={entry.data.title} description={entry.data.summary} type="Teaching"><header class="page-head"><div class="container"><p class="eyebrow">{entry.data.level} · {entry.data.resourceType}</p><h1>{entry.data.title}</h1><p class="lead">{entry.data.summary}</p></div></header><div class="container content-shell"><aside><h2>Pathway</h2><p>Concept → assumptions → baseline → computation → validation → communication.</p><div class="tag-list">{entry.data.topics.map(t=><span class="tag">{t}</span>)}</div></aside><article class="prose"><Content/><h2>Next step</h2><p>Choose a <a href="/projects/?availability=student">student-suitable technical project</a> and reproduce one documented figure before changing the model.</p></article></div></BaseLayout>

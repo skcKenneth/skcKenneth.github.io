@@ -1,0 +1,10 @@
+packages:
+  - .
+allowBuilds:
+  esbuild: true
+confirmModulesPurge: false
+nodeLinker: isolated
+packageImportMethod: copy
+virtualStoreDirMaxLength: 50
+overrides:
+  vite: 8.0.14

@@ -1,0 +1,28 @@
+---
+import { readdirSync, readFileSync } from "node:fs";
+import { extname, join, relative } from "node:path";
+import { redirects as explicit } from "../data/redirects";
+
+export function getStaticPaths(){
+  const root=process.cwd();
+  const legacyGroups={_posts:"/writing/archive/",_projects:"/projects/",_portfolio:"/projects/",_teaching:"/teaching/",_talks:"/teaching/",_publications:"/writing/archive/",_pages:"/writing/archive/"};
+  const active=new Set(["/","/research/","/teaching/","/teaching/2014-spring-teaching-1","/teaching/2014-spring-teaching-1/","/writing/","/writing/archive/","/projects/","/about/","/search/","/404.html","/talkmap.html"]);
+  function files(dir:string):string[]{try{return readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(join(dir,e.name)):[join(dir,e.name)]);}catch{return[];}}
+  function normalized(value?:string):string|null{if(!value)return null;let path=value.trim().replace(/^['"]|['"]$/g,"");if(!path.startsWith("/"))path=`/${path}`;if(!extname(path)&&!path.endsWith("/"))path+="/";return path;}
+  const map=new Map(Object.entries(explicit));
+  for(const [folder,destination] of Object.entries(legacyGroups)){
+    for(const file of files(join(root,folder)).filter(f=>/\.(md|markdown|html)$/.test(f))){
+      const source=readFileSync(file,"utf8"); const match=source.match(/^permalink:\s*(.+)$/m);
+      let old=normalized(match?.[1]);
+      if(!old&&folder!=="_posts"&&folder!=="_pages"){
+        const stem=relative(join(root,folder),file).replace(/\\/g,"/").replace(/\.(md|markdown|html)$/,'');
+        old=normalized(`/${folder.slice(1)}/${stem}/`);
+      }
+      if(old&&!active.has(old)&&old!==destination&&!map.has(old))map.set(old,destination);
+    }
+  }
+  return [...map].filter(([source])=>!active.has(source)).map(([source,destination])=>({params:{path:source.replace(/^\//,'').replace(/\/$/,'')},props:{source,destination}}));
+}
+const {source,destination}=Astro.props; const target=new URL(destination,Astro.site);
+---
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="robots" content="noindex,follow"/><meta data-pagefind-ignore/><link rel="canonical" href={target}/><meta http-equiv="refresh" content={`0; url=${destination}`}/><title>Page moved — Kenneth Cheng</title></head><body><main><h1>This page has moved</h1><p>The former address <code>{source}</code> now points to <a href={destination}>{destination}</a>.</p></main></body></html>
