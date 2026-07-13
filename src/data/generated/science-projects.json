@@ -1,5 +1,73 @@
 [
   {
+    "slug": "battery-pack-thermal-early-warning",
+    "title": "Graph-Calibrated Battery Thermal Early Warning",
+    "summary": "A sequential graph-CUSUM study for warning of local battery-pack thermal faults under temperature-sensor drift and dropout.",
+    "status": "Manuscript in preparation",
+    "year": 2026,
+    "topics": [
+      "Reliability and Uncertainty",
+      "Battery Safety Monitoring"
+    ],
+    "methods": [
+      "Coupled thermal-network proxy",
+      "Graph-CUSUM change detection",
+      "Held-out threshold calibration"
+    ],
+    "featured": true,
+    "project_root": "battery-pack-thermal-early-warning",
+    "hero_image": "battery-pack-thermal-early-warning/figures/publish/benchmark-performance.svg",
+    "publish_assets": [
+      {
+        "filename": "benchmark-performance.svg",
+        "alt": "Two IEEE-oriented line-and-interval charts comparing timely thermal-fault detection and median warning lead time across nominal, sensor-drift, sensor-dropout, and combined conditions.",
+        "caption": "Four detectors are evaluated on matched synthetic trajectories; proportion intervals are Wilson 95% intervals and lead-time intervals are bootstrap 95% intervals.",
+        "generated_by": "battery-pack-thermal-early-warning/run.py",
+        "source_path": "battery-pack-thermal-early-warning/figures/publish/benchmark-performance.svg"
+      },
+      {
+        "filename": "thermal-pack-and-trace.svg",
+        "alt": "A labelled 4 by 4 battery thermal network beside a representative fault trajectory with fault onset, graph-CUSUM alarm, and 60 degree simulation boundary.",
+        "caption": "The benchmark represents cells as a coupled thermal graph and evaluates whether an alarm arrives before the study boundary.",
+        "generated_by": "battery-pack-thermal-early-warning/run.py",
+        "source_path": "battery-pack-thermal-early-warning/figures/publish/thermal-pack-and-trace.svg"
+      },
+      {
+        "filename": "method-pipeline.svg",
+        "alt": "Five-stage academic methodology diagram from coupled thermal simulation through residual construction, graph evidence pooling, sequential testing, and drift-dropout stress evaluation.",
+        "caption": "Only the graph-evidence and calibrated sequential-test stages are proposed; calibration and evaluation use disjoint seed ranges.",
+        "generated_by": "battery-pack-thermal-early-warning/run.py",
+        "source_path": "battery-pack-thermal-early-warning/figures/publish/method-pipeline.svg"
+      },
+      {
+        "filename": "drift-robustness-and-ablation.svg",
+        "alt": "An interval plot of false-alarm rate against positive sensor drift and a hatched ablation chart under combined drift and sensor dropout.",
+        "caption": "The robustness sweep and ablation expose the method's detection-versus-false-alarm trade-off instead of reporting accuracy alone.",
+        "generated_by": "battery-pack-thermal-early-warning/run.py",
+        "source_path": "battery-pack-thermal-early-warning/figures/publish/drift-robustness-and-ablation.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/blob/main/battery-pack-thermal-early-warning/paper/ieee-conference-draft.md",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/battery-pack-thermal-early-warning",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "Synthetic 4 x 4 coupled thermal network with generated drift, dropout, and local-fault trajectories",
+    "research_question": "Can common-mode removal and graph-neighbour pooling improve warning before a synthetic battery-pack temperature boundary while keeping false alarms near a held-out calibration target?",
+    "limitations": [
+      "The thermal network is a transparent numerical proxy rather than a chemistry-specific electrochemical or abuse-test model.",
+      "The 60 degree Celsius endpoint is a study boundary, not a universal thermal-runaway or safety threshold.",
+      "The reported intervals overlap for several comparisons and no instrumented module or deployed battery-management system is evaluated."
+    ],
+    "reproduce_command": "python battery-pack-thermal-early-warning/run.py",
+    "last_updated": "2026-07-13",
+    "category": "Reliability and Uncertainty",
+    "readme_path": "battery-pack-thermal-early-warning/README.md",
+    "documentation_excerpt": "This controlled benchmark tests whether graph-aware sequential evidence can preserve warning performance when one battery temperature channel drifts or becomes unavailable.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/battery-pack-thermal-early-warning/README.md",
+    "local_hero_image": "/science/battery-pack-thermal-early-warning/benchmark-performance.svg"
+  },
+  {
     "slug": "resilient-water-leak-localization",
     "title": "Resilient Water-Network Leak Localisation",
     "summary": "A dropout-aware pressure-sensor placement study for localising leaks under measurement noise and single-sensor failure.",
@@ -34,8 +102,8 @@
       },
       {
         "filename": "sensor-placement.svg",
-        "alt": "Side-by-side water-network diagrams comparing degree-centrality and dropout-aware pressure sensor locations.",
-        "caption": "Sensor layouts on the 36-node synthetic network. The proposed objective spreads measurements across diagnostically distinct regions.",
+        "alt": "Side-by-side water-network diagrams comparing nominal greedy and dropout-aware pressure sensor locations.",
+        "caption": "Nominal and dropout-aware sensor layouts on the 36-node synthetic network. The proposed objective spreads measurements across diagnostically distinct regions after sensor loss.",
         "generated_by": "resilient-water-leak-localization/run.py",
         "source_path": "resilient-water-leak-localization/figures/publish/sensor-placement.svg"
       },

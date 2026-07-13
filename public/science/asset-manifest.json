@@ -5,6 +5,54 @@
   "updated_at": "2026-07-13",
   "assets": [
     {
+      "project": "battery-pack-thermal-early-warning",
+      "filename": "benchmark-performance.svg",
+      "public_path": "/science/battery-pack-thermal-early-warning/benchmark-performance.svg",
+      "source_path": "battery-pack-thermal-early-warning/figures/publish/benchmark-performance.svg",
+      "alt": "Two IEEE-oriented line-and-interval charts comparing timely thermal-fault detection and median warning lead time across nominal, sensor-drift, sensor-dropout, and combined conditions.",
+      "caption": "Four detectors are evaluated on matched synthetic trajectories; proportion intervals are Wilson 95% intervals and lead-time intervals are bootstrap 95% intervals.",
+      "generated_by": "battery-pack-thermal-early-warning/run.py",
+      "status": "current",
+      "sha256": "bb8c51df5b4c73b90b85860c6a304dc167df8950a5a22e60477546298cf3f6ef",
+      "bytes": 46801
+    },
+    {
+      "project": "battery-pack-thermal-early-warning",
+      "filename": "thermal-pack-and-trace.svg",
+      "public_path": "/science/battery-pack-thermal-early-warning/thermal-pack-and-trace.svg",
+      "source_path": "battery-pack-thermal-early-warning/figures/publish/thermal-pack-and-trace.svg",
+      "alt": "A labelled 4 by 4 battery thermal network beside a representative fault trajectory with fault onset, graph-CUSUM alarm, and 60 degree simulation boundary.",
+      "caption": "The benchmark represents cells as a coupled thermal graph and evaluates whether an alarm arrives before the study boundary.",
+      "generated_by": "battery-pack-thermal-early-warning/run.py",
+      "status": "current",
+      "sha256": "a64943dc336ca9e0cee25f7a4a61419dbbc045a7025b0f2760b9898d8749a2d8",
+      "bytes": 47598
+    },
+    {
+      "project": "battery-pack-thermal-early-warning",
+      "filename": "method-pipeline.svg",
+      "public_path": "/science/battery-pack-thermal-early-warning/method-pipeline.svg",
+      "source_path": "battery-pack-thermal-early-warning/figures/publish/method-pipeline.svg",
+      "alt": "Five-stage academic methodology diagram from coupled thermal simulation through residual construction, graph evidence pooling, sequential testing, and drift-dropout stress evaluation.",
+      "caption": "Only the graph-evidence and calibrated sequential-test stages are proposed; calibration and evaluation use disjoint seed ranges.",
+      "generated_by": "battery-pack-thermal-early-warning/run.py",
+      "status": "current",
+      "sha256": "9e5605057711e5a8fb723cf0f6a224065bc5fd7a62263708f209e4039b8cc509",
+      "bytes": 8353
+    },
+    {
+      "project": "battery-pack-thermal-early-warning",
+      "filename": "drift-robustness-and-ablation.svg",
+      "public_path": "/science/battery-pack-thermal-early-warning/drift-robustness-and-ablation.svg",
+      "source_path": "battery-pack-thermal-early-warning/figures/publish/drift-robustness-and-ablation.svg",
+      "alt": "An interval plot of false-alarm rate against positive sensor drift and a hatched ablation chart under combined drift and sensor dropout.",
+      "caption": "The robustness sweep and ablation expose the method's detection-versus-false-alarm trade-off instead of reporting accuracy alone.",
+      "generated_by": "battery-pack-thermal-early-warning/run.py",
+      "status": "current",
+      "sha256": "7e9e35940464294f9cb581a2131e25131d83de5658a034aa861ea3cfb58856b5",
+      "bytes": 105703
+    },
+    {
       "project": "resilient-water-leak-localization",
       "filename": "robustness-comparison.svg",
       "public_path": "/science/resilient-water-leak-localization/robustness-comparison.svg",
@@ -12,9 +60,9 @@
       "alt": "Two IEEE-style line charts comparing leak-localisation accuracy across pressure noise and sensor dropout for four placement methods.",
       "caption": "The proposed dropout-aware placement is compared with random, degree-centrality, and nominal greedy layouts; error bars show Wilson 95% intervals.",
       "generated_by": "resilient-water-leak-localization/run.py",
-      "status": "updated",
-      "sha256": "b1fc3132232cc72e0d0e97d8a772dcd76a26899039530e5d98038ecd969300da",
-      "bytes": 49632
+      "status": "current",
+      "sha256": "11d34ba7f7f1cd911b608f6401280db4ec4f7c2523033526152a5bbe12e22a84",
+      "bytes": 50296
     },
     {
       "project": "resilient-water-leak-localization",
@@ -24,21 +72,21 @@
       "alt": "Five-stage IEEE-style methodology diagram from synthetic network construction through leak signatures, dropout-aware sensor placement, localisation, and stress evaluation.",
       "caption": "The reproducible evidence pipeline separates the proposed placement step from signature generation, localisation, and Monte Carlo evaluation.",
       "generated_by": "resilient-water-leak-localization/run.py",
-      "status": "updated",
-      "sha256": "ac9dd2886995de0aef5a360178df8e006e61f9ee7ae5b5dc15b54c56b9ba6343",
-      "bytes": 8004
+      "status": "current",
+      "sha256": "8a20f8fdf3959ff6db19c88b13d9cd2b4d494cfc0a22b05c72cb191cefd25be8",
+      "bytes": 8290
     },
     {
       "project": "resilient-water-leak-localization",
       "filename": "sensor-placement.svg",
       "public_path": "/science/resilient-water-leak-localization/sensor-placement.svg",
       "source_path": "resilient-water-leak-localization/figures/publish/sensor-placement.svg",
-      "alt": "Side-by-side water-network diagrams comparing degree-centrality and dropout-aware pressure sensor locations.",
-      "caption": "Sensor layouts on the 36-node synthetic network. The proposed objective spreads measurements across diagnostically distinct regions.",
+      "alt": "Side-by-side water-network diagrams comparing nominal greedy and dropout-aware pressure sensor locations.",
+      "caption": "Nominal and dropout-aware sensor layouts on the 36-node synthetic network. The proposed objective spreads measurements across diagnostically distinct regions after sensor loss.",
       "generated_by": "resilient-water-leak-localization/run.py",
-      "status": "updated",
-      "sha256": "bd05460e58fc29b19390f5a6d88c2afcef5151fec03c2fb4fba3818027835608",
-      "bytes": 47328
+      "status": "current",
+      "sha256": "90067b916e252d706e0c0ab9e8276134a90d8d6e0866119c396597bf5b4ead3f",
+      "bytes": 47716
     },
     {
       "project": "resilient-water-leak-localization",
@@ -48,9 +96,9 @@
       "alt": "Bar charts of dropout-aware signature separation and top-one and top-three leak-localisation accuracy under the designated stress test.",
       "caption": "Ablation and stress test at 8% relative pressure noise and 40% probability of one sensor dropout.",
       "generated_by": "resilient-water-leak-localization/run.py",
-      "status": "updated",
-      "sha256": "1bc9aa1361346847b956dd87b2fb94db1acb2b0a2d2c78a1942640ee3c3cae6b",
-      "bytes": 20044
+      "status": "current",
+      "sha256": "e565fed67fe2b7c0f1132458f2817b0b7939279ab054521f6f94b7f6c8337f3b",
+      "bytes": 239119
     },
     {
       "project": "accessible-multimodal-routing",

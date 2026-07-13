@@ -76,7 +76,7 @@ These omissions are not hidden implementation details. They define the boundary 
 
 ![Two sensor layouts on the synthetic water network.](/science/resilient-water-leak-localization/sensor-placement.svg)
 
-*The degree baseline concentrates sensors at highly connected junctions. The proposed layout is selected for diagnostic separation after a possible one-sensor dropout.*
+*The nominal greedy layout optimises intact-system signature separation. The proposed layout changes that selection by scoring the evidence left after each possible one-sensor dropout.*
 
 ## Placing sensors for the incomplete observation
 
@@ -182,7 +182,7 @@ The top-3 result adds operational context. When top-1 localisation is wrong, a h
 
 ### Why the proposed layout may help
 
-The topology figure suggests a mechanism. Selecting high-degree nodes concentrates sensors around well-connected junctions. Those measurements can be individually responsive but redundant with one another. The dropout-aware layout spreads sensors toward regions whose remaining signatures stay distinct when a coordinate is removed.
+The topology figure shows that the robust objective does more than add a post-processing rule to the same layout. The nominal and dropout-aware methods retain some common sites but reassign others because a coordinate that is valuable in the intact signature matrix may also be a single point of diagnostic dependence. The figure does not prove why each site was selected; the separation objective and ablation provide that evidence.
 
 This interpretation is consistent with the objective, but it is not causal proof. A larger experiment should quantify spatial diversity, signature redundancy, and the frequency with which each failed sensor changes the predicted zone. That analysis would show whether the gain is genuinely caused by dropout redundancy or by another geometric property of the selected set.
 
