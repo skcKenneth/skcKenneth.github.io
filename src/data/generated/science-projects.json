@@ -1,5 +1,73 @@
 [
   {
+    "slug": "resilient-water-leak-localization",
+    "title": "Resilient Water-Network Leak Localisation",
+    "summary": "A dropout-aware pressure-sensor placement study for localising leaks under measurement noise and single-sensor failure.",
+    "status": "Manuscript in preparation",
+    "year": 2026,
+    "topics": [
+      "Reliability and Uncertainty",
+      "Infrastructure Monitoring"
+    ],
+    "methods": [
+      "Graph-based hydraulic proxy",
+      "Greedy sensor placement",
+      "Monte Carlo evaluation"
+    ],
+    "featured": true,
+    "project_root": "resilient-water-leak-localization",
+    "hero_image": "resilient-water-leak-localization/figures/publish/robustness-comparison.svg",
+    "publish_assets": [
+      {
+        "filename": "robustness-comparison.svg",
+        "alt": "Two IEEE-style line charts comparing leak-localisation accuracy across pressure noise and sensor dropout for four placement methods.",
+        "caption": "The proposed dropout-aware placement is compared with random, degree-centrality, and nominal greedy layouts; error bars show Wilson 95% intervals.",
+        "generated_by": "resilient-water-leak-localization/run.py",
+        "source_path": "resilient-water-leak-localization/figures/publish/robustness-comparison.svg"
+      },
+      {
+        "filename": "method-pipeline.svg",
+        "alt": "Five-stage IEEE-style methodology diagram from synthetic network construction through leak signatures, dropout-aware sensor placement, localisation, and stress evaluation.",
+        "caption": "The reproducible evidence pipeline separates the proposed placement step from signature generation, localisation, and Monte Carlo evaluation.",
+        "generated_by": "resilient-water-leak-localization/run.py",
+        "source_path": "resilient-water-leak-localization/figures/publish/method-pipeline.svg"
+      },
+      {
+        "filename": "sensor-placement.svg",
+        "alt": "Side-by-side water-network diagrams comparing degree-centrality and dropout-aware pressure sensor locations.",
+        "caption": "Sensor layouts on the 36-node synthetic network. The proposed objective spreads measurements across diagnostically distinct regions.",
+        "generated_by": "resilient-water-leak-localization/run.py",
+        "source_path": "resilient-water-leak-localization/figures/publish/sensor-placement.svg"
+      },
+      {
+        "filename": "ablation-and-stress-test.svg",
+        "alt": "Bar charts of dropout-aware signature separation and top-one and top-three leak-localisation accuracy under the designated stress test.",
+        "caption": "Ablation and stress test at 8% relative pressure noise and 40% probability of one sensor dropout.",
+        "generated_by": "resilient-water-leak-localization/run.py",
+        "source_path": "resilient-water-leak-localization/figures/publish/ablation-and-stress-test.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/blob/main/resilient-water-leak-localization/paper/ieee-conference-draft.md",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/resilient-water-leak-localization",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "Synthetic hydraulic-inspired network and generated Monte Carlo benchmark",
+    "research_question": "Can pressure sensors selected for lower-tail leak-signature separation retain localisation performance when measurements are noisy and one sensor may fail?",
+    "limitations": [
+      "The graph-Laplacian response is a controlled proxy rather than an EPANET or field-calibrated hydraulic model.",
+      "Only one unavailable sensor, independent Gaussian noise, and one leak at a time are represented.",
+      "The reported advantage is not uniform across every noise level and does not establish field performance."
+    ],
+    "reproduce_command": "python resilient-water-leak-localization/run.py",
+    "last_updated": "2026-07-13",
+    "category": "Reliability and Uncertainty",
+    "readme_path": "resilient-water-leak-localization/README.md",
+    "documentation_excerpt": "This reproducible synthetic study tests whether dropout-aware pressure-sensor placement preserves leak-localisation performance when measurements are noisy and one sensor is unavailable.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/resilient-water-leak-localization/README.md",
+    "local_hero_image": "/science/resilient-water-leak-localization/robustness-comparison.svg"
+  },
+  {
     "slug": "accessible-multimodal-routing",
     "title": "Accessible Multimodal Routing at Gongbei",
     "summary": "A cohort-aware routing model studies how slopes, stairs, transfers, crowding and missing elevators change access through a multimodal border hub.",
