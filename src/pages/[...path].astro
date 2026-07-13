@@ -2,6 +2,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { extname, join, relative } from "node:path";
 import { redirects as explicit } from "../data/redirects";
+import legacyWriting from "../data/generated/legacy-writing-map.json";
 
 export function getStaticPaths(){
   const root=process.cwd();
@@ -9,7 +10,7 @@ export function getStaticPaths(){
   const active=new Set(["/","/research/","/teaching/","/teaching/2014-spring-teaching-1","/teaching/2014-spring-teaching-1/","/writing/","/writing/archive/","/projects/","/about/","/search/","/404.html","/talkmap.html"]);
   function files(dir:string):string[]{try{return readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(join(dir,e.name)):[join(dir,e.name)]);}catch{return[];}}
   function normalized(value?:string):string|null{if(!value)return null;let path=value.trim().replace(/^['"]|['"]$/g,"");if(!path.startsWith("/"))path=`/${path}`;if(!extname(path)&&!path.endsWith("/"))path+="/";return path;}
-  const map=new Map(Object.entries(explicit));
+  const map=new Map([...Object.entries(explicit),...Object.entries(legacyWriting)]);
   for(const [folder,destination] of Object.entries(legacyGroups)){
     for(const file of files(join(root,folder)).filter(f=>/\.(md|markdown|html)$/.test(f))){
       const source=readFileSync(file,"utf8"); const match=source.match(/^permalink:\s*(.+)$/m);

@@ -15,7 +15,7 @@ const projects = defineCollection({ loader: loader("./src/content/projects"), sc
 const research = defineCollection({ loader: loader("./src/content/research"), schema: z.object({ ...base, programme: z.string(), methods: z.array(z.string()).default([]), questions: z.array(z.string()).default([]) }) });
 const writing = defineCollection({ loader: loader("./src/content/writing"), schema: z.object({
   ...base, type: z.enum(["Research Notes", "Technical Tutorials", "Competition Case Studies", "Teaching Notes", "Mathematical Curiosities", "Archive"]), archived: z.boolean().default(false), redirectFrom: z.array(z.string()).default([]),
-  scienceProject: z.string().optional(), technicalRepository: z.url().optional(), notebookUrl: z.url().optional(), codeUrl: z.url().optional(), reproductionUrl: z.url().optional(), technicalUrl: z.url().optional()
+  scienceProject: z.string().optional(), technicalRepository: z.url().optional(), notebookUrl: z.url().optional(), codeUrl: z.url().optional(), reproductionUrl: z.url().optional(), technicalUrl: z.url().optional(), legacySource: z.string().optional()
 }) });
 const teaching = defineCollection({ loader: loader("./src/content/teaching"), schema: z.object({ ...base, level: z.enum(["Beginner", "Competition", "Advanced", "Instructor"]), resourceType: z.enum(["Course pathway", "Python lab", "Worked example", "Instructor resource", "Student research"]), downloadUrl: z.string().optional() }) });
 export const collections = { projects, research, writing, teaching };

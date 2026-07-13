@@ -54,6 +54,7 @@ const inventory = Object.entries(catalogue?.inventory ?? {}).filter(([, value]) 
         <div class="notice"><strong>Inventory, not endorsement.</strong> This page makes the project discoverable without turning its notebooks, source files, or raw outputs into an editorial article. Findings will only be summarized after manual technical and editorial review.</div>
         <h2>Repository inventory</h2>
         <p>{d.summary}</p>
+        {d.documentation_excerpt && <Fragment><h2>From the project documentation</h2><p>{d.documentation_excerpt}</p>{d.documentation_url&&<p><a href={d.documentation_url}>Read the complete project README</a>.</p>}</Fragment>}
         <dl class="metadata inventory-grid">{inventory.map(([label, value]) => <div><dt>{label.replaceAll("_", " ")}</dt><dd>{value}</dd></div>)}</dl>
         {d.subprojects?.length > 0 && <Fragment><h2>Included problem areas</h2><ul>{d.subprojects.map((subproject: string) => <li>{subproject}</li>)}</ul></Fragment>}
         <h2>Current limitations</h2><div class="notice"><ul>{d.limitations.map((limitation: string) => <li>{limitation}</li>)}</ul></div>

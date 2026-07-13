@@ -38,6 +38,10 @@ pnpm build       # sync, schema/type check, build, Pagefind, links, output hygie
 pnpm preview     # serve the production output
 ```
 
+The build also migrates all previously published `_posts/*.md` bodies into the
+Writing archive. This is a content-preserving migration, not automatic prose
+generation from arbitrary ScienceProject notes.
+
 The production origin uses an empty base path. Do not add a repository subpath
 to internal links.
 

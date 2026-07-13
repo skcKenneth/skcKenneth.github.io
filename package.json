@@ -8,16 +8,18 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "node scripts/sync-science-projects.mjs && astro dev",
+    "dev": "node scripts/sync-science-projects.mjs && node scripts/migrate-legacy-writing.mjs && astro dev",
     "sync:science": "node scripts/sync-science-projects.mjs",
+    "migrate:legacy": "node scripts/migrate-legacy-writing.mjs",
     "validate:content": "astro check",
     "check:redirects": "node scripts/check-redirects.mjs",
     "check:links": "node scripts/check-built-links.mjs",
     "check:output": "node scripts/check-output.mjs",
     "check:science": "node scripts/check-science-catalog.mjs",
+    "check:legacy": "node scripts/check-legacy-writing.mjs",
     "build:site": "astro build",
     "index:search": "pagefind --site dist",
-    "build": "node scripts/sync-science-projects.mjs && astro check && astro build && pagefind --site dist && node scripts/check-science-catalog.mjs && node scripts/check-built-links.mjs && node scripts/check-output.mjs",
+    "build": "node scripts/sync-science-projects.mjs && node scripts/migrate-legacy-writing.mjs && astro check && astro build && pagefind --site dist && node scripts/check-science-catalog.mjs && node scripts/check-legacy-writing.mjs && node scripts/check-built-links.mjs && node scripts/check-output.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

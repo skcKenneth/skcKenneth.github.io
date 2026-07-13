@@ -27,6 +27,13 @@ The Projects section has two deliberately separate levels:
 Refreshing the catalogue does not promote an inventory entry into an editorial
 overview and does not create a Writing article.
 
+The original `_posts/*.md` files are different: they were already public blog
+articles. `npm run migrate:legacy` preserves their full bodies under
+`src/content/writing/legacy`, adds archive context and ScienceProject source
+links where detectable, and redirects each former public URL to its migrated
+article. The generated copies should not be edited directly; revise the source
+post or promote a reviewed successor into the curated Writing collection.
+
 ## Add a technical project
 
 1. Complete the ScienceProject README, provenance, status, reproduction command,
