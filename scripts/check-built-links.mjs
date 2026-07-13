@@ -1,0 +1,6 @@
+import { readdir, readFile, access } from "node:fs/promises"; import { resolve, dirname, extname } from "node:path"; import { fileURLToPath } from "node:url";
+const root=resolve(dirname(fileURLToPath(import.meta.url)),"../dist");
+async function walk(dir){const output=[];for(const entry of await readdir(dir,{withFileTypes:true})){const path=resolve(dir,entry.name);if(entry.isDirectory())output.push(...await walk(path));else output.push(path);}return output;}
+const files=await walk(root); const html=files.filter(f=>f.endsWith(".html")); const errors=[];
+for(const file of html){const text=await readFile(file,"utf8");for(const m of text.matchAll(/(?:href|src)=["']([^"']+)["']/g)){const raw=m[1];if(!raw.startsWith("/")||raw.startsWith("//"))continue;const clean=decodeURI(raw.split(/[?#]/)[0]);if(!clean)continue;const target=extname(clean)?resolve(root,clean.slice(1)):resolve(root,clean.slice(1),"index.html");try{await access(target);}catch{errors.push(`${file.slice(root.length+1)} -> ${raw}`);}}}
+if(errors.length){console.error(`Broken internal links (${errors.length}):\n${errors.slice(0,80).join("\n")}`);process.exit(1);}console.log(`Checked internal links in ${html.length} HTML files.`);

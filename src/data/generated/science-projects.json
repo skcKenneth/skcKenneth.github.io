@@ -1,0 +1,255 @@
+[
+  {
+    "slug": "accessible-multimodal-routing",
+    "title": "Accessible Multimodal Routing at Gongbei",
+    "summary": "A cohort-aware routing model studies how slopes, stairs, transfers, crowding and missing elevators change access through a multimodal border hub.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Urban and Mobility Systems",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Multi-layer networks",
+      "Multi-objective routing",
+      "Sobol sensitivity analysis"
+    ],
+    "featured": true,
+    "project_root": "SJMMA2026/ProblemA",
+    "hero_image": "SJMMA2026/ProblemA/figures/publish/network.png",
+    "publish_assets": [
+      {
+        "filename": "network.png",
+        "alt": "Multilayer Gongbei transport network connecting pedestrian, bus, rail, and taxi nodes",
+        "caption": "Multilayer network used in the accessible-routing study.",
+        "generated_by": "SJMMA2026/ProblemA/python/viz",
+        "source_path": "SJMMA2026/ProblemA/figures/publish/network.png"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SJMMA2026/ProblemA",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SJMMA2026/ProblemA",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "Case-study network and configured cohort assumptions",
+    "research_question": "How do mobility constraints change optimal routes and intervention priorities in a dense multimodal hub?",
+    "limitations": [
+      "The case study covers one 1 km² hub.",
+      "Several behavioral and accessibility costs require local calibration.",
+      "Policy implications are model-based rather than evidence from a deployed intervention."
+    ],
+    "reproduce_command": "python SJMMA2026/ProblemA/run.py --mode all",
+    "last_updated": "2026-04-30",
+    "local_hero_image": "/science/accessible-multimodal-routing/network.png"
+  },
+  {
+    "slug": "intelligent-ev-dispatch",
+    "title": "Interpretable EV Dispatch and Replenishment",
+    "summary": "A white-box pipeline links physics-informed energy prediction, fairness-aware scheduling and disruption-triggered replanning for an electric fleet.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Sustainable Urban and Mobility Systems",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Physics-informed regression",
+      "Multi-objective optimization",
+      "CUSUM and EWMA"
+    ],
+    "featured": true,
+    "project_root": "SJMMA2026/ProblemE",
+    "hero_image": "SJMMA2026/ProblemE/figures/publish/pareto-frontier.png",
+    "publish_assets": [
+      {
+        "filename": "pareto-frontier.png",
+        "alt": "Profit, energy, and fairness trade-off frontier for the EV dispatch experiment",
+        "caption": "Non-degenerate scheduling frontier from the reported EV dispatch run.",
+        "generated_by": "SJMMA2026/ProblemE/python/viz",
+        "source_path": "SJMMA2026/ProblemE/figures/publish/pareto-frontier.png"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SJMMA2026/ProblemE",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/SJMMA2026/ProblemE",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Project-local operational records; redistribution status not asserted",
+    "research_question": "Can an auditable model balance fleet energy, profit, fairness and disruption response?",
+    "limitations": [
+      "The reported energy MAPE is 42.512%, despite a high R².",
+      "Scheduling uses a simplified assignment structure rather than an exact full-scale MILP.",
+      "Disruptions are simulated with a stylized generator."
+    ],
+    "reproduce_command": "python SJMMA2026/ProblemE/run.py --mode all --scope light",
+    "last_updated": "2026-04-30",
+    "local_hero_image": "/science/intelligent-ev-dispatch/pareto-frontier.png"
+  },
+  {
+    "slug": "climate-driven-dengue",
+    "title": "Climate-Driven Dengue on a Spatial Grid",
+    "summary": "A reaction–diffusion model combines temperature-dependent mosquito ecology, long-range dispersal, vaccination allocation and numerical checks.",
+    "status": "Reproducible study",
+    "year": 2025,
+    "topics": [
+      "Environmental Modeling",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Reaction–diffusion equations",
+      "Sensitivity analysis",
+      "Numerical verification"
+    ],
+    "featured": true,
+    "project_root": "dengue_climate_model",
+    "hero_image": "dengue_climate_model/figures/publish/incidence-matrix.png",
+    "publish_assets": [
+      {
+        "filename": "incidence-matrix.png",
+        "alt": "Matrix of simulated dengue incidence across synthetic climate and allocation scenarios",
+        "caption": "Synthetic incidence comparison generated by the experiment matrix.",
+        "generated_by": "dengue_climate_model/run_experiment_matrix.py",
+        "source_path": "dengue_climate_model/figures/publish/incidence-matrix.png"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/dengue_climate_model",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/dengue_climate_model",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "Synthetic spatial experiment matrix",
+    "research_question": "How do climate forcing and spatial allocation assumptions change simulated dengue incidence?",
+    "limitations": [
+      "The published experiment matrix is synthetic.",
+      "Outputs are scenario comparisons, not forecasts for a specific city.",
+      "Biological parameters require empirical calibration before applied use."
+    ],
+    "reproduce_command": "python dengue_climate_model/run_experiment_matrix.py --tfinal 365 --grid 30 --dt 0.2 --save 30 --forcing default",
+    "last_updated": "2026-01-30",
+    "local_hero_image": "/science/climate-driven-dengue/incidence-matrix.png"
+  },
+  {
+    "slug": "phantom-traffic-stability",
+    "title": "Phantom Traffic-Jam Stability",
+    "summary": "Microscopic traffic experiments use IDM-style car following to examine when small disturbances grow and how mixed vehicle behavior changes the response.",
+    "status": "Exploratory study",
+    "year": 2026,
+    "topics": [
+      "Urban and Mobility Systems"
+    ],
+    "methods": [
+      "Microscopic simulation",
+      "IDM",
+      "Stability analysis"
+    ],
+    "featured": true,
+    "project_root": "traffic-idm",
+    "hero_image": "traffic-idm/figures/publish/traffic-heatmap.png",
+    "publish_assets": [
+      {
+        "filename": "traffic-heatmap.png",
+        "alt": "Space-time heat map of speed in a synthetic microscopic traffic simulation",
+        "caption": "Synthetic traffic-wave heat map.",
+        "generated_by": "traffic-idm/main.py",
+        "source_path": "traffic-idm/figures/publish/traffic-heatmap.png"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/traffic-idm",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/traffic-idm",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "Synthetic traffic simulation",
+    "research_question": "Under which modeled conditions do local speed disturbances become persistent stop-and-go waves?",
+    "limitations": [
+      "The scenarios are synthetic.",
+      "Driver and controller parameters do not establish performance on a real road network."
+    ],
+    "reproduce_command": "python traffic-idm/main.py",
+    "last_updated": "2026-01-10",
+    "local_hero_image": "/science/phantom-traffic-stability/traffic-heatmap.png"
+  },
+  {
+    "slug": "coastal-defence-optimization",
+    "title": "Coastal Defence Under Rising Tides",
+    "summary": "A teaching case combines sea-level scenarios, extreme-value storm surges and cost optimization over a 50-year planning horizon.",
+    "status": "Teaching case",
+    "year": 2026,
+    "topics": [
+      "Environmental Modeling",
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Extreme-value modeling",
+      "Stochastic simulation",
+      "Cost optimization"
+    ],
+    "featured": false,
+    "project_root": "RisingTide",
+    "hero_image": "RisingTide/figures/publish/optimization-frontier.png",
+    "publish_assets": [
+      {
+        "filename": "optimization-frontier.png",
+        "alt": "Modeled coastal defence cost and risk optimization frontier",
+        "caption": "Optimization frontier for the stylized coastal-defence teaching case.",
+        "generated_by": "RisingTide/main.py",
+        "source_path": "RisingTide/figures/publish/optimization-frontier.png"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/RisingTide",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/RisingTide",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "Stylized scenarios and simulated storm surges",
+    "research_question": "How does uncertainty in sea level and storm surge change the least-cost timing of coastal defences?",
+    "limitations": [
+      "The city and damage functions are stylized.",
+      "Results are for modeling instruction, not infrastructure design."
+    ],
+    "reproduce_command": "python RisingTide/main.py",
+    "last_updated": "2026-01-19",
+    "local_hero_image": "/science/coastal-defence-optimization/optimization-frontier.png"
+  },
+  {
+    "slug": "pollination-ecosystem",
+    "title": "Pollination Ecosystem Trade-offs",
+    "summary": "An agent-based C++ simulation compares pollinator populations, agricultural yield and management assumptions across configured scenarios.",
+    "status": "Exploratory study",
+    "year": 2025,
+    "topics": [
+      "Environmental Modeling"
+    ],
+    "methods": [
+      "Agent-based modeling",
+      "C++ simulation",
+      "Scenario analysis"
+    ],
+    "featured": false,
+    "project_root": "pollination_ecosystem_model",
+    "hero_image": "pollination_ecosystem_model/figures/publish/scenario-comparison.png",
+    "publish_assets": [
+      {
+        "filename": "scenario-comparison.png",
+        "alt": "Comparison of pollinator population and yield across configured management scenarios",
+        "caption": "Scenario comparison from the synthetic agent-based ecosystem model.",
+        "generated_by": "pollination_ecosystem_model simulation and plotting pipeline",
+        "source_path": "pollination_ecosystem_model/figures/publish/scenario-comparison.png"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/pollination_ecosystem_model",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/pollination_ecosystem_model",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": false,
+    "data_type": "Synthetic agent-based scenarios",
+    "research_question": "How do configured management regimes change simulated yield and pollinator persistence?",
+    "limitations": [
+      "Scenario parameters are not a validated agricultural field study.",
+      "Comparisons should not be generalized to policy without calibration and external validation."
+    ],
+    "reproduce_command": "cmake -S pollination_ecosystem_model -B pollination_ecosystem_model/build && cmake --build pollination_ecosystem_model/build --config Release",
+    "last_updated": "2025-11-01",
+    "local_hero_image": "/science/pollination-ecosystem/scenario-comparison.png"
+  }
+]

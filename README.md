@@ -1,28 +1,57 @@
-# skckenneth.github.io
+# Kenneth Cheng — research studio
+The public editorial layer for [skckenneth.github.io](https://skckenneth.github.io),
+built with Astro 7, TypeScript, Markdown/MDX content collections, KaTeX,
+Pagefind, and GitHub Pages.
 
-Personal site of **Cheng Sok Kin (Kenneth)** — secondary mathematics teacher in Macau, writing about mathematical modeling, data science, and the math behind interesting things.
+## Repository boundary
 
-🌐 **Live site:** [skckenneth.github.io](https://skckenneth.github.io/)
+```text
+code / notebooks / data / experiments
+        ↓
+ScienceProject results and figures/publish assets
+        ↓
+manual editorial review
+        ↓
+Markdown or MDX article in this repository
+```
 
-## What's here
-
-- **[Home](https://skckenneth.github.io/)** — short bio, featured projects, recent posts
-- **[Projects](https://skckenneth.github.io/projects/)** — mathematical modeling, AI, and visualization tools
-- **[Blog](https://skckenneth.github.io/year-archive/)** — 50+ writeups on epidemics, optimization, orbital mechanics, traffic dynamics, fractals, and more
-- **[Course materials](https://skckenneth.github.io/Material-for-Mathematical-Modeling/)** — for the mathematical modeling class
-
-## Stack
-
-Built on [Jekyll](https://jekyllrb.com/) using a customized fork of the [Academic Pages](https://github.com/academicpages/academicpages.github.io) theme (itself derived from [Minimal Mistakes](https://mademistakes.com/work/minimal-mistakes-jekyll-theme/)). LaTeX rendering via MathJax 3.
+ScienceProject is the computational source of truth. This repository is the
+publishing layer. `npm run sync:science` copies approved figures and metadata;
+it never creates, edits, or overwrites article bodies.
 
 ## Local development
 
+Requirements: Node 22.12+ and pnpm 11.7.
+
 ```bash
-bundle install
-bundle exec jekyll serve -l -H localhost
-# site available at http://localhost:4000
+pnpm install --frozen-lockfile
+npm run sync:science
+pnpm dev
 ```
 
-## License
+When `../ScienceProject` exists, sync reads it directly. Otherwise it retrieves
+the public manifest and approved assets from GitHub, falling back to the last
+validated snapshots if the network is unavailable.
 
-Content © Cheng Sok Kin. Theme is MIT-licensed (see `LICENSE`).
+```bash
+pnpm build       # sync, schema/type check, build, Pagefind, links, output hygiene
+pnpm preview     # serve the production output
+```
+
+The production origin uses an empty base path. Do not add a repository subpath
+to internal links.
+
+## Architecture
+
+- `src/content/{projects,research,writing,teaching}` — validated editorial content;
+- `src/pages` — static routes and legacy redirect generator;
+- `src/components` and `src/styles` — custom design system;
+- `scripts/sync-science-projects.mjs` — approved-asset and metadata sync;
+- `public/science/<project-slug>/` — managed copies of approved figures;
+- `public/science/asset-manifest.json` — hashes, provenance, status, and stale records;
+- `src/data/generated` — validated fallback snapshots;
+- `legacy-jekyll` — exact pre-rebuild implementation.
+
+Read [CONTENT_GUIDE.md](CONTENT_GUIDE.md), [DEPLOYMENT.md](DEPLOYMENT.md),
+[REBUILD_AUDIT.md](REBUILD_AUDIT.md), [MIGRATION_MAP.md](MIGRATION_MAP.md),
+and [REDIRECT_MAP.md](REDIRECT_MAP.md) before making structural changes.

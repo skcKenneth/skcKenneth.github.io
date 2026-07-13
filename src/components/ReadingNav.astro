@@ -1,0 +1,4 @@
+---
+const { previous, next } = Astro.props;
+---
+<nav aria-label="Article navigation" class="actions">{previous && <a class="button secondary" rel="prev" href={previous.href}>← {previous.title}</a>}{next && <a class="button secondary" rel="next" href={next.href}>{next.title} →</a>}</nav>

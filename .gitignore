@@ -9,4 +9,8 @@ Gemfile.lock
 
 # Ingore files created by npm
 node_modules
+.node_modules-hoisted-incomplete
+.astro
+dist
+.pagefind
 package-lock.json

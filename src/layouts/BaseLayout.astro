@@ -1,0 +1,47 @@
+---
+import "../styles/global.css";
+interface Props { title: string; description?: string; image?: string; noindex?: boolean; type?: string; }
+const { title, description = "Research, education, and computational experiments in mathematical modeling.", image = "/images/og-image.svg", noindex = false, type } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const nav = [["Research","/research/"],["Teaching","/teaching/"],["Writing","/writing/"],["Projects","/projects/"],["About","/about/"],["Search","/search/"]];
+const current = Astro.url.pathname;
+const updated = "13 July 2026";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f3ed" />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    {type && <meta name="pagefind:filter" content={`type:${type}`} />}
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={`${title} — Kenneth Cheng`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <title>{title} — Kenneth Cheng</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="/">Kenneth Cheng<span>Mathematical modeling</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+        <nav aria-label="Primary"><ul class="nav-list" id="primary-nav">
+          {nav.map(([label,href]) => <li><a href={href} aria-current={current.startsWith(href) ? "page" : undefined}>{label}</a></li>)}
+        </ul></nav>
+      </div>
+    </header>
+    <main id="main" data-pagefind-body><slot /></main>
+    <footer class="site-footer"><div class="container footer-grid">
+      <div><strong>Kenneth Cheng</strong><p>Mathematics educator in Macau working across mathematical modeling, computational experiments, teaching, and student research pathways.</p></div>
+      <div><strong>Elsewhere</strong><p><a href="https://github.com/skcKenneth">GitHub</a><br/><a href="mailto:sokkincheng@gmail.com">Email</a><br/><a href="/about/#cv">CV</a></p></div>
+      <div><strong>Source</strong><p><a href="https://github.com/skcKenneth/skcKenneth.github.io">Site repository</a><br/><a href="https://github.com/skcKenneth/ScienceProject">Technical repository</a></p><p class="small">Updated {updated}</p></div>
+    </div></footer>
+    <script is:inline>
+      const button=document.querySelector('.menu-button'); const nav=document.querySelector('#primary-nav');
+      button?.addEventListener('click',()=>{const open=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(open));nav?.setAttribute('data-open',String(open));});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+const { project, wide = false } = Astro.props;
+const image = project.data?.heroImage || project.local_hero_image || project.hero_image;
+const slug = project.data?.slug || project.slug;
+const title = project.data?.title || project.title;
+const summary = project.data?.summary || project.summary;
+const status = project.data?.status || project.status;
+const topics = project.data?.topics || project.topics || [];
+---
+<article class:list={["card", { wide }]} data-project-card data-topic={topics.join("|")} data-status={status} data-method={(project.data?.methods || project.methods || []).join("|")} data-year={project.data?.year || project.year} data-code={String(project.data?.codeAvailable ?? project.code_available)} data-data={String(project.data?.dataAvailable ?? project.data_available)} data-student={String(project.data?.studentSuitable ?? project.student_suitable)}>
+  {image && <figure><img src={image} alt={`Research figure for ${title}`} width="800" height="500" loading="lazy" /></figure>}
+  <div class="meta-line"><StatusBadge status={status} /><span>{project.data?.year || project.year}</span></div>
+  <h3><a class="title-link" href={`/projects/${slug}/`}>{title}</a></h3>
+  <p>{summary}</p>
+  <div class="tag-list">{topics.slice(0,2).map((topic:string) => <span class="tag">{topic}</span>)}</div>
+</article>
