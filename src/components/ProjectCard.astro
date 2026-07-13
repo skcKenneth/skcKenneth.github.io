@@ -13,5 +13,6 @@ const topics = project.data?.topics || project.topics || [];
   <div class="meta-line"><StatusBadge status={status} /><span>{project.data?.year || project.year}</span></div>
   <h3><a class="title-link" href={`/projects/${slug}/`}>{title}</a></h3>
   <p>{summary}</p>
+  {project.catalog_only && <p class="small">Inventory from <code>{project.project_root}</code></p>}
   <div class="tag-list">{topics.slice(0,2).map((topic:string) => <span class="tag">{topic}</span>)}</div>
 </article>
