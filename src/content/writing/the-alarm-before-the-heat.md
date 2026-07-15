@@ -180,21 +180,6 @@ One 4 × 4 geometry cannot represent cylindrical, prismatic, and pouch modules w
 
 There are 160 trajectories per class and condition. Wilson and bootstrap intervals make that uncertainty visible, but several comparisons remain unresolved. A future study should preregister the primary metric, define an equivalence or superiority margin, and choose sample size from the effect size worth detecting.
 
-## What a follow-up study would need
-
-The benchmark is intentionally small. It is useful because the limits stay visible, not because it is close to a finished safety product.
-
-A more informative next step would:
-
-1. Test on instrumented module data or a public abuse-test dataset, not only on the internal proxy.
-2. Define event timing independently of the detector, including self-heating onset and venting where available.
-3. Separate calibration hardware from test hardware rather than using random windows from the same unit.
-4. Compare against realistic battery-management logic, not only four simple statistical baselines.
-5. Add negative controls: ambient ramps, load transients, cooling faults, sensor step bias, intermittent packet loss, and multiple missing channels.
-6. Report alarm computation time, memory, and behaviour on embedded hardware if the method is meant for onboard use.
-
-The interesting question is not whether the score is clever. It is whether a transparent graph-aware detector still adds warning value once the data and failure costs are defined outside this generator.
-
 ## Reproduction and editorial control
 
 The ScienceProject directory is the technical source of truth. Its `run.py` command regenerates the machine-readable metric tables, calibrated thresholds, summary, and four SVG figures. The public website synchronises only those figures listed under `figures/publish/` in the curated manifest.

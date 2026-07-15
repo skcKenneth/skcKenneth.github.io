@@ -1,5 +1,73 @@
 [
   {
+    "slug": "occupancy-aware-classroom-ventilation",
+    "title": "Occupancy-Aware Classroom Ventilation",
+    "summary": "A shared-capacity predictive-control benchmark studies classroom CO2 exposure when timetables are wrong and ventilation capacity is temporarily derated.",
+    "status": "Exploratory study",
+    "year": 2026,
+    "topics": [
+      "Environmental Modeling",
+      "Mathematical Modeling Education"
+    ],
+    "methods": [
+      "Multi-zone CO2 mass balance",
+      "Model predictive control",
+      "Matched Monte Carlo evaluation"
+    ],
+    "featured": true,
+    "project_root": "occupancy-aware-classroom-ventilation",
+    "hero_image": "occupancy-aware-classroom-ventilation/figures/publish/benchmark-exposure-and-energy.svg",
+    "publish_assets": [
+      {
+        "filename": "benchmark-exposure-and-energy.svg",
+        "alt": "Two academic line-and-interval charts comparing person-weighted classroom CO2 exposure and fan-energy proxy across nominal, room-change, capacity-derating, and combined-stress conditions.",
+        "caption": "Four controllers are evaluated on 120 matched synthetic days per condition; error bars are bootstrap 95% intervals.",
+        "generated_by": "occupancy-aware-classroom-ventilation/run.py",
+        "source_path": "occupancy-aware-classroom-ventilation/figures/publish/benchmark-exposure-and-energy.svg"
+      },
+      {
+        "filename": "shared-airflow-and-day.svg",
+        "alt": "A three-classroom shared-fan schematic beside CO2 and occupancy traces for a representative combined-stress school day.",
+        "caption": "The shared command budget couples three well-mixed classroom mass balances under time-varying occupancy.",
+        "generated_by": "occupancy-aware-classroom-ventilation/run.py",
+        "source_path": "occupancy-aware-classroom-ventilation/figures/publish/shared-airflow-and-day.svg"
+      },
+      {
+        "filename": "control-and-evaluation-pipeline.svg",
+        "alt": "Five-stage methodology diagram from timetable and measured state through short forecasting, constrained airflow allocation, and room-change plus capacity stress testing.",
+        "caption": "The evidence pipeline separates occupancy information, controller state, predictive allocation, and stress evaluation.",
+        "generated_by": "occupancy-aware-classroom-ventilation/run.py",
+        "source_path": "occupancy-aware-classroom-ventilation/figures/publish/control-and-evaluation-pipeline.svg"
+      },
+      {
+        "filename": "tradeoff-and-buffer-sensitivity.svg",
+        "alt": "A combined-stress exposure-energy trade-off chart and a sensitivity plot showing exposure and fan energy as the occupancy forecast buffer increases.",
+        "caption": "The uncertainty buffer produces a modest exposure reduction while increasing the fan-energy proxy.",
+        "generated_by": "occupancy-aware-classroom-ventilation/run.py",
+        "source_path": "occupancy-aware-classroom-ventilation/figures/publish/tradeoff-and-buffer-sensitivity.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/blob/main/occupancy-aware-classroom-ventilation/paper/technical-study.md",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/occupancy-aware-classroom-ventilation",
+    "code_available": true,
+    "data_available": true,
+    "student_suitable": true,
+    "data_type": "Synthetic three-classroom timetable, occupancy perturbations, and well-mixed CO2 trajectories",
+    "research_question": "Can short-horizon airflow allocation reduce occupied CO2 exposure when room use and shared ventilation capacity depart from the timetable, and what energy cost accompanies an occupancy buffer?",
+    "limitations": [
+      "The rooms are well-mixed synthetic zones rather than calibrated classrooms or a commissioned air-handling system.",
+      "The 1000 ppm line is a benchmark control target and not a universal health, safety, or compliance threshold.",
+      "Fan energy and ventilation thermal load are proxies; aerosols, filtration, infection risk, and health outcomes are not modelled."
+    ],
+    "reproduce_command": "python occupancy-aware-classroom-ventilation/run.py",
+    "last_updated": "2026-07-15",
+    "category": "Environmental Modeling",
+    "readme_path": "occupancy-aware-classroom-ventilation/README.md",
+    "documentation_excerpt": "This reproducible benchmark compares fixed, reactive, and predictive airflow allocation when three classrooms share limited capacity and actual room use departs from the timetable.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/occupancy-aware-classroom-ventilation/README.md",
+    "local_hero_image": "/science/occupancy-aware-classroom-ventilation/benchmark-exposure-and-energy.svg"
+  },
+  {
     "slug": "battery-pack-thermal-early-warning",
     "title": "Graph-Calibrated Battery Thermal Early Warning",
     "summary": "A sequential graph-CUSUM study for warning of local battery-pack thermal faults under temperature-sensor drift and dropout.",
