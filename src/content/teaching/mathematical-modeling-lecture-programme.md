@@ -54,6 +54,16 @@ Lectures 9–12 widen the model repertoire and make method choice explicit.
 
 The aim is not to collect techniques. Students compare what each representation makes visible, what it suppresses, and how it can fail.
 
+## Interactive model laboratory
+
+The public [Interactive Model Laboratory](/teaching/model-laboratory/) turns three parts of the programme into parameter experiments:
+
+- a discrete logistic model for equilibrium, overshoot, and convergence;
+- an SIR model for transmission, recovery, intervention timing, and peak demand;
+- a stopping-distance model for linear and quadratic scaling.
+
+Each example pairs controls with a live graph, calculated quantities, interpretation, and questions to test. The purpose is not to find a visually pleasing curve. Students predict a response, change one assumption, compare the result, and identify what the simplified model still omits.
+
 ## Mathematical foundations on demand
 
 Ten supplementary units provide a bridge when the modeling task requires mathematics that students have not yet consolidated:

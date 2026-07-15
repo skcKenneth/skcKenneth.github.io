@@ -1,0 +1,341 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Interactive Model Laboratory"
+  description="Interactive mathematical-modeling examples for exploring growth, epidemic dynamics, intervention timing, and stopping distance."
+  type="Teaching"
+>
+  <header class="page-head model-lab-head">
+    <div class="container">
+      <p class="eyebrow">Interactive teaching examples</p>
+      <h1>Change an assumption. Watch the model answer differently.</h1>
+      <p class="lead">Three compact experiments connect equations to behaviour. Adjust a parameter, inspect the curve, and ask which conclusion survives the change.</p>
+      <nav class="model-jump-nav" aria-label="Model laboratory examples">
+        <a href="#logistic-growth">01 Logistic growth</a>
+        <a href="#sir-intervention">02 SIR intervention</a>
+        <a href="#stopping-distance">03 Stopping distance</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section model-lab-section" id="logistic-growth" data-model="logistic">
+    <div class="container">
+      <div class="model-intro">
+        <div>
+          <p class="eyebrow">01 · Discrete dynamics</p>
+          <h2>Logistic growth and carrying capacity</h2>
+        </div>
+        <div>
+          <p class="model-equation" aria-label="P sub n plus one equals P sub n plus r P sub n times one minus P sub n divided by K">P<sub>n+1</sub> = P<sub>n</sub> + rP<sub>n</sub>(1 − P<sub>n</sub>/K)</p>
+          <p>The growth term is large when the population is small, then weakens as the state approaches the carrying capacity <em>K</em>. A larger growth rate can create overshoot and alternating corrections.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Logistic growth parameters">
+          <label for="logistic-initial">Initial population <output for="logistic-initial" data-output="initial">30</output></label>
+          <input id="logistic-initial" data-input="initial" type="range" min="10" max="200" step="5" value="30" />
+
+          <label for="logistic-capacity">Carrying capacity <output for="logistic-capacity" data-output="capacity">500</output></label>
+          <input id="logistic-capacity" data-input="capacity" type="range" min="200" max="1000" step="50" value="500" />
+
+          <label for="logistic-rate">Growth rate <em>r</em> <output for="logistic-rate" data-output="rate">0.35</output></label>
+          <input id="logistic-rate" data-input="rate" type="range" min="0.05" max="1.80" step="0.05" value="0.35" />
+
+          <label for="logistic-steps">Generations <output for="logistic-steps" data-output="steps">50</output></label>
+          <input id="logistic-steps" data-input="steps" type="range" min="20" max="80" step="5" value="50" />
+        </form>
+        <div class="model-visual">
+          <svg class="model-chart" data-chart="logistic" viewBox="0 0 720 360" role="img" aria-labelledby="logistic-chart-title logistic-chart-desc"></svg>
+          <dl class="model-metrics">
+            <div><dt>Final population</dt><dd data-metric="final">—</dd></div>
+            <div><dt>Peak population</dt><dd data-metric="peak">—</dd></div>
+            <div><dt>First reaches 90% of K</dt><dd data-metric="threshold">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts">
+        <strong>Questions to test</strong>
+        <span>Does doubling the initial population halve the time to 90% of <em>K</em>?</span>
+        <span>At what value of <em>r</em> does smooth convergence become alternating convergence?</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section model-lab-section" id="sir-intervention" data-model="sir">
+    <div class="container">
+      <div class="model-intro">
+        <div>
+          <p class="eyebrow">02 · Coupled differential equations</p>
+          <h2>SIR dynamics with a timed intervention</h2>
+        </div>
+        <div>
+          <p class="model-equation" aria-label="S prime equals negative beta S I divided by N; I prime equals beta S I divided by N minus gamma I; R prime equals gamma I">S′ = −βSI/N &nbsp; · &nbsp; I′ = βSI/N − γI &nbsp; · &nbsp; R′ = γI</p>
+          <p>The model divides a fixed population of 1,000 into susceptible, infectious, and removed groups. On the selected intervention day, transmission <em>β</em> is reduced by the chosen percentage.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="SIR model parameters">
+          <label for="sir-initial">Initial infectious people <output for="sir-initial" data-output="initial">10</output></label>
+          <input id="sir-initial" data-input="initial" type="range" min="1" max="50" step="1" value="10" />
+
+          <label for="sir-beta">Transmission rate β <output for="sir-beta" data-output="beta">0.32</output> per day</label>
+          <input id="sir-beta" data-input="beta" type="range" min="0.10" max="0.80" step="0.01" value="0.32" />
+
+          <label for="sir-duration">Mean infectious period <output for="sir-duration" data-output="duration">7</output> days</label>
+          <input id="sir-duration" data-input="duration" type="range" min="3" max="14" step="1" value="7" />
+
+          <label for="sir-day">Intervention day <output for="sir-day" data-output="day">28</output></label>
+          <input id="sir-day" data-input="day" type="range" min="5" max="100" step="1" value="28" />
+
+          <label for="sir-reduction">Transmission reduction <output for="sir-reduction" data-output="reduction">45</output>%</label>
+          <input id="sir-reduction" data-input="reduction" type="range" min="0" max="80" step="5" value="45" />
+        </form>
+        <div class="model-visual">
+          <div class="model-legend" aria-hidden="true"><span class="legend-s">Susceptible</span><span class="legend-i">Infectious</span><span class="legend-r">Removed</span><span class="legend-intervention">Intervention</span></div>
+          <svg class="model-chart" data-chart="sir" viewBox="0 0 720 360" role="img" aria-labelledby="sir-chart-title sir-chart-desc"></svg>
+          <dl class="model-metrics">
+            <div><dt>Initial R₀</dt><dd data-metric="r0">—</dd></div>
+            <div><dt>Peak infectious</dt><dd data-metric="peak">—</dd></div>
+            <div><dt>Peak day</dt><dd data-metric="peak-day">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts">
+        <strong>Questions to test</strong>
+        <span>Can a late, strong intervention produce a higher peak than an early, moderate one?</span>
+        <span>Which conclusion changes when the infectious period is uncertain?</span>
+      </div>
+      <p class="small">This is a deliberately simplified teaching model, not an epidemiological forecast or medical recommendation.</p>
+    </div>
+  </section>
+
+  <section class="section model-lab-section" id="stopping-distance" data-model="stopping">
+    <div class="container">
+      <div class="model-intro">
+        <div>
+          <p class="eyebrow">03 · Scaling and decomposition</p>
+          <h2>Why stopping distance grows faster than speed</h2>
+        </div>
+        <div>
+          <p class="model-equation" aria-label="d equals v t sub r plus v squared divided by two mu g">d(v) = vt<sub>r</sub> + v²/(2μg)</p>
+          <p>Reaction distance grows linearly with speed; braking distance grows quadratically. The decomposition shows why a modest increase in speed can create a much larger increase in total distance.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Stopping-distance parameters">
+          <label for="stop-speed">Speed <output for="stop-speed" data-output="speed">60</output> km/h</label>
+          <input id="stop-speed" data-input="speed" type="range" min="20" max="120" step="5" value="60" />
+
+          <label for="stop-reaction">Reaction time <output for="stop-reaction" data-output="reaction">1.2</output> s</label>
+          <input id="stop-reaction" data-input="reaction" type="range" min="0.5" max="2.5" step="0.1" value="1.2" />
+
+          <label for="stop-friction">Tyre–road friction μ <output for="stop-friction" data-output="friction">0.70</output></label>
+          <input id="stop-friction" data-input="friction" type="range" min="0.30" max="0.90" step="0.05" value="0.70" />
+        </form>
+        <div class="model-visual">
+          <div class="model-legend" aria-hidden="true"><span class="legend-total">Total</span><span class="legend-reaction">Reaction</span><span class="legend-braking">Braking</span></div>
+          <svg class="model-chart" data-chart="stopping" viewBox="0 0 720 360" role="img" aria-labelledby="stopping-chart-title stopping-chart-desc"></svg>
+          <dl class="model-metrics">
+            <div><dt>Reaction distance</dt><dd data-metric="reaction">—</dd></div>
+            <div><dt>Braking distance</dt><dd data-metric="braking">—</dd></div>
+            <div><dt>Total distance</dt><dd data-metric="total">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts">
+        <strong>Questions to test</strong>
+        <span>Does doubling speed double total stopping distance?</span>
+        <span>When does reaction time matter more than road friction?</span>
+      </div>
+      <p class="small">The formula is a classroom baseline on a level road with constant friction. Real stopping distance also depends on gradient, tyres, brakes, weather, perception, and driver behaviour.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container teaching-contact">
+      <div><p class="eyebrow">From interaction to evidence</p><h2>A slider movement is a hypothesis, not a conclusion.</h2></div>
+      <div><p>Use each example to record one prediction, one parameter change, one observed response, and one limitation. That four-line record turns exploration into a small modeling experiment.</p><a class="button secondary" href="/teaching/mathematical-modeling-lecture-programme/">Return to the lecture programme</a></div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const margin = { left: 62, right: 24, top: 24, bottom: 48 };
+      const width = 720;
+      const height = 360;
+      const plotWidth = width - margin.left - margin.right;
+      const plotHeight = height - margin.top - margin.bottom;
+
+      const number = (value, digits = 0) => Number(value).toFixed(digits);
+      const read = (root, name) => Number(root.querySelector(`[data-input="${name}"]`).value);
+      const write = (root, selector, value) => { root.querySelector(selector).textContent = value; };
+      const pointsPath = (points, xMax, yMax) => points.map((point, index) => {
+        const x = margin.left + (point.x / xMax) * plotWidth;
+        const y = margin.top + plotHeight - (point.y / yMax) * plotHeight;
+        return `${index ? "L" : "M"}${x.toFixed(2)},${y.toFixed(2)}`;
+      }).join(" ");
+      const areaPath = (points, xMax, yMax) => {
+        const firstX = margin.left + (points[0].x / xMax) * plotWidth;
+        const lastX = margin.left + (points.at(-1).x / xMax) * plotWidth;
+        const baseline = margin.top + plotHeight;
+        return `${pointsPath(points, xMax, yMax)} L${lastX.toFixed(2)},${baseline} L${firstX.toFixed(2)},${baseline} Z`;
+      };
+
+      const chartFrame = (xMax, yMax, xLabel, yLabel) => {
+        const xTicks = 4;
+        const yTicks = 4;
+        let markup = `<rect class="chart-field" x="${margin.left}" y="${margin.top}" width="${plotWidth}" height="${plotHeight}" rx="12"></rect>`;
+        for (let index = 0; index <= xTicks; index += 1) {
+          const value = (xMax * index) / xTicks;
+          const x = margin.left + (plotWidth * index) / xTicks;
+          markup += `<line class="chart-grid chart-grid-x" x1="${x}" y1="${margin.top}" x2="${x}" y2="${margin.top + plotHeight}"></line>`;
+          markup += `<text class="chart-tick" x="${x}" y="${height - 22}" text-anchor="middle">${Math.round(value)}</text>`;
+        }
+        for (let index = 0; index <= yTicks; index += 1) {
+          const value = (yMax * index) / yTicks;
+          const y = margin.top + plotHeight - (plotHeight * index) / yTicks;
+          markup += `<line class="chart-grid chart-grid-y" x1="${margin.left}" y1="${y}" x2="${margin.left + plotWidth}" y2="${y}"></line>`;
+          markup += `<text class="chart-tick" x="${margin.left - 10}" y="${y + 4}" text-anchor="end">${Math.round(value)}</text>`;
+        }
+        markup += `<line class="chart-axis" x1="${margin.left}" y1="${margin.top + plotHeight}" x2="${margin.left + plotWidth}" y2="${margin.top + plotHeight}"></line>`;
+        markup += `<line class="chart-axis" x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + plotHeight}"></line>`;
+        markup += `<text class="chart-label" x="${margin.left + plotWidth / 2}" y="${height - 4}" text-anchor="middle">${xLabel}</text>`;
+        markup += `<text class="chart-label" transform="translate(16 ${margin.top + plotHeight / 2}) rotate(-90)" text-anchor="middle">${yLabel}</text>`;
+        return markup;
+      };
+
+      const bindControls = (root, render) => {
+        root.querySelectorAll('input[type="range"]').forEach((input) => input.addEventListener("input", render));
+        render();
+      };
+
+      const logisticRoot = document.querySelector('[data-model="logistic"]');
+      const renderLogistic = () => {
+        const initial = read(logisticRoot, "initial");
+        const capacity = read(logisticRoot, "capacity");
+        const rate = read(logisticRoot, "rate");
+        const steps = read(logisticRoot, "steps");
+        write(logisticRoot, '[data-output="initial"]', number(initial));
+        write(logisticRoot, '[data-output="capacity"]', number(capacity));
+        write(logisticRoot, '[data-output="rate"]', number(rate, 2));
+        write(logisticRoot, '[data-output="steps"]', number(steps));
+
+        const values = [{ x: 0, y: initial }];
+        for (let step = 1; step <= steps; step += 1) {
+          const current = values[step - 1].y;
+          const next = Math.max(0, current + rate * current * (1 - current / capacity));
+          values.push({ x: step, y: next });
+        }
+        const peak = Math.max(...values.map((point) => point.y));
+        const threshold = values.find((point) => point.y >= 0.9 * capacity);
+        const yMax = Math.max(capacity * 1.12, peak * 1.08);
+        const svg = logisticRoot.querySelector('[data-chart="logistic"]');
+        const finalX = margin.left + plotWidth;
+        const finalY = margin.top + plotHeight - (values.at(-1).y / yMax) * plotHeight;
+        svg.innerHTML = `<title id="logistic-chart-title">Logistic population over discrete generations</title><desc id="logistic-chart-desc">The line updates when initial population, carrying capacity, growth rate, or number of generations changes.</desc>${chartFrame(steps, yMax, "Generation n", "Population P")}<path class="series-area logistic-area" d="${areaPath(values, steps, yMax)}"></path><line class="capacity-line" x1="${margin.left}" y1="${margin.top + plotHeight - (capacity / yMax) * plotHeight}" x2="${margin.left + plotWidth}" y2="${margin.top + plotHeight - (capacity / yMax) * plotHeight}"></line><text class="capacity-label" x="${margin.left + plotWidth - 4}" y="${margin.top + plotHeight - (capacity / yMax) * plotHeight - 8}" text-anchor="end">carrying capacity K = ${capacity}</text><path class="series-logistic" d="${pointsPath(values, steps, yMax)}"></path><circle class="series-end logistic-end" cx="${finalX}" cy="${finalY}" r="5"></circle>`;
+        write(logisticRoot, '[data-metric="final"]', number(values.at(-1).y, 1));
+        write(logisticRoot, '[data-metric="peak"]', number(peak, 1));
+        write(logisticRoot, '[data-metric="threshold"]', threshold ? `generation ${threshold.x}` : "not reached");
+        const overshoot = peak > capacity * 1.01;
+        const reading = overshoot
+          ? `With r = ${number(rate, 2)}, the population overshoots K and corrects in later generations. The carrying capacity is an equilibrium, not a hard ceiling.`
+          : threshold
+            ? `The trajectory first reaches 90% of K at generation ${threshold.x}. Growth slows because the remaining capacity term becomes small.`
+            : `The trajectory remains below 90% of K within ${steps} generations. A longer horizon is needed before claiming convergence.`;
+        write(logisticRoot, "[data-reading]", reading);
+      };
+      bindControls(logisticRoot, renderLogistic);
+
+      const sirRoot = document.querySelector('[data-model="sir"]');
+      const renderSir = () => {
+        const population = 1000;
+        const initial = read(sirRoot, "initial");
+        const beta = read(sirRoot, "beta");
+        const duration = read(sirRoot, "duration");
+        const gamma = 1 / duration;
+        const interventionDay = read(sirRoot, "day");
+        const reduction = read(sirRoot, "reduction") / 100;
+        write(sirRoot, '[data-output="initial"]', number(initial));
+        write(sirRoot, '[data-output="beta"]', number(beta, 2));
+        write(sirRoot, '[data-output="duration"]', number(duration));
+        write(sirRoot, '[data-output="day"]', number(interventionDay));
+        write(sirRoot, '[data-output="reduction"]', number(reduction * 100));
+
+        const dt = 0.2;
+        const days = 160;
+        let susceptible = population - initial;
+        let infectious = initial;
+        let removed = 0;
+        const values = [{ x: 0, susceptible, infectious, removed }];
+        for (let time = dt; time <= days + 0.0001; time += dt) {
+          const betaNow = time >= interventionDay ? beta * (1 - reduction) : beta;
+          const newInfections = Math.min(susceptible, betaNow * susceptible * infectious / population * dt);
+          const newRemoved = Math.min(infectious + newInfections, gamma * infectious * dt);
+          susceptible -= newInfections;
+          infectious += newInfections - newRemoved;
+          removed += newRemoved;
+          values.push({ x: time, susceptible, infectious, removed });
+        }
+        const sampled = values.filter((_, index) => index % 5 === 0);
+        const sPoints = sampled.map((point) => ({ x: point.x, y: point.susceptible }));
+        const iPoints = sampled.map((point) => ({ x: point.x, y: point.infectious }));
+        const rPoints = sampled.map((point) => ({ x: point.x, y: point.removed }));
+        const peak = values.reduce((best, point) => point.infectious > best.infectious ? point : best, values[0]);
+        const interventionX = margin.left + (interventionDay / days) * plotWidth;
+        const svg = sirRoot.querySelector('[data-chart="sir"]');
+        const peakX = margin.left + (peak.x / days) * plotWidth;
+        const peakY = margin.top + plotHeight - (peak.infectious / population) * plotHeight;
+        svg.innerHTML = `<title id="sir-chart-title">SIR epidemic trajectories with a timed intervention</title><desc id="sir-chart-desc">Susceptible, infectious, and removed populations over 160 days. A vertical line marks the selected intervention day.</desc>${chartFrame(days, population, "Day", "People")}<path class="series-area sir-area" d="${areaPath(iPoints, days, population)}"></path><path class="series-s" d="${pointsPath(sPoints, days, population)}"></path><path class="series-i" d="${pointsPath(iPoints, days, population)}"></path><path class="series-r" d="${pointsPath(rPoints, days, population)}"></path><line class="intervention-line" x1="${interventionX}" y1="${margin.top}" x2="${interventionX}" y2="${margin.top + plotHeight}"></line><text class="intervention-label" x="${interventionX + 6}" y="${margin.top + 17}">intervention · day ${interventionDay}</text><circle class="series-end sir-end" cx="${peakX}" cy="${peakY}" r="5"></circle>`;
+        const r0 = beta / gamma;
+        const after = beta * (1 - reduction) / gamma;
+        write(sirRoot, '[data-metric="r0"]', number(r0, 2));
+        write(sirRoot, '[data-metric="peak"]', `${number(peak.infectious)} people`);
+        write(sirRoot, '[data-metric="peak-day"]', number(peak.x, 1));
+        const reading = after < 1
+          ? `The intervention changes β/γ from ${number(r0, 2)} to ${number(after, 2)}, below 1 in the fully susceptible approximation. Timing still matters because infections accumulated before day ${interventionDay} cannot be undone.`
+          : `After intervention, β/γ is ${number(after, 2)}. In the fully susceptible approximation it remains above 1, so the intervention slows transmission without immediately reversing growth.`;
+        write(sirRoot, "[data-reading]", reading);
+      };
+      bindControls(sirRoot, renderSir);
+
+      const stoppingRoot = document.querySelector('[data-model="stopping"]');
+      const distances = (speedKmh, reactionTime, friction) => {
+        const speed = speedKmh / 3.6;
+        const reaction = speed * reactionTime;
+        const braking = speed * speed / (2 * friction * 9.81);
+        return { reaction, braking, total: reaction + braking };
+      };
+      const renderStopping = () => {
+        const speed = read(stoppingRoot, "speed");
+        const reactionTime = read(stoppingRoot, "reaction");
+        const friction = read(stoppingRoot, "friction");
+        write(stoppingRoot, '[data-output="speed"]', number(speed));
+        write(stoppingRoot, '[data-output="reaction"]', number(reactionTime, 1));
+        write(stoppingRoot, '[data-output="friction"]', number(friction, 2));
+
+        const speeds = Array.from({ length: 61 }, (_, index) => index * 2);
+        const totalPoints = speeds.map((value) => ({ x: value, y: distances(value, reactionTime, friction).total }));
+        const reactionPoints = speeds.map((value) => ({ x: value, y: distances(value, reactionTime, friction).reaction }));
+        const brakingPoints = speeds.map((value) => ({ x: value, y: distances(value, reactionTime, friction).braking }));
+        const selected = distances(speed, reactionTime, friction);
+        const yMax = Math.ceil(totalPoints.at(-1).y / 20) * 20;
+        const selectedX = margin.left + (speed / 120) * plotWidth;
+        const selectedY = margin.top + plotHeight - (selected.total / yMax) * plotHeight;
+        const svg = stoppingRoot.querySelector('[data-chart="stopping"]');
+        svg.innerHTML = `<title id="stopping-chart-title">Stopping distance by speed</title><desc id="stopping-chart-desc">Total, reaction, and braking distance curves from zero to 120 kilometres per hour. A point marks the selected speed.</desc>${chartFrame(120, yMax, "Speed (km/h)", "Distance (m)")}<path class="series-area stopping-area" d="${areaPath(totalPoints, 120, yMax)}"></path><path class="series-total" d="${pointsPath(totalPoints, 120, yMax)}"></path><path class="series-reaction" d="${pointsPath(reactionPoints, 120, yMax)}"></path><path class="series-braking" d="${pointsPath(brakingPoints, 120, yMax)}"></path><circle class="selected-point" cx="${selectedX}" cy="${selectedY}" r="6"></circle><text class="selected-label" x="${Math.min(selectedX + 12, margin.left + plotWidth - 92)}" y="${Math.max(selectedY - 12, margin.top + 17)}">${speed} km/h · ${number(selected.total, 1)} m</text>`;
+        write(stoppingRoot, '[data-metric="reaction"]', `${number(selected.reaction, 1)} m`);
+        write(stoppingRoot, '[data-metric="braking"]', `${number(selected.braking, 1)} m`);
+        write(stoppingRoot, '[data-metric="total"]', `${number(selected.total, 1)} m`);
+        const doubled = distances(Math.min(speed * 2, 120), reactionTime, friction).total;
+        const comparison = speed <= 60 ? ` At ${Math.min(speed * 2, 120)} km/h the same baseline gives ${number(doubled, 1)} m, not merely twice the distance.` : " The upward curvature is the visible signature of the v² braking term.";
+        write(stoppingRoot, "[data-reading]", `At ${speed} km/h, braking contributes ${number(100 * selected.braking / selected.total)}% of the modeled total.${comparison}`);
+      };
+      bindControls(stoppingRoot, renderStopping);
+    })();
+  </script>
+</BaseLayout>
