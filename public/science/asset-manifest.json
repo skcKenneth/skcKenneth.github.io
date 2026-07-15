@@ -1,5 +1,5 @@
 {
-  "source": "sibling ScienceProject",
+  "source": "sibling private ScienceProject",
   "source_of_truth": "ScienceProject figures/publish only",
   "editorial_policy": "Article bodies are manually authored in skcKenneth.github.io and are never generated or overwritten by sync.",
   "updated_at": "2026-07-15",
@@ -12,7 +12,7 @@
       "alt": "Two academic line-and-interval charts comparing person-weighted classroom CO2 exposure and fan-energy proxy across nominal, room-change, capacity-derating, and combined-stress conditions.",
       "caption": "Four controllers are evaluated on 120 matched synthetic days per condition; error bars are bootstrap 95% intervals.",
       "generated_by": "occupancy-aware-classroom-ventilation/run.py",
-      "status": "copied",
+      "status": "current",
       "sha256": "b0d6ef2e29fa3d0bcf6ebcb470c4265434f898136af069b0bc449133396aaa19",
       "bytes": 42972
     },
@@ -24,7 +24,7 @@
       "alt": "A three-classroom shared-fan schematic beside CO2 and occupancy traces for a representative combined-stress school day.",
       "caption": "The shared command budget couples three well-mixed classroom mass balances under time-varying occupancy.",
       "generated_by": "occupancy-aware-classroom-ventilation/run.py",
-      "status": "copied",
+      "status": "current",
       "sha256": "38e7946a5734185b88afc11dc53976fd63a0cc1cdbe9aca5275501c2d72bc946",
       "bytes": 32525
     },
@@ -36,7 +36,7 @@
       "alt": "Five-stage methodology diagram from timetable and measured state through short forecasting, constrained airflow allocation, and room-change plus capacity stress testing.",
       "caption": "The evidence pipeline separates occupancy information, controller state, predictive allocation, and stress evaluation.",
       "generated_by": "occupancy-aware-classroom-ventilation/run.py",
-      "status": "copied",
+      "status": "current",
       "sha256": "8ab8d1387722df478bf0c60d6aee832041dff487194e9bf60c63e0feedd8aa2a",
       "bytes": 7523
     },
@@ -48,7 +48,7 @@
       "alt": "A combined-stress exposure-energy trade-off chart and a sensitivity plot showing exposure and fan energy as the occupancy forecast buffer increases.",
       "caption": "The uncertainty buffer produces a modest exposure reduction while increasing the fan-energy proxy.",
       "generated_by": "occupancy-aware-classroom-ventilation/run.py",
-      "status": "copied",
+      "status": "current",
       "sha256": "bb99a5f941db6d325196294609e1358197456998ae595f7b34e4e32403860cdc",
       "bytes": 40163
     },

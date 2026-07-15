@@ -19,14 +19,14 @@ const topics = unique(projects.flatMap((project: any) => project.data?.topics ??
 const statuses = unique(projects.map((project: any) => project.data?.status ?? project.status));
 const methods = unique(projects.flatMap((project: any) => project.data?.methods ?? project.methods ?? []));
 ---
-<BaseLayout title="Projects" description="Complete ScienceProject catalogue with separate editorial and inventory-level evidence labels." type="Projects">
+<BaseLayout title="Projects" description="Curated research catalogue with separate editorial and inventory-level evidence labels." type="Projects">
   <header class="page-head"><div class="container">
-    <p class="eyebrow">Complete ScienceProject catalogue</p>
+    <p class="eyebrow">Research catalogue</p>
     <h1>Every technical project, with its evidence level visible.</h1>
-    <p class="lead">All {projects.length} catalogue entries are represented. {curated.length} have full editorial overviews; the remainder expose repository inventory without converting notebooks or raw notes into blog prose.</p>
+    <p class="lead">All {projects.length} catalogue entries are represented. {curated.length} have full editorial overviews; the remainder expose a high-level inventory without publishing notebooks, raw notes, or private source material.</p>
   </div></header>
   <section class="section"><div class="container">
-    <div class="notice"><strong>Two evidence levels.</strong> Editorial projects explain verified outputs, methods, and limitations. Catalogue entries show what exists in ScienceProject and link to the source, but make no claim that the work has been scientifically validated.</div>
+    <div class="notice"><strong>Two evidence levels.</strong> Editorial projects explain reviewed outputs, methods, and limitations. Catalogue entries record what exists in the private technical workspace but make no claim that the work has been scientifically validated.</div>
     <form class="filter-bar" id="filters" aria-label="Project filters">
       <label>Topic<select name="topic"><option value="">All topics</option>{topics.map((value) => <option>{value}</option>)}</select></label>
       <label>Status<select name="status"><option value="">All statuses</option>{statuses.map((value) => <option>{value}</option>)}</select></label>

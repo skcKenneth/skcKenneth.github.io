@@ -1,5 +1,114 @@
 ---
-import { getCollection } from "astro:content"; import BaseLayout from "../../layouts/BaseLayout.astro";
-const items=await getCollection("teaching",({data})=>!data.draft); const order={Beginner:0,Competition:1,Advanced:2,Instructor:3}; items.sort((a,b)=>order[a.data.level]-order[b.data.level]);
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const items = await getCollection("teaching", ({ data }) => !data.draft);
+const order = { Beginner: 0, Competition: 1, Advanced: 2, Instructor: 3 };
+items.sort((a, b) => order[a.data.level] - order[b.data.level] || a.data.title.localeCompare(b.data.title));
+const bySlug = new Map(items.map((item) => [item.data.slug, item]));
+const sequence = ["mathematical-modeling-lecture-programme", "python-labs", "competition-pathway", "student-research-studio"]
+  .map((slug) => bySlug.get(slug))
+  .filter((item): item is NonNullable<typeof item> => Boolean(item));
+const principles = [
+  ["Formulate before calculating", "A useful model begins with a focused question, a system boundary, quantities, and units."],
+  ["Build a baseline first", "Simple reference models make later complexity explainable and give every improvement something to beat."],
+  ["Treat validation as mathematics", "Limiting cases, sensitivity, alternative baselines, and numerical checks belong inside the solution."],
+  ["Write claims from evidence", "Students separate numerical output, interpretation, limitations, and the next evidence a decision would require."]
+];
+const cases = [
+  ["A model-building workflow", "Question framing, assumptions, baselines, validation, and reproducibility.", "/writing/modeling-workflow/", "Foundations"],
+  ["Interpolation and numerical judgement", "Node choice, error, oscillation, and why a smooth curve is not automatically a reliable one.", "/writing/interpolation-guide/", "Numerical methods"],
+  ["Reading a spatial dengue model", "Boundary conditions, synthetic evidence, verification, and claim limits.", "/writing/climate-driven-dengue/", "Environmental modeling"],
+  ["Ventilation under a wrong timetable", "Mass balance, predictive control, shared constraints, and conflicting evaluation metrics.", "/teaching/ventilation-case-clinic/", "Worked case"]
+];
 ---
-<BaseLayout title="Teaching" description="Mathematical modeling pathways, Python laboratories, competition preparation, student research, and instructor resources." type="Teaching"><header class="page-head"><div class="container"><p class="eyebrow">Teaching</p><h1>Learn modeling by making decisions visible.</h1><p class="lead">Choose a pathway by experience. Each connects mathematics, computation, validation, writing, and reproducibility.</p></div></header><section class="section"><div class="container grid">{items.map(item=><article class="card wide"><p class="eyebrow">{item.data.level} · {item.data.resourceType}</p><h2><a class="title-link" href={`/teaching/${item.data.slug}/`}>{item.data.title}</a></h2><p>{item.data.summary}</p></article>)}</div></section><section class="section"><div class="container section-head"><div><p class="eyebrow">Student research</p><h2>From case study to independent question</h2></div><p>Advanced students move from reproducing an existing result to changing one assumption, designing a check, and explaining what the new evidence supports. Suitable projects are marked in the <a href="/projects/?availability=student">project index</a>.</p></div></section></BaseLayout>
+<BaseLayout title="Teaching" description="A teaching portfolio in mathematical modeling, computational laboratories, assessment, competition practice, and student research mentoring." type="Teaching">
+  <header class="teaching-hero">
+    <div class="container teaching-hero-grid">
+      <div>
+        <p class="eyebrow">Teaching mathematical modeling</p>
+        <h1>Make every modelling decision visible.</h1>
+        <p class="lead">I teach mathematics as a way to frame uncertain questions, build defensible models, test computational evidence, and communicate conclusions with honest limits.</p>
+        <div class="actions"><a class="button" href="/teaching/mathematical-modeling-lecture-programme/">View the lecture programme</a><a class="button secondary" href="/teaching/instructor-resources/">Assessment approach</a></div>
+      </div>
+      <aside class="teaching-statement" aria-label="Teaching approach summary">
+        <p class="eyebrow">The learning arc</p>
+        <ol>
+          <li><span>01</span><strong>Frame</strong><small>question · boundary · quantities</small></li>
+          <li><span>02</span><strong>Model</strong><small>assumptions · baseline · equations</small></li>
+          <li><span>03</span><strong>Test</strong><small>computation · validation · uncertainty</small></li>
+          <li><span>04</span><strong>Explain</strong><small>evidence · limitations · revision</small></li>
+        </ol>
+      </aside>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Teaching principles</p><h2>Rigour that students can inspect.</h2></div><p>Open-ended work becomes teachable when the invisible choices are turned into artefacts that can be discussed, checked, and improved.</p></div>
+      <div class="grid">{principles.map(([title, description], index) => <article class="card"><p class="eyebrow">0{index + 1}</p><h3>{title}</h3><p>{description}</p></article>)}</div>
+    </div>
+  </section>
+
+  <section class="section teaching-archive-section">
+    <div class="container teaching-archive">
+      <div>
+        <p class="eyebrow">Curriculum in use</p>
+        <h2>A complete modeling sequence, not a collection of isolated activities.</h2>
+        <p>The lecture archive connects mathematical foundations, empirical models, simulation, optimization, decisions under uncertainty, differential equations, dimensional analysis, and technical writing.</p>
+        <p><a href="/teaching/mathematical-modeling-lecture-programme/">Explore the programme architecture →</a></p>
+      </div>
+      <dl class="archive-stats">
+        <div><dt>12</dt><dd>main lectures</dd></div>
+        <div><dt>10</dt><dd>foundation supplements</dd></div>
+        <div><dt>5</dt><dd>writing classes</dd></div>
+        <div><dt>189</dt><dd>worked examples</dd></div>
+        <div><dt>82</dt><dd>exercise sets</dd></div>
+        <div><dt>8</dt><dd>teaching datasets</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="curriculum">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Curriculum architecture</p><h2>From first model to independent research.</h2></div><p>The sequence increases mathematical and computational independence while keeping question quality, validation, and communication visible at every level.</p></div>
+      <ol class="curriculum-sequence">
+        {sequence.map((item, index) => <li>
+          <span class="sequence-number">{String(index + 1).padStart(2, "0")}</span>
+          <div><p class="eyebrow">{item.data.level}</p><h3><a href={`/teaching/${item.data.slug}/`}>{item.data.title}</a></h3><p>{item.data.summary}</p></div>
+        </li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Evidence in practice</p><h2>Cases built for mathematical judgement.</h2></div><p>Public articles and approved figures become teaching cases only after the learning question, expected artefacts, and claim boundaries are made explicit.</p></div>
+      <div class="grid">{cases.map(([title, description, href, label]) => <article class="card wide"><p class="eyebrow">{label}</p><h3><a class="title-link" href={href}>{title}</a></h3><p>{description}</p><p><a href={href}>Open the case →</a></p></article>)}</div>
+    </div>
+  </section>
+
+  <section class="section teaching-output-section">
+    <div class="container teaching-output-grid">
+      <div><p class="eyebrow">Learning evidence</p><h2>Students produce an argument, not only an answer.</h2><p>Each pathway is organised around artefacts that expose how the result was obtained and how confidently it should be used.</p></div>
+      <ul class="output-list">
+        <li><strong>Model brief</strong><span>decision, question, system boundary, and stakeholders</span></li>
+        <li><strong>Assumption register</strong><span>units, provenance, justification, and likely effect</span></li>
+        <li><strong>Reproducible experiment</strong><span>configuration, code or notebook, saved result, and numerical check</span></li>
+        <li><strong>Validation memo</strong><span>baseline, sensitivity, failure case, and unresolved uncertainty</span></li>
+        <li><strong>Technical explanation</strong><span>claim-evidence map, figure captions, limitations, and next evidence</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Teaching resources</p><h2>Pathways, cases, and instructor tools.</h2></div><p>Resources are written as complete teaching designs rather than as a list of files. Each page identifies its audience, sequence, artefacts, and assessment emphasis.</p></div>
+      <div class="grid">{items.map((item) => <article class="card wide"><p class="eyebrow">{item.data.level} · {item.data.resourceType}</p><h3><a class="title-link" href={`/teaching/${item.data.slug}/`}>{item.data.title}</a></h3><p>{item.data.summary}</p><div class="tag-list">{item.data.topics.slice(0, 3).map((topic) => <span class="tag">{topic}</span>)}</div></article>)}</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container teaching-contact"><div><p class="eyebrow">Teaching and mentoring</p><h2>Mathematics, computation, and research habits in one learning sequence.</h2></div><div><p>For discussion of curriculum design, mathematical-modeling instruction, or student research mentoring, contact me directly.</p><a class="button secondary" href="mailto:sokkincheng@gmail.com?subject=Teaching%20and%20modeling">Start a conversation</a></div></div>
+  </section>
+</BaseLayout>

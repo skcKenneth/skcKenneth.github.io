@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StatusBadge from "../../components/StatusBadge.astro";
 import Figure from "../../components/Figure.astro";
 import scienceProjects from "../../data/generated/science-projects.json";
+import { publicRepositoryUrl } from "../../config/repository-policy";
 
 export async function getStaticPaths() {
   const curated = await getCollection("projects", ({ data }) => !data.draft);
@@ -20,6 +21,11 @@ const Content = rendered?.Content;
 const d: any = entry?.data ?? catalogue;
 const updated = entry ? d.lastUpdated : new Date(`${d.last_updated}T00:00:00Z`);
 const inventory = Object.entries(catalogue?.inventory ?? {}).filter(([, value]) => Number(value) > 0);
+const technicalUrl = publicRepositoryUrl(d.technicalUrl ?? d.technical_url);
+const repositoryUrl = publicRepositoryUrl(d.repositoryUrl ?? d.repository_url);
+const documentationUrl = publicRepositoryUrl(d.documentation_url);
+const teachingUrl = publicRepositoryUrl(d.teachingUrl);
+const hasPublicActions = Boolean(technicalUrl || repositoryUrl || teachingUrl);
 ---
 <BaseLayout title={d.title} description={d.summary} image={d.heroImage} type="Projects">
   <header class="page-head"><div class="container">
@@ -34,27 +40,27 @@ const inventory = Object.entries(catalogue?.inventory ?? {}).filter(([, value]) 
         <div><dt>Status</dt><dd>{d.status}</dd></div>
         <div><dt>Period</dt><dd>{d.period || d.year}</dd></div>
         <div><dt>Methods</dt><dd>{d.methods.join(" · ")}</dd></div>
-        <div><dt>Code</dt><dd>{(d.codeAvailable ?? d.code_available) ? "Present" : "Not listed"}</dd></div>
+        <div><dt>Code</dt><dd>{(d.codeAvailable ?? d.code_available) ? "Private technical record" : "Not listed"}</dd></div>
         <div><dt>Data</dt><dd>{d.dataType || d.data_type || "Not specified"}</dd></div>
       </dl>
-      <div class="actions">
-        {entry && d.technicalUrl && <a class="button" href={d.technicalUrl}>Technical article</a>}
-        <a class="button secondary" href={d.repositoryUrl ?? d.repository_url}>View source directory</a>
-        {entry && d.teachingUrl && <a class="button secondary" href={d.teachingUrl}>Teaching material</a>}
-      </div>
+      {hasPublicActions && <div class="actions">
+        {entry && technicalUrl && <a class="button" href={technicalUrl}>Technical article</a>}
+        {repositoryUrl && <a class="button secondary" href={repositoryUrl}>View source directory</a>}
+        {entry && teachingUrl && <a class="button secondary" href={teachingUrl}>Teaching material</a>}
+      </div>}
     </aside>
     <article class="prose">
       {entry && Content ? <Fragment>
-        {d.heroImage && <Figure src={d.heroImage} alt={`Technical figure from ${d.title}`} caption="A reviewed research figure synchronized from ScienceProject. The original aspect ratio and labels are preserved." source={d.technicalUrl}/>}<Content />
+        {d.heroImage && <Figure src={d.heroImage} alt={`Technical figure from ${d.title}`} caption="A reviewed research figure synchronized from the private technical workspace. The original aspect ratio and labels are preserved." source={technicalUrl}/>}<Content />
         <h2>Key findings</h2><ul>{d.keyFindings.map((finding: string) => <li>{finding}</li>)}</ul>
         <h2>Limitations</h2><div class="notice"><ul>{d.limitations.map((limitation: string) => <li>{limitation}</li>)}</ul></div>
-        <h2>Technical record</h2><p>Detailed source, calculations, generated figures, and reproduction instructions remain in ScienceProject. <a href={d.technicalUrl}>Open the technical project</a>.</p>
+        <h2>Technical record</h2><p>Detailed source, calculations, generated figures, and reproduction instructions are maintained in a private technical workspace. Public articles contain only manually reviewed interpretation and approved figures.</p>
         <h2>Version history</h2><p><strong>{d.lastUpdated.toISOString().slice(0,10)}</strong> — Curated overview reviewed against repository evidence.</p>
       </Fragment> : <Fragment>
         <div class="notice"><strong>Inventory, not endorsement.</strong> This page makes the project discoverable without turning its notebooks, source files, or raw outputs into an editorial article. Findings will only be summarized after manual technical and editorial review.</div>
         <h2>Repository inventory</h2>
         <p>{d.summary}</p>
-        {d.documentation_excerpt && <Fragment><h2>From the project documentation</h2><p>{d.documentation_excerpt}</p>{d.documentation_url&&<p><a href={d.documentation_url}>Read the complete project README</a>.</p>}</Fragment>}
+        {d.documentation_excerpt && <Fragment><h2>From the project documentation</h2><p>{d.documentation_excerpt}</p>{documentationUrl&&<p><a href={documentationUrl}>Read the complete project README</a>.</p>}</Fragment>}
         <dl class="metadata inventory-grid">{inventory.map(([label, value]) => <div><dt>{label.replaceAll("_", " ")}</dt><dd>{value}</dd></div>)}</dl>
         {d.subprojects?.length > 0 && <Fragment><h2>Included problem areas</h2><ul>{d.subprojects.map((subproject: string) => <li>{subproject}</li>)}</ul></Fragment>}
         <h2>Current limitations</h2><div class="notice"><ul>{d.limitations.map((limitation: string) => <li>{limitation}</li>)}</ul></div>

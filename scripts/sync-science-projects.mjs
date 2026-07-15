@@ -10,7 +10,7 @@ const publicRoot = resolve(root, "public/science");
 const publicManifest = resolve(publicRoot, "asset-manifest.json");
 const sibling = resolve(process.env.SCIENCEPROJECT_DIR || resolve(root, "../ScienceProject"));
 const localManifest = resolve(sibling, "site-manifest/projects.json");
-const remoteBase = "https://raw.githubusercontent.com/skcKenneth/ScienceProject/main/";
+const remoteBase = process.env.SCIENCEPROJECT_RAW_BASE || "";
 const supported = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif", ".gif", ".svg"]);
 const filenamePattern = /^[a-z0-9][a-z0-9._-]*$/;
 
@@ -36,14 +36,16 @@ function validate(projects) {
   return projects;
 }
 
-let projects; let source = "fallback snapshot"; let local = false;
+let projects; let source = "committed fallback snapshot"; let sourceMode = "fallback";
 try {
   if (await exists(localManifest)) {
-    projects = validate(JSON.parse(await readFile(localManifest, "utf8"))); source = "sibling ScienceProject"; local = true;
-  } else {
+    projects = validate(JSON.parse(await readFile(localManifest, "utf8"))); source = "sibling private ScienceProject"; sourceMode = "local";
+  } else if (remoteBase) {
     const response = await fetch(`${remoteBase}site-manifest/projects.json`, { signal: AbortSignal.timeout(15000) });
     if (!response.ok) throw new Error(`manifest HTTP ${response.status}`);
-    projects = validate(await response.json()); source = "GitHub manifest";
+    projects = validate(await response.json()); source = "authenticated remote manifest"; sourceMode = "remote";
+  } else {
+    throw new Error("private ScienceProject is unavailable and SCIENCEPROJECT_RAW_BASE is not configured");
   }
 } catch (error) {
   console.warn(`ScienceProject manifest unavailable (${error.message}); using the validated fallback snapshot.`);
@@ -64,13 +66,13 @@ for (const project of projects) {
     const record = { project: project.slug, filename: asset.filename, public_path: publicPath, source_path: sourcePath, alt: asset.alt, caption: asset.caption, generated_by: asset.generated_by, status: "missing" };
     try {
       let bytes;
-      if (local) bytes = await readFile(resolve(sibling, sourcePath));
-      else {
+      if (sourceMode === "local") bytes = await readFile(resolve(sibling, sourcePath));
+      else if (sourceMode === "remote") {
         const url = `${remoteBase}${sourcePath.split("/").map(encodeURIComponent).join("/")}`;
         const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         bytes = Buffer.from(await response.arrayBuffer());
-      }
+      } else bytes = await readFile(destination);
       await mkdir(dirname(destination), { recursive: true });
       const hash = sha256(bytes); let existingHash;
       try { existingHash = sha256(await readFile(destination)); } catch {}

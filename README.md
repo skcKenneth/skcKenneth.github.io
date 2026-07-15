@@ -15,9 +15,10 @@ manual editorial review
 Markdown or MDX article in this repository
 ```
 
-ScienceProject is the computational source of truth. This repository is the
-publishing layer. `npm run sync:science` copies approved figures and metadata;
-it never creates, edits, or overwrites article bodies.
+ScienceProject is the private computational source of truth. This repository is
+the public publishing layer. `npm run sync:science` copies approved figures and
+metadata; it never creates, edits, or overwrites article bodies, and public
+pages never link visitors into the private repository.
 
 ## Local development
 
@@ -29,9 +30,10 @@ npm run sync:science
 pnpm dev
 ```
 
-When `../ScienceProject` exists, sync reads it directly. Otherwise it retrieves
-the public manifest and approved assets from GitHub, falling back to the last
-validated snapshots if the network is unavailable.
+When `../ScienceProject` exists, sync reads it directly. Otherwise the build
+uses the last validated manifest and already-approved assets committed here.
+An authenticated remote asset endpoint may be supplied explicitly through
+`SCIENCEPROJECT_RAW_BASE`; no public ScienceProject endpoint is assumed.
 
 ```bash
 pnpm build       # sync, schema/type check, build, Pagefind, links, output hygiene
