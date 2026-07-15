@@ -1,0 +1,449 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const experiments = [
+  { id: "critical-transitions", number: "01", title: "Critical transitions", question: "When does gradual pressure trigger an abrupt change?", method: "Bifurcation theory", level: "Intermediate" },
+  { id: "equation-discovery", number: "02", title: "Equation discovery", question: "Can a governing equation be recovered from noisy observations?", method: "Sparse regression", level: "Advanced" },
+  { id: "collective-motion", number: "03", title: "Collective motion", question: "How can local alignment create global order?", method: "Agent-based systems", level: "Intermediate" },
+  { id: "higher-order-contagion", number: "04", title: "Higher-order contagion", question: "What changes when groups, not only pairs, transmit influence?", method: "Simplicial dynamics", level: "Advanced" },
+  { id: "operator-learning", number: "05", title: "Operator learning", question: "What must a model learn to map one function into another?", method: "Scientific machine learning", level: "Advanced" },
+  { id: "persistent-homology", number: "06", title: "Persistent homology", question: "Which shapes survive a change of observational scale?", method: "Topological data analysis", level: "Advanced" }
+];
+---
+
+<BaseLayout
+  title="Frontier Model Studio"
+  description="Six interactive research-facing mathematical models spanning tipping points, equation discovery, active matter, higher-order contagion, neural operators, and persistent homology."
+  type="Teaching"
+>
+  <header class="page-head frontier-head">
+    <div class="container">
+      <p class="eyebrow">Frontier model studio</p>
+      <h1>Use a small model to expose a large research question.</h1>
+      <p class="lead">Six browser experiments translate active research ideas into mechanisms that can be changed, challenged, and extended. They are conceptual laboratories, not claims that the open problem has been solved.</p>
+      <div class="actions">
+        <a class="button" href="#studio-map">Choose an experiment</a>
+        <a class="button secondary" href="/teaching/model-laboratory/">Browse all model labs</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section studio-map-section" id="studio-map">
+    <div class="container">
+      <div class="section-head">
+        <div><p class="eyebrow">Experiment map</p><h2>Start from the question.</h2></div>
+        <p>Each experiment isolates one mechanism. The labels identify the mathematical lens; the question tells you what to change first.</p>
+      </div>
+      <ol class="experiment-map">
+        {experiments.map((experiment) => (
+          <li>
+            <a href={`#${experiment.id}`}>
+              <span class="experiment-number">{experiment.number}</span>
+              <span><strong>{experiment.title}</strong><small>{experiment.question}</small></span>
+              <span class="experiment-meta"><em>{experiment.method}</em><em>{experiment.level}</em></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section" id="critical-transitions" data-frontier="tipping">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">01 · Bifurcation theory</p><h2>Critical transitions and path dependence</h2></div>
+        <div>
+          <p class="model-equation" aria-label="x prime equals a plus x minus x cubed">x′ = a + x − x³</p>
+          <p>A single control parameter tilts a potential landscape. Stable states can disappear at a fold, so a slowly changing pressure can produce a sudden jump and a different return path.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Critical-transition parameters">
+          <label for="tip-pressure">External pressure a <output for="tip-pressure" data-output="pressure">0.00</output></label>
+          <input id="tip-pressure" data-input="pressure" type="range" min="-0.55" max="0.55" step="0.01" value="0" />
+          <label for="tip-initial">Initial state x₀ <output for="tip-initial" data-output="initial">-1.20</output></label>
+          <input id="tip-initial" data-input="initial" type="range" min="-1.6" max="1.6" step="0.05" value="-1.2" />
+          <label for="tip-horizon">Observation time <output for="tip-horizon" data-output="horizon">12</output></label>
+          <input id="tip-horizon" data-input="horizon" type="range" min="2" max="30" step="1" value="12" />
+        </form>
+        <div class="model-visual">
+          <svg class="model-chart" data-chart="tipping" viewBox="0 0 720 360" role="img" aria-label="Potential landscape and resulting equilibrium state"></svg>
+          <dl class="model-metrics">
+            <div><dt>Resulting state</dt><dd data-metric="state">—</dd></div>
+            <div><dt>Stable wells</dt><dd data-metric="wells">—</dd></div>
+            <div><dt>Local recovery rate</dt><dd data-metric="recovery">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>Move a slowly from negative to positive, then reverse it. Does the state retrace the same path?</span><span>Near which pressure does recovery become slow enough to resemble an early-warning signal?</span></div>
+      <p class="small">This normal form demonstrates a mechanism, not a forecast. Empirical early-warning indicators can fail when observations do not satisfy the assumed bifurcation structure.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-1">[1]</a> <a href="#ref-2">[2]</a> <a href="#ref-3">[3]</a></p>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section" id="equation-discovery" data-frontier="sindy">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">02 · Data-driven dynamics</p><h2>Discovering an equation from noisy data</h2></div>
+        <div>
+          <p class="model-equation" aria-label="x prime approximately equals theta of x times xi">x′ ≈ Θ(x)ξ</p>
+          <p>Sparse identification starts with a library of candidate terms, then asks for the smallest equation that explains the measured derivative. Here the hidden law is x′ = x − x³.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Sparse equation discovery parameters">
+          <label for="sindy-noise">Derivative noise <output for="sindy-noise" data-output="noise">0.10</output></label>
+          <input id="sindy-noise" data-input="noise" type="range" min="0" max="0.60" step="0.02" value="0.10" />
+          <label for="sindy-threshold">Sparsity threshold <output for="sindy-threshold" data-output="threshold">0.08</output></label>
+          <input id="sindy-threshold" data-input="threshold" type="range" min="0" max="0.50" step="0.01" value="0.08" />
+          <label for="sindy-samples">Observations <output for="sindy-samples" data-output="samples">48</output></label>
+          <input id="sindy-samples" data-input="samples" type="range" min="16" max="96" step="4" value="48" />
+        </form>
+        <div class="model-visual">
+          <svg class="model-chart" data-chart="sindy" viewBox="0 0 720 360" role="img" aria-label="Recovered and true derivative curves with noisy observations"></svg>
+          <dl class="model-metrics">
+            <div><dt>Terms retained</dt><dd data-metric="terms">—</dd></div>
+            <div><dt>Curve RMSE</dt><dd data-metric="rmse">—</dd></div>
+            <div><dt>Recovered law</dt><dd class="metric-equation" data-metric="equation">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>Can more observations compensate for a poor sparsity threshold?</span><span>When does a visually accurate curve still produce the wrong symbolic equation?</span></div>
+      <p class="small">The demonstration uses direct derivative observations and a polynomial library. Real experiments must also handle differentiation error, hidden variables, correlated terms, and model-library misspecification.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-4">[4]</a> <a href="#ref-5">[5]</a></p>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section" id="collective-motion" data-frontier="flocking">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">03 · Active matter</p><h2>Collective motion from local alignment</h2></div>
+        <div>
+          <p class="model-equation" aria-label="theta i at t plus one equals average neighbour heading plus noise">θᵢ(t + 1) = arg Σⱼ∈Nᵢ eⁱθʲ + ηξᵢ</p>
+          <p>Self-propelled particles see only nearby headings. Repeated local alignment can break rotational symmetry and produce coherent global motion even without a leader.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Collective-motion parameters">
+          <label for="flock-noise">Angular noise η <output for="flock-noise" data-output="noise">0.35</output></label>
+          <input id="flock-noise" data-input="noise" type="range" min="0" max="1" step="0.05" value="0.35" />
+          <label for="flock-radius">Interaction radius <output for="flock-radius" data-output="radius">58</output></label>
+          <input id="flock-radius" data-input="radius" type="range" min="24" max="100" step="2" value="58" />
+          <label for="flock-steps">Update steps <output for="flock-steps" data-output="steps">70</output></label>
+          <input id="flock-steps" data-input="steps" type="range" min="10" max="140" step="10" value="70" />
+        </form>
+        <div class="model-visual">
+          <svg class="model-chart particle-field" data-chart="flocking" viewBox="0 0 720 360" role="img" aria-label="Self-propelled particles after repeated local alignment"></svg>
+          <dl class="model-metrics">
+            <div><dt>Global order Φ</dt><dd data-metric="order">—</dd></div>
+            <div><dt>Mean neighbours</dt><dd data-metric="neighbors">—</dd></div>
+            <div><dt>Observed regime</dt><dd data-metric="regime">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>Does increasing the interaction radius always compensate for noise?</span><span>How would obstacles, mixed species, or delayed responses change the transition?</span></div>
+      <p class="small">This is a seeded, finite Vicsek-style simulation. Its apparent transition depends on density, boundary conditions, system size, and the chosen noise rule.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-6">[6]</a> <a href="#ref-7">[7]</a></p>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section" id="higher-order-contagion" data-frontier="contagion">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">04 · Higher-order networks</p><h2>Contagion through pairs and groups</h2></div>
+        <div>
+          <p class="model-equation" aria-label="rho prime equals minus rho plus lambda one rho one minus rho plus lambda two rho squared one minus rho">ρ′ = −ρ + λ₁ρ(1 − ρ) + λ₂ρ²(1 − ρ)</p>
+          <p>Pairwise contact contributes a term proportional to ρ; group reinforcement contributes a nonlinear ρ² term. That extra order can create critical-mass effects and abrupt adoption.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Higher-order contagion parameters">
+          <label for="cont-pair">Pairwise strength λ₁ <output for="cont-pair" data-output="pair">0.70</output></label>
+          <input id="cont-pair" data-input="pair" type="range" min="0" max="1.6" step="0.05" value="0.70" />
+          <label for="cont-group">Group strength λ₂ <output for="cont-group" data-output="group">4.50</output></label>
+          <input id="cont-group" data-input="group" type="range" min="0" max="8" step="0.10" value="4.50" />
+          <label for="cont-seed">Initial adoption ρ₀ <output for="cont-seed" data-output="seed">0.18</output></label>
+          <input id="cont-seed" data-input="seed" type="range" min="0.01" max="0.80" step="0.01" value="0.18" />
+        </form>
+        <div class="model-visual">
+          <div class="model-legend" aria-hidden="true"><span class="legend-selected">Selected seed</span><span class="legend-baseline">2% seed baseline</span></div>
+          <svg class="model-chart" data-chart="contagion" viewBox="0 0 720 360" role="img" aria-label="Higher-order contagion trajectories for selected and small initial seeds"></svg>
+          <dl class="model-metrics">
+            <div><dt>Selected final state</dt><dd data-metric="final">—</dd></div>
+            <div><dt>Small-seed final state</dt><dd data-metric="baseline">—</dd></div>
+            <div><dt>Seed sensitivity</dt><dd data-metric="sensitivity">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>Find a parameter set where 2% adoption collapses but a larger seed persists.</span><span>Which empirical observations would distinguish pairwise influence from genuine group reinforcement?</span></div>
+      <p class="small">This mean-field social-contagion model is not an infectious-disease forecast. Group interaction, memory, network structure, and causal identification require separate evidence.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-8">[8]</a> <a href="#ref-9">[9]</a></p>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section" id="operator-learning" data-frontier="operator">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">05 · Scientific machine learning</p><h2>Learning maps between functions</h2></div>
+        <div>
+          <p class="model-equation" aria-label="G maps an initial function u zero to a solution function u at time t">𝒢: u₀(x) ↦ u(x,t)</p>
+          <p>Operator learning asks for one reusable map across a family of inputs, rather than one solution vector on one grid. This experiment isolates the spectral representation problem using the heat operator.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Operator representation parameters">
+          <label for="op-roughness">Input roughness <output for="op-roughness" data-output="roughness">4</output></label>
+          <input id="op-roughness" data-input="roughness" type="range" min="1" max="10" step="1" value="4" />
+          <label for="op-time">Prediction time t <output for="op-time" data-output="time">0.18</output></label>
+          <input id="op-time" data-input="time" type="range" min="0.02" max="0.60" step="0.02" value="0.18" />
+          <label for="op-modes">Retained Fourier modes <output for="op-modes" data-output="modes">8</output></label>
+          <input id="op-modes" data-input="modes" type="range" min="1" max="24" step="1" value="8" />
+        </form>
+        <div class="model-visual">
+          <div class="model-legend" aria-hidden="true"><span class="legend-input">Input u₀</span><span class="legend-exact">Exact operator</span><span class="legend-approx">Truncated representation</span></div>
+          <svg class="model-chart" data-chart="operator" viewBox="0 0 720 360" role="img" aria-label="Exact and spectrally truncated heat-operator outputs"></svg>
+          <dl class="model-metrics">
+            <div><dt>Relative L² error</dt><dd data-metric="error">—</dd></div>
+            <div><dt>Spectrum retained</dt><dd data-metric="retained">—</dd></div>
+            <div><dt>Input family</dt><dd data-metric="family">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>Why do rough inputs demand more modes at short prediction times?</span><span>What additional tests are needed before claiming resolution invariance or out-of-distribution generalisation?</span></div>
+      <p class="small">No neural network is trained here. The exact heat operator and a truncated Fourier representation expose the approximation question that architectures such as FNOs attempt to learn from data.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-10">[10]</a> <a href="#ref-11">[11]</a></p>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section" id="persistent-homology" data-frontier="topology">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">06 · Topological data analysis</p><h2>Finding shape across scales</h2></div>
+        <div>
+          <p class="model-equation" aria-label="beta zero counts components and beta one counts loops">β₀ = components · β₁ = loops</p>
+          <p>A Vietoris–Rips filtration connects points within a distance ε and fills every completed triangle. Features that survive across many scales are candidates for signal rather than sampling noise.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Persistent-homology parameters">
+          <label for="topo-shape">Point-cloud family</label>
+          <select id="topo-shape" data-input="shape">
+            <option value="two-rings">Two rings</option>
+            <option value="ring-cluster">Ring and cluster</option>
+            <option value="figure-eight">Figure eight</option>
+          </select>
+          <label for="topo-scale">Connection scale ε <output for="topo-scale" data-output="scale">0.22</output></label>
+          <input id="topo-scale" data-input="scale" type="range" min="0.04" max="0.70" step="0.01" value="0.22" />
+          <label for="topo-noise">Sampling noise <output for="topo-noise" data-output="noise">0.04</output></label>
+          <input id="topo-noise" data-input="noise" type="range" min="0" max="0.18" step="0.01" value="0.04" />
+        </form>
+        <div class="model-visual">
+          <svg class="model-chart topology-field" data-chart="topology" viewBox="0 0 720 360" role="img" aria-label="Vietoris-Rips complex built from a noisy point cloud"></svg>
+          <dl class="model-metrics">
+            <div><dt>Components β₀</dt><dd data-metric="beta0">—</dd></div>
+            <div><dt>Loops β₁</dt><dd data-metric="beta1">—</dd></div>
+            <div><dt>Edges / triangles</dt><dd data-metric="simplices">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>At which scales do the intended loops exist, and how long do they persist?</span><span>How should statistical uncertainty enter a claim that one topological feature is “real”?</span></div>
+      <p class="small">The displayed Betti numbers are computed for the current finite Rips complex. A research analysis would examine the full persistence diagram, sampling variability, and a domain-specific null model.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-12">[12]</a> <a href="#ref-13">[13]</a></p>
+    </div>
+  </section>
+
+  <section class="section research-trail-section">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">References</p><h2>From mechanism to literature.</h2></div><p>Foundational formulations are paired with recent extensions or empirical limitations. The references support the research framing; they do not validate every simplification used in the browser model.</p></div>
+      <ol class="reference-list">
+        <li id="ref-1">Scheffer, M., et al. (2009). <a href="https://www.nature.com/articles/nature08227">Early-warning signals for critical transitions</a>. <em>Nature, 461</em>, 53–59. https://doi.org/10.1038/nature08227</li>
+        <li id="ref-2">Dylewsky, D., Anand, M., & Bauch, C. T. (2024). <a href="https://www.nature.com/articles/s41598-024-68177-1">Early warning signals for bifurcations embedded in high dimensions</a>. <em>Scientific Reports, 14</em>, 18277. https://doi.org/10.1038/s41598-024-68177-1</li>
+        <li id="ref-3">O’Brien, D. A., et al. (2023). <a href="https://www.nature.com/articles/s41467-023-43744-8">Early warning signals have limited applicability to empirical lake data</a>. <em>Nature Communications, 14</em>, 7942. https://doi.org/10.1038/s41467-023-43744-8</li>
+        <li id="ref-4">Brunton, S. L., Proctor, J. L., & Kutz, J. N. (2016). <a href="https://doi.org/10.1073/pnas.1517384113">Discovering governing equations from data by sparse identification of nonlinear dynamical systems</a>. <em>Proceedings of the National Academy of Sciences, 113</em>(15), 3932–3937.</li>
+        <li id="ref-5">Rosafalco, L., Conti, P., Manzoni, A., Mariani, S., & Frangi, A. (2024). <a href="https://doi.org/10.1016/j.cma.2024.117264">EKF–SINDy: Empowering the extended Kalman filter with sparse identification of nonlinear dynamics</a>. <em>Computer Methods in Applied Mechanics and Engineering, 431</em>, 117264.</li>
+        <li id="ref-6">Vicsek, T., Czirók, A., Ben-Jacob, E., Cohen, I., & Shochet, O. (1995). <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.75.1226">Novel type of phase transition in a system of self-driven particles</a>. <em>Physical Review Letters, 75</em>(6), 1226–1229.</li>
+        <li id="ref-7">Lardet, E., Chen, L., & Bertrand, T. (2026). <a href="https://journals.aps.org/prl/accepted/10.1103/lt6f-yjpd">Flocking beyond one species: Novel phase coexistence in a generalized two-species Vicsek model</a>. <em>Physical Review Letters</em>, accepted paper. https://doi.org/10.1103/lt6f-yjpd</li>
+        <li id="ref-8">Iacopini, I., Petri, G., Barrat, A., & Latora, V. (2019). <a href="https://www.nature.com/articles/s41467-019-10431-6">Simplicial models of social contagion</a>. <em>Nature Communications, 10</em>, 2485.</li>
+        <li id="ref-9">Lin, Z., et al. (2024). <a href="https://www.nature.com/articles/s42005-024-01666-x">Higher-order non-Markovian social contagions in simplicial complexes</a>. <em>Communications Physics, 7</em>, 175.</li>
+        <li id="ref-10">Li, Z., et al. (2021). <a href="https://openreview.net/forum?id=c8P9NQVtmnO">Fourier neural operator for parametric partial differential equations</a>. <em>International Conference on Learning Representations</em>.</li>
+        <li id="ref-11">Cao, Q., Goswami, S., & Karniadakis, G. E. (2024). <a href="https://www.nature.com/articles/s42256-024-00844-4">Laplace neural operator for solving differential equations</a>. <em>Nature Machine Intelligence, 6</em>, 631–640.</li>
+        <li id="ref-12">Edelsbrunner, H., Letscher, D., & Zomorodian, A. (2002). <a href="https://doi.org/10.1007/s00454-002-2885-2">Topological persistence and simplification</a>. <em>Discrete & Computational Geometry, 28</em>(4), 511–533.</li>
+        <li id="ref-13">Chen, Y., et al. (2024). <a href="https://proceedings.mlr.press/v231/chen24a.html">EMP: Effective multidimensional persistence for graph representation learning</a>. <em>Proceedings of the Second Learning on Graphs Conference, PMLR 231</em>, 24:1–24:12.</li>
+      </ol>
+    </div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const W = 720, H = 360;
+      const M = { left: 62, right: 24, top: 24, bottom: 48 };
+      const PW = W - M.left - M.right, PH = H - M.top - M.bottom;
+      const q = (root, selector) => root.querySelector(selector);
+      const value = (root, name) => Number(q(root, `[data-input="${name}"]`).value);
+      const set = (root, selector, text) => { q(root, selector).textContent = text; };
+      const fmt = (number, digits = 2) => Number(number).toFixed(digits);
+      const clamp = (number, min, max) => Math.max(min, Math.min(max, number));
+      const sx = (x, min, max) => M.left + (x - min) / (max - min) * PW;
+      const sy = (y, min, max) => M.top + PH - (y - min) / (max - min) * PH;
+      const path = (points, xMin, xMax, yMin, yMax) => points.map((p, i) => `${i ? "L" : "M"}${sx(p.x, xMin, xMax).toFixed(2)},${sy(p.y, yMin, yMax).toFixed(2)}`).join(" ");
+      const frame = (xMin, xMax, yMin, yMax, xLabel, yLabel, yDigits = 1) => {
+        let html = `<rect class="chart-field" x="${M.left}" y="${M.top}" width="${PW}" height="${PH}" rx="12"></rect>`;
+        for (let i = 0; i <= 4; i++) {
+          const x = M.left + PW * i / 4;
+          const y = M.top + PH - PH * i / 4;
+          const xv = xMin + (xMax - xMin) * i / 4;
+          const yv = yMin + (yMax - yMin) * i / 4;
+          html += `<line class="chart-grid chart-grid-x" x1="${x}" y1="${M.top}" x2="${x}" y2="${M.top + PH}"></line><text class="chart-tick" x="${x}" y="${H - 22}" text-anchor="middle">${fmt(xv, Math.abs(xMax - xMin) <= 4 ? 1 : 0)}</text>`;
+          html += `<line class="chart-grid chart-grid-y" x1="${M.left}" y1="${y}" x2="${M.left + PW}" y2="${y}"></line><text class="chart-tick" x="${M.left - 10}" y="${y + 4}" text-anchor="end">${fmt(yv, yDigits)}</text>`;
+        }
+        html += `<line class="chart-axis" x1="${M.left}" y1="${M.top + PH}" x2="${M.left + PW}" y2="${M.top + PH}"></line><line class="chart-axis" x1="${M.left}" y1="${M.top}" x2="${M.left}" y2="${M.top + PH}"></line><text class="chart-label" x="${M.left + PW / 2}" y="${H - 4}" text-anchor="middle">${xLabel}</text><text class="chart-label" transform="translate(16 ${M.top + PH / 2}) rotate(-90)" text-anchor="middle">${yLabel}</text>`;
+        return html;
+      };
+      const bind = (root, render) => {
+        root.querySelectorAll("input, select").forEach((input) => input.addEventListener("input", render));
+        render();
+      };
+
+      const tipping = document.querySelector('[data-frontier="tipping"]');
+      bind(tipping, () => {
+        const a = value(tipping, "pressure"), x0 = value(tipping, "initial"), horizon = value(tipping, "horizon");
+        set(tipping, '[data-output="pressure"]', fmt(a)); set(tipping, '[data-output="initial"]', fmt(x0)); set(tipping, '[data-output="horizon"]', horizon);
+        let x = x0; const dt = 0.02;
+        for (let t = 0; t < horizon; t += dt) x = clamp(x + dt * (a + x - x ** 3), -2, 2);
+        const curve = [];
+        for (let z = -1.8; z <= 1.8001; z += 0.02) curve.push({ x: z, y: z ** 4 / 4 - z ** 2 / 2 - a * z });
+        const ys = curve.map(p => p.y), yMin = Math.min(...ys) - 0.08, yMax = Math.max(...ys) + 0.08;
+        const roots = [];
+        let previousX = -1.8, previousF = a + previousX - previousX ** 3;
+        for (let z = -1.79; z <= 1.8; z += 0.01) {
+          const f = a + z - z ** 3;
+          if (previousF * f <= 0) roots.push((previousX + z) / 2);
+          previousX = z; previousF = f;
+        }
+        const stable = roots.filter(r => 1 - 3 * r * r < 0);
+        const markerY = x ** 4 / 4 - x ** 2 / 2 - a * x;
+        q(tipping, '[data-chart="tipping"]').innerHTML = `<title>Potential landscape for a bistable dynamical system</title><desc>The curve tilts with external pressure. Filled circles show stable equilibria and the diamond shows the simulated final state.</desc>${frame(-1.8, 1.8, yMin, yMax, "State x", "Potential V(x)", 1)}<path class="frontier-primary" d="${path(curve, -1.8, 1.8, yMin, yMax)}"></path>${stable.map(r => `<circle class="stable-point" cx="${sx(r, -1.8, 1.8)}" cy="${sy(r ** 4 / 4 - r ** 2 / 2 - a * r, yMin, yMax)}" r="6"></circle>`).join("")}<rect class="state-marker" x="${sx(x, -1.8, 1.8) - 5}" y="${sy(markerY, yMin, yMax) - 5}" width="10" height="10" transform="rotate(45 ${sx(x, -1.8, 1.8)} ${sy(markerY, yMin, yMax)})"></rect>`;
+        const recovery = Math.abs(1 - 3 * x * x);
+        set(tipping, '[data-metric="state"]', fmt(x, 3)); set(tipping, '[data-metric="wells"]', stable.length); set(tipping, '[data-metric="recovery"]', fmt(recovery, 3));
+        set(tipping, "[data-reading]", stable.length > 1 ? `Two stable wells coexist. The initial condition selects a basin, so the same pressure can support different long-run states.` : `Only one stable well remains at this pressure. A state that occupied the vanished well must jump to the remaining branch.`);
+      });
+
+      const solve = (A, b) => {
+        const n = b.length, m = A.map((row, i) => [...row, b[i]]);
+        for (let c = 0; c < n; c++) {
+          let pivot = c; for (let r = c + 1; r < n; r++) if (Math.abs(m[r][c]) > Math.abs(m[pivot][c])) pivot = r;
+          [m[c], m[pivot]] = [m[pivot], m[c]];
+          const d = Math.abs(m[c][c]) < 1e-10 ? 1e-10 : m[c][c];
+          for (let j = c; j <= n; j++) m[c][j] /= d;
+          for (let r = 0; r < n; r++) if (r !== c) { const f = m[r][c]; for (let j = c; j <= n; j++) m[r][j] -= f * m[c][j]; }
+        }
+        return m.map(row => row[n]);
+      };
+      const fitSparse = (xs, ys, threshold) => {
+        const powers = x => [1, x, x*x, x**3, x**4, x**5];
+        let active = [0,1,2,3,4,5], coeff = Array(6).fill(0);
+        for (let pass = 0; pass < 5; pass++) {
+          const A = active.map(i => active.map(j => xs.reduce((sum, x) => sum + powers(x)[i] * powers(x)[j], 0) + (i === j ? 1e-8 : 0)));
+          const b = active.map(i => xs.reduce((sum, x, k) => sum + powers(x)[i] * ys[k], 0));
+          const fitted = solve(A, b); coeff = Array(6).fill(0); active.forEach((term, i) => coeff[term] = fitted[i]);
+          const next = active.filter(term => Math.abs(coeff[term]) >= threshold);
+          if (!next.length || next.length === active.length) break;
+          active = next;
+        }
+        return coeff;
+      };
+      const sindy = document.querySelector('[data-frontier="sindy"]');
+      bind(sindy, () => {
+        const noise = value(sindy, "noise"), threshold = value(sindy, "threshold"), samples = value(sindy, "samples");
+        set(sindy, '[data-output="noise"]', fmt(noise)); set(sindy, '[data-output="threshold"]', fmt(threshold)); set(sindy, '[data-output="samples"]', samples);
+        const xs = Array.from({length:samples}, (_, i) => -1.5 + 3 * i / (samples - 1));
+        const ys = xs.map((x, i) => x - x ** 3 + noise * (0.65 * Math.sin(i * 12.9898) + 0.35 * Math.sin(i * 4.123)));
+        const coeff = fitSparse(xs, ys, threshold);
+        const predict = x => coeff.reduce((sum, c, p) => sum + c * x ** p, 0);
+        const dense = Array.from({length:121}, (_, i) => -1.5 + 3 * i / 120);
+        const truth = dense.map(x => ({x, y:x-x**3})), recovered = dense.map(x => ({x, y:predict(x)}));
+        const rmse = Math.sqrt(dense.reduce((sum, x) => sum + (predict(x) - (x - x ** 3)) ** 2, 0) / dense.length);
+        q(sindy, '[data-chart="sindy"]').innerHTML = `<title>Sparse equation discovery result</title><desc>Noisy derivative observations are compared with the true hidden law and the recovered sparse equation.</desc>${frame(-1.5,1.5,-2,2,"State x","Derivative x′",1)}<path class="frontier-truth" d="${path(truth,-1.5,1.5,-2,2)}"></path><path class="frontier-primary" d="${path(recovered,-1.5,1.5,-2,2)}"></path>${xs.map((x,i)=>`<circle class="observation-point" cx="${sx(x,-1.5,1.5)}" cy="${sy(ys[i],-2,2)}" r="2.4"></circle>`).join("")}`;
+        const labels = ["1","x","x²","x³","x⁴","x⁵"], terms = coeff.map((c,i)=>({c,i})).filter(t=>Math.abs(t.c)>1e-6);
+        const equation = terms.length ? terms.map((t,i)=>`${i && t.c >= 0 ? "+ " : ""}${fmt(t.c,2)}${labels[t.i] === "1" ? "" : labels[t.i]}`).join(" ") : "0";
+        set(sindy, '[data-metric="terms"]', terms.length); set(sindy, '[data-metric="rmse"]', fmt(rmse,3)); set(sindy, '[data-metric="equation"]', `x′ = ${equation}`);
+        const correct = Math.abs(coeff[1]-1)<0.15 && Math.abs(coeff[3]+1)<0.15 && terms.every(t=>t.i===1||t.i===3);
+        set(sindy, "[data-reading]", correct ? `The sparse fit recovers the two intended terms. Increase noise or move the threshold to find where symbolic recovery fails before the curve fit looks obviously poor.` : `The selected equation differs from the hidden two-term law. This is a model-selection failure even if parts of the recovered curve still appear plausible.`);
+      });
+
+      const rng = seed => () => ((seed = (1664525 * seed + 1013904223) >>> 0) / 4294967296);
+      const flock = document.querySelector('[data-frontier="flocking"]');
+      bind(flock, () => {
+        const noise = value(flock, "noise"), radius = value(flock, "radius"), steps = value(flock, "steps"), N = 84, speed = 3.2;
+        set(flock, '[data-output="noise"]', fmt(noise)); set(flock, '[data-output="radius"]', radius); set(flock, '[data-output="steps"]', steps);
+        const random = rng(20260715), particles = Array.from({length:N},()=>({x:20+680*random(),y:20+320*random(),a:2*Math.PI*random()}));
+        let neighborTotal = 0;
+        for (let step=0; step<steps; step++) {
+          const angles = particles.map((p)=>{
+            let cx=0,cy=0,count=0;
+            particles.forEach((other)=>{ let dx=Math.abs(p.x-other.x),dy=Math.abs(p.y-other.y); dx=Math.min(dx,720-dx);dy=Math.min(dy,360-dy); if(dx*dx+dy*dy<=radius*radius){cx+=Math.cos(other.a);cy+=Math.sin(other.a);count++;} });
+            if(step===steps-1) neighborTotal += count-1;
+            return Math.atan2(cy,cx)+(random()-.5)*noise*Math.PI;
+          });
+          particles.forEach((p,i)=>{p.a=angles[i];p.x=(p.x+speed*Math.cos(p.a)+720)%720;p.y=(p.y+speed*Math.sin(p.a)+360)%360;});
+        }
+        const vx=particles.reduce((s,p)=>s+Math.cos(p.a),0), vy=particles.reduce((s,p)=>s+Math.sin(p.a),0), order=Math.hypot(vx,vy)/N, mean=neighborTotal/N;
+        q(flock, '[data-chart="flocking"]').innerHTML=`<title>Collective-motion particle field</title><desc>Short line segments show headings after repeated noisy local-alignment updates in a periodic domain.</desc><rect class="chart-field" x="1" y="1" width="718" height="358" rx="12"></rect>${particles.map(p=>`<line class="particle-heading" x1="${p.x}" y1="${p.y}" x2="${p.x+11*Math.cos(p.a)}" y2="${p.y+11*Math.sin(p.a)}"></line><circle class="particle-point" cx="${p.x}" cy="${p.y}" r="2.8"></circle>`).join("")}<text class="field-label" x="18" y="28">periodic domain · seeded run</text>`;
+        const regime=order>.72?"coherent":order>.35?"partial order":"disordered";
+        set(flock,'[data-metric="order"]',fmt(order,3));set(flock,'[data-metric="neighbors"]',fmt(mean,1));set(flock,'[data-metric="regime"]',regime);
+        set(flock,"[data-reading]",`The order parameter is the length of the mean heading vector: 0 indicates cancellation and 1 indicates perfect alignment. This finite run is ${regime}, not a thermodynamic proof of a phase transition.`);
+      });
+
+      const contagion = document.querySelector('[data-frontier="contagion"]');
+      const contagionPath = (pair, group, seed) => { let r=seed; const out=[{x:0,y:r}],dt=.02; for(let t=dt;t<=20+.001;t+=dt){r=clamp(r+dt*(-r+pair*r*(1-r)+group*r*r*(1-r)),0,1);if(Math.round(t/dt)%10===0)out.push({x:t,y:r});} return out; };
+      bind(contagion, () => {
+        const pair=value(contagion,"pair"),group=value(contagion,"group"),seed=value(contagion,"seed");
+        set(contagion,'[data-output="pair"]',fmt(pair));set(contagion,'[data-output="group"]',fmt(group));set(contagion,'[data-output="seed"]',fmt(seed));
+        const selected=contagionPath(pair,group,seed),baseline=contagionPath(pair,group,.02),final=selected.at(-1).y,base=baseline.at(-1).y,diff=Math.abs(final-base);
+        q(contagion,'[data-chart="contagion"]').innerHTML=`<title>Higher-order contagion trajectories</title><desc>The selected initial adoption is compared with a two-percent seed under the same pairwise and group strengths.</desc>${frame(0,20,0,1,"Time","Adoption ρ",1)}<path class="frontier-primary" d="${path(selected,0,20,0,1)}"></path><path class="frontier-secondary" d="${path(baseline,0,20,0,1)}"></path>`;
+        set(contagion,'[data-metric="final"]',fmt(final,3));set(contagion,'[data-metric="baseline"]',fmt(base,3));set(contagion,'[data-metric="sensitivity"]',diff>.25?"critical mass":"low");
+        set(contagion,"[data-reading]",diff>.25?`The same interaction strengths produce different long-run states from different seeds. Group reinforcement creates a basin boundary: initial conditions become an empirical and policy-relevant quantity.`:`Both seeds approach similar states. In this region, initial adoption does not create a strong critical-mass effect over the displayed horizon.`);
+      });
+
+      const dft = values => values.map((_,k)=>values.reduce((acc,v,n)=>{const a=-2*Math.PI*k*n/values.length;acc.re+=v*Math.cos(a);acc.im+=v*Math.sin(a);return acc;},{re:0,im:0}));
+      const evolve = (spectrum,time,modes=Infinity) => { const N=spectrum.length,nu=.018; return Array.from({length:N},(_,n)=>spectrum.reduce((sum,c,k)=>{const kk=k<=N/2?k:k-N;if(Math.abs(kk)>modes)return sum;const decay=Math.exp(-4*Math.PI*Math.PI*nu*kk*kk*time),a=2*Math.PI*k*n/N;return sum+decay*(c.re*Math.cos(a)-c.im*Math.sin(a))/N;},0)); };
+      const operator = document.querySelector('[data-frontier="operator"]');
+      bind(operator,()=>{
+        const rough=value(operator,"roughness"),time=value(operator,"time"),modes=value(operator,"modes"),N=64;
+        set(operator,'[data-output="roughness"]',rough);set(operator,'[data-output="time"]',fmt(time));set(operator,'[data-output="modes"]',modes);
+        const input=Array.from({length:N},(_,i)=>{const x=i/N,d=Math.min(Math.abs(x-.32),1-Math.abs(x-.32));return .15+.75*Math.exp(-55*d*d)+.12*Math.sin(2*Math.PI*rough*x)+.07*Math.cos(2*Math.PI*(rough+2)*x);});
+        const spectrum=dft(input),exact=evolve(spectrum,time),approx=evolve(spectrum,time,modes),xs=Array.from({length:N},(_,i)=>i/(N-1));
+        const error=Math.sqrt(approx.reduce((s,v,i)=>s+(v-exact[i])**2,0)/exact.reduce((s,v)=>s+v*v,0));
+        const all=[...input,...exact,...approx],yMin=Math.min(...all)-.08,yMax=Math.max(...all)+.08;
+        const toPoints=arr=>arr.map((y,i)=>({x:xs[i],y}));
+        q(operator,'[data-chart="operator"]').innerHTML=`<title>Exact and truncated heat-operator outputs</title><desc>The input function is compared with the exact diffused output and a representation retaining only selected Fourier modes.</desc>${frame(0,1,yMin,yMax,"Position x","Field u",1)}<path class="frontier-input" d="${path(toPoints(input),0,1,yMin,yMax)}"></path><path class="frontier-truth" d="${path(toPoints(exact),0,1,yMin,yMax)}"></path><path class="frontier-primary" d="${path(toPoints(approx),0,1,yMin,yMax)}"></path>`;
+        set(operator,'[data-metric="error"]',fmt(error,4));set(operator,'[data-metric="retained"]',`${2*modes+1} coefficients`);set(operator,'[data-metric="family"]',`roughness ${rough}`);
+        set(operator,"[data-reading]",error<.02?`The truncated representation closely matches the exact operator for this input and horizon. That is an approximation result, not evidence of learned generalisation.`:`The retained spectrum misses visible structure. Short horizons preserve high frequencies, so a low-mode representation can erase information before any learning error is considered.`);
+      });
+
+      const bitRank = vectors => { const basis=new Map();let rank=0;for(let v of vectors){while(v){const p=v.toString(2).length-1;if(basis.has(p))v^=basis.get(p);else{basis.set(p,v);rank++;break;}}}return rank; };
+      const topology = document.querySelector('[data-frontier="topology"]');
+      const cloud = (shape,noise) => { const random=rng(90210),pts=[]; const addRing=(cx,cy,r,n,offset=0)=>{for(let i=0;i<n;i++){const a=2*Math.PI*i/n+offset,dr=(random()-.5)*noise;pts.push({x:cx+(r+dr)*Math.cos(a)+(random()-.5)*noise*.25,y:cy+(r+dr)*Math.sin(a)+(random()-.5)*noise*.25});}}; if(shape==="two-rings"){addRing(.30,.5,.20,12);addRing(.72,.5,.16,12,.12);}else if(shape==="ring-cluster"){addRing(.33,.5,.23,16);for(let i=0;i<8;i++)pts.push({x:.76+(random()-.5)*(.08+noise),y:.5+(random()-.5)*(.08+noise)});}else{addRing(.40,.5,.20,12);addRing(.64,.5,.20,12,.1);} return pts; };
+      bind(topology,()=>{
+        const shape=q(topology,'[data-input="shape"]').value,scale=value(topology,"scale"),noise=value(topology,"noise"),pts=cloud(shape,noise),edges=[],edgeIndex=new Map();
+        set(topology,'[data-output="scale"]',fmt(scale));set(topology,'[data-output="noise"]',fmt(noise));
+        const key=(i,j)=>i<j?`${i}-${j}`:`${j}-${i}`;
+        for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++)if(Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y)<=scale){edgeIndex.set(key(i,j),edges.length);edges.push([i,j]);}
+        const parent=pts.map((_,i)=>i),find=i=>parent[i]===i?i:(parent[i]=find(parent[i])); edges.forEach(([i,j])=>{const a=find(i),b=find(j);if(a!==b)parent[a]=b;}); const beta0=new Set(pts.map((_,i)=>find(i))).size;
+        const boundaries=[];let triangles=0;
+        for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++)for(let k=j+1;k<pts.length;k++)if(edgeIndex.has(key(i,j))&&edgeIndex.has(key(i,k))&&edgeIndex.has(key(j,k))){triangles++;boundaries.push((1n<<BigInt(edgeIndex.get(key(i,j))))|(1n<<BigInt(edgeIndex.get(key(i,k))))|(1n<<BigInt(edgeIndex.get(key(j,k)))));}
+        const rankB1=pts.length-beta0,rankB2=bitRank(boundaries),beta1=Math.max(0,edges.length-rankB1-rankB2);
+        q(topology,'[data-chart="topology"]').innerHTML=`<title>Rips complex at the selected scale</title><desc>Points are connected when their distance is at most epsilon. Betti numbers are computed from the resulting vertices, edges, and filled triangles.</desc><rect class="chart-field" x="1" y="1" width="718" height="358" rx="12"></rect>${edges.map(([i,j])=>`<line class="complex-edge" x1="${30+660*pts[i].x}" y1="${20+320*pts[i].y}" x2="${30+660*pts[j].x}" y2="${20+320*pts[j].y}"></line>`).join("")}${pts.map((p,i)=>`<circle class="complex-point" cx="${30+660*p.x}" cy="${20+320*p.y}" r="5"></circle><text class="point-index" x="${37+660*p.x}" y="${17+320*p.y}">${i+1}</text>`).join("")}<text class="field-label" x="18" y="28">ε = ${fmt(scale)} · ${shape.replace("-"," ")}</text>`;
+        set(topology,'[data-metric="beta0"]',beta0);set(topology,'[data-metric="beta1"]',beta1);set(topology,'[data-metric="simplices"]',`${edges.length} / ${triangles}`);
+        const reading=beta0>1?`${beta0} connected components remain at this scale. Increase ε to see which clusters merge before their internal holes are filled.`:beta1>0?`The complex is connected and contains ${beta1} independent loop${beta1===1?"":"s"}. Persistence requires checking how long those loops survive as ε changes.`:`At this scale the complex is connected and has no one-dimensional holes: either loops have not formed yet or triangles have already filled them.`;
+        set(topology,"[data-reading]",reading);
+      });
+    })();
+  </script>
+</BaseLayout>

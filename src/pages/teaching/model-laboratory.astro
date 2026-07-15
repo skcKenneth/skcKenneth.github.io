@@ -11,14 +11,74 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <div class="container">
       <p class="eyebrow">Interactive teaching examples</p>
       <h1>Change an assumption. Watch the model answer differently.</h1>
-      <p class="lead">Three compact experiments connect equations to behaviour. Adjust a parameter, inspect the curve, and ask which conclusion survives the change.</p>
+      <p class="lead">Nine interactive experiments connect equations to behaviour, from foundation models to active research questions. Choose by purpose, then change one assumption and inspect what survives.</p>
       <nav class="model-jump-nav" aria-label="Model laboratory examples">
-        <a href="#logistic-growth">01 Logistic growth</a>
-        <a href="#sir-intervention">02 SIR intervention</a>
-        <a href="#stopping-distance">03 Stopping distance</a>
+        <a href="#model-index">Browse all nine</a>
+        <a href="#logistic-growth">Foundation experiments</a>
+        <a href="/teaching/frontier-model-studio/">Frontier model studio</a>
       </nav>
     </div>
   </header>
+
+  <section class="section model-directory-section" id="model-index">
+    <div class="container">
+      <div class="section-head">
+        <div><p class="eyebrow">Model finder</p><h2>Find the experiment that matches your question.</h2></div>
+        <p>Use the two filters or scan the research questions. Every result links directly to the corresponding interactive workbench.</p>
+      </div>
+      <form class="model-directory-controls" aria-label="Filter interactive models">
+        <label for="model-purpose">Question type
+          <select id="model-purpose" data-model-filter="purpose">
+            <option value="all">All questions</option>
+            <option value="systems">Change over time</option>
+            <option value="data">Learn from data</option>
+            <option value="emergence">Networks and emergence</option>
+            <option value="structure">Geometry and structure</option>
+            <option value="decision">Scaling and decisions</option>
+          </select>
+        </label>
+        <label for="model-stage">Learning stage
+          <select id="model-stage" data-model-filter="stage">
+            <option value="all">All stages</option>
+            <option value="foundation">Foundation</option>
+            <option value="frontier">Research-facing</option>
+          </select>
+        </label>
+      </form>
+      <div class="model-library" data-model-library>
+        <article data-purpose="systems" data-stage="foundation"><div class="meta-line"><span>Foundation</span><span>Discrete dynamics</span></div><h3><a href="#logistic-growth">Logistic growth</a></h3><p>How does density dependence change exponential growth?</p><a href="#logistic-growth">Start experiment ↓</a></article>
+        <article data-purpose="systems" data-stage="foundation"><div class="meta-line"><span>Foundation</span><span>Coupled ODEs</span></div><h3><a href="#sir-intervention">SIR intervention</a></h3><p>How do intervention timing and strength reshape an epidemic curve?</p><a href="#sir-intervention">Start experiment ↓</a></article>
+        <article data-purpose="decision" data-stage="foundation"><div class="meta-line"><span>Foundation</span><span>Scaling</span></div><h3><a href="#stopping-distance">Stopping distance</a></h3><p>Why does risk grow faster than speed?</p><a href="#stopping-distance">Start experiment ↓</a></article>
+        <article data-purpose="systems" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Bifurcation theory</span></div><h3><a href="/teaching/frontier-model-studio/#critical-transitions">Critical transitions</a></h3><p>When does gradual pressure trigger an abrupt and path-dependent change?</p><a href="/teaching/frontier-model-studio/#critical-transitions">Start experiment →</a></article>
+        <article data-purpose="data" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Sparse regression</span></div><h3><a href="/teaching/frontier-model-studio/#equation-discovery">Equation discovery</a></h3><p>Can a governing equation be recovered from noisy observations?</p><a href="/teaching/frontier-model-studio/#equation-discovery">Start experiment →</a></article>
+        <article data-purpose="emergence" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Active matter</span></div><h3><a href="/teaching/frontier-model-studio/#collective-motion">Collective motion</a></h3><p>How can local alignment create global order without a leader?</p><a href="/teaching/frontier-model-studio/#collective-motion">Start experiment →</a></article>
+        <article data-purpose="emergence" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Higher-order networks</span></div><h3><a href="/teaching/frontier-model-studio/#higher-order-contagion">Higher-order contagion</a></h3><p>What changes when groups, rather than only pairs, transmit influence?</p><a href="/teaching/frontier-model-studio/#higher-order-contagion">Start experiment →</a></article>
+        <article data-purpose="data" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Scientific ML</span></div><h3><a href="/teaching/frontier-model-studio/#operator-learning">Operator learning</a></h3><p>What must a reusable model learn to map one function into another?</p><a href="/teaching/frontier-model-studio/#operator-learning">Start experiment →</a></article>
+        <article data-purpose="structure" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Topology</span></div><h3><a href="/teaching/frontier-model-studio/#persistent-homology">Persistent homology</a></h3><p>Which shapes survive a change of observational scale?</p><a href="/teaching/frontier-model-studio/#persistent-homology">Start experiment →</a></article>
+      </div>
+      <p class="small" data-model-count aria-live="polite">Showing all 9 experiments.</p>
+    </div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const purpose = document.querySelector('[data-model-filter="purpose"]');
+      const stage = document.querySelector('[data-model-filter="stage"]');
+      const cards = [...document.querySelectorAll('[data-model-library] article')];
+      const count = document.querySelector('[data-model-count]');
+      const filter = () => {
+        let visible = 0;
+        cards.forEach((card) => {
+          const show = (purpose.value === "all" || card.dataset.purpose === purpose.value) && (stage.value === "all" || card.dataset.stage === stage.value);
+          card.hidden = !show;
+          if (show) visible += 1;
+        });
+        count.textContent = `Showing ${visible} of ${cards.length} experiments.`;
+      };
+      purpose.addEventListener("input", filter);
+      stage.addEventListener("input", filter);
+    })();
+  </script>
 
   <section class="section model-lab-section" id="logistic-growth" data-model="logistic">
     <div class="container">

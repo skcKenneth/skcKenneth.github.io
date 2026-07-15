@@ -56,13 +56,15 @@ The aim is not to collect techniques. Students compare what each representation 
 
 ## Interactive model laboratory
 
-The public [Interactive Model Laboratory](/teaching/model-laboratory/) turns three parts of the programme into parameter experiments:
+The public [Interactive Model Laboratory](/teaching/model-laboratory/) now provides a searchable route into nine parameter experiments. Three foundation examples connect directly to the core programme:
 
 - a discrete logistic model for equilibrium, overshoot, and convergence;
 - an SIR model for transmission, recovery, intervention timing, and peak demand;
 - a stopping-distance model for linear and quadratic scaling.
 
 Each example pairs controls with a live graph, calculated quantities, interpretation, and questions to test. The purpose is not to find a visually pleasing curve. Students predict a response, change one assumption, compare the result, and identify what the simplified model still omits.
+
+The separate [Frontier Model Studio](/teaching/frontier-model-studio/) extends this sequence with six research-facing experiments: critical transitions, sparse equation discovery, collective motion, higher-order contagion, operator learning, and persistent homology. Each experiment includes a limitation statement and numbered references so that students can distinguish the teaching mechanism from the claims made in the research literature.
 
 ## Mathematical foundations on demand
 
