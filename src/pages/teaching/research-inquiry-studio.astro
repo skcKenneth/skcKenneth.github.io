@@ -1,0 +1,269 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const inquiries = [
+  { id: "identifiability", number: "01", title: "Identifiability", question: "Can the data distinguish the parameters that produced them?", method: "Inverse problems", article: "/writing/when-the-fit-is-not-the-model/" },
+  { id: "network-interference", number: "02", title: "Network interference", question: "What is a treatment effect when one unit changes another?", method: "Causal inference", article: "/writing/when-treatment-spills-over/" },
+  { id: "robust-decisions", number: "03", title: "Robust decisions", question: "Which decision survives a plausible change in the distribution?", method: "Distributionally robust optimization", article: "/writing/a-decision-that-survives-the-shift/" }
+];
+---
+
+<BaseLayout
+  title="Research Inquiry Studio"
+  description="Three interactive research inquiries on parameter identifiability, causal inference under network interference, and distributionally robust decisions."
+  type="Teaching"
+>
+  <header class="page-head inquiry-head">
+    <div class="container">
+      <p class="eyebrow">Research inquiry studio</p>
+      <h1>Move from an interesting pattern to a defensible research question.</h1>
+      <p class="lead">These laboratories focus on what a model can identify, what an experiment can estimate, and what a decision can withstand. Each interaction is paired with assumptions, claim limits, a complete article, and traceable academic references.</p>
+      <div class="actions">
+        <a class="button" href="#inquiry-map">Choose an inquiry</a>
+        <a class="button secondary" href="/teaching/frontier-model-studio/">Return to frontier models</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section studio-map-section" id="inquiry-map">
+    <div class="container">
+      <div class="section-head">
+        <div><p class="eyebrow">Inquiry map</p><h2>Start from the inferential difficulty.</h2></div>
+        <p>The three questions occur after a model has been written down. They ask whether its parameters, causal effects, or decisions are actually supported by the available information.</p>
+      </div>
+      <ol class="experiment-map">
+        {inquiries.map((inquiry) => (
+          <li>
+            <a href={`#${inquiry.id}`}>
+              <span class="experiment-number">{inquiry.number}</span>
+              <span><strong>{inquiry.title}</strong><small>{inquiry.question}</small></span>
+              <span class="experiment-meta"><em>{inquiry.method}</em><em>Research design</em></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section inquiry-method-section">
+    <div class="container">
+      <div class="section-head">
+        <div><p class="eyebrow">A research-ready loop</p><h2>Do not stop when the graphic looks convincing.</h2></div>
+        <p>A useful interaction should reveal the next experiment or assumption that could overturn the result.</p>
+      </div>
+      <ol class="research-loop">
+        <li><span>01</span><strong>Declare the estimand</strong><p>State the parameter, causal contrast, or decision criterion before changing the controls.</p></li>
+        <li><span>02</span><strong>Stress the information</strong><p>Reduce measurement range, add spillovers, or enlarge the ambiguity set.</p></li>
+        <li><span>03</span><strong>Find the failure boundary</strong><p>Record when an apparently stable conclusion becomes non-unique, biased, or too conservative.</p></li>
+        <li><span>04</span><strong>Design the next evidence</strong><p>Choose a new measurement, exposure mapping, or validation distribution that can discriminate competing explanations.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section inquiry-section" id="identifiability" data-inquiry="identifiability">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">01 · Inverse problems</p><h2>Good fit, uncertain parameters</h2></div>
+        <div>
+          <p class="model-equation" aria-label="y of S equals V max times S divided by K m plus S">y(S) = V<sub>max</sub>S/(K<sub>m</sub> + S)</p>
+          <p>A Michaelis–Menten response can be fitted closely by many parameter pairs when observations cover only a narrow substrate range. The heatmap shows the resulting loss surface rather than hiding it behind one best-fit estimate.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Identifiability experiment parameters">
+          <label for="id-range">Maximum observed substrate <output for="id-range" data-output="range">0.45</output></label>
+          <input id="id-range" data-input="range" type="range" min="0.12" max="2.00" step="0.01" value="0.45" />
+          <label for="id-noise">Observation noise <output for="id-noise" data-output="noise">0.03</output></label>
+          <input id="id-noise" data-input="noise" type="range" min="0" max="0.12" step="0.005" value="0.03" />
+          <label for="id-samples">Measurements <output for="id-samples" data-output="samples">12</output></label>
+          <input id="id-samples" data-input="samples" type="range" min="6" max="30" step="1" value="12" />
+        </form>
+        <div class="model-visual">
+          <svg class="model-chart identifiability-chart" data-chart="identifiability" viewBox="0 0 720 390" role="img" aria-label="Parameter loss surface with true and best-fitting Michaelis-Menten parameters"></svg>
+          <dl class="model-metrics">
+            <div><dt>Best V<sub>max</sub></dt><dd data-metric="vmax">—</dd></div>
+            <div><dt>Best K<sub>m</sub></dt><dd data-metric="km">—</dd></div>
+            <div><dt>Near-optimal grid</dt><dd data-metric="ridge">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>How far must the substrate range extend before the low-loss ridge contracts around the true pair?</span><span>Would an extra replicate or a measurement at a new substrate level reduce uncertainty more efficiently?</span></div>
+      <p class="small">This is a deterministic synthetic demonstration of practical identifiability. It does not perform profile-likelihood inference or prove structural identifiability for a general dynamical system.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-1">[1]</a> <a href="#ref-2">[2]</a> <a href="#ref-3">[3]</a></p>
+      <p><a class="title-link" href="/writing/when-the-fit-is-not-the-model/">Read the full article: When the Fit Is Not the Model →</a></p>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section inquiry-section" id="network-interference" data-inquiry="interference">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">02 · Causal inference</p><h2>Treatment effects with spillovers</h2></div>
+        <div>
+          <p class="model-equation" aria-label="Y i equals alpha i plus tau Z i plus gamma E i">Y<sub>i</sub> = α<sub>i</sub> + τZ<sub>i</sub> + γE<sub>i</sub></p>
+          <p>The exposure E<sub>i</sub> is the treated fraction of unit i's neighbours. Once γ is nonzero, an untreated unit can change because its neighbours were treated, and a difference in means no longer isolates the direct effect τ.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Network interference parameters">
+          <label for="net-coverage">Treatment coverage <output for="net-coverage" data-output="coverage">0.35</output></label>
+          <input id="net-coverage" data-input="coverage" type="range" min="0.15" max="0.80" step="0.05" value="0.35" />
+          <label for="net-spillover">Spillover strength γ <output for="net-spillover" data-output="spillover">3.00</output></label>
+          <input id="net-spillover" data-input="spillover" type="range" min="0" max="6" step="0.25" value="3" />
+          <label for="net-seed">Assignment pattern <output for="net-seed" data-output="seed">4</output></label>
+          <input id="net-seed" data-input="seed" type="range" min="1" max="12" step="1" value="4" />
+        </form>
+        <div class="model-visual">
+          <svg class="model-chart interference-chart" data-chart="interference" viewBox="0 0 720 390" role="img" aria-label="Network treatment assignment and comparison of causal contrasts"></svg>
+          <dl class="model-metrics">
+            <div><dt>Naive difference</dt><dd data-metric="naive">—</dd></div>
+            <div><dt>Direct effect τ</dt><dd data-metric="direct">2.00</dd></div>
+            <div><dt>All-treated policy effect</dt><dd data-metric="policy">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>Can two assignment patterns with the same treatment coverage produce different naive estimates?</span><span>Which exposure mapping would match a classroom, household, marketplace, or social-network intervention?</span></div>
+      <p class="small">The graph, outcomes, and exposure rule are synthetic and known. Real studies must justify the interference neighbourhood, treatment design, positivity, and the estimand before choosing an estimator.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-4">[4]</a> <a href="#ref-5">[5]</a> <a href="#ref-6">[6]</a></p>
+      <p><a class="title-link" href="/writing/when-treatment-spills-over/">Read the full article: When Treatment Spills Over →</a></p>
+    </div>
+  </section>
+
+  <section class="section model-lab-section frontier-section inquiry-section" id="robust-decisions" data-inquiry="robustness">
+    <div class="container">
+      <div class="model-intro">
+        <div><p class="eyebrow">03 · Optimization under uncertainty</p><h2>A decision that survives probability shift</h2></div>
+        <div>
+          <p class="model-equation" aria-label="minimize over q the maximum expected cost over distributions in P rho">min<sub>q</sub> max<sub>p ∈ P(ρ)</sub> E<sub>p</sub>[c(q,D)]</p>
+          <p>A capacity decision is evaluated against both the nominal demand distribution and the worst probability redistribution inside a total-variation ambiguity set. The ambiguity radius ρ controls how much probability mass an adversary may move.</p>
+        </div>
+      </div>
+      <div class="model-workbench">
+        <form class="model-controls" aria-label="Distributionally robust decision parameters">
+          <label for="dro-radius">Ambiguity radius ρ <output for="dro-radius" data-output="radius">0.15</output></label>
+          <input id="dro-radius" data-input="radius" type="range" min="0" max="0.40" step="0.01" value="0.15" />
+          <label for="dro-shortage">Shortage cost <output for="dro-shortage" data-output="shortage">6.0</output></label>
+          <input id="dro-shortage" data-input="shortage" type="range" min="2" max="12" step="0.5" value="6" />
+          <label for="dro-overage">Overage cost <output for="dro-overage" data-output="overage">1.5</output></label>
+          <input id="dro-overage" data-input="overage" type="range" min="0.5" max="5" step="0.25" value="1.5" />
+        </form>
+        <div class="model-visual">
+          <div class="model-legend" aria-hidden="true"><span class="legend-input">Nominal expected cost</span><span class="legend-selected">Worst-case expected cost</span></div>
+          <svg class="model-chart robustness-chart" data-chart="robustness" viewBox="0 0 720 390" role="img" aria-label="Nominal and worst-case expected cost across capacity decisions"></svg>
+          <dl class="model-metrics">
+            <div><dt>Nominal capacity</dt><dd data-metric="nominal">—</dd></div>
+            <div><dt>Robust capacity</dt><dd data-metric="robust">—</dd></div>
+            <div><dt>Nominal price of robustness</dt><dd data-metric="price">—</dd></div>
+          </dl>
+          <p class="model-reading" data-reading aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="model-prompts"><strong>Research prompts</strong><span>At what ambiguity radius does the robust capacity first differ from the nominal decision?</span><span>How should ρ be calibrated from held-out data rather than selected to justify a preferred answer?</span></div>
+      <p class="small">This finite-support example uses a total-variation ball and a piecewise-linear capacity cost. Other ambiguity sets encode different notions of plausible distribution shift and can produce different decisions.</p>
+      <p class="experiment-references"><strong>Research basis</strong> <a href="#ref-7">[7]</a> <a href="#ref-8">[8]</a> <a href="#ref-9">[9]</a></p>
+      <p><a class="title-link" href="/writing/a-decision-that-survives-the-shift/">Read the full article: A Decision That Survives the Shift →</a></p>
+    </div>
+  </section>
+
+  <section class="section research-trail-section">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">References</p><h2>Sources behind the inquiry design.</h2></div><p>Foundational papers define the inferential problems; newer methodological papers show how the research programmes continue to develop. They support the framing, not the numerical output of these synthetic browser experiments.</p></div>
+      <ol class="reference-list">
+        <li id="ref-1">Raue, A., Kreutz, C., Maiwald, T., Bachmann, J., Schilling, M., Klingmüller, U., & Timmer, J. (2009). <a href="https://doi.org/10.1093/bioinformatics/btp358">Structural and practical identifiability analysis of partially observed dynamical models by exploiting the profile likelihood</a>. <em>Bioinformatics, 25</em>(15), 1923–1929.</li>
+        <li id="ref-2">Wieland, F.-G., Hauber, A. L., Rosenblatt, M., Tönsing, C., & Timmer, J. (2021). <a href="https://doi.org/10.1016/j.coisb.2021.03.005">On structural and practical identifiability</a>. <em>Current Opinion in Systems Biology, 25</em>, 60–69.</li>
+        <li id="ref-3">Díaz-Seoane, S., Rey Barreiro, X., & Villaverde, A. F. (2023). <a href="https://doi.org/10.1093/bioinformatics/btac748">STRIKE-GOLDD 4.0: user-friendly, efficient analysis of structural identifiability and observability</a>. <em>Bioinformatics, 39</em>(1), btac748.</li>
+        <li id="ref-4">Hudgens, M. G., & Halloran, M. E. (2008). <a href="https://doi.org/10.1198/016214508000000292">Toward causal inference with interference</a>. <em>Journal of the American Statistical Association, 103</em>(482), 832–842.</li>
+        <li id="ref-5">Aronow, P. M., & Samii, C. (2017). <a href="https://doi.org/10.1214/16-AOAS1005">Estimating average causal effects under general interference, with application to a social network experiment</a>. <em>The Annals of Applied Statistics, 11</em>(4), 1912–1947.</li>
+        <li id="ref-6">Harshaw, C., Sävje, F., Eisenstat, D., Mirrokni, V., & Pouget-Abadie, J. (2023). <a href="https://doi.org/10.1214/23-EJS2111">Design and analysis of bipartite experiments under a linear exposure-response model</a>. <em>Electronic Journal of Statistics, 17</em>(1), 464–518.</li>
+        <li id="ref-7">Wiesemann, W., Kuhn, D., & Sim, M. (2014). <a href="https://doi.org/10.1287/opre.2014.1314">Distributionally robust convex optimization</a>. <em>Operations Research, 62</em>(6), 1358–1376.</li>
+        <li id="ref-8">Mohajerin Esfahani, P., & Kuhn, D. (2018). <a href="https://doi.org/10.1007/s10107-017-1172-1">Data-driven distributionally robust optimization using the Wasserstein metric: performance guarantees and tractable reformulations</a>. <em>Mathematical Programming, 171</em>, 115–166.</li>
+        <li id="ref-9">Chen, L., Fu, C., Si, F., Sim, M., & Xiong, P. (2025). <a href="https://doi.org/10.1287/opre.2023.0579">Robust optimization with moment-dispersion ambiguity</a>. <em>Operations Research, 73</em>(6), 3118–3138.</li>
+      </ol>
+    </div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const H = 390;
+      const q = (root, selector) => root.querySelector(selector);
+      const value = (root, name) => Number(q(root, `[data-input="${name}"]`).value);
+      const set = (root, selector, text) => { q(root, selector).textContent = text; };
+      const fmt = (n, d = 2) => Number(n).toFixed(d);
+      const line = (points) => points.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
+
+      const ident = document.querySelector('[data-inquiry="identifiability"]');
+      const renderIdent = () => {
+        const sMax = value(ident, "range"), noise = value(ident, "noise"), n = value(ident, "samples");
+        set(ident, '[data-output="range"]', fmt(sMax)); set(ident, '[data-output="noise"]', fmt(noise, 3)); set(ident, '[data-output="samples"]', n);
+        const obs = Array.from({ length: n }, (_, i) => {
+          const s = 0.02 + (sMax - 0.02) * i / Math.max(1, n - 1);
+          const y = 1.2 * s / (0.35 + s) + noise * (0.62 * Math.sin((i + 1) * 2.31) + 0.38 * Math.cos((i + 2) * 1.17));
+          return [s, y];
+        });
+        const cols = 30, rows = 30, losses = [];
+        let best = { loss: Infinity, v: 0, k: 0 };
+        for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+          const v = 0.55 + 1.25 * c / (cols - 1), k = 0.05 + 0.95 * (rows - 1 - r) / (rows - 1);
+          const loss = obs.reduce((sum, [s, y]) => sum + (y - v * s / (k + s)) ** 2, 0) / n;
+          losses.push({ r, c, v, k, loss }); if (loss < best.loss) best = { loss, v, k };
+        }
+        const sorted = losses.map(d => d.loss).sort((a,b) => a-b), scale = sorted[Math.floor(sorted.length * 0.55)] || 1;
+        const near = losses.filter(d => d.loss <= best.loss + Math.max(0.0008, noise ** 2 * 0.9)).length;
+        const x0 = 74, y0 = 24, pw = 600, ph = 300, cw = pw / cols, ch = ph / rows;
+        const sx = v => x0 + (v - 0.55) / 1.25 * pw, sy = k => y0 + (1 - (k - 0.05) / 0.95) * ph;
+        const cells = losses.map(d => `<rect x="${(x0+d.c*cw).toFixed(1)}" y="${(y0+d.r*ch).toFixed(1)}" width="${(cw+0.25).toFixed(1)}" height="${(ch+0.25).toFixed(1)}" fill="var(--accent)" opacity="${(0.06 + 0.86 * Math.exp(-4*d.loss/Math.max(scale,1e-5))).toFixed(3)}"></rect>`).join("");
+        q(ident, '[data-chart="identifiability"]').innerHTML = `<title>Michaelis-Menten parameter loss surface</title><desc>Darker cells have lower mean squared error. A circle marks the true parameters and a cross marks the grid-search estimate.</desc><rect class="chart-field" x="${x0}" y="${y0}" width="${pw}" height="${ph}"></rect>${cells}<line class="chart-axis" x1="${x0}" y1="${y0+ph}" x2="${x0+pw}" y2="${y0+ph}"></line><line class="chart-axis" x1="${x0}" y1="${y0}" x2="${x0}" y2="${y0+ph}"></line><text class="chart-tick" x="${x0}" y="${y0+ph+20}">0.55</text><text class="chart-tick" x="${x0+pw-22}" y="${y0+ph+20}">1.80</text><text class="chart-tick" x="${x0-34}" y="${y0+ph+4}">0.05</text><text class="chart-tick" x="${x0-34}" y="${y0+5}">1.00</text><text class="chart-label" x="${x0+pw/2}" y="${H-16}" text-anchor="middle">Vmax</text><text class="chart-label" x="18" y="${y0+ph/2}" text-anchor="middle" transform="rotate(-90 18 ${y0+ph/2})">Km</text><circle class="truth-marker" cx="${sx(1.2)}" cy="${sy(0.35)}" r="8"></circle><path class="best-marker" d="M${sx(best.v)-8},${sy(best.k)-8} L${sx(best.v)+8},${sy(best.k)+8} M${sx(best.v)+8},${sy(best.k)-8} L${sx(best.v)-8},${sy(best.k)+8}"></path><text class="selected-label" x="${sx(1.2)+12}" y="${sy(0.35)-10}">true</text><text class="selected-label" x="${sx(best.v)+12}" y="${sy(best.k)+20}">best fit</text>`;
+        set(ident, '[data-metric="vmax"]', fmt(best.v)); set(ident, '[data-metric="km"]', fmt(best.k)); set(ident, '[data-metric="ridge"]', `${near} / ${losses.length}`);
+        set(ident, '[data-reading]', near > 120 ? "A broad low-loss region remains: the fit does not determine a narrow parameter pair." : near > 45 ? "The parameter ridge is contracting, but several pairs remain empirically difficult to distinguish." : "The observed range strongly localises the grid estimate around one parameter pair.");
+      };
+
+      const net = document.querySelector('[data-inquiry="interference"]');
+      const positions = Array.from({length:18}, (_, i) => { const g=Math.floor(i/6), j=i%6, a=2*Math.PI*j/6; return [125+g*155+55*Math.cos(a), 165+70*Math.sin(a)]; });
+      const edges = [];
+      for (let g=0; g<3; g++) for (let j=0; j<6; j++) { edges.push([g*6+j,g*6+(j+1)%6]); edges.push([g*6+j,g*6+(j+2)%6]); }
+      edges.push([2,6],[4,11],[8,12],[10,17]);
+      const renderNet = () => {
+        const coverage=value(net,"coverage"), gamma=value(net,"spillover"), seed=value(net,"seed"), tau=2;
+        set(net,'[data-output="coverage"]',fmt(coverage)); set(net,'[data-output="spillover"]',fmt(gamma)); set(net,'[data-output="seed"]',seed);
+        const ranked=Array.from({length:18},(_,i)=>({i,score:(Math.sin((i+1)*(seed+2)*1.71)+1)/2})).sort((a,b)=>b.score-a.score);
+        const treated=Array(18).fill(0); ranked.slice(0,Math.max(1,Math.round(18*coverage))).forEach(d=>treated[d.i]=1);
+        const neighbors=Array.from({length:18},()=>[]); edges.forEach(([a,b])=>{neighbors[a].push(b);neighbors[b].push(a);});
+        const exposure=neighbors.map(ns=>ns.reduce((s,j)=>s+treated[j],0)/ns.length);
+        const outcomes=treated.map((z,i)=>10+0.22*Math.sin(i*1.9)+tau*z+gamma*exposure[i]);
+        const mean=z=>{const a=outcomes.filter((_,i)=>treated[i]===z);return a.reduce((s,v)=>s+v,0)/a.length;};
+        const naive=mean(1)-mean(0), policy=tau+gamma;
+        const edgeSvg=edges.map(([a,b])=>`<line class="network-edge" x1="${positions[a][0]}" y1="${positions[a][1]}" x2="${positions[b][0]}" y2="${positions[b][1]}"></line>`).join("");
+        const nodeSvg=positions.map(([x,y],i)=>`<circle class="network-node ${treated[i]?"is-treated":""}" cx="${x}" cy="${y}" r="${8+4*exposure[i]}" aria-label="Unit ${i+1}, ${treated[i]?"treated":"untreated"}, neighbour exposure ${fmt(exposure[i])}"></circle>`).join("");
+        const vals=[naive,tau,policy], labels=["naive","direct τ","policy"], max=Math.max(6.5,...vals.map(Math.abs));
+        const bars=vals.map((v,i)=>{const h=Math.abs(v)/max*210,y=300-h,x=545+i*52;return `<rect class="effect-bar effect-${i}" x="${x}" y="${y}" width="30" height="${h}"></rect><text class="selected-label" x="${x+15}" y="${y-8}" text-anchor="middle">${fmt(v)}</text><text class="chart-tick" x="${x+15}" y="322" text-anchor="middle">${labels[i]}</text>`}).join("");
+        q(net,'[data-chart="interference"]').innerHTML=`<title>Network interference and competing treatment contrasts</title><desc>Filled nodes are treated, node size shows treated-neighbour exposure, and bars compare the naive difference with the direct and policy effects.</desc><rect class="chart-field" x="28" y="24" width="450" height="300"></rect>${edgeSvg}${nodeSvg}<text class="chart-label" x="253" y="354" text-anchor="middle">Treatment network · node size = neighbour exposure</text><line class="chart-axis" x1="525" y1="300" x2="700" y2="300"></line>${bars}`;
+        set(net,'[data-metric="naive"]',fmt(naive)); set(net,'[data-metric="policy"]',fmt(policy));
+        set(net,'[data-reading]',Math.abs(naive-tau)>0.6?"The naive contrast is mixing direct treatment with unequal neighbour exposure. Changing only the assignment pattern can move the estimate.":"This assignment happens to place the naive contrast near the direct effect, but that agreement is design-dependent rather than guaranteed.");
+      };
+
+      const dro=document.querySelector('[data-inquiry="robustness"]');
+      const demands=[40,55,70,85,100], baseP=[.1,.2,.4,.2,.1];
+      const worstExpectation=(costs,rho)=>{
+        const p=[...baseP], low=[0,1,2,3,4].sort((a,b)=>costs[a]-costs[b]), high=[0,1,2,3,4].sort((a,b)=>costs[b]-costs[a]);
+        let budget=rho, li=0, hi=0;
+        while(budget>1e-9 && li<low.length && hi<high.length){const a=low[li],b=high[hi];if(costs[b]<=costs[a])break;const move=Math.min(p[a],1-p[b],budget);p[a]-=move;p[b]+=move;budget-=move;if(p[a]<1e-9)li++;if(1-p[b]<1e-9)hi++;}
+        return costs.reduce((s,c,i)=>s+c*p[i],0);
+      };
+      const renderDro=()=>{
+        const rho=value(dro,"radius"), shortage=value(dro,"shortage"), overage=value(dro,"overage");
+        set(dro,'[data-output="radius"]',fmt(rho));set(dro,'[data-output="shortage"]',fmt(shortage,1));set(dro,'[data-output="overage"]',fmt(overage,1));
+        const data=[];for(let cap=35;cap<=110;cap+=1){const costs=demands.map(d=>shortage*Math.max(d-cap,0)+overage*Math.max(cap-d,0));const nominal=costs.reduce((s,c,i)=>s+c*baseP[i],0);data.push({cap,nominal,robust:worstExpectation(costs,rho)});}
+        const nOpt=data.reduce((a,b)=>b.nominal<a.nominal?b:a),rOpt=data.reduce((a,b)=>b.robust<a.robust?b:a),yMax=Math.max(...data.map(d=>d.robust))*1.06;
+        const x0=64,y0=24,pw=630,ph=300,sx=x=>x0+(x-35)/75*pw,sy=y=>y0+ph-y/yMax*ph;
+        const nominal=line(data.map(d=>[sx(d.cap),sy(d.nominal)])),robust=line(data.map(d=>[sx(d.cap),sy(d.robust)]));
+        q(dro,'[data-chart="robustness"]').innerHTML=`<title>Nominal and distributionally robust capacity cost</title><desc>Expected cost curves show how a total-variation ambiguity radius changes the preferred capacity.</desc><rect class="chart-field" x="${x0}" y="${y0}" width="${pw}" height="${ph}"></rect><line class="chart-axis" x1="${x0}" y1="${y0+ph}" x2="${x0+pw}" y2="${y0+ph}"></line><line class="chart-axis" x1="${x0}" y1="${y0}" x2="${x0}" y2="${y0+ph}"></line><path class="frontier-input" d="${nominal}"></path><path class="frontier-primary" d="${robust}"></path><circle class="nominal-marker" cx="${sx(nOpt.cap)}" cy="${sy(nOpt.nominal)}" r="7"></circle><rect class="state-marker" x="${sx(rOpt.cap)-6}" y="${sy(rOpt.robust)-6}" width="12" height="12" transform="rotate(45 ${sx(rOpt.cap)} ${sy(rOpt.robust)})"></rect><text class="selected-label" x="${sx(nOpt.cap)-10}" y="${sy(nOpt.nominal)-13}" text-anchor="end">nominal ${nOpt.cap}</text><text class="selected-label" x="${sx(rOpt.cap)+12}" y="${sy(rOpt.robust)-13}">robust ${rOpt.cap}</text><text class="chart-tick" x="${x0}" y="${y0+ph+20}">35</text><text class="chart-tick" x="${x0+pw-18}" y="${y0+ph+20}">110</text><text class="chart-label" x="${x0+pw/2}" y="${H-16}" text-anchor="middle">Capacity q</text><text class="chart-label" x="18" y="${y0+ph/2}" text-anchor="middle" transform="rotate(-90 18 ${y0+ph/2})">Expected cost</text>`;
+        const nominalAtRobust=data.find(d=>d.cap===rOpt.cap).nominal,price=nominalAtRobust-nOpt.nominal;
+        set(dro,'[data-metric="nominal"]',nOpt.cap);set(dro,'[data-metric="robust"]',rOpt.cap);set(dro,'[data-metric="price"]',fmt(price));
+        set(dro,'[data-reading]',rOpt.cap===nOpt.cap?"At this radius, the same capacity minimises both criteria; robustness changes the evaluated cost but not yet the decision.":`The ambiguity set shifts the preferred capacity by ${rOpt.cap-nOpt.cap} units. The nominal expected-cost premium is ${fmt(price)}.`);
+      };
+
+      [[ident,renderIdent],[net,renderNet],[dro,renderDro]].forEach(([root,render])=>{root.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',render));render();});
+    })();
+  </script>
+</BaseLayout>

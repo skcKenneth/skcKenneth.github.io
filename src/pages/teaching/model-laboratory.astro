@@ -4,18 +4,19 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 <BaseLayout
   title="Interactive Model Laboratory"
-  description="Interactive mathematical-modeling examples for exploring growth, epidemic dynamics, intervention timing, and stopping distance."
+  description="Twelve interactive mathematical-modeling examples spanning foundation dynamics, frontier methods, and research inquiry."
   type="Teaching"
 >
   <header class="page-head model-lab-head">
     <div class="container">
       <p class="eyebrow">Interactive teaching examples</p>
       <h1>Change an assumption. Watch the model answer differently.</h1>
-      <p class="lead">Nine interactive experiments connect equations to behaviour, from foundation models to active research questions. Choose by purpose, then change one assumption and inspect what survives.</p>
+      <p class="lead">Twelve interactive experiments connect equations to behaviour, inference, and decision. Choose by purpose, then change one assumption and inspect what survives.</p>
       <nav class="model-jump-nav" aria-label="Model laboratory examples">
-        <a href="#model-index">Browse all nine</a>
+        <a href="#model-index">Browse all twelve</a>
         <a href="#logistic-growth">Foundation experiments</a>
         <a href="/teaching/frontier-model-studio/">Frontier model studio</a>
+        <a href="/teaching/research-inquiry-studio/">Research inquiry studio</a>
       </nav>
     </div>
   </header>
@@ -42,6 +43,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
             <option value="all">All stages</option>
             <option value="foundation">Foundation</option>
             <option value="frontier">Research-facing</option>
+            <option value="research">Research inquiry</option>
           </select>
         </label>
       </form>
@@ -55,8 +57,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <article data-purpose="emergence" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Higher-order networks</span></div><h3><a href="/teaching/frontier-model-studio/#higher-order-contagion">Higher-order contagion</a></h3><p>What changes when groups, rather than only pairs, transmit influence?</p><a href="/teaching/frontier-model-studio/#higher-order-contagion">Start experiment →</a></article>
         <article data-purpose="data" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Scientific ML</span></div><h3><a href="/teaching/frontier-model-studio/#operator-learning">Operator learning</a></h3><p>What must a reusable model learn to map one function into another?</p><a href="/teaching/frontier-model-studio/#operator-learning">Start experiment →</a></article>
         <article data-purpose="structure" data-stage="frontier"><div class="meta-line"><span>Research-facing</span><span>Topology</span></div><h3><a href="/teaching/frontier-model-studio/#persistent-homology">Persistent homology</a></h3><p>Which shapes survive a change of observational scale?</p><a href="/teaching/frontier-model-studio/#persistent-homology">Start experiment →</a></article>
+        <article data-purpose="data" data-stage="research"><div class="meta-line"><span>Research inquiry</span><span>Inverse problems</span></div><h3><a href="/teaching/research-inquiry-studio/#identifiability">Parameter identifiability</a></h3><p>Can the data distinguish the parameters that produced them?</p><a href="/teaching/research-inquiry-studio/#identifiability">Start inquiry →</a></article>
+        <article data-purpose="emergence" data-stage="research"><div class="meta-line"><span>Research inquiry</span><span>Causal inference</span></div><h3><a href="/teaching/research-inquiry-studio/#network-interference">Network interference</a></h3><p>What is a treatment effect when one unit changes another?</p><a href="/teaching/research-inquiry-studio/#network-interference">Start inquiry →</a></article>
+        <article data-purpose="decision" data-stage="research"><div class="meta-line"><span>Research inquiry</span><span>Robust optimisation</span></div><h3><a href="/teaching/research-inquiry-studio/#robust-decisions">Robust decisions</a></h3><p>Which decision survives a plausible probability shift?</p><a href="/teaching/research-inquiry-studio/#robust-decisions">Start inquiry →</a></article>
       </div>
-      <p class="small" data-model-count aria-live="polite">Showing all 9 experiments.</p>
+      <p class="small" data-model-count aria-live="polite">Showing all 12 experiments.</p>
     </div>
   </section>
 
