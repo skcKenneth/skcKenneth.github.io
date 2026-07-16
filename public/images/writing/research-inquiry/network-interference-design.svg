@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">An interference study links design, exposure, estimand, and estimator</title>
+  <desc id="desc">A four-stage workflow connects the assignment design to exposure mapping, the causal estimand, and the estimator. Diagnostic checks below identify positivity, network measurement, and contrast-definition failures.</desc>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#111"/></marker>
+    <style>
+      .t{fill:#111;font-family:Arial,Helvetica,sans-serif}.h{font-size:20px;font-weight:700}.s{font-size:15px}.box{fill:#f7f7f7;stroke:#777;stroke-width:1.5}.focus{fill:#dce9e3;stroke:#1f6652;stroke-width:2}.check{fill:#f3e5df;stroke:#a24b32;stroke-width:2}.arrow{stroke:#111;stroke-width:1.8;fill:none;marker-end:url(#arr)}.link{stroke:#777;stroke-width:1.5;stroke-dasharray:6 5;fill:none}
+    </style>
+  </defs>
+  <rect width="960" height="540" fill="#fff"/>
+  <text class="t h" x="36" y="42">A defensible interference analysis is a connected design problem</text>
+  <rect class="focus" x="36" y="90" width="190" height="116"/><rect class="box" x="268" y="90" width="190" height="116"/><rect class="box" x="500" y="90" width="190" height="116"/><rect class="focus" x="732" y="90" width="190" height="116"/>
+  <text class="t h" x="131" y="122" text-anchor="middle">1. Assignment</text><text class="t s" x="131" y="151" text-anchor="middle">individual, cluster,</text><text class="t s" x="131" y="174" text-anchor="middle">or graph-cluster</text>
+  <text class="t h" x="363" y="122" text-anchor="middle">2. Exposure map</text><text class="t s" x="363" y="151" text-anchor="middle">which assignments</text><text class="t s" x="363" y="174" text-anchor="middle">can affect unit i?</text>
+  <text class="t h" x="595" y="122" text-anchor="middle">3. Estimand</text><text class="t s" x="595" y="151" text-anchor="middle">direct, spillover,</text><text class="t s" x="595" y="174" text-anchor="middle">or policy contrast</text>
+  <text class="t h" x="827" y="122" text-anchor="middle">4. Estimator</text><text class="t s" x="827" y="151" text-anchor="middle">weights and uncertainty</text><text class="t s" x="827" y="174" text-anchor="middle">match the design</text>
+  <path class="arrow" d="M226 148 H260"/><path class="arrow" d="M458 148 H492"/><path class="arrow" d="M690 148 H724"/>
+  <text class="t h" x="36" y="270">Failure checks before interpreting an effect</text>
+  <rect class="check" x="36" y="304" width="270" height="130"/><rect class="check" x="345" y="304" width="270" height="130"/><rect class="check" x="654" y="304" width="270" height="130"/>
+  <text class="t h" x="171" y="338" text-anchor="middle">Exposure positivity</text><text class="t s" x="171" y="370" text-anchor="middle">Does the design generate</text><text class="t s" x="171" y="393" text-anchor="middle">both exposure conditions often</text><text class="t s" x="171" y="416" text-anchor="middle">enough to compare them?</text>
+  <text class="t h" x="480" y="338" text-anchor="middle">Network measurement</text><text class="t s" x="480" y="370" text-anchor="middle">Would missing, delayed, or</text><text class="t s" x="480" y="393" text-anchor="middle">treatment-induced edges change</text><text class="t s" x="480" y="416" text-anchor="middle">the assigned exposure?</text>
+  <text class="t h" x="789" y="338" text-anchor="middle">Contrast alignment</text><text class="t s" x="789" y="370" text-anchor="middle">Does the reported phrase match</text><text class="t s" x="789" y="393" text-anchor="middle">the potential-outcome contrast</text><text class="t s" x="789" y="416" text-anchor="middle">that was actually estimated?</text>
+  <path class="link" d="M171 282 V304"/><path class="link" d="M480 282 V304"/><path class="link" d="M789 282 V304"/>
+  <text class="t s" x="480" y="492" text-anchor="middle">If one link changes, the interpretation of every downstream quantity may change.</text>
+</svg>

@@ -41,7 +41,14 @@ $$
 Y_i=\alpha_i+\tau z_i+\gamma E_i.
 $$
 
-Here $	au$ is a direct effect at fixed neighbour exposure and $gamma$ controls spillover. The model is intentionally transparent: the network, exposure rule, and coefficients are known. A real study does not receive those elements for free.
+Here $\tau$ is a direct effect at fixed neighbour exposure and $\gamma$ controls spillover. The model is intentionally transparent: the network, exposure rule, and coefficients are known. A real study does not receive those elements for free.
+
+<figure class="article-figure">
+  <img src="/images/writing/research-inquiry/network-interference-estimands.svg" alt="Two-panel schematic showing treatment and spillover paths on a network and a comparison of naive, direct, and policy-effect contrasts." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 1.</strong> Interference changes both the data structure and the question being answered. Panel (a) separates a unit's own treatment from exposure transmitted by treated neighbours. Panel (b) uses a synthetic example to show that a naive treated-minus-untreated difference, a direct effect, and an all-treated policy effect are distinct quantities.</figcaption>
+</figure>
+
+The network view explains why the naive contrast can move even when the direct response coefficient is fixed. Treated and untreated groups can inherit different neighbour-exposure distributions, so their observed difference mixes receipt, spillover, and assignment pattern.
 
 [Aronow and Samii](https://doi.org/10.1214/16-AOAS1005) organise general interference around three connected choices: the randomisation design, the mapping from assignments to exposures, and the estimand. That triad is a useful discipline. It prevents the analyst from choosing an exposure definition only after seeing which one produces the desired result.
 
@@ -51,9 +58,9 @@ Here $	au$ is a direct effect at fixed neighbour exposure and $gamma$ controls s
 
 A **direct effect** compares a unit treated and untreated while holding its surrounding exposure fixed. A **spillover effect** compares two neighbour-exposure conditions for a unit whose own treatment is fixed. A **total or policy effect** compares two assignment regimes, such as treating everyone versus treating no one.
 
-These are not interchangeable. In the laboratory, the direct coefficient is $	au=2$. The all-treated versus none-treated policy contrast is $	au+\gamma$ because every unit changes both its own treatment status and its neighbour exposure. The naive treated-minus-untreated difference is neither quantity in general. It also contains differences in average exposure and in the small heterogeneous baselines used by the simulation.
+These are not interchangeable. In the laboratory, the direct coefficient is $\tau=2$. The all-treated versus none-treated policy contrast is $\tau+\gamma$ because every unit changes both its own treatment status and its neighbour exposure. The naive treated-minus-untreated difference is neither quantity in general. It also contains differences in average exposure and in the small heterogeneous baselines used by the simulation.
 
-Move the assignment-pattern control while keeping treatment coverage and $gamma$ fixed. The direct and all-treated policy effects remain unchanged by construction, but the naive contrast moves. That movement is a design effect, not a change in the underlying response law.
+Move the assignment-pattern control while keeping treatment coverage and $\gamma$ fixed. The direct and all-treated policy effects remain unchanged by construction, but the naive contrast moves. That movement is a design effect, not a change in the underlying response law.
 
 This is why a causal paper should name the estimand in operational language. “Effect of the programme” is incomplete if readers cannot tell whether it means receipt, indirect exposure, saturation, or a change in the treatment policy.
 
@@ -70,6 +77,13 @@ The graph should therefore be treated as data with provenance, uncertainty, and 
 Randomisation does not automatically solve interference. A design that almost never produces isolated treated units cannot estimate an effect for that exposure condition with useful precision. This is a positivity problem: the assignments required to define the contrast must occur with nonzero and sufficiently large probability.
 
 Cluster randomisation can increase the probability of high and low neighbour exposure, making policy-like contrasts easier to estimate. It can also make direct effects at fixed exposure difficult because treatment and local exposure move together. Individual randomisation provides different exposure variation but may generate substantial mixing between conditions.
+
+<figure class="article-figure">
+  <img src="/images/writing/research-inquiry/network-interference-design.svg" alt="Workflow linking assignment design, exposure mapping, causal estimand, and estimator, with checks for positivity, network measurement, and contrast alignment." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 2.</strong> A defensible interference study is a connected design problem. The assignment must generate the exposures used by the estimand, and the estimator must respect their assignment probabilities. Positivity, network measurement, and contrast alignment are failure checks rather than afterthoughts.</figcaption>
+</figure>
+
+This sequence is directional. If the exposure map changes after discovering missing edges, the relevant estimand and weighting scheme may also change. A valid randomisation procedure cannot rescue an effect label that no longer matches the measured exposure.
 
 In two-sided systems, the treated and measured units may not even be the same population. A marketplace may randomise sellers while measuring buyer outcomes; an advertising system may change campaigns while measuring users. [Harshaw and colleagues](https://doi.org/10.1214/23-EJS2111) study such bipartite experiments under a linear exposure-response model and develop an exposure-reweighted estimator together with a design intended to improve precision. Their result illustrates a broader point: analysis and assignment should be designed together around the exposure variation needed by the estimand.
 
@@ -109,4 +123,3 @@ When treatment spills over, the graph is not merely a visualisation. It is part 
 2. Aronow, P. M., & Samii, C. (2017). Estimating average causal effects under general interference, with application to a social network experiment. *The Annals of Applied Statistics, 11*(4), 1912–1947. [https://doi.org/10.1214/16-AOAS1005](https://doi.org/10.1214/16-AOAS1005)
 3. Harshaw, C., Sävje, F., Eisenstat, D., Mirrokni, V., & Pouget-Abadie, J. (2023). Design and analysis of bipartite experiments under a linear exposure-response model. *Electronic Journal of Statistics, 17*(1), 464–518. [https://doi.org/10.1214/23-EJS2111](https://doi.org/10.1214/23-EJS2111)
 4. Ogburn, E. L., & VanderWeele, T. J. (2014). Causal diagrams for interference. *Statistical Science, 29*(4), 559–578. [https://doi.org/10.1214/14-STS501](https://doi.org/10.1214/14-STS501)
-

@@ -76,6 +76,27 @@ Article structure should cover the question, why it matters, model, data and
 assumptions, findings, validation, limitations, and technical record. Label
 concepts, synthetic experiments, teaching cases, and work in progress directly.
 
+### Visual evidence rule
+
+Curated long-form articles must not rely on an interactive companion as their
+only visual explanation. For non-archived Writing articles dated on or after
+2026-07-16, the build requires at least one local figure for 900-1,199 words and
+at least two local figures for 1,200 words or more. Each figure must have useful
+alt text, a semantic caption, and an existing asset under `public/images` or
+`public/science`.
+
+Research figures should use a restrained, publication-ready IEEE-style visual
+language: labelled axes or stages, direct series labels where possible, panel
+letters for multi-panel compositions, and colour paired with line style or
+shape. All figure text must be black (`#111` or `#000`) against a light
+background. Figures should explain a claim, mechanism, comparison, or method;
+decorative images do not satisfy the rule. Synthetic or schematic values must
+be identified as such in the caption.
+
+Run `npm run check:writing-visuals` to apply this editorial gate without a full
+site build. New articles remain manually written; the check neither creates
+prose nor promotes ScienceProject files into posts.
+
 ## Research and teaching
 
 - Research entries describe programmes and link across projects.

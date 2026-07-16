@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Distributional robustness changes both the cost curve and the stress distribution</title>
+  <desc id="desc">Panel a compares nominal and worst-case expected cost across capacity, with minima at 85 and 88 units. Panel b shows an illustrative adversarial shift of probability mass from central demand toward a costly high-demand state.</desc>
+  <defs>
+    <style>
+      .t{fill:#111;font-family:Arial,Helvetica,sans-serif}.h{font-size:20px;font-weight:700}.s{font-size:15px}.axis{stroke:#111;stroke-width:1.8}.grid{stroke:#d0d0d0;stroke-width:1}.nom{fill:none;stroke:#777;stroke-width:4;stroke-dasharray:10 7}.rob{fill:none;stroke:#1f6652;stroke-width:4}.mark1{fill:#fff;stroke:#777;stroke-width:3}.mark2{fill:#fff;stroke:#1f6652;stroke-width:3}.p0{fill:#d7d7d7;stroke:#777}.pw{fill:#f3e5df;stroke:#a24b32}.guide{stroke:#111;stroke-width:1.5;stroke-dasharray:5 5}
+    </style>
+  </defs>
+  <rect width="960" height="540" fill="#fff"/>
+  <text class="t h" x="34" y="42">(a) Nominal and worst-case cost across capacity</text>
+  <line class="grid" x1="75" y1="128" x2="470" y2="128"/><line class="grid" x1="75" y1="218" x2="470" y2="218"/><line class="grid" x1="75" y1="308" x2="470" y2="308"/><line class="axis" x1="75" y1="398" x2="470" y2="398"/><line class="axis" x1="75" y1="82" x2="75" y2="398"/>
+  <path class="nom" d="M75 102 C154 187 219 274 291 342 C326 375 350 388 371 363 C405 322 438 245 470 153"/>
+  <path class="rob" d="M75 84 C154 150 225 226 302 300 C338 335 363 353 389 340 C425 321 449 274 470 220"/>
+  <circle class="mark1" cx="371" cy="363" r="8"/><circle class="mark2" cx="389" cy="340" r="8"/>
+  <line class="guide" x1="371" y1="363" x2="371" y2="398"/><line class="guide" x1="389" y1="340" x2="389" y2="398"/>
+  <text class="t s" x="344" y="431" text-anchor="middle">q = 85</text><text class="t s" x="414" y="454" text-anchor="middle">q = 88</text>
+  <text class="t s" x="176" y="136">worst-case expected cost</text><line class="rob" x1="126" y1="131" x2="166" y2="131"/>
+  <text class="t s" x="176" y="166">nominal expected cost</text><line class="nom" x1="126" y1="161" x2="166" y2="161"/>
+  <text class="t s" x="272" y="485" text-anchor="middle">Capacity q</text><text class="t s" x="28" y="244" text-anchor="middle" transform="rotate(-90 28 244)">Expected cost</text>
+  <text class="t h" x="520" y="42">(b) An illustrative adversarial probability shift</text>
+  <line class="grid" x1="574" y1="128" x2="923" y2="128"/><line class="grid" x1="574" y1="218" x2="923" y2="218"/><line class="grid" x1="574" y1="308" x2="923" y2="308"/><line class="axis" x1="574" y1="398" x2="923" y2="398"/><line class="axis" x1="574" y1="82" x2="574" y2="398"/>
+  <rect class="p0" x="607" y="320" width="20" height="78"/><rect class="pw" x="630" y="320" width="20" height="78"/><rect class="p0" x="672" y="244" width="20" height="154"/><rect class="pw" x="695" y="282" width="20" height="116"/><rect class="p0" x="737" y="90" width="20" height="308"/><rect class="pw" x="760" y="167" width="20" height="231"/><rect class="p0" x="802" y="244" width="20" height="154"/><rect class="pw" x="825" y="244" width="20" height="154"/><rect class="p0" x="867" y="320" width="20" height="78"/><rect class="pw" x="890" y="205" width="20" height="193"/>
+  <text class="t s" x="628" y="426" text-anchor="middle">40</text><text class="t s" x="693" y="426" text-anchor="middle">55</text><text class="t s" x="758" y="426" text-anchor="middle">70</text><text class="t s" x="823" y="426" text-anchor="middle">85</text><text class="t s" x="888" y="426" text-anchor="middle">100</text>
+  <text class="t s" x="750" y="464" text-anchor="middle">Demand state D</text><text class="t s" x="529" y="244" text-anchor="middle" transform="rotate(-90 529 244)">Probability mass</text>
+  <rect class="p0" x="615" y="479" width="18" height="12"/><text class="t s" x="641" y="491">nominal</text><rect class="pw" x="744" y="479" width="18" height="12"/><text class="t s" x="770" y="491">illustrative worst case</text>
+</svg>

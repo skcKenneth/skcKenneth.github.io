@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">A close fit can hide a parameter ridge</title>
+  <desc id="desc">Panel a compares observations with two parameter curves that agree within the measured range but diverge outside it. Panel b shows an elongated low-loss ridge with the true and best-fitting parameter pairs.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#111"/></marker>
+    <style>
+      .text{fill:#111;font-family:Arial,Helvetica,sans-serif}.label{font-size:18px}.small{font-size:15px}.panel{font-size:22px;font-weight:700}.axis{stroke:#111;stroke-width:1.8}.grid{stroke:#c8c8c8;stroke-width:1}.truth{stroke:#1f6652;stroke-width:4;fill:none}.alt{stroke:#a24b32;stroke-width:4;fill:none;stroke-dasharray:10 7}.guide{stroke:#111;stroke-width:1.5;stroke-dasharray:5 5}.point{fill:#111;stroke:#fff;stroke-width:2}.contour{fill:none;stroke:#7d8983;stroke-width:2}.ridge{fill:#dce9e3;stroke:#1f6652;stroke-width:2}.marker{fill:#fff;stroke:#111;stroke-width:3}.cross{stroke:#a24b32;stroke-width:4}
+    </style>
+  </defs>
+  <rect width="960" height="540" fill="#fff"/>
+  <text class="text panel" x="34" y="40">(a)</text>
+  <text class="text label" x="74" y="40" font-weight="700">Similar fit inside the observed range</text>
+  <line class="grid" x1="75" y1="130" x2="445" y2="130"/><line class="grid" x1="75" y1="220" x2="445" y2="220"/><line class="grid" x1="75" y1="310" x2="445" y2="310"/><line class="grid" x1="75" y1="400" x2="445" y2="400"/>
+  <line class="axis" x1="75" y1="400" x2="445" y2="400"/><line class="axis" x1="75" y1="80" x2="75" y2="400"/>
+  <path class="truth" d="M75 397 C120 368 153 318 185 267 C222 208 274 153 445 112"/>
+  <path class="alt" d="M75 397 C121 367 153 318 184 267 C214 220 253 170 315 131 C363 101 405 83 445 72"/>
+  <line class="guide" x1="205" y1="80" x2="205" y2="400"/>
+  <rect x="75" y="80" width="130" height="320" fill="#1f6652" opacity="0.06"/>
+  <circle class="point" cx="92" cy="385" r="5"/><circle class="point" cx="111" cy="372" r="5"/><circle class="point" cx="132" cy="347" r="5"/><circle class="point" cx="153" cy="319" r="5"/><circle class="point" cx="177" cy="278" r="5"/><circle class="point" cx="199" cy="247" r="5"/>
+  <text class="text small" x="98" y="105">measured data</text>
+  <text class="text small" x="214" y="100">unobserved regime</text>
+  <text class="text small" x="335" y="122">true pair</text><line class="truth" x1="292" y1="117" x2="326" y2="117"/>
+  <text class="text small" x="335" y="151">alternative pair</text><line class="alt" x1="292" y1="146" x2="326" y2="146"/>
+  <text class="text label" x="260" y="448" text-anchor="middle">Substrate S</text>
+  <text class="text label" x="28" y="245" text-anchor="middle" transform="rotate(-90 28 245)">Response y(S)</text>
+  <text class="text small" x="140" y="425" text-anchor="middle">observed range</text>
+
+  <text class="text panel" x="500" y="40">(b)</text>
+  <text class="text label" x="540" y="40" font-weight="700">One optimum on a low-loss ridge</text>
+  <line class="axis" x1="540" y1="400" x2="920" y2="400"/><line class="axis" x1="540" y1="80" x2="540" y2="400"/>
+  <path class="ridge" d="M570 370 C615 331 650 306 694 264 C747 213 801 170 896 113 C858 185 807 243 754 292 C701 340 645 375 570 370Z" opacity="0.72"/>
+  <ellipse class="contour" cx="735" cy="248" rx="193" ry="55" transform="rotate(-38 735 248)"/>
+  <ellipse class="contour" cx="735" cy="248" rx="137" ry="38" transform="rotate(-38 735 248)"/>
+  <ellipse class="contour" cx="735" cy="248" rx="78" ry="22" transform="rotate(-38 735 248)"/>
+  <circle class="marker" cx="748" cy="247" r="8"/>
+  <line class="cross" x1="720" y1="265" x2="736" y2="281"/><line class="cross" x1="736" y1="265" x2="720" y2="281"/>
+  <text class="text small" x="762" y="241">true</text>
+  <text class="text small" x="740" y="300">reported best fit</text>
+  <path d="M732 292 C732 286 731 283 730 280" fill="none" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text class="text small" x="588" y="111">many nearly equivalent pairs</text>
+  <path d="M680 118 C658 141 636 165 621 187" fill="none" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text class="text label" x="730" y="448" text-anchor="middle">Vmax</text>
+  <text class="text label" x="494" y="245" text-anchor="middle" transform="rotate(-90 494 245)">Km</text>
+  <text class="text small" x="480" y="503">Interpretation:</text>
+  <text class="text small" x="575" y="503">small residual ≠ unique parameter evidence</text>
+</svg>

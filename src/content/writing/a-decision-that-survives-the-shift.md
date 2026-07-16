@@ -61,7 +61,12 @@ $$
 
 For any fixed capacity, the worst distribution moves probability mass away from low-cost demand states and toward high-cost states until the movement budget is exhausted. Because the support is finite, this inner maximisation can be solved exactly by a small linear programme; the browser implementation uses the equivalent greedy mass-transfer calculation for this one-dimensional cost vector.
 
-The chart draws two curves across capacity. The dashed curve is nominal expected cost. The solid curve is worst-case expected cost. Their minima identify the nominal and robust decisions.
+<figure class="article-figure">
+  <img src="/images/writing/research-inquiry/dro-cost-and-shift.svg" alt="Two-panel schematic comparing nominal and worst-case expected-cost curves across capacity and showing probability mass shifted toward a costly high-demand state." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 1.</strong> The outer and inner DRO problems are linked. Panel (a) shows illustrative nominal and worst-case expected-cost curves whose minima select different capacities. Panel (b) shows the corresponding stress logic: probability mass is moved away from relatively inexpensive states and toward a costly demand state within the ambiguity budget.</figcaption>
+</figure>
+
+Figure 1 separates two objects that are easily conflated. The upper curve is a decision criterion, while the adversarial probability vector is the distribution attaining that criterion for a fixed decision. Neither should be read as a forecast that the next period will follow the worst case.
 
 ## The ambiguity radius is a scientific parameter
 
@@ -93,6 +98,13 @@ The relevant question is therefore not “Is DRO conservative?” but “Conserv
 The browser example can become an academic computational study through a predeclared evaluation protocol.
 
 Begin with several data-generating families that agree near the observed sample but differ in tail weight, skewness, dependence, or regime change. Estimate a nominal distribution from training samples of varying size. Construct competing ambiguity sets using only the training data. Select the decision under each method, then evaluate it on large independent test samples from both nominal and shifted families.
+
+<figure class="article-figure">
+  <img src="/images/writing/research-inquiry/dro-validation-design.svg" alt="Validation workflow separating training data, ambiguity-set calibration, optimization, and held-out regime tests, followed by nominal cost, shifted regret, reliability, and sensitivity measures." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 2.</strong> A predeclared validation design keeps ambiguity-set calibration separate from the shifts used for evaluation. The same nominal, DRO, and stress-test decisions are scored on two ledgers: performance under the fitted distribution and performance under independent shifted regimes.</figcaption>
+</figure>
+
+The separation is essential because tuning the radius on the same adverse regimes later used to claim robustness leaks the answer into the design. Held-out shifts do not make the study assumption-free, but they make reliability and conservatism empirically comparable.
 
 Report at least four quantities:
 
@@ -131,4 +143,3 @@ A decision survives the shift only after the shift has been defined independentl
 2. Mohajerin Esfahani, P., & Kuhn, D. (2018). Data-driven distributionally robust optimization using the Wasserstein metric: Performance guarantees and tractable reformulations. *Mathematical Programming, 171*, 115–166. [https://doi.org/10.1007/s10107-017-1172-1](https://doi.org/10.1007/s10107-017-1172-1)
 3. Noyan, N., Rudolf, G., & Lejeune, M. A. (2022). Distributionally robust optimization under a decision-dependent ambiguity set with applications to machine scheduling and humanitarian logistics. *INFORMS Journal on Computing, 34*(2), 729–751. [https://doi.org/10.1287/ijoc.2021.1096](https://doi.org/10.1287/ijoc.2021.1096)
 4. Chen, L., Fu, C., Si, F., Sim, M., & Xiong, P. (2025). Robust optimization with moment-dispersion ambiguity. *Operations Research, 73*(6), 3118–3138. [https://doi.org/10.1287/opre.2023.0579](https://doi.org/10.1287/opre.2023.0579)
-

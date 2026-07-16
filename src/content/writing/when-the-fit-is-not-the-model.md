@@ -35,6 +35,13 @@ $$
 
 In that regime the data primarily identify the ratio $V_{\max}/K_m$. Increasing both parameters together can leave the observed slope almost unchanged. The loss surface therefore develops an elongated low-loss ridge.
 
+<figure class="article-figure">
+  <img src="/images/writing/research-inquiry/identifiability-loss-ridge.svg" alt="Two-panel schematic showing two parameter curves that agree within the measured substrate range but diverge outside it, alongside an elongated parameter-loss ridge." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 1.</strong> A close fit can conceal weak parameter evidence. In panel (a), the solid and dashed curves are almost indistinguishable where data exist but separate in the unobserved regime. Panel (b) shows why one reported optimum does not remove the surrounding ridge of nearly equivalent parameter pairs.</figcaption>
+</figure>
+
+The two panels show the same information failure in output space and parameter space. The observed curve constrains a direction across the ridge much more strongly than it constrains movement along the ridge. Reporting only the best point hides that anisotropy.
+
 An optimizer normally returns one point on that surface. The interactive heatmap shows the surrounding surface as well. The circle marks the parameter pair that generated the synthetic observations; the cross marks the best pair on the search grid. Dark cells are alternative pairs with similar mean squared error.
 
 Three controls change the information supplied to the fit:
@@ -71,7 +78,14 @@ An identifiability diagnosis becomes useful when it changes what is measured nex
 2. Check structural identifiability for the specified inputs and outputs.
 3. Fit the model with held-out checks and inspect global parameter uncertainty.
 4. Find where candidate parameter sets make different predictions.
-5. place the next measurement or intervention in that discriminating region.
+5. Place the next measurement or intervention in that discriminating region.
+
+<figure class="article-figure">
+  <img src="/images/writing/research-inquiry/identifiability-experiment-design.svg" alt="Three-panel comparison of repeated measurements in the same range, measurements extended into a discriminating range, and measurement of a new observable." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 2.</strong> Three responses to weak identifiability are not equivalent. Replication in the same regime improves precision but can preserve the ridge; extending the input range separates previously similar curves; a genuinely new observable can alter the structural information available to the inverse problem.</figcaption>
+</figure>
+
+The design implication is specific: add information where admissible explanations disagree, not merely where measurement is convenient. More data and more identifying data are different resources.
 
 For the saturation model, the last step suggests extending the substrate range rather than concentrating every new replicate near the origin. For a dynamical system, it may suggest sampling earlier transients, measuring an additional state, or applying a time-varying input. Tools such as [STRIKE-GOLDD 4.0](https://doi.org/10.1093/bioinformatics/btac748) automate structural identifiability and observability tests for broad classes of nonlinear ODE models, but the result still has to be translated into a feasible experiment.
 
@@ -109,4 +123,3 @@ The most useful question after fitting may therefore be: what observation would 
 2. Wieland, F.-G., Hauber, A. L., Rosenblatt, M., Tönsing, C., & Timmer, J. (2021). On structural and practical identifiability. *Current Opinion in Systems Biology, 25*, 60–69. [https://doi.org/10.1016/j.coisb.2021.03.005](https://doi.org/10.1016/j.coisb.2021.03.005)
 3. Díaz-Seoane, S., Rey Barreiro, X., & Villaverde, A. F. (2023). STRIKE-GOLDD 4.0: user-friendly, efficient analysis of structural identifiability and observability. *Bioinformatics, 39*(1), btac748. [https://doi.org/10.1093/bioinformatics/btac748](https://doi.org/10.1093/bioinformatics/btac748)
 4. Kreutz, C., Raue, A., Kaschek, D., & Timmer, J. (2013). Profile likelihood in systems biology. *FEBS Journal, 280*(11), 2564–2571. [https://doi.org/10.1111/febs.12276](https://doi.org/10.1111/febs.12276)
-
