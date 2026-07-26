@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Genetic diversity after a temporary population bottleneck</title>
+  <desc id="desc">Mean heterozygosity declines fastest during a ten-generation bottleneck to population size ten and remains depressed after population size recovers.</desc>
+  <style>.t{fill:#111;font-family:Arial,Helvetica,sans-serif}.h{font-size:22px;font-weight:700}.s{font-size:15px}.a{stroke:#111;stroke-width:1.4}.g{stroke:#c9cec9;stroke-width:1}.l0{fill:none;stroke:#111;stroke-width:3}.l1{fill:none;stroke:#1f6652;stroke-width:3}.l2{fill:none;stroke:#a24b32;stroke-width:3}.l3{fill:none;stroke:#777;stroke-width:3;stroke-dasharray:7 5}</style>
+  <rect width="960" height="540" fill="#fff"/>
+  <text class="t h" x="52" y="42">A short bottleneck leaves a long genetic shadow</text>
+  <rect x="270" y="82" width="44" height="358" fill="#f2e5df"/><text class="t s" x="247" y="72">bottleneck</text>
+  <line class="g" x1="100" y1="100" x2="830" y2="100"/><line class="g" x1="100" y1="210" x2="830" y2="210"/><line class="g" x1="100" y1="320" x2="830" y2="320"/><line class="g" x1="100" y1="430" x2="830" y2="430"/>
+  <line class="a" x1="100" y1="80" x2="100" y2="440"/><line class="a" x1="100" y1="440" x2="845" y2="440"/>
+  <text class="t s" x="58" y="435">0.20</text><text class="t s" x="58" y="325">0.30</text><text class="t s" x="58" y="215">0.40</text><text class="t s" x="58" y="105">0.50</text>
+  <text class="t s" transform="translate(22 360) rotate(-90)">Mean heterozygosity</text>
+  <text class="t s" x="95" y="470">0</text><text class="t s" x="255" y="470">40</text><text class="t s" x="299" y="470">49</text><text class="t s" x="490" y="470">100</text><text class="t s" x="814" y="470">180</text><text class="t s" x="430" y="505">Generation</text>
+  <path class="l0" d="M100 100 L270 122 L314 126 L505 153 L830 191"/><path class="l1" d="M100 100 L270 127 L314 172 L505 196 L830 231"/><path class="l3" d="M100 100 L270 132 L314 219 L505 239 L830 270"/><path class="l2" d="M100 100 L270 148 L314 336 L505 351 L830 374"/>
+  <text class="t s" x="842" y="195">no bottleneck</text><text class="t s" x="842" y="235">N = 50</text><text class="t s" x="842" y="274">N = 25</text><text class="t s" x="842" y="379">N = 10</text>
+  <line x1="645" y1="374" x2="805" y2="374" stroke="#a24b32" stroke-width="1.5"/><text class="t s" x="540" y="399">0.252 at generation 180</text>
+</svg>

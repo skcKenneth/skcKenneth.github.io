@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Fixation probability for a new allele across population sizes</title>
+  <desc id="desc">A line chart compares neutral and beneficial alleles. Selection coefficient 0.05 raises fixation probability to about 0.09 to 0.10, but most new copies are still lost.</desc>
+  <style>.t{fill:#111;font-family:Arial,Helvetica,sans-serif}.h{font-size:22px;font-weight:700}.s{font-size:15px}.a{stroke:#111;stroke-width:1.4}.g{stroke:#c9cec9;stroke-width:1}.n{fill:none;stroke:#777;stroke-width:3;stroke-dasharray:7 5}.b{fill:none;stroke:#1f6652;stroke-width:4}.m1{fill:#fff;stroke:#777;stroke-width:2}.m2{fill:#1f6652;stroke:#111;stroke-width:1}</style>
+  <rect width="960" height="540" fill="#fff"/>
+  <text class="t h" x="52" y="42">Selection improves the odds; drift still dominates a new copy</text>
+  <line class="g" x1="100" y1="110" x2="770" y2="110"/><line class="g" x1="100" y1="220" x2="770" y2="220"/><line class="g" x1="100" y1="330" x2="770" y2="330"/><line class="g" x1="100" y1="440" x2="770" y2="440"/>
+  <line class="a" x1="100" y1="80" x2="100" y2="440"/><line class="a" x1="100" y1="440" x2="790" y2="440"/>
+  <text class="t s" x="60" y="445">0.00</text><text class="t s" x="60" y="335">0.04</text><text class="t s" x="60" y="225">0.08</text><text class="t s" x="60" y="115">0.12</text>
+  <text class="t s" transform="translate(22 350) rotate(-90)">Fixation probability</text>
+  <text class="t s" x="135" y="470">20</text><text class="t s" x="283" y="470">50</text><text class="t s" x="428" y="470">100</text><text class="t s" x="578" y="470">250</text><text class="t s" x="728" y="470">500</text><text class="t s" x="360" y="505">Diploid population size N</text>
+  <path class="n" d="M145 372 L295 407 L445 425 L595 436 L745 438"/>
+  <circle class="m1" cx="145" cy="372" r="6"/><circle class="m1" cx="295" cy="407" r="6"/><circle class="m1" cx="445" cy="425" r="6"/><circle class="m1" cx="595" cy="436" r="6"/><circle class="m1" cx="745" cy="438" r="6"/>
+  <path class="b" d="M145 158 L295 142 L445 181 L595 168 L745 151"/>
+  <rect class="m2" x="139" y="152" width="12" height="12"/><rect class="m2" x="289" y="136" width="12" height="12"/><rect class="m2" x="439" y="175" width="12" height="12"/><rect class="m2" x="589" y="162" width="12" height="12"/><rect class="m2" x="739" y="145" width="12" height="12"/>
+  <text class="t s" x="782" y="155">beneficial, s = 0.05</text><text class="t s" x="782" y="435">neutral, s = 0</text>
+  <rect x="600" y="250" width="300" height="105" fill="#eef3f0" stroke="#1f6652"/>
+  <text class="t h" x="620" y="285">≈ 9–10 fixations</text><text class="t s" x="620" y="312">per 100 new beneficial copies</text><text class="t s" x="620" y="338">in this 2,500-replicate grid</text>
+</svg>

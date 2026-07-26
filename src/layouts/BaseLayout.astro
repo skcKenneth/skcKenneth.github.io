@@ -1,14 +1,37 @@
 ---
 import "../styles/global.css";
-interface Props { title: string; description?: string; image?: string; noindex?: boolean; type?: string; }
-const { title, description = "Research, education, and computational experiments in mathematical modeling.", image = "/images/og-image.svg", noindex = false, type } = Astro.props;
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  type?: string;
+  locale?: "en" | "zh-Hant";
+  alternatePath?: string;
+}
+
+const {
+  title,
+  description = "Research, education, and computational experiments in mathematical modeling.",
+  image = "/images/og-image.svg",
+  noindex = false,
+  type,
+  locale = "en",
+  alternatePath
+} = Astro.props;
+
+const isZh = locale === "zh-Hant";
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const nav = [["Research","/research/"],["Teaching","/teaching/"],["Writing","/writing/"],["Projects","/projects/"],["About","/about/"],["Search","/search/"]];
+const alternate = alternatePath ? new URL(alternatePath, Astro.site) : undefined;
+const nav = isZh
+  ? [["研究","/research/"],["教學","/teaching/"],["文章","/zh/writing/"],["專案","/projects/"],["關於","/about/"],["搜尋","/search/"]]
+  : [["Research","/research/"],["Teaching","/teaching/"],["Writing","/writing/"],["Projects","/projects/"],["About","/about/"],["Search","/search/"]];
 const current = Astro.url.pathname;
-const updated = "13 July 2026";
+const updated = isZh ? "2026 年 7 月 26 日" : "26 July 2026";
 ---
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -17,27 +40,31 @@ const updated = "13 July 2026";
     {noindex && <meta name="robots" content="noindex,follow" />}
     {type && <meta name="pagefind:filter" content={`type:${type}`} />}
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale} href={canonical} />
+    {alternate && <link rel="alternate" hreflang={isZh ? "en" : "zh-Hant"} href={alternate} />}
     <meta property="og:title" content={`${title} — Kenneth Cheng`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:locale" content={isZh ? "zh_TW" : "en_GB"} />
     <title>{title} — Kenneth Cheng</title>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{isZh ? "跳至主要內容" : "Skip to content"}</a>
     <header class="site-header">
       <div class="container nav-wrap">
-        <a class="brand" href="/">Kenneth Cheng<span>Mathematical modeling</span></a>
-        <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
-        <nav aria-label="Primary"><ul class="nav-list" id="primary-nav">
+        <a class="brand" href={isZh ? "/zh/" : "/"}>Kenneth Cheng<span>{isZh ? "數學建模" : "Mathematical modeling"}</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">{isZh ? "選單" : "Menu"}</button>
+        <nav aria-label={isZh ? "主要導覽" : "Primary"}><ul class="nav-list" id="primary-nav">
           {nav.map(([label,href]) => <li><a href={href} aria-current={current.startsWith(href) ? "page" : undefined}>{label}</a></li>)}
+          <li class="language-switch"><a href={alternatePath || (isZh ? "/" : "/zh/")} lang={isZh ? "en" : "zh-Hant"}>{isZh ? "EN" : "中文"}</a></li>
         </ul></nav>
       </div>
     </header>
     <main id="main" data-pagefind-body><slot /></main>
     <footer class="site-footer"><div class="container footer-grid">
-      <div><strong>Kenneth Cheng</strong><p>Mathematics educator in Macau working across mathematical modeling, computational experiments, teaching, and student research pathways.</p></div>
-      <div><strong>Elsewhere</strong><p><a href="https://github.com/skcKenneth">GitHub</a><br/><a href="mailto:sokkincheng@gmail.com">Email</a><br/><a href="/about/#cv">CV</a></p></div>
-      <div><strong>Source</strong><p><a href="https://github.com/skcKenneth/skcKenneth.github.io">Site repository</a></p><p class="small">Technical research records are maintained privately.<br/>Updated {updated}</p></div>
+      <div><strong>Kenneth Cheng</strong><p>{isZh ? "澳門數學教育工作者，研究數學建模、計算實驗、教學設計與學生研究路徑。" : "Mathematics educator in Macau working across mathematical modeling, computational experiments, teaching, and student research pathways."}</p></div>
+      <div><strong>{isZh ? "其他連結" : "Elsewhere"}</strong><p><a href="https://github.com/skcKenneth">GitHub</a><br/><a href="mailto:sokkincheng@gmail.com">Email</a><br/><a href="/about/#cv">CV</a></p></div>
+      <div><strong>{isZh ? "網站來源" : "Source"}</strong><p><a href="https://github.com/skcKenneth/skcKenneth.github.io">{isZh ? "網站原始碼" : "Site repository"}</a></p><p class="small">{isZh ? "技術研究記錄以私人方式維護。" : "Technical research records are maintained privately."}<br/>{isZh ? "更新：" : "Updated "}{updated}</p></div>
     </div></footer>
     <script is:inline>
       const button=document.querySelector('.menu-button'); const nav=document.querySelector('#primary-nav');

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Three harvesting feedback rules near an Allee threshold</title>
+  <desc id="desc">A schematic compares fixed quota, proportional harvesting, and a threshold-adaptive refuge rule as population abundance declines toward an Allee threshold.</desc>
+  <style>.t{fill:#111;font-family:Arial,Helvetica,sans-serif}.h{font-size:21px;font-weight:700}.s{font-size:15px}.box{fill:#f7f7f4;stroke:#777;stroke-width:1.3}.good{fill:#e6efea;stroke:#1f6652;stroke-width:2}.warn{fill:#f3e6e0;stroke:#a24b32;stroke-width:2}.arrow{stroke:#111;stroke-width:2;fill:none}</style>
+  <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#111"/></marker></defs>
+  <rect width="960" height="540" fill="#fff"/>
+  <text class="t h" x="52" y="42">The policy is a feedback rule, not merely a harvest number</text>
+  <rect class="box" x="55" y="85" width="250" height="310"/><rect class="box" x="355" y="85" width="250" height="310"/><rect class="good" x="655" y="85" width="250" height="310"/>
+  <text class="t h" x="85" y="125">(a) Fixed quota</text><text class="t h" x="385" y="125">(b) Proportional</text><text class="t h" x="685" y="125">(c) Refuge rule</text>
+  <text class="t s" x="85" y="160">Hₜ = H</text><text class="t s" x="385" y="160">Hₜ = hPₜ</text><text class="t s" x="685" y="160">Hₜ = h max(Pₜ − Pₛ, 0)</text>
+  <line class="arrow" x1="105" y1="220" x2="255" y2="300" marker-end="url(#arr)"/><line class="arrow" x1="405" y1="220" x2="555" y2="300" marker-end="url(#arr)"/><line class="arrow" x1="705" y1="220" x2="855" y2="300" marker-end="url(#arr)"/>
+  <text class="t s" x="85" y="205">Population falls</text><text class="t s" x="385" y="205">Population falls</text><text class="t s" x="685" y="205">Population falls</text>
+  <rect class="warn" x="85" y="305" width="190" height="58"/><text class="t s" x="105" y="330">same absolute removal</text><text class="t s" x="105" y="351">burden rises per capita</text>
+  <rect class="box" x="385" y="305" width="190" height="58"/><text class="t s" x="405" y="330">absolute catch falls</text><text class="t s" x="405" y="351">but no protected refuge</text>
+  <rect class="good" x="685" y="305" width="190" height="58"/><text class="t s" x="705" y="330">harvest reaches zero</text><text class="t s" x="705" y="351">before the refuge is crossed</text>
+  <line x1="70" y1="445" x2="890" y2="445" stroke="#a24b32" stroke-width="2" stroke-dasharray="8 6"/><text class="t h" x="360" y="479">Allee threshold L</text><text class="t s" x="240" y="510">Below L, deterministic growth is negative in the strong-Allee model.</text>
+</svg>

@@ -1,0 +1,49 @@
+---
+import {getCollection,render} from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ArchiveNotice from "../../../components/ArchiveNotice.astro";
+import ReadingNav from "../../../components/ReadingNav.astro";
+
+export async function getStaticPaths(){
+  const items=(await getCollection("writingZh",({data})=>!data.draft))
+    .filter(x=>x.data.slug!=="legacy-archive")
+    .sort((a,b)=>(a.data.date?.valueOf()||0)-(b.data.date?.valueOf()||0));
+  return items.map((entry,i)=>({params:{slug:entry.data.slug},props:{entry,previous:items[i-1],next:items[i+1]}}));
+}
+
+const {entry,previous,next}=Astro.props;
+const {Content}=await render(entry);
+const chineseCharacters=(entry.body?.match(/[\u3400-\u9fff]/g)||[]).length;
+const latinWords=(entry.body?.match(/\b[A-Za-z][A-Za-z'-]*\b/g)||[]).length;
+const readingMinutes=Math.max(1,Math.round(chineseCharacters/450+latinWords/220));
+const typeLabels={
+  "Research Notes":"研究筆記",
+  "Technical Tutorials":"技術導讀",
+  "Competition Case Studies":"競賽案例",
+  "Teaching Notes":"教學筆記",
+  "Mathematical Curiosities":"數學趣題",
+  "Archive":"典藏",
+  "研究筆記":"研究筆記",
+  "技術教程":"技術導讀",
+  "競賽案例":"競賽案例",
+  "教學筆記":"教學筆記",
+  "數學趣題":"數學趣題",
+  "文章庫":"典藏"
+};
+---
+<BaseLayout title={entry.data.title} description={entry.data.summary} image={entry.data.heroImage} type="文章" locale="zh-Hant" alternatePath={`/writing/${entry.data.sourceSlug}/`}>
+  <header class="page-head"><div class="container">
+    <p class="eyebrow">{typeLabels[entry.data.type]}</p>
+    <h1>{entry.data.title}</h1>
+    <p class="lead">{entry.data.summary}</p>
+    <p class="small">{entry.data.date?.toLocaleDateString("zh-Hant-TW",{dateStyle:"long"})} · 約 {readingMinutes} 分鐘閱讀</p>
+  </div></header>
+  <div class="container content-shell">
+    <aside><div class="tag-list">{entry.data.topics.map(t=><span class="tag">{t}</span>)}</div><p class="small">語言<br/><strong>繁體中文</strong></p></aside>
+    <article class="prose">
+      {entry.data.archived&&<ArchiveNotice/>}
+      <Content/>
+      <ReadingNav previous={previous&&{href:`/zh/writing/${previous.data.slug}/`,title:previous.data.title}} next={next&&{href:`/zh/writing/${next.data.slug}/`,title:next.data.title}}/>
+    </article>
+  </div>
+</BaseLayout>

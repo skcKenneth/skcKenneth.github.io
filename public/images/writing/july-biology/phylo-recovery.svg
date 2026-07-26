@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Tree recovery under compositional convergence</title>
+  <desc id="desc">As sequence length increases from 100 to 5000 sites, p-distance, JC69, and K80 approach zero probability of recovering the true tree, while regularized log-det approaches one.</desc>
+  <style>.t{fill:#111;font-family:Arial,Helvetica,sans-serif}.h{font-size:22px;font-weight:700}.s{font-size:14px}.a{stroke:#111;stroke-width:1.4}.g{stroke:#cad0cc;stroke-width:1}.p{fill:none;stroke:#777;stroke-width:3;stroke-dasharray:3 5}.j{fill:none;stroke:#a24b32;stroke-width:3}.k{fill:none;stroke:#303a35;stroke-width:3;stroke-dasharray:8 5}.l{fill:none;stroke:#1f6652;stroke-width:4}</style>
+  <rect width="960" height="540" fill="#fff"/>
+  <text class="t h" x="52" y="42">More sites reduce noise—but can reinforce the wrong tree</text>
+  <line class="g" x1="95" y1="95" x2="820" y2="95"/><line class="g" x1="95" y1="255" x2="820" y2="255"/><line class="g" x1="95" y1="415" x2="820" y2="415"/>
+  <line class="a" x1="95" y1="75" x2="95" y2="415"/><line class="a" x1="95" y1="415" x2="835" y2="415"/>
+  <text class="t s" x="62" y="420">0.0</text><text class="t s" x="62" y="260">0.5</text><text class="t s" x="62" y="100">1.0</text><text class="t s" transform="translate(25 360) rotate(-90)">Probability of true topology</text>
+  <text class="t s" x="112" y="446">100</text><text class="t s" x="250" y="446">250</text><text class="t s" x="390" y="446">500</text><text class="t s" x="520" y="446">1,000</text><text class="t s" x="655" y="446">2,000</text><text class="t s" x="790" y="446">5,000</text><text class="t s" x="390" y="482">Sequence length (sites)</text>
+  <path class="p" d="M125 364 L265 407 L405 415 L545 415 L685 415 L815 415"/><path class="j" d="M125 322 L265 386 L405 402 L545 410 L685 415 L815 415"/><path class="k" d="M125 330 L265 386 L405 410 L545 412 L685 415 L815 415"/><path class="l" d="M125 223 L265 164 L405 111 L545 103 L685 95 L815 95"/>
+  <circle cx="125" cy="223" r="6" fill="#1f6652"/><circle cx="265" cy="164" r="6" fill="#1f6652"/><circle cx="405" cy="111" r="6" fill="#1f6652"/><circle cx="545" cy="103" r="6" fill="#1f6652"/><circle cx="685" cy="95" r="6" fill="#1f6652"/><circle cx="815" cy="95" r="6" fill="#1f6652"/>
+  <text class="t s" x="835" y="101">regularized log-det</text><text class="t s" x="835" y="385">JC69</text><text class="t s" x="835" y="406">K80</text><text class="t s" x="835" y="427">p-distance</text>
+  <rect x="515" y="185" width="320" height="88" fill="#eef3f0" stroke="#1f6652"/><text class="t h" x="535" y="220">5,000 sites, 120 replicates</text><text class="t s" x="535" y="247">log-det: 120/120 true · others: 0/120 true</text>
+</svg>

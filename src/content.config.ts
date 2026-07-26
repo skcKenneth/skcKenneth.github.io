@@ -13,9 +13,16 @@ const projects = defineCollection({ loader: loader("./src/content/projects"), sc
   limitations: z.array(z.string()).default([]), keyFindings: z.array(z.string()).default([]), validation: z.string().optional(), period: z.coerce.string().optional(), redirectFrom: z.array(z.string()).default([])
 }) });
 const research = defineCollection({ loader: loader("./src/content/research"), schema: z.object({ ...base, programme: z.string(), methods: z.array(z.string()).default([]), questions: z.array(z.string()).default([]) }) });
-const writing = defineCollection({ loader: loader("./src/content/writing"), schema: z.object({
-  ...base, type: z.enum(["Research Notes", "Technical Tutorials", "Competition Case Studies", "Teaching Notes", "Mathematical Curiosities", "Archive"]), archived: z.boolean().default(false), redirectFrom: z.array(z.string()).default([]),
+const writingSchema = z.object({
+  ...base, type: z.enum([
+    "Research Notes", "Technical Tutorials", "Competition Case Studies", "Teaching Notes", "Mathematical Curiosities", "Archive",
+    "研究筆記", "技術教程", "競賽案例", "教學筆記", "數學趣題", "文章庫"
+  ]), archived: z.boolean().default(false), redirectFrom: z.array(z.string()).default([]),
   scienceProject: z.string().optional(), technicalRepository: z.url().optional(), notebookUrl: z.url().optional(), codeUrl: z.url().optional(), reproductionUrl: z.url().optional(), technicalUrl: z.url().optional(), legacySource: z.string().optional()
+});
+const writing = defineCollection({ loader: loader("./src/content/writing"), schema: writingSchema });
+const writingZh = defineCollection({ loader: loader("./src/content/writing-zh"), schema: writingSchema.extend({
+  sourceSlug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
 }) });
 const teaching = defineCollection({ loader: loader("./src/content/teaching"), schema: z.object({ ...base, level: z.enum(["Beginner", "Competition", "Advanced", "Instructor"]), resourceType: z.enum(["Course pathway", "Python lab", "Worked example", "Instructor resource", "Student research"]), downloadUrl: z.string().optional() }) });
-export const collections = { projects, research, writing, teaching };
+export const collections = { projects, research, writing, writingZh, teaching };
