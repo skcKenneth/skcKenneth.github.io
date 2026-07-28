@@ -1,5 +1,615 @@
 [
   {
+    "slug": "growing-domain-turing-topology",
+    "title": "Growing-Domain Turing Topology",
+    "summary": "A topology-aware reaction-diffusion study tracks pattern splitting and mode selection as a synthetic tissue domain grows.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Mathematical Biology",
+      "Nonlinear Dynamics"
+    ],
+    "methods": [
+      "Reaction-diffusion PDE",
+      "Cosine spectral integration",
+      "Topology event tracking"
+    ],
+    "featured": true,
+    "project_root": "growing-domain-turing-topology",
+    "hero_image": "growing-domain-turing-topology/figures/publish/turing_growth_story.svg",
+    "publish_assets": [
+      {
+        "filename": "turing_growth_story.svg",
+        "alt": "Space-time activator field, domain length, peak count, and final pattern for a growing-domain Turing simulation.",
+        "caption": "A smooth growth pulse produces discrete peak-splitting events in the synthetic Schnakenberg system.",
+        "generated_by": "growing-domain-turing-topology/run_study.py",
+        "source_path": "growing-domain-turing-topology/figures/publish/turing_growth_story.svg"
+      },
+      {
+        "filename": "turing_growth_atlas.svg",
+        "alt": "Three annotated heatmaps of final peak count, topology events, and spectral disorder over growth and kinetic parameters.",
+        "caption": "Pattern identity depends jointly on growth rate and kinetic margin.",
+        "generated_by": "growing-domain-turing-topology/run_study.py",
+        "source_path": "growing-domain-turing-topology/figures/publish/turing_growth_atlas.svg"
+      },
+      {
+        "filename": "turing_verification.svg",
+        "alt": "Dispersion relation and coupled grid-time refinement for the growing-domain reaction-diffusion solver.",
+        "caption": "The fixed-domain instability baseline and refinement study bound the numerical interpretation.",
+        "generated_by": "growing-domain-turing-topology/run_study.py",
+        "source_path": "growing-domain-turing-topology/figures/publish/turing_verification.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/growing-domain-turing-topology",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/growing-domain-turing-topology",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Synthetic reaction-diffusion trajectories",
+    "research_question": "Which growth and kinetic regimes preserve pattern identity, and which generate splitting, merging, or mode loss?",
+    "limitations": [
+      "No organism is fitted or identified.",
+      "Topology is represented by one-dimensional peak events.",
+      "Parameter conclusions are conditional on the Schnakenberg family."
+    ],
+    "reproduce_command": "python growing-domain-turing-topology/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Mathematical Biology",
+    "readme_path": "growing-domain-turing-topology/README.md",
+    "documentation_excerpt": "A verified synthetic study of how continuous and pulsed domain growth rewrite Turing-pattern identity.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/growing-domain-turing-topology/README.md",
+    "local_hero_image": "/science/growing-domain-turing-topology/turing_growth_story.svg"
+  },
+  {
+    "slug": "heterogeneous-morphoelastic-folding",
+    "title": "Heterogeneous Morphoelastic Folding",
+    "summary": "A reduced nonlinear-elasticity model tests whether weak growth and stiffness heterogeneity can steer fold location and count.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Continuum Mechanics",
+      "Developmental Biology"
+    ],
+    "methods": [
+      "Energy minimisation",
+      "Spectral beam model",
+      "Multiobjective analysis"
+    ],
+    "featured": true,
+    "project_root": "heterogeneous-morphoelastic-folding",
+    "hero_image": "heterogeneous-morphoelastic-folding/figures/publish/morphoelastic_shape_atlas.svg",
+    "publish_assets": [
+      {
+        "filename": "morphoelastic_shape_atlas.svg",
+        "alt": "Four reduced tissue-strip shapes under homogeneous and phase-shifted heterogeneous growth fields.",
+        "caption": "Weak heterogeneity relocates or suppresses folds while preserving endpoint constraints.",
+        "generated_by": "heterogeneous-morphoelastic-folding/run_study.py",
+        "source_path": "heterogeneous-morphoelastic-folding/figures/publish/morphoelastic_shape_atlas.svg"
+      },
+      {
+        "filename": "morphoelastic_steering_map.svg",
+        "alt": "Annotated maps of fold-targeting error, peak curvature, and fold count across heterogeneity amplitude and phase.",
+        "caption": "Fold steering depends on the phase between load and stiffness fields.",
+        "generated_by": "heterogeneous-morphoelastic-folding/run_study.py",
+        "source_path": "heterogeneous-morphoelastic-folding/figures/publish/morphoelastic_steering_map.svg"
+      },
+      {
+        "filename": "morphoelastic_pareto_verification.svg",
+        "alt": "Steering-curvature frontier, homogeneous buckling threshold, and quadrature-refinement panels.",
+        "caption": "Design claims are checked against the analytical threshold and grid refinement.",
+        "generated_by": "heterogeneous-morphoelastic-folding/run_study.py",
+        "source_path": "heterogeneous-morphoelastic-folding/figures/publish/morphoelastic_pareto_verification.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/heterogeneous-morphoelastic-folding",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/heterogeneous-morphoelastic-folding",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Synthetic nonlinear-elasticity energy landscapes",
+    "research_question": "Can weak heterogeneity steer growth-induced folds without increasing the peak deformation proxy?",
+    "limitations": [
+      "The strip is a reduced beam, not a calibrated tissue.",
+      "Peak curvature is a model proxy rather than a biological damage threshold.",
+      "Three-dimensional remodelling and material turnover are omitted."
+    ],
+    "reproduce_command": "python heterogeneous-morphoelastic-folding/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Continuum Mechanics",
+    "readme_path": "heterogeneous-morphoelastic-folding/README.md",
+    "documentation_excerpt": "An energy-based continuum study of phase-controlled folding under heterogeneous growth and stiffness.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/heterogeneous-morphoelastic-folding/README.md",
+    "local_hero_image": "/science/heterogeneous-morphoelastic-folding/morphoelastic_shape_atlas.svg"
+  },
+  {
+    "slug": "robust-cstr-safety-envelope",
+    "title": "Robust Safe Envelope for an Exothermic CSTR",
+    "summary": "A bifurcation and uncertainty study quantifies the production cost of avoiding hot or multiple stable reactor equilibria.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Chemical Engineering",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Mass and energy balances",
+      "Bifurcation continuation",
+      "Scenario-based robust optimisation"
+    ],
+    "featured": true,
+    "project_root": "robust-cstr-safety-envelope",
+    "hero_image": "robust-cstr-safety-envelope/figures/publish/cstr_bifurcation.svg",
+    "publish_assets": [
+      {
+        "filename": "cstr_bifurcation.svg",
+        "alt": "Stable and unstable CSTR equilibrium-temperature branches against coolant temperature.",
+        "caption": "Equilibrium multiplicity makes coolant selection a branch-selection problem.",
+        "generated_by": "robust-cstr-safety-envelope/run_study.py",
+        "source_path": "robust-cstr-safety-envelope/figures/publish/cstr_bifurcation.svg"
+      },
+      {
+        "filename": "cstr_robust_envelope.svg",
+        "alt": "Stress-test risk and nominal yield maps over residence time and coolant temperature.",
+        "caption": "The productive operating region and the robust region do not coincide.",
+        "generated_by": "robust-cstr-safety-envelope/run_study.py",
+        "source_path": "robust-cstr-safety-envelope/figures/publish/cstr_robust_envelope.svg"
+      },
+      {
+        "filename": "cstr_tradeoff_verification.svg",
+        "alt": "Yield-risk frontier, cost-of-robustness bars, and independent equilibrium checks.",
+        "caption": "The selected robust point sacrifices nominal yield to reduce the declared synthetic risk.",
+        "generated_by": "robust-cstr-safety-envelope/run_study.py",
+        "source_path": "robust-cstr-safety-envelope/figures/publish/cstr_tradeoff_verification.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/robust-cstr-safety-envelope",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/robust-cstr-safety-envelope",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Synthetic CSTR parameters and uncertainty scenarios",
+    "research_question": "What nominal production is sacrificed when the hot-state and multiplicity stress-test risk is constrained?",
+    "limitations": [
+      "The stress-test fraction is not a calibrated accident probability.",
+      "Parameters do not represent a named industrial plant.",
+      "Spatial gradients and control-actuator dynamics are omitted."
+    ],
+    "reproduce_command": "python robust-cstr-safety-envelope/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Chemical Engineering",
+    "readme_path": "robust-cstr-safety-envelope/README.md",
+    "documentation_excerpt": "A verified synthetic reactor study connecting steady-state multiplicity, uncertainty, and production trade-offs.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/robust-cstr-safety-envelope/README.md",
+    "local_hero_image": "/science/robust-cstr-safety-envelope/cstr_bifurcation.svg"
+  },
+  {
+    "slug": "positive-conservative-time-stepping",
+    "title": "Positive and Conservative Time Stepping",
+    "summary": "A stiff transfer-network benchmark tests when explicit solvers create negative mass and what a conservative positive update costs.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Numerical Analysis",
+      "Scientific Computing"
+    ],
+    "methods": [
+      "Stiff ODE integration",
+      "Patankar-type update",
+      "Invariant verification"
+    ],
+    "featured": true,
+    "project_root": "positive-conservative-time-stepping",
+    "hero_image": "positive-conservative-time-stepping/figures/publish/positive_integrator_trajectories.svg",
+    "publish_assets": [
+      {
+        "filename": "positive_integrator_trajectories.svg",
+        "alt": "Euler, RK4, and positive implicit trajectories for a stiff conservative three-state transfer.",
+        "caption": "Coarse explicit steps can create impossible negative mass even when total mass is formally conserved.",
+        "generated_by": "positive-conservative-time-stepping/run_study.py",
+        "source_path": "positive-conservative-time-stepping/figures/publish/positive_integrator_trajectories.svg"
+      },
+      {
+        "filename": "positive_integrator_feasibility.svg",
+        "alt": "Three feasibility maps over stiffness and time step for Euler, RK4, and a positive implicit method.",
+        "caption": "The positive update preserves non-negativity throughout the tested grid.",
+        "generated_by": "positive-conservative-time-stepping/run_study.py",
+        "source_path": "positive-conservative-time-stepping/figures/publish/positive_integrator_feasibility.svg"
+      },
+      {
+        "filename": "positive_integrator_error_cost.svg",
+        "alt": "Cost-error, invariant-drift, and adaptive-tolerance panels for conservative time integration.",
+        "caption": "Physical feasibility has an explicit computational and accuracy trade-off.",
+        "generated_by": "positive-conservative-time-stepping/run_study.py",
+        "source_path": "positive-conservative-time-stepping/figures/publish/positive_integrator_error_cost.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/positive-conservative-time-stepping",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/positive-conservative-time-stepping",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Generated conservative-transfer benchmarks",
+    "research_question": "When do explicit schemes violate non-negativity, and what error-cost trade-off accompanies a positive conservative update?",
+    "limitations": [
+      "The benchmark networks are linear.",
+      "No universal method ranking is claimed.",
+      "Nonconservative forcing and general nonlinear chemistry are outside scope."
+    ],
+    "reproduce_command": "python positive-conservative-time-stepping/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Numerical Analysis",
+    "readme_path": "positive-conservative-time-stepping/README.md",
+    "documentation_excerpt": "A matrix-exponential-verified benchmark where feasibility and invariant preservation are assessed alongside error.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/positive-conservative-time-stepping/README.md",
+    "local_hero_image": "/science/positive-conservative-time-stepping/positive_integrator_trajectories.svg"
+  },
+  {
+    "slug": "scientific-incentives-reliability",
+    "title": "Incentives and the Reliability of a Scientific Field",
+    "summary": "An evolutionary agent model explores novelty, rigour, and replication incentives as a reliability-discovery trade-off.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Computational Social Science",
+      "Research Integrity"
+    ],
+    "methods": [
+      "Agent-based modelling",
+      "Evolutionary selection",
+      "Policy simplex analysis"
+    ],
+    "featured": true,
+    "project_root": "scientific-incentives-reliability",
+    "hero_image": "scientific-incentives-reliability/figures/publish/science_policy_simplex.svg",
+    "publish_assets": [
+      {
+        "filename": "science_policy_simplex.svg",
+        "alt": "Two policy-simplex maps showing claim reliability and true discovery rate under novelty, rigour, and replication weights.",
+        "caption": "No single incentive corner maximises both reliability and discovery in the synthetic field.",
+        "generated_by": "scientific-incentives-reliability/run_study.py",
+        "source_path": "scientific-incentives-reliability/figures/publish/science_policy_simplex.svg"
+      },
+      {
+        "filename": "science_reliability_frontier.svg",
+        "alt": "Reliability-discovery frontier, mean-field cross-check, and population-size sensitivity.",
+        "caption": "The policy trade-off is checked across seed ensembles, a mean-field approximation, and field size.",
+        "generated_by": "scientific-incentives-reliability/run_study.py",
+        "source_path": "scientific-incentives-reliability/figures/publish/science_reliability_frontier.svg"
+      },
+      {
+        "filename": "science_strategy_evolution.svg",
+        "alt": "Time series of evolved novelty, rigour, replication propensity, and field reliability under three policies.",
+        "caption": "Incentives reshape laboratory strategies before changing field-level reliability.",
+        "generated_by": "scientific-incentives-reliability/run_study.py",
+        "source_path": "scientific-incentives-reliability/figures/publish/science_strategy_evolution.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/scientific-incentives-reliability",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/scientific-incentives-reliability",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Synthetic laboratories, claims, and replication events",
+    "research_question": "Which incentive mixes improve reliability without collapsing the rate of true discovery?",
+    "limitations": [
+      "Parameters are not fitted to a real discipline.",
+      "Publication and replication are simplified behavioural rules.",
+      "The model is a thought experiment rather than a policy forecast."
+    ],
+    "reproduce_command": "python scientific-incentives-reliability/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Computational Social Science",
+    "readme_path": "scientific-incentives-reliability/README.md",
+    "documentation_excerpt": "An evolutionary policy laboratory for studying how publication rewards select scientific strategies.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/scientific-incentives-reliability/README.md",
+    "local_hero_image": "/science/scientific-incentives-reliability/science_policy_simplex.svg"
+  },
+  {
+    "slug": "rough-volatility-robust-hedging",
+    "title": "Robust Hedging under Rough Volatility and Costs",
+    "summary": "A held-out stress study selects a no-trade delta band across uncertain roughness, volatility, and transaction-cost regimes.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Financial Mathematics",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Rough-volatility simulation",
+      "Discrete option hedging",
+      "Worst-case CVaR optimisation"
+    ],
+    "featured": true,
+    "project_root": "rough-volatility-robust-hedging",
+    "hero_image": "rough-volatility-robust-hedging/figures/publish/rough_hedging_paths.svg",
+    "publish_assets": [
+      {
+        "filename": "rough_hedging_paths.svg",
+        "alt": "Synthetic asset and volatility paths with loss distributions and turnover-loss comparison.",
+        "caption": "Rough volatility and transaction costs turn frequent delta correction into a turnover problem.",
+        "generated_by": "rough-volatility-robust-hedging/run_study.py",
+        "source_path": "rough-volatility-robust-hedging/figures/publish/rough_hedging_paths.svg"
+      },
+      {
+        "filename": "rough_hedging_stress_map.svg",
+        "alt": "Annotated held-out CVaR and turnover matrices for full delta, fixed-band, and robust-band hedging.",
+        "caption": "One frozen band is evaluated across unseen roughness and cost regimes.",
+        "generated_by": "rough-volatility-robust-hedging/run_study.py",
+        "source_path": "rough-volatility-robust-hedging/figures/publish/rough_hedging_stress_map.svg"
+      },
+      {
+        "filename": "rough_hedging_frontier.svg",
+        "alt": "Robust tuning objective, tail-risk-turnover frontier, and time-grid martingale diagnostics.",
+        "caption": "The selected band reduces held-out turnover and tail loss within the synthetic simulator.",
+        "generated_by": "rough-volatility-robust-hedging/run_study.py",
+        "source_path": "rough-volatility-robust-hedging/figures/publish/rough_hedging_frontier.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/rough-volatility-robust-hedging",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/rough-volatility-robust-hedging",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Synthetic rough-volatility paths and option-hedging records",
+    "research_question": "Can a frozen uncertainty-aware no-trade band reduce held-out tail loss and turnover under model and cost misspecification?",
+    "limitations": [
+      "No market data are fitted.",
+      "The simulator is not a complete rough-volatility pricing model.",
+      "Results are not investment advice or evidence of deployable performance."
+    ],
+    "reproduce_command": "python rough-volatility-robust-hedging/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Financial Mathematics",
+    "readme_path": "rough-volatility-robust-hedging/README.md",
+    "documentation_excerpt": "A leakage-aware synthetic hedge stress test with an explicit martingale diagnostic and frozen robust policy.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/rough-volatility-robust-hedging/README.md",
+    "local_hero_image": "/science/rough-volatility-robust-hedging/rough_hedging_paths.svg"
+  },
+  {
+    "slug": "intervention-calibrated-neural-odes",
+    "title": "Intervention-Calibrated Neural ODEs",
+    "summary": "A synthetic toggle-switch benchmark tests sign-structured and unconstrained neural vector fields under unseen interventions.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Scientific Machine Learning",
+      "Systems Biology"
+    ],
+    "methods": [
+      "Neural vector fields",
+      "Bootstrap uncertainty",
+      "Intervention-shift calibration"
+    ],
+    "featured": true,
+    "project_root": "intervention-calibrated-neural-odes",
+    "hero_image": "intervention-calibrated-neural-odes/figures/publish/neural_ode_interventions.svg",
+    "publish_assets": [
+      {
+        "filename": "neural_ode_interventions.svg",
+        "alt": "True and ensemble-predicted toggle-switch trajectories under strong and suppressive held-out interventions.",
+        "caption": "Structural constraints alter extrapolation but do not automatically calibrate uncertainty.",
+        "generated_by": "intervention-calibrated-neural-odes/run_study.py",
+        "source_path": "intervention-calibrated-neural-odes/figures/publish/neural_ode_interventions.svg"
+      },
+      {
+        "filename": "neural_ode_phase_fields.svg",
+        "alt": "Generating, unconstrained, and sign-structured learned phase fields for a synthetic gene toggle.",
+        "caption": "Intervention forecasts inherit the geometry and failure modes of the learned vector field.",
+        "generated_by": "intervention-calibrated-neural-odes/run_study.py",
+        "source_path": "intervention-calibrated-neural-odes/figures/publish/neural_ode_phase_fields.svg"
+      },
+      {
+        "filename": "neural_ode_calibration.svg",
+        "alt": "Held-out trajectory error, interval coverage, and ODE-solver tolerance panels.",
+        "caption": "Lower trajectory error does not guarantee calibrated uncertainty under intervention shift.",
+        "generated_by": "intervention-calibrated-neural-odes/run_study.py",
+        "source_path": "intervention-calibrated-neural-odes/figures/publish/neural_ode_calibration.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/intervention-calibrated-neural-odes",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/intervention-calibrated-neural-odes",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Synthetic toggle-switch interventions and derivative observations",
+    "research_question": "Do structural sign constraints and ensemble calibration make neural ODE intervention forecasts more reliable under shift?",
+    "limitations": [
+      "The gene circuit is synthetic.",
+      "Derivative supervision is available during training.",
+      "In-domain calibration does not guarantee nominal held-out coverage."
+    ],
+    "reproduce_command": "python intervention-calibrated-neural-odes/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Scientific Machine Learning",
+    "readme_path": "intervention-calibrated-neural-odes/README.md",
+    "documentation_excerpt": "A deliberately difficult intervention-shift benchmark where physical structure and probabilistic honesty are evaluated separately.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/intervention-calibrated-neural-odes/README.md",
+    "local_hero_image": "/science/intervention-calibrated-neural-odes/neural_ode_interventions.svg"
+  },
+  {
+    "slug": "dimensional-equation-discovery",
+    "title": "Dimensionally Constrained Equation Discovery",
+    "summary": "A controlled symbolic-search benchmark measures exact recovery, search-space reduction, and unit robustness under scarce noisy data.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Scientific Machine Learning",
+      "Mathematical Modeling"
+    ],
+    "methods": [
+      "Buckingham-Pi constraints",
+      "Symbolic monomial search",
+      "Bootstrap stability selection"
+    ],
+    "featured": true,
+    "project_root": "dimensional-equation-discovery",
+    "hero_image": "dimensional-equation-discovery/figures/publish/equation_recovery_phase.svg",
+    "publish_assets": [
+      {
+        "filename": "equation_recovery_phase.svg",
+        "alt": "Exact equation-recovery curves for raw and dimensionally filtered searches across four benchmarks.",
+        "caption": "Dimensional filtering helps only when physical dimensions remove plausible alternatives.",
+        "generated_by": "dimensional-equation-discovery/run_study.py",
+        "source_path": "dimensional-equation-discovery/figures/publish/equation_recovery_phase.svg"
+      },
+      {
+        "filename": "equation_complexity_units.svg",
+        "alt": "Candidate cloud, adversarial unit-shift error, and search-space-reduction panels.",
+        "caption": "Unit consistency acts as both a search prior and an adversarial validity test.",
+        "generated_by": "dimensional-equation-discovery/run_study.py",
+        "source_path": "dimensional-equation-discovery/figures/publish/equation_complexity_units.svg"
+      },
+      {
+        "filename": "equation_genealogy.svg",
+        "alt": "Bootstrap winner frequencies for raw and dimensionally constrained drag equations.",
+        "caption": "Constraint filtering changes the genealogy of equations selected from noisy small samples.",
+        "generated_by": "dimensional-equation-discovery/run_study.py",
+        "source_path": "dimensional-equation-discovery/figures/publish/equation_genealogy.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/dimensional-equation-discovery",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/dimensional-equation-discovery",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Generated algebraic equation-recovery benchmarks",
+    "research_question": "How much do dimensional invariants improve compact-equation recovery under small noisy samples?",
+    "limitations": [
+      "The grammar is restricted to monomials.",
+      "Benchmarks are controlled rather than discoveries.",
+      "The dimensionless negative control shows where filtering has no leverage."
+    ],
+    "reproduce_command": "python dimensional-equation-discovery/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Scientific Machine Learning",
+    "readme_path": "dimensional-equation-discovery/README.md",
+    "documentation_excerpt": "An auditable symbolic-search experiment where unit changes expose dimensionally invalid small-sample winners.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/dimensional-equation-discovery/README.md",
+    "local_hero_image": "/science/dimensional-equation-discovery/equation_recovery_phase.svg"
+  },
+  {
+    "slug": "sparse-wave-blocking-excitable-media",
+    "title": "Sparse Wave Blocking in Excitable Media",
+    "summary": "A sensor-triggered local controller is tuned and stress-tested for blocking travelling waves in a generic excitable medium.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Nonlinear Dynamics",
+      "Control"
+    ],
+    "methods": [
+      "FitzHugh-Nagumo PDE",
+      "Event-triggered control",
+      "Out-of-sample robustness"
+    ],
+    "featured": true,
+    "project_root": "sparse-wave-blocking-excitable-media",
+    "hero_image": "sparse-wave-blocking-excitable-media/figures/publish/excitable_wave_story.svg",
+    "publish_assets": [
+      {
+        "filename": "excitable_wave_story.svg",
+        "alt": "Uncontrolled and locally controlled excitation-wave fields with the corresponding applied current.",
+        "caption": "A sensor-triggered local refractory barrier intercepts the representative travelling wave.",
+        "generated_by": "sparse-wave-blocking-excitable-media/run_study.py",
+        "source_path": "sparse-wave-blocking-excitable-media/figures/publish/excitable_wave_story.svg"
+      },
+      {
+        "filename": "excitable_wave_policy_map.svg",
+        "alt": "Training maps of blocking probability and control energy over pulse amplitude and duration.",
+        "caption": "The lowest-energy reliable policy lies near a narrow blocking boundary.",
+        "generated_by": "sparse-wave-blocking-excitable-media/run_study.py",
+        "source_path": "sparse-wave-blocking-excitable-media/figures/publish/excitable_wave_policy_map.svg"
+      },
+      {
+        "filename": "excitable_wave_frontier.svg",
+        "alt": "Energy-success frontier, held-out policy comparison, and grid-time refinement.",
+        "caption": "The local controller is compared with no control and periodic global forcing under unseen conduction and delay scenarios.",
+        "generated_by": "sparse-wave-blocking-excitable-media/run_study.py",
+        "source_path": "sparse-wave-blocking-excitable-media/figures/publish/excitable_wave_frontier.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/sparse-wave-blocking-excitable-media",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/sparse-wave-blocking-excitable-media",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Synthetic FitzHugh-Nagumo wave ensembles",
+    "research_question": "Can a low-energy local event-triggered current block a travelling wave under uncertain conduction and sensing delay?",
+    "limitations": [
+      "The medium is generic rather than organ-specific.",
+      "The control is not a medical intervention proposal.",
+      "Only one-dimensional propagation and one sensor-actuator pair are represented."
+    ],
+    "reproduce_command": "python sparse-wave-blocking-excitable-media/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Nonlinear Dynamics",
+    "readme_path": "sparse-wave-blocking-excitable-media/README.md",
+    "documentation_excerpt": "A verified event-triggered control benchmark with an explicit energy and held-out blocking trade-off.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/sparse-wave-blocking-excitable-media/README.md",
+    "local_hero_image": "/science/sparse-wave-blocking-excitable-media/excitable_wave_story.svg"
+  },
+  {
+    "slug": "sequential-nonlinear-model-discrimination",
+    "title": "Sequential Nonlinear Model Discrimination",
+    "summary": "A Bayesian experiment-design benchmark selects forcing conditions to separate Van der Pol, Rayleigh, and Duffing mechanisms.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Optimal Experimental Design",
+      "Nonlinear Dynamics"
+    ],
+    "methods": [
+      "Bayesian model comparison",
+      "Sequential design",
+      "Particle uncertainty"
+    ],
+    "featured": true,
+    "project_root": "sequential-nonlinear-model-discrimination",
+    "hero_image": "sequential-nonlinear-model-discrimination/figures/publish/model_design_landscape.svg",
+    "publish_assets": [
+      {
+        "filename": "model_design_landscape.svg",
+        "alt": "Robust predictive-separation scores over forcing amplitude and frequency, with response magnitude comparison.",
+        "caption": "The most informative forcing is not simply the largest forcing.",
+        "generated_by": "sequential-nonlinear-model-discrimination/run_study.py",
+        "source_path": "sequential-nonlinear-model-discrimination/figures/publish/model_design_landscape.svg"
+      },
+      {
+        "filename": "model_posterior_paths.svg",
+        "alt": "Posterior probability paths for three true oscillator families under fixed, adaptive, and oracle experiment schedules.",
+        "caption": "Adaptive experiments contract different model posteriors at different rates.",
+        "generated_by": "sequential-nonlinear-model-discrimination/run_study.py",
+        "source_path": "sequential-nonlinear-model-discrimination/figures/publish/model_posterior_paths.svg"
+      },
+      {
+        "filename": "model_accuracy_calibration.svg",
+        "alt": "Identification accuracy, Brier score, and solver-tolerance panels.",
+        "caption": "Adaptive design is judged by probability quality as well as final model labels.",
+        "generated_by": "sequential-nonlinear-model-discrimination/run_study.py",
+        "source_path": "sequential-nonlinear-model-discrimination/figures/publish/model_accuracy_calibration.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/sequential-nonlinear-model-discrimination",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/sequential-nonlinear-model-discrimination",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Synthetic forced-oscillator experiments",
+    "research_question": "Which sequential forcing conditions distinguish competing nonlinear oscillator families most efficiently?",
+    "limitations": [
+      "The comparison is closed to three model families.",
+      "True parameters are drawn from declared synthetic priors.",
+      "The oracle is an upper comparison and not an implementable policy."
+    ],
+    "reproduce_command": "python sequential-nonlinear-model-discrimination/run_study.py",
+    "last_updated": "2026-07-28",
+    "category": "Optimal Experimental Design",
+    "readme_path": "sequential-nonlinear-model-discrimination/README.md",
+    "documentation_excerpt": "A probabilistic model-discrimination laboratory comparing fixed, adaptive, and oracle forcing schedules.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/sequential-nonlinear-model-discrimination/README.md",
+    "local_hero_image": "/science/sequential-nonlinear-model-discrimination/model_design_landscape.svg"
+  },
+  {
     "slug": "occupancy-aware-classroom-ventilation",
     "title": "Occupancy-Aware Classroom Ventilation",
     "summary": "A shared-capacity predictive-control benchmark studies classroom CO2 exposure when timetables are wrong and ventilation capacity is temporarily derated.",

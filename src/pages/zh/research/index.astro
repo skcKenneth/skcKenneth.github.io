@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const items = await getCollection("researchZh", ({ data }) => !data.draft);
+---
+<BaseLayout
+  title="研究"
+  description="涵蓋城市出行、可靠性、環境與數學建模教育的繁體中文研究方向。"
+  type="研究"
+  locale="zh-Hant"
+  alternatePath="/research/"
+>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">研究</p>
+      <h1>跨越多個專案、可以持續追問的問題。</h1>
+      <p class="lead">按研究方向整理模型、方法、證據與仍未解決的限制。</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container grid">
+      {items.map((item) => <article class="card wide">
+        <p class="eyebrow">{item.data.programme}</p>
+        <h2><a class="title-link" href={`/zh/research/${item.data.slug}/`}>{item.data.title}</a></h2>
+        <p>{item.data.summary}</p>
+        <div class="tag-list">{item.data.methods.map((method) => <span class="tag">{method}</span>)}</div>
+      </article>)}
+    </div>
+  </section>
+</BaseLayout>
+

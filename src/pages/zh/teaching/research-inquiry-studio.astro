@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const inquiries = [
+  ["參數可識別性", "改變觀測設計，判斷數據能否分辨參數組合。", "identifiability"],
+  ["網絡干擾", "檢查同儕效應如何破壞傳統獨立處理假設。", "network-interference"],
+  ["穩健決策", "讓概率分佈偏移，觀察名義最佳決策是否仍然可靠。", "robust-decisions"],
+];
+---
+
+<BaseLayout title="研究提問工作室" description="由互動模型走向可驗證研究問題的中文導覽。" type="教學" locale="zh-Hant" alternatePath="/teaching/research-inquiry-studio/">
+  <header class="page-head"><div class="container"><p class="eyebrow">研究提問</p><h1>不只問模型會發生甚麼，也問證據能支持甚麼。</h1><p class="lead">三個工作台集中處理可識別性、因果干擾與分佈不確定性。每次互動都應形成一項預測、一項觀察與一項限制。</p></div></header>
+  <section class="section"><div class="container"><div class="model-library">
+    {inquiries.map(([title, summary, anchor]) => <article><div class="meta-line"><span>研究設計</span><span>互動</span></div><h3>{title}</h3><p>{summary}</p><a href={`/teaching/research-inquiry-studio/#${anchor}`}>開始研究提問 →</a></article>)}
+  </div></div></section>
+</BaseLayout>

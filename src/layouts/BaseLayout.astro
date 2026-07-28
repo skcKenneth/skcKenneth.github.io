@@ -25,10 +25,24 @@ const isZh = locale === "zh-Hant";
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const alternate = alternatePath ? new URL(alternatePath, Astro.site) : undefined;
 const nav = isZh
-  ? [["研究","/research/"],["教學","/teaching/"],["文章","/zh/writing/"],["專案","/projects/"],["關於","/about/"],["搜尋","/search/"]]
-  : [["Research","/research/"],["Teaching","/teaching/"],["Writing","/writing/"],["Projects","/projects/"],["About","/about/"],["Search","/search/"]];
+  ? [
+      ["研究", "/zh/research/"],
+      ["教學", "/zh/teaching/"],
+      ["文章", "/zh/writing/"],
+      ["專案", "/zh/projects/"],
+      ["關於", "/zh/about/"],
+      ["搜尋", "/zh/search/"]
+    ]
+  : [
+      ["Research", "/research/"],
+      ["Teaching", "/teaching/"],
+      ["Writing", "/writing/"],
+      ["Projects", "/projects/"],
+      ["About", "/about/"],
+      ["Search", "/search/"]
+    ];
 const current = Astro.url.pathname;
-const updated = isZh ? "2026 年 7 月 26 日" : "26 July 2026";
+const updated = isZh ? "2026 年 7 月 28 日" : "28 July 2026";
 ---
 <!doctype html>
 <html lang={locale}>
@@ -54,21 +68,40 @@ const updated = isZh ? "2026 年 7 月 26 日" : "26 July 2026";
       <div class="container nav-wrap">
         <a class="brand" href={isZh ? "/zh/" : "/"}>Kenneth Cheng<span>{isZh ? "數學建模" : "Mathematical modeling"}</span></a>
         <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">{isZh ? "選單" : "Menu"}</button>
-        <nav aria-label={isZh ? "主要導覽" : "Primary"}><ul class="nav-list" id="primary-nav">
-          {nav.map(([label,href]) => <li><a href={href} aria-current={current.startsWith(href) ? "page" : undefined}>{label}</a></li>)}
-          <li class="language-switch"><a href={alternatePath || (isZh ? "/" : "/zh/")} lang={isZh ? "en" : "zh-Hant"}>{isZh ? "EN" : "中文"}</a></li>
-        </ul></nav>
+        <nav aria-label={isZh ? "主要導覽" : "Primary"}>
+          <ul class="nav-list" id="primary-nav">
+            {nav.map(([label, href]) => <li><a href={href} aria-current={current.startsWith(href) ? "page" : undefined}>{label}</a></li>)}
+            <li class="language-switch"><a href={alternatePath || (isZh ? "/" : "/zh/")} lang={isZh ? "en" : "zh-Hant"}>{isZh ? "EN" : "中文"}</a></li>
+          </ul>
+        </nav>
       </div>
     </header>
     <main id="main" data-pagefind-body><slot /></main>
-    <footer class="site-footer"><div class="container footer-grid">
-      <div><strong>Kenneth Cheng</strong><p>{isZh ? "澳門數學教育工作者，研究數學建模、計算實驗、教學設計與學生研究路徑。" : "Mathematics educator in Macau working across mathematical modeling, computational experiments, teaching, and student research pathways."}</p></div>
-      <div><strong>{isZh ? "其他連結" : "Elsewhere"}</strong><p><a href="https://github.com/skcKenneth">GitHub</a><br/><a href="mailto:sokkincheng@gmail.com">Email</a><br/><a href="/about/#cv">CV</a></p></div>
-      <div><strong>{isZh ? "網站來源" : "Source"}</strong><p><a href="https://github.com/skcKenneth/skcKenneth.github.io">{isZh ? "網站原始碼" : "Site repository"}</a></p><p class="small">{isZh ? "技術研究記錄以私人方式維護。" : "Technical research records are maintained privately."}<br/>{isZh ? "更新：" : "Updated "}{updated}</p></div>
-    </div></footer>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>Kenneth Cheng</strong>
+          <p>{isZh ? "澳門數學教育工作者，研究數學建模、計算實驗、教學設計與學生研究培育。" : "Mathematics educator in Macau working across mathematical modeling, computational experiments, teaching, and student research pathways."}</p>
+        </div>
+        <div>
+          <strong>{isZh ? "其他連結" : "Elsewhere"}</strong>
+          <p><a href="https://github.com/skcKenneth">GitHub</a><br/><a href="mailto:sokkincheng@gmail.com">{isZh ? "電郵" : "Email"}</a><br/><a href={isZh ? "/zh/about/#cv" : "/about/#cv"}>CV</a></p>
+        </div>
+        <div>
+          <strong>{isZh ? "網站來源" : "Source"}</strong>
+          <p><a href="https://github.com/skcKenneth/skcKenneth.github.io">{isZh ? "網站原始碼庫" : "Site repository"}</a></p>
+          <p class="small">{isZh ? "技術研究紀錄存放於私人工作區。" : "Technical research records are maintained privately."}<br/>{isZh ? "更新：" : "Updated "}{updated}</p>
+        </div>
+      </div>
+    </footer>
     <script is:inline>
-      const button=document.querySelector('.menu-button'); const nav=document.querySelector('#primary-nav');
-      button?.addEventListener('click',()=>{const open=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(open));nav?.setAttribute('data-open',String(open));});
+      const button = document.querySelector(".menu-button");
+      const nav = document.querySelector("#primary-nav");
+      button?.addEventListener("click", () => {
+        const open = button.getAttribute("aria-expanded") !== "true";
+        button.setAttribute("aria-expanded", String(open));
+        nav?.setAttribute("data-open", String(open));
+      });
     </script>
   </body>
 </html>

@@ -1,20 +1,52 @@
 ---
-import {getCollection} from "astro:content";
+import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-const all=(await getCollection("writingZh",({data})=>!data.draft&&data.slug!=="legacy-archive")).sort((a,b)=>(b.data.date?.valueOf()||0)-(a.data.date?.valueOf()||0));
-const items=all.filter(x=>!x.data.archived);
-const archived=all.filter(x=>x.data.archived);
-const labels={
-  "Research Notes":"研究筆記","Technical Tutorials":"技術導讀","Competition Case Studies":"競賽案例","Teaching Notes":"教學筆記","Mathematical Curiosities":"數學趣題","Archive":"典藏",
-  "研究筆記":"研究筆記","技術教程":"技術導讀","競賽案例":"競賽案例","教學筆記":"教學筆記","數學趣題":"數學趣題","文章庫":"典藏"
+const all = (await getCollection("writingZh", ({ data }) => !data.draft && data.slug !== "legacy-archive"))
+  .sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
+const items = all.filter((entry) => !entry.data.archived);
+const archived = all.filter((entry) => entry.data.archived);
+const labels: Record<string, string> = {
+  "Research Notes": "研究筆記", "Technical Tutorials": "技術教程",
+  "Competition Case Studies": "競賽案例", "Teaching Notes": "教學筆記",
+  "Mathematical Curiosities": "數學趣題", "Archive": "文章庫",
+  "研究筆記": "研究筆記", "技術教程": "技術教程", "技術導讀": "技術教程",
+  "競賽案例": "競賽案例", "教學筆記": "教學筆記", "教學札記": "教學筆記",
+  "數學趣題": "數學趣題", "數學趣談": "數學趣題", "文章庫": "文章庫", "文章典藏": "文章庫"
 };
-const groups=Map.groupBy(items,x=>labels[x.data.type]);
+const groups = Map.groupBy(items, (entry) => labels[entry.data.type]);
 ---
-<BaseLayout title="文章" description="Kenneth Cheng 的繁體中文研究筆記、技術導讀、教學文章與典藏內容。" type="文章" locale="zh-Hant" alternatePath="/writing/">
-  <header class="page-head"><div class="container"><p class="eyebrow">文章</p><h1>按用途整理，而不只按日期排列。</h1><p class="lead">研究筆記、技術導讀與教學文章均提供完整繁體中文版本；英文原文可從每篇文章頂部切換。</p></div></header>
+<BaseLayout
+  title="文章"
+  description="Kenneth Cheng 的繁體中文研究筆記、技術教程、教學文章與典藏內容。"
+  type="文章"
+  locale="zh-Hant"
+  alternatePath="/writing/"
+>
+  <header class="page-head"><div class="container">
+    <p class="eyebrow">文章</p>
+    <h1>按用途整理，而不只按日期排列。</h1>
+    <p class="lead">研究筆記、技術教程與教學文章均提供完整繁體中文版本；每篇文章頂部均可切換英文。</p>
+  </div></header>
   <section class="section"><div class="container">
-    {[...groups].map(([type,entries])=><section class="writing-group"><h2>{type}</h2><div class="grid">{entries.map(entry=><article class="card wide"><p class="eyebrow">{entry.data.date?.toLocaleDateString("zh-Hant-TW",{year:"numeric",month:"long",day:"numeric"})}</p><h3><a class="title-link" href={`/zh/writing/${entry.data.slug}/`}>{entry.data.title}</a></h3><p>{entry.data.summary}</p></article>)}</div></section>)}
-    {archived.length>0&&<section class="writing-group"><div class="section-head"><div><p class="eyebrow">文章典藏</p><h2>過往文章</h2></div><p>保留原有公式、程式碼與引用資料，並提供完整繁體中文版本。<br/><a href="/zh/writing/archive/">瀏覽全部 {all.length} 篇文章 →</a></p></div><div class="grid">{archived.slice(0,6).map(entry=><article class="card wide"><p class="eyebrow">{entry.data.date?.getFullYear()}</p><h3><a class="title-link" href={`/zh/writing/${entry.data.slug}/`}>{entry.data.title}</a></h3><p>{entry.data.summary}</p></article>)}</div></section>}
+    {[...groups].map(([type, entries]) => <section class="writing-group">
+      <h2>{type}</h2>
+      <div class="grid">{entries.map((entry) => <article class="card wide">
+        <p class="eyebrow">{entry.data.date?.toLocaleDateString("zh-Hant-TW", { year: "numeric", month: "long", day: "numeric" })}</p>
+        <h3><a class="title-link" href={`/zh/writing/${entry.data.slug}/`}>{entry.data.title}</a></h3>
+        <p>{entry.data.summary}</p>
+      </article>)}</div>
+    </section>)}
+    {archived.length > 0 && <section class="writing-group">
+      <div class="section-head">
+        <div><p class="eyebrow">文章典藏</p><h2>過往文章</h2></div>
+        <p>保留原有公式、程式碼與引用資料，並提供完整繁體中文版本。<br/><a href="/zh/writing/archive/">瀏覽全部 {all.length} 篇文章 →</a></p>
+      </div>
+      <div class="grid">{archived.slice(0, 6).map((entry) => <article class="card wide">
+        <p class="eyebrow">{entry.data.date?.getFullYear()}</p>
+        <h3><a class="title-link" href={`/zh/writing/${entry.data.slug}/`}>{entry.data.title}</a></h3>
+        <p>{entry.data.summary}</p>
+      </article>)}</div>
+    </section>}
   </div></section>
 </BaseLayout>

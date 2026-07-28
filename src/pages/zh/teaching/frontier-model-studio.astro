@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const studios = [
+  ["臨界轉變", "探索遲滯、臨界減速與突然狀態轉換。", "critical-transitions"],
+  ["稀疏方程發現", "由帶雜訊時間序列比較候選控制項。", "equation-discovery"],
+  ["集體運動", "測試局部對齊、雜訊與密度如何形成全域秩序。", "collective-motion"],
+  ["高階傳播", "比較成對網絡與群組交互作用的傳播門檻。", "higher-order-contagion"],
+  ["算子學習", "理解由輸入函數到輸出函數的學習問題。", "operator-learning"],
+  ["持續同調", "以尺度過濾分辨穩定拓撲特徵與短暫雜訊。", "persistent-homology"],
+];
+---
+
+<BaseLayout title="前沿模型工作室" description="六個研究前沿數學模型的中文導覽與互動入口。" type="教學" locale="zh-Hant" alternatePath="/teaching/frontier-model-studio/">
+  <header class="page-head"><div class="container"><p class="eyebrow">研究前沿</p><h1>把新方法拆成可以操作的問題。</h1><p class="lead">這些實驗不把前沿方法包裝成結論；讀者需要改變參數、檢查失效條件，再判斷哪些觀察值得進一步研究。</p></div></header>
+  <section class="section"><div class="container"><div class="model-library">
+    {studios.map(([title, summary, anchor]) => <article><div class="meta-line"><span>研究導向</span><span>互動</span></div><h3>{title}</h3><p>{summary}</p><a href={`/teaching/frontier-model-studio/#${anchor}`}>開啟互動工作台 →</a></article>)}
+  </div></div></section>
+</BaseLayout>

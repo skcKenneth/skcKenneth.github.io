@@ -1,4 +1,8 @@
 ---
-const { previous, next } = Astro.props;
+const { previous, next, locale = "en" } = Astro.props;
+const isZh = locale === "zh-Hant";
 ---
-<nav aria-label="Article navigation" class="actions">{previous && <a class="button secondary" rel="prev" href={previous.href}>← {previous.title}</a>}{next && <a class="button secondary" rel="next" href={next.href}>{next.title} →</a>}</nav>
+<nav aria-label={isZh ? "文章導覽" : "Article navigation"} class="actions">
+  {previous && <a class="button secondary" rel="prev" href={previous.href}>← {isZh ? "上一篇：" : ""}{previous.title}</a>}
+  {next && <a class="button secondary" rel="next" href={next.href}>{isZh ? "下一篇：" : ""}{next.title} →</a>}
+</nav>

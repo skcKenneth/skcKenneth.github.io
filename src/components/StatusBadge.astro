@@ -1,4 +1,17 @@
 ---
-const { status } = Astro.props;
+const { status, locale = "en" } = Astro.props;
+const labels: Record<string, string> = {
+  "Catalogue entry": "目錄紀錄",
+  "Concept": "概念",
+  "Exploratory study": "探索性研究",
+  "Prototype": "原型",
+  "Reproducible study": "可重現研究",
+  "Manuscript in preparation": "論文撰寫中",
+  "Submitted": "已投稿",
+  "Published": "已發表",
+  "Teaching case": "教學案例",
+  "Archived": "已封存"
+};
+const label = locale === "zh-Hant" ? labels[status] ?? status : status;
 ---
-<span class="status" data-status={status}>{status}</span>
+<span class="status" data-status={status}>{label}</span>

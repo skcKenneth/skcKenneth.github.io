@@ -27,7 +27,7 @@ const documentationUrl = publicRepositoryUrl(d.documentation_url);
 const teachingUrl = publicRepositoryUrl(d.teachingUrl);
 const hasPublicActions = Boolean(technicalUrl || repositoryUrl || teachingUrl);
 ---
-<BaseLayout title={d.title} description={d.summary} image={d.heroImage} type="Projects">
+<BaseLayout title={d.title} description={d.summary} image={d.heroImage} type="Projects" alternatePath={`/zh/projects/${d.slug}/`}>
   <header class="page-head"><div class="container">
     <p class="eyebrow">{entry ? "Editorial project overview" : "Technical catalogue entry"}</p>
     <h1>{d.title}</h1>

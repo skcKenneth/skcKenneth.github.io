@@ -9,10 +9,6 @@ topics: [classroom ventilation, model predictive control, indoor air, uncertaint
 type: Research Notes
 archived: false
 scienceProject: occupancy-aware-classroom-ventilation
-technicalRepository: https://github.com/skcKenneth/ScienceProject/tree/main/occupancy-aware-classroom-ventilation
-codeUrl: https://github.com/skcKenneth/ScienceProject/blob/main/occupancy-aware-classroom-ventilation/run.py
-reproductionUrl: https://github.com/skcKenneth/ScienceProject/blob/main/occupancy-aware-classroom-ventilation/REPRODUCE.md
-technicalUrl: https://github.com/skcKenneth/ScienceProject/blob/main/occupancy-aware-classroom-ventilation/paper/technical-study.md
 redirectFrom: []
 ---
 
@@ -212,4 +208,3 @@ These studies motivate the question and model lineage. None validates the numeri
 A timetable is valuable because it lets ventilation act before CO₂ rises. It is dangerous when the controller treats prediction as truth.
 
 In this benchmark, short-horizon allocation materially reduces person-weighted exposure relative to fixed and reactive baselines, but uses more fan command. Adding a simple occupancy buffer improves the primary metric only slightly, costs additional energy, and worsens the whole-day maximum. The next useful experiment is therefore not a larger claim. It is an instrumented classroom study where the model, fan law, timetable errors, and evaluation days are measured independently.
-

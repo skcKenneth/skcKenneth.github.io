@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import StatusBadge from "../../../components/StatusBadge.astro";
+import Figure from "../../../components/Figure.astro";
+import scienceProjects from "../../../data/generated/science-projects.json";
+
+export async function getStaticPaths() {
+  const translated = await getCollection("projectsZh", ({ data }) => !data.draft);
+  const translatedSlugs = new Set(translated.map((entry) => entry.data.sourceSlug));
+  return [
+    ...translated.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } })),
+    ...scienceProjects.filter((project) => !translatedSlugs.has(project.slug))
+      .map((catalogue) => ({ params: { slug: catalogue.slug }, props: { catalogue } }))
+  ];
+}
+
+const { entry, catalogue } = Astro.props as { entry?: any; catalogue?: any };
+const rendered = entry ? await render(entry) : null;
+const Content = rendered?.Content;
+const d: any = entry?.data ?? catalogue;
+const updated = entry ? d.lastUpdated : new Date(`${d.last_updated}T00:00:00Z`);
+const inventory = Object.entries(catalogue?.inventory ?? {}).filter(([, value]) => Number(value) > 0);
+const sourceSlug = entry?.data.sourceSlug ?? d.slug;
+---
+<BaseLayout
+  title={d.title}
+  description={d.summary}
+  image={d.heroImage ?? d.local_hero_image}
+  type="專案"
+  locale="zh-Hant"
+  alternatePath={`/projects/${sourceSlug}/`}
+>
+  <header class="page-head"><div class="container">
+    <p class="eyebrow">{entry ? "專案編輯概覽" : "技術目錄紀錄"}</p>
+    <h1>{d.title}</h1>
+    <p class="lead">{d.researchQuestion ?? d.research_question}</p>
+    <div class="meta-line"><StatusBadge status={d.status} locale="zh-Hant"/><span>更新於 {updated.toLocaleDateString("zh-Hant-TW", { dateStyle: "long" })}</span></div>
+  </div></header>
+  <div class="container content-shell">
+    <aside>
+      <dl class="metadata">
+        <div><dt>狀態</dt><dd><StatusBadge status={d.status} locale="zh-Hant"/></dd></div>
+        <div><dt>時期</dt><dd>{d.period || d.year}</dd></div>
+        <div><dt>方法</dt><dd>{d.methods.join(" · ")}</dd></div>
+        <div><dt>程式</dt><dd>{(d.codeAvailable ?? d.code_available) ? "私人技術紀錄" : "未列出"}</dd></div>
+        <div><dt>資料</dt><dd>{d.dataType || d.data_type || "未說明"}</dd></div>
+      </dl>
+    </aside>
+    <article class="prose">
+      {entry && Content ? <Fragment>
+        {d.heroImage && <Figure src={d.heroImage} alt={`${d.title}的技術圖像`} caption="由私人技術工作區同步並經審閱的研究圖像；原有比例與標示獲完整保留。" />}
+        <Content />
+        <h2>主要結果</h2>
+        <ul>{d.keyFindings.map((finding: string) => <li>{finding}</li>)}</ul>
+        <h2>限制</h2>
+        <div class="notice"><ul>{d.limitations.map((limitation: string) => <li>{limitation}</li>)}</ul></div>
+        <h2>技術紀錄</h2>
+        <p>詳細程式、計算、生成圖像及重現說明存放於私人技術工作區。公開文章只包含人工審閱的解讀與核准圖像，不會由同步程序改寫正文。</p>
+        <h2>版本紀錄</h2>
+        <p><strong>{d.lastUpdated.toISOString().slice(0, 10)}</strong> — 已按技術證據重新審閱繁體中文概覽。</p>
+      </Fragment> : <Fragment>
+        <div class="notice"><strong>這是目錄，不是認可。</strong> 此頁只讓專案可被發現，不會把 notebook、原始檔案或中途輸出變成公開文章。只有經技術及編輯審閱後，才會整理研究發現。</div>
+        <h2>專案目錄</h2>
+        <p>{d.summary}</p>
+        {d.documentation_excerpt && <Fragment><h2>技術文件摘要</h2><p>{d.documentation_excerpt}</p></Fragment>}
+        <dl class="metadata inventory-grid">{inventory.map(([label, value]) => <div><dt>{label.replaceAll("_", " ")}</dt><dd>{value}</dd></div>)}</dl>
+        {d.subprojects?.length > 0 && <Fragment><h2>包含的問題範圍</h2><ul>{d.subprojects.map((subproject: string) => <li>{subproject}</li>)}</ul></Fragment>}
+        <h2>現有局限</h2>
+        <div class="notice"><ul>{d.limitations.map((limitation: string) => <li>{limitation}</li>)}</ul></div>
+        <h2>成為編輯專案的條件</h2>
+        <p>需要具備經審閱研究問題、來源、重現說明、已核實輸出、明確限制，以及只經 <code>figures/publish/</code> 核准的公開圖像。</p>
+      </Fragment>}
+    </article>
+  </div>
+</BaseLayout>
+

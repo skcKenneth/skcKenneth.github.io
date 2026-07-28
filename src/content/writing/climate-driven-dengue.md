@@ -8,12 +8,7 @@ featured: true
 topics: [differential equations, epidemiology, numerical methods]
 type: Research Notes
 archived: false
-technicalUrl: https://github.com/skcKenneth/ScienceProject/tree/main/dengue_climate_model
 scienceProject: climate-driven-dengue
-technicalRepository: https://github.com/skcKenneth/ScienceProject/tree/main/dengue_climate_model
-notebookUrl: https://github.com/skcKenneth/ScienceProject/tree/main/dengue_climate_model
-codeUrl: https://github.com/skcKenneth/ScienceProject/blob/main/dengue_climate_model/main.py
-reproductionUrl: https://github.com/skcKenneth/ScienceProject/blob/main/dengue_climate_model/README.md#experiment-matrix-synthetic
 redirectFrom: [/posts/2025/12/dengue-climate-reaction-diffusion/]
 ---
 

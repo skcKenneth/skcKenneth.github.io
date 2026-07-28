@@ -21,6 +21,7 @@ export async function getStaticPaths(){
 const {entry,previous,next,hasTranslation}=Astro.props;
 const {Content}=await render(entry);
 const stats=readingTime(entry.body||"");
+const readingMinutes=entry.data.readingMinutes??Math.max(1,Math.round(stats.minutes));
 const links=[
   ["View calculations",publicRepositoryUrl(entry.data.technicalRepository),"button"],
   ["View notebooks",publicRepositoryUrl(entry.data.notebookUrl),"button secondary"],
@@ -33,7 +34,7 @@ const links=[
     <p class="eyebrow">{entry.data.type}</p>
     <h1>{entry.data.title}</h1>
     <p class="lead">{entry.data.summary}</p>
-    <p class="small">{entry.data.date?.toLocaleDateString("en-GB",{dateStyle:"long"})} · {Math.max(1,Math.round(stats.minutes))} min read</p>
+    <p class="small">{entry.data.date?.toLocaleDateString("en-GB",{dateStyle:"long"})} · {readingMinutes} min read</p>
   </div></header>
   <div class="container content-shell">
     <aside>

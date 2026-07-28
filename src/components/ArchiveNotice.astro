@@ -1,1 +1,10 @@
-<aside class="notice" role="note"><strong>Archived note</strong><br/>This page is preserved for reference and is no longer actively maintained. Some methods, links, or conclusions may have been superseded.</aside>
+---
+const { locale = "en" } = Astro.props;
+const isZh = locale === "zh-Hant";
+---
+<aside class="notice" role="note">
+  <strong>{isZh ? "封存文章" : "Archived note"}</strong><br/>
+  {isZh
+    ? "本頁為保存參考而保留，現時不再主動維護；部分方法、連結或結論可能已被後續工作取代。"
+    : "This page is preserved for reference and is no longer actively maintained. Some methods, links, or conclusions may have been superseded."}
+</aside>

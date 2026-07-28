@@ -9,10 +9,6 @@ topics: [battery monitoring, change detection, graph signal processing, reliabil
 type: Research Notes
 archived: false
 scienceProject: battery-pack-thermal-early-warning
-technicalRepository: https://github.com/skcKenneth/ScienceProject/tree/main/battery-pack-thermal-early-warning
-codeUrl: https://github.com/skcKenneth/ScienceProject/blob/main/battery-pack-thermal-early-warning/run.py
-reproductionUrl: https://github.com/skcKenneth/ScienceProject/blob/main/battery-pack-thermal-early-warning/REPRODUCE.md
-technicalUrl: https://github.com/skcKenneth/ScienceProject/blob/main/battery-pack-thermal-early-warning/paper/ieee-conference-draft.md
 redirectFrom: []
 ---
 

@@ -1,92 +1,100 @@
 ---
-import {getCollection} from "astro:content";
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "./ProjectCard.astro";
 
-const {locale="en"}=Astro.props;
-const isZh=locale==="zh-Hant";
-const projects=(await getCollection("projects",({data})=>data.featured&&!data.draft)).sort((a,b)=>b.data.year-a.data.year);
-const research=await getCollection("research",({data})=>data.featured&&!data.draft);
-const writingEn=await getCollection("writing",({data})=>data.featured&&!data.draft);
-const writingZh=await getCollection("writingZh",({data})=>data.featured&&!data.draft);
-const issueSlugs=["when-sustainable-harvesting-becomes-a-trap","when-more-dna-makes-the-wrong-tree-more-certain","when-randomness-defeats-natural-selection"];
-const writing=(isZh?writingZh:writingEn)
-  .filter(item=>issueSlugs.includes(item.data.slug))
-  .sort((a,b)=>(b.data.date?.valueOf()||0)-(a.data.date?.valueOf()||0));
+const { locale = "en" } = Astro.props;
+const isZh = locale === "zh-Hant";
 
-const programmeZh:Record<string,{title:string;summary:string}>={
-  "environmental-modeling":{title:"環境建模",summary:"研究空間疾病、生態系統、沿岸風險、氣候驅動與能源—環境互動。"},
-  "modeling-education":{title:"數學建模教育",summary:"由開放問題走向假設、計算、批判與溝通的學習路徑。"},
-  "reliability-uncertainty":{title:"可靠性與不確定性",summary:"處理敏感度、校準、穩健性，以及輸入或運作條件不確定時的決策。"},
-  "urban-mobility":{title:"城市與交通系統",summary:"研究路線規劃、可達性、交通穩定、車隊運作與基建權衡。"}
+const research = await getCollection(isZh ? "researchZh" : "research", ({ data }) => data.featured && !data.draft);
+const projects = (await getCollection(isZh ? "projectsZh" : "projects", ({ data }) => data.featured && !data.draft))
+  .sort((a, b) => b.data.year - a.data.year);
+const allWriting = await getCollection(isZh ? "writingZh" : "writing", ({ data }) => data.featured && !data.draft && !data.archived);
+const writing = allWriting
+  .sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0))
+  .slice(0, 3);
+
+const copy = isZh ? {
+  title: "真實系統的數學模型。",
+  description: "Kenneth Cheng 的繁體中文數學建模研究、教學、計算實驗與學生研究路徑。",
+  eyebrow: "Kenneth Cheng · 澳門",
+  lead: "由圖樣形成與非線性力學，到科學制度、可靠性與實驗設計：以可重現計算、明確假設和誠實界線，把模型變成可測試的研究問題。",
+  primary: "閱讀最新研究",
+  secondary: "探索教學",
+  dossier: "2026 年研究專輯",
+  dossierNote: "十個互不重複的計算研究，全部提供英文及繁體中文版。",
+  latestEyebrow: "最新文章",
+  latestTitle: "研究問題、驗證與限制應該在同一篇文章出現。",
+  latestIntro: "每篇研究文章均由私人 ScienceProject 的已核實結果人工撰寫，包含三幅核准研究圖、數值檢查、負面結果、聲稱界線及參考文獻。",
+  read: "閱讀文章",
+  themesEyebrow: "研究地圖",
+  themesTitle: "四個互相連結的研究方向",
+  themesIntro: "研究按問題與方法組織，而不只按發布日期排列。",
+  selectedEyebrow: "精選研究",
+  selectedTitle: "先有證據，再談規模",
+  selectedIntro: "只有具備清楚問題、審閱圖像、可見假設及限制的專案才會在這裡展示。",
+  browse: "瀏覽所有專案",
+  teachingEyebrow: "教學",
+  teachingTitle: "由第一個模型走到學生研究",
+  teachingIntro: "課程、互動模型、Python 實驗室與研究指導，形成由初步假設到獨立探究的完整路徑。",
+  teachingPrimary: "探索教學實踐",
+  teachingSecondary: "試玩互動模型",
+  note: "研究筆記"
+} : {
+  title: "Mathematical models for real systems.",
+  description: "Kenneth Cheng: mathematical modeling research, teaching, computational experiments, and student research pathways.",
+  eyebrow: "Kenneth Cheng · Macau",
+  lead: "From pattern formation and nonlinear mechanics to scientific institutions, reliability, and experimental design: reproducible computation, explicit assumptions, and honest limits turn models into testable research questions.",
+  primary: "Read the latest research",
+  secondary: "Explore teaching",
+  dossier: "2026 research portfolio",
+  dossierNote: "Ten distinct computational studies, each available in English and Traditional Chinese.",
+  latestEyebrow: "Latest writing",
+  latestTitle: "Question, verification, and limitation belong in the same article.",
+  latestIntro: "Every research article is manually written from verified private ScienceProject results and includes three approved figures, numerical checks, negative findings, claim boundaries, and references.",
+  read: "Read article",
+  themesEyebrow: "Research map",
+  themesTitle: "Four connected programmes",
+  themesIntro: "Research is organized by questions and methods, not only by publication date.",
+  selectedEyebrow: "Selected research",
+  selectedTitle: "Evidence before volume",
+  selectedIntro: "Only projects with a clear question, reviewed figures, and visible assumptions and limitations appear here.",
+  browse: "Browse all projects",
+  teachingEyebrow: "Teaching",
+  teachingTitle: "From first model to student research",
+  teachingIntro: "Courses, interactive models, Python laboratories, and mentoring form a path from first assumptions to independent inquiry.",
+  teachingPrimary: "Explore teaching practice",
+  teachingSecondary: "Try an interactive model",
+  note: "Research note"
 };
 
-const copy=isZh?{
-  title:"用數學模型理解真實系統。",
-  description:"Kenneth Cheng 的繁體中文數學建模研究、教學與計算實驗。",
-  eyebrow:"Kenneth Cheng · 澳門",
-  lead:"從生態、演化到城市與教學：以可重現計算、清楚假設和誠實限制，把模型變成可檢驗的研究問題。",
-  primary:"閱讀最新研究",
-  secondary:"探索教學資源",
-  dossier:"2026 年 7 月研究輯",
-  dossierNote:"三個合成研究，三種不確定性。",
-  latestEyebrow:"最新文章",
-  latestTitle:"模型不只要擬合，還要經得起追問。",
-  latestIntro:"本輯從有限族群、演化樹與採收風險出發。每篇文章同時提供完整英文與繁體中文版本、可解讀圖像、驗證範圍與參考文獻。",
-  read:"閱讀全文",
-  themesEyebrow:"研究地圖",
-  themesTitle:"四條互相連結的研究路線",
-  themesIntro:"按問題和方法組織研究，而不是把首頁變成年份清單。",
-  selectedEyebrow:"精選研究",
-  selectedTitle:"證據先於數量",
-  selectedIntro:"只展示研究問題清楚、圖像經審閱、假設與限制可見的專案。",
-  browse:"瀏覽所有專案",
-  teachingEyebrow:"教學",
-  teachingTitle:"由第一個模型走到學生研究",
-  teachingIntro:"課程、互動模型、Python 實驗與研究指導組成一條可循序前進的路徑。",
-  teachingPrimary:"探索教學設計",
-  teachingSecondary:"試用互動模型"
-}:{
-  title:"Mathematical models for real systems.",
-  description:"Kenneth Cheng: mathematical modeling research, teaching, computational experiments, and student research pathways.",
-  eyebrow:"Kenneth Cheng · Macau",
-  lead:"From ecology and evolution to cities and learning: reproducible computation, explicit assumptions, and honest limits turn models into testable research questions.",
-  primary:"Read the July research issue",
-  secondary:"Explore teaching",
-  dossier:"July 2026 research issue",
-  dossierNote:"Three synthetic studies. Three forms of uncertainty.",
-  latestEyebrow:"Latest writing",
-  latestTitle:"A model should survive the next question.",
-  latestIntro:"This issue moves from finite populations to phylogenetic trees and harvesting risk. Every article includes an English and Traditional Chinese edition, interpretable figures, validation boundaries, and references.",
-  read:"Read article",
-  themesEyebrow:"Research map",
-  themesTitle:"Four connected programmes",
-  themesIntro:"Research is organized by questions and methods, not by publication date.",
-  selectedEyebrow:"Selected research",
-  selectedTitle:"Evidence before volume",
-  selectedIntro:"Only projects with a clear question, reviewed figures, and visible assumptions and limitations appear here.",
-  browse:"Browse all projects",
-  teachingEyebrow:"Teaching",
-  teachingTitle:"From first model to student research",
-  teachingIntro:"Courses, interactive models, Python laboratories, and mentoring form a path from first assumptions to independent inquiry.",
-  teachingPrimary:"Explore teaching practice",
-  teachingSecondary:"Try an interactive model"
-};
-const writingBase=isZh?"/zh/writing":"/writing";
+const writingBase = isZh ? "/zh/writing" : "/writing";
+const researchBase = isZh ? "/zh/research" : "/research";
+const projectsBase = isZh ? "/zh/projects" : "/projects";
+const teachingBase = isZh ? "/zh/teaching" : "/teaching";
 ---
-<BaseLayout title={copy.title} description={copy.description} locale={locale} alternatePath={isZh?"/":"/zh/"}>
+<BaseLayout title={copy.title} description={copy.description} locale={locale} alternatePath={isZh ? "/" : "/zh/"}>
   <section class="home-hero">
     <div class="container home-hero-grid">
       <div class="home-hero-copy">
         <p class="eyebrow">{copy.eyebrow}</p>
         <h1>{copy.title}</h1>
         <p class="home-lead">{copy.lead}</p>
-        <div class="actions"><a class="button home-button" href="#latest-writing">{copy.primary}</a><a class="button home-button secondary" href="/teaching/">{copy.secondary}</a></div>
+        <div class="actions">
+          <a class="button home-button" href="#latest-writing">{copy.primary}</a>
+          <a class="button home-button secondary" href={`${teachingBase}/`}>{copy.secondary}</a>
+        </div>
       </div>
       <aside class="home-dossier" aria-label={copy.dossier}>
         <div class="home-dossier-head"><p class="eyebrow">{copy.dossier}</p><p>{copy.dossierNote}</p></div>
         <ol>
-          {writing.map((item,index)=><li><a href={`${writingBase}/${item.data.slug}/`}><span>0{index+1}</span><img src={item.data.heroImage} alt="" width="180" height="102"/><strong>{item.data.title}</strong></a></li>)}
+          {writing.map((item, index) => <li>
+            <a href={`${writingBase}/${item.data.slug}/`}>
+              <span>0{index + 1}</span>
+              <img src={item.data.heroImage} alt="" width="180" height="102"/>
+              <strong>{item.data.title}</strong>
+            </a>
+          </li>)}
         </ol>
       </aside>
     </div>
@@ -94,11 +102,24 @@ const writingBase=isZh?"/zh/writing":"/writing";
 
   <section class="home-latest" id="latest-writing">
     <div class="container">
-      <div class="home-section-intro"><div><p class="eyebrow">{copy.latestEyebrow}</p><h2>{copy.latestTitle}</h2></div><p>{copy.latestIntro}</p></div>
+      <div class="home-section-intro">
+        <div><p class="eyebrow">{copy.latestEyebrow}</p><h2>{copy.latestTitle}</h2></div>
+        <p>{copy.latestIntro}</p>
+      </div>
       <div class="home-latest-grid">
-        {writing.map((item,index)=><article class:list={["writing-feature",{"is-lead":index===0}]}>
-          <a class="writing-feature-image" href={`${writingBase}/${item.data.slug}/`} aria-label={`${copy.read}: ${item.data.title}`}><img src={item.data.heroImage} alt={`Research figure for ${item.data.title}`} width="960" height="540" loading={index===0?"eager":"lazy"}/></a>
-          <div class="writing-feature-copy"><p class="meta-line"><span>{item.data.date?.toLocaleDateString(isZh?"zh-Hant-TW":"en-GB",{year:"numeric",month:"short",day:"numeric"})}</span><span>{isZh?"研究筆記":"Research note"}</span></p><h3><a class="title-link" href={`${writingBase}/${item.data.slug}/`}>{item.data.title}</a></h3><p>{item.data.summary}</p><a class="text-link" href={`${writingBase}/${item.data.slug}/`}>{copy.read} <span aria-hidden="true">→</span></a></div>
+        {writing.map((item, index) => <article class:list={["writing-feature", { "is-lead": index === 0 }]}>
+          <a class="writing-feature-image" href={`${writingBase}/${item.data.slug}/`} aria-label={`${copy.read}: ${item.data.title}`}>
+            <img src={item.data.heroImage} alt={isZh ? `${item.data.title}研究圖` : `Research figure for ${item.data.title}`} width="960" height="540" loading={index === 0 ? "eager" : "lazy"}/>
+          </a>
+          <div class="writing-feature-copy">
+            <p class="meta-line">
+              <span>{item.data.date?.toLocaleDateString(isZh ? "zh-Hant-TW" : "en-GB", { year: "numeric", month: "short", day: "numeric" })}</span>
+              <span>{copy.note}</span>
+            </p>
+            <h3><a class="title-link" href={`${writingBase}/${item.data.slug}/`}>{item.data.title}</a></h3>
+            <p>{item.data.summary}</p>
+            <a class="text-link" href={`${writingBase}/${item.data.slug}/`}>{copy.read} <span aria-hidden="true">→</span></a>
+          </div>
         </article>)}
       </div>
     </div>
@@ -106,22 +127,41 @@ const writingBase=isZh?"/zh/writing":"/writing";
 
   <section class="home-programmes">
     <div class="container">
-      <div class="home-section-intro"><div><p class="eyebrow">{copy.themesEyebrow}</p><h2>{copy.themesTitle}</h2></div><p>{copy.themesIntro}</p></div>
+      <div class="home-section-intro">
+        <div><p class="eyebrow">{copy.themesEyebrow}</p><h2>{copy.themesTitle}</h2></div>
+        <p>{copy.themesIntro}</p>
+      </div>
       <div class="programme-ledger">
-        {research.map((item,index)=>{const localized=isZh?programmeZh[item.data.slug]:undefined;return <a href={`/research/${item.data.slug}/`}><span>0{index+1}</span><div><h3>{localized?.title||item.data.title}</h3><p>{localized?.summary||item.data.summary}</p></div><b aria-hidden="true">↗</b></a>})}
+        {research.map((item, index) => <a href={`${researchBase}/${item.data.slug}/`}>
+          <span>0{index + 1}</span>
+          <div><h3>{item.data.title}</h3><p>{item.data.summary}</p></div>
+          <b aria-hidden="true">→</b>
+        </a>)}
       </div>
     </div>
   </section>
 
   <section class="home-selected">
     <div class="container">
-      <div class="home-section-intro"><div><p class="eyebrow">{copy.selectedEyebrow}</p><h2>{copy.selectedTitle}</h2></div><p>{copy.selectedIntro}</p></div>
-      <div class="grid">{projects.slice(0,3).map(item=><ProjectCard project={item} />)}</div>
-      <div class="actions"><a class="button secondary" href="/projects/">{copy.browse}</a></div>
+      <div class="home-section-intro">
+        <div><p class="eyebrow">{copy.selectedEyebrow}</p><h2>{copy.selectedTitle}</h2></div>
+        <p>{copy.selectedIntro}</p>
+      </div>
+      <div class="grid">{projects.slice(0, 3).map((item) => <ProjectCard project={item} locale={locale} hrefPrefix={`${projectsBase}/`} />)}</div>
+      <div class="actions"><a class="button secondary" href={`${projectsBase}/`}>{copy.browse}</a></div>
     </div>
   </section>
 
   <section class="home-teaching">
-    <div class="container home-teaching-grid"><div><p class="eyebrow">{copy.teachingEyebrow}</p><h2>{copy.teachingTitle}</h2></div><div><p>{copy.teachingIntro}</p><div class="actions"><a class="button home-button" href="/teaching/">{copy.teachingPrimary}</a><a class="button home-button secondary" href="/teaching/model-laboratory/">{copy.teachingSecondary}</a></div></div></div>
+    <div class="container home-teaching-grid">
+      <div><p class="eyebrow">{copy.teachingEyebrow}</p><h2>{copy.teachingTitle}</h2></div>
+      <div>
+        <p>{copy.teachingIntro}</p>
+        <div class="actions">
+          <a class="button home-button" href={`${teachingBase}/`}>{copy.teachingPrimary}</a>
+          <a class="button home-button secondary" href={`${teachingBase}/model-laboratory/`}>{copy.teachingSecondary}</a>
+        </div>
+      </div>
+    </div>
   </section>
 </BaseLayout>

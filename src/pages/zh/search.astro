@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+<BaseLayout
+  title="搜尋"
+  description="搜尋繁體中文研究、專案、文章及教學材料。"
+  type="搜尋"
+  locale="zh-Hant"
+  alternatePath="/search/"
+>
+  <header class="page-head"><div class="container">
+    <p class="eyebrow">搜尋</p>
+    <h1>尋找一個概念、方法或專案。</h1>
+    <p class="lead">索引涵蓋研究、專案、文章與教學；重定向及重複頁面不會列入。</p>
+  </div></header>
+  <section class="section"><div class="container measure">
+    <label for="search-input"><strong>搜尋網站</strong></label>
+    <input id="search-input" type="search" placeholder="例如：路線、登革熱、敏感度" style="display:block;width:100%;padding:.8rem;margin:.5rem 0 1rem;font:inherit;border:1px solid #8b9690"/>
+    <p class="small" id="search-status" aria-live="polite">請輸入至少兩個字元。</p>
+    <div id="search-results"></div>
+    <noscript><p>搜尋需要 JavaScript。你亦可使用<a href="/zh/projects/">專案篩選</a>或<a href="/zh/writing/">文章索引</a>。</p></noscript>
+  </div></section>
+  <script is:inline>
+    const input=document.querySelector('#search-input'),results=document.querySelector('#search-results'),status=document.querySelector('#search-status');let pagefind;
+    const typeFor=url=>url.startsWith('/zh/projects/')?'專案':url.startsWith('/zh/research/')?'研究':url.startsWith('/zh/teaching/')?'教學':'文章';
+    input.addEventListener('input',async()=>{const q=input.value.trim();if(q.length<2){results.innerHTML='';status.textContent='請輸入至少兩個字元。';return}status.textContent='搜尋中…';try{pagefind??=await import('/pagefind/pagefind.js');const search=await pagefind.search(q);const data=await Promise.all(search.results.slice(0,20).map(r=>r.data()));status.textContent=`找到 ${search.results.length} 個結果`;results.innerHTML=data.map(r=>`<article class="card" style="border-top-width:1px"><p class="eyebrow">${typeFor(new URL(r.url,location.origin).pathname)}</p><h2 style="font-size:1.5rem"><a href="${r.url}">${r.meta.title}</a></h2><p>${r.excerpt}</p></article>`).join('')||'<p>沒有相符頁面。</p>'}catch(e){status.textContent=location.hostname==='localhost'?'搜尋索引會在正式 build 後產生。請運行 npm run build，再以 npm run preview 查看。':'暫時無法載入搜尋索引。';}});
+  </script>
+</BaseLayout>
+

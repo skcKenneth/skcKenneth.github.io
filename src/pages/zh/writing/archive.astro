@@ -1,36 +1,34 @@
 ---
-import {getCollection} from "astro:content";
+import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ArchiveNotice from "../../../components/ArchiveNotice.astro";
 
-const all=(await getCollection("writingZh",({data})=>!data.draft&&data.slug!=="legacy-archive"))
-  .sort((a,b)=>(b.data.date?.valueOf()||0)-(a.data.date?.valueOf()||0));
+const all = (await getCollection("writingZh", ({ data }) => !data.draft && data.slug !== "legacy-archive"))
+  .sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
 ---
 <BaseLayout
   title="文章典藏"
-  description="完整繁體中文文章典藏，按日期列出所有研究筆記、技術導讀與教學文章。"
+  description="完整繁體中文文章典藏，按日期列出研究筆記、技術教程、教學文章與過往內容。"
   type="文章"
   locale="zh-Hant"
   alternatePath="/writing/archive/"
 >
-  <header class="page-head">
-    <div class="container">
-      <p class="eyebrow">文章典藏</p>
-      <h1>每一篇文章，都保留在脈絡之中。</h1>
-      <p class="lead">所有現有英文 Markdown 文章均有完整繁體中文對應；封存提示會標示仍未以新資料重新驗證的舊研究。</p>
-    </div>
-  </header>
+  <header class="page-head"><div class="container">
+    <p class="eyebrow">文章典藏</p>
+    <h1>按日期保存全部文章。</h1>
+    <p class="lead">所有現有英文 Markdown 文章均有完整繁體中文對應；封存提示會標示尚未以新資料重新驗證的舊研究。</p>
+  </div></header>
   <div class="container content-shell">
-    <aside><ArchiveNotice/></aside>
+    <aside><ArchiveNotice locale="zh-Hant" /></aside>
     <article class="prose">
       <h2>{all.length} 篇文章</h2>
       <ol>
-        {all.map(item=><li>
+        {all.map((item) => <li>
           <a href={`/zh/writing/${item.data.slug}/`}>{item.data.title}</a>
-          <span class="small">— {item.data.date?.toLocaleDateString("zh-Hant-TW",{year:"numeric",month:"long",day:"numeric"})||"未標日期"}</span>
+          <span class="small"> — {item.data.date?.toLocaleDateString("zh-Hant-TW", { year: "numeric", month: "long", day: "numeric" }) || "日期未載"}</span>
         </li>)}
       </ol>
-      <p><a href="/zh/writing/">返回文章分類頁</a></p>
+      <p><a href="/zh/writing/">返回文章首頁</a></p>
     </article>
   </div>
 </BaseLayout>

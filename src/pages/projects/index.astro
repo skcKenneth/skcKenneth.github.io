@@ -19,7 +19,7 @@ const topics = unique(projects.flatMap((project: any) => project.data?.topics ??
 const statuses = unique(projects.map((project: any) => project.data?.status ?? project.status));
 const methods = unique(projects.flatMap((project: any) => project.data?.methods ?? project.methods ?? []));
 ---
-<BaseLayout title="Projects" description="Curated research catalogue with separate editorial and inventory-level evidence labels." type="Projects">
+<BaseLayout title="Projects" description="Curated research catalogue with separate editorial and inventory-level evidence labels." type="Projects" alternatePath="/zh/projects/">
   <header class="page-head"><div class="container">
     <p class="eyebrow">Research catalogue</p>
     <h1>Every technical project, with its evidence level visible.</h1>

@@ -9,10 +9,6 @@ topics: [water networks, sensor placement, reliability, uncertainty]
 type: Research Notes
 archived: false
 scienceProject: resilient-water-leak-localization
-technicalRepository: https://github.com/skcKenneth/ScienceProject/tree/main/resilient-water-leak-localization
-codeUrl: https://github.com/skcKenneth/ScienceProject/blob/main/resilient-water-leak-localization/run.py
-reproductionUrl: https://github.com/skcKenneth/ScienceProject/blob/main/resilient-water-leak-localization/REPRODUCE.md
-technicalUrl: https://github.com/skcKenneth/ScienceProject/blob/main/resilient-water-leak-localization/paper/ieee-conference-draft.md
 redirectFrom: []
 ---
 
