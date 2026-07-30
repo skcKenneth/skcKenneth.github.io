@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">Reference timing and envelope memory</title>
+<desc id="desc">The sample fast path has a 13.0 microsecond median and 24.9 microsecond 99th percentile in the host-Python benchmark; a separate panel illustrates the 25 millisecond exponential RMS memory.</desc>
+<rect width="1200" height="680" fill="#ffffff"/>
+<style>
+  .label { font-family: Inter, "Noto Sans", Arial, sans-serif; fill: #111111; font-size: 22px; }
+  .small { font-family: Inter, "Noto Sans", Arial, sans-serif; fill: #111111; font-size: 17px; }
+  .heading { font-family: Georgia, "Times New Roman", serif; fill: #111111; font-size: 30px; font-weight: 700; }
+  .axis { stroke: #111111; stroke-width: 2; }
+  .grid { stroke: #d7dce2; stroke-width: 1; }
+</style>
+<text class="heading" x="60" y="65" fill="#111111">Timing and envelope trade-offs</text>
+<text class="small" x="60" y="100" fill="#111111">Host-Python reference timing is separated from the periodic tracker.</text>
+<text class="label" x="320" y="160" text-anchor="middle" fill="#111111">Fast-path latency (µs)</text>
+<line class="axis" x1="100" y1="250" x2="550" y2="250"/>
+<line class="grid" x1="100" y1="215" x2="100" y2="285"/>
+<line class="grid" x1="250" y1="215" x2="250" y2="285"/>
+<line class="grid" x1="400" y1="215" x2="400" y2="285"/>
+<line class="grid" x1="550" y1="215" x2="550" y2="285"/>
+<text class="small" x="100" y="310" text-anchor="middle" fill="#111111">0</text>
+<text class="small" x="250" y="310" text-anchor="middle" fill="#111111">10</text>
+<text class="small" x="400" y="310" text-anchor="middle" fill="#111111">20</text>
+<text class="small" x="550" y="310" text-anchor="middle" fill="#111111">30</text>
+<line x1="294" y1="250" x2="474" y2="250" stroke="#0f766e" stroke-width="10" stroke-linecap="round"/>
+<circle cx="294" cy="250" r="9" fill="#111111"/>
+<circle cx="474" cy="250" r="9" fill="#111111"/>
+<text class="small" x="294" y="205" text-anchor="middle" fill="#111111">median 13.0</text>
+<text class="small" x="474" y="205" text-anchor="middle" fill="#111111">p99 24.9</text>
+<rect x="95" y="380" width="470" height="160" rx="12" fill="#f5f7fa" stroke="#111111" stroke-width="2"/>
+<text class="label" x="125" y="425" fill="#111111">Supervisory tracker</text>
+<text class="small" x="125" y="468" fill="#111111">57 accepted updates in the timing run</text>
+<text class="small" x="125" y="505" fill="#111111">median 161 µs · maximum 375 µs</text>
+<text class="label" x="880" y="160" text-anchor="middle" fill="#111111">Envelope memory</text>
+<path d="M 710 480 C 760 260, 865 215, 1070 205" fill="none" stroke="#0f766e" stroke-width="5"/>
+<line class="axis" x1="700" y1="500" x2="1100" y2="500"/>
+<line class="axis" x1="700" y1="190" x2="700" y2="500"/>
+<line x1="850" y1="190" x2="850" y2="500" stroke="#2563eb" stroke-width="2" stroke-dasharray="8 8"/>
+<text class="small" x="850" y="535" text-anchor="middle" fill="#111111">τ = 25 ms</text>
+<text class="small" x="900" y="585" text-anchor="middle" fill="#111111">Equivalent memory ≈ 100 samples at 2 kHz</text>
+<text class="small" x="60" y="635" fill="#111111">These timings are not MCU WCET, RTOS jitter, energy, or battery measurements.</text>
+</svg>

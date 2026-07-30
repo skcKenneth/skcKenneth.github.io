@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">Synthetic sEMG cancellation ablation</title>
+<desc id="desc">Bar charts compare median reconstruction SNR and residual rest-envelope amplitude for no cancellation, fixed harmonic cancellation, and frequency-tracked harmonic cancellation.</desc>
+<rect width="1200" height="680" fill="#ffffff"/>
+<style>
+  .label { font-family: Inter, "Noto Sans", Arial, sans-serif; fill: #111111; font-size: 22px; }
+  .small { font-family: Inter, "Noto Sans", Arial, sans-serif; fill: #111111; font-size: 17px; }
+  .heading { font-family: Georgia, "Times New Roman", serif; fill: #111111; font-size: 30px; font-weight: 700; }
+  .axis { stroke: #111111; stroke-width: 2; }
+  .grid { stroke: #d7dce2; stroke-width: 1; }
+</style>
+<text class="heading" x="60" y="65" fill="#111111">Synthetic cancellation ablation</text>
+<text class="small" x="60" y="100" fill="#111111">Two controlled benchmarks; values are not participant measurements.</text>
+<text class="label" x="310" y="150" text-anchor="middle" fill="#111111">Median reconstruction SNR (dB)</text>
+<line class="axis" x1="90" y1="510" x2="540" y2="510"/>
+<line class="axis" x1="90" y1="180" x2="90" y2="510"/>
+<line class="grid" x1="90" y1="381" x2="540" y2="381"/>
+<text class="small" x="78" y="387" text-anchor="end" fill="#111111">0</text>
+<rect x="135" y="381" width="80" height="117.49499999999999" fill="#9ca3af" stroke="#111111" stroke-width="1.5"/>
+<text class="small" x="175" y="523.495" text-anchor="middle" fill="#111111">-11.19</text>
+<text class="small" x="175" y="548" text-anchor="middle" fill="#111111">No cancellation</text>
+<rect x="275" y="288.6" width="80" height="92.4" fill="#60a5fa" stroke="#111111" stroke-width="1.5"/>
+<text class="small" x="315" y="276.6" text-anchor="middle" fill="#111111">8.80</text>
+<text class="small" x="315" y="548" text-anchor="middle" fill="#111111">Fixed harmonic</text>
+<rect x="415" y="260.46" width="80" height="120.54" fill="#0f766e" stroke="#111111" stroke-width="1.5"/>
+<text class="small" x="455" y="248.45999999999998" text-anchor="middle" fill="#111111">11.48</text>
+<text class="small" x="455" y="548" text-anchor="middle" fill="#111111">Tracked harmonic</text>
+<text class="label" x="890" y="150" text-anchor="middle" fill="#111111">Rest envelope median (µV)</text>
+<line class="axis" x1="690" y1="510" x2="1120" y2="510"/>
+<line class="axis" x1="690" y1="180" x2="690" y2="510"/>
+<rect x="735" y="211.39393939393938" width="76" height="298.6060606060606" fill="#9ca3af" stroke="#111111" stroke-width="1.5"/>
+<text class="small" x="773" y="201.39393939393938" text-anchor="middle" fill="#111111">492.7</text>
+<text class="small" x="773" y="548" text-anchor="middle" fill="#111111">No cancellation</text>
+<rect x="865" y="456.3030303030303" width="76" height="53.696969696969695" fill="#60a5fa" stroke="#111111" stroke-width="1.5"/>
+<text class="small" x="903" y="446.3030303030303" text-anchor="middle" fill="#111111">88.6</text>
+<text class="small" x="903" y="548" text-anchor="middle" fill="#111111">Fixed harmonic</text>
+<rect x="995" y="464.7878787878788" width="76" height="45.21212121212121" fill="#0f766e" stroke="#111111" stroke-width="1.5"/>
+<text class="small" x="1033" y="454.7878787878788" text-anchor="middle" fill="#111111">74.6</text>
+<text class="small" x="1033" y="548" text-anchor="middle" fill="#111111">Tracked harmonic</text>
+<text class="small" x="60" y="630" fill="#111111">SNR: 12-channel controlled ablation. Rest envelope: drifting-mains tracking experiment.</text>
+</svg>

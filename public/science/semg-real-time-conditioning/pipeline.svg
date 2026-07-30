@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">Streaming sEMG conditioning pipeline</title>
+<desc id="desc">A five-stage signal path from electrodes through band-pass filtering, tracked harmonic power-line cancellation, and exponential RMS envelope extraction, with a separate supervisory frequency tracker.</desc>
+<rect width="1200" height="680" fill="#ffffff"/>
+<style>
+  .label { font-family: Inter, "Noto Sans", Arial, sans-serif; fill: #111111; font-size: 22px; }
+  .small { font-family: Inter, "Noto Sans", Arial, sans-serif; fill: #111111; font-size: 17px; }
+  .heading { font-family: Georgia, "Times New Roman", serif; fill: #111111; font-size: 30px; font-weight: 700; }
+  .axis { stroke: #111111; stroke-width: 2; }
+  .grid { stroke: #d7dce2; stroke-width: 1; }
+</style>
+<text class="heading" x="60" y="70" fill="#111111">Streaming sEMG conditioning pipeline</text>
+<text class="small" x="60" y="105" fill="#111111">The tracker is supervisory; the sample fast path remains bounded and causal.</text>
+<rect x="50" y="205" width="185" height="150" rx="12" fill="#f5f7fa" stroke="#111111" stroke-width="2"/>
+<text class="label" x="142.5" y="260" text-anchor="middle" fill="#111111">Electrodes</text>
+<text class="small" x="142.5" y="302" text-anchor="middle" fill="#111111">differential input</text>
+<line x1="235" y1="280" x2="268" y2="280" stroke="#111111" stroke-width="3"/>
+<path d="M 268 280 l -12 -7 v14 z" fill="#111111"/>
+<rect x="275" y="205" width="185" height="150" rx="12" fill="#f5f7fa" stroke="#111111" stroke-width="2"/>
+<text class="label" x="367.5" y="260" text-anchor="middle" fill="#111111">20–450 Hz</text>
+<text class="small" x="367.5" y="302" text-anchor="middle" fill="#111111">SOS band-pass</text>
+<line x1="460" y1="280" x2="493" y2="280" stroke="#111111" stroke-width="3"/>
+<path d="M 493 280 l -12 -7 v14 z" fill="#111111"/>
+<rect x="500" y="205" width="185" height="150" rx="12" fill="#dbeafe" stroke="#111111" stroke-width="2"/>
+<text class="label" x="592.5" y="260" text-anchor="middle" fill="#111111">PLI canceller</text>
+<text class="small" x="592.5" y="302" text-anchor="middle" fill="#111111">tracked harmonic NLMS</text>
+<line x1="685" y1="280" x2="718" y2="280" stroke="#111111" stroke-width="3"/>
+<path d="M 718 280 l -12 -7 v14 z" fill="#111111"/>
+<rect x="725" y="205" width="185" height="150" rx="12" fill="#f5f7fa" stroke="#111111" stroke-width="2"/>
+<text class="label" x="817.5" y="260" text-anchor="middle" fill="#111111">EMRMS</text>
+<text class="small" x="817.5" y="302" text-anchor="middle" fill="#111111">25 ms time constant</text>
+<line x1="910" y1="280" x2="943" y2="280" stroke="#111111" stroke-width="3"/>
+<path d="M 943 280 l -12 -7 v14 z" fill="#111111"/>
+<rect x="950" y="205" width="185" height="150" rx="12" fill="#f5f7fa" stroke="#111111" stroke-width="2"/>
+<text class="label" x="1042.5" y="260" text-anchor="middle" fill="#111111">Control feature</text>
+<text class="small" x="1042.5" y="302" text-anchor="middle" fill="#111111">streaming envelope</text>
+<rect x="500" y="430" width="250" height="105" rx="12" fill="#fff7ed" stroke="#111111" stroke-width="2"/>
+<text class="label" x="625" y="472" text-anchor="middle" fill="#111111">Rolling FFT tracker</text>
+<text class="small" x="625" y="507" text-anchor="middle" fill="#111111">gated updates every 0.25 s</text>
+<line x1="625" y1="430" x2="625" y2="365" stroke="#111111" stroke-width="3"/>
+<path d="M 625 365 l -7 12 h14 z" fill="#111111"/>
+<text class="small" x="60" y="625" fill="#111111">Synthetic implementation study · no participant or embedded-device performance claim</text>
+</svg>

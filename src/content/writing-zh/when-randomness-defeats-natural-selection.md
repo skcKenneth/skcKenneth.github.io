@@ -4,12 +4,14 @@ slug: when-randomness-defeats-natural-selection
 sourceSlug: when-randomness-defeats-natural-selection
 summary: Wright–Fisher 計算實驗說明：有利等位基因由單一拷貝開始時為何仍多數消失、遷移如何抵消局部適應，以及短暫瓶頸為何會留下長期遺傳缺口。
 date: 2026-07-20
-lastUpdated: 2026-07-26
+lastUpdated: 2026-07-30
 featured: true
 topics: [族群遺傳學, Wright–Fisher 模型, 遺傳漂變, 自然選擇, 遷移, 族群瓶頸]
-heroImage: /images/writing/july-biology/genetic-fixation.svg
+heroImage: /science/genetic-drift-selection-migration/fixation-landscape.svg
 type: Research Notes
 archived: false
+readingMinutes: 20
+scienceProject: genetic-drift-selection-migration
 redirectFrom: []
 ---
 
@@ -57,7 +59,7 @@ $$
 固定機率實驗使用五個族群大小和六個選擇係數，每組參數進行 2,500 次獨立模擬。在中性情況下，單一拷貝的固定機率理應是 \(1/(2N)\)。模擬結果與此基準接近：當 \(N=20\)、100 和 500 時，估計值分別為 \(0.0248\)、\(0.0056\) 和 \(0.0008\)，理論值則為 \(0.025\)、\(0.005\) 和 \(0.001\)。
 
 <figure class="article-figure">
-  <img src="/images/writing/july-biology/genetic-fixation.svg" alt="比較中性與有利新等位基因在五個二倍體族群大小下固定機率的折線圖。" width="960" height="540" loading="lazy" decoding="async" />
+  <img src="/science/genetic-drift-selection-migration/fixation-landscape.svg" alt="五個族群大小與六個選擇係數組合下的模擬固定機率熱圖。" width="960" height="540" loading="lazy" decoding="async" />
   <figcaption><strong>圖 1。</strong> 每組參數 2,500 次模擬所得的固定機率。當 \(s=0.05\) 時，固定機率提升至約 0.09–0.10，但約十個新拷貝仍有九個最終消失。數值均為合成模型輸出。</figcaption>
 </figure>
 
@@ -98,13 +100,96 @@ $$
 模擬先以每個族群大小 8,000 個獨立位點檢查這條衰減律，再把 \(N=500\) 的族群暫時縮小至 \(N_b\) 十代，之後立即把族群數量恢復至 500。
 
 <figure class="article-figure">
-  <img src="/images/writing/july-biology/genetic-bottleneck.svg" alt="比較無瓶頸與暫時縮小至 50、25 和 10 個體時，平均雜合度隨世代變化的折線圖。" width="960" height="540" loading="lazy" decoding="async" />
+  <img src="/science/genetic-drift-selection-migration/bottleneck.svg" alt="比較無瓶頸與暫時縮小至 50、25 和 10 個體時，平均雜合度隨世代變化的折線圖。" width="960" height="540" loading="lazy" decoding="async" />
   <figcaption><strong>圖 2。</strong> 10,000 個合成位點的平均雜合度。陰影區表示十代瓶頸。族群數量回復至 500，並不會令已消失的變異自動回來。</figcaption>
 </figure>
 
 在第 180 代，沒有瓶頸時的平均雜合度約為 \(0.417\)；瓶頸降至 \(N_b=10\) 後只有 \(0.252\)。若瓶頸為 \(N_b=25\) 和 50，終值分別約為 \(0.345\) 和 \(0.381\)。
 
 這個結果把兩種狀態變數清楚分開。模型可以命令族群數量在一代內回升，但等位基因多樣性不能在沒有突變、遷移或保留變異的情況下復原。人口學復甦與遺傳復甦是兩個不同的命題。
+
+## 同一個模擬裡的四個時鐘
+
+固定、局部適應、遷移平衡與多樣性損失經常被一起討論，但它們有不同時間尺度。拷貝數每一代都被重新抽樣；固定可能要很多代才到達 0 或 1；遷移—選擇平衡可以長期停在兩個邊界之間；雜合度則跨越大量位點，對短暫的小有效族群特別敏感。
+
+因此「選擇很強，所以很快固定」與「族群數目已回升，所以多樣性也恢復」都不是必然推論。選擇可以提高最終固定機率，但大部分新拷貝仍在最初數代消失；個體數可在一代回升，已失去的等位基因卻要靠突變或移入才會再出現。
+
+中性二倍體 Wright–Fisher 族群中的單一新拷貝由
+
+$$
+p_0=\frac{1}{2N}
+$$
+
+開始，其最終固定機率亦為 \(p_0\)。已驗證模擬在 \(N=20,100,500\) 分別得到 \(0.0248,0.0056,0.0008\)，理論值為 \(0.0250,0.0050,0.0010\)。每格 2,500 次模擬仍會有二項抽樣誤差，所以應檢查區間，而不是要求小數位完全相同。
+
+## 理論曲線是一項診斷
+
+對具有加性優勢 \(s\) 的新等位基因，常用 diffusion 近似為
+
+$$
+u(p_0)\approx
+\frac{1-\exp(-4Ns p_0)}
+{1-\exp(-4Ns)}.
+$$
+
+增加 \(s\) 會提高固定機率，但稀有的首個拷貝仍非常容易被抽樣移除。在 \(s=0.05\) 時，本網格固定機率約 \(0.09\)–\(0.10\)：遠高於中性值，卻仍代表接近九成最終消失。
+
+<figure class="article-figure">
+  <img src="/science/genetic-drift-selection-migration/kimura-validation.svg" alt="不同選擇係數與族群大小下，Wright–Fisher 固定模擬與 Kimura diffusion 近似的比較。" width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 3。</strong> 與 Kimura 近似一致，可檢查拷貝數、選擇順序與吸收邊界的實作；它不會消除 Monte Carlo 不確定性，也不表示近似在所有有限族群都完全精確。</figcaption>
+</figure>
+
+這個比較可找出肉眼看單一路徑不易發現的錯誤，例如把 \(N\) 而非 \(2N\) 當作拷貝總數、錯置選擇與抽樣次序，或沒有在 0 和 1 停止。同時它亦標示模型邊界：顯性、頻率依賴、連鎖背景、變動族群大小與多個受選位點都可能改變固定。
+
+## 遷移可以維持選擇想移除的變異
+
+兩個 deme 在局部選擇後由 \(p_i\) 變為 \(p_i^\ast\)，對稱遷移率 \(m\) 給出
+
+$$
+\widetilde p_1=(1-m)p_1^\ast+mp_2^\ast,\qquad
+\widetilde p_2=(1-m)p_2^\ast+mp_1^\ast.
+$$
+
+之後才加入漂變抽樣。若同一等位基因在一地有利、另一地不利，遷移會把拷貝帶向兩個局部梯度的反方向。小 \(m\) 可容許分化持續；較大 \(m\) 則令兩地均質化，甚至阻止本地有利基因接近固定。
+
+<figure class="article-figure">
+  <img src="/science/genetic-drift-selection-migration/migration-selection.svg" alt="兩個族群的合成 Wright–Fisher 實驗中，遷移抵消局部選擇的等位基因頻率結果。" width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 4。</strong> 遷移本身不是好或壞；視乎速率、方向與適合度差異，它可以拯救稀有變異、淹沒局部適應，或維持多型。</figcaption>
+</figure>
+
+所以比較遷移與選擇時要先說明量度的是平均頻率、deme 間差異、局部負荷、消失機率，還是到達平衡的時間；單一時間序列不能支持普遍排序。
+
+## 瓶頸為何留下數學傷痕
+
+中性隨機交配下，期望雜合度近似滿足
+
+$$
+\mathbb E[H_{t+1}]
+=
+\left(1-\frac{1}{2N_t}\right)\mathbb E[H_t],
+$$
+
+所以整段人口史為
+
+$$
+\mathbb E[H_T]\approx H_0
+\prod_{t=0}^{T-1}
+\left(1-\frac{1}{2N_t}\right).
+$$
+
+在 \(N=10\) 維持十代時，每代保留因子約 \(0.95\)，累積為 \(0.95^{10}\approx0.60\)。其後回到 \(N=500\) 只會把未來每代損失降至約千分之一，並不會把多樣性乘回原值。本次 10,000 位點實驗的嚴重瓶頸最後約為 \(H=0.252\)，無瓶頸對照約為 \(0.417\)；它們是獨立合成位點的平均，而非真實物種估計。
+
+## 模擬設計要配合問題
+
+本專案按任務使用不同重複單位：固定網格每格 2,500 條軌跡；中性雜合度 8,000 個位點；每個遷移組合 1,800 次；瓶頸比較 10,000 個位點；動畫每個族群大小 5,000 條軌跡。
+
+更多重複只會減少 Monte Carlo 誤差，不會修正錯誤生物模型。解讀時應分開三層：模型內孟德爾抽樣的過程不確定性、有限重複造成的估計不確定性，以及人口史、選擇、顯性、遷移與連鎖的模型不確定性。只有第二層必然可靠增加運算而縮小。
+
+## 具有研究價值的下一步
+
+後續可加入顯性與隱性有利基因、非對稱遷移、時變人口、帶重組的連鎖位點及背景選擇，再以 approximate Bayesian computation 或 state-space likelihood 檢查不同歷史能否由摘要統計分辨。
+
+若用於實證，次序應反過來：先定義抽樣設計與資料來源，說明模型中的有效族群大小代表甚麼，處理基因型不確定性，並驗證觀察模型。固定模擬最有價值之處，是揭示直覺在甚麼條件下失效，而不是把一條理想化路徑當成預測。
 
 ## 計算驗證了甚麼
 

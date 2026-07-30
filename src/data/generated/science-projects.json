@@ -3310,5 +3310,266 @@
     "readme_path": null,
     "documentation_excerpt": null,
     "documentation_url": null
+  },
+  {
+    "slug": "adaptive-harvesting-risk",
+    "title": "Adaptive Harvesting under Allee-Effect Risk",
+    "summary": "A verified stochastic population study compares fixed, proportional, and refuge-based harvesting when temporary declines can cross a nonlinear collapse threshold.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Population Dynamics",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Strong-Allee difference equation",
+      "Monte Carlo risk estimation",
+      "Feedback-policy comparison"
+    ],
+    "featured": true,
+    "project_root": "adaptive-harvesting-risk",
+    "hero_image": "adaptive-harvesting-risk/figures/publish/risk-yield-frontier.svg",
+    "publish_assets": [
+      {
+        "filename": "collapse-mechanism.svg",
+        "alt": "Population trajectories under fixed-quota, proportional, and threshold-adaptive harvesting with critical abundance levels marked.",
+        "caption": "A temporary decline becomes irreversible after the simulated stock crosses the strong-Allee threshold.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "adaptive-harvesting-risk/figures/publish/collapse-mechanism.svg"
+      },
+      {
+        "filename": "extinction-risk.svg",
+        "alt": "Finite-horizon collapse probability across normalized harvesting intensity for three policy families.",
+        "caption": "The fixed and proportional controls exhibit abrupt risk cliffs in the tested grid.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "adaptive-harvesting-risk/figures/publish/extinction-risk.svg"
+      },
+      {
+        "filename": "risk-yield-frontier.svg",
+        "alt": "Estimated finite-horizon collapse probability against mean realized yield for three harvesting policies.",
+        "caption": "The refuge rule changes the tested risk-yield frontier by making extraction depend on current abundance.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "adaptive-harvesting-risk/figures/publish/risk-yield-frontier.svg"
+      },
+      {
+        "filename": "policy-comparison.svg",
+        "alt": "Comparative synthetic outcomes for fixed-quota, proportional, and threshold-adaptive harvesting.",
+        "caption": "A policy is a state-to-action map, not merely a target harvest level.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "adaptive-harvesting-risk/figures/publish/policy-comparison.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/adaptive-harvesting-risk",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/adaptive-harvesting-risk",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic population trajectories",
+    "research_question": "Which feedback rule preserves useful harvest while limiting finite-horizon collapse risk near a strong Allee threshold?",
+    "limitations": [
+      "The model is not calibrated to a species or fishery.",
+      "Zero observed collapses in a finite Monte Carlo grid does not imply zero true or long-run risk.",
+      "Observation error, delayed control, age structure, and spatial dynamics are omitted."
+    ],
+    "last_updated": "2026-07-30",
+    "category": "Environmental Modeling",
+    "readme_path": "adaptive-harvesting-risk/README.md",
+    "documentation_excerpt": "A reviewed public-evidence wrapper for a stochastic harvesting experiment.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/adaptive-harvesting-risk/README.md",
+    "local_hero_image": "/science/adaptive-harvesting-risk/risk-yield-frontier.svg"
+  },
+  {
+    "slug": "genetic-drift-selection-migration",
+    "title": "Genetic Drift, Selection, and Migration",
+    "summary": "A verified Wright–Fisher simulation study separates the probability of eventual fixation from the preservation of diversity under selection, migration, and demographic bottlenecks.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Population Genetics",
+      "Mathematical Biology"
+    ],
+    "methods": [
+      "Wright–Fisher simulation",
+      "Fixation-probability validation",
+      "Migration-selection experiments"
+    ],
+    "featured": true,
+    "project_root": "genetic-drift-selection-migration",
+    "hero_image": "genetic-drift-selection-migration/figures/publish/fixation-landscape.svg",
+    "publish_assets": [
+      {
+        "filename": "fixation-landscape.svg",
+        "alt": "Heat map of simulated fixation probability across population size and selection coefficient.",
+        "caption": "Population size changes how strongly sampling noise competes with selection.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "genetic-drift-selection-migration/figures/publish/fixation-landscape.svg"
+      },
+      {
+        "filename": "kimura-validation.svg",
+        "alt": "Simulated fixation probabilities compared with the Kimura diffusion approximation.",
+        "caption": "The theoretical curve is used as a validation target, not as a replacement for uncertainty estimates.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "genetic-drift-selection-migration/figures/publish/kimura-validation.svg"
+      },
+      {
+        "filename": "migration-selection.svg",
+        "alt": "Allele-frequency outcomes showing migration opposing local selection in a two-population experiment.",
+        "caption": "Gene flow can replenish a locally disfavoured allele and maintain a migration-selection balance.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "genetic-drift-selection-migration/figures/publish/migration-selection.svg"
+      },
+      {
+        "filename": "bottleneck.svg",
+        "alt": "Heterozygosity trajectories with and without a temporary population bottleneck.",
+        "caption": "A brief bottleneck leaves a persistent diversity deficit after census size recovers.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "genetic-drift-selection-migration/figures/publish/bottleneck.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/genetic-drift-selection-migration",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/genetic-drift-selection-migration",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic allele-frequency trajectories",
+    "research_question": "When do drift, selection, migration, and bottlenecks dominate the fate of a newly introduced allele and the diversity around it?",
+    "limitations": [
+      "The simulations are idealized Wright–Fisher experiments rather than estimates for a named population.",
+      "Linked selection, recombination, mutation during fixation runs, and genomic ascertainment are outside scope.",
+      "Fixation probability and time-to-fixation are distinct quantities."
+    ],
+    "last_updated": "2026-07-30",
+    "category": "Mathematical Biology",
+    "readme_path": "genetic-drift-selection-migration/README.md",
+    "documentation_excerpt": "A reviewed public-evidence wrapper for the population-genetic simulations.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/genetic-drift-selection-migration/README.md",
+    "local_hero_image": "/science/genetic-drift-selection-migration/fixation-landscape.svg"
+  },
+  {
+    "slug": "phylogenetic-model-misspecification",
+    "title": "Phylogenetic Model Misspecification",
+    "summary": "A verified quartet simulation demonstrates how increasing sequence length can make a wrong tree more stable when the analysis model cannot represent compositional heterogeneity.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Phylogenetics",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Nonstationary sequence simulation",
+      "Neighbor Joining",
+      "Bootstrap and model-adequacy diagnostics"
+    ],
+    "featured": true,
+    "project_root": "phylogenetic-model-misspecification",
+    "hero_image": "phylogenetic-model-misspecification/figures/publish/heterogeneous-recovery.svg",
+    "publish_assets": [
+      {
+        "filename": "heterogeneous-recovery.svg",
+        "alt": "Correct quartet recovery against sequence length under a compositionally heterogeneous generating process.",
+        "caption": "More sites reduce sampling noise while concentrating misspecified distances on the wrong split.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "phylogenetic-model-misspecification/figures/publish/heterogeneous-recovery.svg"
+      },
+      {
+        "filename": "recovery-heatmap.svg",
+        "alt": "Tree-recovery rates by generating scenario, distance estimator, and sequence length.",
+        "caption": "Methods that converge under the homogeneous control can fail under the designed heterogeneous process.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "phylogenetic-model-misspecification/figures/publish/recovery-heatmap.svg"
+      },
+      {
+        "filename": "logdet-phase-map.svg",
+        "alt": "Recovery comparison across composition contrast and long-branch severity.",
+        "caption": "Regularized log-det is more robust in much of the tested region but is not universally correct.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "phylogenetic-model-misspecification/figures/publish/logdet-phase-map.svg"
+      },
+      {
+        "filename": "bootstrap-support.svg",
+        "alt": "Bootstrap support for true and wrong quartet splits under three distance estimators.",
+        "caption": "High bootstrap support measures stability conditional on the analysis pipeline, not model adequacy.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "phylogenetic-model-misspecification/figures/publish/bootstrap-support.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/phylogenetic-model-misspecification",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/phylogenetic-model-misspecification",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic nucleotide alignments",
+    "research_question": "Can more DNA increase confidence in the wrong topology when the inference model is structurally misspecified?",
+    "limitations": [
+      "The quartet and heterogeneous process are designed demonstrations.",
+      "The results do not establish that regularized log-det is universally superior.",
+      "Empirical phylogenomics involves additional taxa, partitions, recombination, and alignment uncertainty."
+    ],
+    "last_updated": "2026-07-30",
+    "category": "Mathematical Biology",
+    "readme_path": "phylogenetic-model-misspecification/README.md",
+    "documentation_excerpt": "A reviewed public-evidence wrapper for a model-adequacy demonstration.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/phylogenetic-model-misspecification/README.md",
+    "local_hero_image": "/science/phylogenetic-model-misspecification/heterogeneous-recovery.svg"
+  },
+  {
+    "slug": "semg-real-time-conditioning",
+    "title": "Real-Time sEMG Conditioning with Tracked Harmonic Cancellation",
+    "summary": "A reproducible synthetic implementation study separates a causal sample path from a gated frequency tracker for low-latency power-line cancellation and envelope extraction.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Biomedical Signal Processing",
+      "Real-Time Systems"
+    ],
+    "methods": [
+      "SOS digital filtering",
+      "Tracked harmonic NLMS",
+      "Exponential RMS estimation"
+    ],
+    "featured": true,
+    "project_root": "semg-real-time-conditioning",
+    "hero_image": "semg-real-time-conditioning/figures/publish/pipeline.svg",
+    "publish_assets": [
+      {
+        "filename": "pipeline.svg",
+        "alt": "Streaming sEMG conditioning pipeline with a separate supervisory mains-frequency tracker.",
+        "caption": "The architecture keeps the per-sample path causal while updating interference frequency periodically.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "semg-real-time-conditioning/figures/publish/pipeline.svg"
+      },
+      {
+        "filename": "synthetic-ablation.svg",
+        "alt": "Synthetic reconstruction SNR and residual rest-envelope comparisons across cancellation modes.",
+        "caption": "Tracked harmonic cancellation improves the two declared synthetic benchmarks relative to fixed or absent cancellation.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "semg-real-time-conditioning/figures/publish/synthetic-ablation.svg"
+      },
+      {
+        "filename": "timing-envelope.svg",
+        "alt": "Host-Python fast-path timing and exponential-envelope memory summaries.",
+        "caption": "Reference latency and smoothing memory are reported separately because they answer different design questions.",
+        "generated_by": "scripts/prepare-four-project-publish-assets.mjs",
+        "source_path": "semg-real-time-conditioning/figures/publish/timing-envelope.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/semg-real-time-conditioning",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/semg-real-time-conditioning",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": false,
+    "data_type": "Controlled synthetic multi-channel sEMG-like signals",
+    "research_question": "Can drifting power-line interference be tracked without turning the low-latency sample path into a heavy spectral computation?",
+    "limitations": [
+      "All shipped performance results are synthetic; no real Ninapro participant result is claimed.",
+      "Host-Python timing is not embedded worst-case execution time, RTOS jitter, energy, or battery evidence.",
+      "The implementation is not a clinical device or validated prosthetic controller."
+    ],
+    "last_updated": "2026-07-30",
+    "category": "Biomedical Engineering",
+    "readme_path": "semg-real-time-conditioning/README.md",
+    "documentation_excerpt": "A reviewed public-evidence wrapper for a real-time signal-conditioning implementation.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/semg-real-time-conditioning/README.md",
+    "local_hero_image": "/science/semg-real-time-conditioning/pipeline.svg"
   }
 ]

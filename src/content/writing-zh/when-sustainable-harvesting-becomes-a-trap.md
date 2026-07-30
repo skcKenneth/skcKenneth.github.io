@@ -4,12 +4,14 @@ slug: when-sustainable-harvesting-becomes-a-trap
 sourceSlug: when-sustainable-harvesting-becomes-a-trap
 summary: 具有強 Allee 效應的隨機模型說明：平均永續產量如何掩蓋崩潰門檻，以及帶保護線的回饋政策如何改變有限期風險—產量前沿。
 date: 2026-07-24
-lastUpdated: 2026-07-26
+lastUpdated: 2026-07-30
 featured: true
 topics: [族群動力學, Allee 效應, 隨機模擬, 採收政策, 風險, 回饋控制]
-heroImage: /images/writing/july-biology/harvest-risk-frontier.svg
+heroImage: /science/adaptive-harvesting-risk/risk-yield-frontier.svg
 type: Research Notes
 archived: false
+readingMinutes: 20
+scienceProject: adaptive-harvesting-risk
 redirectFrom: []
 ---
 
@@ -86,8 +88,8 @@ $$
 預設實驗設 \(P_s=60\)。當族群到達或低於保護線時，採收停止。
 
 <figure class="article-figure">
-  <img src="/images/writing/july-biology/harvest-feedback.svg" alt="比較固定配額、比例採收與門檻自適應採收在族群下降至 Allee 門檻時反應的三欄示意圖。" width="960" height="540" loading="lazy" decoding="async" />
-  <figcaption><strong>圖 1。</strong> 三套政策的回饋結構不同：固定配額維持相同絕對抽取，比例規則隨族群下降而減少採收，保護線規則則在受保護水平前停止抽取。此圖為機制示意。</figcaption>
+  <img src="/science/adaptive-harvesting-risk/collapse-mechanism.svg" alt="固定配額、比例採收與門檻自適應採收的族群軌跡，並標出 Allee 門檻與保護線。" width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 1。</strong> 代表性軌跡顯示三套回饋結構的分別。固定抽取一旦把族群推過強 Allee 門檻，模型本身的動力會加速下降；保護線規則則較早停止抽取。</figcaption>
 </figure>
 
 這個分法很重要，因為政策不只是一個參數，而是把觀察狀態映射成行動的規則。保護線只有在數量觀察準確、行動沒有過度延遲時，才真正能緩衝 Allee 門檻。
@@ -112,7 +114,7 @@ $$
 在測試的門檻自適應網格內，沒有軌跡滅絕；當 \(h=0.8\) 時，平均產量達 \(10.27\)。這是所提供有限期網格中最強的一點，不是政策對所有參數與所有時間都安全的證明。
 
 <figure class="article-figure">
-  <img src="/images/writing/july-biology/harvest-risk-frontier.svg" alt="顯示固定配額與比例採收的滅絕風險懸崖，以及三套政策有限期風險—產量位置的雙欄圖。" width="960" height="540" loading="lazy" decoding="async" />
+  <img src="/science/adaptive-harvesting-risk/risk-yield-frontier.svg" alt="固定配額、比例採收與門檻自適應採收的估計有限期崩潰機率與平均實現產量。" width="960" height="540" loading="lazy" decoding="async" />
   <figcaption><strong>圖 2。</strong> 每個政策強度 150 次模擬所得的風險與實現產量。門檻自適應規則在本網格佔較有利位置；另外兩套規則只需小幅增加強度便跨過崩潰邊界。零次觀察滅絕不等於真實風險為零。</figcaption>
 </figure>
 
@@ -125,6 +127,92 @@ $$
 $$
 
 其中 \(\theta\) 包括政策類型及其控制強度，\(N\) 是規劃期，\(\alpha\) 是可接受風險。最大平均產量與穩健永續並不是同一個目標。
+
+## 把模擬讀成一項決策研究
+
+這個參數網格不只是在比較三條曲線，而是在依次回答幾個問題。第一，未採收模型在 Allee 門檻上下是否呈現預期動力？第二，每套控制器是否真的執行其聲稱的「狀態到行動」規則？第三，政策比較是否使用相同的環境擾動？本研究以 common random numbers 讓政策面對同一批 150 條環境序列，減少無關的 Monte Carlo 差異。
+
+通過機制檢查後，34 列風險—產量摘要才有決策意義。每列雖然聚合 150 條軌跡，原始崩潰次數、實現產量與代表性時間序列仍分開保留，因為相同平均採收可以來自完全不同的歷史。
+
+| 政策 | 控制值 | 崩潰次數 | 估計風險 | 平均實現產量 |
+|---|---:|---:|---:|---:|
+| 固定配額 | 7.00 | 1 / 150 | 0.0067 | 6.984 |
+| 固定配額 | 8.00 | 28 / 150 | 0.1867 | 7.233 |
+| 固定配額 | 9.00 | 150 / 150 | 1.0000 | 1.894 |
+| 比例採收 | 0.14 | 3 / 150 | 0.0200 | 8.864 |
+| 比例採收 | 0.16 | 150 / 150 | 1.0000 | 1.630 |
+| 門檻自適應 | 0.80 | 0 / 150 | 觀察值 0 | 10.274 |
+
+最後一列只表示有限樣本內沒有觀察到崩潰，不表示未知的真實機率等於零。
+
+## 零次事件仍有不確定性
+
+若 \(X\sim\mathrm{Binomial}(n,p)\)，\(\hat p=X/n\) 只是估計的一部分。當 \(X=0\) 時，95% 上界的簡單近似是
+
+$$
+p_{\mathrm{upper}}\approx\frac{3}{n}.
+$$
+
+取 \(n=150\)，上界約為 \(0.02\)；Wilson 區間亦給出約 \(0.025\) 的相近上界。因此 0/150 仍可與一個細小但非零的有限期風險相容。如果決策容許值是 \(\alpha=0.01\)，這個樣本量不足以作出認證。
+
+比例控制由 \(0.14\) 的 3/150 躍升至 \(0.16\) 的 150/150，差異顯然不只是抽樣噪聲；但轉折位置仍受網格間距限制。加入 \(0.145\)、\(0.150\)、\(0.155\) 等點，才可分辨它是很窄的過渡帶，還是包含不同延遲崩潰時間的混合。
+
+<figure class="article-figure">
+  <img src="/science/adaptive-harvesting-risk/extinction-risk.svg" alt="固定配額、比例採收與門檻自適應政策在標準化控制強度下的有限期崩潰機率。" width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 3。</strong> 標準化控制強度方便比較，卻不代表三套政策的實際行動相同。風險急變區應加密參數網格，並為每個點報告區間估計。</figcaption>
+</figure>
+
+額外模擬應優先放在決策邊界，而不是已經每次崩潰的設定。序列式模擬亦可在某控制明顯不安全時提早停止，把運算資源轉到信賴區間仍跨越風險容許值的點。
+
+## 為何回饋會改寫前沿
+
+自適應規則改變的不是生物參數，而是抽取時機：
+
+$$
+\frac{\partial H_t}{\partial P_t}
+=
+\begin{cases}
+0, & P_t\le P_s,\\
+h, & P_t>P_s.
+\end{cases}
+$$
+
+在保護線以下，採收不再增加向下的作用力；在保護線以上，抽取只隨剩餘量上升。\(P_s=60\) 與 \(L=20\) 之間形成緩衝，讓季節與隨機損失未必立即把系統推入自然增長為負的區域。
+
+固定配額則相反：絕對移除量不變，但族群下降時 \(H/P_t\) 反而上升。比例採收會自動減少絕對抽取，卻沒有任何具有生物意義的停止線。
+
+<figure class="article-figure">
+  <img src="/science/adaptive-harvesting-risk/policy-comparison.svg" alt="固定配額、比例採收與門檻自適應政策的合成表現比較。" width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 4。</strong> 要求採收量與最終實現產量並不相同。過度進取的政策在崩潰後失去未來產量；保護線在本參數設定內同時保留族群與後續抽取。</figcaption>
+</figure>
+
+合理結論不是「門檻政策永遠勝出」，而是：在存在強 Allee 門檻、族群可被及時正確觀察的條件下，保護線可避免採收放大低密度動力。這並未證明目前的保護線最優，也未計入執法成本。
+
+## 從完美狀態變數到可用政策
+
+現實政策看到的是估計而非 \(P_t\)。若有對數尺度觀察誤差與一個時間步延遲，
+
+$$
+\widehat P_t=P_t\exp(\eta_t),\qquad
+H_t=h\max(\widehat P_{t-1}-P_s,0),
+$$
+
+安全距離便要同時吸收保護線與 Allee 門檻的距離、向上估計偏差，以及延遲期間的下跌。即使名義保護線很高，調查偏差或頻率太低仍可在錯誤時間觸發採收。
+
+所以至少有三個設計變數：生物保護線、監測與觀察模型、保護線以上的控制強度。只最佳化第三項並不完整。後續可從不確定集合抽取 \((r,L,\sigma)\)，加入延遲與觀察噪聲，在產量限制下最小化最壞情境或上尾崩潰風險；若把族群當作隱藏狀態，亦可依保守的 posterior quantile 而不是單一點估計作決策。
+
+## 甚麼才算更強證據？
+
+這項研究回答的是機制問題。若要接近實際管理分析，至少要：
+
+- 由具名族群估計增長率、門檻與環境項，並保留參數不確定性；
+- 在不同 Allee 形式、年齡結構與空間保護區下重做比較；
+- 加入調查噪聲、缺測、行動延遲與不完全執行；
+- 在一組環境上選政策，再以獨立衝擊評估凍結後的政策；
+- 報告不同規劃期的風險；
+- 明確列出監測成本、產量變異、崩潰損失與恢復時間。
+
+這些改動可能推翻目前排序。因此本文把結果定位為已驗證的合成研究，而不是對真實漁業的建議。
 
 ## 保護線不是免費保證
 

@@ -3,12 +3,14 @@ title: "When Sustainable Harvesting Becomes a Trap"
 slug: when-sustainable-harvesting-becomes-a-trap
 summary: A stochastic strong-Allee model shows why average sustainable yield can conceal a collapse threshold and why a feedback refuge changes the finite-horizon risk–yield frontier.
 date: 2026-07-24
-lastUpdated: 2026-07-26
+lastUpdated: 2026-07-30
 featured: true
 topics: [population dynamics, Allee effect, stochastic simulation, harvesting, risk, feedback control]
-heroImage: /images/writing/july-biology/harvest-risk-frontier.svg
+heroImage: /science/adaptive-harvesting-risk/risk-yield-frontier.svg
 type: Research Notes
 archived: false
+readingMinutes: 20
+scienceProject: adaptive-harvesting-risk
 redirectFrom: []
 ---
 
@@ -85,8 +87,8 @@ $$
 with \(P_s=60\) in the default experiment. Harvest stops at or below the refuge.
 
 <figure class="article-figure">
-  <img src="/images/writing/july-biology/harvest-feedback.svg" alt="Three-panel schematic comparing fixed-quota, proportional, and threshold-adaptive harvesting as a population declines toward an Allee threshold." width="960" height="540" loading="lazy" decoding="async" />
-  <figcaption><strong>Figure 1.</strong> The policies differ in feedback structure. A fixed quota keeps the same absolute removal, a proportional rule reduces catch with abundance, and the refuge rule stops extraction before the protected level. The diagram is schematic.</figcaption>
+  <img src="/science/adaptive-harvesting-risk/collapse-mechanism.svg" alt="Population trajectories under fixed-quota, proportional, and threshold-adaptive harvesting with the Allee and refuge thresholds marked." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 1.</strong> Representative trajectories make the feedback difference visible. Once a fixed extraction helps push abundance below the strong-Allee threshold, the model's own dynamics reinforce the decline; the refuge rule stops extraction earlier.</figcaption>
 </figure>
 
 This framing matters because a policy is not just a parameter. It is a mapping from observed state to action. The refuge rule can buffer the Allee threshold only if abundance is observed accurately and action is timely.
@@ -111,7 +113,7 @@ The proportional rule also crossed a sharp boundary: \(h=0.14\) produced three e
 Across the tested threshold-adaptive grid, no run became extinct. At \(h=0.8\), mean yield reached \(10.27\). This is the strongest finite-horizon point in the supplied grid, not a proof that the policy is safe for all parameters or all time.
 
 <figure class="article-figure">
-  <img src="/images/writing/july-biology/harvest-risk-frontier.svg" alt="Two-panel figure showing extinction-risk cliffs and the finite-horizon risk-yield positions of fixed-quota, proportional, and threshold-adaptive harvesting." width="960" height="540" loading="lazy" decoding="async" />
+  <img src="/science/adaptive-harvesting-risk/risk-yield-frontier.svg" alt="Estimated finite-horizon collapse probability against mean realized yield for fixed-quota, proportional, and threshold-adaptive harvesting." width="960" height="540" loading="lazy" decoding="async" />
   <figcaption><strong>Figure 2.</strong> Estimated risk and realized yield from 150 replicates per policy intensity. The threshold-adaptive rule occupies a favourable part of this tested grid, while small increases in the other controls cross a collapse boundary. Zero observed extinctions does not imply zero true risk.</figcaption>
 </figure>
 
@@ -124,6 +126,94 @@ $$
 $$
 
 where \(\theta\) includes the policy family and its control, \(N\) is the planning horizon, and \(\alpha\) is a tolerated risk. Maximum average yield and robust sustainability are not the same objective.
+
+## Reading the experiment as a decision study
+
+The simulation grid is easiest to interpret as a sequence of increasingly demanding questions.
+
+First, **does the unharvested model behave as intended?** Above the Allee threshold, the population should be capable of returning toward the seasonally varying capacity; below it, per-capita growth should be negative. Second, **does each controller implement the declared state-to-action rule?** A fixed quota should not quietly become proportional when abundance is low, and the adaptive rule should not harvest below its refuge. Third, **does a comparison use the same environmental evidence?** Common random numbers make the policies experience the same 150 shock sequences at a given control level, reducing irrelevant Monte Carlo variation in pairwise comparisons.
+
+Only after these mechanism checks does the risk-yield summary become meaningful. The supplied run contains 34 policy-intensity rows. Each row aggregates 150 trajectories, but it does not erase them: collapse counts, realized yield, and representative paths remain available as separate outputs. This matters because two policies with the same average harvest can reach it through very different histories.
+
+| Policy | Control | Collapses | Estimated risk | Mean realized yield |
+|---|---:|---:|---:|---:|
+| Fixed quota | 7.00 | 1 / 150 | 0.0067 | 6.984 |
+| Fixed quota | 8.00 | 28 / 150 | 0.1867 | 7.233 |
+| Fixed quota | 9.00 | 150 / 150 | 1.0000 | 1.894 |
+| Proportional | 0.14 | 3 / 150 | 0.0200 | 8.864 |
+| Proportional | 0.16 | 150 / 150 | 1.0000 | 1.630 |
+| Threshold-adaptive | 0.80 | 0 / 150 | 0.0000 observed | 10.274 |
+
+The last row says that this finite experiment observed no collapse, not that the unknown collapse probability is exactly zero.
+
+## Zero events still have uncertainty
+
+For a binomial event count \(X\sim\mathrm{Binomial}(n,p)\), the plug-in estimate \(\hat p=X/n\) is only one part of the result. When \(X=0\), a simple 95% upper rule of thumb is
+
+$$
+p_{\mathrm{upper}}\approx \frac{3}{n}.
+$$
+
+With \(n=150\), this is about \(0.02\). A Wilson interval gives a similar upper bound of roughly \(0.025\). Therefore “0 out of 150” is compatible with a small but non-zero finite-horizon risk. If the decision threshold were \(\alpha=0.01\), this experiment would be too small to certify it.
+
+The change from 3/150 collapses at proportional control \(0.14\) to 150/150 at \(0.16\) is too large to be sampling noise alone, but the location of the transition is resolved only at the tested grid spacing. Controls at \(0.145\), \(0.150\), and \(0.155\) could reveal a narrow transition band or a mixture of delayed collapses.
+
+<figure class="article-figure">
+  <img src="/science/adaptive-harvesting-risk/extinction-risk.svg" alt="Finite-horizon collapse probability across normalized harvesting intensity for fixed-quota, proportional, and threshold-adaptive policies." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 3.</strong> Normalising control intensity makes the policy families easier to compare, but it does not make their actions equivalent. The sharp changes motivate local grid refinement and interval estimates for every risk point.</figcaption>
+</figure>
+
+More replicates are most valuable near the decision boundary, not at settings that already collapse in every run. Sequential simulation could stop early when a control is clearly unsafe and redirect computation toward points whose confidence interval overlaps the tolerated risk.
+
+## Why feedback changes the frontier
+
+The adaptive controller changes the timing of extraction. Its derivative with respect to abundance is
+
+$$
+\frac{\partial H_t}{\partial P_t}
+=
+\begin{cases}
+0, & P_t\le P_s,\\
+h, & P_t>P_s.
+\end{cases}
+$$
+
+Below the refuge, harvesting no longer adds a downward force. Above it, extraction grows with surplus. This creates a buffer between the operational stopping point \(P_s=60\) and the biological threshold \(L=20\). The buffer absorbs some seasonal and random losses before the system reaches negative natural growth.
+
+Fixed quotas have the opposite local geometry. The requested removal is constant while its fraction of abundance, \(H/P_t\), increases during a decline. Proportional harvesting is safer than a comparable quota in that respect, but it continues to remove a fraction below any biologically meaningful refuge.
+
+<figure class="article-figure">
+  <img src="/science/adaptive-harvesting-risk/policy-comparison.svg" alt="Comparative synthetic performance of fixed-quota, proportional, and threshold-adaptive harvesting policies." width="960" height="540" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 4.</strong> Requested control and realized outcome are different. Aggressive rules can lose future yield after collapse, while a refuge can preserve both stock and subsequent extraction in this parameter setting.</figcaption>
+</figure>
+
+The experiment supports a conditional mechanism: when a strong Allee threshold exists, a correctly observed refuge can prevent extraction from amplifying low-abundance dynamics. It does not show that the chosen refuge is optimal, that threshold policies dominate under every growth law, or that enforcement is costless.
+
+## From a perfect state variable to a usable policy
+
+A real rule acts on an estimate rather than on \(P_t\). Suppose log-scale observation error and a one-step delay give
+
+$$
+\widehat P_t=P_t\exp(\eta_t),\qquad
+H_t=h\max(\widehat P_{t-1}-P_s,0).
+$$
+
+Now the safety margin must cover the distance between refuge and Allee threshold, possible upward observation error, and the decline that can occur during the delay. A high nominal refuge may still harvest at the wrong time if surveys are biased or infrequent.
+
+This suggests three design variables: the biological refuge, the monitoring schedule and observation model, and the control intensity above the refuge. Optimising only the third is incomplete. A stronger formulation would draw \((r,L,\sigma)\) from an uncertainty set, simulate delayed noisy observations, and minimise worst-case or upper-tail collapse risk subject to a yield requirement. A hidden-state version could use a particle filter and make harvest depend on a conservative posterior quantile rather than a point estimate.
+
+## What would count as stronger evidence?
+
+The present results answer a mechanism question with a controlled synthetic experiment. Several additions would move it toward a management analysis:
+
+- estimate growth, threshold, and environmental terms for a named stock, with uncertainty;
+- repeat the comparison under alternative Allee formulations, age structure, and spatial refuges;
+- include survey noise, missing seasons, delays, and non-compliance;
+- tune controls on one ensemble and evaluate a frozen policy on independent shocks;
+- report how risk changes across multiple planning horizons;
+- include monitoring cost, yield variability, collapse loss, and recovery time without hiding their weights.
+
+These additions may change the ranking. That is why the current result remains a verified synthetic study rather than a recommendation for a real fishery.
 
 ## Why the refuge is not a free guarantee
 
