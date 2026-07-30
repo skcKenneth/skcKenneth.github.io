@@ -36,7 +36,7 @@ An authenticated remote asset endpoint may be supplied explicitly through
 `SCIENCEPROJECT_RAW_BASE`; no public ScienceProject endpoint is assumed.
 
 ```bash
-pnpm build       # sync, schema/type check, build, Pagefind, links, output hygiene
+pnpm build       # policy tests, sync, bilingual/assets/schema checks, build, search and link hygiene
 pnpm preview     # serve the production output
 ```
 

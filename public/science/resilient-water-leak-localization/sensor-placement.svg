@@ -2,6 +2,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="459.110145pt" height="213.59952pt" viewBox="0 0 459.110145 213.59952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>Side-by-side water-network diagrams comparing nominal greedy and dropout-aware pressure sensor locations.</title>
+ <desc>Nominal and dropout-aware sensor layouts on the 36-node synthetic network. The proposed objective spreads measurements across diagnostically distinct regions after sensor loss.</desc>
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -471,7 +473,7 @@ z
     </g>
    </g>
    <g id="text_1">
-    <text style="font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="100.675072" y="13.449375" transform="rotate(-0 100.675072 13.449375)">(a) Nominal greedy placement</text>
+    <text style="fill: #111111; font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="100.675072" y="13.449375" transform="rotate(-0 100.675072 13.449375)">(a) Nominal greedy placement</text>
    </g>
    <g id="PathCollection_3">
     <defs>
@@ -507,7 +509,7 @@ z
      </g>
     </g>
     <g id="text_2">
-     <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="120.531395" y="186.146395" transform="rotate(-0 120.531395 186.146395)">Pressure sensor</text>
+     <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="120.531395" y="186.146395" transform="rotate(-0 120.531395 186.146395)">Pressure sensor</text>
     </g>
     <g id="PathCollection_5">
      <g>
@@ -515,7 +517,7 @@ z
      </g>
     </g>
     <g id="text_3">
-     <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="120.531395" y="197.472957" transform="rotate(-0 120.531395 197.472957)">Fixed-head reservoir</text>
+     <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="120.531395" y="197.472957" transform="rotate(-0 120.531395 197.472957)">Fixed-head reservoir</text>
     </g>
    </g>
   </g>
@@ -949,7 +951,7 @@ z
     </g>
    </g>
    <g id="text_4">
-    <text style="font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="358.435073" y="13.449375" transform="rotate(-0 358.435073 13.449375)">(b) Dropout-aware placement</text>
+    <text style="fill: #111111; font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="358.435073" y="13.449375" transform="rotate(-0 358.435073 13.449375)">(b) Dropout-aware placement</text>
    </g>
    <g id="PathCollection_8">
     <g clip-path="url(#pe6df6deb13)">
@@ -971,7 +973,7 @@ z
      </g>
     </g>
     <g id="text_5">
-     <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="378.291395" y="186.146395" transform="rotate(-0 378.291395 186.146395)">Pressure sensor</text>
+     <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="378.291395" y="186.146395" transform="rotate(-0 378.291395 186.146395)">Pressure sensor</text>
     </g>
     <g id="PathCollection_10">
      <g>
@@ -979,7 +981,7 @@ z
      </g>
     </g>
     <g id="text_6">
-     <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="378.291395" y="197.472957" transform="rotate(-0 378.291395 197.472957)">Fixed-head reservoir</text>
+     <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="378.291395" y="197.472957" transform="rotate(-0 378.291395 197.472957)">Fixed-head reservoir</text>
     </g>
    </g>
   </g>

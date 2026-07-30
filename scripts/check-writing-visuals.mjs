@@ -1,9 +1,13 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { extname, join } from "node:path";
+import { extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { validatePublishSvg } from "./science-sync-policy.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const writingDir = join(root, "src", "content", "writing");
+const writingDirectories = [
+  { directory: join(root, "src", "content", "writing"), locale: "en" },
+  { directory: join(root, "src", "content", "writing-zh"), locale: "zh" },
+];
 const publicDir = join(root, "public");
 const rolloutDate = "2026-07-16";
 const allowedRoots = ["/images/", "/science/"];
@@ -25,6 +29,14 @@ function countWords(markdown) {
     .filter(Boolean).length;
 }
 
+function markdownFiles(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const target = join(directory, entry.name);
+    if (entry.isDirectory()) return markdownFiles(target);
+    return [".md", ".mdx"].includes(extname(entry.name).toLowerCase()) ? [target] : [];
+  });
+}
+
 function imageReferences(body) {
   const images = [];
   for (const match of body.matchAll(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+["'][^)]*)?\)/g)) {
@@ -38,29 +50,10 @@ function imageReferences(body) {
   return images;
 }
 
-function svgTextIsBlack(svg) {
-  const styleBlocks = [...svg.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)]
-    .map((match) => match[1])
-    .join("\n");
-  const blackClasses = new Set();
-  for (const match of styleBlocks.matchAll(/\.([A-Za-z0-9_-]+)\s*\{[^}]*?fill\s*:\s*(?:#(?:000|111)(?:000|111)?|black)\b[^}]*\}/gi)) {
-    blackClasses.add(match[1]);
-  }
-
-  const textElements = [...svg.matchAll(/<text\b([^>]*)>/gi)];
-  return textElements.every((match) => {
-    const attrs = match[1];
-    if (/\bfill\s*=\s*["'](?:#(?:000|111)(?:000|111)?|black)["']/i.test(attrs)) return true;
-    if (/\bstyle\s*=\s*["'][^"']*fill\s*:\s*(?:#(?:000|111)(?:000|111)?|black)\b/i.test(attrs)) return true;
-    const classes = attrs.match(/\bclass\s*=\s*["']([^"']+)["']/i)?.[1]?.split(/\s+/) ?? [];
-    return classes.some((className) => blackClasses.has(className));
-  });
-}
-
-for (const name of readdirSync(writingDir)) {
-  if (![".md", ".mdx"].includes(extname(name))) continue;
-
-  const source = readFileSync(join(writingDir, name), "utf8");
+for (const { directory, locale } of writingDirectories) {
+ for (const file of markdownFiles(directory)) {
+  const name = relative(root, file);
+  const source = readFileSync(file, "utf8");
   const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
   if (!match) {
     errors.push(name + ": missing readable frontmatter");
@@ -73,13 +66,17 @@ for (const name of readdirSync(writingDir)) {
   if (archived || !date || date < rolloutDate) continue;
 
   const words = countWords(body);
-  const required = words >= 1200 ? 2 : words >= 900 ? 1 : 0;
+  const hanCharacters = body.match(/\p{Script=Han}/gu)?.length ?? 0;
+  const required = locale === "zh"
+    ? hanCharacters >= 1000 ? 2 : hanCharacters >= 700 ? 1 : 0
+    : words >= 1200 ? 2 : words >= 900 ? 1 : 0;
   if (!required) continue;
 
   const images = imageReferences(body);
   const localImages = images.filter(({ src }) => allowedRoots.some((prefix) => src.startsWith(prefix)));
   if (localImages.length < required) {
-    errors.push(name + ": " + words + " words require " + required + " local figure(s), found " + localImages.length);
+    const measure = locale === "zh" ? `${hanCharacters} Han characters` : `${words} words`;
+    errors.push(name + ": " + measure + " require " + required + " local figure(s), found " + localImages.length);
   }
 
   const figureCount = (body.match(/<figure\b/gi) ?? []).length;
@@ -98,14 +95,11 @@ for (const name of readdirSync(writingDir)) {
     }
     if (extname(assetPath).toLowerCase() === ".svg") {
       const svg = readFileSync(assetPath, "utf8");
-      if (!/<title\b/i.test(svg) || !/<desc\b/i.test(svg)) {
-        errors.push(name + ": " + src + " must contain SVG title and description elements");
-      }
-      if (!svgTextIsBlack(svg)) {
-        errors.push(name + ": " + src + " contains figure text that is not explicitly black");
-      }
+      try { validatePublishSvg(svg, `${name}: ${src}`); }
+      catch (error) { errors.push(error.message); }
     }
   }
+ }
 }
 
 if (errors.length) {

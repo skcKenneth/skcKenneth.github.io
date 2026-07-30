@@ -2,6 +2,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="523.91952pt" height="213.59952pt" viewBox="0 0 523.91952 213.59952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>Two IEEE-style line charts comparing leak-localisation accuracy across pressure noise and sensor dropout for four placement methods.</title>
+ <desc>The proposed dropout-aware placement is compared with random, degree-centrality, and nominal greedy layouts; error bars show Wilson 95% intervals.</desc>
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -55,7 +57,7 @@ L 0 3
       </g>
      </g>
      <g id="text_1">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="46.031202" y="192.4812" transform="rotate(-0 46.031202 192.4812)">0.02</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="46.031202" y="192.4812" transform="rotate(-0 46.031202 192.4812)">0.02</text>
      </g>
     </g>
     <g id="xtick_2">
@@ -70,7 +72,7 @@ L 75.001041 19.449375
       </g>
      </g>
      <g id="text_2">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="75.001041" y="192.4812" transform="rotate(-0 75.001041 192.4812)">0.04</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="75.001041" y="192.4812" transform="rotate(-0 75.001041 192.4812)">0.04</text>
      </g>
     </g>
     <g id="xtick_3">
@@ -85,7 +87,7 @@ L 103.97088 19.449375
       </g>
      </g>
      <g id="text_3">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="103.97088" y="192.4812" transform="rotate(-0 103.97088 192.4812)">0.06</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="103.97088" y="192.4812" transform="rotate(-0 103.97088 192.4812)">0.06</text>
      </g>
     </g>
     <g id="xtick_4">
@@ -100,7 +102,7 @@ L 132.940719 19.449375
       </g>
      </g>
      <g id="text_4">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="132.940719" y="192.4812" transform="rotate(-0 132.940719 192.4812)">0.08</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="132.940719" y="192.4812" transform="rotate(-0 132.940719 192.4812)">0.08</text>
      </g>
     </g>
     <g id="xtick_5">
@@ -115,7 +117,7 @@ L 161.910559 19.449375
       </g>
      </g>
      <g id="text_5">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="161.910559" y="192.4812" transform="rotate(-0 161.910559 192.4812)">0.10</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="161.910559" y="192.4812" transform="rotate(-0 161.910559 192.4812)">0.10</text>
      </g>
     </g>
     <g id="xtick_6">
@@ -130,7 +132,7 @@ L 190.880398 19.449375
       </g>
      </g>
      <g id="text_6">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="190.880398" y="192.4812" transform="rotate(-0 190.880398 192.4812)">0.12</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="190.880398" y="192.4812" transform="rotate(-0 190.880398 192.4812)">0.12</text>
      </g>
     </g>
     <g id="xtick_7">
@@ -145,7 +147,7 @@ L 219.850237 19.449375
       </g>
      </g>
      <g id="text_7">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="219.850237" y="192.4812" transform="rotate(-0 219.850237 192.4812)">0.14</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="219.850237" y="192.4812" transform="rotate(-0 219.850237 192.4812)">0.14</text>
      </g>
     </g>
     <g id="xtick_8">
@@ -160,11 +162,11 @@ L 248.820076 19.449375
       </g>
      </g>
      <g id="text_8">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="248.820076" y="192.4812" transform="rotate(-0 248.820076 192.4812)">0.16</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="248.820076" y="192.4812" transform="rotate(-0 248.820076 192.4812)">0.16</text>
      </g>
     </g>
     <g id="text_9">
-     <text style="font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="147.425639" y="204.457137" transform="rotate(-0 147.425639 204.457137)">Relative pressure-noise level</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="147.425639" y="204.457137" transform="rotate(-0 147.425639 204.457137)">Relative pressure-noise level</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -185,7 +187,7 @@ L -3 0
       </g>
      </g>
      <g id="text_10">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="183.207762" transform="rotate(-0 29.391758 183.207762)">0.0</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="183.207762" transform="rotate(-0 29.391758 183.207762)">0.0</text>
      </g>
     </g>
     <g id="ytick_2">
@@ -200,7 +202,7 @@ L 258.95952 148.868648
       </g>
      </g>
      <g id="text_11">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="151.642086" transform="rotate(-0 29.391758 151.642086)">0.2</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="151.642086" transform="rotate(-0 29.391758 151.642086)">0.2</text>
      </g>
     </g>
     <g id="ytick_3">
@@ -215,7 +217,7 @@ L 258.95952 117.302972
       </g>
      </g>
      <g id="text_12">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="120.076409" transform="rotate(-0 29.391758 120.076409)">0.4</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="120.076409" transform="rotate(-0 29.391758 120.076409)">0.4</text>
      </g>
     </g>
     <g id="ytick_4">
@@ -230,7 +232,7 @@ L 258.95952 85.737295
       </g>
      </g>
      <g id="text_13">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="88.510733" transform="rotate(-0 29.391758 88.510733)">0.6</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="88.510733" transform="rotate(-0 29.391758 88.510733)">0.6</text>
      </g>
     </g>
     <g id="ytick_5">
@@ -245,7 +247,7 @@ L 258.95952 54.171619
       </g>
      </g>
      <g id="text_14">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="56.945057" transform="rotate(-0 29.391758 56.945057)">0.8</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="56.945057" transform="rotate(-0 29.391758 56.945057)">0.8</text>
      </g>
     </g>
     <g id="ytick_6">
@@ -260,11 +262,11 @@ L 258.95952 22.605943
       </g>
      </g>
      <g id="text_15">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="25.37938" transform="rotate(-0 29.391758 25.37938)">1.0</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="29.391758" y="25.37938" transform="rotate(-0 29.391758 25.37938)">1.0</text>
      </g>
     </g>
     <g id="text_16">
-     <text style="font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="13.449375" y="99.94185" transform="rotate(-90 13.449375 99.94185)">Top-1 localisation accuracy</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="13.449375" y="99.94185" transform="rotate(-90 13.449375 99.94185)">Top-1 localisation accuracy</text>
     </g>
    </g>
    <g id="LineCollection_1">
@@ -534,7 +536,7 @@ L 258.95952 180.434325
 " style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_17">
-    <text style="font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="147.425639" y="13.449375" transform="rotate(-0 147.425639 13.449375)">(a) Noise robustness (20% dropout)</text>
+    <text style="fill: #111111; font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="147.425639" y="13.449375" transform="rotate(-0 147.425639 13.449375)">(a) Noise robustness (20% dropout)</text>
    </g>
    <g id="legend_1">
     <g id="patch_5">
@@ -571,7 +573,7 @@ L 59.091758 157.3812
      </g>
     </g>
     <g id="text_18">
-     <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="65.491758" y="160.1812" transform="rotate(-0 65.491758 160.1812)">Random</text>
+     <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="65.491758" y="160.1812" transform="rotate(-0 65.491758 160.1812)">Random</text>
     </g>
     <g id="LineCollection_6">
      <path d="M 51.091758 172.707762
@@ -599,7 +601,7 @@ L 59.091758 168.707762
      </g>
     </g>
     <g id="text_19">
-     <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="65.491758" y="171.507762" transform="rotate(-0 65.491758 171.507762)">Degree</text>
+     <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="65.491758" y="171.507762" transform="rotate(-0 65.491758 171.507762)">Degree</text>
     </g>
     <g id="LineCollection_7">
      <path d="M 116.601758 161.3812
@@ -627,7 +629,7 @@ L 124.601758 157.3812
      </g>
     </g>
     <g id="text_20">
-     <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="131.001758" y="160.1812" transform="rotate(-0 131.001758 160.1812)">Greedy (nominal)</text>
+     <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="131.001758" y="160.1812" transform="rotate(-0 131.001758 160.1812)">Greedy (nominal)</text>
     </g>
     <g id="LineCollection_8">
      <path d="M 116.601758 172.707762
@@ -655,7 +657,7 @@ L 124.601758 168.707762
      </g>
     </g>
     <g id="text_21">
-     <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="131.001758" y="171.507762" transform="rotate(-0 131.001758 171.507762)">Proposed (dropout-aware)</text>
+     <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: start" x="131.001758" y="171.507762" transform="rotate(-0 131.001758 171.507762)">Proposed (dropout-aware)</text>
     </g>
    </g>
   </g>
@@ -681,7 +683,7 @@ L 303.791202 19.449375
       </g>
      </g>
      <g id="text_22">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="303.791202" y="192.4812" transform="rotate(-0 303.791202 192.4812)">0.00</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="303.791202" y="192.4812" transform="rotate(-0 303.791202 192.4812)">0.00</text>
      </g>
     </g>
     <g id="xtick_10">
@@ -696,7 +698,7 @@ L 329.139811 19.449375
       </g>
      </g>
      <g id="text_23">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="329.139811" y="192.4812" transform="rotate(-0 329.139811 192.4812)">0.05</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="329.139811" y="192.4812" transform="rotate(-0 329.139811 192.4812)">0.05</text>
      </g>
     </g>
     <g id="xtick_11">
@@ -711,7 +713,7 @@ L 354.48842 19.449375
       </g>
      </g>
      <g id="text_24">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="354.48842" y="192.4812" transform="rotate(-0 354.48842 192.4812)">0.10</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="354.48842" y="192.4812" transform="rotate(-0 354.48842 192.4812)">0.10</text>
      </g>
     </g>
     <g id="xtick_12">
@@ -726,7 +728,7 @@ L 379.83703 19.449375
       </g>
      </g>
      <g id="text_25">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="379.83703" y="192.4812" transform="rotate(-0 379.83703 192.4812)">0.15</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="379.83703" y="192.4812" transform="rotate(-0 379.83703 192.4812)">0.15</text>
      </g>
     </g>
     <g id="xtick_13">
@@ -741,7 +743,7 @@ L 405.185639 19.449375
       </g>
      </g>
      <g id="text_26">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="405.185639" y="192.4812" transform="rotate(-0 405.185639 192.4812)">0.20</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="405.185639" y="192.4812" transform="rotate(-0 405.185639 192.4812)">0.20</text>
      </g>
     </g>
     <g id="xtick_14">
@@ -756,7 +758,7 @@ L 430.534248 19.449375
       </g>
      </g>
      <g id="text_27">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="430.534248" y="192.4812" transform="rotate(-0 430.534248 192.4812)">0.25</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="430.534248" y="192.4812" transform="rotate(-0 430.534248 192.4812)">0.25</text>
      </g>
     </g>
     <g id="xtick_15">
@@ -771,7 +773,7 @@ L 455.882858 19.449375
       </g>
      </g>
      <g id="text_28">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="455.882858" y="192.4812" transform="rotate(-0 455.882858 192.4812)">0.30</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="455.882858" y="192.4812" transform="rotate(-0 455.882858 192.4812)">0.30</text>
      </g>
     </g>
     <g id="xtick_16">
@@ -786,7 +788,7 @@ L 481.231467 19.449375
       </g>
      </g>
      <g id="text_29">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="481.231467" y="192.4812" transform="rotate(-0 481.231467 192.4812)">0.35</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="481.231467" y="192.4812" transform="rotate(-0 481.231467 192.4812)">0.35</text>
      </g>
     </g>
     <g id="xtick_17">
@@ -801,11 +803,11 @@ L 506.580076 19.449375
       </g>
      </g>
      <g id="text_30">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="506.580076" y="192.4812" transform="rotate(-0 506.580076 192.4812)">0.40</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="506.580076" y="192.4812" transform="rotate(-0 506.580076 192.4812)">0.40</text>
      </g>
     </g>
     <g id="text_31">
-     <text style="font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="405.185639" y="204.457137" transform="rotate(-0 405.185639 204.457137)">Single-sensor dropout probability</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="405.185639" y="204.457137" transform="rotate(-0 405.185639 204.457137)">Single-sensor dropout probability</text>
     </g>
    </g>
    <g id="matplotlib.axis_4">
@@ -821,7 +823,7 @@ L 516.71952 180.434325
       </g>
      </g>
      <g id="text_32">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="183.207762" transform="rotate(-0 287.151758 183.207762)">0.0</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="183.207762" transform="rotate(-0 287.151758 183.207762)">0.0</text>
      </g>
     </g>
     <g id="ytick_8">
@@ -836,7 +838,7 @@ L 516.71952 148.868648
       </g>
      </g>
      <g id="text_33">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="151.642086" transform="rotate(-0 287.151758 151.642086)">0.2</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="151.642086" transform="rotate(-0 287.151758 151.642086)">0.2</text>
      </g>
     </g>
     <g id="ytick_9">
@@ -851,7 +853,7 @@ L 516.71952 117.302972
       </g>
      </g>
      <g id="text_34">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="120.076409" transform="rotate(-0 287.151758 120.076409)">0.4</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="120.076409" transform="rotate(-0 287.151758 120.076409)">0.4</text>
      </g>
     </g>
     <g id="ytick_10">
@@ -866,7 +868,7 @@ L 516.71952 85.737295
       </g>
      </g>
      <g id="text_35">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="88.510733" transform="rotate(-0 287.151758 88.510733)">0.6</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="88.510733" transform="rotate(-0 287.151758 88.510733)">0.6</text>
      </g>
     </g>
     <g id="ytick_11">
@@ -881,7 +883,7 @@ L 516.71952 54.171619
       </g>
      </g>
      <g id="text_36">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="56.945057" transform="rotate(-0 287.151758 56.945057)">0.8</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="56.945057" transform="rotate(-0 287.151758 56.945057)">0.8</text>
      </g>
     </g>
     <g id="ytick_12">
@@ -896,11 +898,11 @@ L 516.71952 22.605943
       </g>
      </g>
      <g id="text_37">
-      <text style="font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="25.37938" transform="rotate(-0 287.151758 25.37938)">1.0</text>
+      <text style="fill: #111111; font-size: 8px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: end" x="287.151758" y="25.37938" transform="rotate(-0 287.151758 25.37938)">1.0</text>
      </g>
     </g>
     <g id="text_38">
-     <text style="font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="271.209375" y="99.94185" transform="rotate(-90 271.209375 99.94185)">Top-1 localisation accuracy</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="271.209375" y="99.94185" transform="rotate(-90 271.209375 99.94185)">Top-1 localisation accuracy</text>
     </g>
    </g>
    <g id="LineCollection_9">
@@ -1058,7 +1060,7 @@ L 516.71952 180.434325
 " style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_39">
-    <text style="font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="405.185639" y="13.449375" transform="rotate(-0 405.185639 13.449375)">(b) Sensor-failure robustness (8% noise)</text>
+    <text style="fill: #111111; font-size: 9px; font-family: 'Times New Roman', 'Times', 'DejaVu Serif', serif; text-anchor: middle" x="405.185639" y="13.449375" transform="rotate(-0 405.185639 13.449375)">(b) Sensor-failure robustness (8% noise)</text>
    </g>
   </g>
  </g>

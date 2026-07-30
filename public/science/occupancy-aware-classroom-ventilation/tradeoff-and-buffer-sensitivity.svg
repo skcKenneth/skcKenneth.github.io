@@ -2,6 +2,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="479.136719pt" height="233.647297pt" viewBox="0 0 479.136719 233.647297" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>A combined-stress exposure-energy trade-off chart and a sensitivity plot showing exposure and fan energy as the occupancy forecast buffer increases.</title>
+ <desc>The uncertainty buffer produces a modest exposure reduction while increasing the fan-energy proxy.</desc>
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -55,7 +57,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_1">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="59.475225" y="211.284484" transform="rotate(-0 59.475225 211.284484)">5</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="59.475225" y="211.284484" transform="rotate(-0 59.475225 211.284484)">5</text>
      </g>
     </g>
     <g id="xtick_2">
@@ -70,7 +72,7 @@ L 101.432039 20.038594
       </g>
      </g>
      <g id="text_2">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="101.432039" y="211.284484" transform="rotate(-0 101.432039 211.284484)">6</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="101.432039" y="211.284484" transform="rotate(-0 101.432039 211.284484)">6</text>
      </g>
     </g>
     <g id="xtick_3">
@@ -85,7 +87,7 @@ L 143.388853 20.038594
       </g>
      </g>
      <g id="text_3">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="143.388853" y="211.284484" transform="rotate(-0 143.388853 211.284484)">7</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="143.388853" y="211.284484" transform="rotate(-0 143.388853 211.284484)">7</text>
      </g>
     </g>
     <g id="xtick_4">
@@ -100,11 +102,11 @@ L 185.345667 20.038594
       </g>
      </g>
      <g id="text_4">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="185.345667" y="211.284484" transform="rotate(-0 185.345667 211.284484)">8</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="185.345667" y="211.284484" transform="rotate(-0 185.345667 211.284484)">8</text>
      </g>
     </g>
     <g id="text_5">
-     <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="122.47043" y="224.285188" transform="rotate(-0 122.47043 224.285188)">Fan energy (kWh day⁻¹)</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="122.47043" y="224.285188" transform="rotate(-0 122.47043 224.285188)">Fan energy (kWh day⁻¹)</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -125,7 +127,7 @@ L -3.5 0
       </g>
      </g>
      <g id="text_6">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="199.000538" transform="rotate(-0 31.653203 199.000538)">40</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="199.000538" transform="rotate(-0 31.653203 199.000538)">40</text>
      </g>
     </g>
     <g id="ytick_2">
@@ -140,7 +142,7 @@ L 206.287657 171.899619
       </g>
      </g>
      <g id="text_7">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="175.318565" transform="rotate(-0 31.653203 175.318565)">45</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="175.318565" transform="rotate(-0 31.653203 175.318565)">45</text>
      </g>
     </g>
     <g id="ytick_3">
@@ -155,7 +157,7 @@ L 206.287657 148.217646
       </g>
      </g>
      <g id="text_8">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="151.636591" transform="rotate(-0 31.653203 151.636591)">50</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="151.636591" transform="rotate(-0 31.653203 151.636591)">50</text>
      </g>
     </g>
     <g id="ytick_4">
@@ -170,7 +172,7 @@ L 206.287657 124.535672
       </g>
      </g>
      <g id="text_9">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="127.954617" transform="rotate(-0 31.653203 127.954617)">55</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="127.954617" transform="rotate(-0 31.653203 127.954617)">55</text>
      </g>
     </g>
     <g id="ytick_5">
@@ -185,7 +187,7 @@ L 206.287657 100.853699
       </g>
      </g>
      <g id="text_10">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="104.272644" transform="rotate(-0 31.653203 104.272644)">60</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="104.272644" transform="rotate(-0 31.653203 104.272644)">60</text>
      </g>
     </g>
     <g id="ytick_6">
@@ -200,7 +202,7 @@ L 206.287657 77.171725
       </g>
      </g>
      <g id="text_11">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="80.59067" transform="rotate(-0 31.653203 80.59067)">65</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="80.59067" transform="rotate(-0 31.653203 80.59067)">65</text>
      </g>
     </g>
     <g id="ytick_7">
@@ -215,7 +217,7 @@ L 206.287657 53.489751
       </g>
      </g>
      <g id="text_12">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="56.908697" transform="rotate(-0 31.653203 56.908697)">70</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="56.908697" transform="rotate(-0 31.653203 56.908697)">70</text>
      </g>
     </g>
     <g id="ytick_8">
@@ -230,11 +232,11 @@ L 206.287657 29.807778
       </g>
      </g>
      <g id="text_13">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="33.226723" transform="rotate(-0 31.653203 33.226723)">75</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="31.653203" y="33.226723" transform="rotate(-0 31.653203 33.226723)">75</text>
      </g>
     </g>
     <g id="text_14">
-     <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="14.038594" y="108.742594" transform="rotate(-90 14.038594 108.742594)">Exposure above 1000 ppm (%)</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="14.038594" y="108.742594" transform="rotate(-90 14.038594 108.742594)">Exposure above 1000 ppm (%)</text>
     </g>
    </g>
    <g id="LineCollection_1">
@@ -474,7 +476,7 @@ L 206.287657 20.038594
 " style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_15">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="38.653203" y="14.038594" transform="rotate(-0 38.653203 14.038594)">(a) Combined-stress trade-off</text>
+    <text style="fill: #111111; font-weight: 700; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="38.653203" y="14.038594" transform="rotate(-0 38.653203 14.038594)">(a) Combined-stress trade-off</text>
    </g>
    <g id="legend_1">
     <g id="LineCollection_9">
@@ -514,7 +516,7 @@ L 133.960157 25.7075
      </g>
     </g>
     <g id="text_16">
-     <text style="font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="146.560157" y="31.6575" transform="rotate(-0 146.560157 31.6575)">Fixed schedule</text>
+     <text style="fill: #111111; font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="146.560157" y="31.6575" transform="rotate(-0 146.560157 31.6575)">Fixed schedule</text>
     </g>
     <g id="LineCollection_11">
      <path d="M 130.460157 39.708047 
@@ -553,7 +555,7 @@ L 133.960157 36.208047
      </g>
     </g>
     <g id="text_17">
-     <text style="font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="146.560157" y="42.158047" transform="rotate(-0 146.560157 42.158047)">Reactive CO2</text>
+     <text style="fill: #111111; font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="146.560157" y="42.158047" transform="rotate(-0 146.560157 42.158047)">Reactive CO2</text>
     </g>
     <g id="LineCollection_13">
      <path d="M 130.460157 50.208594 
@@ -592,7 +594,7 @@ L 133.960157 46.708594
      </g>
     </g>
     <g id="text_18">
-     <text style="font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="146.560157" y="52.658594" transform="rotate(-0 146.560157 52.658594)">Schedule MPC</text>
+     <text style="fill: #111111; font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="146.560157" y="52.658594" transform="rotate(-0 146.560157 52.658594)">Schedule MPC</text>
     </g>
     <g id="LineCollection_15">
      <path d="M 130.460157 60.709141 
@@ -631,7 +633,7 @@ L 133.960157 57.209141
      </g>
     </g>
     <g id="text_19">
-     <text style="font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="146.560157" y="63.159141" transform="rotate(-0 146.560157 63.159141)">Buffered MPC</text>
+     <text style="fill: #111111; font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="146.560157" y="63.159141" transform="rotate(-0 146.560157 63.159141)">Buffered MPC</text>
     </g>
    </g>
   </g>
@@ -652,7 +654,7 @@ z
       </g>
      </g>
      <g id="text_20">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="277.608497" y="211.284484" transform="rotate(-0 277.608497 211.284484)">0.0</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="277.608497" y="211.284484" transform="rotate(-0 277.608497 211.284484)">0.0</text>
      </g>
     </g>
     <g id="xtick_6">
@@ -662,7 +664,7 @@ z
       </g>
      </g>
      <g id="text_21">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="309.357447" y="211.284484" transform="rotate(-0 309.357447 211.284484)">2.5</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="309.357447" y="211.284484" transform="rotate(-0 309.357447 211.284484)">2.5</text>
      </g>
     </g>
     <g id="xtick_7">
@@ -672,7 +674,7 @@ z
       </g>
      </g>
      <g id="text_22">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="341.106396" y="211.284484" transform="rotate(-0 341.106396 211.284484)">5.0</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="341.106396" y="211.284484" transform="rotate(-0 341.106396 211.284484)">5.0</text>
      </g>
     </g>
     <g id="xtick_8">
@@ -682,7 +684,7 @@ z
       </g>
      </g>
      <g id="text_23">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="372.855346" y="211.284484" transform="rotate(-0 372.855346 211.284484)">7.5</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="372.855346" y="211.284484" transform="rotate(-0 372.855346 211.284484)">7.5</text>
      </g>
     </g>
     <g id="xtick_9">
@@ -692,7 +694,7 @@ z
       </g>
      </g>
      <g id="text_24">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="404.604296" y="211.284484" transform="rotate(-0 404.604296 211.284484)">10.0</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="404.604296" y="211.284484" transform="rotate(-0 404.604296 211.284484)">10.0</text>
      </g>
     </g>
     <g id="xtick_10">
@@ -702,11 +704,11 @@ z
       </g>
      </g>
      <g id="text_25">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="436.353245" y="211.284484" transform="rotate(-0 436.353245 211.284484)">12.5</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="436.353245" y="211.284484" transform="rotate(-0 436.353245 211.284484)">12.5</text>
      </g>
     </g>
     <g id="text_26">
-     <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="353.805976" y="224.285188" transform="rotate(-0 353.805976 224.285188)">Occupancy buffer (students per active room)</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="353.805976" y="224.285188" transform="rotate(-0 353.805976 224.285188)">Occupancy buffer (students per active room)</text>
     </g>
    </g>
    <g id="matplotlib.axis_4">
@@ -722,7 +724,7 @@ L 437.623203 197.446594
       </g>
      </g>
      <g id="text_27">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="200.865539" transform="rotate(-0 262.988749 200.865539)">40.5</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="200.865539" transform="rotate(-0 262.988749 200.865539)">40.5</text>
      </g>
     </g>
     <g id="ytick_10">
@@ -737,7 +739,7 @@ L 437.623203 161.964994
       </g>
      </g>
      <g id="text_28">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="165.383939" transform="rotate(-0 262.988749 165.383939)">41.0</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="165.383939" transform="rotate(-0 262.988749 165.383939)">41.0</text>
      </g>
     </g>
     <g id="ytick_11">
@@ -752,7 +754,7 @@ L 437.623203 126.483394
       </g>
      </g>
      <g id="text_29">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="129.902339" transform="rotate(-0 262.988749 129.902339)">41.5</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="129.902339" transform="rotate(-0 262.988749 129.902339)">41.5</text>
      </g>
     </g>
     <g id="ytick_12">
@@ -767,7 +769,7 @@ L 437.623203 91.001794
       </g>
      </g>
      <g id="text_30">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="94.420739" transform="rotate(-0 262.988749 94.420739)">42.0</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="94.420739" transform="rotate(-0 262.988749 94.420739)">42.0</text>
      </g>
     </g>
     <g id="ytick_13">
@@ -782,7 +784,7 @@ L 437.623203 55.520194
       </g>
      </g>
      <g id="text_31">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="58.939139" transform="rotate(-0 262.988749 58.939139)">42.5</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="58.939139" transform="rotate(-0 262.988749 58.939139)">42.5</text>
      </g>
     </g>
     <g id="ytick_14">
@@ -797,11 +799,11 @@ L 437.623203 20.038594
       </g>
      </g>
      <g id="text_32">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="23.457539" transform="rotate(-0 262.988749 23.457539)">43.0</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: end" x="262.988749" y="23.457539" transform="rotate(-0 262.988749 23.457539)">43.0</text>
      </g>
     </g>
     <g id="text_33">
-     <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="236.787577" y="108.742594" transform="rotate(-90 236.787577 108.742594)">Exposure above 1000 ppm (%)</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="236.787577" y="108.742594" transform="rotate(-90 236.787577 108.742594)">Exposure above 1000 ppm (%)</text>
     </g>
    </g>
    <g id="line2d_87">
@@ -848,7 +850,7 @@ L 437.623203 20.038594
 " style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_34">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="269.988749" y="14.038594" transform="rotate(-0 269.988749 14.038594)">(b) Forecast-buffer sensitivity</text>
+    <text style="fill: #111111; font-weight: 700; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="269.988749" y="14.038594" transform="rotate(-0 269.988749 14.038594)">(b) Forecast-buffer sensitivity</text>
    </g>
    <g id="legend_2">
     <g id="line2d_88">
@@ -861,7 +863,7 @@ L 385.857109 29.2075
      </g>
     </g>
     <g id="text_35">
-     <text style="font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="391.457109" y="31.6575" transform="rotate(-0 391.457109 31.6575)">Exposure</text>
+     <text style="fill: #111111; font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="391.457109" y="31.6575" transform="rotate(-0 391.457109 31.6575)">Exposure</text>
     </g>
     <g id="line2d_89">
      <path d="M 371.857109 39.708047 
@@ -881,7 +883,7 @@ z
      </g>
     </g>
     <g id="text_36">
-     <text style="font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="391.457109" y="42.158047" transform="rotate(-0 391.457109 42.158047)">Fan energy</text>
+     <text style="fill: #111111; font-size: 7px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="391.457109" y="42.158047" transform="rotate(-0 391.457109 42.158047)">Fan energy</text>
     </g>
    </g>
   </g>
@@ -899,7 +901,7 @@ L 3.5 0
       </g>
      </g>
      <g id="text_37">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="200.807444" transform="rotate(-0 444.623203 200.807444)">7.8</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="200.807444" transform="rotate(-0 444.623203 200.807444)">7.8</text>
      </g>
     </g>
     <g id="ytick_16">
@@ -909,7 +911,7 @@ L 3.5 0
       </g>
      </g>
      <g id="text_38">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="162.240182" transform="rotate(-0 444.623203 162.240182)">8.0</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="162.240182" transform="rotate(-0 444.623203 162.240182)">8.0</text>
      </g>
     </g>
     <g id="ytick_17">
@@ -919,7 +921,7 @@ L 3.5 0
       </g>
      </g>
      <g id="text_39">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="123.672921" transform="rotate(-0 444.623203 123.672921)">8.2</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="123.672921" transform="rotate(-0 444.623203 123.672921)">8.2</text>
      </g>
     </g>
     <g id="ytick_18">
@@ -929,7 +931,7 @@ L 3.5 0
       </g>
      </g>
      <g id="text_40">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="85.105659" transform="rotate(-0 444.623203 85.105659)">8.4</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="85.105659" transform="rotate(-0 444.623203 85.105659)">8.4</text>
      </g>
     </g>
     <g id="ytick_19">
@@ -939,11 +941,11 @@ L 3.5 0
       </g>
      </g>
      <g id="text_41">
-      <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="46.538397" transform="rotate(-0 444.623203 46.538397)">8.6</text>
+      <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: start" x="444.623203" y="46.538397" transform="rotate(-0 444.623203 46.538397)">8.6</text>
      </g>
     </g>
     <g id="text_42">
-     <text style="font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="469.774609" y="108.742594" transform="rotate(-90 469.774609 108.742594)">Fan energy (kWh day⁻¹)</text>
+     <text style="fill: #111111; font-size: 9px; font-family: 'DejaVu Serif', 'Times New Roman', 'STIXGeneral', serif; text-anchor: middle" x="469.774609" y="108.742594" transform="rotate(-90 469.774609 108.742594)">Fan energy (kWh day⁻¹)</text>
     </g>
    </g>
    <g id="line2d_95">

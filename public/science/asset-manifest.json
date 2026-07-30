@@ -193,8 +193,8 @@
       "caption": "Rough volatility and transaction costs turn frequent delta correction into a turnover problem.",
       "generated_by": "rough-volatility-robust-hedging/run_study.py",
       "status": "current",
-      "sha256": "0094d4c007528362e56263b9cf81b0987a62849021efd4066c990e9ed5c2ab8f",
-      "bytes": 75534
+      "sha256": "ba8d31c81df85a1eb7373be7c344d954cf2b80fe12f2f762daa805eb79ba793e",
+      "bytes": 76725
     },
     {
       "project": "rough-volatility-robust-hedging",
@@ -205,8 +205,8 @@
       "caption": "One frozen band is evaluated across unseen roughness and cost regimes.",
       "generated_by": "rough-volatility-robust-hedging/run_study.py",
       "status": "current",
-      "sha256": "517259180c29c38bccba6f3d14873b1ea4e8628e497bdc2de6017b5822b17fe9",
-      "bytes": 29613
+      "sha256": "6b921e57f782124264f60635faa496b2b4136b95f57997d9a078f66491bea82d",
+      "bytes": 30578
     },
     {
       "project": "rough-volatility-robust-hedging",
@@ -217,8 +217,8 @@
       "caption": "The selected band reduces held-out turnover and tail loss within the synthetic simulator.",
       "generated_by": "rough-volatility-robust-hedging/run_study.py",
       "status": "current",
-      "sha256": "3259a80f2d3d1acc999b949371932a6144da57fe2748055cffecfdccc8e661b1",
-      "bytes": 47655
+      "sha256": "5141dab612d4d93bd1d65fcf33d0c6e70657b1ae9b0ad568ad289af247f146e3",
+      "bytes": 48977
     },
     {
       "project": "intervention-calibrated-neural-odes",
@@ -229,8 +229,8 @@
       "caption": "Structural constraints alter extrapolation but do not automatically calibrate uncertainty.",
       "generated_by": "intervention-calibrated-neural-odes/run_study.py",
       "status": "current",
-      "sha256": "177ebff3e3dd05ff5ced20f25f9e090dea9c56cbd5141bfcd9ddac87c5cf9a94",
-      "bytes": 183195
+      "sha256": "be37801490e34cc26de7344cfb6ccfec8262072050170c1c39f9e15e38376327",
+      "bytes": 184414
     },
     {
       "project": "intervention-calibrated-neural-odes",
@@ -241,8 +241,8 @@
       "caption": "Intervention forecasts inherit the geometry and failure modes of the learned vector field.",
       "generated_by": "intervention-calibrated-neural-odes/run_study.py",
       "status": "current",
-      "sha256": "b450481f001fae1945c330595eb48adb9cbc87e46d4ec1ce673c2ffec1ae6a6e",
-      "bytes": 294086
+      "sha256": "75a1f32af49d2d41b2a6822a4f219891319f0f71328c4f59fe8f0e9fd76dbd4f",
+      "bytes": 295294
     },
     {
       "project": "intervention-calibrated-neural-odes",
@@ -253,8 +253,8 @@
       "caption": "Lower trajectory error does not guarantee calibrated uncertainty under intervention shift.",
       "generated_by": "intervention-calibrated-neural-odes/run_study.py",
       "status": "current",
-      "sha256": "05ad1867a1682e8c5ed5374c531e3da77b0016295f0c8129bee957c7ff317e12",
-      "bytes": 42139
+      "sha256": "7f61364cda15979e1a3268e46c91f7a1ce0b95f9b30f018a4028727cc0bb91cb",
+      "bytes": 42966
     },
     {
       "project": "dimensional-equation-discovery",
@@ -265,8 +265,8 @@
       "caption": "Dimensional filtering helps only when physical dimensions remove plausible alternatives.",
       "generated_by": "dimensional-equation-discovery/run_study.py",
       "status": "current",
-      "sha256": "b94b1f81d562663c4bec31e2c2a145b39a4be19f8377bec06802048e9bd51611",
-      "bytes": 53164
+      "sha256": "9e0374a09e7cc0414f83f5bf1e6a1a218ea18ab75ad29449017d229eacf56430",
+      "bytes": 54387
     },
     {
       "project": "dimensional-equation-discovery",
@@ -277,8 +277,8 @@
       "caption": "Unit consistency acts as both a search prior and an adversarial validity test.",
       "generated_by": "dimensional-equation-discovery/run_study.py",
       "status": "current",
-      "sha256": "f068035497e9234dfa4c5728df8ced703d6f5cabf8b504431c050c75c489c5f7",
-      "bytes": 643849
+      "sha256": "d3b2f8108b78a7a12444bb0702b4d5b1fd2b315ad549f9b2ae5af1c85bfb2505",
+      "bytes": 644698
     },
     {
       "project": "dimensional-equation-discovery",
@@ -289,8 +289,8 @@
       "caption": "Constraint filtering changes the genealogy of equations selected from noisy small samples.",
       "generated_by": "dimensional-equation-discovery/run_study.py",
       "status": "current",
-      "sha256": "fb5413834521313a13136977a782ab6152917b8d6869f73f8e1080ec4a3f33aa",
-      "bytes": 17402
+      "sha256": "d0b325d8a9af98d6b6bbc9bfa6c86fb926b2cf4ecb8408b457333b0601b7026c",
+      "bytes": 17996
     },
     {
       "project": "sparse-wave-blocking-excitable-media",
@@ -337,8 +337,8 @@
       "caption": "The most informative forcing is not simply the largest forcing.",
       "generated_by": "sequential-nonlinear-model-discrimination/run_study.py",
       "status": "current",
-      "sha256": "786b1e6770db96d80921b83f98427f90d132ceeff9ecabb148d2f7a227c41ac1",
-      "bytes": 34444
+      "sha256": "ca60a333cab516aecd758a9ce4b91b1f7b99a68c3aceae87f68a673bbcded109",
+      "bytes": 35473
     },
     {
       "project": "sequential-nonlinear-model-discrimination",
@@ -349,8 +349,8 @@
       "caption": "Adaptive experiments contract different model posteriors at different rates.",
       "generated_by": "sequential-nonlinear-model-discrimination/run_study.py",
       "status": "current",
-      "sha256": "0577c76e0e75c84e18363fa57d171b5bb159ad824f7bdb3ef39fbd60aade856c",
-      "bytes": 36389
+      "sha256": "953314629bd3d409f80f618dc2712afd9c71ea0873a606e49902e84ed8ecf007",
+      "bytes": 37350
     },
     {
       "project": "sequential-nonlinear-model-discrimination",
@@ -361,8 +361,8 @@
       "caption": "Adaptive design is judged by probability quality as well as final model labels.",
       "generated_by": "sequential-nonlinear-model-discrimination/run_study.py",
       "status": "current",
-      "sha256": "a25ebdb8cadfa686e72e34091da640407ca5c78105d724cc5f05eb8885a5dd96",
-      "bytes": 53424
+      "sha256": "092747c2b192ac93e679dad23df4ab6f975a5315067f2a4d77413427ce8953b6",
+      "bytes": 54362
     },
     {
       "project": "occupancy-aware-classroom-ventilation",
@@ -373,8 +373,8 @@
       "caption": "Four controllers are evaluated on 120 matched synthetic days per condition; error bars are bootstrap 95% intervals.",
       "generated_by": "occupancy-aware-classroom-ventilation/run.py",
       "status": "current",
-      "sha256": "b0d6ef2e29fa3d0bcf6ebcb470c4265434f898136af069b0bc449133396aaa19",
-      "bytes": 42972
+      "sha256": "bfc3a4a42ec736280ecc3e747cc2afb96ba4ec0cd59f7afb173bbe89be37b856",
+      "bytes": 43816
     },
     {
       "project": "occupancy-aware-classroom-ventilation",
@@ -385,8 +385,8 @@
       "caption": "The shared command budget couples three well-mixed classroom mass balances under time-varying occupancy.",
       "generated_by": "occupancy-aware-classroom-ventilation/run.py",
       "status": "current",
-      "sha256": "38e7946a5734185b88afc11dc53976fd63a0cc1cdbe9aca5275501c2d72bc946",
-      "bytes": 32525
+      "sha256": "caa93922b590b7c2188b42bb887271c201347b3b945d1c36b6663b5ec0ce2cd3",
+      "bytes": 33275
     },
     {
       "project": "occupancy-aware-classroom-ventilation",
@@ -397,8 +397,8 @@
       "caption": "The evidence pipeline separates occupancy information, controller state, predictive allocation, and stress evaluation.",
       "generated_by": "occupancy-aware-classroom-ventilation/run.py",
       "status": "current",
-      "sha256": "8ab8d1387722df478bf0c60d6aee832041dff487194e9bf60c63e0feedd8aa2a",
-      "bytes": 7523
+      "sha256": "785945e8946cb3fdb24cbec9cd1c0ae7c884507f3dce49f199efbdd6cd57a948",
+      "bytes": 8082
     },
     {
       "project": "occupancy-aware-classroom-ventilation",
@@ -409,8 +409,8 @@
       "caption": "The uncertainty buffer produces a modest exposure reduction while increasing the fan-energy proxy.",
       "generated_by": "occupancy-aware-classroom-ventilation/run.py",
       "status": "current",
-      "sha256": "bb99a5f941db6d325196294609e1358197456998ae595f7b34e4e32403860cdc",
-      "bytes": 40163
+      "sha256": "6803e53f97357edee1fe43a04dbd335d9109b291abb74c6c1333363c03c8d68d",
+      "bytes": 41071
     },
     {
       "project": "battery-pack-thermal-early-warning",
@@ -421,8 +421,8 @@
       "caption": "Four detectors are evaluated on matched synthetic trajectories; proportion intervals are Wilson 95% intervals and lead-time intervals are bootstrap 95% intervals.",
       "generated_by": "battery-pack-thermal-early-warning/run.py",
       "status": "current",
-      "sha256": "bb8c51df5b4c73b90b85860c6a304dc167df8950a5a22e60477546298cf3f6ef",
-      "bytes": 46801
+      "sha256": "d75ab8b8e6499cf2d4afa996eb243e8e078f1c8362db2dad98ef990200769efc",
+      "bytes": 47763
     },
     {
       "project": "battery-pack-thermal-early-warning",
@@ -433,8 +433,8 @@
       "caption": "The benchmark represents cells as a coupled thermal graph and evaluates whether an alarm arrives before the study boundary.",
       "generated_by": "battery-pack-thermal-early-warning/run.py",
       "status": "current",
-      "sha256": "a64943dc336ca9e0cee25f7a4a61419dbbc045a7025b0f2760b9898d8749a2d8",
-      "bytes": 47598
+      "sha256": "7b675dd3ebe3011156ed1b83312be2ebe8cc533f1a0c503c40becebe966c0f05",
+      "bytes": 48492
     },
     {
       "project": "battery-pack-thermal-early-warning",
@@ -445,8 +445,8 @@
       "caption": "Only the graph-evidence and calibrated sequential-test stages are proposed; calibration and evaluation use disjoint seed ranges.",
       "generated_by": "battery-pack-thermal-early-warning/run.py",
       "status": "current",
-      "sha256": "9e5605057711e5a8fb723cf0f6a224065bc5fd7a62263708f209e4039b8cc509",
-      "bytes": 8353
+      "sha256": "9e557c9529a24e7b1c7f7168f5ae60228b157ce432d5f74c4683f7dbd5a1be43",
+      "bytes": 8951
     },
     {
       "project": "battery-pack-thermal-early-warning",
@@ -457,8 +457,8 @@
       "caption": "The robustness sweep and ablation expose the method's detection-versus-false-alarm trade-off instead of reporting accuracy alone.",
       "generated_by": "battery-pack-thermal-early-warning/run.py",
       "status": "current",
-      "sha256": "7e9e35940464294f9cb581a2131e25131d83de5658a034aa861ea3cfb58856b5",
-      "bytes": 105703
+      "sha256": "24c56357375dc97ba968875c3daaac25024d291611a8ab4afed93eb8f7f55d4f",
+      "bytes": 106650
     },
     {
       "project": "resilient-water-leak-localization",
@@ -469,8 +469,8 @@
       "caption": "The proposed dropout-aware placement is compared with random, degree-centrality, and nominal greedy layouts; error bars show Wilson 95% intervals.",
       "generated_by": "resilient-water-leak-localization/run.py",
       "status": "current",
-      "sha256": "11d34ba7f7f1cd911b608f6401280db4ec4f7c2523033526152a5bbe12e22a84",
-      "bytes": 50296
+      "sha256": "6c9d3d3fb7ca6e0e590c9cfabd7261abfe05939be50e73107f8f7de9b67660aa",
+      "bytes": 51191
     },
     {
       "project": "resilient-water-leak-localization",
@@ -481,8 +481,8 @@
       "caption": "The reproducible evidence pipeline separates the proposed placement step from signature generation, localisation, and Monte Carlo evaluation.",
       "generated_by": "resilient-water-leak-localization/run.py",
       "status": "current",
-      "sha256": "8a20f8fdf3959ff6db19c88b13d9cd2b4d494cfc0a22b05c72cb191cefd25be8",
-      "bytes": 8290
+      "sha256": "85b983af1317b7125755629cac4ac2519eee2123fa8a287c33c5ba170b8f2669",
+      "bytes": 8889
     },
     {
       "project": "resilient-water-leak-localization",
@@ -493,8 +493,8 @@
       "caption": "Nominal and dropout-aware sensor layouts on the 36-node synthetic network. The proposed objective spreads measurements across diagnostically distinct regions after sensor loss.",
       "generated_by": "resilient-water-leak-localization/run.py",
       "status": "current",
-      "sha256": "90067b916e252d706e0c0ab9e8276134a90d8d6e0866119c396597bf5b4ead3f",
-      "bytes": 47716
+      "sha256": "fdbf86be26a014ae8bdc727f5a9d022b505cca0dbe2510fe905b55090143d1dc",
+      "bytes": 48119
     },
     {
       "project": "resilient-water-leak-localization",
@@ -505,8 +505,8 @@
       "caption": "Ablation and stress test at 8% relative pressure noise and 40% probability of one sensor dropout.",
       "generated_by": "resilient-water-leak-localization/run.py",
       "status": "current",
-      "sha256": "e565fed67fe2b7c0f1132458f2817b0b7939279ab054521f6f94b7f6c8337f3b",
-      "bytes": 239119
+      "sha256": "c3a39a2ef105762cd1659d315bc32494bd8b3d774cc96d3d059393d45189afea",
+      "bytes": 239773
     },
     {
       "project": "accessible-multimodal-routing",

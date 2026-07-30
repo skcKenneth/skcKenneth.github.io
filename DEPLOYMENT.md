@@ -6,12 +6,14 @@ The `pages.yml` workflow runs on `master` and manual dispatch. Pull requests run
 the same build without deploying. The job:
 
 1. installs the pinned pnpm/Node toolchain;
-2. fetches or falls back to validated ScienceProject metadata and approved assets;
-3. validates Astro schemas and TypeScript;
-4. builds static output for `https://skckenneth.github.io`;
-5. creates the Pagefind index;
-6. checks internal links and output hygiene;
-7. uploads `dist` and deploys through GitHub Pages Actions.
+2. runs publication-policy unit tests;
+3. fetches or falls back to validated ScienceProject metadata and approved assets;
+4. verifies asset hashes, publish-only provenance, SVG policy and bilingual parity;
+5. validates Astro schemas and TypeScript;
+6. builds static output for `https://skckenneth.github.io`;
+7. creates the Pagefind index;
+8. checks internal links and output hygiene;
+9. uploads `dist` and deploys through GitHub Pages Actions.
 
 In repository Settings → Pages, choose **GitHub Actions** as the source. No
 secret or custom domain is required. The workflow uses only the standard Pages

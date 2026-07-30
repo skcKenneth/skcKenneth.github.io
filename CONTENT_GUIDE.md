@@ -51,8 +51,11 @@ the directory becomes discoverable even before it is selected for editorial
 promotion.
 
 Supported public media: PNG, JPEG, WebP, AVIF, GIF, and SVG. SVG is preserved
-as SVG. Sync reports missing files, hash changes, and stale managed files. It
-does not delete stale or unmanaged assets.
+as SVG. Sync fails when a declared asset is missing, reports hash changes, and
+keeps reporting stale managed files across later runs. It does not delete stale
+or unmanaged assets. `npm run check:science-assets` independently verifies
+public paths, hashes, byte counts, SVG titles/descriptions and explicit black
+SVG text.
 
 ## Write an article
 
@@ -96,6 +99,11 @@ be identified as such in the caption.
 Run `npm run check:writing-visuals` to apply this editorial gate without a full
 site build. New articles remain manually written; the check neither creates
 prose nor promotes ScienceProject files into posts.
+
+Every English Projects, Research, Writing and Teaching entry must have exactly
+one substantive Traditional Chinese edition whose `sourceSlug` points back to
+the English slug. Run `npm run check:bilingual`; the same strict parity gate is
+part of the production build.
 
 ## Research and teaching
 
