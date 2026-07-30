@@ -3571,5 +3571,301 @@
     "documentation_excerpt": "A reviewed public-evidence wrapper for a real-time signal-conditioning implementation.",
     "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/semg-real-time-conditioning/README.md",
     "local_hero_image": "/science/semg-real-time-conditioning/pipeline.svg"
+  },
+  {
+    "slug": "nonisothermal-cstr-hysteresis",
+    "title": "Non-isothermal CSTR Hysteresis",
+    "summary": "A verified nonlinear reactor study maps equilibrium multiplicity, ignition and extinction hysteresis, competing basins of attraction, and critical slowing near a thermal fold.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Nonlinear Dynamics",
+      "Chemical Reactor Modelling"
+    ],
+    "methods": [
+      "Equilibrium continuation",
+      "Jacobian stability analysis",
+      "Stiff ODE simulation"
+    ],
+    "featured": true,
+    "project_root": "nonisothermal-cstr-hysteresis",
+    "hero_image": "nonisothermal-cstr-hysteresis/figures/publish/equilibrium-branch.svg",
+    "publish_assets": [
+      {
+        "filename": "equilibrium-branch.svg",
+        "alt": "S-shaped equilibrium temperature branch of a non-isothermal CSTR with stable and unstable segments and two folds.",
+        "caption": "The same coolant setting can support cold, intermediate, and hot equilibria, but only the outer branches are stable.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "nonisothermal-cstr-hysteresis/figures/publish/equilibrium-branch.svg"
+      },
+      {
+        "filename": "hysteresis-loop.svg",
+        "alt": "Quasistatic warming and cooling paths following different stable branches of the CSTR equilibrium diagram.",
+        "caption": "Ignition and extinction occur at different coolant settings because each stable branch persists until its own fold.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "nonisothermal-cstr-hysteresis/figures/publish/hysteresis-loop.svg"
+      },
+      {
+        "filename": "dynamic-cycle.svg",
+        "alt": "Coolant and reactor temperature trajectories during a triangular coolant cycle.",
+        "caption": "Finite relaxation creates delayed jumps during a dynamic coolant cycle.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "nonisothermal-cstr-hysteresis/figures/publish/dynamic-cycle.svg"
+      },
+      {
+        "filename": "basin-of-attraction.svg",
+        "alt": "Initial-condition map showing cold and hot basins of attraction at a coolant value inside the multiplicity interval.",
+        "caption": "Returning an input to its old value does not ensure recovery of the old internal state.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "nonisothermal-cstr-hysteresis/figures/publish/basin-of-attraction.svg"
+      },
+      {
+        "filename": "critical-slowing.svg",
+        "alt": "Estimated linear recovery time increasing near the cold-branch ignition fold.",
+        "caption": "The dominant recovery time rises as an eigenvalue approaches zero near the fold.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "nonisothermal-cstr-hysteresis/figures/publish/critical-slowing.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/nonisothermal-cstr-hysteresis",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/nonisothermal-cstr-hysteresis",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled dimensionless reactor simulations",
+    "research_question": "How do stability, path history, and recovery rate change as a non-isothermal reactor approaches thermal ignition or extinction?",
+    "limitations": [
+      "The model is a dimensionless synthetic mechanism study rather than an industrial reactor calibration.",
+      "Mixing imperfection, transport delay, catalyst deactivation, multiple reactions, actuator limits, and parameter uncertainty are omitted.",
+      "Critical slowing is a mechanistic diagnostic, not a universal early-warning guarantee."
+    ],
+    "last_updated": "2026-07-30",
+    "category": "Reliability and Uncertainty",
+    "readme_path": "nonisothermal-cstr-hysteresis/README.md",
+    "documentation_excerpt": "A reviewed private-evidence wrapper for thermal multiplicity and hysteresis.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/nonisothermal-cstr-hysteresis/README.md",
+    "local_hero_image": "/science/nonisothermal-cstr-hysteresis/equilibrium-branch.svg"
+  },
+  {
+    "slug": "publish-or-perish-method-selection",
+    "title": "Publish-or-Perish and Method Selection",
+    "summary": "A verified agent-based mechanism experiment examines how publication rewards, publication bias, replication audits, and failed-replication penalties select methodological effort.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Metascience",
+      "Agent-Based Modelling"
+    ],
+    "methods": [
+      "Cultural-evolution simulation",
+      "Policy-grid experiment",
+      "Stochastic replicate analysis"
+    ],
+    "featured": true,
+    "project_root": "publish-or-perish-method-selection",
+    "hero_image": "publish-or-perish-method-selection/figures/publish/effort-evolution.svg",
+    "publish_assets": [
+      {
+        "filename": "effort-evolution.svg",
+        "alt": "Methodological effort trajectories under publication-count, moderate-audit, and strong-replication regimes.",
+        "caption": "Selection on publication count and selection under consequential replication audits move the effort distribution in opposite directions.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "publish-or-perish-method-selection/figures/publish/effort-evolution.svg"
+      },
+      {
+        "filename": "reliability-outcomes.svg",
+        "alt": "False-discovery, expected replication, and publication-output outcomes for three simulated institutions.",
+        "caption": "Paper volume and reliable information are different policy objectives.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "publish-or-perish-method-selection/figures/publish/reliability-outcomes.svg"
+      },
+      {
+        "filename": "policy-effort-heatmap.svg",
+        "alt": "Heat map of final methodological effort by audit probability and failed-replication penalty.",
+        "caption": "Audit frequency and consequence interact; neither lever is effective in isolation across the tested grid.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "publish-or-perish-method-selection/figures/publish/policy-effort-heatmap.svg"
+      },
+      {
+        "filename": "policy-fdr-heatmap.svg",
+        "alt": "Heat map of final false-discovery fraction by audit probability and failed-replication penalty.",
+        "caption": "The reliability response mirrors the policy-dependent selection on effort.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "publish-or-perish-method-selection/figures/publish/policy-fdr-heatmap.svg"
+      },
+      {
+        "filename": "publication-bias-sweep.svg",
+        "alt": "Selected methodological effort across publication-bias levels with and without a strong replication policy.",
+        "caption": "Consequential audits reduce, but do not erase, sensitivity to the publication rule.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "publish-or-perish-method-selection/figures/publish/publication-bias-sweep.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/publish-or-perish-method-selection",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/publish-or-perish-method-selection",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic laboratory populations",
+    "research_question": "When laboratories inherit successful practices, which combinations of publication rewards and replication consequences select for reliable methods?",
+    "limitations": [
+      "The results are generated by a stylised institutional model and are not estimates of any discipline or researcher population.",
+      "One scalar effort trait compresses heterogeneous research practices, resources, career stages, and strategic behaviour.",
+      "Policy outcomes depend on the declared truth base rate, publication rule, audit process, and selection mechanism."
+    ],
+    "last_updated": "2026-07-30",
+    "category": "Reliability and Uncertainty",
+    "readme_path": "publish-or-perish-method-selection/README.md",
+    "documentation_excerpt": "A reviewed private-evidence wrapper for selection on methodological effort.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/publish-or-perish-method-selection/README.md",
+    "local_hero_image": "/science/publish-or-perish-method-selection/effort-evolution.svg"
+  },
+  {
+    "slug": "stochastic-genetic-toggle-switching",
+    "title": "Stochastic Genetic-Toggle Switching",
+    "summary": "A verified deterministic-and-stochastic study connects toggle-circuit bistability to finite-copy-number switching, first-passage memory, stationary probability, and pulse control.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Synthetic Biology",
+      "Stochastic Processes"
+    ],
+    "methods": [
+      "ODE stability analysis",
+      "Gillespie simulation",
+      "First-passage Monte Carlo"
+    ],
+    "featured": true,
+    "project_root": "stochastic-genetic-toggle-switching",
+    "hero_image": "stochastic-genetic-toggle-switching/figures/publish/deterministic-bistability.svg",
+    "publish_assets": [
+      {
+        "filename": "deterministic-bistability.svg",
+        "alt": "Nullclines and trajectories of a mutually repressing genetic toggle with two stable equilibria and one saddle.",
+        "caption": "The deterministic system supplies two memory states and a basin boundary.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "stochastic-genetic-toggle-switching/figures/publish/deterministic-bistability.svg"
+      },
+      {
+        "filename": "stochastic-trajectories.svg",
+        "alt": "Representative Gillespie toggle trajectories at four molecular system sizes.",
+        "caption": "Finite reaction noise creates rare crossings that a deterministic trajectory cannot make.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "stochastic-genetic-toggle-switching/figures/publish/stochastic-trajectories.svg"
+      },
+      {
+        "filename": "switching-time.svg",
+        "alt": "Mean first-passage time and switch probability across five molecular system sizes.",
+        "caption": "The same deterministic phase portrait can support very different stochastic memory lifetimes.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "stochastic-genetic-toggle-switching/figures/publish/switching-time.svg"
+      },
+      {
+        "filename": "stationary-distribution.svg",
+        "alt": "Bimodal stationary distribution with peaks near the two deterministic stable expression states.",
+        "caption": "A stochastic steady state is a probability distribution rather than a single equilibrium point.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "stochastic-genetic-toggle-switching/figures/publish/stationary-distribution.svg"
+      },
+      {
+        "filename": "pulse-control.svg",
+        "alt": "Toggle-switch success probability across induction pulse amplitudes and durations.",
+        "caption": "Control at finite copy number is probabilistic and depends on both pulse amplitude and exposure time.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "stochastic-genetic-toggle-switching/figures/publish/pulse-control.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/stochastic-genetic-toggle-switching",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/stochastic-genetic-toggle-switching",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled deterministic and stochastic circuit simulations",
+    "research_question": "How does finite molecular copy number turn deterministic bistability into a memory with a measurable switching lifetime?",
+    "limitations": [
+      "The circuit is synthetic and is not calibrated to a named organism, promoter, or plasmid.",
+      "Explicit mRNA, transcriptional bursting, cell division, delay, extrinsic noise, and growth feedback are omitted.",
+      "The pulse-control grid uses limited Monte Carlo replication and should not be read as a smooth optimum."
+    ],
+    "last_updated": "2026-07-30",
+    "category": "Mathematical Biology",
+    "readme_path": "stochastic-genetic-toggle-switching/README.md",
+    "documentation_excerpt": "A reviewed private-evidence wrapper for stochastic toggle memory.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/stochastic-genetic-toggle-switching/README.md",
+    "local_hero_image": "/science/stochastic-genetic-toggle-switching/deterministic-bistability.svg"
+  },
+  {
+    "slug": "michaelis-menten-qssa-validity",
+    "title": "Michaelis-Menten QSSA Validity Atlas",
+    "summary": "A verified 243-case parameter atlas measures where the Michaelis-Menten quasi-steady-state reduction agrees with full mass-action kinetics and where timing or trajectory error becomes material.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Enzyme Kinetics",
+      "Model Reduction"
+    ],
+    "methods": [
+      "Fast-slow ODE analysis",
+      "Parameter-space audit",
+      "Task-specific error metrics"
+    ],
+    "featured": true,
+    "project_root": "michaelis-menten-qssa-validity",
+    "hero_image": "michaelis-menten-qssa-validity/figures/publish/qssa-validity-atlas.svg",
+    "publish_assets": [
+      {
+        "filename": "qssa-validity-atlas.svg",
+        "alt": "Maximum normalized product error over enzyme-abundance and substrate-saturation parameters.",
+        "caption": "Validity is a region in parameter and task space, not a single universal cutoff.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "michaelis-menten-qssa-validity/figures/publish/qssa-validity-atlas.svg"
+      },
+      {
+        "filename": "error-scaling.svg",
+        "alt": "Maximum product error versus the enzyme-abundance small parameter for several saturation levels.",
+        "caption": "Small enzyme abundance improves the reduction, but the observed error also depends on substrate saturation.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "michaelis-menten-qssa-validity/figures/publish/error-scaling.svg"
+      },
+      {
+        "filename": "representative-trajectories.svg",
+        "alt": "Full mass-action and QSSA product trajectories for good, borderline, and failure parameter sets.",
+        "caption": "The initial complex-formation layer becomes consequential when time-scale separation weakens.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "michaelis-menten-qssa-validity/figures/publish/representative-trajectories.svg"
+      },
+      {
+        "filename": "t50-error-atlas.svg",
+        "alt": "Relative half-conversion timing error over the QSSA parameter grid.",
+        "caption": "A reduction acceptable for product amplitude can still be inaccurate for event timing.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "michaelis-menten-qssa-validity/figures/publish/t50-error-atlas.svg"
+      },
+      {
+        "filename": "slow-manifold.svg",
+        "alt": "Full enzyme-kinetic trajectory rapidly approaching and then following the QSSA slow manifold.",
+        "caption": "The reduced law represents motion along an attracting lower-dimensional relation after a fast transient.",
+        "generated_by": "scripts/prepare-models-under-stress-batch2-assets.mjs",
+        "source_path": "michaelis-menten-qssa-validity/figures/publish/slow-manifold.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/michaelis-menten-qssa-validity",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/michaelis-menten-qssa-validity",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled deterministic enzyme-kinetic parameter sweeps",
+    "research_question": "For which parameter regimes, outputs, and time horizons is the Michaelis-Menten QSSA an accurate replacement for the full mass-action mechanism?",
+    "limitations": [
+      "The atlas is synthetic and does not estimate kinetic constants for a named enzyme.",
+      "Product inhibition, substrate inhibition, cooperative binding, diffusion, inactivation, and stochastic copy-number effects are outside scope.",
+      "The tested grid supports task-specific diagnostics, not a universal validity threshold."
+    ],
+    "last_updated": "2026-07-30",
+    "category": "Mathematical Biology",
+    "readme_path": "michaelis-menten-qssa-validity/README.md",
+    "documentation_excerpt": "A reviewed private-evidence wrapper for a fast-slow model-reduction audit.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/michaelis-menten-qssa-validity/README.md",
+    "local_hero_image": "/science/michaelis-menten-qssa-validity/qssa-validity-atlas.svg"
   }
 ]
