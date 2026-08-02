@@ -7,4 +7,6 @@ nodeLinker: isolated
 packageImportMethod: copy
 virtualStoreDirMaxLength: 50
 overrides:
-  vite: 8.0.14
+  fast-uri: 3.1.4
+  postcss: 8.5.18
+  vite: 8.0.16
