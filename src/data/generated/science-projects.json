@@ -3867,5 +3867,406 @@
     "documentation_excerpt": "A reviewed private-evidence wrapper for a fast-slow model-reduction audit.",
     "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/michaelis-menten-qssa-validity/README.md",
     "local_hero_image": "/science/michaelis-menten-qssa-validity/qssa-validity-atlas.svg"
+  },
+  {
+    "slug": "american-option-free-boundary",
+    "title": "American Put Free-Boundary Audit",
+    "summary": "A verified obstacle-PDE study resolves the American put exercise boundary and cross-checks price, Greeks, convergence, and complementarity against tree and simulation methods.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Quantitative Finance",
+      "Numerical Analysis"
+    ],
+    "methods": [
+      "Variational inequality",
+      "PSOR finite differences",
+      "Cross-method validation"
+    ],
+    "featured": true,
+    "project_root": "american-option-free-boundary",
+    "hero_image": "american-option-free-boundary/figures/publish/free-boundary-surface.png",
+    "publish_assets": [
+      {
+        "filename": "free-boundary-surface.png",
+        "alt": "American put value and early-exercise premium over stock price and time to maturity, with the optimal stopping boundary.",
+        "caption": "The unknown exercise boundary is part of the numerical solution rather than an imposed input.",
+        "generated_by": "american-option-free-boundary/src/american_option/plotting.py",
+        "source_path": "american-option-free-boundary/figures/publish/free-boundary-surface.png"
+      },
+      {
+        "filename": "value-and-greeks.svg",
+        "alt": "American and European put values with intrinsic payoff, delta, and gamma across the exercise boundary.",
+        "caption": "Values can agree while derivatives remain sensitive near the free boundary.",
+        "generated_by": "american-option-free-boundary/src/american_option/plotting.py",
+        "source_path": "american-option-free-boundary/figures/publish/value-and-greeks.svg"
+      },
+      {
+        "filename": "convergence-and-cost.svg",
+        "alt": "American put price error against spatial refinement and runtime.",
+        "caption": "Grid refinement is reported together with computational cost.",
+        "generated_by": "american-option-free-boundary/src/american_option/plotting.py",
+        "source_path": "american-option-free-boundary/figures/publish/convergence-and-cost.svg"
+      },
+      {
+        "filename": "rannacher-smoothing.svg",
+        "alt": "Raw Crank-Nicolson and Rannacher-smoothed values and gamma after the first time step.",
+        "caption": "Startup smoothing suppresses curvature oscillations caused by the payoff kink.",
+        "generated_by": "american-option-free-boundary/src/american_option/plotting.py",
+        "source_path": "american-option-free-boundary/figures/publish/rannacher-smoothing.svg"
+      },
+      {
+        "filename": "parameter-sensitivity.svg",
+        "alt": "Heat maps of American put value and exercise boundary across interest-rate and volatility settings.",
+        "caption": "Price and stopping policy respond differently to rate and volatility changes.",
+        "generated_by": "american-option-free-boundary/src/american_option/plotting.py",
+        "source_path": "american-option-free-boundary/figures/publish/parameter-sensitivity.svg"
+      },
+      {
+        "filename": "method-comparison.svg",
+        "alt": "American put values and error-cost comparison for obstacle PDE, binomial trees, and least-squares Monte Carlo.",
+        "caption": "Independent numerical formulations provide a cross-method audit.",
+        "generated_by": "american-option-free-boundary/src/american_option/plotting.py",
+        "source_path": "american-option-free-boundary/figures/publish/method-comparison.svg"
+      },
+      {
+        "filename": "term-structure-extension.svg",
+        "alt": "Exercise boundaries for constant and time-varying coefficients alongside deterministic rate, dividend, and volatility curves.",
+        "caption": "The stopping rule inherits the timing of deterministic coefficient changes.",
+        "generated_by": "american-option-free-boundary/src/american_option/plotting.py",
+        "source_path": "american-option-free-boundary/figures/publish/term-structure-extension.svg"
+      },
+      {
+        "filename": "solver-diagnostics.svg",
+        "alt": "PSOR iteration counts and complementarity residuals over time to maturity.",
+        "caption": "The stopping result is accompanied by numerical admissibility diagnostics.",
+        "generated_by": "american-option-free-boundary/src/american_option/plotting.py",
+        "source_path": "american-option-free-boundary/figures/publish/solver-diagnostics.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/american-option-free-boundary",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/american-option-free-boundary",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic option-pricing experiments",
+    "research_question": "How can an American put price, stopping boundary, and complementarity conditions be validated together?",
+    "limitations": [
+      "The study uses a synthetic Black-Scholes-type model and is not trading advice.",
+      "Stochastic volatility, jumps, discrete dividends, transaction costs, and calibration uncertainty are outside scope.",
+      "Reported residuals and runtimes are conditional on the declared grid, tolerance, and machine."
+    ],
+    "last_updated": "2026-08-02",
+    "category": "Quantitative Finance",
+    "readme_path": "american-option-free-boundary/README.md",
+    "documentation_excerpt": "A private technical study of optimal stopping, numerical complementarity, and cross-method validation.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/american-option-free-boundary/README.md",
+    "local_hero_image": "/science/american-option-free-boundary/free-boundary-surface.png"
+  },
+  {
+    "slug": "differential-adhesion-cell-sorting",
+    "title": "Differential-Adhesion Cell Sorting",
+    "summary": "A verified Cellular Potts study separates bulk sorting, engulfment, coarsening, cell shape, and active rearrangement under controlled synthetic mechanics.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Mathematical Biology",
+      "Agent-Based Modelling"
+    ],
+    "methods": [
+      "Cellular Potts model",
+      "Monte Carlo dynamics",
+      "Mechanism and robustness audit"
+    ],
+    "featured": true,
+    "project_root": "differential-adhesion-cell-sorting",
+    "hero_image": "differential-adhesion-cell-sorting/figures/publish/sorting-sequence.svg",
+    "publish_assets": [
+      {
+        "filename": "sorting-sequence.svg",
+        "alt": "Four snapshots of a two-cell-type Cellular Potts simulation progressing from a random mixture to separated domains.",
+        "caption": "Differential adhesion drives finite-time coarsening and surface reorganisation.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/sorting-sequence.svg"
+      },
+      {
+        "filename": "sorting-diagnostics.svg",
+        "alt": "Heterotypic interface fraction, domain length, and exterior type-A occupancy over Monte Carlo sweeps.",
+        "caption": "Segregation, coarsening, and engulfment are measured separately.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/sorting-diagnostics.svg"
+      },
+      {
+        "filename": "adhesion-motility-phase-diagram.svg",
+        "alt": "Sorting index and exterior occupancy over effective interfacial tension and active motility.",
+        "caption": "Adhesion and motility jointly determine finite-time organisation.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/adhesion-motility-phase-diagram.svg"
+      },
+      {
+        "filename": "model-extensions.svg",
+        "alt": "Final cell configurations for adhesion-only, cortical-tension, active-motility, and balanced-surface variants.",
+        "caption": "Related final patterns can arise from distinct mechanical mechanisms.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/model-extensions.svg"
+      },
+      {
+        "filename": "coarsening-law.svg",
+        "alt": "Ensemble domain length over Monte Carlo sweeps with an intermediate-time power-law fit.",
+        "caption": "The fitted coarsening exponent is a reproducible finite-size diagnostic, not a universal constant.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/coarsening-law.svg"
+      },
+      {
+        "filename": "initial-condition-robustness.svg",
+        "alt": "Final cell configurations from random, core-shell, reverse core-shell, and striped initial states.",
+        "caption": "Multiple starts reveal finite-time path dependence and metastability.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/initial-condition-robustness.svg"
+      },
+      {
+        "filename": "energy-decomposition.svg",
+        "alt": "Contact, area, perimeter, and total effective energy over Monte Carlo sweeps.",
+        "caption": "The Hamiltonian combines distinct contributions and explores a rugged stochastic landscape.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/energy-decomposition.svg"
+      },
+      {
+        "filename": "sorting-versus-engulfment.svg",
+        "alt": "Final sorting index against exterior type-A occupancy for four model variants.",
+        "caption": "Bulk segregation does not uniquely determine tissue topology.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/sorting-versus-engulfment.svg"
+      },
+      {
+        "filename": "cell-shape-distributions.svg",
+        "alt": "Cell-circularity distributions for adhesion, cortical, motility, and surface-affinity variants.",
+        "caption": "Shape statistics help distinguish mechanisms that look similar at aggregate scale.",
+        "generated_by": "differential-adhesion-cell-sorting/src/cell_sorting/plotting.py",
+        "source_path": "differential-adhesion-cell-sorting/figures/publish/cell-shape-distributions.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/differential-adhesion-cell-sorting",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/differential-adhesion-cell-sorting",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled stochastic tissue simulations",
+    "research_question": "Can differential adhesion alone explain sorting, engulfment, shape, and coarsening, or do mechanics and activity remain identifiable?",
+    "limitations": [
+      "The simulations are synthetic, two-dimensional, and not calibrated to a named tissue.",
+      "Lattice resolution, move rules, temperature, and fitting window affect finite-time coarsening estimates.",
+      "The model omits proliferation, biochemical signalling, extracellular matrix, and three-dimensional mechanics."
+    ],
+    "last_updated": "2026-08-02",
+    "category": "Mathematical Biology",
+    "readme_path": "differential-adhesion-cell-sorting/README.md",
+    "documentation_excerpt": "A private Cellular Potts laboratory for testing adhesion, cortical mechanics, motility, and path dependence.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/differential-adhesion-cell-sorting/README.md",
+    "local_hero_image": "/science/differential-adhesion-cell-sorting/sorting-sequence.svg"
+  },
+  {
+    "slug": "drug-dissolution-model-hierarchy",
+    "title": "Drug Dissolution Model Hierarchy",
+    "summary": "A verified hierarchy tests when empirical release laws cease to represent finite-sink radial transport, moving fronts, polydispersity, and parameter identifiability.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Transport Modelling",
+      "Pharmaceutical Mathematics"
+    ],
+    "methods": [
+      "Radial finite volumes",
+      "Finite-sink coupling",
+      "Model discrimination"
+    ],
+    "featured": true,
+    "project_root": "drug-dissolution-model-hierarchy",
+    "hero_image": "drug-dissolution-model-hierarchy/figures/publish/model-hierarchy.svg",
+    "publish_assets": [
+      {
+        "filename": "model-hierarchy.svg",
+        "alt": "Seven classical and mechanistic release curves that agree early and diverge at later times.",
+        "caption": "Early agreement does not guarantee that one release mechanism has been identified.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/model-hierarchy.svg"
+      },
+      {
+        "filename": "radial-transport.png",
+        "alt": "Radial concentration profiles and a concentration field over radius and time.",
+        "caption": "Spatial depletion can distinguish mechanisms hidden by cumulative release.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/radial-transport.png"
+      },
+      {
+        "filename": "regime-atlas.svg",
+        "alt": "Perfect-sink approximation error over mass-transfer Biot number and bulk-capacity ratio.",
+        "caption": "Perfect-sink theory has a bounded region of validity.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/regime-atlas.svg"
+      },
+      {
+        "filename": "local-release-exponent.svg",
+        "alt": "Time-varying local release exponents for finite-sink diffusion, shrinking core, Higuchi, and Korsmeyer-Peppas models.",
+        "caption": "A single fitted exponent can average over changing transport regimes.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/local-release-exponent.svg"
+      },
+      {
+        "filename": "model-discrimination.svg",
+        "alt": "Synthetic release observations with competing fitted mechanisms and their delta-AIC values.",
+        "caption": "Model discrimination rewards fit while penalising flexibility.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/model-discrimination.svg"
+      },
+      {
+        "filename": "identifiability-ridge.svg",
+        "alt": "Sum-of-squares surface over diffusion and film-transfer parameters with the generating values marked.",
+        "caption": "Diffusion and film resistance can compensate along an identifiability ridge.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/identifiability-ridge.svg"
+      },
+      {
+        "filename": "polydispersity.svg",
+        "alt": "Lognormal particle-radius distribution and release curves for single-radius and polydisperse populations.",
+        "caption": "Particle-size heterogeneity reshapes the macroscopic release curve.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/polydispersity.svg"
+      },
+      {
+        "filename": "numerical-validation.svg",
+        "alt": "Radial-grid convergence and relative mass-balance errors for matrix diffusion and shrinking-core models.",
+        "caption": "Convergence and conservation are reported alongside curve fit.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/numerical-validation.svg"
+      },
+      {
+        "filename": "finite-sink-and-moving-front.svg",
+        "alt": "Bulk concentration and cumulative release for a finite sink, with core radius and released fraction for a moving front.",
+        "caption": "Receiving-compartment saturation and retreating geometry change the release law.",
+        "generated_by": "drug-dissolution-model-hierarchy/src/drug_release/plotting.py",
+        "source_path": "drug-dissolution-model-hierarchy/figures/publish/finite-sink-and-moving-front.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/drug-dissolution-model-hierarchy",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/drug-dissolution-model-hierarchy",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic dissolution and transport experiments",
+    "research_question": "When do simple release laws stop being adequate descriptions of finite-sink, spatial, and moving-front transport?",
+    "limitations": [
+      "The study is synthetic and is not a formulation recommendation or clinical claim.",
+      "Swelling, nonlinear sorption, matrix degradation, pore evolution, nonspherical geometry, and experimental calibration are omitted.",
+      "Model rankings depend on the declared synthetic truth, sampling schedule, noise level, and candidate set."
+    ],
+    "last_updated": "2026-08-02",
+    "category": "Transport Modelling",
+    "readme_path": "drug-dissolution-model-hierarchy/README.md",
+    "documentation_excerpt": "A private transport study comparing empirical release laws with conservative finite-sink and moving-front models.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/drug-dissolution-model-hierarchy/README.md",
+    "local_hero_image": "/science/drug-dissolution-model-hierarchy/model-hierarchy.svg"
+  },
+  {
+    "slug": "heavy-tailed-financial-risk",
+    "title": "Heavy-Tailed Financial Risk Audit",
+    "summary": "A verified synthetic backtesting laboratory measures how Gaussian, conditional-volatility, historical, and extreme-value models differ in tail coverage, severity, and sharpness.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Quantitative Finance",
+      "Risk and Uncertainty"
+    ],
+    "methods": [
+      "GARCH and Student-t likelihood",
+      "Filtered extreme-value theory",
+      "VaR and ES backtesting"
+    ],
+    "featured": true,
+    "project_root": "heavy-tailed-financial-risk",
+    "hero_image": "heavy-tailed-financial-risk/figures/publish/returns-and-volatility.svg",
+    "publish_assets": [
+      {
+        "filename": "returns-and-volatility.svg",
+        "alt": "Synthetic returns with marked jumps and a persistent latent volatility series.",
+        "caption": "Volatility clustering and discontinuous shocks jointly create tail risk.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/returns-and-volatility.svg"
+      },
+      {
+        "filename": "tail-diagnostics.svg",
+        "alt": "Empirical, Gaussian, and Student-t survival curves with a Gaussian Q-Q diagnostic.",
+        "caption": "A Gaussian model can fit the centre while its tail decays too quickly.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/tail-diagnostics.svg"
+      },
+      {
+        "filename": "var-forecasts.svg",
+        "alt": "Time-varying 99-percent VaR forecasts and rolling exception rates for competing risk models.",
+        "caption": "Average coverage can hide clusters of forecast exceptions.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/var-forecasts.svg"
+      },
+      {
+        "filename": "backtest-dashboard.svg",
+        "alt": "Exception rates, conditional-coverage p-values, and expected-shortfall calibration for seven risk models.",
+        "caption": "Coverage, independence, and tail severity provide different rankings.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/backtest-dashboard.svg"
+      },
+      {
+        "filename": "calibration-curves.svg",
+        "alt": "Observed confidence and mean VaR across four nominal confidence levels.",
+        "caption": "Calibration across levels must be read together with forecast sharpness.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/calibration-curves.svg"
+      },
+      {
+        "filename": "tail-model-risk-surface.svg",
+        "alt": "Gaussian VaR and expected-shortfall underestimation over Student-t degrees of freedom and jump probability.",
+        "caption": "Heavy tails and jumps can reinforce structural underestimation.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/tail-model-risk-surface.svg"
+      },
+      {
+        "filename": "bootstrap-uncertainty.svg",
+        "alt": "Block-bootstrap tail-quantile distribution and its propagated portfolio VaR interval.",
+        "caption": "Tail forecasts carry substantial sampling uncertainty.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/bootstrap-uncertainty.svg"
+      },
+      {
+        "filename": "risk-sharpness-frontier.svg",
+        "alt": "Mean VaR against absolute coverage error for seven competing risk models.",
+        "caption": "Conservatism and calibration form a frontier rather than one universal winner.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/risk-sharpness-frontier.svg"
+      },
+      {
+        "filename": "fitted-dynamics.svg",
+        "alt": "Latent and fitted volatility scales with GARCH parameter comparisons under Gaussian and Student-t innovations.",
+        "caption": "A good volatility fit does not identify the tail mechanism.",
+        "generated_by": "heavy-tailed-financial-risk/src/tail_risk/plotting.py",
+        "source_path": "heavy-tailed-financial-risk/figures/publish/fitted-dynamics.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/heavy-tailed-financial-risk",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/heavy-tailed-financial-risk",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic financial return series",
+    "research_question": "How much tail risk does a Gaussian model hide when returns cluster in volatility, respond asymmetrically, and contain jumps?",
+    "limitations": [
+      "The study is synthetic, univariate, and is not investment advice.",
+      "Parameter drift, multivariate dependence, liquidity, market microstructure, and portfolio nonlinearities are outside scope.",
+      "Backtest rankings are conditional on one data-generating process, forecast horizon, sample split, and candidate set."
+    ],
+    "last_updated": "2026-08-02",
+    "category": "Quantitative Finance",
+    "readme_path": "heavy-tailed-financial-risk/README.md",
+    "documentation_excerpt": "A private synthetic laboratory for conditional volatility, tail modelling, and risk-forecast backtesting.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/heavy-tailed-financial-risk/README.md",
+    "local_hero_image": "/science/heavy-tailed-financial-risk/returns-and-volatility.svg"
   }
 ]
