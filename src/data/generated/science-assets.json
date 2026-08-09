@@ -2,7 +2,7 @@
   "source": "sibling private ScienceProject",
   "source_of_truth": "ScienceProject figures/publish only",
   "editorial_policy": "Article bodies are manually authored in skcKenneth.github.io and are never generated or overwritten by sync.",
-  "updated_at": "2026-08-02",
+  "updated_at": "2026-08-09",
   "assets": [
     {
       "project": "growing-domain-turing-topology",
@@ -1419,6 +1419,102 @@
       "status": "current",
       "sha256": "4ebbe5d5423b962e7905693cc09e2e60fafc8454256b75daaffa533ea7c5e141",
       "bytes": 177685
+    },
+    {
+      "project": "risk-sensitive-quantum-repeater-scheduling",
+      "filename": "mechanism-timeline.svg",
+      "public_path": "/science/risk-sensitive-quantum-repeater-scheduling/mechanism-timeline.svg",
+      "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/mechanism-timeline.svg",
+      "alt": "A five-node quantum repeater chain and one-slot event timeline from memory ageing through delivery.",
+      "caption": "The declared event order prevents same-slot cascade and makes waiting-induced visibility loss explicit.",
+      "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+      "status": "current",
+      "sha256": "148c62646b65a396097fd3f7376f4f971b80dd40bc13af66dff36a52f1c28542",
+      "bytes": 12965
+    },
+    {
+      "project": "risk-sensitive-quantum-repeater-scheduling",
+      "filename": "analytic-validation.svg",
+      "public_path": "/science/risk-sensitive-quantum-repeater-scheduling/analytic-validation.svg",
+      "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/analytic-validation.svg",
+      "alt": "Simulation estimates compared with geometric waiting-time formulas, a renewal result, and a small exact MDP oracle.",
+      "caption": "Independent analytical checks bound the implementation before policy comparisons are interpreted.",
+      "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+      "status": "current",
+      "sha256": "6dcae3a89c64a5d1e569e4e8d870a5e08b063272e41aba8d2cb1f585154c342d",
+      "bytes": 24711
+    },
+    {
+      "project": "risk-sensitive-quantum-repeater-scheduling",
+      "filename": "memory-decay.svg",
+      "public_path": "/science/risk-sensitive-quantum-repeater-scheduling/memory-decay.svg",
+      "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/memory-decay.svg",
+      "alt": "Werner visibility and fidelity decay curves with the fastest-path fidelity ceiling across memory lifetimes.",
+      "caption": "For the shortest declared lifetime, even the fastest admissible path falls below the fidelity threshold.",
+      "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+      "status": "current",
+      "sha256": "0cb0c1bf6c6c4a162d50c6e9009b96054c51253a8fb770b8a3d196135b3859f3",
+      "bytes": 34911
+    },
+    {
+      "project": "risk-sensitive-quantum-repeater-scheduling",
+      "filename": "policy-decision-map.svg",
+      "public_path": "/science/risk-sensitive-quantum-repeater-scheduling/policy-decision-map.svg",
+      "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/policy-decision-map.svg",
+      "alt": "Decision map comparing swap-as-soon-as-possible, fixed, random-discard, nominal stage-aware, and stratified cutoff rules.",
+      "caption": "The policies differ only in declared discard decisions; all share the same event semantics.",
+      "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+      "status": "current",
+      "sha256": "ece4797866d91f39b96f62db8cf146e16f087c97eaa918f6a0749eb4e0169051",
+      "bytes": 13214
+    },
+    {
+      "project": "risk-sensitive-quantum-repeater-scheduling",
+      "filename": "training-frontier.svg",
+      "public_path": "/science/risk-sensitive-quantum-repeater-scheduling/training-frontier.svg",
+      "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/training-frontier.svg",
+      "alt": "Training reliability and tail-latency frontier showing that no candidate passes the global fidelity constraint.",
+      "caption": "The primary selector abstains because the globally feasible candidate set is empty.",
+      "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+      "status": "current",
+      "sha256": "06e9d844dbad4b35bbe61ad994f344dc2cf73bb7d50988d26791a911131d1263",
+      "bytes": 29078
+    },
+    {
+      "project": "risk-sensitive-quantum-repeater-scheduling",
+      "filename": "heldout-stress-map.svg",
+      "public_path": "/science/risk-sensitive-quantum-repeater-scheduling/heldout-stress-map.svg",
+      "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/heldout-stress-map.svg",
+      "alt": "Held-out scenario map of policy fidelity attainment and abstention under heterogeneous link conditions.",
+      "caption": "A high-memory sensitivity policy does not generalise into a globally certified rule.",
+      "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+      "status": "current",
+      "sha256": "120ed764cc6a0e5363d31247f1f2573320c1e46940a13ce328b5d82bc2c6ae6f",
+      "bytes": 16975
+    },
+    {
+      "project": "risk-sensitive-quantum-repeater-scheduling",
+      "filename": "latency-tail-distribution.svg",
+      "public_path": "/science/risk-sensitive-quantum-repeater-scheduling/latency-tail-distribution.svg",
+      "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/latency-tail-distribution.svg",
+      "alt": "Mean and tail latency summaries for baseline policies and the separately labelled high-memory sensitivity rule.",
+      "caption": "Fidelity protection and latency tails must be read together; no universal winner is asserted.",
+      "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+      "status": "current",
+      "sha256": "15ed2678761bed979994eaf297afe69f68366b18898cb222075eac456352705c",
+      "bytes": 98654
+    },
+    {
+      "project": "risk-sensitive-quantum-repeater-scheduling",
+      "filename": "robustness-convergence.svg",
+      "public_path": "/science/risk-sensitive-quantum-repeater-scheduling/robustness-convergence.svg",
+      "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/robustness-convergence.svg",
+      "alt": "Monte Carlo convergence, censoring, and named-stress diagnostics for the quantum repeater study.",
+      "caption": "Convergence and zero censoring support the numerical summaries, not hardware-level validity.",
+      "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+      "status": "current",
+      "sha256": "2f8fe789f7606491afea7ff75b8ddf7b75f3dd6040ac1a0c76af44b0da5b648f",
+      "bytes": 29931
     }
   ],
   "stale": []

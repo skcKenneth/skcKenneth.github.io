@@ -1,0 +1,417 @@
+---
+export interface Props {
+  locale?: "en" | "zh-Hant";
+  mode?: "compact" | "full";
+  seed?: number;
+}
+
+const { locale = "en", mode = "compact", seed = 240819 } = Astro.props;
+const zh = locale === "zh-Hant";
+const id = `quantum-repeater-${mode}-${seed}`;
+const fullLabPath = zh ? "/zh/teaching/quantum-repeater-lab/" : "/teaching/quantum-repeater-lab/";
+
+const copy = zh ? {
+  title: "量子中繼排程實驗室",
+  intro: "調整鏈路成功率、記憶衰減及丟棄策略，比較『盡快交換』與風險敏感 cutoff 如何交換延遲與保真度。",
+  boundary: "這是合成的協議層教學模型，不是硬件校準、QKD 安全證明或網絡性能承諾。",
+  generation: "鏈路生成概率 p",
+  swap: "交換成功概率 q",
+  lifetime: "visibility 壽命 T（時槽）",
+  cutoff: "基準 cutoff（時槽）",
+  threshold: "最低保真度 Fmin",
+  policy: "排程策略",
+  seed: "隨機種子",
+  run: "重新計算",
+  metrics: ["按時完成", "合格配對", "平均延遲", "CVaR95 延遲"],
+  chartTitle: "策略的延遲—可靠度比較",
+  chartHint: "愈靠左表示平均等待愈短，愈靠上表示更多配對達到最低保真度。",
+  xAxis: "平均延遲（時槽）",
+  yAxis: "合格概率",
+  selected: "目前策略",
+  details: "比較數據",
+  timeline: "單次 episode 的最後十二個時槽",
+  timelineHint: "每個標記顯示一個仍在記憶體中的糾纏區段；a 是排程年齡。交換輸出保留 visibility，但年齡重設為零，並要到下一時槽才可再次交換。",
+  delivered: "已交付",
+  censored: "到達安全上限仍未交付",
+  full: "開啟完整互動實驗",
+} : {
+  title: "Quantum repeater scheduling lab",
+  intro: "Change link success, memory decay, and discard policy to compare swap-as-soon-as-possible with risk-sensitive cutoffs.",
+  boundary: "This is a synthetic protocol-level teaching model, not hardware calibration, a QKD security proof, or a network-performance promise.",
+  generation: "Link-generation probability p",
+  swap: "Swap-success probability q",
+  lifetime: "Visibility lifetime T (slots)",
+  cutoff: "Base cutoff (slots)",
+  threshold: "Minimum fidelity Fmin",
+  policy: "Scheduling policy",
+  seed: "Random seed",
+  run: "Recalculate",
+  metrics: ["Completion", "Useful pairs", "Mean latency", "CVaR95 latency"],
+  chartTitle: "Latency–reliability comparison across policies",
+  chartHint: "Further left means shorter average waiting; higher means more pairs meet the fidelity threshold.",
+  xAxis: "Mean latency (slots)",
+  yAxis: "Useful probability",
+  selected: "Selected policy",
+  details: "Comparison data",
+  timeline: "Last twelve slots of one episode",
+  timelineHint: "Each mark is an entangled interval still in memory; a is its scheduling age. A swap output keeps inherited visibility but resets age to zero and cannot be swapped again until the next slot.",
+  delivered: "Delivered",
+  censored: "Not delivered by safety cap",
+  full: "Open the full interactive lab",
+};
+
+const policies = zh ? [
+  ["swap-asap", "盡快交換（無 cutoff）"],
+  ["fixed-cutoff", "固定 cutoff"],
+  ["probabilistic-cutoff", "概率 cutoff"],
+  ["nominal-stage-aware", "名義 stage-aware cutoff"],
+  ["risk-sensitive", "風險敏感 stage-aware cutoff"],
+] : [
+  ["swap-asap", "Swap ASAP (no cutoff)"],
+  ["fixed-cutoff", "Fixed cutoff"],
+  ["probabilistic-cutoff", "Probabilistic cutoff"],
+  ["nominal-stage-aware", "Nominal stage-aware cutoff"],
+  ["risk-sensitive", "Risk-sensitive stage-aware cutoff"],
+];
+---
+
+<quantum-repeater-lab
+  class:list={["qr-lab", `qr-lab--${mode}`]}
+  data-locale={locale}
+  data-mode={mode}
+  data-seed={seed}
+  data-labels={JSON.stringify(Object.fromEntries(policies))}
+>
+  <div class="qr-lab__head">
+    <div>
+      <p class="eyebrow">{zh ? "互動研究模型" : "Interactive research model"}</p>
+      <h2>{copy.title}</h2>
+      <p>{copy.intro}</p>
+    </div>
+    <p class="qr-lab__boundary">{copy.boundary}</p>
+  </div>
+
+  <div class="qr-lab__workbench">
+    <form class="qr-controls" data-controls>
+      <div class="qr-control">
+        <label for={`${id}-p`}>{copy.generation} <output data-output="generation">0.20</output></label>
+        <input id={`${id}-p`} name="generationProbability" type="range" min="0.05" max="0.60" step="0.05" value="0.20" />
+      </div>
+      <div class="qr-control">
+        <label for={`${id}-q`}>{copy.swap} <output data-output="swap">0.80</output></label>
+        <input id={`${id}-q`} name="swapProbability" type="range" min="0.40" max="1" step="0.05" value="0.80" />
+      </div>
+      <div class="qr-control">
+        <label for={`${id}-lifetime`}>{copy.lifetime} <output data-output="lifetime">20</output></label>
+        <input id={`${id}-lifetime`} name="memoryLifetime" type="range" min="4" max="80" step="2" value="20" />
+      </div>
+      <div class="qr-control">
+        <label for={`${id}-cutoff`}>{copy.cutoff} <output data-output="cutoff">8</output></label>
+        <input id={`${id}-cutoff`} name="cutoff" type="range" min="2" max="30" step="1" value="8" />
+      </div>
+      <div class="qr-control">
+        <label for={`${id}-threshold`}>{copy.threshold} <output data-output="threshold">0.80</output></label>
+        <input id={`${id}-threshold`} name="fidelityThreshold" type="range" min="0.60" max="0.95" step="0.01" value="0.80" />
+      </div>
+      <div class="qr-control">
+        <label for={`${id}-policy`}>{copy.policy}</label>
+        <select id={`${id}-policy`} name="policy">
+          {policies.map(([value, label]) => <option value={value} selected={value === "risk-sensitive"}>{label}</option>)}
+        </select>
+      </div>
+      <div class="qr-control qr-control--seed">
+        <label for={`${id}-seed`}>{copy.seed}</label>
+        <input id={`${id}-seed`} name="seed" type="number" min="0" max="4294967295" step="1" value={seed} inputmode="numeric" />
+      </div>
+      <button class="button qr-run" type="submit">{copy.run}</button>
+    </form>
+
+    <div class="qr-results">
+      <dl class="qr-metrics" aria-label={zh ? "模擬摘要" : "Simulation summary"}>
+        {copy.metrics.map((label, index) => <div><dt>{label}</dt><dd data-metric={index}>—</dd></div>)}
+      </dl>
+
+      <div class="qr-chart-head">
+        <div><h3>{copy.chartTitle}</h3><p>{copy.chartHint}</p></div>
+        <span class="qr-selected-key"><i></i>{copy.selected}</span>
+      </div>
+      <svg class="qr-chart" data-chart viewBox="0 0 760 350" role="img" aria-label={`${copy.chartTitle}. ${copy.chartHint}`}></svg>
+
+      <details class="qr-data">
+        <summary>{copy.details}</summary>
+        <div class="qr-table-scroll">
+          <table>
+            <thead><tr><th>{copy.policy}</th><th>{copy.metrics[1]}</th><th>{copy.metrics[2]}</th><th>{copy.metrics[3]}</th></tr></thead>
+            <tbody data-table-body></tbody>
+          </table>
+        </div>
+      </details>
+
+      {mode === "full" && (
+        <section class="qr-trace-panel" aria-labelledby={`${id}-trace-title`}>
+          <div class="qr-chart-head">
+            <div><h3 id={`${id}-trace-title`}>{copy.timeline}</h3><p>{copy.timelineHint}</p></div>
+            <strong data-episode-status></strong>
+          </div>
+          <ol class="qr-trace" data-trace></ol>
+        </section>
+      )}
+
+      <p class="qr-status" data-status aria-live="polite"></p>
+      {mode === "compact" && <p class="qr-full-link"><a href={fullLabPath}>{copy.full} →</a></p>}
+    </div>
+  </div>
+</quantum-repeater-lab>
+
+<script>
+  // @ts-nocheck -- Browser custom-element glue; the model contract is tested separately.
+  import {
+    comparePolicies,
+    simulateEpisode,
+  } from "../lib/quantum-repeater-model.mjs";
+
+  const POLICY_COLOURS = {
+    "swap-asap": "#202824",
+    "fixed-cutoff": "#296b58",
+    "probabilistic-cutoff": "#b35337",
+    "nominal-stage-aware": "#735a96",
+    "risk-sensitive": "#0072b2",
+  };
+  const POLICY_MARKS = {
+    "swap-asap": "circle",
+    "fixed-cutoff": "square",
+    "probabilistic-cutoff": "diamond",
+    "nominal-stage-aware": "triangle",
+    "risk-sensitive": "cross",
+  };
+
+  const escapeHtml = (value) => String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+
+  function marker(policy, x, y, selected) {
+    const colour = POLICY_COLOURS[policy];
+    const outline = selected ? `<circle cx="${x}" cy="${y}" r="13" fill="none" stroke="#111" stroke-width="2"/>` : "";
+    if (POLICY_MARKS[policy] === "square") return `${outline}<rect x="${x - 6}" y="${y - 6}" width="12" height="12" fill="${colour}" stroke="#111"/>`;
+    if (POLICY_MARKS[policy] === "diamond") return `${outline}<path d="M ${x} ${y - 8} L ${x + 8} ${y} L ${x} ${y + 8} L ${x - 8} ${y} Z" fill="${colour}" stroke="#111"/>`;
+    if (POLICY_MARKS[policy] === "triangle") return `${outline}<path d="M ${x} ${y - 8} L ${x + 8} ${y + 7} L ${x - 8} ${y + 7} Z" fill="${colour}" stroke="#111"/>`;
+    if (POLICY_MARKS[policy] === "cross") return `${outline}<path d="M ${x - 7} ${y - 7} L ${x + 7} ${y + 7} M ${x + 7} ${y - 7} L ${x - 7} ${y + 7}" fill="none" stroke="${colour}" stroke-width="4"/>`;
+    return `${outline}<circle cx="${x}" cy="${y}" r="6" fill="${colour}" stroke="#111"/>`;
+  }
+
+  class QuantumRepeaterLabElement extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready === "true") return;
+      this.dataset.ready = "true";
+      this.labels = JSON.parse(this.dataset.labels || "{}");
+      this.form = this.querySelector("[data-controls]");
+      this.form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        this.render();
+      });
+      this.form.addEventListener("input", (event) => {
+        if (event.target instanceof HTMLInputElement && event.target.type === "range") this.updateOutputs();
+        cancelAnimationFrame(this.frame);
+        this.frame = requestAnimationFrame(() => this.render());
+      });
+      this.form.addEventListener("change", () => this.render());
+      this.updateOutputs();
+      this.render();
+    }
+
+    readConfig() {
+      const data = new FormData(this.form);
+      return {
+        generationProbability: Number(data.get("generationProbability")),
+        swapProbability: Number(data.get("swapProbability")),
+        memoryLifetime: Number(data.get("memoryLifetime")),
+        cutoff: Number(data.get("cutoff")),
+        fidelityThreshold: Number(data.get("fidelityThreshold")),
+        policy: String(data.get("policy")),
+        seed: Number(data.get("seed")),
+        maxSlots: 400,
+      };
+    }
+
+    updateOutputs() {
+      const config = this.readConfig();
+      const values = {
+        generation: config.generationProbability.toFixed(2),
+        swap: config.swapProbability.toFixed(2),
+        lifetime: config.memoryLifetime.toFixed(0),
+        cutoff: config.cutoff.toFixed(0),
+        threshold: config.fidelityThreshold.toFixed(2),
+      };
+      Object.entries(values).forEach(([key, value]) => {
+        const output = this.querySelector(`[data-output="${key}"]`);
+        if (output) output.textContent = value;
+      });
+    }
+
+    render() {
+      const config = this.readConfig();
+      const isZh = this.dataset.locale === "zh-Hant";
+      const episodeCount = this.dataset.mode === "full" ? 220 : 140;
+      const results = comparePolicies(config, episodeCount);
+      const selected = results.find((row) => row.policy === config.policy);
+      const formats = [
+        `${(selected.completionProbability * 100).toFixed(1)}%`,
+        `${(selected.usefulProbability * 100).toFixed(1)}%`,
+        selected.meanLatency.toFixed(1),
+        selected.cvar95Latency.toFixed(1),
+      ];
+      formats.forEach((value, index) => {
+        this.querySelector(`[data-metric="${index}"]`).textContent = value;
+      });
+      this.renderChart(results, config.policy, isZh);
+      this.renderTable(results);
+      if (this.dataset.mode === "full") this.renderTrace(simulateEpisode(config), isZh);
+      const status = this.querySelector("[data-status]");
+      status.textContent = isZh
+        ? `已用種子 ${config.seed} 比較 ${results.length} 種策略；每種策略 ${episodeCount} 次合成 episodes。安全上限為 400 時槽。`
+        : `Compared ${results.length} policies at seed ${config.seed}, using ${episodeCount} synthetic episodes per policy. The safety cap is 400 slots.`;
+    }
+
+    renderChart(results, selectedPolicy, isZh) {
+      const svg = this.querySelector("[data-chart]");
+      const left = 78;
+      const right = 718;
+      const top = 28;
+      const bottom = 270;
+      const maxLatency = Math.max(20, Math.ceil(Math.max(...results.map((row) => row.meanLatency)) / 20) * 20);
+      const x = (value) => left + (value / maxLatency) * (right - left);
+      const y = (value) => bottom - value * (bottom - top);
+      const xTicks = Array.from({ length: 5 }, (_, index) => index * maxLatency / 4);
+      const yTicks = [0, 0.25, 0.5, 0.75, 1];
+      const xAxis = isZh ? "平均延遲（時槽）" : "Mean latency (slots)";
+      const yAxis = isZh ? "合格概率" : "Useful probability";
+      const grid = [
+        ...yTicks.map((tick) => `<line class="qr-grid" x1="${left}" x2="${right}" y1="${y(tick)}" y2="${y(tick)}"/><text class="qr-tick" x="${left - 12}" y="${y(tick) + 4}" text-anchor="end">${tick.toFixed(2)}</text>`),
+        ...xTicks.map((tick) => `<line class="qr-grid qr-grid--x" x1="${x(tick)}" x2="${x(tick)}" y1="${top}" y2="${bottom}"/><text class="qr-tick" x="${x(tick)}" y="${bottom + 24}" text-anchor="middle">${tick.toFixed(0)}</text>`),
+      ].join("");
+      const points = results.map((row) => marker(row.policy, x(row.meanLatency), y(row.usefulProbability), row.policy === selectedPolicy)).join("");
+      const legend = results.map((row, index) => {
+        const column = index % 3;
+        const line = Math.floor(index / 3);
+        const lx = left + column * 218;
+        const ly = 350 + line * 22;
+        return `${marker(row.policy, lx, ly - 4, row.policy === selectedPolicy)}<text class="qr-legend-label" x="${lx + 18}" y="${ly}">${escapeHtml(this.labels[row.policy] ?? row.policy)}</text>`;
+      }).join("");
+      svg.setAttribute("viewBox", "0 0 760 390");
+      svg.innerHTML = `
+        <rect class="qr-plot-field" x="${left}" y="${top}" width="${right - left}" height="${bottom - top}"/>
+        ${grid}
+        <line class="qr-axis" x1="${left}" x2="${right}" y1="${bottom}" y2="${bottom}"/>
+        <line class="qr-axis" x1="${left}" x2="${left}" y1="${top}" y2="${bottom}"/>
+        <text class="qr-axis-label" x="${(left + right) / 2}" y="${bottom + 48}" text-anchor="middle">${xAxis}</text>
+        <text class="qr-axis-label" x="20" y="${(top + bottom) / 2}" text-anchor="middle" transform="rotate(-90 20 ${(top + bottom) / 2})">${yAxis}</text>
+        ${points}${legend}`;
+    }
+
+    renderTable(results) {
+      const body = this.querySelector("[data-table-body]");
+      body.innerHTML = results.map((row) => `<tr${row.policy === this.readConfig().policy ? ' class="is-selected"' : ""}>
+        <th scope="row">${escapeHtml(this.labels[row.policy] ?? row.policy)}</th>
+        <td>${(row.usefulProbability * 100).toFixed(1)}%</td>
+        <td>${row.meanLatency.toFixed(1)}</td>
+        <td>${row.cvar95Latency.toFixed(1)}</td>
+      </tr>`).join("");
+    }
+
+    renderTrace(episode, isZh) {
+      const list = this.querySelector("[data-trace]");
+      const rows = episode.trace.slice(-12);
+      list.innerHTML = rows.map((row) => {
+        const segments = row.state.length
+          ? row.state.map((segment) => `<span title="visibility ${segment.visibility.toFixed(3)}">${segment.start}–${segment.end} · a=${segment.age}</span>`).join("")
+          : `<em>${isZh ? "記憶體為空" : "memory empty"}</em>`;
+        return `<li><b>${isZh ? "時槽" : "slot"} ${row.slot}</b><div>${segments}</div></li>`;
+      }).join("");
+      const status = this.querySelector("[data-episode-status]");
+      status.textContent = episode.delivered
+        ? `${isZh ? "已交付" : "Delivered"}: F=${episode.fidelity.toFixed(3)}`
+        : (isZh ? "到達安全上限仍未交付" : "Not delivered by safety cap");
+    }
+  }
+
+  if (!customElements.get("quantum-repeater-lab")) {
+    customElements.define("quantum-repeater-lab", QuantumRepeaterLabElement);
+  }
+</script>
+
+<style is:global>
+  .qr-lab { display:block; border:1px solid #9aa8a1; border-top:4px solid #111; background:#f4f1e8; color:#111; margin:2rem 0; padding:clamp(1rem,3vw,2rem); }
+  .qr-lab h2,.qr-lab h3,.qr-lab p,.qr-lab label,.qr-lab output,.qr-lab dt,.qr-lab dd,.qr-lab th,.qr-lab td,.qr-lab summary { color:#111; }
+  .qr-lab__head { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(240px,.75fr); gap:clamp(1.5rem,4vw,3.5rem); align-items:end; padding-bottom:1.25rem; border-bottom:1px solid #9aa8a1; }
+  .qr-lab__head h2 { max-width:20ch; margin:.3rem 0 .6rem; }
+  .qr-lab__head p { margin:.35rem 0 0; }
+  .qr-lab__boundary { border-left:3px solid #b35337; font-size:.86rem; padding:.65rem 0 .65rem 1rem; }
+  .qr-lab__workbench { display:grid; grid-template-columns:minmax(220px,.28fr) minmax(0,.72fr); gap:clamp(1.5rem,4vw,3rem); padding-top:1.5rem; }
+  .qr-controls { align-content:start; display:grid; gap:.9rem; }
+  .qr-control { display:grid; gap:.35rem; }
+  .qr-control label { display:flex; flex-wrap:wrap; justify-content:space-between; gap:.4rem; font-size:.82rem; font-weight:750; }
+  .qr-control output { font:700 .82rem var(--mono); }
+  .qr-control input[type="range"] { accent-color:#0072b2; cursor:pointer; width:100%; }
+  .qr-control input[type="number"],.qr-control select { width:100%; min-height:2.75rem; border:1px solid #68756f; border-radius:0; background:#fffefa; color:#111; font:inherit; padding:.45rem .55rem; }
+  .qr-run { justify-self:start; margin-top:.25rem; }
+  .qr-results { min-width:0; }
+  .qr-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); margin:0 0 1.6rem; border-top:2px solid #111; }
+  .qr-metrics div { min-width:0; padding:.8rem .75rem .25rem 0; }
+  .qr-metrics div + div { border-left:1px solid #a8b1ac; padding-left:.75rem; }
+  .qr-metrics dt { font-size:.7rem; line-height:1.35; }
+  .qr-metrics dd { font:650 clamp(1.15rem,2vw,1.5rem) var(--serif); margin:.25rem 0 0; overflow-wrap:anywhere; }
+  .qr-chart-head { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+  .qr-chart-head h3 { font-size:1.2rem; margin:0 0 .25rem; }
+  .qr-chart-head p { font-size:.78rem; margin:0; max-width:48rem; }
+  .qr-selected-key { flex:0 0 auto; color:#111; font-size:.72rem; font-weight:700; }
+  .qr-selected-key i { display:inline-block; width:.7rem; height:.7rem; border:2px solid #111; border-radius:50%; margin-right:.35rem; vertical-align:-.1rem; }
+  .qr-chart { display:block; width:100%; height:auto; margin-top:.6rem; overflow:visible; }
+  .qr-chart text { fill:#111; font-family:var(--sans); }
+  .qr-chart .qr-plot-field { fill:#fffefa; stroke:#87938d; }
+  .qr-chart .qr-grid { stroke:#9aa8a1; stroke-width:1; opacity:.55; }
+  .qr-chart .qr-grid--x { opacity:.25; }
+  .qr-chart .qr-axis { stroke:#111; stroke-width:1.4; }
+  .qr-chart .qr-tick { font-size:11px; }
+  .qr-chart .qr-axis-label { font-size:12px; font-weight:700; }
+  .qr-chart .qr-legend-label { font-size:10px; }
+  .qr-data { border-top:1px solid #9aa8a1; margin-top:1rem; padding-top:.7rem; }
+  .qr-data summary { cursor:pointer; font-size:.82rem; font-weight:750; }
+  .qr-table-scroll { overflow-x:auto; }
+  .qr-data table { width:100%; border-collapse:collapse; font-size:.76rem; margin-top:.6rem; }
+  .qr-data th,.qr-data td { border-bottom:1px solid #c2c9c5; padding:.55rem; text-align:right; white-space:nowrap; }
+  .qr-data th:first-child { text-align:left; }
+  .qr-data tr.is-selected { background:#dce9e5; }
+  .qr-trace-panel { border-top:2px solid #111; margin-top:1.7rem; padding-top:1rem; }
+  .qr-trace-panel strong { color:#111; font-size:.75rem; }
+  .qr-trace { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.55rem; list-style:none; padding:0; margin:1rem 0 0; }
+  .qr-trace li { background:#fffefa; border:1px solid #a8b1ac; min-width:0; padding:.55rem; }
+  .qr-trace b { color:#111; display:block; font:700 .67rem var(--mono); margin-bottom:.4rem; }
+  .qr-trace li div { display:flex; flex-wrap:wrap; gap:.25rem; }
+  .qr-trace span { display:inline-block; background:#dce9e5; border-left:3px solid #0072b2; color:#111; font:600 .64rem var(--mono); padding:.22rem .3rem; }
+  .qr-trace em { color:#515d57; font-size:.7rem; }
+  .qr-status { border-left:3px solid #296b58; font-size:.74rem; margin:1rem 0 0; min-height:1.6rem; padding-left:.7rem; }
+  .qr-full-link { font-weight:750; margin-bottom:0; }
+  @media (max-width:900px) {
+    .qr-lab__workbench { grid-template-columns:1fr; }
+    .qr-controls { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .qr-run { align-self:end; }
+  }
+  @media (max-width:680px) {
+    .qr-lab__head { grid-template-columns:1fr; }
+    .qr-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .qr-metrics div:nth-child(3) { border-left:0; border-top:1px solid #a8b1ac; padding-left:0; }
+    .qr-metrics div:nth-child(4) { border-top:1px solid #a8b1ac; }
+    .qr-trace { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .qr-chart-head { display:block; }
+    .qr-selected-key { display:block; margin-top:.5rem; }
+  }
+  @media (max-width:460px) {
+    .qr-lab { margin-inline:-1rem; padding-inline:1rem; }
+    .qr-controls { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .qr-lab * { scroll-behavior:auto!important; transition:none!important; }
+  }
+</style>

@@ -1,0 +1,448 @@
+---
+title: "當糾纏會過期：量子中繼鏈的風險敏感排程"
+slug: when-entanglement-expires
+sourceSlug: when-entanglement-expires
+summary: 以數學模型研究量子中繼鏈如何在連結生成與糾纏交換均有機會失敗的情況下，權衡速度、退相干、可靠度與長尾延遲。
+date: 2026-08-09
+lastUpdated: 2026-08-09
+featured: true
+topics: [量子網絡, 隨機排程, 量子中繼器, 長尾風險, 穩健最佳化, 蒙地卡羅模擬]
+heroImage: /science/risk-sensitive-quantum-repeater-scheduling/mechanism-timeline.svg
+type: Research Notes
+archived: false
+readingMinutes: 28
+scienceProject: risk-sensitive-quantum-repeater-scheduling
+redirectFrom: []
+---
+
+import QuantumRepeaterLab from "../../components/QuantumRepeaterLab.astro";
+
+量子糾纏之所以有價值，正因為它不是一封普通訊息。兩個相隔甚遠的量子記憶體可以共享一個狀態，當中的相關性不能由經典局域模型完整複製；這種資源可支援量子傳態、分散式量子運算、量子感測，以及若干密碼協定。然而，使糾纏成為量子資源的脆弱性，也令它成為一種會過期的庫存。光子會遺失，連結生成會失敗，已儲存的量子位元會在等待期間退相干；而嘗試把兩段短連結接駁起來的糾纏交換，可能同時消耗兩段連結，最後仍然失敗。
+
+這就形成一個帶有特殊時鐘的排程問題。等待有時是合理的，因為缺少的相鄰連結可能在下一個時槽便生成；但等待亦會消耗現有糾纏的品質。立即交換可以釋放記憶體，並令系統更接近端到端交付；可是，如果其餘鏈段仍未準備好，控制器便可能過早把兩段優質連結押在一次不可靠的操作上。丟棄一段舊連結表面上很浪費，然而一直保留它，亦可能令最終交付必然低於應用所要求的 fidelity 門檻。
+
+所以，本研究的核心問題不只是「量子中繼鏈平均可以有多快」，而是：
+
+> 當連結生成、糾纏交換和記憶體品質都帶有不確定性時，一條短中繼鏈應如何安排生成、交換、等待與丟棄，才可以可靠地交付品質足夠的端到端糾纏？
+
+我們採用一個刻意保持精簡、但足以呈現主要機制的合成模型：五個節點、四段 elementary links、帶 heralding 的 Bernoulli 成功事件、按指數衰減的 Werner visibility，以及有機會失敗的糾纏交換。所提出的策略不是不可解釋的黑箱，而是一個小型的 span-aware memory cutoff 家族。模型先在異質訓練情境中搜尋策略，以單側統計下界檢查 fidelity 可靠度；若沒有候選通過，selector 必須回傳空值，而不是把一個不合資格的候選包裝成答案。
+
+這是一項協定層面的計算研究，不是硬件示範。模型中的 memory lifetime 是無量綱的雙量子位元 visibility 衰減參數，不是任何裝置的實測 $T_2$。本文不計算 secret-key rate、不提供量子密鑰分發的安全證明，也不宣稱已在真實量子網絡上取得某種速率。它的價值較收斂：把速度、品質和不確定性之間的衝突，轉化成一個可重現、可驗證、亦可被批評的數學決策問題。
+
+凍結後的主要結果正是**棄權**。56 個單調 cutoff 候選之中，沒有一個能在全部 27 個訓練情境通過單側 95% Wilson reliability gate，因此全域 selector 回傳 `selected_policy: null`。這不是程式執行失敗，而是模型有意保留的誠實答案。27 個訓練情境中有 9 個連 policy-independent fidelity ceiling 也低於 $0.80$；尤其當 $T=8$ 時，最快合法路徑的上限只有 $F_{\max}=0.772754$。既然上限本身已低於門檻，任何排程技巧都不可能把它修補成可行。
+
+另有一項範圍較窄的敏感度分析：只在預先聲明的高記憶壽命訓練層 $T\ge50$ 內，cutoff $(2,2,2)$ 通過九個訓練情境。它的最小 Wilson 下界為 $0.98855$，平均 cap-restricted latency 為 $91.4606$ 個時槽，最差 CVaR95 為 $1512.056$ 個時槽，而且 censoring 為零。這只是一個 sensitivity-stratum certificate，絕不是全域 robust success。凍結後的 40 個 held-out 情境沒有任何一個符合原先聲明的 $T\ge50$ stratum rule，所以程序在 40 個情境全部棄權。當中 H31 雖在層外通過 empirical reliability diagnostic，也不能在看過結果後被改稱為正式認證。
+
+## 量子中繼器究竟在做甚麼
+
+光子傳得愈遠，一般便要承受愈多損耗。經典通訊可以沿途放大或再生訊號，但未知量子狀態不能以相同方式任意複製。量子中繼架構於是把長距離路徑分割成較短的基本鏈段：相鄰節點先在短鏈段上建立糾纏，之後由中間節點對兩個記憶體進行 Bell-state measurement，消耗兩段短連結；若操作成功，外側兩個記憶體便共享一段更長的糾纏。重複這個連接過程，理論上便可逐步建立跨越整條鏈的端到端糾纏。
+
+這個說法聽來像一條簡單流水線，但 elementary link 並不是按固定時間生成。四段連結可以同時嘗試，卻各自只有一定成功機率。假設第一段在第 1 個時槽成功，第二和第四段在第 6 個時槽成功，第三段到第 15 個時槽才成功；那麼最早生成的一對量子記憶體已經老化了十四次。若兩段相鄰連結已準備好，控制器可以先把它們交換成一段較長的 virtual link；可是這段長連結仍佔用兩端記憶體，也會繼續退相干，而且它的品質同時承受兩個輸入與交換操作的歷史。
+
+換句話說，排程本身就是物理效能模型的一部分。同一組生成機率、記憶體衰減律與交換品質，在不同策略下可以產生不同的 latency distribution 與 fidelity distribution。在理想記憶體下最小化平均等待時間的策略，未必適合會退相干的記憶體；而為了保證新鮮度而頻繁丟棄的策略，亦可能把大部分時間花在重建，最終幾乎沒有產出。
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/mechanism-timeline.svg" alt="五節點量子中繼鏈及連結生成、老化、交換、丟棄與交付的逐時槽時間線。" width="960" height="580" loading="eager" decoding="async" />
+  <figcaption><strong>圖 1。</strong> 模型追蹤五個節點與四段 elementary links。每個時槽先令原有連結老化，再在空置鏈段嘗試生成；控制器依據已 herald 的狀態選擇互不衝突的交換，解決交換結果，丟棄超齡連結，最後檢查是否形成端到端連結。事件次序是模型定義，不是程式實作的枝節。</figcaption>
+</figure>
+
+圖 1 同時固定了模擬器最容易暗中分歧的地方。新生成的連結是否在同一時槽立即老化？剛交換而成的 length-two link 能否立即再參與下一層交換？cutoff 是在交換前還是交換後檢查？一句「能交換便立即交換」並不足以回答這些問題。本研究規定每個時槽必須依照以下順序：
+
+1. 所有在時槽開始時已存在的連結先增加一個單位年齡；
+2. 每一對空置的相鄰記憶體嘗試生成 elementary link；
+3. 根據生成後已知的狀態，選擇一組互不共用輸入的交換；
+4. 解決交換結果，不論成功或失敗，兩個輸入都被消耗；
+5. 依當前策略丟棄超過 cutoff 的連結；
+6. 檢查是否已有跨越四段的端到端連結可供交付。
+
+同一時槽內不容許剛生成的長連結再次交換，亦即不做 multi-level cascading。這項限制讓所有策略處於相同資訊邊界，並令 Python 研究引擎與網頁互動實驗室的 event trace 可以逐步核對。
+
+## 親手操作一個小型中繼鏈
+
+以下實驗室以教學規模運行相同概念模型。提高 generation probability，elementary links 通常會更快出現；縮短 memory lifetime，已儲存連結的 visibility 會更快下降；較短 cutoff 可以保護新鮮度，卻會觸發更多重建；較長 cutoff 節省已完成的工作，但亦容許更舊的連結繼續佔用記憶體。更換 random seed，便可看到為何一條看來很順利的軌跡不是效能估計。
+
+<QuantumRepeaterLab locale="zh-Hant" mode="compact" seed={20260809} />
+
+你可以先固定 seed，只改變 cutoff，比較兩條軌跡。common random numbers 令比較較容易理解：在策略行動尚未分歧以前，兩者面對同一組潛在成功事件；當策略開始做出不同丟棄或交換決定，它們要求的後續隨機事件亦會逐漸分開。然後再改 seed。一個在單次動畫中近乎完美的設定，可能只是避過了一次壞運氣。因此，正式研究比較的是數以萬計 episodes 的分布，而不是挑選一段最吸引的動畫。
+
+### 一條軌跡如何累積風險
+
+試想一個只有三段 elementary links 的縮小例子。第一與第二段很早成功，第三段卻一直失敗。控制器此時至少有三種選擇。第一，它可以立即交換前兩段，得到一段跨度為二的 virtual link，再等待第三段；這樣做減少了中間記憶體佔用，但若交換失敗，兩段早期成果會同時消失。第二，它可以保留兩段 elementary links，等待第三段生成後才決定交換次序；這樣避免過早承擔 swap risk，卻讓兩段連結一同老化。第三，它可以判斷其中一段已沒有足夠品質預算捱到最終交付，主動丟棄較舊者並重新生成。
+
+假設前兩段在年齡一時交換成功，得到 $w_{02}=g_{\mathrm{swap}}w_{01}w_{12}$。第三段再過六個時槽才出現。等待期間，長連結由 $w_{02}$ 繼續指數衰減；最終交換後的端到端 visibility 又會乘上第三段 visibility 與另一個 $g_{\mathrm{swap}}$。因此，即使每次操作的局部 fidelity 都看來不錯，整條 history 仍可能令最後結果跌穿門檻。模型真正追蹤的不是「目前有幾段綠色連結」，而是每段連結還剩多少可用品質。
+
+再改一個條件：第三段雖然很難生成，但一旦生成便很新鮮。如果控制器知道其 success probability 極低，便要問舊長連結等到第三段出現的機率有多大。等待不是免費延後決定，而是以 visibility 作下注成本。若短 cutoff，系統可能在第三段終於成功的前一個時槽丟棄長連結；若長 cutoff，系統可能保住工作，卻交付一段已低於 $F_{\min}$ 的 pair。最合適的 cutoff 取決於 arrival risk、swap risk、decay rate 與 quality threshold 的聯合作用。
+
+這個例子亦顯示為何「交換愈早愈好」與「連結愈新愈好」都不是完整規則。前者忽略交換失敗會摧毀工作，後者忽略重建本身需要時間。數學模型的功能不是替其中一句口號辯護，而是說清楚在甚麼條件下哪種成本主導。
+
+## 狀態、品質與老化的數學
+
+把五個節點標記為 $0,1,2,3,4$。一段已儲存連結 $e=(i,j)$ 的跨度定義為
+
+$$
+\ell(e)=j-i\in\{1,2,3,4\}.
+$$
+
+每段連結的狀態紀錄包含兩個端點、年齡 $a_e$，以及 Werner visibility $w_e$。visibility 是這個合成噪聲模型中的標量品質座標。Werner state 可以視為以 Bell state 為中心的混合狀態，而它相對於目標 Bell state 的 fidelity 為
+
+$$
+F_e=\frac{1+3w_e}{4}.
+$$
+
+所以 $w=1$ 對應 fidelity 1；當 $w=0$ 時，fidelity 接近完全混合狀態的 $1/4$。預設新生成 elementary link 的 visibility 是 $w_0=0.98$。儲存一個時槽後，具有合成 lifetime $T_e$ 的連結依下式衰減：
+
+$$
+w_e(a_e+1)=w_e(a_e)\exp\!\left(-\frac{\Delta t}{T_e}\right).
+$$
+
+模型把時槽長度設為 $\Delta t=1$，因此所有 lifetime 均以 slot 為單位。這裏的 $T_e$ 描述整段**雙量子位元連結的 visibility lifetime**，並非某個孤立硬件量子位元的實測 dephasing time。清楚分開兩者，可以避免把為壓力測試而設定的合成參數錯當成實驗規格。
+
+若相鄰連結 $e_L=(i,k)$ 與 $e_R=(k,j)$ 成功交換，新連結的 visibility 為
+
+$$
+w_{ij}=g_{\mathrm{swap}}\,w_{ik}w_{kj},
+$$
+
+其中預設 swap quality factor 是 $g_{\mathrm{swap}}=0.99$。這個乘法關係十分關鍵：長連結會繼承兩個輸入的退化，而多層交換會令損失累積。中間節點 $k$ 的交換以機率 $q_k$ 成功；若失敗，兩段輸入連結仍會被消耗，且不產生新連結。對於空置 elementary segment $i$，每個符合條件的時槽都以機率 $p_i$ 生成一對新糾纏。
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/memory-decay.svg" alt="多個合成記憶體 lifetime 下，連結年齡、Werner visibility 與 Bell-state fidelity 的對應曲線。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 2。</strong> 把指數 visibility 衰減翻譯成 Bell-state fidelity。fidelity 門檻形成一個年齡預算，而每次交換都會以乘法方式消耗這個預算。圖中的 lifetime 全部是以時槽量度的合成 link-level 參數。</figcaption>
+</figure>
+
+主分析採用 $F_{\min}=0.80$，並以 $0.70$ 與 $0.90$ 作敏感度分析。一段完成的端到端連結只有在 $F\ge F_{\min}$ 時，才算 quality-qualified delivery。不過，低於門檻的交付仍會完整記錄；若只統計品質達標的 episode，而把不達標交付從分母移走，便會虛增策略的表面可靠度。
+
+這種狀態表示法刻意省略了 Werner 座標以外的振幅與完整密度矩陣。在所假設的 depolarizing 結構下，visibility 提供透明而可追蹤的品質記帳規則；離開這個結構後，兩個具有相同 Bell fidelity 的狀態，未必在後續操作中表現相同。因此，本模型是一個排程研究室，不是通用量子狀態模擬器。
+
+## 可行行動與記憶體限制
+
+每個中間節點為左、右鄰居各設一個 memory qubit；兩個端點各有一個。這項容量限制代表兩段重疊連結不能同時使用同一量子位元。在決策時刻，系統可能進行以下行動：
+
+- 在空置的相鄰記憶體對上嘗試生成 elementary link；
+- 把於同一中間節點相遇的兩段相鄰連結進行糾纏交換；
+- 保留一段連結，等待稍後再連接；
+- 主動丟棄一段連結，釋放記憶體供重新生成。
+
+只要 elementary memory pair 空置，生成嘗試便會自動發生。各種策略真正不同之處，是如何為互不衝突的交換排序，以及何時丟棄。若兩個候選交換共用一段輸入連結，它們不能同時進行；固定的 tie-breaking order 會解決歧義，令固定 seed 的執行可重現。
+
+模型假設生成與交換結果均會被 herald，而排程器在時槽邊界立即知道整條鏈的狀態。classical communication delay 不會額外增加 latency，也不會令等待中的記憶體老化。這是一項樂觀的協調假設。Haldar 等人對 quasi-local policies 的研究說明：在更真實的網絡中，資訊本身也有成本。本研究刻意把該成本暫時移除，以分離 memory management 與 tail latency；因此，即時全局資訊下的結果只能視為排程 benchmark，不能當作可直接部署的時間保證。
+
+## 五類策略，公平地放在同一條鏈上
+
+本研究比較五個 policy families，而不是只展示所提出的策略。
+
+**沒有 cutoff 的 swap-ASAP**，只要兩段相鄰連結存在便嘗試交換，亦不會因年齡主動丟棄。它簡單、容易理解，而且在精神上接近局域規則；可是它容許極舊的輸入存在，所以部分 episode 可能很快，部分交付卻已不再符合品質要求。
+
+**nominal deterministic cutoff** 使用一個在中央情境調校的統一 cutoff。連結超齡便必定丟棄。這個基準用來測試常見的「舊便丟」規則能否由單一 nominal case 轉移到其他情境。
+
+**age-oblivious probabilistic cutoff** 不追蹤連結精確年齡，而以固定機率丟棄。Grimbergen 等人提出這類較低資訊需求的方法，以放棄嚴格品質控制換取較簡單的狀態追蹤。它不能保證硬性的 freshness bound，但可能以較少資訊得到可接受的速率—品質折衷。
+
+**nominal mean-optimal stage-aware cutoff** 容許 cutoff 隨 link span 改變，並在中央情境選擇平均 latency 最小的設定。它把兩種效益分開：效能究竟來自較豐富的 policy class，還是來自 robust 與 tail-aware selection？
+
+**risk-sensitive stage-aware selector** 使用相同、可解釋的 policy class，卻在整個訓練網格中選擇。候選策略先通過 fidelity reliability constraint；只有存在可行候選時，才會再最小化最差訓練情境的 CVaR latency，並以最差 useful-entanglement rate 作數值並列時的決勝條件。實際全域搜尋的 feasible set 為空，所以 selector 棄權。文中出現的 $(2,2,2)$ 只屬於另行聲明的 $T\ge50$ sensitivity stratum，不能代表全域入選策略。
+
+對跨度一、二、三的連結，cutoff vector 定義為
+
+$$
+\boldsymbol c=(c_1,c_2,c_3),
+\qquad c_1\le c_2\le c_3,
+$$
+
+每個分量均由
+
+$$
+\{2,4,8,12,20,\infty\}
+$$
+
+選取。符合單調限制的候選共有 56 個。length-four link 形成後會立即交付，因此不需要額外儲存 cutoff。單調限制表達一個溫和的結構信念：一段代表較多已完成工作的長連結，不應只因跨度較大而獲得更短壽命。它亦把搜尋空間控制在讀者可以審核的大小。不過，本文不聲稱這個受限家族包含全域最優的 state-dependent policy。
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/policy-decision-map.svg" alt="五種中繼排程策略隨連結年齡與跨度變化而交換、保留或丟棄的決策圖。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 3。</strong> 不同年齡與 link span 下的策略決定。全域可靠度閘門沒有認證任何 cutoff vector；圖中的 $(2,2,2)$ 是次要 $T\ge50$ 敏感度層的凍結結果，只可用來解讀該層，不能視為全域認證策略。</figcaption>
+</figure>
+
+這個限制既提供可解釋性，也提出一個可被否證的研究問題。如果 unrestricted oracle 經常選擇違反單調性的行動，那麼「完成愈多工作便愈值得等」可能是一個錯誤 inductive bias。小型 exact Markov decision process 的作用之一，正是檢查這種可能性。
+
+## 為甚麼平均值並不足夠
+
+令 $L$ 表示形成端到端連結所需的時槽數。最常見的比較會最小化 $\mathbb E[L]$。這個統計量重要，卻不完整。量子中繼 latency 可以具有很長的右尾，因為幾個機制會互相放大：一段罕有成功的 elementary link 拖延所有鄰居；一次很遲才發生的 swap failure 摧毀累積工作；重建開始時，其他記憶體仍繼續老化。
+
+兩個策略的平均值可能幾乎相同，最慢一批 episode 卻截然不同。一個策略可能在大多數時間較快，但偶爾陷入連續重建。若用戶需要糾纏去配合一項同步任務，他實際遇到的是某一次延誤，而不是整個 ensemble 的平均。因此，研究除了 mean、median 與 95th percentile，亦計算 0.95 level 的 conditional value at risk：
+
+$$
+\operatorname{CVaR}_{0.95}(L)
+=\mathbb E\!\left[L\mid L\text{ 位於最慢的 5\% 尾部}\right].
+$$
+
+實作使用會明確處理 ties 的 empirical quantile rule。這裏把 CVaR 稱為「風險」，不是因為 latency 是金融損失，而是因為它描述最慢尾部的嚴重程度，而非只報告尾部開始的分位點。
+
+品質需要另一個可靠度陳述。定義
+
+$$
+S=\mathbb 1\{F_{\mathrm{delivered}}\ge F_{\min}\}.
+$$
+
+一個候選策略只有在每個訓練情境中，$\Pr(S=1)$ 的單側 95% binomial lower confidence bound 都超過 $0.95$，才算可行。單看樣本成功比例，會讓 Monte Carlo 波動決定一個剛好貼近門檻的策略能否入選；使用下界，是要求資料支持潛在成功率達標，而不是樣本剛巧達標。
+
+研究亦報告
+
+$$
+R_{\mathrm{useful}}
+=\frac{\Pr(F_{\mathrm{delivered}}\ge F_{\min})}{\mathbb E[L]}.
+$$
+
+這是一個以每時槽計算、只供本研究比較的 useful-entanglement rate。它不是 secret-key rate，沒有加入實際距離、source repetition frequency、detector efficiency、purification 或應用消耗。它的功能是避免某個策略只因「很快交付大量不合格連結」而顯得優秀。
+
+### 把問題寫成可審核的決策準則
+
+robust policy selection 可以拆成三層，每一層回答不同問題。第一層是可行性：在所有 training scenarios 中，策略是否有足夠統計證據顯示 quality-qualified probability 至少為 0.95？這一層不比較「有多快」，只排除不能可靠完成任務的策略。第二層是尾部防守：在可行策略之中，哪一個的最差情境 CVaR95 最低？這一層承認設計者不知道部署時會遇到哪個情境，因此不以平均情境掩蓋脆弱角落。第三層才是效率 tie-break：如果前兩層無法區分候選，再比較 worst-scenario useful rate。
+
+以符號表示，令 $\mathcal S_{\mathrm{train}}$ 為 27 個訓練情境，$\mathcal C$ 為 56 個 cutoff vectors，而 $P_{\mathrm{LB}}(c,s)$ 為候選 $c$ 在情境 $s$ 的 quality-qualified probability 單側 95% 下界。可行集合是
+
+$$
+\mathcal C_{\mathrm{feasible}}
+=\left\{c\in\mathcal C:
+\min_{s\in\mathcal S_{\mathrm{train}}}
+P_{\mathrm{LB}}(c,s)\ge 0.95\right\}.
+$$
+
+之後選擇
+
+$$
+c^*\in\arg\min_{c\in\mathcal C_{\mathrm{feasible}}}
+\max_{s\in\mathcal S_{\mathrm{train}}}
+\operatorname{CVaR}_{0.95}(L\mid c,s),
+$$
+
+再依既定 tie-break rule 處理真正並列。這個形式把價值判斷公開：fidelity reliability 是 constraint，tail latency 是 primary objective，useful rate 是 secondary objective。若改為 weighted sum，研究者便要為 fidelity shortfall、平均等待與 tail risk 指定可互相兌換的權重；該權重往往比模型參數更難解釋。
+
+若 $\mathcal C_{\mathrm{feasible}}$ 是空集，pipeline 不會偷偷降低門檻或挑選「最接近」者，再把它稱為 robust policy。正確結果是：在這個受限 policy class、訓練範圍與信心水平下，沒有候選得到可靠度證書。研究可以擴大策略家族、增加樣本以縮窄區間，或重新檢視 $F_{\min}$ 是否符合目標應用，但每一項都必須作為新設計明確紀錄。
+
+這種 lexicographic design 亦有代價。某策略可能只在一個極端 training scenario 稍微未過下界，卻在其餘情況表現很好；它仍會被排除。這是 deliberate conservatism，而非數學必然。敏感度分析因此會同時報告 empirical probability、confidence bound、門檻距離與不同 $F_{\min}$ 下的可行集合，讓讀者判斷結論是否由一個邊界 cell 主導。
+
+### 量綱、尺度與可比較性
+
+這個模型的自然時間尺度是一個 elementary-link attempt slot。若實際系統每次嘗試需要 $\tau_0$ 秒，dimensionless latency $L$ 才可在最簡單假設下換算成 $L\tau_0$ 秒。但只要交換、heralding 與 classical acknowledgement 需要不同時間，這個直接換算便不再成立。保留 dimensionless results 的好處，是先研究事件結構；代價是不能把數字包裝成硬件 throughput。
+
+真正控制退相干與等待競爭的不是 $T$ 或 $p$ 單獨一個數，而是幾個相對尺度。單段平均生成時間約為 $1/p$，所以 $T p$ 粗略描述記憶體可容納多少個平均生成週期；交換成功率 $q$ 則決定已累積工作要承受多少次重新開始。當 $Tp$ 很大時，等待通常比退相干溫和；當 $Tp$ 很小時，即使 swap 本身可靠，慢鏈段亦可把鄰居儲存至失效。
+
+跨度亦改變有效品質預算。若一段長連結由多個 visibility 相乘而成，它在建立瞬間已經支付多次 gate-quality factor。相同 absolute age 對 elementary link 與 length-three link 的意義並不相同；這正是使用 span-aware cutoff 的理由。不過，span 仍只是一個 proxy：兩段相同跨度的連結可以由不同年齡組合與交換次序形成，因而有不同 visibility。
+
+因此，情境圖不會只按 $p$、$q$、$T$ 分開排列，亦會加入 $Tp$、初始 fidelity budget 與 bottleneck ratio 等 derived coordinates 作探索性解讀。這些衍生量用來理解機制，不會在看過 held-out 結果後偷偷加入 selection objective。若它們顯示出穩定 collapse，下一輪研究才可預先註冊更低維度的 scaling hypothesis。
+
+dimensionless formulation 亦令模型可以跨平台討論，但「可比較」不等於「可直接移植」。兩個平台即使有相同 $Tp$，仍可能因噪聲 channel、operation duration、memory capacity 與 communication topology 不同而有不同策略。無量綱分析提供的是組織問題的方法，不是一條免 calibration 的 universal law。
+
+## 這項研究在文獻中的位置
+
+最早的量子中繼研究說明，nested entanglement connection 與 purification 有可能把 direct transmission 的指數損耗轉化為較可控制的資源 scaling。Briegel、Dür、Cirac 與 Zoller 在 1998 年提出的方案，已把不完美 local operations 放入核心問題，而不是事後補充。Sangouard 等人對 atomic-ensemble repeater 的綜述，則把需求整理為 heralded entanglement generation、quantum storage 與 swapping，並比較不同方案能否超越直接傳輸。
+
+第二條文獻線把等待時間當作精確的隨機問題。Shchukin、Schmidt 與 van Loock 使用 Markov-chain 方法計算任意 probabilistic swap success 下的 waiting time，說明 dynamic connection scheme 會影響結果，也指出當交換成功率較低時，平均值不足以描述延遲分布。Brand、Coopmans 與 Elkouss 其後提出更有效率的算法，用於較長 probabilistic chain 的 waiting-time 與 fidelity distribution。Shchukin 與 van Loock 再把交換次序寫成 Markov decision process，顯示常見 doubling scheme 未必令 raw waiting time 最小。
+
+第三條文獻線把有限記憶體視為策略約束。Li、Coopmans 與 Elkouss 最佳化 deterministic cutoffs，量化速率與品質的折衷。Iñesta、Vardoyan、Scavuzzo 與 Wehner 把 link age 與 finite cutoff 加入 MDP，比較 homogeneous chain 中使用全局資訊的策略與較局域規則。Haldar、Barge、Khatri 與 Lee 使用 reinforcement learning，在 homogeneous 與 inhomogeneous 條件下找出 state-dependent cutoffs 與策略結構。這些成果提醒我們：本文不能把「dynamic cutoff」本身包裝成新概念。
+
+較近期工作擴闊了效能指標。Goodenough、Coopmans 與 Towsley 在指定噪聲模型下推導 swap-ASAP chain 與 global cutoff 的 exact fidelity moments 和 distributions。Haldar 等人直接研究 global knowledge 的 classical-communication cost，並為 multiplexed chains 設計 quasi-local policies。Grimbergen、Haldar、Iñesta 與 Wehner則提出不需記錄精確年齡的 probabilistic cutoff，以較少狀態資訊換取較弱的 fidelity 控制。
+
+本研究採取的是一個較窄的組合：可解釋的 span-aware cutoff family、跨異質情境選擇、對 quality-qualified delivery 使用統計下界約束，以及以 worst-scenario CVaR latency 作選擇目標。這不是「首次提出」的宣言，而是一個透明實驗：在 operating condition 不確定時，加上一層適度 robust optimization，能否比只對單一 nominal case 調校的 cutoff 更穩定地轉移？
+
+## 訓練時不偷看測試答案
+
+訓練設計交叉組合三個 elementary-link success probabilities：
+
+$$
+p\in\{0.10,0.20,0.35\},
+$$
+
+三個 swap success probabilities：
+
+$$
+q\in\{0.60,0.80,0.95\},
+$$
+
+以及三個 synthetic visibility lifetimes：
+
+$$
+T\in\{8,20,50\}.
+$$
+
+總共有 27 個 homogeneous scenarios。這些情境不是聲稱代表真實硬件參數的機率分布，而是一個結構化 stress grid：稀少與較頻密的連結、很不可靠與接近可靠的交換、短壽命與長壽命記憶體。
+
+每個候選策略在每個訓練情境至少運行 10,000 episodes。在 event interface 容許的部分，同一情境的不同策略使用 common random-number streams，藉 paired comparison 減少策略差異的 Monte Carlo noise。當兩個策略因行動不同而要求不同後續事件，它們的軌跡自然會分開；common randomness 並不把隨機證據變成確定性證明。
+
+全域閘門沒有產生可凍結策略。只有明確標示為次要分析的 $T\ge50$ cutoff $(2,2,2)$ 在 held-out evaluation 前被凍結。評估包含 40 個以 Latin-hypercube space-filling design 產生的 heterogeneous scenarios，每個使用 20,000 episodes，並加入具名 stress cases。不同 elementary segments 可以有不同 $p_i$ 與 $T_i$，不同 swap nodes 亦可有不同 $q_j$；held-out seeds 與 training seeds 完全獨立。這是對狹窄敏感度規則的 transfer diagnostic，不是看過測試結果後挽救全域主張的第二次選擇。
+
+有名稱的 stress cases 用來解釋故障機制：單一極弱 elementary link 測試 bottleneck sensitivity；短壽命記憶體鄰近可靠鏈段，測試策略是否累積注定過期的 inventory；單一低成功率 swap node 測試重複摧毀長連結的成本；左右反轉的不對稱組合，則檢查結果是否只是 left-to-right tie-breaking 的產物。這些案例不能代替 40 點評估，但能揭示 aggregate score 隱藏的弱點。
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/training-frontier.svg" alt="五類中繼排程策略在訓練情境中的 latency 與 fidelity reliability frontier。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 4。</strong> 56 個候選的訓練 frontier 最終指向全域棄權：沒有策略能在 27 個情境全部通過單側可靠度閘門。9 個情境的 policy-independent fidelity ceiling 低於 $0.80$；在 $T=8$ 時，最快路徑上限為 $0.772754$。</figcaption>
+</figure>
+
+選擇程序採 lexicographic ordering。首先移除任何在至少一個訓練情境未通過 reliability gate 的候選；在餘下策略中，才最小化最差情境的 $\operatorname{CVaR}_{0.95}(L)$；如果在預先聲明的 numerical tolerance 內仍然並列，才選擇 worst-scenario $R_{\mathrm{useful}}$ 較高者。全域執行沒有任何 survivor，因此後兩步不能憑漂亮 latency 人工製造勝者。另行聲明的九情境 $T\ge50$ 訓練層中，$(2,2,2)$ 的最小 Wilson 下界為 $0.98855$，平均 cap-restricted latency 為 $91.4606$，最差 CVaR95 為 $1512.056$，censoring 為零；這些數字只認證該訓練層。
+
+## 先驗證模擬器，後比較策略
+
+模擬器不會因為輸出漂亮圖表便自動可信。本 pipeline 先檢查存在已知答案的簡單案例。
+
+對一段 success probability 為 $p$ 的 elementary link，其等待時間 $G$ 服從 geometric distribution：
+
+$$
+\mathbb E[G]=\frac{1}{p}.
+$$
+
+若兩段獨立連結平行生成，交付時間由較慢一段決定。當 $G_1\sim\operatorname{Geom}(p_1)$、$G_2\sim\operatorname{Geom}(p_2)$，而分布支撐為 $1,2,\ldots$，則
+
+$$
+\mathbb E[\max(G_1,G_2)]
+=\frac{1}{p_1}+\frac{1}{p_2}
+-\frac{1}{p_1+p_2-p_1p_2}.
+$$
+
+Monte Carlo mean 與 empirical distribution 必須與這些解析式相符。三節點 renewal calculation 會檢查 probabilistic swapping 失敗後重新開始的影響。在 no-decoherence limit 中，只要 cutoff 已大於所有可達年齡，再延長 cutoff 不應改變 fidelity；當 generation 與 swapping 都必定成功時，時間線亦應縮減為 no-cascading convention 所決定的固定時槽數。
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/analytic-validation.svg" alt="解析 geometric waiting-time benchmark 與蒙地卡羅估計及信賴區間的比較。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 5。</strong> 解析檢查全部通過。一段連結的解析平均等待為 4.347826，Monte Carlo 為 4.359124；兩段平行連結最大值的解析結果為 6.478276，Monte Carlo 為 6.473008。三節點 renewal check 的相對差異約 1.13%，低於預先聲明的 2% 容差。</figcaption>
+</figure>
+
+其餘不變量亦通過：有限 cutoff 的兩段 exact MDP 期望 latency 為 9.206430；no-decoherence 測試的預期與觀察 fidelity 均為 0.921229677，僅有浮點精度差異；三組固定 event traces 在 Python 與 JavaScript 中逐步一致。這些結果驗證的是事件規則與計算實作，不是硬件真實性。
+
+一個小型 exact MDP 提供更強的策略檢查。它的 state 枚舉哪些連結存在及其離散年齡；transition probability 完全依照 generation、swap、aging 和 discard 規則。dynamic programming 可為縮小版問題提供 optimal action。我們不要求受限 span-cutoff family 在每個狀態都吻合 exact policy，但固定策略的模擬 value 必須與 oracle 計算一致，並且要報告最佳受限候選與 exact optimum 之間的 gap。
+
+接着，固定 event-trace fixtures 會跨越程式語言邊界。Python 與 JavaScript 讀入已指定的 generation 和 swap outcomes，而不是強迫兩種語言共用同一個 pseudorandom-number generator。兩邊在每個時槽後都必須得到相同 link set、ages、visibilities、discard、failure 與 delivery status。這是一個 model-parity test，避免互動網頁在不知不覺間教授了另一套過程。
+
+最後，模擬只使用一個有限 safety cap 去偵測 nontermination 或病態參數。達到上限的 episode 會被明確標記為 censored，不會被暗中改寫成「在上限成功交付」。如果 censoring 足以影響任何主要比較，publication gate 便會失敗，研究者必須延長 horizon 或重新選擇 estimator。
+
+### 可重現不只是「我有設定 seed」
+
+一個固定 seed 只證明同一套軟件在相同環境下可能重播同一條隨機路徑，並不足以證明整項研究可重現。完整 technical record 需要同時鎖定模型版本、事件次序、參數表、policy definition、scenario generator、episode counts、random-stream allocation、confidence interval 方法、aggregation rule，以及產生每幅圖的 machine-readable input。任何一項改變，都可能令結果改變而 seed 仍然相同。
+
+本研究因此把 evidence 分成幾層。最底層是 event-trace fixture：它不依靠隨機數，直接指定每次 generation 與 swap 的成功或失敗，檢查狀態轉移是否正確。第二層是 analytic benchmark：它檢查隨機事件的統計是否符合 geometric 與 renewal 結果。第三層是 Monte Carlo convergence：逐步增加 episodes，觀察 mean、quantile、CVaR 與 reliability bound 是否穩定。第四層才是 policy comparison，而且只能讀取已通過前三層的 summary。
+
+每一幅公開 SVG 都要能追溯到一個明確的生成程式與輸出表。網站只同步 `figures/publish/` 中經審核的資產，不會把 notebook、raw data、cache、temporary plot 或中間圖公開。這個邊界很重要：公開文章解釋已核實的證據，但不把私人 computational workspace 變成資料傾倒場；反過來，文章亦不能改寫 simulation outputs 或覆蓋研究程式。
+
+圖像驗證也不應只檢查檔案存在。SVG 需要 title、description、黑色文字、清楚 legend、足夠對比，以及在 IEEE 單欄或雙欄尺寸下仍可閱讀的字級。colour-blind-safe palette 必須配合 line style、marker 或符號冗餘，避免顏色成為唯一資訊通道。最終還要以桌面及手機寬度檢查 caption、數學式、控制元件與圖像有沒有重疊或裁切。
+
+文章中的結果句只從 frozen summary 回填，而不從 notebook 螢幕、臨時 CSV 或肉眼讀圖抄寫。如果 prose 與 machine-readable artifact 不一致，以後者為準並重新生成文章數字。這種做法看來拘謹，卻可以避免最常見的可重現性失敗：程式更新了，圖也更新了，敘述卻仍保留舊一輪實驗的數值。
+
+## 如何閱讀 held-out 棄權
+
+held-out 視圖不是單一排行榜，而是一幅 abstention map。全域 selector 早已回傳空值；進入診斷的唯一凍結規則，是次要 $T\ge50$ 敏感度層的 cutoff $(2,2,2)$。每一列代表未見過的 heterogeneous scenario，analytic ceiling、預先聲明的 stratum eligibility 與 empirical Wilson bound 必須分開閱讀。這樣才不會把物理上不可能、範圍外的診斷，以及策略本身未過 reliability gate 混為一談。
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/heldout-stress-map.svg" alt="五種策略在 held-out 異質情境中的品質達標交付與 latency 熱圖。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 6。</strong> 次要 $(2,2,2)$ cutoff 按已聲明 $T\ge50$ 範圍作凍結評估。40 個 held-out 情境沒有一個符合該 stratum rule，所以程序在 40 個情境全部棄權。當中 39 個 analytic fidelity ceiling 不低於 $0.80$；H31 在範圍外通過 empirical diagnostic，但不計為正式認證。</figcaption>
+</figure>
+
+正確解讀需要分開四個結果。第一，情境是否屬於事前聲明的高記憶壽命範圍？第二，其 analytic fidelity ceiling 是否容許達到 $0.80$？第三，凍結規則的 empirical Wilson 下界是否通過 $0.95$？第四，在完整 episode distribution 下，普通等待與 tail wait 各有多長？範圍判斷先於效能比較：如果一個情境不屬於 $T\ge50$ 層，即使它的 empirical result 很好，也只能稱為層外 diagnostic，不能在看過數字後擴張 certificate。
+
+H31 是唯一在聲明範圍外通過 empirical reliability diagnostic 的情境。其 20,000 episodes 的 fidelity attainment 為 0.9813，單側 Wilson 下界為 0.97966；mean cap-restricted latency 為 23.3338 個時槽，median 為 17，CVaR95 為 84.89，useful-entanglement rate 為每時槽 0.04205。可是它的 minimum segment lifetime 不符合事前 $T\ge50$ rule，因此這些數字只能用來描述一個診斷案例。若因為 H31 通過便事後放寬 stratum，便等於用 held-out data 重新選擇主張。
+
+把 40 個 held-out 情境全部作描述性匯總時，敏感度規則的平均 fidelity attainment 為 0.42036，最小 Wilson 下界只有 0.00745，平均 cap-restricted latency 為 41.9611 個時槽；swap-ASAP 的相應平均 latency 為 20.3662，而平均 fidelity attainment 較低，為 0.11747。這是在幾乎完全未獲認證的 ensemble 中呈現速度—品質取捨，並不是任何一個策略全面支配另一個的證據。
+
+以 held-out scenario 為 resampling unit 的 nonparametric bootstrap，把敏感度規則的平均 latency 95% interval 放在 $[35.105,50.376]$，平均 scenario-CVaR95 interval 放在 $[132.543,193.127]$，平均 useful-rate interval 則為 $[0.00891,0.01531]$。這些 intervals 量度所抽取合成情境之間的變異，不涵蓋 hardware-model uncertainty，也不能推翻 40 次正式棄權。
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/latency-tail-distribution.svg" alt="中繼排程策略的 latency distribution，標示 median、mean、95th percentile 與 CVaR。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 7。</strong> 具名 weak-centre stress 的尾部 latency。所有策略的 useful-entanglement rate 均為零。對 $(2,2,2)$ 敏感度規則，mean cap-restricted latency 為 77.7461（episode-bootstrap 95% interval：76.7389–78.7256），CVaR95 為 300.548（294.793–306.089）。</figcaption>
+</figure>
+
+distribution plot 仍然重要，因為平均值會隱藏反覆重建，但此處並不支持「所提出規則改善尾部」的說法。在 weak-centre case 中，$(2,2,2)$ 比 swap-ASAP 更慢；後者的 mean 為 31.6223，CVaR95 為 106.264，而且兩者都沒有交付 quality-qualified pair。正確結論是：聲明的策略家族無法挽救這個 stress condition，而不是用其中一個統計量改寫成勝利故事。
+
+## 失敗記帳與 ablation
+
+每一段成功交付的糾纏都有一段工作歷史。研究會記錄生成過多少 elementary links、嘗試及失敗過多少 swaps、因 deterministic 或 probabilistic cutoff 丟棄多少連結、出現多少 sub-threshold deliveries，以及有多少 capped episodes。這些 counter 令「策略為何有效或無效」成為可檢驗問題。
+
+完成的證據不支持「risk-sensitive policy 已經改善 tail latency」這個機制故事。discard 與 swap-failure counters 仍可解釋 cutoffs 改變時工作如何損失，ablation 亦可顯示 reliability 與 latency 如何移動；但它們的角色是解釋棄權及揭示 trade-off，而不是在全域 feasible set 為空後再拼湊一個優勝敘事。
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/robustness-convergence.svg" alt="連結丟棄與交換失敗、策略 ablation、蒙地卡羅收斂及 censoring diagnostics 的多面板圖。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖 8。</strong> 凍結 evidence run 的收斂與 cutoff ablation。計算完成 1,512 萬個 decisive candidate-training episodes、額外 27 萬個 probabilistic-baseline training episodes、400 萬個 held-out episodes，以及 40 萬個 stress episodes；所有已報告比較的 censoring 均為零。</figcaption>
+</figure>
+
+決定性候選搜尋、baseline、held-out 與 stress evaluation 在記錄環境的 vectorized evidence kernel 中合共少於九秒。4,000-slot safety cap 沒有 censor 任何 episode。高速計算令負面結果更容易審核，卻不會把它變成正面結果：全域 constraint 不可行，而高記憶壽命 sensitivity certificate 在這組 held-out design 中沒有任何同層案例可供認證轉移。
+
+## 即使未看排行榜，模型仍告訴我們甚麼
+
+第一，品質是一個具有歷史的預算。因為 swap visibility 乘上兩個 input visibilities，一個對單段 elementary pair 看似無害的年齡，在經歷幾層連接後可以成為決定性損失。只根據最新 component 年齡的 cutoff 會遺失資訊；根據 effective visibility 決策較完整，卻要求更多狀態紀錄與 calibration。
+
+第二，「保留已完成工作」不一定理性。long-span link 代表更多成功事件，但它亦會佔用 endpoint memories 並繼續退化。它的 option value 取決於缺少的 complement 何時到達以及到達機率。這與 optimal stopping 的直覺一致：過去投入是 sunk cost，未來仍有多少用途才是決策重點。
+
+第三，不對稱會改變年齡的意思。一段三個時槽大的連結，如果旁邊鏈段成功率高，可能值得多等；同一連結若鄰近嚴重 bottleneck，則未必能活到對方成功。span-aware cutoff 只間接近似這種差異；更豐富的控制器會同時考慮位置、鄰居成功率與整個 active-link pattern。
+
+第四，資訊與控制互相耦合。精確 age tracking 才能執行 deterministic cutoff；global state 才能協調交換。但這些優勢需要 timestamp、herald 與 classical message。本模型假設資訊成本為零；quasi-local literature 則提醒我們，一旦 communication delay 令記憶體在等待控制訊息時繼續老化，策略排名可能改變。
+
+第五，reliability constraint 可以令 nominal optimum 出現不連續。cutoff 增加一個時槽，可能只輕微改變 mean latency，卻令足夠多交付跌穿 $F_{\min}$，使候選由可行變為不可行。因此，畫一條 unconstrained objective curve 再選最低點，並不等同 constrained policy design。
+
+第六，低平均延遲與高有效產出不是同一件事。若系統很快便交付一段低 fidelity link，它完成了 episode，卻未必完成應用任務。把成功交付與 quality-qualified delivery 分開，迫使模型說清楚「快」究竟是甚麼。
+
+## 讀圖時的四個陷阱
+
+第一個陷阱是把顏色較深的 cell 直接理解為「策略較好」。heat map 只可同時編碼有限資訊；如果顏色表示 CVaR，它便沒有自動告訴你 fidelity gate 是否通過。因此圖 6 另外以符號標出 reliability failure，而正文必須分開報告 quality、latency 與 useful rate。任何把三者壓成單一顏色的圖，都需要公開 normalization 與 weighting，否則視覺排序可能只是設計者偏好的反映。
+
+第二個陷阱是把窄 confidence interval 當成模型正確。大量 episodes 可以令 simulation mean 的 Monte Carlo interval 很窄，但它只代表在既定轉移規則下抽樣誤差較小。如果實際 link attempts 有時間相關、memory decay 不是指數、或 classical delay 不可忽略，再多 synthetic episodes 亦不會修補 model bias。圖中的 uncertainty bar 必須清楚標明它包含哪一層不確定性。
+
+第三個陷阱是只比較 percentage change 而忘記基準。若某極端情境的 latency 非常大，一個看來很大的百分比改善可能仍然遠離可用範圍；反之，在高效情境中的小百分比變化可能對實際 throughput 更重要。文章因此同時保留 absolute slots、relative difference 與 scenario parameters，不以單一百分比代替量級。
+
+第四個陷阱是把「在 40 個情境中勝出較多」理解為對所有未知情況都有較高勝率。Latin-hypercube points 是為 coverage 而設計，不是由一個已知 deployment distribution 抽樣；每個情境亦不一定有相同現實權重。「勝出 30 個」只能描述這 40 個測試點。若要計算期望部署效能，便要另外提出並辯護 operating-condition distribution。
+
+一個可靠的閱讀次序是：先看解析與 parity tests 有沒有通過，再看每個策略是否滿足 fidelity constraint，之後比較 median、mean 與 tail，最後用 discard 和 swap-failure counters 判斷機制是否與解釋一致。若結果排名與機制證據互相矛盾，應先視為需要調查的訊號，而不是挑選較好看的敘述。
+
+這種讀圖方法同樣適用於其他 stochastic scheduling 問題，例如易腐庫存、通訊重傳、維修備件與期限任務。漂亮的 aggregate score 只是一個起點；真正有研究價值的問題，是哪種風險被計入、哪種失敗被隱藏，以及策略在未見條件下如何失效。
+
+還有一個容易忽略的細節：不同圖之間必須使用一致的 policy 名稱、顏色、線型與 marker。如果同一策略在 frontier 是藍色實線，在 tail plot 卻變成橙色虛線，讀者便要重新學習視覺語言，也更容易把結論配錯對象。本專案為五個 policy families 固定一套可存取的編碼，並讓黑色座標文字與直接標籤優先於裝飾。圖說會說明樣本單位、情境集合、interval 定義與 threshold；只要圖說不能獨立回答「比較誰、量度甚麼、資料從哪裏來」，該圖就未達發表標準。
+
+最後，互動實驗室與正式圖表扮演不同角色。互動軌跡幫助讀者建立機制直覺，卻不能取代批次統計；靜態圖保存凍結分析，卻不能展示每一次狀態轉移。兩者使用同一事件定義和 parity fixture，目的正是讓探索與證據互相補足，而不是讓一段生動動畫凌駕於可重現結果。
+
+## 本研究不能證明甚麼
+
+中繼鏈只有五個節點，每個鄰居亦只有一個 memory。模型排除 multiplexing、purification、error-corrected repeaters、alternative-path routing、多用戶 contention、continuous entanglement service，以及 application queueing。這些不是微小工程細節：multiplexing 會改變 action space 與 inventory value；purification 會消耗多個 pairs 去提升品質；routing 則令 local scheduling 與 network-level demand 互相影響。
+
+Werner-coordinate model 假設特定的對稱噪聲。真實量子記憶體會受到平台相關 dephasing、relaxation、leakage、control error、spectral diffusion 與 correlated noise；swap quality 亦可能取決於 input state 與硬件狀態。一個指數 link-visibility lifetime 無法辨識這些機制。
+
+generation 與 swap probabilities 被視為 stationary，而且每次 eligible attempt 互相獨立。天氣、光纖漂移、detector dead time、source fluctuation、calibration cycle 與 common-mode failure 都會破壞此假設。相關性尤其可能加厚 waiting-time tail，而那正是 risk-sensitive policy 聲稱要處理的部分。
+
+classical communication 在模型中即時完成；processing 與 operation duration 均吸收到一個 slot。模型沒有距離尺度，所以「每時槽多少 pairs」不能在沒有硬件與 geometry layer 的情況下轉為 pairs per second。它亦沒有加入端點得知 end-to-end pair 已建立所需的 acknowledgement delay。
+
+training 與 held-out designs 只取樣自明確聲明的 synthetic box。box 內的 robustness 不代表對任意裝置或 model misspecification 都穩健。Latin hypercube 改善指定變數的 coverage，並不令它們突然變成 empirical data。單側 confidence bound 控制的是模型內的 simulation uncertainty，而不是模型是否真實的 epistemic uncertainty。
+
+最後，fidelity 高於 $0.80$ 不是通用用途證書。不同應用對 state、rate、security 與 composability 有不同要求。本文沒有推導 secret-key fraction，不能用來聲稱 secure QKD；它只是以透明品質門檻研究排程。
+
+## 下一步可以怎樣把問題做深
+
+第一個延伸應為 classical information 定價。加入依距離而定的 heralding 與 swap acknowledgement，然後比較同一 cutoff family 的 global、quasi-local 與 fully local variants。需要回應的指標不只有 latency，亦包括每一個 quality-qualified pair 所需控制訊息的數量和傳播範圍。
+
+第二個延伸應以 partially observed environment 取代 stationary probabilities。讓 link quality 在多個 regime 間切換或隨時間漂移，控制器便同時面對 scheduling 與 learning：現在丟棄，是因為連結太舊，還是因為鄰居只是短暫失靈，值得多等？distributionally robust 或 Bayesian policies 可以表達對 regime 的不確定，而不用假裝知道真實 transition law。
+
+第三個延伸是加入 multiplexing 與 application demand。當每個鄰居有多個 memories，問題變成 inventory allocation：哪些 pairs 應該交換、purify、保留或丟棄？tail risk 亦可由「空系統第一個 pair」擴展為多個請求的 service-level deadline。
+
+第四個延伸是把 policy abstraction 連接到 hardware-specific noise。與其把 $T$ 當作 generic visibility lifetime，不如由選定 memory channel、operation schedule 與 measured parameter uncertainty 推導 state transition。屆時，合成研究成為一套可重用 experimental design，其參數可以換成由獨立來源取得的 calibration distributions。
+
+第五個延伸是擴大 exact oracle，再把 optimal policy 壓縮成易解釋規則。decision tree、monotone rule 或 symbolic regression 都可用來揭示哪些 state features 真正控制最佳行動。目的不是為了宣傳人工智能，而是量度一套 globally optimized policy 壓縮成節點可理解、可實作規則時會失去多少效能。
+
+第六個延伸是把單一目標改成多目標與 constraint sensitivity。不同應用可能要求 $F_{\min}=0.70$、$0.80$ 或 $0.90$，亦可能對 99th percentile 比 CVaR95 更敏感。與其為每個門檻重新講一個故事，不如畫出 policy stability region：哪些參數範圍內同一策略仍然可行，在哪些位置策略選擇會突變？
+
+## 實際可帶走的建模觀念
+
+量子中繼器並非單純等待四枚硬幣同時出現正面。它管理的是由不確定事件生成、會隨時間變質、又會被不確定轉換消耗的庫存。mean delivery time 只能描述其中一部分；fidelity reliability 告訴我們交付是否仍有用途；CVaR 描述最慢 episodes 有多嚴重；work-loss counter 則解釋為何會出現該結果。
+
+risk-sensitive selector 最重要的輸出是 `null`。56 個候選沒有一個可通過完整訓練閘門，部分原因是 9 個情境連 fidelity target 在解析上也不可達。拒絕替不可行候選排名，本身就是實質建模結果：它把排程器的能力邊界，與假設物理條件的能力邊界分開。如果研究流程強迫每次搜尋都交出「最佳策略」，這個分別便會被一個看來完整、實際上沒有資格的答案掩蓋。
+
+次要高記憶壽命實驗再帶來一項警告。cutoff $(2,2,2)$ 在事前聲明的 $T\ge50$ 九個訓練情境有很強的統計認證，但 40 個 heterogeneous held-out scenarios 沒有一個屬於相同 stratum，因此程序全部棄權。H31 的層外 empirical pass 可作診斷，卻不是事後放寬 claim scope 的許可。這不證明 cutoff control 無效，也沒有建立另一策略較優；它證明的是狹窄 sensitivity certificate 不能升格為全域 robustness claim。
+
+不論最終排名如何，這個建模原則仍然成立：**當資源在等待期間持續衰減，排程、品質與不確定性必須放在同一個模型中處理。** 若把記憶體當成靜態盒子，或把 latency 壓縮成單一平均值，我們便刪除了中繼器真正需要作出的決策。
+
+更重要的是，完整模型不只產生一個答案，也清楚列出答案在哪些假設下才成立、哪些觀察會推翻解釋，以及下一輪實驗應優先縮窄哪一種不確定性。這才是可延續的數學建模，而不是一次性的排行榜。
+
+## 參考文獻
+
+1. H.-J. Briegel, W. Dür, J. I. Cirac, and P. Zoller (1998). “Quantum Repeaters: The Role of Imperfect Local Operations in Quantum Communication.” *Physical Review Letters, 81*, 5932–5935. [https://doi.org/10.1103/PhysRevLett.81.5932](https://doi.org/10.1103/PhysRevLett.81.5932)
+2. N. Sangouard, C. Simon, H. de Riedmatten, and N. Gisin (2011). “Quantum repeaters based on atomic ensembles and linear optics.” *Reviews of Modern Physics, 83*, 33–80. [https://doi.org/10.1103/RevModPhys.83.33](https://doi.org/10.1103/RevModPhys.83.33)
+3. E. Shchukin, F. Schmidt, and P. van Loock (2019). “Waiting time in quantum repeaters with probabilistic entanglement swapping.” *Physical Review A, 100*, 032322. [https://doi.org/10.1103/PhysRevA.100.032322](https://doi.org/10.1103/PhysRevA.100.032322)
+4. S. Brand, T. Coopmans, and D. Elkouss (2020). “Efficient computation of the waiting time and fidelity in quantum repeater chains.” *IEEE Journal on Selected Areas in Communications, 38*, 619–639. [https://doi.org/10.1109/JSAC.2020.2969037](https://doi.org/10.1109/JSAC.2020.2969037)
+5. B. Li, T. J. Coopmans, and D. Elkouss (2021). “Efficient Optimization of Cutoffs in Quantum Repeater Chains.” *IEEE Transactions on Quantum Engineering, 2*, 4103015. [https://doi.org/10.1109/TQE.2021.3099003](https://doi.org/10.1109/TQE.2021.3099003)
+6. E. Shchukin and P. van Loock (2022). “Optimal Entanglement Swapping in Quantum Repeaters.” *Physical Review Letters, 128*, 150502. [https://doi.org/10.1103/PhysRevLett.128.150502](https://doi.org/10.1103/PhysRevLett.128.150502)
+7. Á. G. Iñesta, G. Vardoyan, L. Scavuzzo, and S. Wehner (2023). “Optimal entanglement distribution policies in homogeneous repeater chains with cutoffs.” *npj Quantum Information, 9*, 46. [https://doi.org/10.1038/s41534-023-00713-9](https://doi.org/10.1038/s41534-023-00713-9)
+8. S. Haldar, P. J. Barge, S. Khatri, and H. Lee (2024). “Fast and reliable entanglement distribution with quantum repeaters: Principles for improving protocols using reinforcement learning.” *Physical Review Applied, 21*, 024041. [https://doi.org/10.1103/PhysRevApplied.21.024041](https://doi.org/10.1103/PhysRevApplied.21.024041)
+9. K. Goodenough, T. Coopmans, and D. Towsley (2025). “On noise in swap ASAP repeater chains: exact analytics, distributions and tight approximations.” *Quantum, 9*, 1744. [https://doi.org/10.22331/q-2025-05-15-1744](https://doi.org/10.22331/q-2025-05-15-1744)
+10. S. Haldar, P. J. Barge, X. Cheng, K.-C. Chang, B. T. Kirby, S. Khatri, C. W. Wong, and H. Lee (2025). “Reducing classical communication costs in multiplexed quantum repeaters using hardware-aware quasi-local policies.” *Communications Physics, 8*, 132. [https://doi.org/10.1038/s42005-025-02029-w](https://doi.org/10.1038/s42005-025-02029-w)
+11. J. Grimbergen, S. Haldar, Á. G. Iñesta, and S. Wehner (2026). “Probabilistic Cutoffs in Homogeneous Quantum Repeater Chains.” arXiv:2602.14738 [quant-ph], preprint. [https://arxiv.org/abs/2602.14738](https://arxiv.org/abs/2602.14738)

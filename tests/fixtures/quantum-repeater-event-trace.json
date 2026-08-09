@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "description": "Language-neutral event trace for Python/JavaScript parity; random values are consumed in phase order.",
+  "slotOrder": ["age", "generate", "select-swaps", "resolve-swaps", "discard", "deliver"],
+  "config": {
+    "generationProbability": 0.5,
+    "swapProbability": 0.8,
+    "memoryLifetime": 20,
+    "cutoff": 8,
+    "fidelityThreshold": 0.8,
+    "policy": "risk-sensitive",
+    "seed": 7,
+    "maxSlots": 20,
+    "initialVisibility": 0.98,
+    "swapQuality": 0.99,
+    "probabilisticDiscardHazard": 0.125
+  },
+  "randomTape": [0.1, 0.1, 0.9, 0.9, 0.1, 0.1, 0.1, 0.1, 0.1],
+  "expected": {
+    "delivered": true,
+    "censored": false,
+    "latency": 3,
+    "fidelity": 0.827733,
+    "useful": true,
+    "counters": { "generated": 4, "swapsAttempted": 3, "swapsFailed": 0, "discarded": 0 },
+    "trace": [
+      {
+        "slot": 1,
+        "events": [
+          { "phase": "age", "count": 0 },
+          { "phase": "generate", "links": [[0, 1], [1, 2]] },
+          { "phase": "select-swaps", "pairs": [[[0, 1], [1, 2]]] },
+          { "phase": "resolve-swaps", "attempts": [{ "input": [[0, 1], [1, 2]], "success": true, "output": [0, 2] }] },
+          { "phase": "discard", "links": [] },
+          { "phase": "deliver", "delivered": false, "fidelity": null, "useful": false }
+        ],
+        "state": [{ "start": 0, "end": 2, "age": 0, "visibility": 0.950796 }]
+      },
+      {
+        "slot": 2,
+        "events": [
+          { "phase": "age", "count": 1 },
+          { "phase": "generate", "links": [[2, 3], [3, 4]] },
+          { "phase": "select-swaps", "pairs": [[[2, 3], [3, 4]]] },
+          { "phase": "resolve-swaps", "attempts": [{ "input": [[2, 3], [3, 4]], "success": true, "output": [2, 4] }] },
+          { "phase": "discard", "links": [] },
+          { "phase": "deliver", "delivered": false, "fidelity": null, "useful": false }
+        ],
+        "state": [
+          { "start": 0, "end": 2, "age": 1, "visibility": 0.904425 },
+          { "start": 2, "end": 4, "age": 0, "visibility": 0.950796 }
+        ]
+      },
+      {
+        "slot": 3,
+        "events": [
+          { "phase": "age", "count": 2 },
+          { "phase": "generate", "links": [] },
+          { "phase": "select-swaps", "pairs": [[[0, 2], [2, 4]]] },
+          { "phase": "resolve-swaps", "attempts": [{ "input": [[0, 2], [2, 4]], "success": true, "output": [0, 4] }] },
+          { "phase": "discard", "links": [] },
+          { "phase": "deliver", "delivered": true, "fidelity": 0.827733, "useful": true }
+        ],
+        "state": [{ "start": 0, "end": 4, "age": 0, "visibility": 0.77031 }]
+      }
+    ]
+  }
+}

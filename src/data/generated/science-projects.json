@@ -4268,5 +4268,101 @@
     "documentation_excerpt": "A private synthetic laboratory for conditional volatility, tail modelling, and risk-forecast backtesting.",
     "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/heavy-tailed-financial-risk/README.md",
     "local_hero_image": "/science/heavy-tailed-financial-risk/returns-and-volatility.svg"
+  },
+  {
+    "slug": "risk-sensitive-quantum-repeater-scheduling",
+    "title": "When Entanglement Expires",
+    "summary": "A synthetic quantum-repeater scheduling study tests reliability-constrained cutoff policies and abstains when no candidate can meet the declared global fidelity gate.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Quantum Networks",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Discrete-event Monte Carlo",
+      "Werner-visibility model",
+      "Reliability-constrained CVaR policy selection"
+    ],
+    "featured": true,
+    "project_root": "risk-sensitive-quantum-repeater-scheduling",
+    "hero_image": "risk-sensitive-quantum-repeater-scheduling/figures/publish/mechanism-timeline.svg",
+    "publish_assets": [
+      {
+        "filename": "mechanism-timeline.svg",
+        "alt": "A five-node quantum repeater chain and one-slot event timeline from memory ageing through delivery.",
+        "caption": "The declared event order prevents same-slot cascade and makes waiting-induced visibility loss explicit.",
+        "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+        "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/mechanism-timeline.svg"
+      },
+      {
+        "filename": "analytic-validation.svg",
+        "alt": "Simulation estimates compared with geometric waiting-time formulas, a renewal result, and a small exact MDP oracle.",
+        "caption": "Independent analytical checks bound the implementation before policy comparisons are interpreted.",
+        "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+        "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/analytic-validation.svg"
+      },
+      {
+        "filename": "memory-decay.svg",
+        "alt": "Werner visibility and fidelity decay curves with the fastest-path fidelity ceiling across memory lifetimes.",
+        "caption": "For the shortest declared lifetime, even the fastest admissible path falls below the fidelity threshold.",
+        "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+        "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/memory-decay.svg"
+      },
+      {
+        "filename": "policy-decision-map.svg",
+        "alt": "Decision map comparing swap-as-soon-as-possible, fixed, random-discard, nominal stage-aware, and stratified cutoff rules.",
+        "caption": "The policies differ only in declared discard decisions; all share the same event semantics.",
+        "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+        "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/policy-decision-map.svg"
+      },
+      {
+        "filename": "training-frontier.svg",
+        "alt": "Training reliability and tail-latency frontier showing that no candidate passes the global fidelity constraint.",
+        "caption": "The primary selector abstains because the globally feasible candidate set is empty.",
+        "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+        "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/training-frontier.svg"
+      },
+      {
+        "filename": "heldout-stress-map.svg",
+        "alt": "Held-out scenario map of policy fidelity attainment and abstention under heterogeneous link conditions.",
+        "caption": "A high-memory sensitivity policy does not generalise into a globally certified rule.",
+        "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+        "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/heldout-stress-map.svg"
+      },
+      {
+        "filename": "latency-tail-distribution.svg",
+        "alt": "Mean and tail latency summaries for baseline policies and the separately labelled high-memory sensitivity rule.",
+        "caption": "Fidelity protection and latency tails must be read together; no universal winner is asserted.",
+        "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+        "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/latency-tail-distribution.svg"
+      },
+      {
+        "filename": "robustness-convergence.svg",
+        "alt": "Monte Carlo convergence, censoring, and named-stress diagnostics for the quantum repeater study.",
+        "caption": "Convergence and zero censoring support the numerical summaries, not hardware-level validity.",
+        "generated_by": "risk-sensitive-quantum-repeater-scheduling/quantum_repeater/figures.py",
+        "source_path": "risk-sensitive-quantum-repeater-scheduling/figures/publish/robustness-convergence.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/risk-sensitive-quantum-repeater-scheduling",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/risk-sensitive-quantum-repeater-scheduling",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic protocol-level quantum-repeater episodes",
+    "research_question": "Can a frozen span-aware cutoff policy satisfy a scenario-wide fidelity reliability gate while controlling mean and tail delivery latency?",
+    "limitations": [
+      "The model is synthetic and is not calibrated to measured quantum-network hardware.",
+      "It assumes instantaneous classical knowledge, one memory qubit per neighbour, and no same-slot cascading swaps.",
+      "The global reliability gate is infeasible for part of the declared scenario grid, and the secondary high-memory policy is not globally certified."
+    ],
+    "reproduce_command": "cd risk-sensitive-quantum-repeater-scheduling && .venv\\Scripts\\python.exe run_study.py --profile evidence",
+    "last_updated": "2026-08-09",
+    "category": "Quantum Networks",
+    "readme_path": "risk-sensitive-quantum-repeater-scheduling/README.md",
+    "documentation_excerpt": "A private synthetic protocol study of memory decay, cutoff scheduling, tail latency, and reliability-aware abstention.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/risk-sensitive-quantum-repeater-scheduling/README.md",
+    "local_hero_image": "/science/risk-sensitive-quantum-repeater-scheduling/mechanism-timeline.svg"
   }
 ]

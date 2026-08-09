@@ -11,6 +11,7 @@
     "dev": "node scripts/sync-science-projects.mjs && node scripts/migrate-legacy-writing.mjs && astro dev",
     "sync:science": "node scripts/sync-science-projects.mjs",
     "test:publication": "node scripts/science-sync-policy.test.mjs",
+    "test:quantum-repeater": "node tests/quantum-repeater-model.test.mjs",
     "migrate:legacy": "node scripts/migrate-legacy-writing.mjs",
     "validate:content": "astro check",
     "check:redirects": "node scripts/check-redirects.mjs",

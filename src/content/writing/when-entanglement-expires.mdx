@@ -1,0 +1,364 @@
+---
+title: "When Entanglement Expires: Risk-Sensitive Scheduling for Quantum Repeater Chains"
+slug: when-entanglement-expires
+summary: A mathematical-modeling study of how a quantum repeater should trade speed against decoherence when link generation and entanglement swapping are probabilistic.
+date: 2026-08-09
+lastUpdated: 2026-08-09
+featured: true
+topics: [quantum networks, stochastic scheduling, quantum repeaters, tail risk, robust optimization, Monte Carlo]
+heroImage: /science/risk-sensitive-quantum-repeater-scheduling/mechanism-timeline.svg
+type: Research Notes
+archived: false
+readingMinutes: 28
+scienceProject: risk-sensitive-quantum-repeater-scheduling
+redirectFrom: []
+---
+
+import QuantumRepeaterLab from "../../components/QuantumRepeaterLab.astro";
+
+Entanglement is useful precisely because it is not an ordinary message. Two separated quantum memories can share a state whose correlations cannot be reproduced by a classical local model. That shared state can support teleportation, distributed computation, sensing, and cryptographic protocols. Yet the same fragility that makes the resource quantum also makes it perishable. Photons are lost. Link attempts fail. Stored qubits decohere while they wait. A swap that tries to join two short links can consume both and still fail.
+
+This creates a scheduling problem with an unusual clock. Waiting can improve coordination because a missing neighboring link may arrive in the next slot. Waiting can also destroy the value already stored. Swapping immediately can release memory and shorten the route to an end-to-end pair. It can equally spend two good links on an unreliable operation before the rest of the chain is ready. Discarding an old pair looks wasteful, but keeping it may guarantee that any eventual delivery misses the fidelity required by the application.
+
+The central question of this study is therefore not simply **how quickly can a repeater chain deliver entanglement?** It is:
+
+> How should a short chain schedule generation, swapping, waiting, and discarding when it must deliver sufficiently faithful entanglement reliably—not merely quickly on average?
+
+We answer that question with a deliberately compact synthetic model: five nodes, four elementary links, heralded Bernoulli successes, exponentially decaying Werner visibility, and probabilistic swaps. The policy search is not a black-box controller. It tests a small, interpretable family of span-aware memory cutoffs and is allowed to return no answer when none earns the required one-sided reliability certificate.
+
+This is a protocol-level computational study, not a hardware demonstration. Its memory lifetime is a dimensionless visibility-decay parameter, not a claimed $T_2$ for any device. It does not calculate a secret-key rate, certify security, or claim performance on a deployed quantum network. The value of the model is narrower and, I think, more transferable: it turns the conflict between speed, quality, and uncertainty into a reproducible mathematical decision problem.
+
+The frozen global result is **abstention**. None of the 56 monotone cutoff candidates was certified across all 27 training scenarios, so the selector returned `selected_policy: null`. This is not a failed program run. Nine of the 27 scenarios are below a policy-independent fidelity ceiling. At $T=8$, even the fastest admissible two-slot path reaches only $F_{\max}=0.772754$, below the required $0.80$. No scheduling rule can repair that physical-model ceiling.
+
+A secondary sensitivity analysis asks a different and narrower question. Restricted to the declared high-memory stratum $T\ge50$, the selector certified cutoffs $(2,2,2)$ on its nine training scenarios. Its minimum Wilson lower bound was $0.98855$, its mean cap-restricted latency was $91.4606$ slots, and its worst CVaR95 was $1512.056$ slots. This is **not** a globally robust success. None of the 40 heterogeneous held-out scenarios met that declared stratum rule, so the frozen procedure abstained in all 40. One scenario passed the empirical reliability test as an out-of-stratum diagnostic, but it cannot be counted as a certification under a rule declared before evaluation.
+
+## The repeater idea, without the hardware mythology
+
+Sending a photon farther usually means exposing it to more loss. Classical communication compensates with amplification and regeneration. An unknown quantum state cannot simply be copied and amplified in that way. A repeater architecture instead divides a long route into shorter elementary segments. Neighboring nodes first create entangled pairs over those segments. An intermediate node then performs a Bell-state measurement on two memories, consuming their short links and—if the operation succeeds—leaving the outer memories entangled. Repeating this connection operation can extend entanglement across the chain.
+
+That description sounds sequential, but the elementary links are generated probabilistically and often in parallel. Suppose four links are needed. Link 1 might succeed in the first slot, links 2 and 4 in the sixth, and link 3 only in the fifteenth. The first stored pair has then aged through fourteen updates while everyone waits for the bottleneck. If two adjacent links become ready, the controller can swap them into a longer virtual link. That longer link still occupies endpoint memories and still decoheres. Its quality carries the history of both inputs and the swap operation.
+
+The schedule is therefore part of the physical performance model. The same link success probabilities, memory decay law, and swap quality can produce different latency and fidelity distributions under different decisions. A policy that minimizes mean time under perfect memories can be a poor choice once stored states lose visibility. A policy that guarantees fresh states by discarding aggressively can spend most of its time rebuilding links and deliver almost nothing.
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/mechanism-timeline.svg" alt="Five-node quantum repeater chain and a slot-by-slot timeline of link generation, aging, swapping, discarding, and delivery." width="960" height="580" loading="eager" decoding="async" />
+  <figcaption><strong>Figure 1.</strong> The model follows a five-node, four-segment chain. Existing links age before empty elementary segments attempt generation; valid swaps are selected from the heralded state, swap outcomes are resolved, over-age links are discarded, and an end-to-end link is checked for delivery. The ordering is part of the model, not a software detail.</figcaption>
+</figure>
+
+Figure 1 also fixes a source of silent disagreement between simulators. Does a new elementary link age immediately? Can a newly created length-two link be swapped again in the same slot? Is the cutoff checked before or after a swap? A prose description such as “swap as soon as possible” does not settle these questions. Here one slot always follows the same order:
+
+1. age every link that existed at the start of the slot;
+2. attempt generation on each empty elementary segment;
+3. choose a non-conflicting set of swaps from the resulting heralded state;
+4. resolve those swaps, consuming both inputs whether the attempt succeeds or fails;
+5. discard links that violate the active policy cutoff; and
+6. test whether a length-four end-to-end pair has been delivered.
+
+No newly swapped link participates in another swap during that slot. This “no cascading” convention gives all policies the same information boundary and makes event traces auditable across the Python research engine and the browser lab.
+
+## A small experiment you can operate
+
+The controls below run the same conceptual chain at teaching scale. Increase the generation probability and links appear sooner. Reduce the memory lifetime and stored visibility falls more quickly. A short cutoff protects freshness but triggers more rebuilding. A long cutoff saves work but tolerates older links. Change the random seed to see why one trajectory is not a performance estimate.
+
+<QuantumRepeaterLab locale="en" mode="compact" seed={20260809} />
+
+Use the lab to compare two runs with the same seed and different cutoffs. Common randomness makes the comparison easier to interpret: both policies face the same underlying success stream until their different actions change which random events are requested. Then change the seed. A setting that looks excellent in one trace may have merely avoided an unlucky run. The study below therefore evaluates distributions over thousands of episodes rather than selecting an appealing animation.
+
+## State, quality, and the mathematics of aging
+
+Label the nodes $0,1,2,3,4$. A stored link $e=(i,j)$ connects two nodes with span
+
+$$
+\ell(e)=j-i\in\{1,2,3,4\}.
+$$
+
+Its state record contains its endpoints, its age $a_e$, and its Werner visibility $w_e$. Visibility is a convenient scalar quality coordinate for the synthetic noise model. A Werner state can be written as a mixture centered on a Bell state, and its Bell-state fidelity is
+
+$$
+F_e=\frac{1+3w_e}{4}.
+$$
+
+Thus $w=1$ corresponds to fidelity one, while $w=0$ approaches the fully mixed value $1/4$. The default elementary link begins at $w_0=0.98$. During one slot of storage, a link associated with lifetime $T_e$ decays as
+
+$$
+w_e(a_e+1)=w_e(a_e)\exp\!\left(-\frac{\Delta t}{T_e}\right).
+$$
+
+We set the slot length $\Delta t=1$, so every quoted lifetime is measured in slots. The symbol $T_e$ describes the exponential decay of *two-qubit link visibility* in this abstraction. It should not be read as the dephasing time of a specific isolated hardware qubit. That distinction prevents a parameter chosen for a synthetic stress test from masquerading as a laboratory specification.
+
+If adjacent links $e_L=(i,k)$ and $e_R=(k,j)$ are swapped successfully, the new visibility is
+
+$$
+w_{ij}=g_{\mathrm{swap}}\,w_{ik}w_{kj},
+$$
+
+with default gate-quality factor $g_{\mathrm{swap}}=0.99$. Multiplication is important. A long link inherits degradation from both inputs; repeated swapping compounds the loss. The swap succeeds with probability $q_k$. Failure consumes both input links and produces no output. On an empty elementary segment $i$, a fresh pair is generated with probability $p_i$ per eligible slot.
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/memory-decay.svg" alt="Curves mapping memory age to Werner visibility and Bell-state fidelity for several synthetic memory lifetimes." width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 2.</strong> Exponential visibility decay translated into Bell-state fidelity. The fidelity threshold becomes an age budget, but repeated swaps spend that budget multiplicatively. All plotted lifetimes are synthetic link-level parameters measured in slots.</figcaption>
+</figure>
+
+The delivery threshold is $F_{\min}=0.80$ in the main analysis, with $0.70$ and $0.90$ used for sensitivity checks. A completed end-to-end link counts as *quality-qualified* only if $F\ge F_{\min}$. An episode still records a sub-threshold delivery, because hiding it would inflate the apparent reliability of a policy.
+
+This state representation intentionally omits amplitudes and density matrices beyond the Werner coordinate. Under the assumed depolarizing structure, visibility supplies a transparent scalar accounting rule. Outside that structure, two states with the same Bell fidelity need not behave identically under later operations. The model is therefore a scheduling laboratory, not a universal quantum-state simulator.
+
+## Feasible actions and memory constraints
+
+Each intermediate node has one memory associated with each neighbor; each end node has one. That capacity prevents overlapping links from using the same qubit. At a decision point the controller may:
+
+- attempt generation on any empty elementary memory pair;
+- swap two adjacent stored links that meet at an intermediate node;
+- wait, retaining a link for a later slot; or
+- discard a stored link so its memories can be reused.
+
+The generation rule is automatic whenever an elementary pair is empty. The scheduling policies differ in how they prioritize non-conflicting swaps and when they discard. If two candidate swaps share an input link, they cannot both occur. A deterministic ordering resolves ties, which makes fixed seeds reproducible.
+
+We assume that successful generation and swapping are heralded and that the scheduler immediately knows the chain state at the slot boundary. Classical communication delay is not added to latency or link age. This is an optimistic coordination assumption. Haldar and colleagues’ later work on quasi-local policies shows why information itself has a cost in more realistic networks. Here we remove that cost deliberately so the experiment can isolate memory management and tail latency. A result under instantaneous knowledge should be interpreted as a scheduling benchmark, not an implementable timing guarantee.
+
+## Five policies, one honest comparison
+
+The study compares five policy families rather than presenting the proposed rule in isolation.
+
+**Swap-ASAP with no cutoff** attempts a valid swap whenever two adjacent links are available and never discards because of age. It is simple, local in spirit, and useful as a reference. It also permits very old inputs, so a delivered link can be fast in some episodes but unusable in others.
+
+**A nominal deterministic cutoff** discards any link older than one cutoff tuned for a single central scenario. This tests whether the familiar “throw away old entanglement” rule survives a distribution shift.
+
+**An age-oblivious probabilistic cutoff** discards a link with a fixed probability without tracking its exact age. Grimbergen et al. motivate this class as a lower-information alternative to deterministic age tracking. It cannot enforce a hard freshness rule, but it may obtain a useful rate-quality compromise with less state.
+
+**A nominal mean-optimal stage-aware cutoff** allows the cutoff to depend on link span and chooses the setting that minimizes mean latency in the central scenario. It separates the benefit of a richer policy class from the benefit of robustness or tail-aware selection.
+
+**The risk-sensitive stage-aware selector** searches the same interpretable policy class across the full training grid. A candidate must first pass a fidelity-reliability constraint. Only if feasible candidates exist does the selector minimize worst-scenario CVaR latency, with worst-scenario useful-entanglement rate used as a tie-breaker. In the completed global analysis, that feasible set was empty and the selector abstained. The cutoff triple $(2,2,2)$ belongs only to the separately declared $T\ge50$ sensitivity stratum.
+
+For spans one, two, and three, the cutoff vector is
+
+$$
+\boldsymbol c=(c_1,c_2,c_3),
+\qquad c_1\le c_2\le c_3,
+$$
+
+where each entry is selected from
+
+$$
+\{2,4,8,12,20,\infty\}.
+$$
+
+There are 56 monotone candidates. A length-four link is delivered immediately and needs no further storage cutoff. The monotonicity constraint encodes a modest structural belief: a link representing more completed work should not receive a shorter allowed lifetime merely because it spans farther. It also keeps the search auditable. We are not claiming that this restriction contains the globally optimal state-dependent policy.
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/policy-decision-map.svg" alt="Decision map showing how five repeater policies swap, retain, or discard links as age and span change." width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 3.</strong> Policy decisions as age and link span change. The global gate certified no cutoff vector. The displayed $(2,2,2)$ rule is the frozen result for the secondary $T\ge50$ sensitivity stratum only; it must not be read as a globally certified policy.</figcaption>
+</figure>
+
+The restriction creates interpretability, but it also exposes a research question. If the best unconstrained policy often violates monotonicity, then “completed work deserves more patience” is the wrong inductive bias. The small exact Markov decision process check is included partly to detect that possibility.
+
+## Why the average is not enough
+
+Let $L$ denote the number of slots until an end-to-end link is delivered. A conventional comparison might minimize $\mathbb E[L]$. That statistic is necessary but incomplete. Repeater latency can have a long right tail because several mechanisms multiply: a rare elementary link delays all neighbors, a late swap failure destroys accumulated work, and rebuilding starts while other memories continue to age.
+
+Two policies can share almost the same mean and still behave differently in the episodes that matter operationally. A policy may be faster most of the time yet occasionally become trapped in repeated rebuilds. A user requesting entanglement for a synchronized task experiences that delayed episode, not an ensemble average.
+
+We therefore calculate the conditional value at risk at level $0.95$:
+
+$$
+\operatorname{CVaR}_{0.95}(L)
+=\mathbb E\!\left[L\mid L\text{ lies in the slowest 5\% tail}\right],
+$$
+
+implemented with an empirical quantile rule that handles ties explicitly. Mean, median, the 95th percentile, and CVaR are all retained. CVaR is not called “risk” because latency is financial; it is useful because it summarizes the severity of the slow tail rather than only its boundary.
+
+Quality needs its own reliability statement. Let
+
+$$
+S=\mathbb 1\{F_{\mathrm{delivered}}\ge F_{\min}\}.
+$$
+
+A candidate is feasible in a training scenario only if the one-sided 95% lower confidence bound for $\Pr(S=1)$ exceeds $0.95$. Using the empirical fraction alone would let Monte Carlo noise decide whether a policy barely clears the threshold. The lower bound asks for evidence that the underlying success probability, not just the observed sample, meets the requirement.
+
+The useful-entanglement rate is reported as
+
+$$
+R_{\mathrm{useful}}
+=\frac{\Pr(F_{\mathrm{delivered}}\ge F_{\min})}{\mathbb E[L]}.
+$$
+
+This is a study-specific rate measured per slot. It is not a secret-key rate and does not include physical link distance, source repetition frequency, detector performance, purification, or application consumption. Its role is to stop a policy from looking attractive merely because it delivers quickly when most deliveries fail the quality threshold.
+
+## Where this model sits in the literature
+
+The original quantum-repeater programme established that nested entanglement connection and purification could replace the exponential direct-transmission penalty with polynomial resource scaling under an idealized architecture. Briegel, Dür, Cirac, and Zoller’s 1998 proposal made imperfect local operations part of the question rather than an afterthought. The atomic-ensemble review by Sangouard and colleagues later organized the requirements around heralded entanglement generation, quantum storage, and swapping, while comparing routes toward beating direct transmission.
+
+A second strand turned repeater timing into an exact stochastic problem. Shchukin, Schmidt, and van Loock used Markov-chain methods to calculate waiting times with arbitrary probabilistic swap success, showing both that dynamic connection schemes matter and that the mean alone can be inadequate when swaps are unlikely. Brand, Coopmans, and Elkouss developed efficient algorithms for waiting-time and fidelity distributions in longer probabilistic chains. Shchukin and van Loock then formulated swap ordering as a Markov decision process, demonstrating that the familiar doubling architecture need not minimize raw waiting time.
+
+A third strand treats finite memory as a policy constraint. Li, Coopmans, and Elkouss optimize deterministic cutoffs and quantify the rate-quality tradeoff. Iñesta, Vardoyan, Scavuzzo, and Wehner extend an MDP with link ages and finite cutoffs, comparing globally informed policies against local rules in homogeneous chains. Haldar, Barge, Khatri, and Lee use reinforcement learning to discover state-dependent cutoffs and policy structure in homogeneous and inhomogeneous conditions. Their results make it especially important not to describe any dynamic cutoff as novel in itself.
+
+Recent work widens the performance lens. Goodenough, Coopmans, and Towsley derive exact fidelity moments and distributions for swap-ASAP chains and global cutoffs under specified noise models. Haldar and collaborators explicitly examine the classical-communication cost of global knowledge and design quasi-local policies for multiplexed chains. Grimbergen, Haldar, Iñesta, and Wehner introduce probabilistic cutoffs that avoid tracking exact ages, trading strict fidelity control for a smaller information requirement.
+
+The present study makes a narrower combination of choices: an interpretable span-aware cutoff family; heterogeneous scenario selection; a statistical lower-bound constraint on quality-qualified delivery; and worst-scenario CVaR latency as the selection objective. This is not a priority claim. It is a transparent experiment about whether a modest robust-optimization layer can choose a policy that travels better across uncertain operating conditions than a cutoff tuned to one nominal case.
+
+## Training without peeking at the test
+
+The training design crosses three elementary-link success probabilities,
+
+$$
+p\in\{0.10,0.20,0.35\},
+$$
+
+three swap success probabilities,
+
+$$
+q\in\{0.60,0.80,0.95\},
+$$
+
+and three synthetic visibility lifetimes,
+
+$$
+T\in\{8,20,50\}.
+$$
+
+This gives 27 homogeneous scenarios. They are not presented as a distribution of real hardware. They form a structured stress grid: scarce versus frequent links, unreliable versus nearly reliable swaps, and short versus long memories.
+
+Every candidate policy receives at least 10,000 episodes per training scenario. Within a scenario, policies use common random-number streams where the event interface permits. This pairing reduces the Monte Carlo noise of policy differences. It does not force paths to remain identical after actions diverge, and it does not turn stochastic evidence into deterministic proof.
+
+The global gate did not yield a policy to freeze. For the explicitly secondary $T\ge50$ analysis, the $(2,2,2)$ cutoff was frozen before evaluation. It then received at least 20,000 episodes in each of 40 heterogeneous held-out scenarios generated by a space-filling Latin-hypercube design, plus named stress cases. Each elementary segment may have a different $p_i$ and $T_i$, and each swap node may have a different $q_j$. Held-out seeds are independent of training seeds. This is a transfer diagnostic for the sensitivity policy, not a delayed opportunity to rescue the global claim.
+
+The named stresses are diagnostic. A single weak elementary link tests bottleneck sensitivity. A short-lived memory next to a reliable link tests whether a policy accumulates doomed inventory. One unreliable swap node tests the cost of repeatedly destroying long-span work. A reversed asymmetry pair checks whether behavior is an artifact of left-to-right tie-breaking. These scenarios do not replace the 40-point evaluation; they explain failure modes that an aggregate score can hide.
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/training-frontier.svg" alt="Training scenarios plotted on a latency and fidelity-reliability frontier for the five scheduling policy families." width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 4.</strong> The 56-candidate training frontier ends in global abstention: zero policies satisfy the one-sided reliability gate in all 27 scenarios. Nine scenarios have a policy-independent fidelity ceiling below 0.80; at $T=8$, the fastest-path ceiling is $0.772754$.</figcaption>
+</figure>
+
+Selection is lexicographic. First remove every candidate that fails the reliability gate in any training scenario. Among any survivors, minimize the worst-scenario $\operatorname{CVaR}_{0.95}(L)$; use worst-scenario $R_{\mathrm{useful}}$ only to break a numerical tie. In the global run there were no survivors, so the later optimization steps were not allowed to manufacture a winner. Within the separately declared nine-scenario $T\ge50$ stratum, cutoffs $(2,2,2)$ attained a minimum Wilson lower bound of $0.98855$, mean cap-restricted latency of $91.4606$ slots, worst CVaR95 of $1512.056$ slots, and zero censoring. Those figures certify only that training stratum.
+
+## Validation before comparison
+
+Simulation should not become trustworthy merely because it produces polished plots. This pipeline checks simple cases for which the answer is known.
+
+For one elementary link with success probability $p$, the waiting time $G$ is geometric:
+
+$$
+\mathbb E[G]=\frac{1}{p}.
+$$
+
+For two independent links generated in parallel, delivery waits for the slower link. If $G_1\sim\operatorname{Geom}(p_1)$ and $G_2\sim\operatorname{Geom}(p_2)$ use support $1,2,\ldots$, then
+
+$$
+\mathbb E[\max(G_1,G_2)]
+=\frac{1}{p_1}+\frac{1}{p_2}
+-\frac{1}{p_1+p_2-p_1p_2}.
+$$
+
+The Monte Carlo mean and empirical distribution are compared with these expressions. A three-node renewal calculation checks the effect of probabilistic swapping and restart after failure. In the no-decoherence limit, changing the cutoff beyond all reachable ages must not alter fidelity. With perfect generation and swapping, the timeline must collapse to the deterministic number of slots implied by the no-cascading convention.
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/analytic-validation.svg" alt="Analytic geometric waiting-time benchmarks compared with Monte Carlo estimates and confidence intervals." width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 5.</strong> The analytic checks passed. The one-link mean was 4.347826 analytically and 4.359124 by Monte Carlo; the two-link maximum was 6.478276 analytically and 6.473008 by Monte Carlo. The renewal check differed by about 1.13%, within its declared 2% tolerance.</figcaption>
+</figure>
+
+The remaining invariants passed as well. The finite-cutoff two-link MDP returned expected latency 9.206430; the no-decoherence experiment matched its expected fidelity 0.921229677 to numerical precision; and all three fixed event traces—balanced delivery, cutoff discard, and destructive swap failure—matched their expected states. These checks validate the implementation rules, not the realism of the synthetic hardware abstraction.
+
+A small exact MDP supplies a stronger policy check. Its state enumerates which links exist and their discretized ages; transition probabilities follow generation, swap, aging, and discard rules. Dynamic programming gives the optimal action for that reduced problem. We do not expect the restricted span-cutoff family to match every state-dependent decision. We do require the simulator to reproduce the value of a fixed policy, and we report the gap between the best restricted candidate and the exact oracle.
+
+Fixed event-trace fixtures then cross the language boundary. Python and JavaScript consume prescribed generation and swap outcomes rather than trying to share a pseudorandom-number generator. They must produce the same link set, ages, visibilities, discards, failures, and delivery status after every slot. This is a model-parity test. It prevents the interactive explanation from quietly teaching a different process from the research code.
+
+Finally, the simulation uses a finite safety cap only to catch nontermination or pathological parameter combinations. A capped episode is censored and counted explicitly. It is never silently converted into a successful delivery at the cap. If censoring is material in any reported comparison, the run fails its publication gate and the horizon or estimator must be reconsidered.
+
+## Reading the held-out abstention
+
+The held-out view is an abstention map rather than a leaderboard. The global selector had already returned no policy. The only frozen rule entering this diagnostic is the secondary $T\ge50$ sensitivity cutoff $(2,2,2)$. Each column is an unseen heterogeneous scenario; its analytic ceiling and empirical Wilson bound distinguish physical impossibility, failure to enter the declared sensitivity stratum, and empirical reliability failure.
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/heldout-stress-map.svg" alt="Held-out heterogeneous scenario heat map comparing quality-qualified delivery and latency across five policies." width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 6.</strong> Frozen evaluation of the secondary $(2,2,2)$ cutoff under its declared $T\ge50$ scope. None of the 40 held-out scenarios satisfied that stratum rule, so the procedure abstained in all 40. Thirty-nine had an analytic fidelity ceiling at or above 0.80; H31 passed the empirical reliability diagnostic outside the declared stratum and is not counted as certified.</figcaption>
+</figure>
+
+H31 was the sole diagnostic pass outside the declared stratum. Across 20,000 episodes, its fidelity attainment was 0.9813 and its one-sided Wilson lower bound was 0.97966. Its mean cap-restricted latency was 23.3338 slots, median 17, CVaR95 84.89, and useful-entanglement rate 0.04205 per slot. Because its minimum segment lifetime did not meet the predeclared $T\ge50$ scope, those values are descriptive evidence rather than a held-out certificate. Changing the scope after seeing H31 would turn a frozen evaluation into post-selection.
+
+Across all 40 held-out scenarios, the sensitivity rule's mean fidelity attainment was 0.42036 and its minimum Wilson lower bound was only 0.00745. Its mean cap-restricted latency was 41.9611 slots, compared with 20.3662 for swap-ASAP, while swap-ASAP's mean fidelity attainment was lower at 0.11747. This is a speed-quality trade-off in an overwhelmingly uncertified ensemble, not evidence that either policy dominates.
+
+The scenario-level nonparametric bootstrap puts the sensitivity rule's mean held-out latency in $[35.105,50.376]$ slots and its mean scenario-CVaR95 in $[132.543,193.127]$ slots; the corresponding mean useful-rate interval is $[0.00891,0.01531]$. Those intervals quantify variation over the sampled scenario set. They do not address hardware-model uncertainty and do not override the 40 abstentions.
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/latency-tail-distribution.svg" alt="Latency distribution comparison highlighting median, mean, 95th percentile, and CVaR for repeater scheduling policies." width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 7.</strong> Tail latency under the named weak-centre stress. Every policy had zero useful-entanglement rate. For the $(2,2,2)$ sensitivity rule, mean cap-restricted latency was 77.7461 slots (95% episode-bootstrap interval 76.7389–78.7256) and CVaR95 was 300.548 (294.793–306.089).</figcaption>
+</figure>
+
+The distribution plot matters because an average would hide repeated rebuilding, but it does not support a tail-improvement claim here. In the weak-centre case the sensitivity cutoff was slower than swap-ASAP, whose mean was 31.6223 slots and CVaR95 was 106.264; neither delivered a quality-qualified pair. The correct finding is that the declared policy family could not rescue this stress condition.
+
+## Failure accounting and ablation
+
+Every delivered pair has a history of attempted work. We count generated elementary links, attempted and failed swaps, deterministic or probabilistic discards, sub-threshold deliveries, and capped episodes. These counters make the mechanism testable.
+
+The completed evidence does not justify a mechanism story about superior tail control. Discard and swap-failure counters remain useful diagnostics, while the ablation shows how reliability and latency move as cutoffs change. Their role is to explain abstention and expose trade-offs, not to retrofit a victory narrative after the global feasible set proved empty.
+
+<figure class="article-figure">
+  <img src="/science/risk-sensitive-quantum-repeater-scheduling/robustness-convergence.svg" alt="Panels showing discard and swap-failure accounting, policy ablations, Monte Carlo convergence, and censoring diagnostics." width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>Figure 8.</strong> Convergence and cutoff ablation for the frozen evidence run. It completed 15.12 million decisive candidate-training episodes, another 0.27 million probabilistic-baseline training episodes, 4.0 million held-out episodes, and 0.4 million stress episodes. Reported censoring was zero.</figcaption>
+</figure>
+
+The decisive candidate search plus baseline, held-out, and stress evaluations ran through the vectorized evidence kernel in under nine seconds on the recorded environment. No episode was censored at the 4,000-slot safety cap. Computational speed makes the negative result easier to audit; it does not soften it. The global constraint was infeasible, and the high-memory sensitivity certificate had no in-stratum held-out case on which transfer could be certified.
+
+## What the model teaches even before the final ranking
+
+Several deductions follow from the model structure without relying on a Monte Carlo leaderboard.
+
+First, quality has a budget that depends on history. Because swap visibility multiplies the two input visibilities, an age that is harmless for one elementary pair may become decisive after several connections. A cutoff based only on the age of the newest component loses information; a cutoff based on the effective visibility retains it but may demand more state and calibration.
+
+Second, “keep completed work” is not always rational. A long-span link represents more successful events, yet it can block its endpoint memories while decaying. Its option value depends on the probability and expected arrival time of the missing complement. This is an optimal-stopping intuition: past effort is sunk, while future usefulness matters.
+
+Third, asymmetry changes the meaning of age. A three-slot-old link next to a high-probability neighbor may be worth keeping; the same link next to a severe bottleneck may be unlikely to survive long enough to help. Span-aware cutoff policies approximate this distinction only indirectly. A richer controller would condition on location, neighboring success probabilities, and the entire active-link pattern.
+
+Fourth, information and control are coupled. Exact age tracking permits deterministic cutoffs. Global state permits coordinated swaps. Those advantages require timestamps, heralds, and classical messages. By assuming immediate knowledge, this model prices information at zero. The quasi-local literature warns that a policy ranking can change once communication delay ages the memories it is meant to manage.
+
+Fifth, reliability constraints can make a nominal optimum discontinuous. A one-slot increase in cutoff may barely change mean latency yet push enough deliveries below $F_{\min}$ to make the candidate infeasible. This is why plotting an unconstrained objective and choosing its minimum is not equivalent to constrained policy design.
+
+## Boundaries: what this study does not establish
+
+The chain has only five nodes and one memory per neighbor. It excludes multiplexing, purification, error-corrected repeaters, routing over alternative paths, contention among users, continuous entanglement service, and queueing at applications. These are not minor engineering details. Multiplexing changes both action space and inventory value; purification consumes several pairs to improve quality; routing makes local scheduling interact with network-level demand.
+
+The Werner-coordinate model assumes a particular symmetric noise structure. Real memories exhibit platform-dependent dephasing, relaxation, leakage, control errors, spectral diffusion, and correlations. Swap quality can depend on the input state and hardware context. A single exponential link-visibility lifetime cannot identify those mechanisms.
+
+Generation and swap probabilities are stationary and independent between eligible attempts. Weather, fiber drift, detector dead time, source fluctuations, calibration cycles, and common-mode failures would violate that assumption. Correlation can thicken the waiting-time tail precisely where any future risk-sensitive policy would need to demonstrate value.
+
+Classical communication is instantaneous. Processing and operation durations are absorbed into a slot. The model has no distance scale, so “per slot” cannot be converted into pairs per second without a hardware and geometry layer. It also omits the acknowledgement delay required before distant nodes know that an end-to-end pair exists.
+
+The training and held-out designs sample a declared synthetic box. Robustness inside that box is not robustness to arbitrary devices or model misspecification. A Latin hypercube improves coverage of selected variables; it does not make them empirical. The one-sided confidence bound controls simulation uncertainty under the model, not uncertainty about whether the model is physically correct.
+
+Finally, fidelity above $0.80$ is not a universal usefulness certificate. Applications impose different state, rate, security, and composability requirements. The study does not derive a secret-key fraction and should not be used to claim secure quantum key distribution. It asks a scheduling question using a transparent quality threshold.
+
+## A next research programme
+
+The first extension should price classical information. Add distance-dependent heralding and swap acknowledgement, then compare global, quasi-local, and fully local variants of the same cutoff family. The key response is not only latency; it is the amount and reach of control traffic required per quality-qualified pair.
+
+The second extension should replace stationary probabilities with a partially observed environment. Let link quality switch between regimes or drift over time. A controller then faces both scheduling and learning: discard a link because it is stale, or wait because the neighbor is temporarily recovering? Distributionally robust or Bayesian policies could express uncertainty about those regimes without pretending to know the true transition law.
+
+The third extension should introduce multiplexing and application demand. With several memories per neighbor, the question becomes inventory allocation: which pairs should be swapped, purified, reserved, or discarded? Tail risk can then be measured for service-level deadlines across multiple requests, not just the first pair in an empty system.
+
+The fourth extension should connect the policy abstraction to hardware-specific noise. Instead of treating $T$ as a generic visibility lifetime, derive state transitions from a chosen memory channel, operation schedule, and measured parameter uncertainty. The synthetic study then becomes a reusable experimental design whose parameters can be replaced by independently sourced calibration distributions.
+
+The fifth extension should enlarge the exact oracle and learn a compact policy from it. Decision trees, monotone rules, or symbolic regression could expose which state features control the optimal action. The aim would not be to advertise artificial intelligence, but to measure how much performance is lost when a globally optimized policy is compressed into a rule that nodes can actually explain and implement.
+
+## The practical lesson
+
+A quantum repeater does not merely wait for four coins to land heads. It manages perishable, stateful inventory created by uncertain events and consumed by uncertain transformations. Mean delivery time captures only one part of that problem. Fidelity reliability tells us whether the delivery remains useful. CVaR tells us how severe the slow episodes become. Work-loss counters tell us why.
+
+The selector's most important output is `null`. No member of the 56-policy family could be certified over the full training gate, partly because nine scenarios make the fidelity target analytically unreachable. Refusing to rank infeasible candidates is a substantive modeling result: it separates a limitation of scheduling from a limitation of the assumed physical regime.
+
+The secondary high-memory experiment adds a second caution. Cutoffs $(2,2,2)$ were strongly certified inside the declared $T\ge50$ training stratum, but none of the 40 heterogeneous held-out scenarios belonged to that same stratum. The procedure therefore abstained in all 40. H31's empirical diagnostic pass outside the stratum is useful for understanding the simulator, not permission to widen the claim after inspection. This result neither proves cutoff control useless nor establishes a better alternative. It shows that a narrow sensitivity certificate must not be promoted into a global robustness claim.
+
+Whatever the final ranking, the modeling principle remains: **when a resource decays while the system waits, scheduling, quality, and uncertainty must be modeled together**. Treating memory as a static box or latency as a single mean erases the decision that the repeater actually has to make.
+
+## References
+
+1. H.-J. Briegel, W. Dür, J. I. Cirac, and P. Zoller (1998). “Quantum Repeaters: The Role of Imperfect Local Operations in Quantum Communication.” *Physical Review Letters, 81*, 5932–5935. [https://doi.org/10.1103/PhysRevLett.81.5932](https://doi.org/10.1103/PhysRevLett.81.5932)
+2. N. Sangouard, C. Simon, H. de Riedmatten, and N. Gisin (2011). “Quantum repeaters based on atomic ensembles and linear optics.” *Reviews of Modern Physics, 83*, 33–80. [https://doi.org/10.1103/RevModPhys.83.33](https://doi.org/10.1103/RevModPhys.83.33)
+3. E. Shchukin, F. Schmidt, and P. van Loock (2019). “Waiting time in quantum repeaters with probabilistic entanglement swapping.” *Physical Review A, 100*, 032322. [https://doi.org/10.1103/PhysRevA.100.032322](https://doi.org/10.1103/PhysRevA.100.032322)
+4. S. Brand, T. Coopmans, and D. Elkouss (2020). “Efficient computation of the waiting time and fidelity in quantum repeater chains.” *IEEE Journal on Selected Areas in Communications, 38*, 619–639. [https://doi.org/10.1109/JSAC.2020.2969037](https://doi.org/10.1109/JSAC.2020.2969037)
+5. B. Li, T. J. Coopmans, and D. Elkouss (2021). “Efficient Optimization of Cutoffs in Quantum Repeater Chains.” *IEEE Transactions on Quantum Engineering, 2*, 4103015. [https://doi.org/10.1109/TQE.2021.3099003](https://doi.org/10.1109/TQE.2021.3099003)
+6. E. Shchukin and P. van Loock (2022). “Optimal Entanglement Swapping in Quantum Repeaters.” *Physical Review Letters, 128*, 150502. [https://doi.org/10.1103/PhysRevLett.128.150502](https://doi.org/10.1103/PhysRevLett.128.150502)
+7. Á. G. Iñesta, G. Vardoyan, L. Scavuzzo, and S. Wehner (2023). “Optimal entanglement distribution policies in homogeneous repeater chains with cutoffs.” *npj Quantum Information, 9*, 46. [https://doi.org/10.1038/s41534-023-00713-9](https://doi.org/10.1038/s41534-023-00713-9)
+8. S. Haldar, P. J. Barge, S. Khatri, and H. Lee (2024). “Fast and reliable entanglement distribution with quantum repeaters: Principles for improving protocols using reinforcement learning.” *Physical Review Applied, 21*, 024041. [https://doi.org/10.1103/PhysRevApplied.21.024041](https://doi.org/10.1103/PhysRevApplied.21.024041)
+9. K. Goodenough, T. Coopmans, and D. Towsley (2025). “On noise in swap ASAP repeater chains: exact analytics, distributions and tight approximations.” *Quantum, 9*, 1744. [https://doi.org/10.22331/q-2025-05-15-1744](https://doi.org/10.22331/q-2025-05-15-1744)
+10. S. Haldar, P. J. Barge, X. Cheng, K.-C. Chang, B. T. Kirby, S. Khatri, C. W. Wong, and H. Lee (2025). “Reducing classical communication costs in multiplexed quantum repeaters using hardware-aware quasi-local policies.” *Communications Physics, 8*, 132. [https://doi.org/10.1038/s42005-025-02029-w](https://doi.org/10.1038/s42005-025-02029-w)
+11. J. Grimbergen, S. Haldar, Á. G. Iñesta, and S. Wehner (2026). “Probabilistic Cutoffs in Homogeneous Quantum Repeater Chains.” arXiv:2602.14738 [quant-ph], preprint. [https://arxiv.org/abs/2602.14738](https://arxiv.org/abs/2602.14738)

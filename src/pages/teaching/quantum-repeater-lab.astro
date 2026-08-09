@@ -1,0 +1,116 @@
+---
+import QuantumRepeaterLab from "../../components/QuantumRepeaterLab.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Quantum Repeater Scheduling Lab"
+  description="An interactive protocol-level model for studying the latency, fidelity, memory-decay, and cutoff trade-offs in a five-node quantum repeater chain."
+  type="Teaching"
+  alternatePath="/zh/teaching/quantum-repeater-lab/"
+>
+  <header class="page-head qr-page-head">
+    <div class="container">
+      <p class="eyebrow">Quantum networks · risk-sensitive decisions</p>
+      <h1>What should a repeater do when entanglement is already ageing?</h1>
+      <p class="lead">Build four elementary links, combine them through probabilistic swaps, and decide when an old pair is no longer worth keeping. The experiment exposes why a policy that minimises average waiting can still perform poorly in the tail.</p>
+      <div class="actions">
+        <a class="button" href="#interactive-lab">Run the model</a>
+        <a class="button secondary" href="/writing/when-entanglement-expires/">Read the research article</a>
+        <a class="button secondary" href="/teaching/model-laboratory/">All interactive models</a>
+      </div>
+    </div>
+  </header>
+
+  <div id="interactive-lab">
+    <section class="section qr-explainer">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">Mechanism</p><h2>A race between connection and decay.</h2></div>
+          <p>Each elementary link succeeds randomly. Successful pairs wait in memory while missing links are retried; during that wait their Werner visibility falls. Swapping connects neighbouring intervals but can fail and consume both inputs.</p>
+        </div>
+        <div class="qr-equation-grid">
+          <article><span>01</span><h3>Memory decay</h3><p><code>w(a) = w₀ exp(−a/T)</code></p><p><em>T</em> is a synthetic two-qubit visibility lifetime, not a measured hardware <em>T₂</em>.</p></article>
+          <article><span>02</span><h3>Swap composition</h3><p><code>wout = gswap wL wR</code></p><p>A successful swap inherits imperfections from both inputs and the swap operation.</p></article>
+          <article><span>03</span><h3>Delivered fidelity</h3><p><code>F = (1 + 3w) / 4</code></p><p>A pair is useful here only when its delivered fidelity reaches the selected threshold.</p></article>
+        </div>
+        <ol class="qr-slot-order" aria-label="Authoritative event order within each slot">
+          <li><b>1</b><span><strong>Age</strong> existing pairs</span></li>
+          <li><b>2</b><span><strong>Generate</strong> uncovered links</span></li>
+          <li><b>3</b><span><strong>Select</strong> disjoint swaps</span></li>
+          <li><b>4</b><span><strong>Resolve</strong> swap outcomes</span></li>
+          <li><b>5</b><span><strong>Discard</strong> by policy</span></li>
+          <li><b>6</b><span><strong>Deliver</strong> an end-to-end pair</span></li>
+        </ol>
+        <p class="small">New swap outputs cannot cascade through a second swap in the same slot. Successful outputs preserve inherited visibility but reset their scheduling age to zero. Candidate boundaries are evaluated in the fixed order 1, 3, 2, making event traces auditable and removing otherwise hidden timing advantages.</p>
+      </div>
+    </section>
+
+    <section class="section qr-lab-section">
+      <div class="container">
+        <QuantumRepeaterLab locale="en" mode="full" seed={240819} />
+      </div>
+    </section>
+
+    <section class="section qr-reading-section">
+      <div class="container qr-reading-grid">
+        <div>
+          <p class="eyebrow">How to investigate</p>
+          <h2>Change one source of uncertainty at a time.</h2>
+          <ol>
+            <li>Begin at <em>p</em> = 0.20, <em>q</em> = 0.80, and <em>T</em> = 20. Compare the five policies before changing a control.</li>
+            <li>Shorten the memory lifetime. Check whether aggressive retention still improves completion but damages the useful-pair probability.</li>
+            <li>Raise the fidelity threshold from 0.80 to 0.90. Ask whether the policy ranking changes even when mean latency barely moves.</li>
+            <li>Lower generation probability. Inspect CVaR rather than only the mean: rare long waits are where memory ageing accumulates.</li>
+          </ol>
+        </div>
+        <aside>
+          <p class="eyebrow">Claim boundary</p>
+          <h3>What the lab does not establish</h3>
+          <p>The browser experiment is a finite Monte Carlo teaching aid with homogeneous link controls and one active interval per elementary-link span. It does not include purification, multiplexing, classical-control delay, hardware-specific noise, secret-key rate, or a proof of policy optimality.</p>
+          <p>Use the long-form article for the study design, held-out stress tests, confidence intervals, and the evidence behind any comparative claim.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section qr-reference-section">
+      <div class="container">
+        <div class="section-head"><div><p class="eyebrow">Research basis</p><h2>Selected starting points.</h2></div><p>The model is positioned against repeater protocols, cutoff policies, exact latency analysis, and decision-process formulations.</p></div>
+        <ol class="reference-list">
+          <li><span>Briegel et al. (1998), “Quantum Repeaters: The Role of Imperfect Local Operations in Quantum Communication,” <a href="https://doi.org/10.1103/PhysRevLett.81.5932">Physical Review Letters</a>.</span></li>
+          <li><span>Sangouard et al. (2011), “Quantum repeaters based on atomic ensembles and linear optics,” <a href="https://doi.org/10.1103/RevModPhys.83.33">Reviews of Modern Physics</a>.</span></li>
+          <li><span>Shchukin et al. (2019), “Waiting time in quantum repeaters with probabilistic entanglement swapping,” <a href="https://doi.org/10.1103/PhysRevA.100.032322">Physical Review A</a>.</span></li>
+          <li><span>Iñesta et al. (2023), “Optimal entanglement distribution policies in homogeneous repeater chains with cutoffs,” <a href="https://www.nature.com/articles/s41534-023-00713-9">npj Quantum Information</a>.</span></li>
+          <li><span>Haldar et al. (2024), “Reducing classical communication costs in multiplexed quantum repeaters using hardware-aware quasi-local policies,” <a href="https://doi.org/10.1103/PhysRevApplied.21.024041">Physical Review Applied</a>.</span></li>
+        </ol>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .qr-page-head { background:linear-gradient(120deg,var(--paper) 0 68%,#dce9e5 68% 100%); }
+  .qr-page-head h1 { max-width:17ch; }
+  .qr-explainer { background:#e9eeea; }
+  .qr-equation-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:2px solid var(--ink); }
+  .qr-equation-grid article { padding:1.2rem 1.2rem 1.2rem 0; }
+  .qr-equation-grid article + article { border-left:1px solid #aeb8b2; padding-left:1.2rem; }
+  .qr-equation-grid span { color:var(--accent); font:700 .75rem var(--mono); }
+  .qr-equation-grid h3 { margin:.45rem 0; }
+  .qr-equation-grid code { color:#111; font-size:clamp(.88rem,1.5vw,1.05rem); }
+  .qr-equation-grid p:last-child { color:var(--muted); font-size:.84rem; }
+  .qr-slot-order { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); list-style:none; padding:0; margin:2rem 0 1rem; border-top:1px solid #87938d; }
+  .qr-slot-order li { padding:1rem .7rem .3rem 0; }
+  .qr-slot-order li + li { border-left:1px solid #aeb8b2; padding-left:.7rem; }
+  .qr-slot-order b { color:var(--rust); font:700 .7rem var(--mono); }
+  .qr-slot-order span,.qr-slot-order strong { display:block; color:#111; font-size:.78rem; }
+  .qr-lab-section { background:#15241f; }
+  .qr-reading-section { background:#eee7dc; }
+  .qr-reading-grid { display:grid; grid-template-columns:minmax(0,.62fr) minmax(260px,.38fr); gap:clamp(2rem,7vw,7rem); }
+  .qr-reading-grid li { margin-bottom:.8rem; }
+  .qr-reading-grid aside { border-top:3px solid var(--rust); padding-top:1rem; }
+  .qr-reading-grid aside p { color:var(--muted); }
+  .qr-reference-section { background:#f7f4ed; }
+  @media (max-width:800px) { .qr-equation-grid,.qr-reading-grid { grid-template-columns:1fr; } .qr-equation-grid article + article { border-left:0; border-top:1px solid #aeb8b2; padding-left:0; } .qr-slot-order { grid-template-columns:repeat(3,minmax(0,1fr)); } .qr-slot-order li:nth-child(4) { border-left:0; } }
+  @media (max-width:480px) { .qr-slot-order { grid-template-columns:repeat(2,minmax(0,1fr)); } .qr-slot-order li:nth-child(odd) { border-left:0; } .qr-slot-order li:nth-child(4) { border-left:1px solid #aeb8b2; } .qr-page-head { background:var(--paper); } }
+</style>
