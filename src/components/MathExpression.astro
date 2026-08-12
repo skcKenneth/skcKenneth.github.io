@@ -1,0 +1,36 @@
+---
+import katex from "katex";
+
+export interface Props {
+  expression: string;
+  display?: boolean;
+  className?: string;
+  ariaLabel?: string;
+}
+
+const {
+  expression,
+  display = false,
+  className,
+  ariaLabel,
+} = Astro.props;
+
+// Keep TeX as the source of truth and render both MathML and visual KaTeX
+// markup at build time. Invalid TeX deliberately fails the build rather than
+// silently publishing a broken or truncated equation.
+const rendered = katex.renderToString(expression, {
+  displayMode: display,
+  output: "htmlAndMathml",
+  throwOnError: true,
+  trust: false,
+  strict: "warn",
+});
+
+const Tag = display ? "div" : "span";
+---
+
+<Tag
+  class:list={["math-expression", display && "math-expression--display", className]}
+  aria-label={ariaLabel}
+  set:html={rendered}
+/>

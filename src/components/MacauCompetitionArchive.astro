@@ -1,4 +1,6 @@
 ---
+import MathExpression from "./MathExpression.astro";
+
 export interface Props {
   locale?: "en" | "zh-Hant";
 }
@@ -132,14 +134,16 @@ const topics = zh ? [
       <article>
         <p class="mc-example-meta">2025/2026 · {zh ? "初中組 Q2 · 取整與估值" : "Junior Q2 · Floors and estimation"}</p>
         <h3>{zh ? "何時一個根式差會跌到 1 以下？" : "When does a difference of radicals fall below one?"}</h3>
-        <p class="mc-math">N = ⌊√16 − √6⌋ + ⌊√26 − √16⌋ + ··· + ⌊√2026 − √2016⌋</p>
+        <MathExpression className="mc-math" display expression={String.raw`N = \left\lfloor\sqrt{16}-\sqrt{6}\right\rfloor + \left\lfloor\sqrt{26}-\sqrt{16}\right\rfloor + \cdots + \left\lfloor\sqrt{2026}-\sqrt{2016}\right\rfloor`} ariaLabel="A sum of floor functions of successive differences of square roots." />
         <details>
           <summary>{copy.hint}</summary>
           <p>{zh ? "把第 k 項有理化為 10/(√(10k+6)+√(10k−4))。分母單調增加，所以只需檢查最前面的臨界項。" : "Rationalise term k as 10/(√(10k+6)+√(10k−4)). The denominator increases, so only the first threshold cases need exact checking."}</p>
+          <MathExpression className="mc-math mc-math--inline-proof" expression={String.raw`\sqrt{10k+6}-\sqrt{10k-4}=\frac{10}{\sqrt{10k+6}+\sqrt{10k-4}}`} ariaLabel="The rationalised form of the kth radical difference." />
         </details>
         <details>
           <summary>{copy.solution}</summary>
           <p>{zh ? "將和式寫成 k=1 至 202。k=1,2 時，有理化後的值嚴格落在 (1,2)，兩項取整皆為 1。k≥3 時，分母至少為 √36+√26>10，所以每項嚴格落在 (0,1)，取整為 0。因此 N=1+1=2。" : "Write the sum for k=1,…,202. For k=1,2, the rationalised value lies strictly in (1,2), so each floor is 1. For k≥3, the denominator is at least √36+√26>10; every remaining term lies in (0,1) and has floor 0. Hence N=1+1=2."}</p>
+          <MathExpression className="mc-math mc-math--inline-proof" expression={String.raw`1<\frac{10}{\sqrt{10k+6}+\sqrt{10k-4}}<2\ (k=1,2),\qquad 0<\frac{10}{\sqrt{10k+6}+\sqrt{10k-4}}<1\ (k\geq3),\qquad N=2`} ariaLabel="The threshold estimates establishing that the sum equals two." />
         </details>
       </article>
 
@@ -149,11 +153,12 @@ const topics = zh ? [
         <p>{zh ? "把合法字串按末端分成 A、單個 B、BB 三個狀態。" : "Classify every valid string by whether it ends in A, one trailing B, or BB."}</p>
         <details>
           <summary>{copy.hint}</summary>
-          <p class="mc-math">uₙ₊₁ = vₙ + wₙ,　vₙ₊₁ = uₙ,　wₙ₊₁ = vₙ</p>
+          <MathExpression className="mc-math" display expression={String.raw`u_{n+1}=v_n+w_n,\qquad v_{n+1}=u_n,\qquad w_{n+1}=v_n`} ariaLabel="The three-state recurrence for valid strings." />
         </details>
         <details>
           <summary>{copy.solution}</summary>
           <p>{zh ? "初始狀態為 (u₁,v₁,w₁)=(1,1,0)。逐步遞推至 n=9 得 (9,7,5)，所以合法字串總數為 9+7+5=21。官方原卷所列選項沒有 21；讀本保留此不一致並把原卷列為權威來源，而不是改寫選項。" : "The initial state is (u₁,v₁,w₁)=(1,1,0). Iterating to n=9 gives (9,7,5), so the count is 9+7+5=21. The official choices do not contain 21; the companion records that mismatch and keeps the facsimile authoritative instead of rewriting the choices."}</p>
+          <MathExpression className="mc-math mc-math--inline-proof" expression={String.raw`(u_1,v_1,w_1)=(1,1,0),\qquad (u_9,v_9,w_9)=(9,7,5),\qquad u_9+v_9+w_9=21`} ariaLabel="Initial and ninth recurrence states, with their total." />
         </details>
       </article>
 
@@ -173,12 +178,15 @@ const topics = zh ? [
         <details>
           <summary>{copy.hint}</summary>
           <p>{zh ? "先沿 A 的角平分線設坐標，利用 AK=AL=s 與 N∈ω 導出一個邊長恆等式；再在 BC 為 x 軸的坐標中計算 I、M、O 的面積行列式。" : "First use coordinates along the A-angle bisector. Equal tangents give AK=AL=s, and N∈ω yields a side-length identity. Then put BC on the x-axis and evaluate the signed-area determinant of I, M, O."}</p>
+          <MathExpression className="mc-math mc-math--inline-proof" expression={String.raw`AK=AL=s,\qquad N\in\omega,\qquad [I,M,O]=0`} ariaLabel="The equal-tangent condition, circle membership, and collinearity determinant." />
         </details>
         <details>
           <summary>{copy.solution}</summary>
           <p>{zh ? "設 a=BC、b=CA、c=AB、s=(a+b+c)/2、θ=A/2。取 A 為原點、角平分線為 x 軸，則 K,L=(s cosθ,±s sinθ)，故 N=(s cosθ,0)。外接圓寫成 x²+y²−λx−μy=0，由 B、C 得 λ=(b+c)/(2cosθ)。因 N 是圓上另一個 x 軸交點，s cosθ=λ，故 2s cos²θ=b+c。配合餘弦定理可化為 F(a,b,c)=0。" : "Let a=BC, b=CA, c=AB, s=(a+b+c)/2, and θ=A/2. Put A at the origin with the angle bisector as the x-axis. Then K,L=(s cosθ,±s sinθ), so N=(s cosθ,0). Writing the circumcircle as x²+y²−λx−μy=0 and substituting B,C gives λ=(b+c)/(2cosθ). Since N is the other x-axis intersection, s cosθ=λ, hence 2s cos²θ=b+c. The cosine law reduces this to F(a,b,c)=0."}</p>
-          <p class="mc-math">F = a³+a²b+a²c−ab²−2abc−ac²−b³+b²c+bc²−c³</p>
+          <MathExpression className="mc-math mc-math--inline-proof" expression={String.raw`s=\frac{a+b+c}{2},\quad \theta=\frac{A}{2},\quad K,L=(s\cos\theta,\pm s\sin\theta),\quad N=(s\cos\theta,0),\quad 2s\cos^2\theta=b+c`} ariaLabel="The coordinate construction and side-length identity in the geometry proof." />
+          <MathExpression className="mc-math" display expression={String.raw`F=a^3+a^2b+a^2c-ab^2-2abc-ac^2-b^3+b^2c+bc^2-c^3`} ariaLabel="The polynomial used in the collinearity proof." />
           <p>{zh ? "再取 B=(0,0)、C=(a,0)、A=(p,q)，其中 p=(a²+c²−b²)/(2a)。由旁切圓切點得 M=(s−c,0)；內心與外心分別為 I=(a(p+c)/(2s), aq/(2s))、O=(a/2,(c²−ap)/(2q))。三點的有向面積行列式化為 Δ=(b−c)F/(8aq)=0，因此 I、M、O 共線。" : "Now put B=(0,0), C=(a,0), A=(p,q), where p=(a²+c²−b²)/(2a). The excircle contact gives M=(s−c,0); the incenter and circumcenter are I=(a(p+c)/(2s), aq/(2s)) and O=(a/2,(c²−ap)/(2q)). Their signed-area determinant simplifies to Δ=(b−c)F/(8aq)=0. Therefore I, M, O are collinear."}</p>
+          <MathExpression className="mc-math mc-math--inline-proof" expression={String.raw`p=\frac{a^2+c^2-b^2}{2a},\quad M=(s-c,0),\quad I=\left(\frac{a(p+c)}{2s},\frac{aq}{2s}\right),\quad O=\left(\frac{a}{2},\frac{c^2-ap}{2q}\right),\quad \Delta=\frac{(b-c)F}{8aq}=0`} ariaLabel="The coordinate definitions and determinant that establish the collinearity result." />
         </details>
       </article>
     </div>
@@ -219,7 +227,9 @@ const topics = zh ? [
   .mc-pathways li{display:grid;grid-template-columns:3.5rem 1fr;gap:1.2rem;padding:1.15rem 0;border-bottom:1px solid var(--mc-line)}
   .mc-pathways li>span{font:700 1.15rem var(--sans);color:var(--mc-navy)}.mc-pathways h3{margin:0 0 .25rem}.mc-pathways p{margin:0}
   .mc-examples{display:grid;gap:1.25rem}.mc-examples article{box-sizing:border-box;min-width:0;padding:clamp(1.1rem,3vw,1.65rem);border:1px solid var(--mc-line);border-left:4px solid var(--mc-navy);background:#fff}
-  .mc-examples h3{font-size:1.35rem;margin:.35rem 0 .8rem}.mc-example-meta{margin:0;color:#27333a!important}.mc-math{overflow-x:auto;padding:.85rem;background:var(--mc-soft);font:600 1rem/1.55 var(--mono)}
+  .mc-examples h3{font-size:1.35rem;margin:.35rem 0 .8rem}.mc-example-meta{margin:0;color:#27333a!important}.mc-math{margin:.85rem 0;padding:.85rem;background:var(--mc-soft);font-size:clamp(.95rem,2.7vw,1.14rem)}
+  .mc-math--inline-proof{display:block;margin:.7rem 0 .15rem;padding:.6rem .75rem;border-left:3px solid var(--mc-teal);background:#fff}
+  .mc-math :global(.katex){color:#000}
   details{border-top:1px solid var(--mc-line);margin-top:.75rem;padding-top:.75rem}details summary{cursor:pointer;font-weight:700}details[open] summary{margin-bottom:.6rem}
   .mc-geometry svg{display:block;width:min(100%,620px);height:auto;margin:1.2rem auto;background:var(--mc-soft);border:1px solid var(--mc-line)}
   .mc-source-note{font-size:.86rem;border-left:3px solid var(--mc-teal);padding-left:.75rem}

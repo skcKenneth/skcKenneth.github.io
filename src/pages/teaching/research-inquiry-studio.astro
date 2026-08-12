@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import MathExpression from "../../components/MathExpression.astro";
 
 const inquiries = [
   { id: "identifiability", number: "01", title: "Identifiability", question: "Can the data distinguish the parameters that produced them?", method: "Inverse problems", article: "/writing/when-the-fit-is-not-the-model/" },
@@ -66,7 +67,7 @@ const inquiries = [
       <div class="model-intro">
         <div><p class="eyebrow">01 · Inverse problems</p><h2>Good fit, uncertain parameters</h2></div>
         <div>
-          <p class="model-equation" aria-label="y of S equals V max times S divided by K m plus S">y(S) = V<sub>max</sub>S/(K<sub>m</sub> + S)</p>
+          <MathExpression className="model-equation" display expression={String.raw`y(S)=\frac{V_{\max}S}{K_m+S}`} ariaLabel="y of S equals V max times S divided by K m plus S." />
           <p>A Michaelis–Menten response can be fitted closely by many parameter pairs when observations cover only a narrow substrate range. The heatmap shows the resulting loss surface rather than hiding it behind one best-fit estimate.</p>
         </div>
       </div>
@@ -101,7 +102,7 @@ const inquiries = [
       <div class="model-intro">
         <div><p class="eyebrow">02 · Causal inference</p><h2>Treatment effects with spillovers</h2></div>
         <div>
-          <p class="model-equation" aria-label="Y i equals alpha i plus tau Z i plus gamma E i">Y<sub>i</sub> = α<sub>i</sub> + τZ<sub>i</sub> + γE<sub>i</sub></p>
+          <MathExpression className="model-equation" display expression={String.raw`Y_i=\alpha_i+\tau Z_i+\gamma E_i`} ariaLabel="Y sub i equals alpha sub i plus tau Z sub i plus gamma E sub i." />
           <p>The exposure E<sub>i</sub> is the treated fraction of unit i's neighbours. Once γ is nonzero, an untreated unit can change because its neighbours were treated, and a difference in means no longer isolates the direct effect τ.</p>
         </div>
       </div>
@@ -136,7 +137,7 @@ const inquiries = [
       <div class="model-intro">
         <div><p class="eyebrow">03 · Optimization under uncertainty</p><h2>A decision that survives probability shift</h2></div>
         <div>
-          <p class="model-equation" aria-label="minimize over q the maximum expected cost over distributions in P rho">min<sub>q</sub> max<sub>p ∈ P(ρ)</sub> E<sub>p</sub>[c(q,D)]</p>
+          <MathExpression className="model-equation" display expression={String.raw`\min_q\ \max_{p\in\mathcal{P}(\rho)}\ \mathbb{E}_p\!\left[c(q,D)\right]`} ariaLabel="Minimize over q the maximum expected cost over distributions in P of rho." />
           <p>A capacity decision is evaluated against both the nominal demand distribution and the worst probability redistribution inside a total-variation ambiguity set. The ambiguity radius ρ controls how much probability mass an adversary may move.</p>
         </div>
       </div>

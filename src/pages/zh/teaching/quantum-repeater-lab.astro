@@ -1,6 +1,7 @@
 ---
 import QuantumRepeaterLab from "../../../components/QuantumRepeaterLab.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import MathExpression from "../../../components/MathExpression.astro";
 ---
 
 <BaseLayout
@@ -31,9 +32,9 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
           <p>每條 elementary link 都隨機成功。已成功的糾纏要留在記憶體內等待其他鏈路，期間 Werner visibility 不斷下降；交換可以連接相鄰區段，但失敗時會同時消耗兩個輸入。</p>
         </div>
         <div class="qr-equation-grid">
-          <article><span>01</span><h3>記憶衰減</h3><p><code>w(a) = w₀ exp(−a/T)</code></p><p><em>T</em> 是合成的 two-qubit visibility lifetime，不是量度所得的硬件 <em>T₂</em>。</p></article>
-          <article><span>02</span><h3>交換組合</h3><p><code>wout = gswap wL wR</code></p><p>交換成功後的區段同時承受兩個輸入與交換操作本身的不完美。</p></article>
-          <article><span>03</span><h3>交付保真度</h3><p><code>F = (1 + 3w) / 4</code></p><p>本模型只把達到所選最低保真度的端到端配對視為合格。</p></article>
+          <article><span>01</span><h3>記憶衰減</h3><MathExpression expression={String.raw`w(a)=w_0\exp\!\left(-\frac{a}{T}\right)`} ariaLabel="w of a equals w sub zero times exponential negative a over T." /><p><em>T</em> 是合成的 two-qubit visibility lifetime，不是量度所得的硬件 <em>T₂</em>。</p></article>
+          <article><span>02</span><h3>交換組合</h3><MathExpression expression={String.raw`w_{\mathrm{out}}=g_{\mathrm{swap}}w_Lw_R`} ariaLabel="w out equals g swap times w left times w right." /><p>交換成功後的區段同時承受兩個輸入與交換操作本身的不完美。</p></article>
+          <article><span>03</span><h3>交付保真度</h3><MathExpression expression={String.raw`F=\frac{1+3w}{4}`} ariaLabel="F equals one plus three w over four." /><p>本模型只把達到所選最低保真度的端到端配對視為合格。</p></article>
         </div>
         <ol class="qr-slot-order" aria-label="每個時槽的固定事件次序">
           <li><b>1</b><span><strong>老化</strong>現有配對</span></li>
@@ -98,7 +99,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
   .qr-equation-grid article + article { border-left:1px solid #aeb8b2; padding-left:1.2rem; }
   .qr-equation-grid span { color:var(--accent); font:700 .75rem var(--mono); }
   .qr-equation-grid h3 { margin:.45rem 0; }
-  .qr-equation-grid code { color:#111; font-size:clamp(.88rem,1.5vw,1.05rem); }
+  .qr-equation-grid :global(.math-expression) { color:#111; display:block; margin:.3rem 0 .7rem; font-size:clamp(.95rem,1.6vw,1.08rem); }
   .qr-equation-grid p:last-child { color:var(--muted); font-size:.84rem; }
   .qr-slot-order { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); list-style:none; padding:0; margin:2rem 0 1rem; border-top:1px solid #87938d; }
   .qr-slot-order li { padding:1rem .7rem .3rem 0; }

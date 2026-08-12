@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import MathExpression from "../../components/MathExpression.astro";
 
 const experiments = [
   { id: "critical-transitions", number: "01", title: "Critical transitions", question: "When does gradual pressure trigger an abrupt change?", method: "Bifurcation theory", level: "Intermediate" },
@@ -55,7 +56,7 @@ const experiments = [
       <div class="model-intro">
         <div><p class="eyebrow">01 · Bifurcation theory</p><h2>Critical transitions and path dependence</h2></div>
         <div>
-          <p class="model-equation" aria-label="x prime equals a plus x minus x cubed">x′ = a + x − x³</p>
+          <MathExpression className="model-equation" display expression={String.raw`x'=a+x-x^3`} ariaLabel="x prime equals a plus x minus x cubed." />
           <p>A single control parameter tilts a potential landscape. Stable states can disappear at a fold, so a slowly changing pressure can produce a sudden jump and a different return path.</p>
         </div>
       </div>
@@ -89,7 +90,7 @@ const experiments = [
       <div class="model-intro">
         <div><p class="eyebrow">02 · Data-driven dynamics</p><h2>Discovering an equation from noisy data</h2></div>
         <div>
-          <p class="model-equation" aria-label="x prime approximately equals theta of x times xi">x′ ≈ Θ(x)ξ</p>
+          <MathExpression className="model-equation" display expression={String.raw`x'\approx\Theta(x)\xi`} ariaLabel="x prime approximately equals theta of x times xi." />
           <p>Sparse identification starts with a library of candidate terms, then asks for the smallest equation that explains the measured derivative. Here the hidden law is x′ = x − x³.</p>
         </div>
       </div>
@@ -123,7 +124,7 @@ const experiments = [
       <div class="model-intro">
         <div><p class="eyebrow">03 · Active matter</p><h2>Collective motion from local alignment</h2></div>
         <div>
-          <p class="model-equation" aria-label="theta i at t plus one equals average neighbour heading plus noise">θᵢ(t + 1) = arg Σⱼ∈Nᵢ eⁱθʲ + ηξᵢ</p>
+          <MathExpression className="model-equation" display expression={String.raw`\theta_i(t+1)=\arg\!\left(\sum_{j\in\mathcal{N}_i}e^{\mathrm{i}\theta_j(t)}\right)+\eta\xi_i`} ariaLabel="Theta i at t plus one equals the argument of the sum of neighbour headings plus noise." />
           <p>Self-propelled particles see only nearby headings. Repeated local alignment can break rotational symmetry and produce coherent global motion even without a leader.</p>
         </div>
       </div>
@@ -157,7 +158,7 @@ const experiments = [
       <div class="model-intro">
         <div><p class="eyebrow">04 · Higher-order networks</p><h2>Contagion through pairs and groups</h2></div>
         <div>
-          <p class="model-equation" aria-label="rho prime equals minus rho plus lambda one rho one minus rho plus lambda two rho squared one minus rho">ρ′ = −ρ + λ₁ρ(1 − ρ) + λ₂ρ²(1 − ρ)</p>
+          <MathExpression className="model-equation" display expression={String.raw`\rho'=-\rho+\lambda_1\rho(1-\rho)+\lambda_2\rho^2(1-\rho)`} ariaLabel="Rho prime equals negative rho plus the pairwise and group contagion terms." />
           <p>Pairwise contact contributes a term proportional to ρ; group reinforcement contributes a nonlinear ρ² term. That extra order can create critical-mass effects and abrupt adoption.</p>
         </div>
       </div>
@@ -192,7 +193,7 @@ const experiments = [
       <div class="model-intro">
         <div><p class="eyebrow">05 · Scientific machine learning</p><h2>Learning maps between functions</h2></div>
         <div>
-          <p class="model-equation" aria-label="G maps an initial function u zero to a solution function u at time t">𝒢: u₀(x) ↦ u(x,t)</p>
+          <MathExpression className="model-equation" display expression={String.raw`\mathcal{G}:u_0(x)\mapsto u(x,t)`} ariaLabel="G maps an initial function u zero of x to a solution u of x and t." />
           <p>Operator learning asks for one reusable map across a family of inputs, rather than one solution vector on one grid. This experiment isolates the spectral representation problem using the heat operator.</p>
         </div>
       </div>
@@ -227,7 +228,7 @@ const experiments = [
       <div class="model-intro">
         <div><p class="eyebrow">06 · Topological data analysis</p><h2>Finding shape across scales</h2></div>
         <div>
-          <p class="model-equation" aria-label="beta zero counts components and beta one counts loops">β₀ = components · β₁ = loops</p>
+          <MathExpression className="model-equation" display expression={String.raw`\beta_0=\text{components},\qquad\beta_1=\text{loops}`} ariaLabel="Beta zero counts components and beta one counts loops." />
           <p>A Vietoris–Rips filtration connects points within a distance ε and fills every completed triangle. Features that survive across many scales are candidates for signal rather than sampling noise.</p>
         </div>
       </div>
@@ -374,7 +375,37 @@ const experiments = [
         q(sindy, '[data-chart="sindy"]').innerHTML = `<title>Sparse equation discovery result</title><desc>Noisy derivative observations are compared with the true hidden law and the recovered sparse equation.</desc>${frame(-1.5,1.5,-2,2,"State x","Derivative x′",1)}<path class="frontier-truth" d="${path(truth,-1.5,1.5,-2,2)}"></path><path class="frontier-primary" d="${path(recovered,-1.5,1.5,-2,2)}"></path>${xs.map((x,i)=>`<circle class="observation-point" cx="${sx(x,-1.5,1.5)}" cy="${sy(ys[i],-2,2)}" r="2.4"></circle>`).join("")}`;
         const labels = ["1","x","x²","x³","x⁴","x⁵"], terms = coeff.map((c,i)=>({c,i})).filter(t=>Math.abs(t.c)>1e-6);
         const equation = terms.length ? terms.map((t,i)=>`${i && t.c >= 0 ? "+ " : ""}${fmt(t.c,2)}${labels[t.i] === "1" ? "" : labels[t.i]}`).join(" ") : "0";
-        set(sindy, '[data-metric="terms"]', terms.length); set(sindy, '[data-metric="rmse"]', fmt(rmse,3)); set(sindy, '[data-metric="equation"]', `x′ = ${equation}`);
+        set(sindy, '[data-metric="terms"]', terms.length); set(sindy, '[data-metric="rmse"]', fmt(rmse,3));
+        const equationMetric = q(sindy, '[data-metric="equation"]');
+        equationMetric.setAttribute("aria-label", `Recovered law: x prime equals ${equation}`);
+        const ns = "http://www.w3.org/1998/Math/MathML";
+        const token = (name, text) => {
+          const node = document.createElementNS(ns, name);
+          node.textContent = text;
+          return node;
+        };
+        const recoveredMath = document.createElementNS(ns, "math");
+        recoveredMath.setAttribute("display", "block");
+        recoveredMath.setAttribute("aria-hidden", "true");
+        const row = document.createElementNS(ns, "mrow");
+        row.append(token("mi", "x"), token("mo", "′"), token("mo", "="));
+        if (!terms.length) {
+          row.append(token("mn", "0"));
+        } else {
+          terms.forEach((term, index) => {
+            if (term.c < 0) row.append(token("mo", "−"));
+            else if (index) row.append(token("mo", "+"));
+            row.append(token("mn", fmt(Math.abs(term.c), 2)));
+            if (term.i === 1) row.append(token("mi", "x"));
+            else if (term.i > 1) {
+              const power = document.createElementNS(ns, "msup");
+              power.append(token("mi", "x"), token("mn", term.i));
+              row.append(power);
+            }
+          });
+        }
+        recoveredMath.append(row);
+        equationMetric.replaceChildren(recoveredMath);
         const correct = Math.abs(coeff[1]-1)<0.15 && Math.abs(coeff[3]+1)<0.15 && terms.every(t=>t.i===1||t.i===3);
         set(sindy, "[data-reading]", correct ? `The sparse fit recovers the two intended terms. Increase noise or move the threshold to find where symbolic recovery fails before the curve fit looks obviously poor.` : `The selected equation differs from the hidden two-term law. This is a model-selection failure even if parts of the recovered curve still appear plausible.`);
       });

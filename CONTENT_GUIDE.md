@@ -83,6 +83,16 @@ that point into the private ScienceProject repository. Links to genuinely public
 repositories or teaching resources may still render. Never add fake values to
 satisfy a schema.
 
+### Mathematical notation
+
+In Markdown and MDX, use the site's TeX math syntax for mathematics rather than
+Unicode approximations or code spans. In Astro teaching components, import
+`MathExpression.astro` and pass validated TeX to it; it produces a KaTeX visual
+rendering plus accessible MathML. Long display equations must retain the shared
+horizontal-scroll treatment on narrow screens. Interactive formulae that change
+in the browser must use semantic MathML, with an accessible plain-language
+label, rather than concatenated text such as `x^2`.
+
 Article structure should cover the question, why it matters, model, data and
 assumptions, findings, validation, limitations, and technical record. Label
 concepts, synthetic experiments, teaching cases, and work in progress directly.

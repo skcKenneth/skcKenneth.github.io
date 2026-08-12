@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import MathExpression from "../../components/MathExpression.astro";
 ---
 
 <BaseLayout
@@ -95,7 +96,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <h2>Logistic growth and carrying capacity</h2>
         </div>
         <div>
-          <p class="model-equation" aria-label="P sub n plus one equals P sub n plus r P sub n times one minus P sub n divided by K">P<sub>n+1</sub> = P<sub>n</sub> + rP<sub>n</sub>(1 − P<sub>n</sub>/K)</p>
+          <MathExpression className="model-equation" display expression={String.raw`P_{n+1}=P_n+rP_n\left(1-\frac{P_n}{K}\right)`} ariaLabel="P sub n plus one equals P sub n plus r P sub n times one minus P sub n divided by K." />
           <p>The growth term is large when the population is small, then weakens as the state approaches the carrying capacity <em>K</em>. A larger growth rate can create overshoot and alternating corrections.</p>
         </div>
       </div>
@@ -139,7 +140,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <h2>SIR dynamics with a timed intervention</h2>
         </div>
         <div>
-          <p class="model-equation" aria-label="S prime equals negative beta S I divided by N; I prime equals beta S I divided by N minus gamma I; R prime equals gamma I">S′ = −βSI/N &nbsp; · &nbsp; I′ = βSI/N − γI &nbsp; · &nbsp; R′ = γI</p>
+          <MathExpression className="model-equation" display expression={String.raw`\frac{\mathrm{d}S}{\mathrm{d}t}=-\frac{\beta SI}{N},\qquad \frac{\mathrm{d}I}{\mathrm{d}t}=\frac{\beta SI}{N}-\gamma I,\qquad \frac{\mathrm{d}R}{\mathrm{d}t}=\gamma I`} ariaLabel="The coupled SIR differential equations." />
           <p>The model divides a fixed population of 1,000 into susceptible, infectious, and removed groups. On the selected intervention day, transmission <em>β</em> is reduced by the chosen percentage.</p>
         </div>
       </div>
@@ -188,7 +189,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <h2>Why stopping distance grows faster than speed</h2>
         </div>
         <div>
-          <p class="model-equation" aria-label="d equals v t sub r plus v squared divided by two mu g">d(v) = vt<sub>r</sub> + v²/(2μg)</p>
+          <MathExpression className="model-equation" display expression={String.raw`d(v)=vt_r+\frac{v^2}{2\mu g}`} ariaLabel="d of v equals v t sub r plus v squared divided by two mu g." />
           <p>Reaction distance grows linearly with speed; braking distance grows quadratically. The decomposition shows why a modest increase in speed can create a much larger increase in total distance.</p>
         </div>
       </div>
