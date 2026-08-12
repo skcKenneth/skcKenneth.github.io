@@ -6,7 +6,7 @@ const items = await getCollection("teaching", ({ data }) => !data.draft);
 const order = { Beginner: 0, Competition: 1, Advanced: 2, Instructor: 3 };
 items.sort((a, b) => order[a.data.level] - order[b.data.level] || a.data.title.localeCompare(b.data.title));
 const bySlug = new Map(items.map((item) => [item.data.slug, item]));
-const sequence = ["mathematical-modeling-lecture-programme", "python-labs", "competition-pathway", "student-research-studio"]
+const sequence = ["mathematical-modeling-lecture-programme", "python-labs", "competition-pathway", "macau-school-math-competition", "student-research-studio"]
   .map((slug) => bySlug.get(slug))
   .filter((item): item is NonNullable<typeof item> => Boolean(item));
 const principles = [
@@ -16,6 +16,7 @@ const principles = [
   ["Write claims from evidence", "Students separate numerical output, interpretation, limitations, and the next evidence a decision would require."]
 ];
 const cases = [
+  ["Macau competition solution archive", "Work through 214 source-verified Junior and Senior solutions from 2019 to 2025/2026, with official-paper links and expandable examples.", "/teaching/macau-school-math-competition/", "Competition mathematics"],
   ["Quantum repeater scheduling lab", "Balance probabilistic link generation, swap failures, memory decay, fidelity, and tail latency in a five-node repeater chain.", "/teaching/quantum-repeater-lab/", "Quantum networks"],
   ["Research inquiry studio", "Investigate identifiability, causal spillovers, and robust decisions with assumptions, claim limits, articles, and academic references.", "/teaching/research-inquiry-studio/", "Research design"],
   ["Interactive model laboratory", "Find twelve experiments by research question, from foundation dynamics to inferential and decision models.", "/teaching/model-laboratory/", "Interactive examples"],

@@ -13,7 +13,8 @@ const typeLabels: Record<string, string> = {
   "Python lab": "Python 實驗",
   "Worked example": "完整案例",
   "Instructor resource": "教師資源",
-  "Student research": "學生研究"
+  "Student research": "學生研究",
+  "Competition archive": "競賽題解資源庫"
 };
 
 export async function getStaticPaths() {
@@ -49,7 +50,10 @@ const all = (await getCollection("teachingZh", ({ data }) => !data.draft))
       </dl>
       <p class="small"><strong>共同證據循環</strong><br/>問題 → 假設 → 基準 → 計算 → 驗證 → 溝通</p>
       <div class="tag-list">{entry.data.topics.map((topic) => <span class="tag">{topic}</span>)}</div>
-      <div class="actions"><a class="button secondary" href="/zh/teaching/">返回教學概覽</a></div>
+      <div class="actions">
+        {entry.data.downloadUrl && <a class="button" href={entry.data.downloadUrl}>下載教學資源</a>}
+        <a class="button secondary" href="/zh/teaching/">返回教學概覽</a>
+      </div>
     </aside>
     <article class="prose">
       <Content />
@@ -61,4 +65,3 @@ const all = (await getCollection("teachingZh", ({ data }) => !data.draft))
     </article>
   </div>
 </BaseLayout>
-

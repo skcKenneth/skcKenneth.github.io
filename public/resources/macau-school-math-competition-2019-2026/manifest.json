@@ -1,0 +1,40 @@
+﻿{
+    "schema_version":  1,
+    "slug":  "macau-school-math-competition-2019-2026",
+    "title":  "Macau School Mathematics Competition Archive, 2019-2026",
+    "release_type":  "independent-solution-companion",
+    "release_date":  "2026-08-12",
+    "source_zip_sha256":  "f5974b92a678641fdae32079ad922106e7e50f66f11b8fca92d754e1eedce723",
+    "official_source":  {
+                            "archive_url":  "https://www.dsedj.gov.mo/cre/science/comp/info.html",
+                            "accessed":  "2026-08-12"
+                        },
+    "coverage":  {
+                     "cycles":  8,
+                     "divisions":  16,
+                     "questions":  214,
+                     "figures":  46,
+                     "editorial_notes":  9
+                 },
+    "publication_boundary":  {
+                                 "official_papers_embedded":  false,
+                                 "transcribed_problem_statements_included":  false,
+                                 "raw_source_included":  false,
+                                 "official_papers_are_authoritative":  true
+                             },
+    "assets":  [
+                   {
+                       "file":  "solution-companion.pdf",
+                       "media_type":  "application/pdf",
+                       "bytes":  1702857,
+                       "sha256":  "5951618f8c3c80b37f51e2b46d761e427e30a3aac6dcd5bc09d585273a47cb7c",
+                       "pages":  248
+                   },
+                   {
+                       "file":  "cover.svg",
+                       "media_type":  "image/svg+xml",
+                       "bytes":  1688,
+                       "sha256":  "a03d5b9a9628bbb93ff8916e7371796301814be79d02012e0037c59b3f79cd2a"
+                   }
+               ]
+}

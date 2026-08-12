@@ -63,3 +63,6 @@ resourceType: Course pathway
 
 [沿岸防護文章](/zh/writing/2026-01-19-blog-post-4/)可討論多目標決策與不確定性；[為缺失感測器而設計](/zh/writing/designing-for-the-missing-sensor/)則展示名義上強的方案如何在一個量測消失後失效。
 
+## 澳門本地競賽數學資源
+
+[澳門校際／學界數學比賽題解資源庫](/zh/teaching/macau-school-math-competition/)按官方原卷、題號、思路與知識點整理 214 份初中及高中組解答。學生應先開啟教青局原卷並限時嘗試，再展開思路及完整論證作比較。

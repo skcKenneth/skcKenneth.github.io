@@ -1,0 +1,229 @@
+---
+export interface Props {
+  locale?: "en" | "zh-Hant";
+}
+
+const { locale = "en" } = Astro.props;
+const zh = locale === "zh-Hant";
+const resourceRoot = "/resources/macau-school-math-competition-2019-2026";
+const officialArchive = "https://www.dsedj.gov.mo/cre/science/comp/info.html";
+
+const copy = zh ? {
+  overviewEyebrow: "2019–2025/2026 · 初中組與高中組",
+  overviewTitle: "由歷屆題目走到可檢查的解題思路。",
+  overview: "這個資源庫不是把試卷堆在一起，而是把每題整理成原卷定位、思路解析、奧數知識點、完整解答與最終答案。原卷仍以教青局題庫為準。",
+  download: "下載 248 頁題解讀本",
+  official: "開啟教青局官方題庫",
+  stats: [["8", "賽事年度／週期"], ["16", "初中及高中組原卷"], ["214", "完整題解"], ["46", "向量幾何圖"]],
+  matrixTitle: "收錄矩陣",
+  matrixIntro: "每一列代表一個賽事年度；所有題解都已對應到組別及題號。",
+  year: "年度",
+  junior: "初中組",
+  senior: "高中組",
+  total: "合計",
+  topicsTitle: "題目跨越哪些數學領域？",
+  topicsIntro: "同一題可以同時涉及多個領域，因此以下標籤數目會重疊，總和不等於 214。",
+  pathwaysTitle: "三種實際用法",
+  pathways: [
+    ["單題練習", "先看官方原題，在 10–20 分鐘內寫出突破口，再展開思路與完整解答作比較。"],
+    ["主題訓練", "按代數、數論、幾何、組合或不等式集中練習，並記錄每題真正使用的轉化。"],
+    ["完整模擬", "按原卷時限完成一個組別；批改時分開評估答案、核心想法、論證完整性及表達。"],
+  ],
+  examplesEyebrow: "可展開示範",
+  examplesTitle: "不要只看答案：先找出控制整題的結構。",
+  examplesIntro: "三個示範分別展示估值、有限狀態遞推與完整幾何證明；使用鍵盤亦可展開。",
+  hint: "思路提示",
+  solution: "展開完整解答",
+  sourceNote: "題目來源：2025/2026 學年學界數學比賽；原卷以教青局版本為準。",
+  boundaryTitle: "來源與編輯邊界",
+  boundary: "這是 Kenneth Cheng 編寫的獨立、非官方、非商業教學資源。公開 PDF 不嵌入 16 份原卷，也不公開 Overleaf 原始碼；每個組別均連回教青局官方題庫。若原題存在歧義或選項不一致，題解會保留並明確標示，而不會靜默改題。",
+} : {
+  overviewEyebrow: "2019–2025/2026 · Junior and Senior Divisions",
+  overviewTitle: "Move from an archived paper to an inspectable solution strategy.",
+  overview: "This archive is not a pile of examination PDFs. Every entry is organised as an official-paper locator, strategy, Olympiad knowledge map, complete argument, and final answer. The DSEDJ facsimile remains authoritative.",
+  download: "Download the 248-page companion",
+  official: "Open the official DSEDJ archive",
+  stats: [["8", "competition cycles"], ["16", "Junior and Senior papers"], ["214", "worked solutions"], ["46", "vector diagrams"]],
+  matrixTitle: "Coverage matrix",
+  matrixIntro: "Each row is one competition cycle; every solution is keyed to its official division and question number.",
+  year: "Cycle",
+  junior: "Junior",
+  senior: "Senior",
+  total: "Total",
+  topicsTitle: "Which mathematical domains appear?",
+  topicsIntro: "A problem can carry several tags, so domain counts overlap and do not sum to 214.",
+  pathwaysTitle: "Three practical ways to use the archive",
+  pathways: [
+    ["One-problem practice", "Open the official question, spend 10–20 minutes finding a foothold, then compare your route with the strategy and proof."],
+    ["Topic training", "Work through algebra, number theory, geometry, combinatorics, or inequalities and record the transformation that actually unlocked each problem."],
+    ["Full mock paper", "Use the official time limit for one division, then assess the answer, central idea, completeness, and communication separately."],
+  ],
+  examplesEyebrow: "Expandable examples",
+  examplesTitle: "Do not stop at the answer: find the structure controlling the problem.",
+  examplesIntro: "The three examples show estimation, finite-state recurrence, and a complete geometry proof. Every disclosure is keyboard accessible.",
+  hint: "Strategy hint",
+  solution: "Open the worked solution",
+  sourceNote: "Source: 2025/2026 School Mathematics Competition. The DSEDJ facsimile is authoritative.",
+  boundaryTitle: "Source and editorial boundary",
+  boundary: "This is an independent, unofficial, non-commercial teaching resource edited by Kenneth Cheng. The public PDF embeds none of the 16 official papers and exposes no Overleaf source. Every division links to the DSEDJ archive. Ambiguities or inconsistent choices are identified explicitly rather than silently rewritten.",
+};
+
+const coverage = [
+  ["2019", 13, 15], ["2020", 19, 16], ["2021", 13, 10], ["2022", 16, 12],
+  ["2022/2023", 16, 12], ["2023/2024", 16, 11], ["2024/2025", 16, 10], ["2025/2026", 10, 9],
+];
+
+const topics = zh ? [
+  ["代數與方程", 103], ["數論", 64], ["幾何與三角", 48], ["不等式與最優化", 44],
+  ["組合與博弈", 36], ["數列、函數與分析", 26], ["混合／基礎", 3],
+] : [
+  ["Algebra and equations", 103], ["Number theory", 64], ["Geometry and trigonometry", 48], ["Inequalities and optimisation", 44],
+  ["Combinatorics and games", 36], ["Sequences, functions, and analysis", 26], ["Mixed or foundational", 3],
+];
+---
+
+<section class="mc-archive" aria-label={zh ? "澳門數學比賽題解資源庫" : "Macau mathematics competition solution archive"}>
+  <div class="mc-overview">
+    <img src={`${resourceRoot}/cover.svg`} alt={zh ? "澳門校際／學界數學比賽題解資源庫封面" : "Cover of the Macau School Mathematics Competition solution companion"} width="1200" height="675" />
+    <div>
+      <p class="mc-kicker">{copy.overviewEyebrow}</p>
+      <h2>{copy.overviewTitle}</h2>
+      <p>{copy.overview}</p>
+      <div class="mc-actions">
+        <a class="mc-button" href={`${resourceRoot}/solution-companion.pdf`}>{copy.download}</a>
+        <a class="mc-button mc-button--quiet" href={officialArchive} rel="noreferrer">{copy.official}</a>
+      </div>
+    </div>
+  </div>
+
+  <dl class="mc-stats">
+    {copy.stats.map(([value, label]) => <div><dt>{value}</dt><dd>{label}</dd></div>)}
+  </dl>
+
+  <section class="mc-section" aria-labelledby="mc-matrix-title">
+    <div class="mc-section-head"><h2 id="mc-matrix-title">{copy.matrixTitle}</h2><p>{copy.matrixIntro}</p></div>
+    <div class="mc-table-wrap">
+      <table>
+        <thead><tr><th>{copy.year}</th><th>{copy.junior}</th><th>{copy.senior}</th><th>{copy.total}</th></tr></thead>
+        <tbody>{coverage.map(([year, junior, senior]) => <tr><th scope="row">{year}</th><td>{junior}</td><td>{senior}</td><td>{Number(junior) + Number(senior)}</td></tr>)}</tbody>
+        <tfoot><tr><th scope="row">{copy.total}</th><td>116</td><td>98</td><td>214</td></tr></tfoot>
+      </table>
+    </div>
+  </section>
+
+  <section class="mc-section" aria-labelledby="mc-topics-title">
+    <div class="mc-section-head"><h2 id="mc-topics-title">{copy.topicsTitle}</h2><p>{copy.topicsIntro}</p></div>
+    <div class="mc-topic-list">{topics.map(([label, count]) => <div><span>{label}</span><strong>{count}</strong><i style={`--share:${Number(count) / 103}`}></i></div>)}</div>
+  </section>
+
+  <section class="mc-section" aria-labelledby="mc-pathways-title">
+    <div class="mc-section-head"><h2 id="mc-pathways-title">{copy.pathwaysTitle}</h2></div>
+    <ol class="mc-pathways">{copy.pathways.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol>
+  </section>
+
+  <section class="mc-section" aria-labelledby="mc-examples-title">
+    <div class="mc-section-head">
+      <p class="mc-kicker">{copy.examplesEyebrow}</p>
+      <h2 id="mc-examples-title">{copy.examplesTitle}</h2>
+      <p>{copy.examplesIntro}</p>
+    </div>
+
+    <div class="mc-examples">
+      <article>
+        <p class="mc-example-meta">2025/2026 · {zh ? "初中組 Q2 · 取整與估值" : "Junior Q2 · Floors and estimation"}</p>
+        <h3>{zh ? "何時一個根式差會跌到 1 以下？" : "When does a difference of radicals fall below one?"}</h3>
+        <p class="mc-math">N = ⌊√16 − √6⌋ + ⌊√26 − √16⌋ + ··· + ⌊√2026 − √2016⌋</p>
+        <details>
+          <summary>{copy.hint}</summary>
+          <p>{zh ? "把第 k 項有理化為 10/(√(10k+6)+√(10k−4))。分母單調增加，所以只需檢查最前面的臨界項。" : "Rationalise term k as 10/(√(10k+6)+√(10k−4)). The denominator increases, so only the first threshold cases need exact checking."}</p>
+        </details>
+        <details>
+          <summary>{copy.solution}</summary>
+          <p>{zh ? "將和式寫成 k=1 至 202。k=1,2 時，有理化後的值嚴格落在 (1,2)，兩項取整皆為 1。k≥3 時，分母至少為 √36+√26>10，所以每項嚴格落在 (0,1)，取整為 0。因此 N=1+1=2。" : "Write the sum for k=1,…,202. For k=1,2, the rationalised value lies strictly in (1,2), so each floor is 1. For k≥3, the denominator is at least √36+√26>10; every remaining term lies in (0,1) and has floor 0. Hence N=1+1=2."}</p>
+        </details>
+      </article>
+
+      <article>
+        <p class="mc-example-meta">2025/2026 · {zh ? "高中組 Q3 · 有限狀態遞推" : "Senior Q3 · Finite-state recurrence"}</p>
+        <h3>{zh ? "禁止 AA 與 BBB 後，九位字串有多少個？" : "How many length-nine strings avoid AA and BBB?"}</h3>
+        <p>{zh ? "把合法字串按末端分成 A、單個 B、BB 三個狀態。" : "Classify every valid string by whether it ends in A, one trailing B, or BB."}</p>
+        <details>
+          <summary>{copy.hint}</summary>
+          <p class="mc-math">uₙ₊₁ = vₙ + wₙ,　vₙ₊₁ = uₙ,　wₙ₊₁ = vₙ</p>
+        </details>
+        <details>
+          <summary>{copy.solution}</summary>
+          <p>{zh ? "初始狀態為 (u₁,v₁,w₁)=(1,1,0)。逐步遞推至 n=9 得 (9,7,5)，所以合法字串總數為 9+7+5=21。官方原卷所列選項沒有 21；讀本保留此不一致並把原卷列為權威來源，而不是改寫選項。" : "The initial state is (u₁,v₁,w₁)=(1,1,0). Iterating to n=9 gives (9,7,5), so the count is 9+7+5=21. The official choices do not contain 21; the companion records that mismatch and keeps the facsimile authoritative instead of rewriting the choices."}</p>
+        </details>
+      </article>
+
+      <article class="mc-geometry">
+        <p class="mc-example-meta">2025/2026 · {zh ? "高中組 Q9 · 旁切圓與共線" : "Senior Q9 · Excircle and collinearity"}</p>
+        <h3>{zh ? "中點條件如何變成三點共線？" : "How does a midpoint condition force three points to be collinear?"}</h3>
+        <svg viewBox="0 0 620 340" role="img" aria-labelledby="mc-geo-title mc-geo-desc">
+          <title id="mc-geo-title">{zh ? "三角形、外接圓與 A 旁切圓示意圖" : "Triangle with circumcircle and A-excircle"}</title>
+          <desc id="mc-geo-desc">{zh ? "圖中標示 A、B、C、內心 I、外心 O、切點 K、L、M 及 KL 中點 N。" : "Labels A, B, C, incenter I, circumcenter O, tangency points K, L, M, and midpoint N of KL."}</desc>
+          <circle cx="310" cy="165" r="132" fill="none" stroke="#1f3a5f" stroke-width="3"/>
+          <circle cx="310" cy="278" r="57" fill="none" stroke="#0d7a78" stroke-width="3"/>
+          <path d="M310 44L166 250L454 250Z" fill="none" stroke="#000" stroke-width="3"/>
+          <path d="M310 44L115 278M310 44L505 278M115 278H505M310 44V278" fill="none" stroke="#8a949d" stroke-width="2" stroke-dasharray="7 7"/>
+          <path d="M310 166V250" fill="none" stroke="#000" stroke-width="2" stroke-dasharray="5 6"/>
+          {[[310,44,"A",0,-12],[166,250,"B",-16,6],[454,250,"C",12,6],[115,278,"K",-18,7],[505,278,"L",12,7],[310,278,"N",10,18],[310,250,"M",12,15],[310,166,"O",13,2],[310,183,"I",-22,5]].map(([x,y,label,dx,dy]) => <g><circle cx={x} cy={y} r="4" fill="#000"/><text x={Number(x)+Number(dx)} y={Number(y)+Number(dy)} fill="#000" font-size="18" font-family="Arial, sans-serif">{label}</text></g>)}
+        </svg>
+        <details>
+          <summary>{copy.hint}</summary>
+          <p>{zh ? "先沿 A 的角平分線設坐標，利用 AK=AL=s 與 N∈ω 導出一個邊長恆等式；再在 BC 為 x 軸的坐標中計算 I、M、O 的面積行列式。" : "First use coordinates along the A-angle bisector. Equal tangents give AK=AL=s, and N∈ω yields a side-length identity. Then put BC on the x-axis and evaluate the signed-area determinant of I, M, O."}</p>
+        </details>
+        <details>
+          <summary>{copy.solution}</summary>
+          <p>{zh ? "設 a=BC、b=CA、c=AB、s=(a+b+c)/2、θ=A/2。取 A 為原點、角平分線為 x 軸，則 K,L=(s cosθ,±s sinθ)，故 N=(s cosθ,0)。外接圓寫成 x²+y²−λx−μy=0，由 B、C 得 λ=(b+c)/(2cosθ)。因 N 是圓上另一個 x 軸交點，s cosθ=λ，故 2s cos²θ=b+c。配合餘弦定理可化為 F(a,b,c)=0。" : "Let a=BC, b=CA, c=AB, s=(a+b+c)/2, and θ=A/2. Put A at the origin with the angle bisector as the x-axis. Then K,L=(s cosθ,±s sinθ), so N=(s cosθ,0). Writing the circumcircle as x²+y²−λx−μy=0 and substituting B,C gives λ=(b+c)/(2cosθ). Since N is the other x-axis intersection, s cosθ=λ, hence 2s cos²θ=b+c. The cosine law reduces this to F(a,b,c)=0."}</p>
+          <p class="mc-math">F = a³+a²b+a²c−ab²−2abc−ac²−b³+b²c+bc²−c³</p>
+          <p>{zh ? "再取 B=(0,0)、C=(a,0)、A=(p,q)，其中 p=(a²+c²−b²)/(2a)。由旁切圓切點得 M=(s−c,0)；內心與外心分別為 I=(a(p+c)/(2s), aq/(2s))、O=(a/2,(c²−ap)/(2q))。三點的有向面積行列式化為 Δ=(b−c)F/(8aq)=0，因此 I、M、O 共線。" : "Now put B=(0,0), C=(a,0), A=(p,q), where p=(a²+c²−b²)/(2a). The excircle contact gives M=(s−c,0); the incenter and circumcenter are I=(a(p+c)/(2s), aq/(2s)) and O=(a/2,(c²−ap)/(2q)). Their signed-area determinant simplifies to Δ=(b−c)F/(8aq)=0. Therefore I, M, O are collinear."}</p>
+        </details>
+      </article>
+    </div>
+    <p class="mc-source-note">{copy.sourceNote}</p>
+  </section>
+
+  <aside class="mc-boundary">
+    <h2>{copy.boundaryTitle}</h2>
+    <p>{copy.boundary}</p>
+    <a href={officialArchive} rel="noreferrer">{copy.official}</a>
+  </aside>
+</section>
+
+<style>
+  .mc-archive{--mc-navy:#1f3a5f;--mc-teal:#0d7a78;--mc-line:#cbd4dc;--mc-soft:#f4f7f7;color:#000;display:grid;gap:clamp(2.5rem,6vw,5rem);margin-top:.5rem;min-width:0}
+  .mc-archive>*,.mc-overview>*,.mc-stats>*,.mc-section>*{min-width:0}
+  .mc-archive :where(h2,h3,p,dt,dd,th,td,summary,span,strong,a){color:#000}
+  .mc-overview{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(1.5rem,4vw,3rem);align-items:center}
+  .mc-overview img{width:100%;height:auto;border:1px solid var(--mc-line);box-shadow:0 18px 50px rgba(31,58,95,.09)}
+  .mc-overview h2,.mc-section h2,.mc-boundary h2{margin:.35rem 0 .8rem;font-size:clamp(1.7rem,4vw,2.35rem);line-height:1.1}
+  .mc-kicker,.mc-example-meta{font:700 .76rem/1.4 var(--sans);letter-spacing:.09em;text-transform:uppercase}
+  .mc-kicker{border-left:3px solid var(--mc-teal);padding-left:.7rem}
+  .mc-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.3rem}
+  .mc-button{display:inline-flex;max-width:100%;padding:.78rem 1rem;border:1px solid var(--mc-navy);background:var(--mc-navy);color:#fff!important;text-decoration:none;font-weight:700;overflow-wrap:anywhere}
+  .mc-button--quiet{background:transparent;color:#000!important}
+  .mc-button:focus-visible,details summary:focus-visible{outline:3px solid #d2a637;outline-offset:3px}
+  .mc-stats{display:grid;grid-template-columns:repeat(4,1fr);margin:0;border-top:1px solid var(--mc-line);border-bottom:1px solid var(--mc-line)}
+  .mc-stats div{padding:1.2rem;border-right:1px solid var(--mc-line)}.mc-stats div:last-child{border-right:0}
+  .mc-stats dt{font:700 clamp(2rem,5vw,3.4rem)/1 var(--serif)}.mc-stats dd{margin:.45rem 0 0;font-size:.88rem}
+  .mc-section{display:grid;gap:1.25rem}.mc-section-head{max-width:65ch}.mc-section-head p{margin-bottom:0}
+  .mc-table-wrap{overflow-x:auto;border-top:2px solid var(--mc-navy)}
+  .mc-table-wrap table{display:table;width:100%;min-width:34rem}.mc-table-wrap th,.mc-table-wrap td{padding:.7rem .8rem;text-align:right;border-bottom:1px solid var(--mc-line)}
+  .mc-table-wrap th:first-child{text-align:left}.mc-table-wrap tfoot{font-weight:700;background:var(--mc-soft)}
+  .mc-topic-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1.4rem}
+  .mc-topic-list div{position:relative;display:grid;grid-template-columns:1fr auto;gap:1rem;padding:0 0 .65rem;border-bottom:5px solid #e2e7ea}
+  .mc-topic-list i{position:absolute;left:0;bottom:-5px;width:calc(var(--share)*100%);height:5px;background:var(--mc-teal)}
+  .mc-pathways{list-style:none;padding:0;margin:0;display:grid;gap:0;border-top:1px solid var(--mc-line)}
+  .mc-pathways li{display:grid;grid-template-columns:3.5rem 1fr;gap:1.2rem;padding:1.15rem 0;border-bottom:1px solid var(--mc-line)}
+  .mc-pathways li>span{font:700 1.15rem var(--sans);color:var(--mc-navy)}.mc-pathways h3{margin:0 0 .25rem}.mc-pathways p{margin:0}
+  .mc-examples{display:grid;gap:1.25rem}.mc-examples article{box-sizing:border-box;min-width:0;padding:clamp(1.1rem,3vw,1.65rem);border:1px solid var(--mc-line);border-left:4px solid var(--mc-navy);background:#fff}
+  .mc-examples h3{font-size:1.35rem;margin:.35rem 0 .8rem}.mc-example-meta{margin:0;color:#27333a!important}.mc-math{overflow-x:auto;padding:.85rem;background:var(--mc-soft);font:600 1rem/1.55 var(--mono)}
+  details{border-top:1px solid var(--mc-line);margin-top:.75rem;padding-top:.75rem}details summary{cursor:pointer;font-weight:700}details[open] summary{margin-bottom:.6rem}
+  .mc-geometry svg{display:block;width:min(100%,620px);height:auto;margin:1.2rem auto;background:var(--mc-soft);border:1px solid var(--mc-line)}
+  .mc-source-note{font-size:.86rem;border-left:3px solid var(--mc-teal);padding-left:.75rem}
+  .mc-boundary{box-sizing:border-box;min-width:0;padding:clamp(1.2rem,4vw,2rem);background:var(--mc-soft);border-top:4px solid var(--mc-navy)}.mc-boundary p{max-width:72ch}.mc-boundary a{font-weight:700}
+  @media(max-width:760px){.mc-overview{grid-template-columns:1fr}.mc-stats{grid-template-columns:repeat(2,1fr)}.mc-stats div:nth-child(2){border-right:0}.mc-stats div:nth-child(-n+2){border-bottom:1px solid var(--mc-line)}.mc-topic-list{grid-template-columns:1fr}.mc-table-wrap table{min-width:30rem}}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>

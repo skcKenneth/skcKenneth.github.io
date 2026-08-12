@@ -27,6 +27,7 @@ Requirements: Node 22.12+ and pnpm 11.7.
 ```bash
 pnpm install --frozen-lockfile
 npm run sync:science
+npm run sync:teaching
 pnpm dev
 ```
 
@@ -53,8 +54,10 @@ to internal links.
 - `src/pages` — static routes and legacy redirect generator;
 - `src/components` and `src/styles` — custom design system;
 - `scripts/sync-science-projects.mjs` — approved-asset and metadata sync;
+- `scripts/sync-teaching-resources.mjs` — allowlisted teaching-PDF and cover sync;
 - `public/science/<project-slug>/` — managed copies of approved figures;
 - `public/science/asset-manifest.json` — hashes, provenance, status, and stale records;
+- `public/resources/<resource-slug>/` — validated teaching downloads and managed receipts;
 - `src/data/generated` — validated fallback snapshots;
 - `/projects/` — complete technical catalogue plus reviewed editorial overviews;
 - `legacy-jekyll` — exact pre-rebuild implementation.

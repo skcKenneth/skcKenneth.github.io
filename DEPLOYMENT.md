@@ -7,8 +7,8 @@ the same build without deploying. The job:
 
 1. installs the pinned pnpm/Node toolchain;
 2. runs publication-policy unit tests;
-3. fetches or falls back to validated ScienceProject metadata and approved assets;
-4. verifies asset hashes, publish-only provenance, SVG policy and bilingual parity;
+3. fetches or falls back to validated ScienceProject metadata, approved figures, and allowlisted teaching resources;
+4. verifies asset hashes, publish-only provenance, teaching-resource boundaries, SVG policy and bilingual parity;
 5. validates Astro schemas and TypeScript;
 6. builds static output for `https://skckenneth.github.io`;
 7. creates the Pagefind index;

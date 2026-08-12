@@ -1,0 +1,48 @@
+{
+  "source": "sibling private ScienceProject release/public allowlist",
+  "source_of_truth": "ScienceProject release/public allowlist only",
+  "editorial_policy": "Teaching page bodies remain manually authored in skcKenneth.github.io and are never generated or overwritten by sync.",
+  "resource": {
+    "slug": "macau-school-math-competition-2019-2026",
+    "coverage": {
+      "cycles": 8,
+      "divisions": 16,
+      "questions": 214,
+      "figures": 46,
+      "editorial_notes": 9
+    },
+    "publication_boundary": {
+      "official_papers_embedded": false,
+      "transcribed_problem_statements_included": false,
+      "raw_source_included": false,
+      "official_papers_are_authoritative": true
+    }
+  },
+  "assets": [
+    {
+      "filename": "cover.svg",
+      "public_path": "/resources/macau-school-math-competition-2019-2026/cover.svg",
+      "sha256": "a03d5b9a9628bbb93ff8916e7371796301814be79d02012e0037c59b3f79cd2a",
+      "bytes": 1688,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "manifest.json",
+      "public_path": "/resources/macau-school-math-competition-2019-2026/manifest.json",
+      "sha256": "7db49580eef44a3e81709742b68d2a0f435c4d2bdd5d16b8d8f3e8745ec712c2",
+      "bytes": 1836,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "solution-companion.pdf",
+      "public_path": "/resources/macau-school-math-competition-2019-2026/solution-companion.pdf",
+      "sha256": "5951618f8c3c80b37f51e2b46d761e427e30a3aac6dcd5bc09d585273a47cb7c",
+      "bytes": 1702857,
+      "status": "current",
+      "managed": true
+    }
+  ],
+  "stale": []
+}

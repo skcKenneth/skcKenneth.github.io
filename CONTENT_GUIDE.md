@@ -17,6 +17,14 @@ experiments, results, or approved figures. `npm run sync:science` may update onl
 
 It never writes inside `src/content`.
 
+Curated teaching downloads use a separate boundary. `npm run sync:teaching`
+accepts only files declared in a private project's `release/public/` directory,
+validates hashes and media types, and writes managed copies under
+`public/resources/<resource-slug>/`. It never copies raw TeX, source archives,
+official-paper facsimiles, notebooks, or private repository paths, and it never
+generates or overwrites the bilingual teaching-page body. Stale managed files
+are reported and preserved rather than deleted automatically.
+
 The Projects section has two deliberately separate levels:
 
 - every ScienceProject top-level directory appears as a generated technical
@@ -109,6 +117,7 @@ part of the production build.
 
 - Research entries describe programmes and link across projects.
 - Teaching entries create learner or instructor pathways rather than PDF lists.
+- A large teaching PDF is introduced by a bilingual editorial page with audience, coverage, source boundary, and worked examples; the download is not the page itself.
 - Project entries always carry a controlled status and limitations.
 - Archived writing uses a visible notice and preserves its original date.
 

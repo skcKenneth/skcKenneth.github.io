@@ -67,3 +67,7 @@ The submission is assessed through the model brief, experiment log, reproducible
 ## Public cases
 
 The [coastal-defence article](/writing/2026-01-19-blog-post-4/) supports discussion of multi-objective decisions and uncertainty. [Designing for the Missing Sensor](/writing/designing-for-the-missing-sensor/) is useful for a reliability case in which a strong nominal solution may fail when one measurement disappears.
+
+## Local competition mathematics archive
+
+The [Macau School Mathematics Competition Archive](/teaching/macau-school-math-competition/) supports a different kind of timed practice: 214 Junior and Senior solutions are indexed by official paper, question, strategy, and knowledge point. Students should open the DSEDJ facsimile first, attempt the problem under a time limit, and only then reveal the strategy and worked argument.

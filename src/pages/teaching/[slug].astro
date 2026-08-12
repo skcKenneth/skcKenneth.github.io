@@ -21,7 +21,10 @@ const all = (await getCollection("teaching", ({ data }) => !data.draft)).filter(
       </dl>
       <p class="small"><strong>Common evidence cycle</strong><br/>Question → assumptions → baseline → computation → validation → communication.</p>
       <div class="tag-list">{entry.data.topics.map((topic) => <span class="tag">{topic}</span>)}</div>
-      <div class="actions"><a class="button secondary" href="/teaching/">Teaching overview</a></div>
+      <div class="actions">
+        {entry.data.downloadUrl && <a class="button" href={entry.data.downloadUrl}>Download resource</a>}
+        <a class="button secondary" href="/teaching/">Teaching overview</a>
+      </div>
     </aside>
     <article class="prose"><Content />
       <h2>Continue exploring</h2>

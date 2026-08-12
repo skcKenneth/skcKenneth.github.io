@@ -7,11 +7,11 @@ const order: Record<string, number> = { Beginner: 0, Competition: 1, Advanced: 2
 const levelLabels: Record<string, string> = { Beginner: "入門", Competition: "競賽", Advanced: "進階", Instructor: "教師" };
 const typeLabels: Record<string, string> = {
   "Course pathway": "課程路徑", "Python lab": "Python 實驗", "Worked example": "完整案例",
-  "Instructor resource": "教師資源", "Student research": "學生研究"
+  "Instructor resource": "教師資源", "Student research": "學生研究", "Competition archive": "競賽題解資源庫"
 };
 items.sort((a, b) => order[a.data.level] - order[b.data.level] || a.data.title.localeCompare(b.data.title, "zh-Hant"));
 const bySlug = new Map(items.map((item) => [item.data.slug, item]));
-const sequence = ["mathematical-modeling-lecture-programme", "python-labs", "competition-pathway", "student-research-studio"]
+const sequence = ["mathematical-modeling-lecture-programme", "python-labs", "competition-pathway", "macau-school-math-competition", "student-research-studio"]
   .map((slug) => bySlug.get(slug)).filter(Boolean);
 const principles = [
   ["先定義，再計算", "有用模型始於聚焦問題、系統邊界、數量與單位。"],
@@ -75,6 +75,7 @@ const principles = [
   <section class="section"><div class="container">
     <div class="section-head"><div><p class="eyebrow">互動學習</p><h2>按研究問題找到對應實驗。</h2></div><p>由基礎動態走到前沿研究模型，每個實驗都把控制、圖像、解讀、限制與參考文獻放在同一頁。</p></div>
     <div class="grid">
+      <article class="card wide"><p class="eyebrow">澳門競賽數學</p><h3><a class="title-link" href="/zh/teaching/macau-school-math-competition/">澳門校際／學界數學比賽題解資源庫</a></h3><p>按年份、組別與題號查閱 2019–2025/2026 共 214 份來源核對題解，並配合官方原卷練習。</p></article>
       <article class="card wide"><p class="eyebrow">量子網絡</p><h3><a class="title-link" href="/zh/teaching/quantum-repeater-lab/">量子中繼排程實驗室</a></h3><p>在五節點中繼鏈中比較鏈路生成、交換失敗、記憶衰減、保真度與尾部延遲。</p></article>
       <article class="card wide"><p class="eyebrow">互動例子</p><h3><a class="title-link" href="/zh/teaching/model-laboratory/">互動模型實驗室</a></h3><p>由 logistic、SIR 與煞車距離，走到推論與決策模型。</p></article>
       <article class="card wide"><p class="eyebrow">研究前沿</p><h3><a class="title-link" href="/zh/teaching/frontier-model-studio/">前沿模型工作室</a></h3><p>探索臨界轉變、方程發現、集體運動、高階傳染、算子學習及持續同調。</p></article>

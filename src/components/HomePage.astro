@@ -39,6 +39,10 @@ const copy = isZh ? {
   teachingIntro: "課程、互動模型、Python 實驗室與研究指導，形成由初步假設到獨立探究的完整路徑。",
   teachingPrimary: "探索教學實踐",
   teachingSecondary: "試玩互動模型",
+  teachingFeatureEyebrow: "最新本地教學資源",
+  teachingFeatureTitle: "澳門校際／學界數學比賽題解資源庫",
+  teachingFeatureIntro: "2019–2025/2026 初中及高中組，214 份來源核對題解、46 幅圖及可展開示範。",
+  teachingFeatureAction: "開啟題解資源庫",
   note: "研究筆記"
 } : {
   title: "Mathematical models for real systems.",
@@ -65,6 +69,10 @@ const copy = isZh ? {
   teachingIntro: "Courses, interactive models, Python laboratories, and mentoring form a path from first assumptions to independent inquiry.",
   teachingPrimary: "Explore teaching practice",
   teachingSecondary: "Try an interactive model",
+  teachingFeatureEyebrow: "New local teaching resource",
+  teachingFeatureTitle: "Macau School Mathematics Competition Archive",
+  teachingFeatureIntro: "Junior and Senior Divisions from 2019 to 2025/2026: 214 source-verified solutions, 46 diagrams, and expandable examples.",
+  teachingFeatureAction: "Open the solution archive",
   note: "Research note"
 };
 
@@ -153,15 +161,38 @@ const teachingBase = isZh ? "/zh/teaching" : "/teaching";
   </section>
 
   <section class="home-teaching">
-    <div class="container home-teaching-grid">
-      <div><p class="eyebrow">{copy.teachingEyebrow}</p><h2>{copy.teachingTitle}</h2></div>
-      <div>
-        <p>{copy.teachingIntro}</p>
-        <div class="actions">
-          <a class="button home-button" href={`${teachingBase}/`}>{copy.teachingPrimary}</a>
-          <a class="button home-button secondary" href={`${teachingBase}/model-laboratory/`}>{copy.teachingSecondary}</a>
+    <div class="container">
+      <div class="home-teaching-grid">
+        <div><p class="eyebrow">{copy.teachingEyebrow}</p><h2>{copy.teachingTitle}</h2></div>
+        <div>
+          <p>{copy.teachingIntro}</p>
+          <div class="actions">
+            <a class="button home-button" href={`${teachingBase}/`}>{copy.teachingPrimary}</a>
+            <a class="button home-button secondary" href={`${teachingBase}/model-laboratory/`}>{copy.teachingSecondary}</a>
+          </div>
         </div>
       </div>
+      <a class="home-teaching-feature" href={`${teachingBase}/macau-school-math-competition/`}>
+        <img src="/resources/macau-school-math-competition-2019-2026/cover.svg" alt="" width="1200" height="675" loading="lazy" />
+        <span>
+          <small class="eyebrow">{copy.teachingFeatureEyebrow}</small>
+          <strong>{copy.teachingFeatureTitle}</strong>
+          <span>{copy.teachingFeatureIntro}</span>
+          <b>{copy.teachingFeatureAction} <i aria-hidden="true">→</i></b>
+        </span>
+      </a>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .home-teaching-feature{display:grid;grid-template-columns:minmax(180px,.36fr) minmax(0,.64fr);gap:clamp(1.2rem,4vw,3rem);align-items:center;margin-top:clamp(2rem,5vw,4rem);padding:clamp(1rem,2.5vw,1.6rem);border:1px solid #bcaea2;background:#f4ece5;color:var(--ink);text-decoration:none}
+  .home-teaching-feature img{display:block;width:100%;height:auto;border:1px solid #c9bdb3}
+  .home-teaching-feature>span{display:grid;gap:.65rem}.home-teaching-feature small{color:var(--rust)}
+  .home-teaching-feature strong{font:700 clamp(1.45rem,3vw,2.25rem)/1.1 var(--serif)}
+  .home-teaching-feature span span{color:#584f48;max-width:56ch}.home-teaching-feature b{font-size:.92rem}.home-teaching-feature i{font-style:normal}
+  .home-teaching-feature:hover,.home-teaching-feature:focus-visible{border-color:var(--ink);transform:translateY(-2px)}
+  .home-teaching-feature:focus-visible{outline:3px solid var(--rust);outline-offset:3px}
+  @media(max-width:700px){.home-teaching-feature{grid-template-columns:1fr}.home-teaching-feature img{max-height:15rem;object-fit:cover}}
+  @media(prefers-reduced-motion:reduce){.home-teaching-feature{transform:none!important}}
+</style>

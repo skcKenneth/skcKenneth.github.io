@@ -92,7 +92,7 @@ const writingSchema = z.object({
 const teachingSchema = z.object({
   ...base,
   level: z.enum(["Beginner", "Competition", "Advanced", "Instructor"]),
-  resourceType: z.enum(["Course pathway", "Python lab", "Worked example", "Instructor resource", "Student research"]),
+  resourceType: z.enum(["Course pathway", "Python lab", "Worked example", "Instructor resource", "Student research", "Competition archive"]),
   downloadUrl: z.string().optional()
 });
 
