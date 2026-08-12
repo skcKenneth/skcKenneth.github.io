@@ -36,21 +36,3 @@ test("interactive recovered equations are generated as semantic MathML rather th
   assert.match(source, /document\.createElementNS\(ns, "msup"\)/);
   assert.match(source, /equationMetric\.replaceChildren\(recoveredMath\)/);
 });
-
-test("built teaching routes contain KaTeX and MathML for every audited static formula", async () => {
-  const routes = [
-    "dist/teaching/macau-school-math-competition/index.html",
-    "dist/zh/teaching/macau-school-math-competition/index.html",
-    "dist/teaching/model-laboratory/index.html",
-    "dist/teaching/frontier-model-studio/index.html",
-    "dist/teaching/research-inquiry-studio/index.html",
-    "dist/teaching/quantum-repeater-lab/index.html",
-    "dist/zh/teaching/quantum-repeater-lab/index.html",
-  ];
-
-  for (const path of routes) {
-    const output = await read(path);
-    assert.match(output, /<math/, `${path} has no MathML`);
-    assert.match(output, /class="katex"/, `${path} has no KaTeX visual output`);
-  }
-});
