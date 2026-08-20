@@ -1,0 +1,12 @@
+---
+import rawCatalogue from "../../../data/generated/teaching-lecture-catalogue.json";
+import type { LectureCatalogue } from "../../../types/lecture-library";
+import LectureUnitReader from "../../../components/LectureUnitReader.astro";
+
+export function getStaticPaths() {
+  const catalogue = rawCatalogue as unknown as LectureCatalogue;
+  return catalogue.units.map((unit) => ({ params: { unit: unit.id }, props: { unit } }));
+}
+const { unit } = Astro.props;
+---
+<LectureUnitReader unit={unit} locale="en" />

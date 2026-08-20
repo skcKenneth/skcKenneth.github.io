@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import LectureLibraryCallout from "../../components/LectureLibraryCallout.astro";
 
 const items = await getCollection("teaching", ({ data }) => !data.draft);
 const order = { Beginner: 0, Competition: 1, Advanced: 2, Instructor: 3 };
@@ -46,7 +47,9 @@ const cases = [
         </ol>
       </aside>
     </div>
-  </header>
+</header>
+
+  <LectureLibraryCallout locale="en" />
 
   <section class="section">
     <div class="container">

@@ -1,0 +1,2464 @@
+{
+  "schema_version": 2,
+  "slug": "mathematical-modeling-lecture-materials",
+  "revision_date": "2026-08-20",
+  "source_archives": [
+    {
+      "role": "original English slide sources",
+      "sha256": "ea6f5e510ccfedfe3d64aefc2e98a1aff0e9c1319b4eda5c9b03870617995cfc"
+    },
+    {
+      "role": "original English note sources",
+      "sha256": "6e0413801c0c1d8e040e8004cdec22c177f9ee52c6019ac26b9b951ecfaa5b7a"
+    }
+  ],
+  "license": {
+    "name": "CC BY-NC-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+  },
+  "sources": {
+    "gaimme": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/",
+    "comap_instructions_snapshot_checked_2026_08_13": "https://contest.comap.com/highschool/contests/himcm/instructions.html",
+    "external_links_rechecked_on": "2026-08-20",
+    "further_reading_checked_on": "2026-08-20"
+  },
+  "units": [
+    {
+      "id": "lecture-01",
+      "group": "lecture",
+      "order": 1,
+      "title": {
+        "en": "Modeling Change",
+        "zh-Hant": "變化的建模"
+      },
+      "summary": {
+        "en": "Purposeful simplification, difference equations, equilibria, and constrained growth.",
+        "zh-Hant": "從有目的的簡化出發，學習差分方程、平衡點與受限增長。"
+      },
+      "prerequisites": {
+        "en": [
+          "Algebra and graphs"
+        ],
+        "zh-Hant": [
+          "代數與圖像"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Formulate discrete change",
+          "Interpret equilibria",
+          "Critique assumptions"
+        ],
+        "zh-Hant": [
+          "建立離散變化模型",
+          "解釋平衡點",
+          "評估模型假設"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        },
+        {
+          "id": "mit-differential-equations",
+          "publisher": "MIT OpenCourseWare",
+          "title": {
+            "en": "18.03SC Differential Equations",
+            "zh-Hant": "18.03SC 微分方程"
+          },
+          "url": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-01-notes-en.pdf",
+          "bytes": 106855,
+          "sha256": "724d3af757b210264f240296dba578f3b2e246242384c87b3289ae201db65186",
+          "pages": 11,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-01-notes-zh-hant.pdf",
+          "bytes": 363947,
+          "sha256": "161c286d912b661f4ffd4e5b8cee598691aaa333915a4f2a95df9d2b06a94b46",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-01-slides-en.pdf",
+          "bytes": 110497,
+          "sha256": "0afb7641248d941a38536976051e067b49866af4a2e23161ffd23276ff6456e6",
+          "pages": 48,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-02",
+      "group": "lecture",
+      "order": 2,
+      "title": {
+        "en": "The Modeling Process and Scaling",
+        "zh-Hant": "建模流程與尺度分析"
+      },
+      "summary": {
+        "en": "Problem formulation, decomposition, units, and geometric scaling.",
+        "zh-Hant": "探討問題界定、分解、單位及幾何尺度關係。"
+      },
+      "prerequisites": {
+        "en": [
+          "Lecture 1"
+        ],
+        "zh-Hant": [
+          "主課 1"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Decompose systems",
+          "Check units",
+          "Derive scaling laws"
+        ],
+        "zh-Hant": [
+          "分解系統",
+          "核對單位",
+          "推導尺度定律"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        },
+        {
+          "id": "nist-si",
+          "publisher": "NIST",
+          "title": {
+            "en": "Guide to the SI: Values, quantities, and dimensions",
+            "zh-Hant": "《國際單位制指南》：量值、物理量與量綱"
+          },
+          "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-7-rules-and-style-conventions-expressing-values"
+        },
+        {
+          "id": "nasa-orbital-facts",
+          "publisher": "NASA NSSDCA",
+          "title": {
+            "en": "Planetary fact sheet — ratio to Earth values",
+            "zh-Hant": "行星資料表——相對地球數值"
+          },
+          "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-02-notes-en.pdf",
+          "bytes": 110990,
+          "sha256": "a1ffd74b6ab27179e36780c518eaed1c6908b33f38d6b17ec1a71f8d2a93b9a9",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-02-notes-zh-hant.pdf",
+          "bytes": 360832,
+          "sha256": "1d7a6d0b95d4720b851aaedafe5e16c7f444fa0ba8b80dad3d9f59d5a2124faa",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-02-slides-en.pdf",
+          "bytes": 102101,
+          "sha256": "b638318b6fd0185850580102f66dac25a7df7d48284063edb51332edb060c08a",
+          "pages": 51,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-03",
+      "group": "lecture",
+      "order": 3,
+      "title": {
+        "en": "Model Fitting and Residual Analysis",
+        "zh-Hant": "模型擬合與殘差分析"
+      },
+      "summary": {
+        "en": "Least squares, residuals, validation splits, and error metrics.",
+        "zh-Hant": "涵蓋最小二乘法、殘差、驗證分割與誤差指標。"
+      },
+      "prerequisites": {
+        "en": [
+          "Algebra",
+          "Basic statistics"
+        ],
+        "zh-Hant": [
+          "代數",
+          "基礎統計"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Fit simple models",
+          "Interpret residuals",
+          "Separate fitting and validation"
+        ],
+        "zh-Hant": [
+          "擬合簡單模型",
+          "解釋殘差",
+          "區分擬合與驗證"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "nist-statistics",
+          "publisher": "NIST / SEMATECH",
+          "title": {
+            "en": "Engineering Statistics Handbook",
+            "zh-Hant": "《工程統計手冊》"
+          },
+          "url": "https://www.nist.gov/programs-projects/nistsematech-engineering-statistics-handbook"
+        },
+        {
+          "id": "statistics",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Introductory Statistics 2e",
+            "zh-Hant": "《基礎統計學》第二版"
+          },
+          "url": "https://openstax.org/details/books/introductory-statistics-2e"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-03-notes-en.pdf",
+          "bytes": 120051,
+          "sha256": "3102106f385e149b2241e709addba186e67408089fbbdfd55ba706e9d8159a23",
+          "pages": 13,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-03-notes-zh-hant.pdf",
+          "bytes": 358459,
+          "sha256": "4f73362f746a6cf9e6a9c24a5aa63bd5df75204250743751ae2018dbe2bd36c1",
+          "pages": 12,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-03-slides-en.pdf",
+          "bytes": 114108,
+          "sha256": "b73bce90b48c8c69a52b8c524695d4827cb1bcc7e0fed2b9c2d06c42f6e8dbd1",
+          "pages": 52,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-04",
+      "group": "lecture",
+      "order": 4,
+      "title": {
+        "en": "Empirical Models, Interpolation, and Splines",
+        "zh-Hant": "經驗模型、插值與樣條"
+      },
+      "summary": {
+        "en": "Interpolation, extrapolation, polynomial behavior, and splines.",
+        "zh-Hant": "比較插值、外推、多項式行為與樣條方法。"
+      },
+      "prerequisites": {
+        "en": [
+          "Lecture 3"
+        ],
+        "zh-Hant": [
+          "主課 3"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Choose interpolation methods",
+          "Recognize unstable extrapolation",
+          "Use splines"
+        ],
+        "zh-Hant": [
+          "選擇插值方法",
+          "辨識不穩定外推",
+          "運用樣條"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "scipy-interpolation",
+          "publisher": "SciPy",
+          "title": {
+            "en": "Interpolation user guide",
+            "zh-Hant": "插值法使用指南"
+          },
+          "url": "https://docs.scipy.org/doc/scipy/tutorial/interpolate.html"
+        },
+        {
+          "id": "calculus-1",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Calculus Volume 1",
+            "zh-Hant": "《微積分》第一冊"
+          },
+          "url": "https://openstax.org/details/books/calculus-volume-1"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-04-notes-en.pdf",
+          "bytes": 113157,
+          "sha256": "a70d34fbf58be49ce5d85cfbc6494a8587c0036ff63675a66128d19892b5cf03",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-04-notes-zh-hant.pdf",
+          "bytes": 346537,
+          "sha256": "9901da1332a8f2a150937c370b164b320f7572bcb6003f488ea7dbc135ef2374",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-04-slides-en.pdf",
+          "bytes": 114423,
+          "sha256": "90d2b0a402891a4079e48259e43adfbbc50e0742eab4b0522c538ff253c91f34",
+          "pages": 52,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-05",
+      "group": "lecture",
+      "order": 5,
+      "title": {
+        "en": "Monte Carlo and Discrete-Event Simulation",
+        "zh-Hant": "蒙地卡羅與離散事件模擬"
+      },
+      "summary": {
+        "en": "Random sampling, event simulation, replication, warm-up, and confidence intervals.",
+        "zh-Hant": "學習隨機抽樣、事件模擬、重複試驗、暖機期與信賴區間。"
+      },
+      "prerequisites": {
+        "en": [
+          "Probability basics"
+        ],
+        "zh-Hant": [
+          "概率基礎"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Design simulations",
+          "Verify event logic",
+          "Quantify simulation uncertainty"
+        ],
+        "zh-Hant": [
+          "設計模擬",
+          "核證事件邏輯",
+          "量化模擬不確定性"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "simpy",
+          "publisher": "SimPy",
+          "title": {
+            "en": "Discrete-event simulation documentation",
+            "zh-Hant": "離散事件模擬文件"
+          },
+          "url": "https://simpy.readthedocs.io/en/stable/"
+        },
+        {
+          "id": "nist-statistics",
+          "publisher": "NIST / SEMATECH",
+          "title": {
+            "en": "Engineering Statistics Handbook",
+            "zh-Hant": "《工程統計手冊》"
+          },
+          "url": "https://www.nist.gov/programs-projects/nistsematech-engineering-statistics-handbook"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-05-notes-en.pdf",
+          "bytes": 103093,
+          "sha256": "07b5a50b040c11ef101440fe8967cf528d60f8801acccb068fe6c4eb51d79e2c",
+          "pages": 11,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-05-notes-zh-hant.pdf",
+          "bytes": 341899,
+          "sha256": "f3851bad6ef757deaed3eea566deb068e0b5351224c31794f9a0d62ce6ffe34f",
+          "pages": 10,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-05-slides-en.pdf",
+          "bytes": 98736,
+          "sha256": "6a695295eb65e17a074ab03cae4ff553db6c3e88ad7509e216ac3a1000868453",
+          "pages": 45,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-06",
+      "group": "lecture",
+      "order": 6,
+      "title": {
+        "en": "Linear Programming and Decision Optimization",
+        "zh-Hant": "線性規劃與決策最佳化"
+      },
+      "summary": {
+        "en": "Decision variables, constraints, feasible regions, integer decisions, and sensitivity.",
+        "zh-Hant": "探討決策變量、限制、可行域、整數決策與敏感度。"
+      },
+      "prerequisites": {
+        "en": [
+          "Linear equations and inequalities"
+        ],
+        "zh-Hant": [
+          "線性方程與不等式"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Formulate linear programs",
+          "Interpret constraints",
+          "Test decision sensitivity"
+        ],
+        "zh-Hant": [
+          "建立線性規劃",
+          "解釋限制條件",
+          "檢驗決策敏感度"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "neos-lp",
+          "publisher": "NEOS Guide",
+          "title": {
+            "en": "Linear Programming",
+            "zh-Hant": "線性規劃指南"
+          },
+          "url": "https://neos-guide.org/guide/types/lp/"
+        },
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-06-notes-en.pdf",
+          "bytes": 115459,
+          "sha256": "94b9e862cce56825310fb3c271fed818827cde0346082d1f99453461350a2168",
+          "pages": 13,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-06-notes-zh-hant.pdf",
+          "bytes": 373308,
+          "sha256": "1b90b4671219d0c2bd047dcb74dc46270749b5c2569f121c8f91a6d24b6454e0",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-06-slides-en.pdf",
+          "bytes": 109952,
+          "sha256": "b66e35c2efc2b34cd155fa9e77e5e3f0803bac52d49c4e70a37b5acdef4e91b4",
+          "pages": 57,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-07",
+      "group": "lecture",
+      "order": 7,
+      "title": {
+        "en": "Decision Theory and Risk",
+        "zh-Hant": "決策理論與風險"
+      },
+      "summary": {
+        "en": "Expected value, decision trees, Bayes updating, information value, and tail risk.",
+        "zh-Hant": "涵蓋期望值、決策樹、貝葉斯更新、資訊價值與尾端風險。"
+      },
+      "prerequisites": {
+        "en": [
+          "Probability basics"
+        ],
+        "zh-Hant": [
+          "概率基礎"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Build decision trees",
+          "Update probabilities",
+          "Compare mean and tail risk"
+        ],
+        "zh-Hant": [
+          "建立決策樹",
+          "更新概率",
+          "比較平均與尾端風險"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "statistics",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Introductory Statistics 2e",
+            "zh-Hant": "《基礎統計學》第二版"
+          },
+          "url": "https://openstax.org/details/books/introductory-statistics-2e"
+        },
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-07-notes-en.pdf",
+          "bytes": 114976,
+          "sha256": "5af6435861625f3ddec58778e3ca0f9b4bbfb4dc725237657be5f2e6b204e321",
+          "pages": 13,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-07-notes-zh-hant.pdf",
+          "bytes": 387310,
+          "sha256": "6ec6f75e1105e9645589a0cfa971306dcf7d8281e14662a4c5ba86d4042a7298",
+          "pages": 12,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-07-slides-en.pdf",
+          "bytes": 108942,
+          "sha256": "4366e98b1f89d7b7025100823df38e693be89d565a1a212d667b0efe2dd50d5f",
+          "pages": 56,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-08",
+      "group": "lecture",
+      "order": 8,
+      "title": {
+        "en": "Game Theory and Strategic Modeling",
+        "zh-Hant": "博弈論與策略建模"
+      },
+      "summary": {
+        "en": "Zero-sum games, mixed strategies, Nash equilibrium, and repeated interaction.",
+        "zh-Hant": "介紹零和博弈、混合策略、納殊均衡與重複互動。"
+      },
+      "prerequisites": {
+        "en": [
+          "Algebra",
+          "Probability basics"
+        ],
+        "zh-Hant": [
+          "代數",
+          "概率基礎"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Analyze payoff matrices",
+          "Find equilibria",
+          "Critique strategic assumptions"
+        ],
+        "zh-Hant": [
+          "分析收益矩陣",
+          "尋找均衡",
+          "評估策略假設"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "yale-game-theory",
+          "publisher": "Open Yale Courses",
+          "title": {
+            "en": "ECON 159: Game Theory",
+            "zh-Hant": "ECON 159：博弈論"
+          },
+          "url": "https://oyc.yale.edu/economics/econ-159"
+        },
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-08-notes-en.pdf",
+          "bytes": 100931,
+          "sha256": "c2b8607b2ba8523483ebc0b297c8441267d9487ed678f06ab0197c2b83984cef",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-08-notes-zh-hant.pdf",
+          "bytes": 380399,
+          "sha256": "dbe074934040fdc6458ff4233408da354bcdc7c0d5ba67b380985501286fd045",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-08-slides-en.pdf",
+          "bytes": 102634,
+          "sha256": "2cab491fb3a65cc194e4725877d06b2d5991164985e495290c806cdba3bf1260",
+          "pages": 54,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-09",
+      "group": "lecture",
+      "order": 9,
+      "title": {
+        "en": "Differential Equations and Dynamic Models",
+        "zh-Hant": "微分方程與動態模型"
+      },
+      "summary": {
+        "en": "Continuous change, phase lines, numerical integration, and interacting populations.",
+        "zh-Hant": "探討連續變化、相線、數值積分與互動族群。"
+      },
+      "prerequisites": {
+        "en": [
+          "Differentiation"
+        ],
+        "zh-Hant": [
+          "微分"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Formulate ODE models",
+          "Classify equilibria",
+          "Check numerical convergence"
+        ],
+        "zh-Hant": [
+          "建立常微分方程模型",
+          "分類平衡點",
+          "檢查數值收斂"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "mit-differential-equations",
+          "publisher": "MIT OpenCourseWare",
+          "title": {
+            "en": "18.03SC Differential Equations",
+            "zh-Hant": "18.03SC 微分方程"
+          },
+          "url": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/"
+        },
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-09-notes-en.pdf",
+          "bytes": 128731,
+          "sha256": "f636b2e3acf84b1d36dd3cd759bed43798836a9ef000d8835c3bce7df796cbaa",
+          "pages": 14,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-09-notes-zh-hant.pdf",
+          "bytes": 412957,
+          "sha256": "5672a452654e61dc9810ae2aad92888e595909c4baa9480c1e07312e299e1485",
+          "pages": 13,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-09-slides-en.pdf",
+          "bytes": 133562,
+          "sha256": "f2443afab192060005dc53cf6ea01e6b582f9cc67352e6a54995b384c2ae57b3",
+          "pages": 58,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-10",
+      "group": "lecture",
+      "order": 10,
+      "title": {
+        "en": "Continuous Optimization and Model Design",
+        "zh-Hant": "連續最佳化與模型設計"
+      },
+      "summary": {
+        "en": "Single- and multivariable optimization, constraints, solver error, and shadow prices.",
+        "zh-Hant": "涵蓋單變量與多變量最佳化、限制、求解器誤差與影子價格。"
+      },
+      "prerequisites": {
+        "en": [
+          "Differentiation",
+          "Partial derivatives"
+        ],
+        "zh-Hant": [
+          "微分",
+          "偏導數"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Build objectives",
+          "Use constrained optimization",
+          "Distinguish solver and model error"
+        ],
+        "zh-Hant": [
+          "建立目標函數",
+          "運用限制最佳化",
+          "區分求解器與模型誤差"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "neos-nlp",
+          "publisher": "NEOS Guide",
+          "title": {
+            "en": "Nonlinear Constrained Optimization",
+            "zh-Hant": "非線性限制最佳化指南"
+          },
+          "url": "https://neos-guide.org/guide/types/nonlin/"
+        },
+        {
+          "id": "calculus-3",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Calculus Volume 3",
+            "zh-Hant": "《微積分》第三冊"
+          },
+          "url": "https://openstax.org/details/books/calculus-volume-3"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-10-notes-en.pdf",
+          "bytes": 130730,
+          "sha256": "5a888c64c3a1936e9a692eee12b18d24beaddcffcd6dcbc341bfdd4e252d4989",
+          "pages": 13,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-10-notes-zh-hant.pdf",
+          "bytes": 410314,
+          "sha256": "62c3b514e7b15d4cd35d896a4ccc413bb157b8a277ed324aa5b1c8b01e8da362",
+          "pages": 12,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-10-slides-en.pdf",
+          "bytes": 128084,
+          "sha256": "e7593fbc11b8e483c874688d473651e115c4bb1f098377d1c35863174ad67c59",
+          "pages": 51,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-11",
+      "group": "lecture",
+      "order": 11,
+      "title": {
+        "en": "Dimensional Analysis and Similitude",
+        "zh-Hant": "量綱分析與相似理論"
+      },
+      "summary": {
+        "en": "Dimensional compatibility, Buckingham Pi, and experimental similitude.",
+        "zh-Hant": "學習量綱相容、白金漢 π 定理與實驗相似。"
+      },
+      "prerequisites": {
+        "en": [
+          "Algebraic exponents"
+        ],
+        "zh-Hant": [
+          "代數指數"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Check dimensions",
+          "Construct dimensionless groups",
+          "Design scaled experiments"
+        ],
+        "zh-Hant": [
+          "核對量綱",
+          "建立無量綱組合",
+          "設計縮尺實驗"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "nist-si",
+          "publisher": "NIST",
+          "title": {
+            "en": "Guide to the SI: Values, quantities, and dimensions",
+            "zh-Hant": "《國際單位制指南》：量值、物理量與量綱"
+          },
+          "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-7-rules-and-style-conventions-expressing-values"
+        },
+        {
+          "id": "nasa-orbital-facts",
+          "publisher": "NASA NSSDCA",
+          "title": {
+            "en": "Planetary fact sheet — ratio to Earth values",
+            "zh-Hant": "行星資料表——相對地球數值"
+          },
+          "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-11-notes-en.pdf",
+          "bytes": 110203,
+          "sha256": "5b2fb8c4d6e9dcaff244f127547583aa7f52ce0bf8137408966565c1fc930b7f",
+          "pages": 11,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-11-notes-zh-hant.pdf",
+          "bytes": 348516,
+          "sha256": "a1e2d67457b87ecd44696c897aa8b44314062348caf594f723af4a8ee1281701",
+          "pages": 10,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-11-slides-en.pdf",
+          "bytes": 107375,
+          "sha256": "a15666bcd138d66fe7ad20b9a16d9bea7ee9a37160266142157ca0faa64260b3",
+          "pages": 46,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "lecture-12",
+      "group": "lecture",
+      "order": 12,
+      "title": {
+        "en": "Graphical and Qualitative Modeling",
+        "zh-Hant": "圖像與定性建模"
+      },
+      "summary": {
+        "en": "Response curves, qualitative dynamics, comparative statics, and modern modeling bridges.",
+        "zh-Hant": "探討反應曲線、定性動力學、比較靜態與現代建模延伸。"
+      },
+      "prerequisites": {
+        "en": [
+          "Functions and graphs"
+        ],
+        "zh-Hant": [
+          "函數與圖像"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Reason from curve shape",
+          "Analyze qualitative equilibria",
+          "Connect classical and modern models"
+        ],
+        "zh-Hant": [
+          "從曲線形狀推理",
+          "分析定性均衡",
+          "連結經典與現代模型"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "economics",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Principles of Economics 3e",
+            "zh-Hant": "《經濟學原理》第三版"
+          },
+          "url": "https://openstax.org/books/principles-economics-3e/pages/1-introduction"
+        },
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/lecture-12-notes-en.pdf",
+          "bytes": 114212,
+          "sha256": "9ede8744119d20825906a52c5cdb90ac7ed377dabc35dfdc3cfc2ca801f47230",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/lecture-12-notes-zh-hant.pdf",
+          "bytes": 380668,
+          "sha256": "d5e4d62f1ff9ad0d85c987d64d05df01fa744dc8f58c38e001a377978e0874b4",
+          "pages": 10,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/lecture-12-slides-en.pdf",
+          "bytes": 109234,
+          "sha256": "74c90c76359f11e08b228be97305055621b1b6920b787a7e948a81889bd78805",
+          "pages": 46,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-01",
+      "group": "supplementary",
+      "order": 1,
+      "title": {
+        "en": "Sets, Functions, and Mathematical Language",
+        "zh-Hant": "集合、函數與數學語言"
+      },
+      "summary": {
+        "en": "Notation, logic, sets, functions, and clear quantitative statements.",
+        "zh-Hant": "整理記號、邏輯、集合、函數與清晰的量化表述。"
+      },
+      "prerequisites": {
+        "en": [
+          "Basic algebra"
+        ],
+        "zh-Hant": [
+          "基礎代數"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Use notation precisely",
+          "Represent functions",
+          "State assumptions clearly"
+        ],
+        "zh-Hant": [
+          "準確使用記號",
+          "表達函數",
+          "清楚陳述假設"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "precalculus",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Precalculus 2e",
+            "zh-Hant": "《大學預備微積分》第二版"
+          },
+          "url": "https://openstax.org/details/books/precalculus-2e"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-01-notes-en.pdf",
+          "bytes": 101654,
+          "sha256": "4052c6dd9e0db26ee910119d651a6bf55d6a3de02abe28dc37bb19926eecd69d",
+          "pages": 11,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-01-notes-zh-hant.pdf",
+          "bytes": 324036,
+          "sha256": "dfd8ad8156e59f79387cb55def8e90317c32241c767413a4c0d373f5d8ebf35b",
+          "pages": 10,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-01-slides-en.pdf",
+          "bytes": 99521,
+          "sha256": "b5569e73cc23de65b4a56309771cf832d0ebea3e535c94fcc872bed8a7093800",
+          "pages": 46,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-02",
+      "group": "supplementary",
+      "order": 2,
+      "title": {
+        "en": "Numbers, Coordinates, and Geometric Models",
+        "zh-Hant": "數系、坐標與幾何模型"
+      },
+      "summary": {
+        "en": "Number systems, coordinates, distance, and geometric representation.",
+        "zh-Hant": "複習數系、坐標、距離與幾何表達。"
+      },
+      "prerequisites": {
+        "en": [
+          "Basic algebra"
+        ],
+        "zh-Hant": [
+          "基礎代數"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Choose number domains",
+          "Use coordinates",
+          "Build geometric models"
+        ],
+        "zh-Hant": [
+          "選擇數域",
+          "運用坐標",
+          "建立幾何模型"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "precalculus",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Precalculus 2e",
+            "zh-Hant": "《大學預備微積分》第二版"
+          },
+          "url": "https://openstax.org/details/books/precalculus-2e"
+        },
+        {
+          "id": "nist-si",
+          "publisher": "NIST",
+          "title": {
+            "en": "Guide to the SI: Values, quantities, and dimensions",
+            "zh-Hant": "《國際單位制指南》：量值、物理量與量綱"
+          },
+          "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-7-rules-and-style-conventions-expressing-values"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-02-notes-en.pdf",
+          "bytes": 104345,
+          "sha256": "4682787b0d720d161a816d3f4b8995aad2c7ed2518cf8b11adcba37e9bebbd81",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-02-notes-zh-hant.pdf",
+          "bytes": 340535,
+          "sha256": "686bd2d0409a37c1c4cf4b8f2dd327ae5e30d0d8675dacb16d1ae76948dafde0",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-02-slides-en.pdf",
+          "bytes": 101007,
+          "sha256": "acaafcad7600b69b9baac8561d03a2cc51efe9ad4eb6e29a39641566cbe92a3f",
+          "pages": 49,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-03",
+      "group": "supplementary",
+      "order": 3,
+      "title": {
+        "en": "Graphs, Transformations, and Periodic Models",
+        "zh-Hant": "圖像變換與週期模型"
+      },
+      "summary": {
+        "en": "Function transformations, logarithmic scales, trigonometric patterns, and periodicity.",
+        "zh-Hant": "探討函數變換、對數尺度、三角規律與週期性。"
+      },
+      "prerequisites": {
+        "en": [
+          "Functions"
+        ],
+        "zh-Hant": [
+          "函數"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Transform graphs",
+          "Read logarithmic scales",
+          "Model periodic behavior"
+        ],
+        "zh-Hant": [
+          "變換圖像",
+          "閱讀對數尺度",
+          "建立週期模型"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "precalculus",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Precalculus 2e",
+            "zh-Hant": "《大學預備微積分》第二版"
+          },
+          "url": "https://openstax.org/details/books/precalculus-2e"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-03-notes-en.pdf",
+          "bytes": 102880,
+          "sha256": "8c371ba490c4d51c3055985eabda6372aef645ae16781402d60de35fa85fe0f5",
+          "pages": 10,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-03-notes-zh-hant.pdf",
+          "bytes": 353454,
+          "sha256": "964018aa63540b54460ce250547c6b53c6faadf1ec92daef8498d88afdbba66e",
+          "pages": 10,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-03-slides-en.pdf",
+          "bytes": 102682,
+          "sha256": "733f33bff19918a32f1212fd9cc8c7b067ffed4057805005653ad3475f298e9d",
+          "pages": 42,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-04",
+      "group": "supplementary",
+      "order": 4,
+      "title": {
+        "en": "Limits, Continuity, and Asymptotic Thinking",
+        "zh-Hant": "極限、連續與漸近思維"
+      },
+      "summary": {
+        "en": "Limits, continuity, asymptotic comparison, and model boundaries.",
+        "zh-Hant": "學習極限、連續、漸近比較與模型邊界。"
+      },
+      "prerequisites": {
+        "en": [
+          "Functions and graphs"
+        ],
+        "zh-Hant": [
+          "函數與圖像"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Interpret limits",
+          "Check continuity",
+          "Reason asymptotically"
+        ],
+        "zh-Hant": [
+          "解釋極限",
+          "檢查連續性",
+          "進行漸近推理"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "calculus-1",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Calculus Volume 1",
+            "zh-Hant": "《微積分》第一冊"
+          },
+          "url": "https://openstax.org/details/books/calculus-volume-1"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-04-notes-en.pdf",
+          "bytes": 118060,
+          "sha256": "d3287a36f7253fe38689fcddf18992c48ad20ec2cec33bc23f6959cad6dea18a",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-04-notes-zh-hant.pdf",
+          "bytes": 341144,
+          "sha256": "b2c3f671818206bbf888d4740b5932338912a09d671d51979a32ba1550167e4c",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-04-slides-en.pdf",
+          "bytes": 119865,
+          "sha256": "1af9ca0050b474386ca2d057a939e04d23a2affdc7ee7ec6c030eec9d907b985",
+          "pages": 56,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-05",
+      "group": "supplementary",
+      "order": 5,
+      "title": {
+        "en": "Derivatives, Rates, and Local Linear Models",
+        "zh-Hant": "導數、變化率與局部線性模型"
+      },
+      "summary": {
+        "en": "Derivative meaning, rules, local approximation, and elasticity.",
+        "zh-Hant": "涵蓋導數意義、運算法則、局部近似與彈性。"
+      },
+      "prerequisites": {
+        "en": [
+          "Limits"
+        ],
+        "zh-Hant": [
+          "極限"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Interpret rates",
+          "Differentiate functions",
+          "Use local linearization"
+        ],
+        "zh-Hant": [
+          "解釋變化率",
+          "計算導數",
+          "運用局部線性化"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "calculus-1",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Calculus Volume 1",
+            "zh-Hant": "《微積分》第一冊"
+          },
+          "url": "https://openstax.org/details/books/calculus-volume-1"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-05-notes-en.pdf",
+          "bytes": 119932,
+          "sha256": "354b4899d0284c5f7e41eb41f43af3f425803adae5239dffd7bc394f8fbf42e0",
+          "pages": 11,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-05-notes-zh-hant.pdf",
+          "bytes": 336449,
+          "sha256": "049645d8c7487d9a4bbc2026fa5886de451c5368a0a67b9e6a56a9568f575428",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-05-slides-en.pdf",
+          "bytes": 121331,
+          "sha256": "4886ebe7454a69eedb8df0fa807b419846351ba501d94e590894c9f043505f1f",
+          "pages": 51,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-06",
+      "group": "supplementary",
+      "order": 6,
+      "title": {
+        "en": "Applications of Derivatives and Optimization",
+        "zh-Hant": "導數應用與最佳化"
+      },
+      "summary": {
+        "en": "Monotonicity, curvature, extrema, and one-variable optimization.",
+        "zh-Hant": "探討單調性、凹凸性、極值與單變量最佳化。"
+      },
+      "prerequisites": {
+        "en": [
+          "Supplementary 5"
+        ],
+        "zh-Hant": [
+          "補充課 5"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Analyze function shape",
+          "Locate extrema",
+          "Check optimization assumptions"
+        ],
+        "zh-Hant": [
+          "分析函數形狀",
+          "尋找極值",
+          "檢查最佳化假設"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "calculus-1",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Calculus Volume 1",
+            "zh-Hant": "《微積分》第一冊"
+          },
+          "url": "https://openstax.org/details/books/calculus-volume-1"
+        },
+        {
+          "id": "neos-nlp",
+          "publisher": "NEOS Guide",
+          "title": {
+            "en": "Nonlinear Constrained Optimization",
+            "zh-Hant": "非線性限制最佳化指南"
+          },
+          "url": "https://neos-guide.org/guide/types/nonlin/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-06-notes-en.pdf",
+          "bytes": 123734,
+          "sha256": "da40a7421f538d24daf15080fa570dd6ce293286363ee220bfda55881aa11b05",
+          "pages": 11,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-06-notes-zh-hant.pdf",
+          "bytes": 337785,
+          "sha256": "83fdedd3b960205066022b0beafdad2c5fe9b75e2af6a04e39bade67e586d20f",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-06-slides-en.pdf",
+          "bytes": 132703,
+          "sha256": "f39d446a3c6a3116ad95477d3c16c5b402c5b11ef2fe0c57d7857e6c6f993ba5",
+          "pages": 49,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-07",
+      "group": "supplementary",
+      "order": 7,
+      "title": {
+        "en": "Definite Integrals, Accumulation, and Numerical Integration",
+        "zh-Hant": "定積分、累積與數值積分"
+      },
+      "summary": {
+        "en": "Accumulation, areas, integral models, and numerical quadrature.",
+        "zh-Hant": "學習累積、面積、積分模型與數值求積。"
+      },
+      "prerequisites": {
+        "en": [
+          "Differentiation"
+        ],
+        "zh-Hant": [
+          "微分"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Model accumulation",
+          "Evaluate integrals",
+          "Estimate numerical error"
+        ],
+        "zh-Hant": [
+          "建立累積模型",
+          "計算積分",
+          "估計數值誤差"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "calculus-1",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Calculus Volume 1",
+            "zh-Hant": "《微積分》第一冊"
+          },
+          "url": "https://openstax.org/details/books/calculus-volume-1"
+        },
+        {
+          "id": "calculus-2",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Calculus Volume 2",
+            "zh-Hant": "《微積分》第二冊"
+          },
+          "url": "https://openstax.org/details/books/calculus-volume-2"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-07-notes-en.pdf",
+          "bytes": 106848,
+          "sha256": "fea7a4688fb5846960a9daf48d0da6ef26b37dc1f3a1cd003cda07e3ffbcda9a",
+          "pages": 10,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-07-notes-zh-hant.pdf",
+          "bytes": 303718,
+          "sha256": "700d61fe74ba9a3cb446884862587029d09bb17e601083d29a04725c66c0c6d4",
+          "pages": 10,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-07-slides-en.pdf",
+          "bytes": 110942,
+          "sha256": "0037db40254783d0961cc136ef561b2570b1d319d946c412838531a28f387d2b",
+          "pages": 48,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-08",
+      "group": "supplementary",
+      "order": 8,
+      "title": {
+        "en": "Probability Essentials for Modeling and Simulation",
+        "zh-Hant": "建模與模擬的概率基礎"
+      },
+      "summary": {
+        "en": "Probability rules, random variables, distributions, expectation, and sampling.",
+        "zh-Hant": "整理概率法則、隨機變量、分布、期望與抽樣。"
+      },
+      "prerequisites": {
+        "en": [
+          "Algebra"
+        ],
+        "zh-Hant": [
+          "代數"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Compute probabilities",
+          "Use distributions",
+          "Interpret expectation and variation"
+        ],
+        "zh-Hant": [
+          "計算概率",
+          "運用分布",
+          "解釋期望與變異"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "statistics",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Introductory Statistics 2e",
+            "zh-Hant": "《基礎統計學》第二版"
+          },
+          "url": "https://openstax.org/details/books/introductory-statistics-2e"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-08-notes-en.pdf",
+          "bytes": 116205,
+          "sha256": "66e322d01053b323ea8f203233f8c64e5b561fa74de659a51fe13ce04d09eede",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-08-notes-zh-hant.pdf",
+          "bytes": 360916,
+          "sha256": "399f46f5952fa5720045d02aa2d9b147779fc246d088b9bf54b50f59458db233",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-08-slides-en.pdf",
+          "bytes": 119047,
+          "sha256": "37f4088fce105b370e5cdef4eee7461a78a368f018d7ae5ebb76aa76219f4025",
+          "pages": 54,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-09",
+      "group": "supplementary",
+      "order": 9,
+      "title": {
+        "en": "Linear Algebra Essentials for Modeling",
+        "zh-Hant": "建模所需的線性代數基礎"
+      },
+      "summary": {
+        "en": "Vectors, matrices, linear systems, transformations, and eigenvalue intuition.",
+        "zh-Hant": "介紹向量、矩陣、線性系統、變換與特徵值直觀。"
+      },
+      "prerequisites": {
+        "en": [
+          "Algebra"
+        ],
+        "zh-Hant": [
+          "代數"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Represent systems with matrices",
+          "Solve linear systems",
+          "Interpret eigen-structure"
+        ],
+        "zh-Hant": [
+          "以矩陣表達系統",
+          "解線性系統",
+          "解釋特徵結構"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "mit-linear-algebra",
+          "publisher": "MIT OpenCourseWare",
+          "title": {
+            "en": "18.06SC Linear Algebra",
+            "zh-Hant": "18.06SC 線性代數"
+          },
+          "url": "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-09-notes-en.pdf",
+          "bytes": 110223,
+          "sha256": "60b20b344781e877057f798a1661f4a6b59c8e7b39b36808b04e92e29dd0225b",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-09-notes-zh-hant.pdf",
+          "bytes": 342367,
+          "sha256": "44a8596e619a1a4dd0afb3f25fcbc6768f129440f4afdf004a0b206e0280e09d",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-09-slides-en.pdf",
+          "bytes": 111128,
+          "sha256": "a66d7cd8827690cad393974a35630c9cfbcce5afbf4fac532f5b98e97e67a93f",
+          "pages": 48,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "supplementary-10",
+      "group": "supplementary",
+      "order": 10,
+      "title": {
+        "en": "Multivariable Calculus and Lagrange Multipliers",
+        "zh-Hant": "多變量微積分與拉格朗日乘子"
+      },
+      "summary": {
+        "en": "Partial derivatives, gradients, Hessians, and equality-constrained optimization.",
+        "zh-Hant": "涵蓋偏導數、梯度、海森矩陣與等式限制最佳化。"
+      },
+      "prerequisites": {
+        "en": [
+          "Differentiation",
+          "Linear algebra basics"
+        ],
+        "zh-Hant": [
+          "微分",
+          "線性代數基礎"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Compute gradients",
+          "Classify stationary points",
+          "Use Lagrange multipliers"
+        ],
+        "zh-Hant": [
+          "計算梯度",
+          "分類駐點",
+          "運用拉格朗日乘子"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "calculus-3",
+          "publisher": "OpenStax",
+          "title": {
+            "en": "Calculus Volume 3",
+            "zh-Hant": "《微積分》第三冊"
+          },
+          "url": "https://openstax.org/details/books/calculus-volume-3"
+        },
+        {
+          "id": "neos-nlp",
+          "publisher": "NEOS Guide",
+          "title": {
+            "en": "Nonlinear Constrained Optimization",
+            "zh-Hant": "非線性限制最佳化指南"
+          },
+          "url": "https://neos-guide.org/guide/types/nonlin/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/supplementary-10-notes-en.pdf",
+          "bytes": 123461,
+          "sha256": "1ee8b9e68809f9bc5a11f39f1b2d388cfc39fd0d3fc55978ff4fd18294012f00",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/supplementary-10-notes-zh-hant.pdf",
+          "bytes": 347127,
+          "sha256": "0cb09b7acac09b65e55ac0ba14e177c29bdec51008162d2107cf6df89e724588",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/supplementary-10-slides-en.pdf",
+          "bytes": 124399,
+          "sha256": "9aa3d1ee20ad0cfb2bd429fa115c355cd85caf433734cb55159d125fbc27d4ca",
+          "pages": 53,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "writing-01",
+      "group": "writing",
+      "order": 1,
+      "title": {
+        "en": "Paper Architecture and Judge Navigation",
+        "zh-Hant": "論文架構與讀者導覽"
+      },
+      "summary": {
+        "en": "Design a modeling report whose reasoning and evidence are easy to audit.",
+        "zh-Hant": "設計讓讀者容易追蹤推理與證據的建模報告。"
+      },
+      "prerequisites": {
+        "en": [
+          "One completed modeling task"
+        ],
+        "zh-Hant": [
+          "完成一項建模任務"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Plan report architecture",
+          "Map claims to evidence",
+          "Design reader navigation"
+        ],
+        "zh-Hant": [
+          "規劃報告架構",
+          "連結主張與證據",
+          "設計讀者導覽"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "comap-instructions",
+          "publisher": "COMAP",
+          "title": {
+            "en": "HiMCM / MidMCM Contest Instructions",
+            "zh-Hant": "HiMCM／MidMCM 競賽指引"
+          },
+          "url": "https://contest.comap.com/highschool/contests/himcm/instructions.html"
+        },
+        {
+          "id": "immc-rules",
+          "publisher": "International Mathematical Modeling Challenge",
+          "title": {
+            "en": "IM²C challenge overview and modeling expectations",
+            "zh-Hant": "IM²C 挑戰概覽與建模要求"
+          },
+          "url": "https://immchallenge.org/immc-challenge/"
+        },
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/writing-01-notes-en.pdf",
+          "bytes": 88526,
+          "sha256": "472d17b5fd02304ed9433772160fd1ecc5253fa3bf17172e874f61697da12ddd",
+          "pages": 12,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/writing-01-notes-zh-hant.pdf",
+          "bytes": 384934,
+          "sha256": "fd3391c321151bf9af5116cda17d383337460b9bd98c2f0cbc1b171adae88435",
+          "pages": 11,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/writing-01-slides-en.pdf",
+          "bytes": 90060,
+          "sha256": "97b1dddab185d5f619de716da772608edeeeaa4f26a751b0a17268ac73a1e958",
+          "pages": 46,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "writing-02",
+      "group": "writing",
+      "order": 2,
+      "title": {
+        "en": "The Summary — Claim, Evidence, and Decision",
+        "zh-Hant": "摘要——主張、證據與決策"
+      },
+      "summary": {
+        "en": "Write a decision-ready summary with calibrated findings and uncertainty.",
+        "zh-Hant": "撰寫包含適度主張、主要結果與不確定性的決策型摘要。"
+      },
+      "prerequisites": {
+        "en": [
+          "Writing Class 1"
+        ],
+        "zh-Hant": [
+          "寫作課 1"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Select headline results",
+          "Write calibrated claims",
+          "State decision thresholds"
+        ],
+        "zh-Hant": [
+          "選擇核心結果",
+          "撰寫適度主張",
+          "陳述決策門檻"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "comap-instructions",
+          "publisher": "COMAP",
+          "title": {
+            "en": "HiMCM / MidMCM Contest Instructions",
+            "zh-Hant": "HiMCM／MidMCM 競賽指引"
+          },
+          "url": "https://contest.comap.com/highschool/contests/himcm/instructions.html"
+        },
+        {
+          "id": "ieee-structure",
+          "publisher": "IEEE Author Center",
+          "title": {
+            "en": "Structure Your Article",
+            "zh-Hant": "組織研究文章"
+          },
+          "url": "https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-the-text-of-your-article/structure-your-article/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/writing-02-notes-en.pdf",
+          "bytes": 102821,
+          "sha256": "b00a0e551f5ebab7ad750dc5e03f95b529364d1df5965f055be49ef53ebce825",
+          "pages": 13,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/writing-02-notes-zh-hant.pdf",
+          "bytes": 452346,
+          "sha256": "9a804289ba5941c52550105aa03aed05a50cb5cbd5b3d5838365655ddf09b2f2",
+          "pages": 12,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/writing-02-slides-en.pdf",
+          "bytes": 98658,
+          "sha256": "06d5c6dc3d1bbe89bc4fac99c036c529b9952c28f30436df8f040d1d9bbe8fcf",
+          "pages": 52,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "writing-03",
+      "group": "writing",
+      "order": 3,
+      "title": {
+        "en": "Building Trust — Assumptions, Validation, and Sensitivity",
+        "zh-Hant": "建立可信度——假設、驗證與敏感度"
+      },
+      "summary": {
+        "en": "Make assumptions, verification, validation, uncertainty, and sensitivity auditable.",
+        "zh-Hant": "令假設、核證、效度驗證、不確定性與敏感度可供審核。"
+      },
+      "prerequisites": {
+        "en": [
+          "Writing Class 2"
+        ],
+        "zh-Hant": [
+          "寫作課 2"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Audit assumptions",
+          "Separate verification and validation",
+          "Report robustness boundaries"
+        ],
+        "zh-Hant": [
+          "審核假設",
+          "區分核證與效度驗證",
+          "報告穩健性邊界"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "gaimme",
+          "publisher": "SIAM / COMAP",
+          "title": {
+            "en": "GAIMME: Guidelines for Assessment and Instruction in Mathematical Modeling Education",
+            "zh-Hant": "GAIMME：數學建模教育的教學與評核指引"
+          },
+          "url": "https://www.siam.org/publications/reports/guidelines-for-assessment-and-instruction-in-mathematical-modeling-education/"
+        },
+        {
+          "id": "comap-instructions",
+          "publisher": "COMAP",
+          "title": {
+            "en": "HiMCM / MidMCM Contest Instructions",
+            "zh-Hant": "HiMCM／MidMCM 競賽指引"
+          },
+          "url": "https://contest.comap.com/highschool/contests/himcm/instructions.html"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/writing-03-notes-en.pdf",
+          "bytes": 110159,
+          "sha256": "1b88a4085f5f077b184c5f6346f96fd601c9e281b37bc46dfc0f87f0d4461911",
+          "pages": 14,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/writing-03-notes-zh-hant.pdf",
+          "bytes": 449281,
+          "sha256": "c28714321d1460a87dccb42f1298f32a7fa56815dcb4af8fb5670343c813298e",
+          "pages": 13,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/writing-03-slides-en.pdf",
+          "bytes": 113485,
+          "sha256": "97b6b2c95315aefbc2fa1df38fbf437d6c05cde4a4626c9ab9e2b449748e86e0",
+          "pages": 49,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "writing-04",
+      "group": "writing",
+      "order": 4,
+      "title": {
+        "en": "Academic Prose — Precision, Flow, and Evidence",
+        "zh-Hant": "學術文字——精確、連貫與證據"
+      },
+      "summary": {
+        "en": "Turn quantitative evidence into precise English analytical prose.",
+        "zh-Hant": "把量化證據轉化為精確且連貫的英文分析文字。"
+      },
+      "prerequisites": {
+        "en": [
+          "Writing Class 3"
+        ],
+        "zh-Hant": [
+          "寫作課 3"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Write evidence-led paragraphs",
+          "Control claim strength",
+          "Revise for logical flow"
+        ],
+        "zh-Hant": [
+          "撰寫證據主導段落",
+          "控制主張強度",
+          "改善邏輯銜接"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "ieee-structure",
+          "publisher": "IEEE Author Center",
+          "title": {
+            "en": "Structure Your Article",
+            "zh-Hant": "組織研究文章"
+          },
+          "url": "https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-the-text-of-your-article/structure-your-article/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/writing-04-notes-en.pdf",
+          "bytes": 106189,
+          "sha256": "88b35d82370584a7af6af974f90603b7b5c8ba26a967d0f84947404572e5cfe6",
+          "pages": 15,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/writing-04-notes-zh-hant.pdf",
+          "bytes": 423382,
+          "sha256": "625d1b6ca724b44b24b9fa3bc20cb401d7788810fb67c6af4365203c92497072",
+          "pages": 14,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/writing-04-slides-en.pdf",
+          "bytes": 109802,
+          "sha256": "469d0fb299a2549e8e4ddaaff80eae711a1e9a5ff02d914ce55c2ae68d748542",
+          "pages": 56,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    },
+    {
+      "id": "writing-05",
+      "group": "writing",
+      "order": 5,
+      "title": {
+        "en": "Visual Evidence, LaTeX, and Submission Engineering",
+        "zh-Hant": "視覺證據、LaTeX 與提交工程"
+      },
+      "summary": {
+        "en": "Design equations, tables, figures, captions, and a reproducible submission workflow.",
+        "zh-Hant": "設計公式、表格、圖像、說明文字與可重現提交流程。"
+      },
+      "prerequisites": {
+        "en": [
+          "Writing Classes 1–4"
+        ],
+        "zh-Hant": [
+          "寫作課 1–4"
+        ]
+      },
+      "objectives": {
+        "en": [
+          "Choose effective displays",
+          "Build traceable figures",
+          "Run submission preflight"
+        ],
+        "zh-Hant": [
+          "選擇有效展示方式",
+          "建立可追溯圖像",
+          "執行提交前檢查"
+        ]
+      },
+      "duration_minutes": 120,
+      "further_reading": [
+        {
+          "id": "comap-instructions",
+          "publisher": "COMAP",
+          "title": {
+            "en": "HiMCM / MidMCM Contest Instructions",
+            "zh-Hant": "HiMCM／MidMCM 競賽指引"
+          },
+          "url": "https://contest.comap.com/highschool/contests/himcm/instructions.html"
+        },
+        {
+          "id": "immc-rules",
+          "publisher": "International Mathematical Modeling Challenge",
+          "title": {
+            "en": "IM²C challenge overview and modeling expectations",
+            "zh-Hant": "IM²C 挑戰概覽與建模要求"
+          },
+          "url": "https://immchallenge.org/immc-challenge/"
+        },
+        {
+          "id": "ieee-graphics",
+          "publisher": "IEEE Author Center",
+          "title": {
+            "en": "Create Graphics for Your Article",
+            "zh-Hant": "製作研究文章圖像"
+          },
+          "url": "https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-graphics-for-your-article/"
+        },
+        {
+          "id": "latex-documentation",
+          "publisher": "The LaTeX Project",
+          "title": {
+            "en": "LaTeX documentation",
+            "zh-Hant": "LaTeX 官方文件"
+          },
+          "url": "https://www.latex-project.org/help/documentation/"
+        }
+      ],
+      "documents": {
+        "notes_en": {
+          "file": "documents/notes-en/writing-05-notes-en.pdf",
+          "bytes": 153225,
+          "sha256": "bbd87ff3dfe78dba69a29d6835991c50bb8218d96b949dd425bad97cc8b9cd61",
+          "pages": 17,
+          "locale": "en",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "notes_zh_hant": {
+          "file": "documents/notes-zh-hant/writing-05-notes-zh-hant.pdf",
+          "bytes": 481156,
+          "sha256": "02ae9b867a945fc89f9b57ad501b20b900f89dc23e5ccc0d2654fe6532176ad1",
+          "pages": 16,
+          "locale": "zh-Hant",
+          "document_type": "notes",
+          "watermarked": true
+        },
+        "slides_en": {
+          "file": "documents/slides-en/writing-05-slides-en.pdf",
+          "bytes": 130941,
+          "sha256": "473a1d3bedb20e49bff24299f3d2399518e3971052b59ed276cdc7a42383b833",
+          "pages": 54,
+          "locale": "en",
+          "document_type": "slides",
+          "watermarked": false
+        }
+      }
+    }
+  ],
+  "collections": [
+    {
+      "file": "collections/mathematical-modeling-notes-en.pdf",
+      "bytes": 3269638,
+      "sha256": "5eb00bfe1a0807fb62e4566438d6a1ece6f357ab3513ea39d352761a94b3d1c2",
+      "pages": 331,
+      "locale": "en",
+      "document_type": "notes",
+      "watermarked": true
+    },
+    {
+      "file": "collections/mathematical-modeling-notes-zh-hant.pdf",
+      "bytes": 10249815,
+      "sha256": "2cd6ad6d73b9bfca741f20416e00376b57e34e30985062287a286ce78e176982",
+      "pages": 307,
+      "locale": "zh-Hant",
+      "document_type": "notes",
+      "watermarked": true
+    },
+    {
+      "file": "collections/mathematical-modeling-slides-en.pdf",
+      "bytes": 3699662,
+      "sha256": "43a6675c4d523de993957ac879f7842372550002280d38d15f07970414c06bd5",
+      "pages": 1369,
+      "locale": "en",
+      "document_type": "slides",
+      "watermarked": false
+    }
+  ],
+  "datasets": [
+    {
+      "file": "datasets/student-datasets.zip",
+      "bytes": 4349,
+      "sha256": "5d6693b36c6f903e241ef5e0358940ea25859c523903e7ae43b75f4d0fab1cb9",
+      "format": "zip",
+      "contents": 8,
+      "license": "CC BY-NC-SA 4.0"
+    },
+    {
+      "id": "data-dictionary",
+      "file": "datasets/data-dictionary.json",
+      "bytes": 4723,
+      "sha256": "0ffff156f21c75ee84087a6369dd429e2eac7fca1c3f81bbf9f9f69127f2e234",
+      "format": "json",
+      "contents": 8,
+      "license": "CC BY-NC-SA 4.0"
+    },
+    {
+      "id": "spring-mass",
+      "file": "datasets/spring-mass.csv",
+      "units": {
+        "m": "g",
+        "e": "cm"
+      },
+      "unit_ids": [
+        "lecture-01"
+      ],
+      "source_type": "synthetic teaching data",
+      "license": "CC BY-NC-SA 4.0",
+      "title": {
+        "en": "Spring–mass proportionality",
+        "zh-Hant": "彈簧—質量比例關係"
+      },
+      "bytes": 113,
+      "sha256": "9190c3ea97740d74f03572f968527a77ebe1e80ab039bf910420b27e27cbfd02"
+    },
+    {
+      "id": "logistic-yeast",
+      "file": "datasets/logistic-yeast.csv",
+      "units": {
+        "n": "time step",
+        "p": "population index"
+      },
+      "unit_ids": [
+        "lecture-01"
+      ],
+      "source_type": "simulated teaching data",
+      "license": "CC BY-NC-SA 4.0",
+      "title": {
+        "en": "Synthetic logistic yeast growth",
+        "zh-Hant": "合成酵母邏輯斯增長"
+      },
+      "bytes": 281,
+      "sha256": "2cc5e579a6bff42af21a0e280c48ac0c00becb34f0eb3b0f7d67abe5804643dd"
+    },
+    {
+      "id": "sir-baseline",
+      "file": "datasets/sir-baseline.csv",
+      "units": {
+        "n": "time step",
+        "S": "persons",
+        "I": "persons",
+        "R": "persons"
+      },
+      "unit_ids": [
+        "lecture-01",
+        "lecture-09"
+      ],
+      "source_type": "simulated teaching data",
+      "license": "CC BY-NC-SA 4.0",
+      "title": {
+        "en": "Synthetic SIR baseline",
+        "zh-Hant": "合成 SIR 基準情境"
+      },
+      "bytes": 1404,
+      "sha256": "55f4fc0d85e310bd57134cb855f0c97230717593eb412abe568391015e543b51"
+    },
+    {
+      "id": "sir-intervention",
+      "file": "datasets/sir-intervention.csv",
+      "units": {
+        "n": "time step",
+        "S": "persons",
+        "I": "persons",
+        "R": "persons"
+      },
+      "unit_ids": [
+        "lecture-01",
+        "lecture-09"
+      ],
+      "source_type": "simulated teaching data",
+      "license": "CC BY-NC-SA 4.0",
+      "title": {
+        "en": "Synthetic SIR intervention",
+        "zh-Hant": "合成 SIR 介入情境"
+      },
+      "bytes": 1310,
+      "sha256": "988e074fd7e6cdd0c2b1c264dd0bc104df6dddad1007cdfa33d0573c6929bfdc"
+    },
+    {
+      "id": "braking-fit",
+      "file": "datasets/braking-fit.csv",
+      "units": {
+        "X": "scaled speed",
+        "d": "distance index"
+      },
+      "unit_ids": [
+        "lecture-03"
+      ],
+      "source_type": "synthetic teaching data",
+      "license": "CC BY-NC-SA 4.0",
+      "title": {
+        "en": "Synthetic braking-distance fit",
+        "zh-Hant": "合成煞車距離擬合"
+      },
+      "bytes": 74,
+      "sha256": "a8386eb9e672df589ebe413589b6e612336fbafdf551fbf81b3685bc75d59da5"
+    },
+    {
+      "id": "sensor-fit",
+      "file": "datasets/sensor-fit.csv",
+      "units": {
+        "x": "input index",
+        "y": "response index"
+      },
+      "unit_ids": [
+        "lecture-03"
+      ],
+      "source_type": "synthetic teaching data",
+      "license": "CC BY-NC-SA 4.0",
+      "title": {
+        "en": "Synthetic sensor calibration",
+        "zh-Hant": "合成感測器校準"
+      },
+      "bytes": 46,
+      "sha256": "efc99938aef7ce89e857922bed7777775a7a6b845acfa5b418ed6a45397f0667"
+    },
+    {
+      "id": "capacity-fit",
+      "file": "datasets/capacity-fit.csv",
+      "units": {
+        "t": "time index",
+        "C": "percent"
+      },
+      "unit_ids": [
+        "lecture-03"
+      ],
+      "source_type": "synthetic teaching data",
+      "license": "CC BY-NC-SA 4.0",
+      "title": {
+        "en": "Synthetic capacity observations",
+        "zh-Hant": "合成容量觀測"
+      },
+      "bytes": 42,
+      "sha256": "042f81c6abb12022a03cd8ff4249c2b2f4416baea421cf5f39d40bfaf0cc74e2"
+    },
+    {
+      "id": "kepler-selected",
+      "file": "datasets/kepler-selected.csv",
+      "units": {
+        "planet": "name",
+        "R": "mean orbital radius, astronomical units (Earth orbital radius = 1 AU)",
+        "T": "sidereal orbital period, Earth years",
+        "Rpow": "dimensionless R^(3/2)"
+      },
+      "unit_ids": [
+        "lecture-02"
+      ],
+      "source_type": "derived teaching data",
+      "provenance": {
+        "publisher": "NASA National Space Science Data Center",
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html",
+        "checked_on": "2026-08-13",
+        "derivation": "Earth-ratio orbital radii and periods selected for six planets; Rpow recomputed as R^(3/2) from the displayed R values and rounded to three decimals."
+      },
+      "license": "Source facts credited to NASA NSSDCA; teaching transformation CC BY-NC-SA 4.0",
+      "title": {
+        "en": "Selected orbital-scaling values",
+        "zh-Hant": "軌道尺度選定值"
+      },
+      "bytes": 168,
+      "sha256": "b1515ce556d1b5c9f357ad78342a575f045508cc9efee0530be4d85bd4522f92"
+    }
+  ],
+  "release_status": "public release"
+}

@@ -1,0 +1,138 @@
+---
+import rawCatalogue from "../data/generated/teaching-lecture-catalogue.json";
+import type { LectureAsset, LectureCatalogue, LectureGroup, LectureLocale, LocalizedText } from "../types/lecture-library";
+
+const catalogue = rawCatalogue as unknown as LectureCatalogue;
+
+const { locale = "en" } = Astro.props as { locale?: LectureLocale };
+const isZh = locale === "zh-Hant";
+const base = isZh ? "/zh/teaching/mathematical-modeling-lecture-programme" : "/teaching/mathematical-modeling-lecture-programme";
+const groups: LectureGroup[] = ["lecture", "supplementary", "writing"];
+const copy = isZh ? {
+  eyebrow: "數學建模教材庫",
+  title: "從第一個假設，到一份可辯護的模型。",
+  intro: "27 個教學單元把數學基礎、模型建構、計算實驗、決策與技術寫作連成一條完整路徑。每課均提供繁中筆記、英文筆記與英文投影片。",
+  updated: "教材版本",
+  browse: "瀏覽 27 個單元",
+  collections: "完整合集",
+  collectionIntro: "適合離線閱讀或一次下載整個課程；逐課版本則較方便課堂分享。",
+  datasets: "學生資料包",
+  datasetIntro: "八組經來源核證或清楚標示為模擬的教學資料，連同欄位說明與單位。",
+  licence: "教材採用 CC BY-NC-SA 4.0；第三方材料按各自來源及授權條款處理。",
+  open: "開啟單元",
+  minutes: "分鐘",
+  groups: { lecture: ["主課", "12 節由建構到動態與決策的核心課程"], supplementary: ["數學基礎補充", "10 節按需要銜接建模所需數學"], writing: ["競賽與技術寫作", "5 節把計算結果整理成可核查論證"] },
+  download: "下載",
+  unavailable: "教材檔案正在整理；已發布版本會在此自動顯示。",
+} : {
+  eyebrow: "Mathematical modeling library",
+  title: "From a first assumption to a defensible model.",
+  intro: "Twenty-seven teaching units connect mathematical foundations, model construction, computational experiments, decision-making, and technical writing. Every unit includes Traditional Chinese Notes, English Notes, and English slides.",
+  updated: "Release",
+  browse: "Browse 27 units",
+  collections: "Complete collections",
+  collectionIntro: "Use the collected editions for offline reading, or choose an individual unit for classroom sharing.",
+  datasets: "Student dataset pack",
+  datasetIntro: "Eight teaching datasets with sources or explicit synthetic labels, data dictionaries, and units.",
+  licence: "Materials are released under CC BY-NC-SA 4.0; third-party material retains its own credit and licence terms.",
+  open: "Open unit",
+  minutes: "min",
+  groups: { lecture: ["Main lectures", "Twelve core units from formulation to dynamics and decisions"], supplementary: ["Foundation supplements", "Ten on-demand mathematical bridges for modeling"], writing: ["Competition and technical writing", "Five units for turning results into a traceable argument"] },
+  download: "Download",
+  unavailable: "The reviewed release is being prepared. Published files will appear here automatically.",
+};
+const units = [...catalogue.units].sort((a, b) => groups.indexOf(a.group) - groups.indexOf(b.group) || a.order - b.order);
+const localized = (value: LocalizedText) => value?.[locale] ?? value?.[isZh ? "zh_hant" : "en"] ?? "";
+const assetLabel = (asset: LectureAsset) => {
+  if (asset.locale === "zh-Hant") return isZh ? "繁中筆記合集" : "Traditional Chinese Notes collection";
+  if (asset.document_type === "slides" || asset.file.includes("slides")) return isZh ? "英文投影片合集" : "English slides collection";
+  return isZh ? "英文筆記合集" : "English Notes collection";
+};
+const datasetZip = catalogue.datasets.find((asset) => asset.file.endsWith("student-datasets.zip"));
+const datasetDictionary = catalogue.datasets.find((asset) => asset.file.endsWith("data-dictionary.json"));
+const datasetFiles = catalogue.datasets.filter((asset) => asset.file.endsWith(".csv"));
+---
+<header class="lecture-library-hero">
+  <div class="container lecture-library-hero-grid">
+    <div>
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h1>{copy.title}</h1>
+      <p class="lead">{copy.intro}</p>
+      <div class="actions">
+        <a class="button" href="#lecture-units">{copy.browse}</a>
+        {datasetZip && <a class="button secondary" href={datasetZip.public_url} download>{isZh ? "下載學生資料包" : "Download student datasets"}</a>}
+      </div>
+    </div>
+    <aside class="lecture-library-ledger" aria-label={isZh ? "教材庫摘要" : "Library summary"}>
+      <p><span>27</span>{isZh ? "個雙語單元" : "bilingual units"}</p>
+      <p><span>84</span>{isZh ? "份公開 PDF" : "public PDFs"}</p>
+      <p><span>8</span>{isZh ? "組教學資料" : "teaching datasets"}</p>
+      <small>{copy.updated}: {catalogue.revision_date}</small>
+    </aside>
+  </div>
+</header>
+
+<div class="lecture-library-body">
+  <section class="section" id="lecture-units">
+    <div class="container">
+      {units.length === 0 && <p class="lecture-release-note" role="status">{copy.unavailable}</p>}
+      {groups.map((group) => {
+        const groupUnits = units.filter((unit) => unit.group === group);
+        return groupUnits.length > 0 && <section class="lecture-strand" aria-labelledby={`strand-${group}`}>
+          <div class="lecture-strand-head">
+            <div><p class="eyebrow">{String(groups.indexOf(group) + 1).padStart(2, "0")}</p><h2 id={`strand-${group}`}>{copy.groups[group][0]}</h2></div>
+            <p>{copy.groups[group][1]}</p>
+          </div>
+          <ol class="lecture-unit-grid">
+            {groupUnits.map((unit) => <li>
+              <a href={`${base}/${unit.id}/`}>
+                <span class="lecture-unit-number">{unit.id.split("-").at(-1)}</span>
+                <div><h3>{localized(unit.title)}</h3><p>{localized(unit.summary)}</p></div>
+                <small>{unit.duration_minutes} {copy.minutes}</small>
+                <strong>{copy.open} <span aria-hidden="true">→</span></strong>
+              </a>
+            </li>)}
+          </ol>
+        </section>;
+      })}
+    </div>
+  </section>
+
+  <section class="section lecture-download-section">
+    <div class="container lecture-download-grid">
+      <div><p class="eyebrow">{copy.collections}</p><h2>{isZh ? "按你的閱讀方式選擇。" : "Choose the format that fits the lesson."}</h2><p>{copy.collectionIntro}</p></div>
+      <div class="lecture-download-list">
+        {catalogue.collections.map((asset) => <a href={asset.public_url} download><span><strong>{assetLabel(asset)}</strong><small>{asset.pages} {isZh ? "頁" : "pages"}</small></span><b>{copy.download} ↓</b></a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container lecture-dataset-callout">
+      <div><p class="eyebrow">{copy.datasets}</p><h2>{isZh ? "由資料來源開始建立可信模型。" : "Start a trustworthy model with data provenance."}</h2><p>{copy.datasetIntro}</p><small>{copy.licence}</small></div>
+      <div class="lecture-dataset-actions">
+        {datasetZip && <a class="button" href={datasetZip.public_url} download>{isZh ? "下載學生資料包（ZIP）" : "Download dataset pack (ZIP)"}</a>}
+        {datasetDictionary && <a class="button secondary" href={datasetDictionary.public_url} download>{isZh ? "下載資料字典" : "Download data dictionary"}</a>}
+      </div>
+    </div>
+    {datasetFiles.length > 0 && <div class="container lecture-dataset-list" aria-label={isZh ? "個別資料集" : "Individual datasets"}>
+      {datasetFiles.map((asset) => <a href={asset.public_url} download><span>{asset.title?.[locale] || asset.title?.en || asset.file.split("/").at(-1)}</span><small>{asset.bytes.toLocaleString(isZh ? "zh-Hant-TW" : "en-GB")} bytes ↓</small></a>)}
+    </div>}
+  </section>
+</div>
+
+<style>
+  .lecture-library-hero{padding:clamp(4rem,9vw,8rem) 0;background:linear-gradient(135deg,#e8eee9 0 70%,#d8e2dd 70%);border-bottom:1px solid var(--line)}
+  .lecture-library-hero-grid{display:grid;grid-template-columns:minmax(0,.68fr) minmax(16rem,.32fr);gap:clamp(2rem,7vw,7rem);align-items:end}
+  .lecture-library-hero h1{max-width:12ch;font-size:clamp(3.2rem,7vw,6.8rem);line-height:.92;margin:.35rem 0 1.5rem}.lecture-library-hero .lead{max-width:58ch}
+  .lecture-library-ledger{border-top:2px solid var(--ink);padding-top:.7rem}.lecture-library-ledger p{display:flex;align-items:baseline;gap:.7rem;margin:0;border-bottom:1px solid #aab8b0;padding:.8rem 0;color:#48544e}.lecture-library-ledger span{font:700 2.25rem/1 var(--serif);color:var(--ink)}.lecture-library-ledger small{display:block;margin-top:1rem;color:var(--muted)}
+  .lecture-release-note{padding:1rem;border:1px solid var(--line);background:#fff}
+  .lecture-strand+.lecture-strand{margin-top:clamp(4rem,8vw,7rem)}.lecture-strand-head{display:grid;grid-template-columns:minmax(15rem,.4fr) minmax(0,.6fr);gap:2rem;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:1.2rem;margin-bottom:1.5rem}.lecture-strand-head h2{margin:.15rem 0 0}.lecture-strand-head>p{max-width:38rem;color:var(--muted);margin:0}
+  .lecture-unit-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.lecture-unit-grid li{min-width:0;background:var(--paper)}.lecture-unit-grid a{height:100%;display:grid;grid-template-columns:3rem minmax(0,1fr);grid-template-rows:1fr auto;gap:.7rem 1rem;padding:1.3rem;color:var(--ink);text-decoration:none}.lecture-unit-grid a:hover,.lecture-unit-grid a:focus-visible{background:#fff}.lecture-unit-grid a:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}.lecture-unit-number{font:700 1.5rem/1 var(--serif);color:var(--rust)}.lecture-unit-grid h3{font-size:1.22rem;margin:0 0 .45rem}.lecture-unit-grid p{margin:0;color:var(--muted);font-size:.92rem}.lecture-unit-grid small{grid-column:2;color:var(--muted)}.lecture-unit-grid strong{grid-column:2;font-size:.83rem;color:var(--accent-dark)}
+  .lecture-download-section{background:#1f2d27;color:#fff}.lecture-download-grid{display:grid;grid-template-columns:minmax(0,.42fr) minmax(0,.58fr);gap:clamp(2rem,7vw,7rem)}.lecture-download-grid p{color:#bdc9c3}.lecture-download-list{border-top:1px solid #607068}.lecture-download-list a{display:flex;justify-content:space-between;gap:1rem;align-items:center;color:#fff;text-decoration:none;border-bottom:1px solid #607068;padding:1.2rem .2rem}.lecture-download-list a:hover strong,.lecture-download-list a:focus-visible strong{text-decoration:underline}.lecture-download-list span{display:grid;gap:.2rem}.lecture-download-list small{color:#bdc9c3}.lecture-download-list b{font-size:.82rem}
+  .lecture-dataset-callout{display:flex;justify-content:space-between;gap:2rem;align-items:center}.lecture-dataset-callout>div{max-width:48rem}.lecture-dataset-callout small{color:var(--muted)}
+  .lecture-dataset-actions{display:flex;flex:none;flex-wrap:wrap;gap:.75rem;justify-content:flex-end}
+  .lecture-dataset-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:2rem}.lecture-dataset-list a{display:flex;justify-content:space-between;gap:1rem;background:var(--paper);padding:.9rem 1rem;color:var(--ink);text-decoration:none}.lecture-dataset-list a:hover span,.lecture-dataset-list a:focus-visible span{text-decoration:underline}.lecture-dataset-list small{color:var(--muted)}
+  @media(max-width:760px){.lecture-library-hero{background:#e8eee9}.lecture-library-hero-grid,.lecture-strand-head,.lecture-download-grid{grid-template-columns:1fr}.lecture-unit-grid,.lecture-dataset-list{grid-template-columns:1fr}.lecture-dataset-callout{align-items:flex-start;flex-direction:column}.lecture-dataset-actions{justify-content:flex-start}.lecture-library-hero h1{font-size:clamp(3rem,15vw,5rem)}}
+  @media(prefers-reduced-motion:reduce){.lecture-unit-grid a{scroll-behavior:auto}}
+</style>

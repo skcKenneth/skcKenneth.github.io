@@ -1,0 +1,13 @@
+---
+const { locale = "en" } = Astro.props;
+const isZh = locale === "zh-Hant";
+const href = isZh ? "/zh/teaching/mathematical-modeling-lecture-programme/" : "/teaching/mathematical-modeling-lecture-programme/";
+---
+<section class="lecture-index-callout"><div class="container lecture-index-callout-grid">
+  <div><p class="eyebrow">{isZh ? "全新雙語教材庫" : "New bilingual teaching library"}</p><h2>{isZh ? "27 個單元，三種閱讀方式。" : "Twenty-seven units, three ways to learn."}</h2><p>{isZh ? "逐課閱覽繁中筆記、英文筆記與英文投影片，亦可下載完整合集及學生資料包。" : "Read Traditional Chinese Notes, English Notes, and English slides unit by unit—or download the complete collections and student datasets."}</p></div>
+  <a class="button" href={href}>{isZh ? "開啟教材庫" : "Open the lecture library"}</a>
+</div></section>
+<style>
+  .lecture-index-callout{padding:2rem 0;background:#1f2d27;color:#fff}.lecture-index-callout-grid{display:flex;align-items:center;justify-content:space-between;gap:2rem}.lecture-index-callout h2{margin:.2rem 0}.lecture-index-callout p:not(.eyebrow){color:#bdc9c3;max-width:58rem;margin:.4rem 0}.lecture-index-callout .button{flex:none;background:#fff;color:#1f2d27;border-color:#fff}
+  @media(max-width:760px){.lecture-index-callout-grid{align-items:flex-start;flex-direction:column}}
+</style>

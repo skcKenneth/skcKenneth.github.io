@@ -80,6 +80,17 @@ const writingBase = isZh ? "/zh/writing" : "/writing";
 const researchBase = isZh ? "/zh/research" : "/research";
 const projectsBase = isZh ? "/zh/projects" : "/projects";
 const teachingBase = isZh ? "/zh/teaching" : "/teaching";
+const lectureFeature = isZh ? {
+  eyebrow: "雙語教材庫",
+  title: "數學建模筆記與課堂投影片",
+  intro: "27 個單元提供繁中筆記、英文筆記、英文投影片、完整合集及學生資料包。",
+  action: "開啟教材庫"
+} : {
+  eyebrow: "Bilingual teaching library",
+  title: "Mathematical Modeling Notes and Slides",
+  intro: "Twenty-seven units with Traditional Chinese Notes, English Notes, English slides, complete collections, and student datasets.",
+  action: "Open the lecture library"
+};
 ---
 <BaseLayout title={copy.title} description={copy.description} locale={locale} alternatePath={isZh ? "/" : "/zh/"}>
   <section class="home-hero">
@@ -172,6 +183,15 @@ const teachingBase = isZh ? "/zh/teaching" : "/teaching";
           </div>
         </div>
       </div>
+      <a class="home-teaching-feature home-lecture-feature" href={`${teachingBase}/mathematical-modeling-lecture-programme/`}>
+        <div class="home-lecture-count" aria-hidden="true"><strong>27</strong><span>{isZh ? "單元" : "units"}</span></div>
+        <span>
+          <small class="eyebrow">{lectureFeature.eyebrow}</small>
+          <strong>{lectureFeature.title}</strong>
+          <span>{lectureFeature.intro}</span>
+          <b>{lectureFeature.action} <i aria-hidden="true">→</i></b>
+        </span>
+      </a>
       <a class="home-teaching-feature" href={`${teachingBase}/macau-school-math-competition/`}>
         <img src="/resources/macau-school-math-competition-2019-2026/cover.svg" alt="" width="1200" height="675" loading="lazy" />
         <span>
@@ -188,6 +208,7 @@ const teachingBase = isZh ? "/zh/teaching" : "/teaching";
 <style>
   .home-teaching-feature{display:grid;grid-template-columns:minmax(180px,.36fr) minmax(0,.64fr);gap:clamp(1.2rem,4vw,3rem);align-items:center;margin-top:clamp(2rem,5vw,4rem);padding:clamp(1rem,2.5vw,1.6rem);border:1px solid #bcaea2;background:#f4ece5;color:var(--ink);text-decoration:none}
   .home-teaching-feature img{display:block;width:100%;height:auto;border:1px solid #c9bdb3}
+  .home-teaching-feature+.home-teaching-feature{margin-top:1rem}.home-lecture-feature{background:#e2ebe5}.home-lecture-count{display:grid;place-content:center;aspect-ratio:16/9;border:1px solid #aabbb1;background:#1f2d27;color:#fff;text-align:center}.home-lecture-count strong{font:700 clamp(3.5rem,8vw,7rem)/.8 var(--serif)}.home-lecture-count span{margin-top:.7rem;font:700 .8rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#bdc9c3}
   .home-teaching-feature>span{display:grid;gap:.65rem}.home-teaching-feature small{color:var(--rust)}
   .home-teaching-feature strong{font:700 clamp(1.45rem,3vw,2.25rem)/1.1 var(--serif)}
   .home-teaching-feature span span{color:#584f48;max-width:56ch}.home-teaching-feature b{font-size:.92rem}.home-teaching-feature i{font-style:normal}

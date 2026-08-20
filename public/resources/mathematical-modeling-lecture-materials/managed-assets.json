@@ -1,0 +1,773 @@
+{
+  "source": "sibling private ScienceProject release/public allowlist",
+  "source_of_truth": "ScienceProject release/public allowlist only",
+  "editorial_policy": "Teaching page bodies remain manually authored in skcKenneth.github.io and are never generated or overwritten by sync.",
+  "resource": {
+    "slug": "mathematical-modeling-lecture-materials",
+    "revision_date": "2026-08-20",
+    "unit_count": 27
+  },
+  "assets": [
+    {
+      "filename": "manifest.json",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/manifest.json",
+      "sha256": "f77fe116b897518d6ed48251bd5089a3231ce299d8ff1a4461d857d7e6972e99",
+      "bytes": 78161,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-01-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-01-notes-en.pdf",
+      "sha256": "724d3af757b210264f240296dba578f3b2e246242384c87b3289ae201db65186",
+      "bytes": 106855,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-01-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-01-notes-zh-hant.pdf",
+      "sha256": "161c286d912b661f4ffd4e5b8cee598691aaa333915a4f2a95df9d2b06a94b46",
+      "bytes": 363947,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-01-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-01-slides-en.pdf",
+      "sha256": "0afb7641248d941a38536976051e067b49866af4a2e23161ffd23276ff6456e6",
+      "bytes": 110497,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-02-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-02-notes-en.pdf",
+      "sha256": "a1ffd74b6ab27179e36780c518eaed1c6908b33f38d6b17ec1a71f8d2a93b9a9",
+      "bytes": 110990,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-02-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-02-notes-zh-hant.pdf",
+      "sha256": "1d7a6d0b95d4720b851aaedafe5e16c7f444fa0ba8b80dad3d9f59d5a2124faa",
+      "bytes": 360832,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-02-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-02-slides-en.pdf",
+      "sha256": "b638318b6fd0185850580102f66dac25a7df7d48284063edb51332edb060c08a",
+      "bytes": 102101,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-03-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-03-notes-en.pdf",
+      "sha256": "3102106f385e149b2241e709addba186e67408089fbbdfd55ba706e9d8159a23",
+      "bytes": 120051,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-03-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-03-notes-zh-hant.pdf",
+      "sha256": "4f73362f746a6cf9e6a9c24a5aa63bd5df75204250743751ae2018dbe2bd36c1",
+      "bytes": 358459,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-03-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-03-slides-en.pdf",
+      "sha256": "b73bce90b48c8c69a52b8c524695d4827cb1bcc7e0fed2b9c2d06c42f6e8dbd1",
+      "bytes": 114108,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-04-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-04-notes-en.pdf",
+      "sha256": "a70d34fbf58be49ce5d85cfbc6494a8587c0036ff63675a66128d19892b5cf03",
+      "bytes": 113157,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-04-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-04-notes-zh-hant.pdf",
+      "sha256": "9901da1332a8f2a150937c370b164b320f7572bcb6003f488ea7dbc135ef2374",
+      "bytes": 346537,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-04-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-04-slides-en.pdf",
+      "sha256": "90d2b0a402891a4079e48259e43adfbbc50e0742eab4b0522c538ff253c91f34",
+      "bytes": 114423,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-05-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-05-notes-en.pdf",
+      "sha256": "07b5a50b040c11ef101440fe8967cf528d60f8801acccb068fe6c4eb51d79e2c",
+      "bytes": 103093,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-05-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-05-notes-zh-hant.pdf",
+      "sha256": "f3851bad6ef757deaed3eea566deb068e0b5351224c31794f9a0d62ce6ffe34f",
+      "bytes": 341899,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-05-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-05-slides-en.pdf",
+      "sha256": "6a695295eb65e17a074ab03cae4ff553db6c3e88ad7509e216ac3a1000868453",
+      "bytes": 98736,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-06-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-06-notes-en.pdf",
+      "sha256": "94b9e862cce56825310fb3c271fed818827cde0346082d1f99453461350a2168",
+      "bytes": 115459,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-06-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-06-notes-zh-hant.pdf",
+      "sha256": "1b90b4671219d0c2bd047dcb74dc46270749b5c2569f121c8f91a6d24b6454e0",
+      "bytes": 373308,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-06-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-06-slides-en.pdf",
+      "sha256": "b66e35c2efc2b34cd155fa9e77e5e3f0803bac52d49c4e70a37b5acdef4e91b4",
+      "bytes": 109952,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-07-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-07-notes-en.pdf",
+      "sha256": "5af6435861625f3ddec58778e3ca0f9b4bbfb4dc725237657be5f2e6b204e321",
+      "bytes": 114976,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-07-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-07-notes-zh-hant.pdf",
+      "sha256": "6ec6f75e1105e9645589a0cfa971306dcf7d8281e14662a4c5ba86d4042a7298",
+      "bytes": 387310,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-07-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-07-slides-en.pdf",
+      "sha256": "4366e98b1f89d7b7025100823df38e693be89d565a1a212d667b0efe2dd50d5f",
+      "bytes": 108942,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-08-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-08-notes-en.pdf",
+      "sha256": "c2b8607b2ba8523483ebc0b297c8441267d9487ed678f06ab0197c2b83984cef",
+      "bytes": 100931,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-08-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-08-notes-zh-hant.pdf",
+      "sha256": "dbe074934040fdc6458ff4233408da354bcdc7c0d5ba67b380985501286fd045",
+      "bytes": 380399,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-08-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-08-slides-en.pdf",
+      "sha256": "2cab491fb3a65cc194e4725877d06b2d5991164985e495290c806cdba3bf1260",
+      "bytes": 102634,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-09-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-09-notes-en.pdf",
+      "sha256": "f636b2e3acf84b1d36dd3cd759bed43798836a9ef000d8835c3bce7df796cbaa",
+      "bytes": 128731,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-09-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-09-notes-zh-hant.pdf",
+      "sha256": "5672a452654e61dc9810ae2aad92888e595909c4baa9480c1e07312e299e1485",
+      "bytes": 412957,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-09-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-09-slides-en.pdf",
+      "sha256": "f2443afab192060005dc53cf6ea01e6b582f9cc67352e6a54995b384c2ae57b3",
+      "bytes": 133562,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-10-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-10-notes-en.pdf",
+      "sha256": "5a888c64c3a1936e9a692eee12b18d24beaddcffcd6dcbc341bfdd4e252d4989",
+      "bytes": 130730,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-10-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-10-notes-zh-hant.pdf",
+      "sha256": "62c3b514e7b15d4cd35d896a4ccc413bb157b8a277ed324aa5b1c8b01e8da362",
+      "bytes": 410314,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-10-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-10-slides-en.pdf",
+      "sha256": "e7593fbc11b8e483c874688d473651e115c4bb1f098377d1c35863174ad67c59",
+      "bytes": 128084,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-11-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-11-notes-en.pdf",
+      "sha256": "5b2fb8c4d6e9dcaff244f127547583aa7f52ce0bf8137408966565c1fc930b7f",
+      "bytes": 110203,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-11-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-11-notes-zh-hant.pdf",
+      "sha256": "a1e2d67457b87ecd44696c897aa8b44314062348caf594f723af4a8ee1281701",
+      "bytes": 348516,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-11-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-11-slides-en.pdf",
+      "sha256": "a15666bcd138d66fe7ad20b9a16d9bea7ee9a37160266142157ca0faa64260b3",
+      "bytes": 107375,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/lecture-12-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-12-notes-en.pdf",
+      "sha256": "9ede8744119d20825906a52c5cdb90ac7ed377dabc35dfdc3cfc2ca801f47230",
+      "bytes": 114212,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/lecture-12-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-12-notes-zh-hant.pdf",
+      "sha256": "d5e4d62f1ff9ad0d85c987d64d05df01fa744dc8f58c38e001a377978e0874b4",
+      "bytes": 380668,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/lecture-12-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-12-slides-en.pdf",
+      "sha256": "74c90c76359f11e08b228be97305055621b1b6920b787a7e948a81889bd78805",
+      "bytes": 109234,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-01-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-01-notes-en.pdf",
+      "sha256": "4052c6dd9e0db26ee910119d651a6bf55d6a3de02abe28dc37bb19926eecd69d",
+      "bytes": 101654,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-01-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-01-notes-zh-hant.pdf",
+      "sha256": "dfd8ad8156e59f79387cb55def8e90317c32241c767413a4c0d373f5d8ebf35b",
+      "bytes": 324036,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-01-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-01-slides-en.pdf",
+      "sha256": "b5569e73cc23de65b4a56309771cf832d0ebea3e535c94fcc872bed8a7093800",
+      "bytes": 99521,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-02-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-02-notes-en.pdf",
+      "sha256": "4682787b0d720d161a816d3f4b8995aad2c7ed2518cf8b11adcba37e9bebbd81",
+      "bytes": 104345,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-02-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-02-notes-zh-hant.pdf",
+      "sha256": "686bd2d0409a37c1c4cf4b8f2dd327ae5e30d0d8675dacb16d1ae76948dafde0",
+      "bytes": 340535,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-02-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-02-slides-en.pdf",
+      "sha256": "acaafcad7600b69b9baac8561d03a2cc51efe9ad4eb6e29a39641566cbe92a3f",
+      "bytes": 101007,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-03-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-03-notes-en.pdf",
+      "sha256": "8c371ba490c4d51c3055985eabda6372aef645ae16781402d60de35fa85fe0f5",
+      "bytes": 102880,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-03-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-03-notes-zh-hant.pdf",
+      "sha256": "964018aa63540b54460ce250547c6b53c6faadf1ec92daef8498d88afdbba66e",
+      "bytes": 353454,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-03-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-03-slides-en.pdf",
+      "sha256": "733f33bff19918a32f1212fd9cc8c7b067ffed4057805005653ad3475f298e9d",
+      "bytes": 102682,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-04-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-04-notes-en.pdf",
+      "sha256": "d3287a36f7253fe38689fcddf18992c48ad20ec2cec33bc23f6959cad6dea18a",
+      "bytes": 118060,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-04-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-04-notes-zh-hant.pdf",
+      "sha256": "b2c3f671818206bbf888d4740b5932338912a09d671d51979a32ba1550167e4c",
+      "bytes": 341144,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-04-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-04-slides-en.pdf",
+      "sha256": "1af9ca0050b474386ca2d057a939e04d23a2affdc7ee7ec6c030eec9d907b985",
+      "bytes": 119865,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-05-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-05-notes-en.pdf",
+      "sha256": "354b4899d0284c5f7e41eb41f43af3f425803adae5239dffd7bc394f8fbf42e0",
+      "bytes": 119932,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-05-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-05-notes-zh-hant.pdf",
+      "sha256": "049645d8c7487d9a4bbc2026fa5886de451c5368a0a67b9e6a56a9568f575428",
+      "bytes": 336449,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-05-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-05-slides-en.pdf",
+      "sha256": "4886ebe7454a69eedb8df0fa807b419846351ba501d94e590894c9f043505f1f",
+      "bytes": 121331,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-06-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-06-notes-en.pdf",
+      "sha256": "da40a7421f538d24daf15080fa570dd6ce293286363ee220bfda55881aa11b05",
+      "bytes": 123734,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-06-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-06-notes-zh-hant.pdf",
+      "sha256": "83fdedd3b960205066022b0beafdad2c5fe9b75e2af6a04e39bade67e586d20f",
+      "bytes": 337785,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-06-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-06-slides-en.pdf",
+      "sha256": "f39d446a3c6a3116ad95477d3c16c5b402c5b11ef2fe0c57d7857e6c6f993ba5",
+      "bytes": 132703,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-07-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-07-notes-en.pdf",
+      "sha256": "fea7a4688fb5846960a9daf48d0da6ef26b37dc1f3a1cd003cda07e3ffbcda9a",
+      "bytes": 106848,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-07-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-07-notes-zh-hant.pdf",
+      "sha256": "700d61fe74ba9a3cb446884862587029d09bb17e601083d29a04725c66c0c6d4",
+      "bytes": 303718,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-07-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-07-slides-en.pdf",
+      "sha256": "0037db40254783d0961cc136ef561b2570b1d319d946c412838531a28f387d2b",
+      "bytes": 110942,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-08-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-08-notes-en.pdf",
+      "sha256": "66e322d01053b323ea8f203233f8c64e5b561fa74de659a51fe13ce04d09eede",
+      "bytes": 116205,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-08-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-08-notes-zh-hant.pdf",
+      "sha256": "399f46f5952fa5720045d02aa2d9b147779fc246d088b9bf54b50f59458db233",
+      "bytes": 360916,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-08-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-08-slides-en.pdf",
+      "sha256": "37f4088fce105b370e5cdef4eee7461a78a368f018d7ae5ebb76aa76219f4025",
+      "bytes": 119047,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-09-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-09-notes-en.pdf",
+      "sha256": "60b20b344781e877057f798a1661f4a6b59c8e7b39b36808b04e92e29dd0225b",
+      "bytes": 110223,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-09-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-09-notes-zh-hant.pdf",
+      "sha256": "44a8596e619a1a4dd0afb3f25fcbc6768f129440f4afdf004a0b206e0280e09d",
+      "bytes": 342367,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-09-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-09-slides-en.pdf",
+      "sha256": "a66d7cd8827690cad393974a35630c9cfbcce5afbf4fac532f5b98e97e67a93f",
+      "bytes": 111128,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/supplementary-10-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-10-notes-en.pdf",
+      "sha256": "1ee8b9e68809f9bc5a11f39f1b2d388cfc39fd0d3fc55978ff4fd18294012f00",
+      "bytes": 123461,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/supplementary-10-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-10-notes-zh-hant.pdf",
+      "sha256": "0cb09b7acac09b65e55ac0ba14e177c29bdec51008162d2107cf6df89e724588",
+      "bytes": 347127,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/supplementary-10-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-10-slides-en.pdf",
+      "sha256": "9aa3d1ee20ad0cfb2bd429fa115c355cd85caf433734cb55159d125fbc27d4ca",
+      "bytes": 124399,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/writing-01-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-01-notes-en.pdf",
+      "sha256": "472d17b5fd02304ed9433772160fd1ecc5253fa3bf17172e874f61697da12ddd",
+      "bytes": 88526,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/writing-01-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-01-notes-zh-hant.pdf",
+      "sha256": "fd3391c321151bf9af5116cda17d383337460b9bd98c2f0cbc1b171adae88435",
+      "bytes": 384934,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/writing-01-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-01-slides-en.pdf",
+      "sha256": "97b1dddab185d5f619de716da772608edeeeaa4f26a751b0a17268ac73a1e958",
+      "bytes": 90060,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/writing-02-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-02-notes-en.pdf",
+      "sha256": "b00a0e551f5ebab7ad750dc5e03f95b529364d1df5965f055be49ef53ebce825",
+      "bytes": 102821,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/writing-02-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-02-notes-zh-hant.pdf",
+      "sha256": "9a804289ba5941c52550105aa03aed05a50cb5cbd5b3d5838365655ddf09b2f2",
+      "bytes": 452346,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/writing-02-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-02-slides-en.pdf",
+      "sha256": "06d5c6dc3d1bbe89bc4fac99c036c529b9952c28f30436df8f040d1d9bbe8fcf",
+      "bytes": 98658,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/writing-03-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-03-notes-en.pdf",
+      "sha256": "1b88a4085f5f077b184c5f6346f96fd601c9e281b37bc46dfc0f87f0d4461911",
+      "bytes": 110159,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/writing-03-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-03-notes-zh-hant.pdf",
+      "sha256": "c28714321d1460a87dccb42f1298f32a7fa56815dcb4af8fb5670343c813298e",
+      "bytes": 449281,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/writing-03-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-03-slides-en.pdf",
+      "sha256": "97b6b2c95315aefbc2fa1df38fbf437d6c05cde4a4626c9ab9e2b449748e86e0",
+      "bytes": 113485,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/writing-04-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-04-notes-en.pdf",
+      "sha256": "88b35d82370584a7af6af974f90603b7b5c8ba26a967d0f84947404572e5cfe6",
+      "bytes": 106189,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/writing-04-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-04-notes-zh-hant.pdf",
+      "sha256": "625d1b6ca724b44b24b9fa3bc20cb401d7788810fb67c6af4365203c92497072",
+      "bytes": 423382,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/writing-04-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-04-slides-en.pdf",
+      "sha256": "469d0fb299a2549e8e4ddaaff80eae711a1e9a5ff02d914ce55c2ae68d748542",
+      "bytes": 109802,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-en/writing-05-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-05-notes-en.pdf",
+      "sha256": "bbd87ff3dfe78dba69a29d6835991c50bb8218d96b949dd425bad97cc8b9cd61",
+      "bytes": 153225,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/notes-zh-hant/writing-05-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-05-notes-zh-hant.pdf",
+      "sha256": "02ae9b867a945fc89f9b57ad501b20b900f89dc23e5ccc0d2654fe6532176ad1",
+      "bytes": 481156,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "documents/slides-en/writing-05-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-05-slides-en.pdf",
+      "sha256": "473a1d3bedb20e49bff24299f3d2399518e3971052b59ed276cdc7a42383b833",
+      "bytes": 130941,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "collections/mathematical-modeling-notes-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/collections/mathematical-modeling-notes-en.pdf",
+      "sha256": "5eb00bfe1a0807fb62e4566438d6a1ece6f357ab3513ea39d352761a94b3d1c2",
+      "bytes": 3269638,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "collections/mathematical-modeling-notes-zh-hant.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/collections/mathematical-modeling-notes-zh-hant.pdf",
+      "sha256": "2cd6ad6d73b9bfca741f20416e00376b57e34e30985062287a286ce78e176982",
+      "bytes": 10249815,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "collections/mathematical-modeling-slides-en.pdf",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/collections/mathematical-modeling-slides-en.pdf",
+      "sha256": "43a6675c4d523de993957ac879f7842372550002280d38d15f07970414c06bd5",
+      "bytes": 3699662,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/student-datasets.zip",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/student-datasets.zip",
+      "sha256": "5d6693b36c6f903e241ef5e0358940ea25859c523903e7ae43b75f4d0fab1cb9",
+      "bytes": 4349,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/data-dictionary.json",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/data-dictionary.json",
+      "sha256": "0ffff156f21c75ee84087a6369dd429e2eac7fca1c3f81bbf9f9f69127f2e234",
+      "bytes": 4723,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/spring-mass.csv",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/spring-mass.csv",
+      "sha256": "9190c3ea97740d74f03572f968527a77ebe1e80ab039bf910420b27e27cbfd02",
+      "bytes": 113,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/logistic-yeast.csv",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/logistic-yeast.csv",
+      "sha256": "2cc5e579a6bff42af21a0e280c48ac0c00becb34f0eb3b0f7d67abe5804643dd",
+      "bytes": 281,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/sir-baseline.csv",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/sir-baseline.csv",
+      "sha256": "55f4fc0d85e310bd57134cb855f0c97230717593eb412abe568391015e543b51",
+      "bytes": 1404,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/sir-intervention.csv",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/sir-intervention.csv",
+      "sha256": "988e074fd7e6cdd0c2b1c264dd0bc104df6dddad1007cdfa33d0573c6929bfdc",
+      "bytes": 1310,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/braking-fit.csv",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/braking-fit.csv",
+      "sha256": "a8386eb9e672df589ebe413589b6e612336fbafdf551fbf81b3685bc75d59da5",
+      "bytes": 74,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/sensor-fit.csv",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/sensor-fit.csv",
+      "sha256": "efc99938aef7ce89e857922bed7777775a7a6b845acfa5b418ed6a45397f0667",
+      "bytes": 46,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/capacity-fit.csv",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/capacity-fit.csv",
+      "sha256": "042f81c6abb12022a03cd8ff4249c2b2f4416baea421cf5f39d40bfaf0cc74e2",
+      "bytes": 42,
+      "status": "current",
+      "managed": true
+    },
+    {
+      "filename": "datasets/kepler-selected.csv",
+      "public_path": "/resources/mathematical-modeling-lecture-materials/datasets/kepler-selected.csv",
+      "sha256": "b1515ce556d1b5c9f357ad78342a575f045508cc9efee0530be4d85bd4522f92",
+      "bytes": 168,
+      "status": "current",
+      "managed": true
+    }
+  ],
+  "stale": []
+}

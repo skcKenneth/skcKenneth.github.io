@@ -93,7 +93,13 @@ const teachingSchema = z.object({
   ...base,
   level: z.enum(["Beginner", "Competition", "Advanced", "Instructor"]),
   resourceType: z.enum(["Course pathway", "Python lab", "Worked example", "Instructor resource", "Student research", "Competition archive"]),
-  downloadUrl: z.string().optional()
+  downloadUrl: z.string().optional(),
+  downloads: z.array(z.object({
+    label: z.string(),
+    url: z.string(),
+    format: z.string().optional(),
+    locale: z.enum(["en", "zh-Hant"]).optional()
+  })).default([])
 });
 
 const translated = { sourceSlug: slug };

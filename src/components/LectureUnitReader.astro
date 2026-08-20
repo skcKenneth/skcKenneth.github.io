@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { LectureLocale, LectureUnit, LocalizedList, LocalizedText } from "../types/lecture-library";
+
+const { unit, locale = "en" } = Astro.props as { unit: LectureUnit; locale?: LectureLocale };
+const isZh = locale === "zh-Hant";
+const localized = (value: LocalizedText) => value?.[locale] ?? value?.[isZh ? "zh_hant" : "en"] ?? "";
+const asList = (value: LocalizedList): string[] => value?.[locale] ?? value?.[isZh ? "zh_hant" : "en"] ?? [];
+const base = isZh ? "/zh/teaching/mathematical-modeling-lecture-programme" : "/teaching/mathematical-modeling-lecture-programme";
+const alternate = isZh ? `/teaching/mathematical-modeling-lecture-programme/${unit.id}/` : `/zh/teaching/mathematical-modeling-lecture-programme/${unit.id}/`;
+const documents = [
+  { key: "notes_en", label: isZh ? "英文筆記" : "English Notes", asset: unit.documents.notes_en },
+  { key: "notes_zh_hant", label: isZh ? "繁中筆記" : "Traditional Chinese Notes", asset: unit.documents.notes_zh_hant },
+  { key: "slides_en", label: isZh ? "英文投影片" : "English slides", asset: unit.documents.slides_en },
+];
+const initialKey = isZh ? "notes_zh_hant" : "notes_en";
+const initial = documents.find((document) => document.key === initialKey) ?? documents[0];
+const pageUnit = isZh ? "頁" : "pages";
+const groupLabels = isZh ? { lecture: "主課", supplementary: "數學基礎補充", writing: "競賽與技術寫作" } : { lecture: "Main lecture", supplementary: "Foundation supplement", writing: "Competition and technical writing" };
+const interactive = unit.group === "writing" ? (isZh ? "/zh/teaching/research-inquiry-studio/" : "/teaching/research-inquiry-studio/") : (isZh ? "/zh/teaching/model-laboratory/" : "/teaching/model-laboratory/");
+const furtherReading = unit.further_reading ?? [];
+---
+<BaseLayout title={localized(unit.title)} description={localized(unit.summary)} locale={locale} type="Teaching" alternatePath={alternate}>
+  <header class="lecture-unit-head">
+    <div class="container">
+      <nav class="lecture-breadcrumb" aria-label={isZh ? "麵包屑" : "Breadcrumb"}><a href={base}>{isZh ? "教材庫" : "Lecture library"}</a><span aria-hidden="true">/</span><span>{groupLabels[unit.group]} {unit.order}</span></nav>
+      <p class="eyebrow">{groupLabels[unit.group]} · {unit.duration_minutes} {isZh ? "分鐘" : "minutes"}</p>
+      <h1>{localized(unit.title)}</h1>
+      <p class="lead">{localized(unit.summary)}</p>
+    </div>
+  </header>
+
+  <div class="container lecture-reader-shell">
+    <aside class="lecture-unit-meta">
+      <section><p class="eyebrow">{isZh ? "先備知識" : "Prerequisites"}</p><ul>{asList(unit.prerequisites).map((item) => <li>{item}</li>)}</ul></section>
+      <section><p class="eyebrow">{isZh ? "學習目標" : "Learning objectives"}</p><ul>{asList(unit.objectives).map((item) => <li>{item}</li>)}</ul></section>
+      <section><p class="eyebrow">{isZh ? "延伸實驗" : "Related experiment"}</p><a href={interactive}>{isZh ? "前往互動建模實驗室 →" : "Continue in the interactive laboratory →"}</a></section>
+      {furtherReading.length > 0 && <section><p class="eyebrow">{isZh ? "來源與延伸閱讀" : "Sources and further reading"}</p><ul class="lecture-reading-list">{furtherReading.map((reference) => <li><a href={reference.url} target="_blank" rel="noopener">{localized(reference.title)}</a><small>{reference.publisher}</small></li>)}</ul></section>}
+    </aside>
+
+    <article class="lecture-reader" data-lecture-reader data-unit-title={localized(unit.title)}>
+      <div class="lecture-reader-toolbar" role="group" aria-label={isZh ? "選擇閱覽文件" : "Choose a document to read"}>
+        {documents.map((document) => <button type="button" class:list={{ active: document.key === initialKey }} data-pdf-url={document.asset.public_url} data-pdf-key={document.key} data-pdf-pages={document.asset.pages} data-page-unit={pageUnit} aria-controls="lecture-pdf-reader" aria-pressed={document.key === initialKey ? "true" : "false"}>{document.label}</button>)}
+      </div>
+      <p class="lecture-reader-status" data-reader-status aria-live="polite">{initial.label} · {initial.asset.pages} {isZh ? "頁" : "pages"}</p>
+      <iframe id="lecture-pdf-reader" title={`${localized(unit.title)} — ${initial.label}`} src={`${initial.asset.public_url}#view=FitH`} loading="lazy" data-pdf-frame></iframe>
+      <div class="lecture-document-actions">
+        {documents.map((document) => <div data-document-actions={document.key} hidden={document.key !== initialKey}>
+          <a class="button" href={document.asset.public_url} target="_blank" rel="noopener">{isZh ? "在新分頁開啟" : "Open in a new tab"}</a>
+          <a class="button secondary" href={document.asset.public_url} download>{isZh ? "下載 PDF" : "Download PDF"}</a>
+        </div>)}
+      </div>
+      <noscript><div class="lecture-noscript"><p>{isZh ? "瀏覽器未啟用 JavaScript；你仍可直接開啟或下載：" : "JavaScript is unavailable; open or download each document directly:"}</p><ul>{documents.map((document) => <li><a href={document.asset.public_url}>{document.label} ({document.asset.pages} {isZh ? "頁" : "pages"})</a></li>)}</ul></div></noscript>
+    </article>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  document.querySelectorAll("[data-lecture-reader]").forEach((reader) => {
+    const frame = reader.querySelector("[data-pdf-frame]");
+    const status = reader.querySelector("[data-reader-status]");
+    const buttons = [...reader.querySelectorAll("[data-pdf-url]")];
+    buttons.forEach((button) => button.addEventListener("click", () => {
+      const key = button.dataset.pdfKey;
+      buttons.forEach((item) => { const selected = item === button; item.classList.toggle("active", selected); item.setAttribute("aria-pressed", String(selected)); });
+      reader.querySelectorAll("[data-document-actions]").forEach((actions) => { actions.hidden = actions.dataset.documentActions !== key; });
+      if (frame) { frame.src = `${button.dataset.pdfUrl}#view=FitH`; frame.title = `${reader.dataset.unitTitle} — ${button.textContent.trim()}`; }
+      if (status) status.textContent = `${button.textContent.trim()} · ${button.dataset.pdfPages} ${button.dataset.pageUnit}`;
+    }));
+  });
+</script>
+
+<style>
+  .lecture-unit-head{padding:clamp(3.5rem,7vw,6.5rem) 0 3rem;background:#e8eee9;border-bottom:1px solid var(--line)}.lecture-unit-head h1{max-width:20ch;font-size:clamp(2.8rem,6vw,5.4rem);line-height:.96}.lecture-unit-head .lead{max-width:65ch}.lecture-breadcrumb{display:flex;gap:.6rem;color:var(--muted);font-size:.82rem;margin-bottom:2rem}.lecture-breadcrumb a{color:inherit}
+  .lecture-reader-shell{display:grid;grid-template-columns:minmax(14rem,.25fr) minmax(0,.75fr);gap:clamp(2rem,5vw,5rem);padding-block:clamp(3rem,6vw,6rem)}.lecture-unit-meta{align-self:start;display:grid;gap:1.7rem;position:sticky;top:6rem}.lecture-unit-meta section{border-top:1px solid var(--line);padding-top:.8rem}.lecture-unit-meta ul{padding-left:1.1rem}.lecture-unit-meta li{margin:.45rem 0;color:#39453f}.lecture-unit-meta small{color:var(--muted)}
+  .lecture-reading-list li{display:grid;gap:.18rem}.lecture-reading-list a{line-height:1.3}.lecture-reading-list small{display:block;font-size:.72rem}
+  .lecture-reader{min-width:0}.lecture-reader-toolbar{display:flex;gap:.4rem;flex-wrap:wrap;padding:.5rem;background:#dfe6e1}.lecture-reader-toolbar button{appearance:none;border:1px solid transparent;background:transparent;color:var(--ink);padding:.7rem .9rem;font:700 .85rem/1 var(--sans);cursor:pointer}.lecture-reader-toolbar button:hover,.lecture-reader-toolbar button:focus-visible{background:#fff}.lecture-reader-toolbar button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.lecture-reader-toolbar button.active{background:#fff;border-color:#9caaa2}.lecture-reader-status{font-size:.82rem;color:var(--muted);margin:.75rem 0}.lecture-reader iframe{display:block;width:100%;height:min(76vh,58rem);min-height:34rem;border:1px solid var(--line);background:#fff}.lecture-document-actions>div{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}.lecture-noscript{margin-top:1rem;padding:1rem;border:1px solid var(--line);background:#fff}
+  @media(max-width:800px){.lecture-reader-shell{grid-template-columns:1fr}.lecture-unit-meta{position:static}.lecture-reader iframe{min-height:30rem;height:68vh}.lecture-reader-toolbar{display:grid;grid-template-columns:1fr}.lecture-reader-toolbar button{text-align:left}}
+  @media(prefers-reduced-motion:reduce){.lecture-reader-toolbar button{scroll-behavior:auto}}
+</style>

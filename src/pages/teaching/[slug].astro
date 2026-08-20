@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import LectureLibrary from "../../components/LectureLibrary.astro";
 
 export async function getStaticPaths() {
   return (await getCollection("teaching", ({ data }) => !data.draft)).map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
@@ -9,26 +10,30 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const all = (await getCollection("teaching", ({ data }) => !data.draft)).filter((item) => item.data.slug !== entry.data.slug);
+const isLectureLibrary = entry.data.slug === "mathematical-modeling-lecture-programme";
 ---
 <BaseLayout title={entry.data.title} description={entry.data.summary} type="Teaching" alternatePath={`/zh/teaching/${entry.data.slug}/`}>
-  <header class="page-head"><div class="container"><p class="eyebrow">{entry.data.level} · {entry.data.resourceType}</p><h1>{entry.data.title}</h1><p class="lead">{entry.data.summary}</p></div></header>
-  <div class="container content-shell teaching-detail">
-    <aside>
-      <dl class="metadata">
-        <div><dt>Level</dt><dd>{entry.data.level}</dd></div>
-        <div><dt>Format</dt><dd>{entry.data.resourceType}</dd></div>
-        <div><dt>Updated</dt><dd>{entry.data.lastUpdated.toLocaleDateString("en-GB", { dateStyle: "medium" })}</dd></div>
-      </dl>
-      <p class="small"><strong>Common evidence cycle</strong><br/>Question → assumptions → baseline → computation → validation → communication.</p>
-      <div class="tag-list">{entry.data.topics.map((topic) => <span class="tag">{topic}</span>)}</div>
-      <div class="actions">
-        {entry.data.downloadUrl && <a class="button" href={entry.data.downloadUrl}>Download resource</a>}
-        <a class="button secondary" href="/teaching/">Teaching overview</a>
-      </div>
-    </aside>
-    <article class="prose"><Content />
-      <h2>Continue exploring</h2>
-      <ul class="related-list">{all.slice(0, 4).map((item) => <li><a href={`/teaching/${item.data.slug}/`}>{item.data.title}</a><span>{item.data.level} · {item.data.resourceType}</span></li>)}</ul>
-    </article>
-  </div>
+  {isLectureLibrary ? <LectureLibrary locale="en" /> : <>
+    <header class="page-head"><div class="container"><p class="eyebrow">{entry.data.level} · {entry.data.resourceType}</p><h1>{entry.data.title}</h1><p class="lead">{entry.data.summary}</p></div></header>
+    <div class="container content-shell teaching-detail">
+      <aside>
+        <dl class="metadata">
+          <div><dt>Level</dt><dd>{entry.data.level}</dd></div>
+          <div><dt>Format</dt><dd>{entry.data.resourceType}</dd></div>
+          <div><dt>Updated</dt><dd>{entry.data.lastUpdated.toLocaleDateString("en-GB", { dateStyle: "medium" })}</dd></div>
+        </dl>
+        <p class="small"><strong>Common evidence cycle</strong><br/>Question → assumptions → baseline → computation → validation → communication.</p>
+        <div class="tag-list">{entry.data.topics.map((topic) => <span class="tag">{topic}</span>)}</div>
+        <div class="actions">
+          {entry.data.downloadUrl && <a class="button" href={entry.data.downloadUrl}>Download resource</a>}
+          {entry.data.downloads?.map((download) => <a class="button" href={download.url}>{download.label}</a>)}
+          <a class="button secondary" href="/teaching/">Teaching overview</a>
+        </div>
+      </aside>
+      <article class="prose"><Content />
+        <h2>Continue exploring</h2>
+        <ul class="related-list">{all.slice(0, 4).map((item) => <li><a href={`/teaching/${item.data.slug}/`}>{item.data.title}</a><span>{item.data.level} · {item.data.resourceType}</span></li>)}</ul>
+      </article>
+    </div>
+  </>}
 </BaseLayout>

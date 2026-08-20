@@ -1,0 +1,168 @@
+[
+  {
+    "id": "spring-mass",
+    "file": "datasets/spring-mass.csv",
+    "units": {
+      "m": "g",
+      "e": "cm"
+    },
+    "unit_ids": [
+      "lecture-01"
+    ],
+    "source_type": "synthetic teaching data",
+    "license": "CC BY-NC-SA 4.0",
+    "title": {
+      "en": "Spring–mass proportionality",
+      "zh-Hant": "彈簧—質量比例關係"
+    },
+    "bytes": 113,
+    "sha256": "9190c3ea97740d74f03572f968527a77ebe1e80ab039bf910420b27e27cbfd02"
+  },
+  {
+    "id": "logistic-yeast",
+    "file": "datasets/logistic-yeast.csv",
+    "units": {
+      "n": "time step",
+      "p": "population index"
+    },
+    "unit_ids": [
+      "lecture-01"
+    ],
+    "source_type": "simulated teaching data",
+    "license": "CC BY-NC-SA 4.0",
+    "title": {
+      "en": "Synthetic logistic yeast growth",
+      "zh-Hant": "合成酵母邏輯斯增長"
+    },
+    "bytes": 281,
+    "sha256": "2cc5e579a6bff42af21a0e280c48ac0c00becb34f0eb3b0f7d67abe5804643dd"
+  },
+  {
+    "id": "sir-baseline",
+    "file": "datasets/sir-baseline.csv",
+    "units": {
+      "n": "time step",
+      "S": "persons",
+      "I": "persons",
+      "R": "persons"
+    },
+    "unit_ids": [
+      "lecture-01",
+      "lecture-09"
+    ],
+    "source_type": "simulated teaching data",
+    "license": "CC BY-NC-SA 4.0",
+    "title": {
+      "en": "Synthetic SIR baseline",
+      "zh-Hant": "合成 SIR 基準情境"
+    },
+    "bytes": 1404,
+    "sha256": "55f4fc0d85e310bd57134cb855f0c97230717593eb412abe568391015e543b51"
+  },
+  {
+    "id": "sir-intervention",
+    "file": "datasets/sir-intervention.csv",
+    "units": {
+      "n": "time step",
+      "S": "persons",
+      "I": "persons",
+      "R": "persons"
+    },
+    "unit_ids": [
+      "lecture-01",
+      "lecture-09"
+    ],
+    "source_type": "simulated teaching data",
+    "license": "CC BY-NC-SA 4.0",
+    "title": {
+      "en": "Synthetic SIR intervention",
+      "zh-Hant": "合成 SIR 介入情境"
+    },
+    "bytes": 1310,
+    "sha256": "988e074fd7e6cdd0c2b1c264dd0bc104df6dddad1007cdfa33d0573c6929bfdc"
+  },
+  {
+    "id": "braking-fit",
+    "file": "datasets/braking-fit.csv",
+    "units": {
+      "X": "scaled speed",
+      "d": "distance index"
+    },
+    "unit_ids": [
+      "lecture-03"
+    ],
+    "source_type": "synthetic teaching data",
+    "license": "CC BY-NC-SA 4.0",
+    "title": {
+      "en": "Synthetic braking-distance fit",
+      "zh-Hant": "合成煞車距離擬合"
+    },
+    "bytes": 74,
+    "sha256": "a8386eb9e672df589ebe413589b6e612336fbafdf551fbf81b3685bc75d59da5"
+  },
+  {
+    "id": "sensor-fit",
+    "file": "datasets/sensor-fit.csv",
+    "units": {
+      "x": "input index",
+      "y": "response index"
+    },
+    "unit_ids": [
+      "lecture-03"
+    ],
+    "source_type": "synthetic teaching data",
+    "license": "CC BY-NC-SA 4.0",
+    "title": {
+      "en": "Synthetic sensor calibration",
+      "zh-Hant": "合成感測器校準"
+    },
+    "bytes": 46,
+    "sha256": "efc99938aef7ce89e857922bed7777775a7a6b845acfa5b418ed6a45397f0667"
+  },
+  {
+    "id": "capacity-fit",
+    "file": "datasets/capacity-fit.csv",
+    "units": {
+      "t": "time index",
+      "C": "percent"
+    },
+    "unit_ids": [
+      "lecture-03"
+    ],
+    "source_type": "synthetic teaching data",
+    "license": "CC BY-NC-SA 4.0",
+    "title": {
+      "en": "Synthetic capacity observations",
+      "zh-Hant": "合成容量觀測"
+    },
+    "bytes": 42,
+    "sha256": "042f81c6abb12022a03cd8ff4249c2b2f4416baea421cf5f39d40bfaf0cc74e2"
+  },
+  {
+    "id": "kepler-selected",
+    "file": "datasets/kepler-selected.csv",
+    "units": {
+      "planet": "name",
+      "R": "mean orbital radius, astronomical units (Earth orbital radius = 1 AU)",
+      "T": "sidereal orbital period, Earth years",
+      "Rpow": "dimensionless R^(3/2)"
+    },
+    "unit_ids": [
+      "lecture-02"
+    ],
+    "source_type": "derived teaching data",
+    "provenance": {
+      "publisher": "NASA National Space Science Data Center",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html",
+      "checked_on": "2026-08-13",
+      "derivation": "Earth-ratio orbital radii and periods selected for six planets; Rpow recomputed as R^(3/2) from the displayed R values and rounded to three decimals."
+    },
+    "license": "Source facts credited to NASA NSSDCA; teaching transformation CC BY-NC-SA 4.0",
+    "title": {
+      "en": "Selected orbital-scaling values",
+      "zh-Hant": "軌道尺度選定值"
+    },
+    "bytes": 168,
+    "sha256": "b1515ce556d1b5c9f357ad78342a575f045508cc9efee0530be4d85bd4522f92"
+  }
+]

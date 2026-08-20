@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import LectureLibraryCallout from "../../../components/LectureLibraryCallout.astro";
 
 const items = await getCollection("teachingZh", ({ data }) => !data.draft);
 const order: Record<string, number> = { Beginner: 0, Competition: 1, Advanced: 2, Instructor: 3 };
@@ -34,7 +35,7 @@ const principles = [
         <h1>讓每一個建模決定都看得見。</h1>
         <p class="lead">我把數學教成一種處理不確定問題的方法：提出可回答問題、建立可辯護模型、測試計算證據，並以誠實限制傳達結論。</p>
         <div class="actions">
-          <a class="button" href="/zh/teaching/mathematical-modeling-lecture-programme/">查看講課課程</a>
+          <a class="button" href="/zh/teaching/mathematical-modeling-lecture-programme/">查看完整課程</a>
           <a class="button secondary" href="/zh/teaching/instructor-resources/">評核方法</a>
         </div>
       </div>
@@ -48,7 +49,9 @@ const principles = [
         </ol>
       </aside>
     </div>
-  </header>
+</header>
+
+  <LectureLibraryCallout locale="zh-Hant" />
 
   <section class="section"><div class="container">
     <div class="section-head"><div><p class="eyebrow">教學原則</p><h2>學生可以檢查的嚴謹。</h2></div><p>把看不見的選擇變成可討論、檢查及改善的產物，開放問題才真正可教。</p></div>
