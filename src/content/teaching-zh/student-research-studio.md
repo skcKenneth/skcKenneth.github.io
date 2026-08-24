@@ -3,7 +3,7 @@ title: 學生研究工作室
 slug: student-research-studio
 sourceSlug: student-research-studio
 summary: 由重現一項結果開始，逐步走到提出、測試及傳達獨立數學建模問題的指導路徑。
-lastUpdated: 2026-07-28
+lastUpdated: 2026-08-24
 featured: true
 topics: [研究指導, 驗證, 溝通]
 level: Advanced
@@ -11,6 +11,10 @@ resourceType: Student research
 ---
 
 工作室適合準備超越封閉作業的學生。自主性分階段加入：先重現證據，再改變一項建模選擇，最後為自己的問題與評估計劃辯護。
+
+> **學生研究指導實例 — AI4Nature@AVSS 2026**
+>
+> 我指導參與 *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation* 的學生團隊。官方工作坊議程將該研究列為 2026 年 8 月 31 日 Oral Session 1A 的 Paper ID 7；本人亦列作共同作者。[查看官方議程 →](https://www.ai4nature.tech/program.html)
 
 ## 入門證據
 
@@ -68,4 +72,3 @@ resourceType: Student research
 ## 完成標準
 
 完成不要求正面結果；它要求透明問題、一致模型、合適比較、可檢查證據，以及在證據終點停下來的結論。
-

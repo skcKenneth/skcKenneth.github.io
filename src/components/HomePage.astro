@@ -59,6 +59,10 @@ const copy = isZh ? {
   teachingFeatureTitle: "澳門校際／學界數學比賽題解資源庫",
   teachingFeatureIntro: "2019–2025/2026 初中及高中組，214 份來源核對題解、46 幅圖及可展開示範。",
   teachingFeatureAction: "開啟題解資源庫",
+  mentoringFeatureEyebrow: "學生研究里程碑",
+  mentoringFeatureTitle: "AI4Nature@AVSS 2026 · Paper ID 7",
+  mentoringFeatureIntro: "我所指導的學生團隊與本人共同列作〈From Pixels to Patrols〉作者；研究現安排於 2026 年 8 月 31 日工作坊口頭場次。",
+  mentoringFeatureAction: "查看指導成果與官方證據",
   note: "研究筆記"
 } : {
   title: "Mathematical models for real systems.",
@@ -89,6 +93,10 @@ const copy = isZh ? {
   teachingFeatureTitle: "Macau School Mathematics Competition Archive",
   teachingFeatureIntro: "Junior and Senior Divisions from 2019 to 2025/2026: 214 source-verified solutions, 46 diagrams, and expandable examples.",
   teachingFeatureAction: "Open the solution archive",
+  mentoringFeatureEyebrow: "Student research milestone",
+  mentoringFeatureTitle: "AI4Nature@AVSS 2026 · Paper ID 7",
+  mentoringFeatureIntro: "A student team I mentored is listed with me as co-author for “From Pixels to Patrols,” scheduled in the workshop's oral programme on 31 August 2026.",
+  mentoringFeatureAction: "See the mentoring outcome and official record",
   note: "Research note"
 };
 
@@ -217,6 +225,15 @@ const lectureFeature = isZh ? {
           <b>{copy.teachingFeatureAction} <i aria-hidden="true">→</i></b>
         </span>
       </a>
+      <a class="home-teaching-feature home-mentoring-feature" href={`${teachingBase}/student-research-studio/`}>
+        <div class="home-lecture-count home-mentoring-count" aria-hidden="true"><strong>ID 7</strong><span>ORAL · 2026</span></div>
+        <span>
+          <small class="eyebrow">{copy.mentoringFeatureEyebrow}</small>
+          <strong>{copy.mentoringFeatureTitle}</strong>
+          <span>{copy.mentoringFeatureIntro}</span>
+          <b>{copy.mentoringFeatureAction} <i aria-hidden="true">→</i></b>
+        </span>
+      </a>
     </div>
   </section>
 </BaseLayout>
@@ -224,7 +241,7 @@ const lectureFeature = isZh ? {
 <style>
   .home-teaching-feature{display:grid;grid-template-columns:minmax(180px,.36fr) minmax(0,.64fr);gap:clamp(1.2rem,4vw,3rem);align-items:center;margin-top:clamp(2rem,5vw,4rem);padding:clamp(1rem,2.5vw,1.6rem);border:1px solid #bcaea2;background:#f4ece5;color:var(--ink);text-decoration:none}
   .home-teaching-feature img{display:block;width:100%;height:auto;border:1px solid #c9bdb3}
-  .home-teaching-feature+.home-teaching-feature{margin-top:1rem}.home-lecture-feature{background:#e2ebe5}.home-lecture-count{display:grid;place-content:center;aspect-ratio:16/9;border:1px solid #aabbb1;background:#1f2d27;color:#fff;text-align:center}.home-lecture-count strong{font:700 clamp(3.5rem,8vw,7rem)/.8 var(--serif)}.home-lecture-count span{margin-top:.7rem;font:700 .8rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#bdc9c3}
+  .home-teaching-feature+.home-teaching-feature{margin-top:1rem}.home-lecture-feature{background:#e2ebe5}.home-mentoring-feature{background:#e6e8f1}.home-lecture-count{display:grid;place-content:center;aspect-ratio:16/9;border:1px solid #aabbb1;background:#1f2d27;color:#fff;text-align:center}.home-lecture-count strong{font:700 clamp(3.5rem,8vw,7rem)/.8 var(--serif)}.home-lecture-count span{margin-top:.7rem;font:700 .8rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#bdc9c3}.home-mentoring-count{border-color:#8295a0;background:#142a38}.home-teaching-feature .home-mentoring-count strong{font:700 clamp(2.7rem,6vw,5.3rem)/.85 var(--serif)}
   .home-teaching-feature>span{display:grid;gap:.65rem}.home-teaching-feature small{color:var(--rust)}
   .home-teaching-feature strong{font:700 clamp(1.45rem,3vw,2.25rem)/1.1 var(--serif)}
   .home-teaching-feature span span{color:#584f48;max-width:56ch}.home-teaching-feature b{font-size:.92rem}.home-teaching-feature i{font-style:normal}

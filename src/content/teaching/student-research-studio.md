@@ -2,7 +2,7 @@
 title: Student Research Studio
 slug: student-research-studio
 summary: A supervised pathway from reproducing one result to formulating, testing, and communicating an independent mathematical-modeling question.
-lastUpdated: 2026-07-15
+lastUpdated: 2026-08-24
 featured: true
 topics: [research mentoring, validation, communication]
 level: Advanced
@@ -10,6 +10,10 @@ resourceType: Student research
 ---
 
 The studio is designed for learners ready to move beyond a closed assignment. Independence is introduced in stages: first by reproducing evidence, then by changing one modelling choice, and finally by defending a question and evaluation plan of their own.
+
+> **Mentored research in practice — AI4Nature@AVSS 2026**
+>
+> I mentored the student team behind *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation*. The official workshop programme lists the work as Paper ID 7 in Oral Session 1A on 31 August 2026; I am also listed as a co-author. [View the official programme →](https://www.ai4nature.tech/program.html)
 
 ## Entry evidence
 
@@ -76,4 +80,3 @@ Student-suitable entries can be explored through the [project index](/projects/?
 ## Completion standard
 
 Completion does not require a positive result. It requires a transparent question, a coherent model, an appropriate comparison, inspectable evidence, and a conclusion that stops where the evidence stops.
-
