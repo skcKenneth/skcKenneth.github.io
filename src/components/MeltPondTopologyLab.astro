@@ -1,0 +1,491 @@
+---
+import fixtureDocument from "../data/melt-pond-topology-fixtures.json";
+
+export interface Props {
+  locale?: "en" | "zh-Hant";
+  mode?: "compact" | "full";
+  fixture?: string;
+  seed?: number;
+}
+
+const {
+  locale = "en",
+  mode = "compact",
+  fixture = "matern-broad-isotropic",
+  seed = 240824,
+} = Astro.props;
+const zh = locale === "zh-Hant";
+const fixtureAliases: Record<string, string> = { "matern-ridges": "matern-horizontal-ridges" };
+const selectedFixtureId = fixtureAliases[fixture] ?? fixture;
+const selectedFixture = fixtureDocument.fixtures.find((item) => item.id === selectedFixtureId) ?? fixtureDocument.fixtures[0];
+const id = `melt-pond-${mode}-${seed}-${selectedFixture.id}`;
+const fullLabPath = zh ? "/zh/teaching/melt-pond-topology-lab/" : "/teaching/melt-pond-topology-lab/";
+
+const copy = zh ? {
+  title: "融池拓撲觀測實驗室",
+  intro: "在同一個 96 × 96 合成融池場上改變水位、解析度和分割誤差，觀察連通、洞及喉道判斷何時改寫。",
+  boundary: "這是教學尺度的合成形態實驗，不是衛星分類器、實地滲流量度或北極氣候預測。",
+  fixture: "合成形態 fixture",
+  fixtureGroups: { matern: "Matérn 隨機地形", "germ-grain": "Germ–grain 合併", "ising-shift": "Ising 形態偏移" },
+  waterLevel: "水位（面積分位數）",
+  correlation: "額外相關尺度（格點）",
+  anisotropy: "水平／垂直各向異性",
+  blur: "觀測模糊 σ（像素）",
+  resolution: "每個觀測像素的原始格點",
+  bias: "分割邊界位移（觀測像素）",
+  noise: "邊界標籤錯誤率",
+  connectivity: "數碼連通慣例",
+  seed: "確定性變體 seed",
+  advanced: "觀測與拓撲設定",
+  run: "重新計算",
+  reset: "重設",
+  latent: "Latent 參考場",
+  observed: "相機所見",
+  latentHint: "96 × 96 未受觀測誤差影響的二值場",
+  observedHint: "先模糊、降採樣及分割，再放大顯示",
+  legendWater: "融池",
+  legendIce: "冰面",
+  metrics: ["觀測融池比例", "連通分量 β₀", "封閉洞 β₁", "Euler 特徵 χ", "方向連通", "邊界維數", "雙向喉道半徑", "觀測格點"],
+  spanning: { none: "未橫跨", lr: "左右", tb: "上下", both: "雙方向" },
+  units: "原始像素",
+  comparison: "Latent 與 observed 拓撲對照",
+  quantity: "量",
+  change: "變化",
+  operator: "固定觀測次序",
+  operatorHint: "同一組 fixture 依次經過這些步驟；改變控制項不會暗中更換底圖。",
+  full: "開啟完整互動實驗",
+  noScript: "請啟用 JavaScript 以運行互動模型；本頁其餘模型說明與數式仍可閱讀。",
+} : {
+  title: "Melt-pond topology observation lab",
+  intro: "Change water level, resolution, and segmentation error on one 96 × 96 synthetic pond field, then watch connectivity, holes, and throat width change.",
+  boundary: "This is a teaching-scale synthetic morphology experiment, not a satellite classifier, an in-situ percolation measurement, or an Arctic-climate forecast.",
+  fixture: "Synthetic morphology fixture",
+  fixtureGroups: { matern: "Matérn random topography", "germ-grain": "Germ–grain coalescence", "ising-shift": "Ising morphology shift" },
+  waterLevel: "Water level (area quantile)",
+  correlation: "Extra correlation scale (cells)",
+  anisotropy: "Horizontal / vertical anisotropy",
+  blur: "Observation blur σ (pixels)",
+  resolution: "Latent cells per observed pixel",
+  bias: "Segmentation boundary displacement (observed px)",
+  noise: "Boundary-label error rate",
+  connectivity: "Digital-connectivity convention",
+  seed: "Deterministic variant seed",
+  advanced: "Observation and topology settings",
+  run: "Recalculate",
+  reset: "Reset",
+  latent: "Latent reference field",
+  observed: "What the camera sees",
+  latentHint: "The 96 × 96 binary field before observation error",
+  observedHint: "Blurred, downsampled, segmented, then enlarged for display",
+  legendWater: "Pond",
+  legendIce: "Ice",
+  metrics: ["Observed pond fraction", "Components β₀", "Enclosed holes β₁", "Euler characteristic χ", "Directional span", "Boundary dimension", "Both-direction throat radius", "Observed grid"],
+  spanning: { none: "No span", lr: "Left–right", tb: "Top–bottom", both: "Both directions" },
+  units: "latent pixels",
+  comparison: "Latent versus observed topology",
+  quantity: "Quantity",
+  change: "Change",
+  operator: "Fixed observation order",
+  operatorHint: "The same fixture moves through these stages; a control change never silently swaps the underlying field.",
+  full: "Open the full interactive lab",
+  noScript: "Enable JavaScript to run the interactive model. The surrounding explanation and equations remain readable without it.",
+};
+
+const fixtureFamilies = ["matern", "germ-grain", "ising-shift"] as const;
+const operatorLabels = zh
+  ? ["讀取 fixture", "平移／鏡射", "相關平滑", "分位排序", "水位二值化", "PSF 模糊", "區塊平均", "分割邊界位移", "邊界錯標", "放大顯示"]
+  : ["Decode fixture", "Shift / mirror", "Correlate", "Rank", "Threshold", "PSF blur", "Block average", "Displace boundary", "Boundary error", "Display expand"];
+---
+
+<melt-pond-topology-lab
+  class:list={["mp-lab", `mp-lab--${mode}`]}
+  data-locale={locale}
+  data-mode={mode}
+  data-fixture={selectedFixture.id}
+  data-seed={seed}
+>
+  <header class="mp-head">
+    <div>
+      <p class="eyebrow">{zh ? "互動拓撲模型" : "Interactive topology model"}</p>
+      <h2>{copy.title}</h2>
+      <p>{copy.intro}</p>
+    </div>
+    <p class="mp-boundary">{copy.boundary}</p>
+  </header>
+
+  <div class="mp-workbench">
+    <form class="mp-controls" data-controls>
+      <div class="mp-control mp-control--wide">
+        <label for={`${id}-fixture`}>{copy.fixture}</label>
+        <select id={`${id}-fixture`} name="fixture">
+          {fixtureFamilies.map((family) => (
+            <optgroup label={copy.fixtureGroups[family]}>
+              {fixtureDocument.fixtures.filter((item) => item.family === family).map((item) => (
+                <option value={item.id} selected={item.id === selectedFixture.id}>{zh ? item.labelZh : item.labelEn}</option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+        <small data-fixture-description>{zh ? selectedFixture.descriptionZh : selectedFixture.descriptionEn}</small>
+      </div>
+
+      <div class="mp-control">
+        <label for={`${id}-water`}>{copy.waterLevel} <output data-output="water">0.46</output></label>
+        <input id={`${id}-water`} name="waterLevel" type="range" min="0.10" max="0.85" step="0.01" value="0.46" />
+      </div>
+      <div class="mp-control">
+        <label for={`${id}-blur`}>{copy.blur} <output data-output="blur">0.8</output></label>
+        <input id={`${id}-blur`} name="blur" type="range" min="0" max="4" step="0.2" value="0.8" />
+      </div>
+      <div class="mp-control">
+        <label for={`${id}-resolution`}>{copy.resolution}</label>
+        <select id={`${id}-resolution`} name="resolution">
+          {[1, 2, 3, 4, 6, 8, 12].map((value) => <option value={value} selected={value === 3}>{value} × {value}</option>)}
+        </select>
+      </div>
+
+      <details class="mp-advanced" open={mode === "full"}>
+        <summary>{copy.advanced}</summary>
+        <div class="mp-advanced-grid">
+          <div class="mp-control">
+            <label for={`${id}-correlation`}>{copy.correlation} <output data-output="correlation">1.2</output></label>
+            <input id={`${id}-correlation`} name="correlation" type="range" min="0" max="4" step="0.2" value="1.2" />
+          </div>
+          <div class="mp-control">
+            <label for={`${id}-anisotropy`}>{copy.anisotropy} <output data-output="anisotropy">1.00</output></label>
+            <input id={`${id}-anisotropy`} name="anisotropy" type="range" min="0.5" max="2" step="0.05" value="1" />
+          </div>
+          <div class="mp-control">
+            <label for={`${id}-bias`}>{copy.bias} <output data-output="bias">0 px</output></label>
+            <input id={`${id}-bias`} name="segmentationBias" type="range" min="-2" max="2" step="1" value="0" />
+          </div>
+          <div class="mp-control">
+            <label for={`${id}-noise`}>{copy.noise} <output data-output="noise">2%</output></label>
+            <input id={`${id}-noise`} name="boundaryNoise" type="range" min="0" max="0.20" step="0.01" value="0.02" />
+          </div>
+          <div class="mp-control">
+            <label for={`${id}-connectivity`}>{copy.connectivity}</label>
+            <select id={`${id}-connectivity`} name="connectivity">
+              <option value="pond-4-ice-8">{zh ? "融池 4-neighbour／冰面 8-neighbour" : "Pond 4-neighbour / ice 8-neighbour"}</option>
+              <option value="pond-8-ice-4">{zh ? "融池 8-neighbour／冰面 4-neighbour" : "Pond 8-neighbour / ice 4-neighbour"}</option>
+            </select>
+          </div>
+          <div class="mp-control">
+            <label for={`${id}-seed`}>{copy.seed}</label>
+            <input id={`${id}-seed`} name="seed" type="number" min="0" max="4294967295" step="1" value={seed} inputmode="numeric" />
+          </div>
+        </div>
+      </details>
+
+      <div class="mp-actions">
+        <button class="button" type="submit">{copy.run}</button>
+        <button class="button secondary" type="reset">{copy.reset}</button>
+      </div>
+    </form>
+
+    <section class="mp-results" aria-label={zh ? "拓撲分析結果" : "Topology analysis results"}>
+      <div class="mp-maps">
+        <figure>
+          <figcaption><strong>{copy.latent}</strong><span>{copy.latentHint}</span></figcaption>
+          <canvas width="96" height="96" data-map="latent" role="img">{copy.latentHint}</canvas>
+        </figure>
+        <figure>
+          <figcaption><strong>{copy.observed}</strong><span data-observed-hint>{copy.observedHint}</span></figcaption>
+          <canvas width="96" height="96" data-map="observed" role="img">{copy.observedHint}</canvas>
+        </figure>
+      </div>
+
+      <div class="mp-legend" aria-hidden="true"><span><i class="mp-water"></i>{copy.legendWater}</span><span><i class="mp-ice"></i>{copy.legendIce}</span></div>
+
+      <dl class="mp-metrics" aria-label={zh ? "觀測拓撲摘要" : "Observed topology summary"}>
+        {copy.metrics.map((label, index) => <div><dt>{label}</dt><dd data-metric={index}>—</dd></div>)}
+      </dl>
+
+      {mode === "full" && (
+        <div class="mp-detail-grid">
+          <div class="mp-table-wrap">
+            <h3>{copy.comparison}</h3>
+            <table>
+              <thead><tr><th>{copy.quantity}</th><th>Latent</th><th>Observed</th><th>{copy.change}</th></tr></thead>
+              <tbody data-comparison></tbody>
+            </table>
+          </div>
+          <div class="mp-operator">
+            <h3>{copy.operator}</h3>
+            <p>{copy.operatorHint}</p>
+            <ol>{operatorLabels.map((label, index) => <li><span>{String(index + 1).padStart(2, "0")}</span>{label}</li>)}</ol>
+          </div>
+        </div>
+      )}
+
+      <p class="mp-status" data-status aria-live="polite"></p>
+      {mode === "compact" && <p class="mp-full-link"><a href={fullLabPath}>{copy.full} →</a></p>}
+      <noscript><p class="mp-noscript">{copy.noScript}</p></noscript>
+    </section>
+  </div>
+</melt-pond-topology-lab>
+
+<script>
+  // @ts-nocheck -- Browser custom-element glue; the pure model and fixtures are tested separately.
+  import fixtureDocument from "../data/melt-pond-topology-fixtures.json";
+  import { analyseMeltPondFixture } from "../lib/melt-pond-topology-model.mjs";
+
+  const COLOURS = {
+    water: [0, 103, 111],
+    ice: [246, 241, 230],
+  };
+
+  const fixtureById = new Map(fixtureDocument.fixtures.map((fixture) => [fixture.id, fixture]));
+
+  function drawMask(canvas, mask) {
+    const context = canvas.getContext("2d", { alpha: false });
+    const image = context.createImageData(96, 96);
+    for (let index = 0; index < mask.length; index += 1) {
+      const colour = mask[index] ? COLOURS.water : COLOURS.ice;
+      image.data[index * 4] = colour[0];
+      image.data[index * 4 + 1] = colour[1];
+      image.data[index * 4 + 2] = colour[2];
+      image.data[index * 4 + 3] = 255;
+    }
+    context.putImageData(image, 0, 0);
+  }
+
+  function spanningLabel(topology, copy) {
+    if (topology.spanning.both) return copy.both;
+    if (topology.spanning.lr) return copy.lr;
+    if (topology.spanning.tb) return copy.tb;
+    return copy.none;
+  }
+
+  function signed(value, digits = 0) {
+    const rounded = Number(value).toFixed(digits);
+    return Number(value) > 0 ? `+${rounded}` : rounded;
+  }
+
+  class MeltPondTopologyLabElement extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready === "true") return;
+      this.dataset.ready = "true";
+      this.zh = this.dataset.locale === "zh-Hant";
+      this.form = this.querySelector("[data-controls]");
+      this.form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        this.render();
+      });
+      this.form.addEventListener("input", () => {
+        this.updateOutputs();
+        cancelAnimationFrame(this.frame);
+        this.frame = requestAnimationFrame(() => this.render());
+      });
+      this.form.addEventListener("change", () => this.render());
+      this.form.addEventListener("reset", () => requestAnimationFrame(() => {
+        this.updateOutputs();
+        this.render();
+      }));
+      this.updateOutputs();
+      this.render();
+    }
+
+    readConfig() {
+      const data = new FormData(this.form);
+      return {
+        fixture: String(data.get("fixture")),
+        waterLevel: Number(data.get("waterLevel")),
+        correlation: Number(data.get("correlation")),
+        anisotropy: Number(data.get("anisotropy")),
+        blur: Number(data.get("blur")),
+        resolution: Number(data.get("resolution")),
+        segmentationBias: Number(data.get("segmentationBias")),
+        boundaryNoise: Number(data.get("boundaryNoise")),
+        connectivity: String(data.get("connectivity")),
+        seed: Number(data.get("seed")),
+      };
+    }
+
+    updateOutputs() {
+      const config = this.readConfig();
+      const values = {
+        water: config.waterLevel.toFixed(2),
+        correlation: config.correlation.toFixed(1),
+        anisotropy: config.anisotropy.toFixed(2),
+        blur: config.blur.toFixed(1),
+        bias: `${signed(config.segmentationBias, 0)} px`,
+        noise: `${Math.round(config.boundaryNoise * 100)}%`,
+      };
+      Object.entries(values).forEach(([name, value]) => {
+        const output = this.querySelector(`[data-output="${name}"]`);
+        if (output) output.textContent = value;
+      });
+      const fixture = fixtureById.get(config.fixture) ?? fixtureDocument.fixtures[0];
+      const description = this.querySelector("[data-fixture-description]");
+      if (description) description.textContent = this.zh ? fixture.descriptionZh : fixture.descriptionEn;
+    }
+
+    render() {
+      const config = this.readConfig();
+      const fixture = fixtureById.get(config.fixture) ?? fixtureDocument.fixtures[0];
+      const analysis = analyseMeltPondFixture(fixture, config);
+      const latent = analysis.latent.topology;
+      const observed = analysis.observed.topology;
+      const labels = this.zh
+        ? { none: "未橫跨", lr: "左右", tb: "上下", both: "雙方向" }
+        : { none: "No span", lr: "Left–right", tb: "Top–bottom", both: "Both directions" };
+
+      drawMask(this.querySelector('[data-map="latent"]'), analysis.latent.mask);
+      drawMask(this.querySelector('[data-map="observed"]'), analysis.observed.mask);
+
+      const latentCanvas = this.querySelector('[data-map="latent"]');
+      const observedCanvas = this.querySelector('[data-map="observed"]');
+      latentCanvas.setAttribute("aria-label", this.zh
+        ? `Latent 融池場：融池比例 ${(latent.pondFraction * 100).toFixed(1)}%，${spanningLabel(latent, labels)}。`
+        : `Latent pond field: ${(latent.pondFraction * 100).toFixed(1)} percent pond area; ${spanningLabel(latent, labels)}.`);
+      observedCanvas.setAttribute("aria-label", this.zh
+        ? `觀測融池場：融池比例 ${(observed.pondFraction * 100).toFixed(1)}%，${spanningLabel(observed, labels)}。`
+        : `Observed pond field: ${(observed.pondFraction * 100).toFixed(1)} percent pond area; ${spanningLabel(observed, labels)}.`);
+
+      const throat = observed.resolvableThroat.maximum;
+      const metricValues = [
+        `${(observed.pondFraction * 100).toFixed(1)}%`,
+        String(observed.beta0),
+        String(observed.beta1),
+        String(observed.chi),
+        spanningLabel(observed, labels),
+        observed.fractalDimension == null ? "—" : observed.fractalDimension.toFixed(2),
+        throat == null ? "—" : `${throat.toFixed(1)} ${this.zh ? "原始像素" : "px"}`,
+        `${analysis.observed.analysisSize} × ${analysis.observed.analysisSize}`,
+      ];
+      metricValues.forEach((value, index) => {
+        const target = this.querySelector(`[data-metric="${index}"]`);
+        if (target) target.textContent = value;
+      });
+
+      const hint = this.querySelector("[data-observed-hint]");
+      if (hint) hint.textContent = this.zh
+        ? `${analysis.observed.analysisSize} × ${analysis.observed.analysisSize} 分析格點，以 nearest-neighbour 放大。`
+        : `${analysis.observed.analysisSize} × ${analysis.observed.analysisSize} analysis grid, nearest-neighbour enlarged.`;
+
+      const comparison = this.querySelector("[data-comparison]");
+      if (comparison) {
+        const rows = [
+          [this.zh ? "融池比例" : "Pond fraction", `${(latent.pondFraction * 100).toFixed(1)}%`, `${(observed.pondFraction * 100).toFixed(1)}%`, `${signed((observed.pondFraction - latent.pondFraction) * 100, 1)} pp`],
+          ["β₀", latent.beta0, observed.beta0, signed(observed.beta0 - latent.beta0)],
+          ["β₁", latent.beta1, observed.beta1, signed(observed.beta1 - latent.beta1)],
+          ["χ", latent.chi, observed.chi, signed(observed.chi - latent.chi)],
+          [this.zh ? "方向連通" : "Directional span", spanningLabel(latent, labels), spanningLabel(observed, labels), latent.spanning.lr === observed.spanning.lr && latent.spanning.tb === observed.spanning.tb ? "=" : "≠"],
+          [this.zh ? "邊界維數" : "Boundary dimension", latent.fractalDimension?.toFixed(2) ?? "—", observed.fractalDimension?.toFixed(2) ?? "—", observed.fractalDimension == null || latent.fractalDimension == null ? "—" : signed(observed.fractalDimension - latent.fractalDimension, 2)],
+        ];
+        comparison.replaceChildren(...rows.map((row) => {
+          const tr = document.createElement("tr");
+          row.forEach((value, index) => {
+            const cell = document.createElement(index === 0 ? "th" : "td");
+            if (index === 0) cell.scope = "row";
+            cell.textContent = String(value);
+            tr.append(cell);
+          });
+          return tr;
+        }));
+      }
+
+      const changedSpan = latent.spanning.lr !== observed.spanning.lr || latent.spanning.tb !== observed.spanning.tb;
+      const status = this.querySelector("[data-status]");
+      status.textContent = this.zh
+        ? `觀測場有 ${observed.beta0} 個融池分量、${observed.beta1} 個封閉洞，${spanningLabel(observed, labels)}。${changedSpan ? "觀測程序改寫了方向連通判斷。" : "方向連通判斷與 latent 參考場一致。"}`
+        : `The observed field has ${observed.beta0} pond ${observed.beta0 === 1 ? "component" : "components"} and ${observed.beta1} enclosed ${observed.beta1 === 1 ? "hole" : "holes"}, with ${spanningLabel(observed, labels).toLowerCase()}. ${changedSpan ? "The observation pipeline changed the directional-spanning verdict." : "Its directional-spanning verdict agrees with the latent reference."}`;
+      this.updateOutputs();
+    }
+  }
+
+  if (!customElements.get("melt-pond-topology-lab")) customElements.define("melt-pond-topology-lab", MeltPondTopologyLabElement);
+</script>
+
+<style>
+  .mp-lab {
+    --mp-ink: #111111;
+    --mp-muted: #46504c;
+    --mp-paper: #f6f1e7;
+    --mp-panel: #fffdf8;
+    --mp-line: #a9b3ad;
+    --mp-water: #00676f;
+    --mp-ice: #f6f1e6;
+    display: block;
+    color: var(--mp-ink);
+    background: var(--mp-paper);
+    border: 1px solid #7f8c86;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 22px 60px rgb(18 36 31 / 16%);
+  }
+  .mp-lab :is(h2, h3, p, label, output, small, summary, dt, dd, th, td, span, strong, a, button, select, input) { color: var(--mp-ink); }
+  .mp-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .38fr); gap: 2rem; padding: clamp(1.3rem, 3vw, 2.4rem); border-bottom: 1px solid var(--mp-line); background: linear-gradient(128deg, #f6f1e7 0 72%, #d9e8e3 72% 100%); }
+  .mp-head h2 { margin: .25rem 0 .55rem; max-width: 20ch; font-size: clamp(1.55rem, 3vw, 2.35rem); }
+  .mp-head p { margin-bottom: 0; max-width: 68ch; }
+  .mp-boundary { align-self: end; border-top: 3px solid #9b4f36; padding-top: .8rem; font-size: .82rem; line-height: 1.55; }
+  .mp-workbench { display: grid; grid-template-columns: minmax(250px, .32fr) minmax(0, .68fr); }
+  .mp-controls { display: flex; flex-direction: column; gap: 1rem; padding: clamp(1.1rem, 2.5vw, 1.8rem); border-right: 1px solid var(--mp-line); background: #e6ece7; }
+  .mp-control { display: grid; gap: .38rem; }
+  .mp-control label { font-size: .76rem; font-weight: 700; line-height: 1.35; }
+  .mp-control output { float: right; font-family: var(--mono); font-size: .72rem; }
+  .mp-control small { color: var(--mp-muted); font-size: .72rem; line-height: 1.45; }
+  .mp-control :is(select, input[type="number"]) { width: 100%; min-height: 2.55rem; border: 1px solid #65726c; border-radius: 8px; padding: .5rem .65rem; background: #fffdf8; font: inherit; }
+  .mp-control input[type="range"] { width: 100%; accent-color: var(--mp-water); }
+  .mp-control :is(select, input, summary, button):focus-visible { outline: 3px solid #d07838; outline-offset: 3px; }
+  .mp-advanced { border-top: 1px solid #aab5af; border-bottom: 1px solid #aab5af; padding: .75rem 0; }
+  .mp-advanced summary { cursor: pointer; font-size: .78rem; font-weight: 800; }
+  .mp-advanced-grid { display: grid; gap: 1rem; padding-top: 1rem; }
+  .mp-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .mp-actions .button { min-height: 2.5rem; }
+  .mp-results { min-width: 0; padding: clamp(1rem, 2.5vw, 2rem); background: var(--mp-panel); }
+  .mp-maps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(.75rem, 2vw, 1.4rem); }
+  .mp-maps figure { min-width: 0; margin: 0; }
+  .mp-maps figcaption { display: grid; gap: .15rem; min-height: 3.5rem; margin-bottom: .5rem; }
+  .mp-maps figcaption strong { font-size: .86rem; }
+  .mp-maps figcaption span { color: var(--mp-muted); font-size: .7rem; line-height: 1.35; }
+  .mp-maps canvas { display: block; width: 100%; height: auto; aspect-ratio: 1; border: 2px solid var(--mp-ink); background: var(--mp-ice); image-rendering: pixelated; }
+  .mp-legend { display: flex; flex-wrap: wrap; gap: 1rem; margin: .75rem 0 1.25rem; font-size: .7rem; }
+  .mp-legend span { display: inline-flex; align-items: center; gap: .35rem; }
+  .mp-legend i { width: .8rem; height: .8rem; border: 1px solid #111; }
+  .mp-water { background: var(--mp-water); }
+  .mp-ice { background: var(--mp-ice); }
+  .mp-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-top: 2px solid var(--mp-ink); }
+  .mp-metrics div { min-width: 0; padding: .75rem .6rem .65rem 0; }
+  .mp-metrics div + div { border-left: 1px solid #c2cac5; padding-left: .6rem; }
+  .mp-metrics div:nth-child(5) { border-left: 0; }
+  .mp-metrics dt { min-height: 2.2em; font-size: .66rem; line-height: 1.2; }
+  .mp-metrics dd { margin: .32rem 0 0; font: 800 clamp(.95rem, 2vw, 1.28rem) var(--mono); overflow-wrap: anywhere; }
+  .mp-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(230px, .42fr); gap: 1.5rem; margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--mp-line); }
+  .mp-detail-grid h3 { margin: 0 0 .65rem; font-size: .95rem; }
+  .mp-table-wrap { min-width: 0; overflow-x: auto; }
+  .mp-table-wrap table { width: 100%; border-collapse: collapse; font-size: .72rem; }
+  .mp-table-wrap th, .mp-table-wrap td { padding: .48rem .35rem; border-bottom: 1px solid #d5dbd7; text-align: right; white-space: nowrap; }
+  .mp-table-wrap th:first-child { text-align: left; }
+  .mp-operator p { color: var(--mp-muted); font-size: .72rem; }
+  .mp-operator ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem; margin: 0; padding: 0; list-style: none; }
+  .mp-operator li { display: flex; gap: .4rem; align-items: baseline; font-size: .68rem; }
+  .mp-operator li span { color: #8f432e; font: 700 .62rem var(--mono); }
+  .mp-status { margin: 1.2rem 0 0; padding: .8rem 1rem; border-left: 4px solid var(--mp-water); background: #e4eeea; font-size: .78rem; line-height: 1.5; }
+  .mp-full-link { margin: .8rem 0 0; font-size: .78rem; font-weight: 700; }
+  .mp-noscript { padding: .75rem; border: 1px solid #9b4f36; font-size: .78rem; }
+  .mp-lab--compact .mp-head { grid-template-columns: 1fr; gap: .7rem; padding: 1.3rem; background: #f6f1e7; }
+  .mp-lab--compact .mp-boundary { max-width: 70ch; }
+  .mp-lab--compact .mp-workbench { grid-template-columns: minmax(220px, .34fr) minmax(0, .66fr); }
+  .mp-lab--compact .mp-controls, .mp-lab--compact .mp-results { padding: 1rem; }
+  .mp-lab--compact .mp-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mp-lab--compact .mp-metrics div:nth-child(odd) { border-left: 0; }
+  @media (max-width: 900px) {
+    .mp-head, .mp-workbench, .mp-lab--compact .mp-workbench { grid-template-columns: 1fr; }
+    .mp-head { background: var(--mp-paper); }
+    .mp-boundary { max-width: 70ch; }
+    .mp-controls { border-right: 0; border-bottom: 1px solid var(--mp-line); }
+    .mp-advanced-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .mp-maps, .mp-detail-grid, .mp-advanced-grid { grid-template-columns: 1fr; }
+    .mp-maps figcaption { min-height: 0; }
+    .mp-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mp-metrics div:nth-child(odd) { border-left: 0; }
+    .mp-operator ol { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mp-lab *, .mp-lab *::before, .mp-lab *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
+  }
+</style>

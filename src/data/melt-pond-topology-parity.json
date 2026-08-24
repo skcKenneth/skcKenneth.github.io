@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "connectivity": {"pond": 4, "ice": 8},
+  "encoding": "Each row is a binary string; 1 denotes pond and 0 denotes ice.",
+  "fixtures": [
+    {"id": "empty", "rows": ["00000000","00000000","00000000","00000000","00000000","00000000","00000000","00000000"], "expected": {"pond_fraction": 0.0, "beta0": 0, "beta1": 0, "euler": 0, "horizontal": false, "vertical": false}},
+    {"id": "full", "rows": ["11111111","11111111","11111111","11111111","11111111","11111111","11111111","11111111"], "expected": {"pond_fraction": 1.0, "beta0": 1, "beta1": 0, "euler": 1, "horizontal": true, "vertical": true}},
+    {"id": "horizontal", "rows": ["00000000","00000000","00000000","11111111","00000000","00000000","00000000","00000000"], "expected": {"pond_fraction": 0.125, "beta0": 1, "beta1": 0, "euler": 1, "horizontal": true, "vertical": false}},
+    {"id": "vertical", "rows": ["00010000","00010000","00010000","00010000","00010000","00010000","00010000","00010000"], "expected": {"pond_fraction": 0.125, "beta0": 1, "beta1": 0, "euler": 1, "horizontal": false, "vertical": true}},
+    {"id": "plus", "rows": ["00010000","00010000","00010000","11111111","00010000","00010000","00010000","00010000"], "expected": {"pond_fraction": 0.234375, "beta0": 1, "beta1": 0, "euler": 1, "horizontal": true, "vertical": true}},
+    {"id": "ring", "rows": ["00000000","01111110","01000010","01000010","01000010","01000010","01111110","00000000"], "expected": {"pond_fraction": 0.3125, "beta0": 1, "beta1": 1, "euler": 0, "horizontal": false, "vertical": false}},
+    {"id": "two_islands", "rows": ["00000000","01100000","01100000","00000000","00000000","00000110","00000110","00000000"], "expected": {"pond_fraction": 0.125, "beta0": 2, "beta1": 0, "euler": 2, "horizontal": false, "vertical": false}},
+    {"id": "diagonal", "rows": ["10000000","01000000","00100000","00010000","00001000","00000100","00000010","00000001"], "expected": {"pond_fraction": 0.125, "beta0": 8, "beta1": 0, "euler": 8, "horizontal": false, "vertical": false}},
+    {"id": "two_holes", "rows": ["11111111","10011111","10011111","11111111","11111111","11111001","11111001","11111111"], "expected": {"pond_fraction": 0.875, "beta0": 1, "beta1": 2, "euler": -1, "horizontal": true, "vertical": true}},
+    {"id": "checkerboard", "rows": ["10101010","01010101","10101010","01010101","10101010","01010101","10101010","01010101"], "expected": {"pond_fraction": 0.5, "beta0": 32, "beta1": 0, "euler": 32, "horizontal": false, "vertical": false}},
+    {"id": "two_horizontal_channels", "rows": ["00000000","11111111","00000000","00000000","00000000","11111111","00000000","00000000"], "expected": {"pond_fraction": 0.25, "beta0": 2, "beta1": 0, "euler": 2, "horizontal": true, "vertical": false}},
+    {"id": "offset_cross", "rows": ["00100000","00100000","00100000","11111111","00100000","00100000","00100000","00100000"], "expected": {"pond_fraction": 0.234375, "beta0": 1, "beta1": 0, "euler": 1, "horizontal": true, "vertical": true}}
+  ]
+}

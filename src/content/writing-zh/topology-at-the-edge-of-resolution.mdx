@@ -1,0 +1,374 @@
+---
+title: "解析度邊緣的拓撲：哪些融池訊號經得起觀測？"
+slug: topology-at-the-edge-of-resolution
+sourceSlug: topology-at-the-edge-of-resolution
+summary: 一項受控審核，研究模糊、像素尺度、分割誤差與有限視窗如何令北極融池影像看似跨越實際上未曾出現的連通臨界點。
+date: 2026-08-24
+lastUpdated: 2026-08-24
+featured: true
+topics: [北極海冰, 融池, 拓撲資料分析, 滲流, 觀測誤差, 數學建模]
+heroImage: /science/resolution-robust-arctic-melt-pond-topology/observation-pipeline.svg
+type: 研究筆記
+archived: false
+readingMinutes: 26
+scienceProject: resolution-robust-arctic-melt-pond-topology
+redirectFrom: []
+---
+
+import MeltPondTopologyLab from "../../components/MeltPondTopologyLab.astro";
+
+夏季海冰的航拍影像看起來幾乎是二元的：較暗的水面散布在較亮的雪與冰之間。人們很自然會數算暗色像素、畫出融池覆蓋率曲線，再指出孤立融池首次連成大型網絡的時刻。然而，影像中的網絡並不完全由海冰產生，攝影系統也參與了它的形成。狹窄冰橋可能在光學模糊後消失；降採樣可能把一個像素寬的水道創造出來；分類器只要把兩個融池之間的邊界移動一個觀測像素，便可將它們接通；裁切視窗亦可能令原來只是大型局部群集的結構，變成由影像一邊橫跨至另一邊的路徑。
+
+這些差異不是美化影像時才需要處理的細節。連通性具有不連續性：改動少量像素，已足以合併兩個連通分支、封閉一個環洞，或建立第一條貫穿影像的路徑。面積可以漸變，拓撲卻可以跳變。假如研究以這種跳變作為滲流臨界點的證據，空間解析度與影像分割便早已屬於數學模型的一部分，不論研究者有否把它們寫入方程。
+
+本研究聚焦於一個刻意從量測角度提出的問題：
+
+> 假如高解析度的潛在融池圖樣具有明確的連通轉變，經過符合實際觀測特徵的誤差後，哪些影像診斷仍能可靠定位該轉變？
+
+我們比較六類診斷：直接跨域連通、融池覆蓋率、面積—周長分形轉折、Euler／Betti 曲線、經 persistence 篩選的 Betti 曲線，以及融池內部距離的最大瓶頸寬度。研究不預設數學上最複雜的統計量必然勝出。所有方法使用相同的潛在圖樣、相同的退化影像、相同的預先凍結真值定義，以及相同的失敗計數。只有當某一診斷在每個留出形態與壓力分層均通過預先聲明的誤差及失敗率門檻，文章才會稱它在本基準內具有「解析度穩健性」。
+
+這是一項計算基準研究，並附有界線清楚的觀測案例。它不推斷全北極共享同一物理臨界點，不預測海冰消失，也不重建冰面下真正的水力網絡。高解析度合成基準提供真實影像無法直接提供的已知真值；MOSAiC 案例則示範如何在不把分割影像冒充自然本身的前提下，應用同一套審核思路。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/observation-pipeline.svg" alt="同一潛在場、mild 二倍觀測、配對一像素分割膨脹，以及 coarse 加裁切觀測的平行 scalar-field 與 binary-mask 視圖。" width="960" height="580" loading="eager" decoding="async" />
+  <figcaption><strong>圖一。</strong> 各欄是同一潛在場的平行版本，不是連續 pipeline snapshots。圖中只展示 latent、mild $2\times$、配對 segmentation $+1$ pixel 及 coarse-plus-crop；其他預定壓力在別處評估。</figcaption>
+</figure>
+
+## 先親手改變一次觀測
+
+以下精簡實驗室並非研究證據引擎，而是一個教學尺度模型，用來呈現連通判定的不連續性。選擇一種合成形態、改變水位，再降低有效解析度或加入邊界錯誤。你會看到融池覆蓋率通常平滑變化，但連通分支數、環洞數及跨域狀態可能在一步之間翻轉。
+
+<MeltPondTopologyLab locale="zh-Hant" mode="compact" fixture="matern-horizontal-ridges" seed={20260824} />
+
+嘗試製造兩幅融池覆蓋率幾乎相同、跨域判定卻相反的影像。然後固定潛在場，只改變模糊程度。這正是研究的核心識別設計：配對觀測把攝影與分類的作用，和底層形態本身的差異分開。完整版[融池拓撲互動實驗室](/zh/teaching/melt-pond-topology-lab/)亦提供方向性跨域、數碼連通慣例及更多診斷曲線。
+
+## 為何連通性重要，而面積並不足夠
+
+融池比明亮雪面或裸冰吸收更多太陽能，因此覆蓋率會進入海冰反照率與表面能量計算；幾何亦影響側向融化、透射光、排水與連通。Nicolaus 等人的研究確立融池覆蓋與冰下光照之間的定性關聯；本文不會定量使用其後勘誤所修正的 irradiance 數值。Polashenski、Perovich 與 Courville 記錄了融水供應、地形、滲透性與排水在不同階段轉換主導地位；較後的 Polashenski 團隊研究更直接展示 freshwater-driven percolation blockage。故此，相近的暗色像素比例仍可能屬於不同物理狀態。
+
+然而，融池覆蓋率只是一個標量。令定義域 $D$ 上的二元遮罩為 $M(x,y)\in\{0,1\}$，其中一代表融池，則覆蓋率為
+
+$$
+\phi(M)=\frac{1}{|D|}\int_D M(x,y)\,\mathrm dA,
+$$
+
+在像素影像中即為水類像素的比例。這個數值沒有記錄像素的位置。十個緊密而分離的融池、一幅蕾絲狀水網絡，以及一條由左至右的水帶，可以擁有完全相同的 $\phi$，但只有最後一種必然橫跨影像。覆蓋率仍然重要，卻不能同時代替幾何、拓撲及臨界點偵測器。
+
+Hohenegger 等人分析數十萬個融池的面積與周長，具體展示了這個差別。他們發現較小融池的邊界相對簡單；融池面積增大後，邊界變得愈來愈複雜，並趨向近似填滿平面的曲線。這個轉變來自面積—周長關係，不是直接測試影像有否由一邊連到另一邊。Popović 等人其後證明，由互相重疊圓形周圍空隙構成的簡約模型，可以重現多項融池統計，而且圖樣接近滲流臨界狀態。Ma 等人則利用 random-field Ising 模型重現尺度律與分形轉變。這些研究都支持臨界點語言，但亦同時提醒我們：不同觀測量回答不同問題。
+
+由單一融池分形維度推斷的轉折，不必與有限影像首次出現跨域路徑的時刻相同。以時間表示的臨界點，不必等於以融池覆蓋率表示的臨界點。臨界融池面積，也不必等於侵蝕後仍可通過的最小水道半徑。因此，本研究並非判斷哪一個已發表臨界點才「正確」，而是量度同一潛在圖樣經受控觀測後，各種操作性定義會移動多少。
+
+## 像素圖像中的拓撲
+
+拓撲不重視精確長度或角度，而關心圖形在連續變形下仍然保持的連接關係。對二維融池遮罩而言，前兩個 Betti numbers 提供一套精簡語言：
+
+$$
+\beta_0(M)=\text{融池連通分支數},
+\qquad
+\beta_1(M)=\text{互相獨立的融池環洞數}.
+$$
+
+Euler characteristic 則為
+
+$$
+\chi(M)=\beta_0(M)-\beta_1(M).
+$$
+
+在一段合成融化序列的早期，大量孤立低窪位置會令 $\beta_0$ 較高而 $\beta_1$ 較低。水位上升後，分支互相合併，$\beta_0$ 隨之下降；水道圍繞尚未融化的冰島時，$\beta_1$ 可能上升；更後期冰島被淹沒，環洞又會閉合。這些事件不保證與首次跨域完全同步，但它們能顯示單一面積比例所隱藏的結構重組。
+
+數碼拓撲必須明確處理像素角點。若兩個對角水像素被視為連接，冰像素便不能同時用完全對稱的方法在同一角點穿過，否則水相與冰相可以在平面上同時交叉，破壞預定的分隔。主基準因此採用融池四鄰接、冰八鄰接；反向慣例列為消融測試，而不是隱藏在函式庫預設值內。研究亦分開記錄橫向與縱向跨域。拉長的圖樣可能很早沿主要方向連通，另一方向卻仍保持分離。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/morphology-atlas.svg" alt="Matérn、germ-grain 與留出 random-field Ising 在融池比例 0.30、0.46、0.62 的遮罩，並標示分支、環洞與雙方向跨域狀態。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖二。</strong> 相同融池比例並不固定拓撲。各行比較兩個 discovery families 與留出的 random-field Ising morphology shift；每格直接列出 $\beta_0$、$\beta_1$ 及是否雙方向跨域。</figcaption>
+</figure>
+
+跨域在有限正方形上定義。若至少一個融池分支同時接觸左右邊界，令 $S_x(M)=1$；若有分支同時接觸上下邊界，令 $S_y(M)=1$。研究同時報告
+
+$$
+S_{\mathrm{any}}=S_x\lor S_y,
+\qquad
+S_{\mathrm{both}}=S_x\land S_y.
+$$
+
+對由水位參數 $u$ 索引、而且彼此巢狀的潛在 filtration $M(u)$，橫向臨界點是 $S_x$ 首次等於一的水位。為了避免比較不同生成器各自的 score 單位，我們把它轉換成潛在融池覆蓋率：
+
+$$
+\phi_x^*=\inf_u\{\phi(M(u)):S_x(M(u))=1\}.
+$$
+
+縱向、任一方向及兩個方向均採用相應定義。主要估計目標是尚未經過模糊、降採樣、雜訊、偏差及裁切前，$S_{\mathrm{both}}=1$ 的首次雙方向潛在臨界點。橫向、縱向及任一方向臨界點只作支持診斷。
+
+## Persistent homology 加入尺度，但不是免疫證明
+
+單一閾值下的 Betti numbers 較敏感，因為短暫小分支與大型分支同樣被計作一個，狹窄小環與大型環洞亦同樣被計作一個。Persistent homology 透過 filtration 追蹤特徵，處理這個局限。每個分支或環洞都有出生值 $b$、死亡值 $d$ 及 persistence $|d-b|$。Persistence diagram 把特徵放在 $(b,d)$ 平面上；接近對角線的點代表只在很短尺度範圍存在的特徵。
+
+有號歐氏距離轉換特別適合二相影像，但正負號只是一項慣例。其融池內部的正值分支，為每個融池像素記錄至最近冰像素的距離；對這個分支設定半徑門檻，可以詢問哪些水道仍保留指定最小寬度。完整 signed filtration 可編碼融池半徑、分隔距離、狹頸、環洞及被包圍冰島。Robins 等人用此類結構把 persistent topology 與多孔介質的滲流尺度連繫起來；Offord 等人再把它應用於融池模型輸出，包括水道及滲流描述量。本基準明確分開兩種構造：經 persistence 篩選的 Betti curves 在 scalar pond-score field 上使用精確 elder-rule $H_0$ bars 及 dual $H_1$ bars；瓶頸診斷只在融池內部正距離分支上尋找方向性 maximum-bottleneck path，並不由該距離轉換建立 persistence bars。
+
+這些前人工作同時界定了本研究不能宣稱的內容：persistent homology 早已用於融池，SEDT persistence 亦早已用來討論滲流。本研究的貢獻不是重複宣布首次使用某種方法，而是在像素尺度、模糊、分割偏差、邊界錯誤及裁切視窗改變時，受控比較各診斷的穩定性。特別是，我們檢驗 persistence pruning 能否減少虛假轉變，而又不會把真正重要的狹窄水道刪除。
+
+Edelsbrunner、Letscher 與 Zomorodian 把 filtration 內的 feature lifetime 與簡化正式化；Cohen-Steiner、Edelsbrunner 與 Harer 其後證明，在適當正則條件下，filtration function 的有界擾動會限制 bottleneck displacement。這不代表任何下游臨界值都穩定：降採樣可刪除 feature，hard segmentation 不連續，裁切會改變定義域，而選取單一 feature 或符號轉換亦可放大細小移動。因此，穩定性仍是待檢驗假說。
+
+## 文獻留下的觀測缺口
+
+這個問題位於四條研究線索的交會處，但四者並不會自動合成同一答案。第一條是現場觀測與融池物理。Polashenski 等人的量測顯示，融池不是單純隨氣溫平滑增長的黑色斑點；融水輸入、初始雪與冰地形、冰內孔隙的滲透性、宏觀裂隙，以及冰面相對海平面的高度，都可在不同階段控制覆蓋率。這表示同一面積比例可能由不同水量平衡及排水狀態產生。若影像研究只把時間序列看成逐格增加的二元遮罩，便已略去形成網絡的部分物理條件。
+
+第二條是幾何與滲流研究。Hohenegger 等人從大量面積—周長資料辨認由簡單邊界至複雜邊界的尺度轉變；Popović 等人的 void model 說明少量幾何參數也能重現跨越多個尺度的統計規律，並把融池圖樣與近臨界滲流群集連結。這些結果說明臨界式結構不只是肉眼印象。然而，個別融池的分形尺度、整幅影像的 connectedness、有限視窗的 first crossing，以及無限系統的 percolation criticality 並不是同一 estimand。把它們都稱作「臨界點」不會令數值自動相等。
+
+第三條是生成模型。Ma 等人的 random-field Ising model 從局部相互作用、外場及 metastable states 形成具有實際融池尺度律的二元圖樣。Popović 等人的 overlapping-circle void model 則以另一種微觀機制形成近似統計。兩類模型都提醒我們：相似的宏觀覆蓋率及分形行為，可以來自不同局部生成機制。若診斷只在一個模型家族上調整，其成功可能是 generator compatibility，而不是觀測穩健性。因此，本研究把 Ising morphology 留作未見轉移，而不是把全部模型混在同一調參集合中。
+
+第四條是拓撲與多孔介質。Robins 等人用 SEDT persistence 連繫孔隙幾何、throat radii 與 percolating length scale；Offord 等人進一步展示融池模型中的 components、loops、concavity、channels 與 spanning signals 如何在同一 filtration 中表達。這條文獻建立了拓撲統計的可解釋性，也指出 heterogeneous structures 可能令小型特徵的數量壓過主要運輸路徑。換言之，persistent homology 提供比單一面積更豐富的描述，卻不保證由 persistence 選出的數值一定對應我們指定的 first-spanning target。
+
+遙感研究提供另一面警告。Miao 等人處理高解析度航拍相片時，並非只按顏色把每個像素獨立分類，而是結合 spectral、textural 及 spatial relationships，把融池、open water、submerged ice 與雪／冰分開。Niehaus 等人則由 Sentinel-2 估計 subpixel melt pond fraction，再以更細尺度產品評估。這些方法在各自聲明尺度處理 class retrieval 問題；然而，10 m fractional pixel、object polygon 與 0.5 m binary cell 是三種不同數學物件。面積誤差受到控制，不代表 first spanning 的拓撲誤差亦受到相同界限控制。
+
+這亦解釋為何本研究不直接把粗解析度產品 upscale 成漂亮的二元水網絡。假設某個 10 m cell 的融池比例為 0.4，我們不知道水集中在一角、分成多個小池，還是形成橫跨 cell 的狹長水道。把 0.4 threshold 成冰或水，兩種選擇都會丟失 subpixel arrangement。若相鄰 cells 的比例剛好位於閾值兩側，細微 retrieval bias 便可產生宏觀 connected path。這個不確定性不能靠雙線性插值恢復，只能在聲稱中保留。
+
+因此，尚未解決的問題不是「拓撲有沒有用」或「遙感準不準」，而是科學結論能否承受表示方式的受控改變。過往融池拓撲研究主要詢問一個模型或影像包含哪些 multiscale structures；本基準則詢問另一個 downstream question：已知潛在轉變經過模糊、採樣、分類及裁切後，每項操作性臨界點偏移多遠、多久完全無法估計，以及失敗由哪個步驟造成。
+
+這個定位同時避免不恰當的新穎性聲稱。本文使用的個別工具均有成熟來源；研究價值來自 paired latent design、顯式 observation operator、有明確界線的觀測案例、留出 morphology shift，以及容許回答「沒有方法通過」的預定 gate。若結果為負，它會收窄影像臨界點語言可辯護的條件；若結果為正，它仍然只是指定基準內的穩健性證據，而不是 sensor-independent Arctic criticality 的證明。
+
+文獻亦提示我們應該保留多種失敗尺度。面積分類可能整體準確，但在一條關鍵狹頸失準；拓撲摘要可能對像素雜訊穩定，卻對裁切位置敏感；fractality 可以在一段尺度範圍清楚，卻沒有足夠資料支持 breakpoint；直接 spanning 可以完全符合操作定義，卻在一像素橋接下翻轉。真正公平的比較不能只報告每種方法最有利的圖，而要讓它們在同一 latent fields、同一 stress settings 及同一 denominator 下暴露弱點。
+
+## 不讓一個方便的生成器決定答案
+
+若生成器恰好偏向某種統計量，任何診斷都可能顯得穩健。基準因此把方法發展與留出形態轉移分開，並使用三個互補圖樣家族。
+
+第一個生成器是各向異性的 Matérn Gaussian random field。頻譜方法產生平滑的潛在 pond-score field $Z(x,y)$，數值愈高代表愈像融池，其相關長度、粗糙度及方向異性均可控制。融池遮罩是 superlevel sets：
+
+$$
+M_u(x,y)=\mathbb 1\{Z(x,y)\ge u\}.
+$$
+
+逐步降低 $u$ 會形成嚴格巢狀的 filtration。相關長度控制典型盆地尺度；方向異性可形成拉長水道，以及橫向與縱向臨界點之間的差距。這個家族在數學上清楚，但文章不會把它冒充經某一塊實際冰面校準的地形模型。
+
+第二個生成器是 Boolean germ–grain 模型。隨機橢圓代表成長中的水區，或在互補 void formulation 中代表冰障礙物；中心、大小、長短軸比例及方向共同控制合併。這個家族與 Popović 等人的重疊物件直覺直接相連，同時加入方向結構。與 Gaussian family 相比，其邊界可以更銳利，合併事件亦更具幾何性。
+
+第三個生成器是 random-field Ising morphology，而且只在診斷定義凍結後才開放。鄰近位置的交互作用鼓勵水／冰狀態一致，空間隨機場則加入異質偏好。此家族借用 Ma 等人的統計物理觀點，但基準中的實作是受控合成轉移，並非配合其物理參數的校準。把它保留至最後，可以檢驗在平滑場及重疊 grain 上選定的規則，能否適應另一種粗化機制。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/topology-oracle-primer.svg" alt="上排二元遮罩標示分支、環洞、Euler 及左右或上下跨域；下排顯示融池內部正距離場與方向瓶頸半徑。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖三。</strong> 上排只展示圖中可見定義：兩個分支、單一分支連一個環洞、雙方向水道，以及 $\beta_0$、$\beta_1$、$\chi$、LR、TB。下排顯示至冰面的距離與相應 LR／TB bottleneck radii。</figcaption>
+</figure>
+
+主要基準在 $512\times512$ 像素上產生每個潛在場。較小的探索樣本只用來設定演算法選擇；另以六個交替取自 Matérn 與 germ–grain 的潛在場，在 $512^2$ 及 $1024^2$ 比較雙方向臨界點，檢查部分潛在答案會否本身也是離散化假象。這只是收斂審核，不是把完整 864 組觀測堆疊在較細網格重做。每個 realization 均有固定識別碼，以及在已記錄 configuration hash 下可確定重建的生成器參數與 seed。文章不會挑選一幅特別美觀的圖，就把它當成整個分布。
+
+## 觀測算子本身就是模型
+
+令 $Z$ 為潛在連續場，或由潛在遮罩導出的距離表示。觀測影像由預先聲明的合成算子產生：
+
+$$
+Y=\mathcal C_W\!\left[
+\mathcal B_\rho\!\left(
+\mathcal S_h\!\left(K_\sigma * Z\right)
++\varepsilon_r+\varepsilon_b
+\right)
+\right],
+$$
+
+然後進行分割：
+
+$$
+\widehat M_u=\mathbb 1\{Y\ge u\}.
+$$
+
+其中 $K_\sigma$ 是 Gaussian point-spread kernel；$\mathcal S_h$ 是有效像素尺度為 $h$ 的 anti-aliased block sampling；$\varepsilon_r$ 是 radiometric noise；$\varepsilon_b$ 是 high-pass boundary-scale texture；$\mathcal B_\rho$ 是 grayscale boundary-displacement operator；$\mathcal C_W$ 最後執行 central crop。預定的正偏差分層使用 $\rho=+1$：它先採用與 mild stratum 完全相同的 blur、downsampling、radiometric noise 及 random stream，再作一個 observed pixel 的 grayscale dilation。因此，在每個 threshold 下所得 superlevel mask，恰好等於 mild mask 相應的一像素 binary dilation；它不是把同一常數加在全圖 scores 上。所有生成器都輸出 scalar pond-score field，因此完整次序在 thresholding 前固定並記錄。
+
+次序不能任意交換。先 threshold 再平均，是詢問一個像素內多數 subpixels 是否為水；先平均再 threshold，則是詢問整個像素的平均輻射反應有否越過分類邊界。降採樣後侵蝕不等於降採樣前侵蝕；connected-component labelling 前先裁切，也會改變哪些分支接觸邊緣。證據管線記錄每個 stack 的表列輸出，並只保留一組代表性 preview，而不是宣稱封存每個中間遮罩；另行測試的 identity setting 必須逐值返回潛在 raster。
+
+配對設計讓每個潛在場重複通過所有觀測設定。假如某個降採樣尺度產生跨域，而下一尺度沒有，由於潛在場完全相同，差異便屬於觀測算子，而不是形態抽樣。Bootstrap 在潛在場層級重抽，源自同一場的多幅退化影像永遠不會被當成互相獨立的證據。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/diagnostic-curves.svg" alt="一組代表性 latent-observed pair，並列可用的診斷曲線與六個臨界 markers；直接跨域及固定覆蓋率只作 scalar markers。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖四。</strong> 一組代表性 latent-observed pair 把六個凍結 estimator markers 與可用的診斷曲線並列；直接跨域與固定基線只以 scalar markers 顯示。不同診斷回應不同幾何事件。</figcaption>
+</figure>
+
+## 六種判定轉變的方法
+
+**直接觀測跨域**找出分割遮罩首次同時橫向及縱向跨域的時刻。它最接近主要目標，卻亦最容易受單一橋接或斷裂影響。單方向跨域只保留作支持審核。
+
+**只用融池覆蓋率**永遠預測同一常數：由 discovery fields 的潛在臨界值中位數校準而成。它不查看每一個 observed image stack，並刻意捨棄位置資訊。若所有生成器及方向真的共享一個通用臨界覆蓋率，這個簡單基線會很難擊敗；若表現欠佳，則可直接展示在一種形態學得的 coverage threshold，為何不能自動轉移到另一種形態。
+
+**面積—周長分形轉折**在每個 filtration level 按 $P\propto A^{D/2}$ 對各分支的 log perimeter 與 log area 作迴歸，得到 dimension curve；其後在 pond fraction 軸上平滑，並選取 absolute gradient 最大的位置。它與 Hohenegger 等人的經驗轉變相連，但不是直接 piecewise fit。最小分支數及平滑方法預先固定；無法識別便計作失敗。
+
+**Euler／Betti 曲線**在凍結的 admissible coverage interval 內，使用 $\chi=\beta_0-\beta_1$ 的 sampled zero crossing。若沒有符號轉換，就取容許樣本中絕對值最接近零的一點。這是固定估計器，不是 discovery stage 在多個 curve landmarks 中選出的版本。
+
+**經 persistence 篩選的 Betti 曲線**精確計算 elder-rule $H_0$ 與 dual $H_1$ bars，移除 contrast lifetime 低於 $0.18$ 的 bars，再套用同一 Euler zero-crossing rule。Bars 在 deterministic strided grid 上計算，每軸最高 96 pixels。這個內部 compute grid 與模擬感測器解析度分開，亦可能令狹窄連接 aliasing。
+
+這項上限是為了令各組計算成本可比較而凍結的演算法敏感度選擇，不是對感測器提出的新假設。Stride 在評估前固定，並在配對設定中一致重用，不能因某幅圖的答案較理想才局部改密。即使如此，固定網格仍可能略過只佔少數 cells 的狹頸，亦可能把相鄰但未連接的結構合併。因此，審核會把 capped topology calculation 與完整潛在 raster 的分歧歸入方法誤差，而不是假裝成觀測誤差；相關敏感度亦須與真正的 blur、downsampling 及 segmentation effects 分開報告。這個區分十分重要：改變感測器尺度代表原始資訊被重新量測，改變 PH compute grid 則只是同一已觀測資訊由另一近似演算法處理，兩者的科學含義及可補救方式並不相同。
+
+**融池內部 EDT 最大瓶頸水道**找出正距離 paths 首次在橫向及縱向都達到至少 1.5 observed pixels 半徑的 filtration level，因此不接受只靠更幼觀測水道支撐的跨域。這項固定 1.5-pixel rule 為二元判定加入尺度，亦明確依賴 observed pixel size。
+
+沒有任何指標可以用自己的影像重新定義真值。估計目標始終是相對於高解析度潛在跨域臨界點的誤差，並以潛在融池覆蓋率表示。這個分離避免拓撲方法只因真值使用同一拓撲統計定義，就在循環論證中勝出。
+
+## 凍結實驗，而不是看圖找答案
+
+Discovery stage 包含 96 個潛在場及 576 個配對 observation stacks，用於除錯估計器、固定平滑與 breakpoint 規則、設定 persistence pruning，以及定義如何記錄無法估計的臨界點。Held-out stage 使用全新 144 個潛在場及 864 個配對 stacks，包括未見過的 Ising family 與具名高壓設定。Estimand、configuration、診斷及決策 gates 均在 confirmatory v4 前凍結；圖表呈現可在審核期間更正，但不得改動 metric 或 selection rule。
+
+對第 $i$ 個潛在場及第 $d$ 項診斷，主要誤差為
+
+$$
+e_{id}=\left|\widehat\phi^*_{id}-\phi^*_i\right|.
+$$
+
+研究在每個生成器及壓力分層報告指標時，median、90th percentile 及 root mean squared error 只以成功估計為條件計算。落在 $0.02$ 與 $0.05$ 以內的比例則使用所有預定 stacks；無法估計一律計作 miss，failure rate 另行報告。任一方向 threshold 及橫縱 absolute errors 的 aggregate mean 提供次要方向審核。運算時間亦會保留，因為一個只稍為穩定、卻明顯較慢的 multiscale diagnostic，未必適合處理大型影像庫。
+
+只有當某方法在每個預定留出生成器及壓力分層中，同時達到 median absolute error 不超過 $0.02$、90th-percentile error 不超過 $0.05$、失敗率不超過百分之五，才會被稱為「在本基準內具解析度穩健性」。這些數值不是自然常數，而是一項嚴格且可見的決策規則，避免文章把多個弱方法之中相對最好的一個，僅因排名第一便描述成穩健。
+
+不確定區間使用 2,000 次 generator-stratified paired bootstrap，而且重抽單位是潛在場。由同一場產生的六個觀測會一同進入或離開一個 resample。診斷之間在相同場與 stress setting 內配對，denominators 及 missing thresholds 全部保留。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/latent-threshold-map.svg" alt="合併凍結樣本的潛在雙方向臨界點及橫縱絕對差，包括 96 個 Matérn、96 個 germ-grain 與 48 個留出 random-field Ising fields。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖五。</strong> 圖中合併 discovery 與 held-out 凍結 fields：Matérn $n=96$、germ–grain $n=96$、random-field Ising $n=48$。不相等 denominators 明確列出；面板展示雙方向臨界點及潛在 $|H-V|$，不是通用融池比例。</figcaption>
+</figure>
+
+## 比較方法之前，先核證實作
+
+若基本拓撲計錯，再精美的壓力熱圖也沒有意義。第一層核證使用五個具有精確答案的小型遮罩：空遮罩、單一孤立分支、兩個孤立分支、單一環洞，以及含兩個環洞的定義域。程式計算得到的 $\beta_0$、$\beta_1$ 及 $\chi=\beta_0-\beta_1$，必須與手算值一致。
+
+第二層直接交叉核對演算法，而不是再增加敘事 fixture。精確 elder-rule $H_0$ 與 dual $H_1$ curves 在多個 sampled thresholds 上，必須與直接二元 Betti counts 一致；filtration 必須保持巢狀；identity observation operator 則要逐 bit 保留 scalar field。按像素排序的 exact spanning oracle 經正 affine transformation 後，佔用比例臨界點必須不變；另以 61、241、961 及 3841 levels 記錄已被取代的 sampled approximation 如何收斂。
+
+第三層使用已知隨機結構。三角晶格上的獨立 site occupation 在無限極限具有二分之一的 critical probability。有限網格不會要求每個 realization 恰在二分之一跨域，因此測試檢查收斂與對稱，而不是把教科書常數硬塞進每個樣本。這可偵測不等式方向倒置、邊界處理錯誤，以及把有限樣本 crossing probability 誤當漸近臨界點等問題。
+
+第四層針對 multiscale geometry。有界 scalar perturbation 只以其 sup norm 所推出的兩個 filtration inclusions 核對；程式不會把這項檢查誇稱為已數值求解 diagram matching。人工建構的 dumbbell 必須在一個 pixel 容差內找回橫向融池內部 EDT throat，而且不能縱向跨域；Sierpiński-carpet fixture 則把 box-counting estimate 與已知維度比較。這些檢查核證程式有否計算已聲明的量，並不預先證明 persistence 或 fractal geometry 是最佳估計器。
+
+最後，一項六場 latent convergence audit 交替使用 Matérn 與 germ–grain realizations，比較它們在 $512^2$ 及 $1024^2$ 的雙方向潛在臨界點；它不會在較細網格重跑全部 864 個 observed stacks。Deterministic seeds、凍結 configuration hash 及 claim–evidence ledger，把公開結果連回機器可讀輸出。
+
+## 哪些訊號經得起觀測
+
+Frozen evidence run 在不改動既定門檻下比較六類診斷，答案是選擇 abstain：**沒有任何方法能在每個 generator-by-observation stratum 同時通過 median、tail error 及 failure limits**。直接跨域的 pooled median absolute error 最低，為 $0.0144$，95% field-bootstrap interval 是 $[0.0124,0.0163]$；然而 pooled 90th percentile 達 $0.0666$，超過 $0.05$ gate。換言之，分布中央表現理想，不能抵銷尾部失準。
+
+結果必須分三層閱讀。第一層是高解析度潛在問題：真實方向臨界點在不同形態之間本身有多大差異。第二層是觀測偏差：同一潛在臨界點在模糊、採樣、分類與裁切後移動多少。第三層才是估計器表現：某診斷究竟有否找回潛在目標，還是只對失真的影像作出一致反應。只排列第三層，可能把所有方法共同承受的觀測偏差誤當穩定結果。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/observation-stress-map.svg" alt="臨界估計誤差與失敗率隨模糊、有效像素、一像素分割位移、邊界雜訊及裁切改變的壓力熱圖。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖六。</strong> 每個 generator-by-observation stratum 有 $n=48$ 個 held-out stacks。左側格子平均三個只以成功估計為條件的 generator-specific medians；右側顯示其中最大 median，並獨立顯示跨生成器最大 failure rate $F$。</figcaption>
+</figure>
+
+圖六指出失效位置。配對的一像素 segmentation displacement 下，Matérn fields 的直接跨域 median error 為 $0.08555$，90th-percentile error 為 $0.12913$，分母是 $48$ 個 stacks；沒有一個落在 $0.02$ 內，只有 $10.42\%$ 落在 $0.05$ 內。其他診斷以不同方式失效：fractal breakpoint 在 coarse Matérn 的最差 conditional median 為 $0.3482$；Euler／Betti 在 boundary-perturbed Ising 為 $0.3204$；persistence-pruned Betti 在同一 stratum 為 $0.1691$；EDT throat 在 coarse Matérn 為 $0.2201$。這些是各自最差分層，不是同一合成場景。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/heldout-errors.svg" alt="六類診斷的留出成功估計 pooled absolute errors、10 至 90 percentile whiskers、field-bootstrap median intervals，以及全樣本 failure rates。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖七。</strong> 誤差盒只合併成功估計；whiskers 為第 10–90 percentiles，黑色區間是 median 的 95% field-bootstrap interval。右面板以全部 864 個 stacks 計算 failure。排名仍從屬於凍結 gate。</figcaption>
+</figure>
+
+合併全部 $864$ 個 held-out stacks，六種方法在成功估計條件下的 median／90th-percentile errors 依次為：直接跨域 $0.0144/0.0666$、固定融池比例 $0.0799/0.1603$、分形轉折 $0.1489/0.3553$、Euler／Betti $0.0908/0.3696$、persistence-pruned Betti $0.0931/0.2278$、EDT throat $0.1082/0.2470$。以所有 stacks 為分母，落在 $0.05$ 內的比例依次為 $84.03\%$、$30.56\%$、$21.06\%$、$26.50\%$、$25.93\%$、$29.86\%$。Fractal estimator 只有一個 coarse Ising stack 無法估計，即 $1/864$；其餘方法全部 $864$ 個均有輸出。即使 pooled 排名第一，仍不足以升格為通用訊號。
+
+## 方法如何失效，也是結果的一部分
+
+平均誤差可以隱藏完全不同的失敗機制。直接跨域容易被單一橋接左右；融池覆蓋率忽略空間排列，可能把一個形態特有的 coverage threshold 錯誤轉移至另一生成器；降採樣後若剩餘分支尺度太少，fractal breakpoint 可能無法識別；Betti curves 可能被像素尺度的小分支支配；persistence pruning 可能刪除真正的狹頸；bottleneck throat 或許能穩定量度水道寬度，卻未必準確找出任何路徑首次出現的潛在覆蓋率。
+
+我們把錯誤再分成假陽性、假陰性、方向互換及不可識別四類。假陽性是潛在場仍未跨域，但模糊或降採樣把兩片水區接在一起；假陰性則是潛在狹道確實存在，觀測卻把它抹去。方向互換出現在各向異性圖樣：真正先橫向連通的場，被觀測判為先縱向連通。不可識別不是介乎零與一之間的普通誤差，而是診斷根本沒有滿足既定品質條件的臨界估計。四者需要不同回應；例如增加樣本不能修復系統性橋接，把不可識別案例刪除更會扭曲誤差分布。
+
+Segmentation-displacement comparison 的歸因特別清楚：它與配對 mild view 的唯一差異，是最後的一 observed-pixel grayscale dilation。它是一個獨立 stress stratum，不會與 coarse view 的降採樣暗中疊加。配對 rows 保留潛在的任一方向、橫向與縱向 thresholds、觀測的任一方向 threshold，以及橫縱方向 aggregate mean absolute error；主要雙方向 absolute error 及 failure rate 亦分開保留。Rows 不會另行保留 observed horizontal 與 vertical series。兩個 strata 即使 absolute error 相近，亦不一定代表同一方向失效。除這組已由 bitwise pairing 核證的比較外，文章不會聲稱已封存每個 observation stage，亦不會把 aggregate difference 擅自歸因於某一中間步驟。
+
+Window crop 的失敗尤其容易被誤解。一個較小視窗可以令局部水道更容易接觸兩邊，也可以把原來完整的長路徑截斷。這不是一般意義的像素雜訊，而是改變「系統邊界」本身。研究因此把 crop sensitivity 與 sensor resolution 分開報告，並要求每幅實測圖的共同 footprint 在查看拓撲摘要之前固定。若只有移動裁切框才會出現理想臨界點，該結果不能作為穩健證據。
+
+Persistence pruning 亦不以單一最佳閾值結案。太低的閾值保留像素碎屑，太高則把真實狹頸當成雜訊。Secondary sensitivity 只在 12 個新生成的 $256^2$ fields 上評估五個 contrast values，並報告各 contrast 的誤差摘要；它沒有同時改變 sensor pixel size，也不是完整尺度掃描。這項有限檢查用來辨認結論是否只依賴一個有利 pruning value，不能證明所有合理尺度均穩定。
+
+基準因此加入各向異性、有限視窗、generator shift、連通慣例、persistence threshold，以及 $512^2$ 對 $1024^2$ latent grid 的消融測試。潛在橫向與縱向 thresholds 會分開檢視以揭示 anisotropy；觀測 directional error 則遵從預定義，以橫縱 absolute errors 的 aggregate mean 報告。假如某方法只在近乎各向同性的場中成功，文章就只能作出這個範圍的描述。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/robustness-shift.svg" alt="按生成器平均的 held-out stratum-median errors、潛在 anisotropy gaps，以及六場 512 至 1024 網格收斂結果。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖八。</strong> 面板 a 對每個診斷及生成器平均六個 observation-stratum medians；面板 b 把 declared anisotropy 對潛在 $|H-V|$；面板 c 是六場 $512^2$ 至 $1024^2$ 收斂審核。連通慣例在別處測試。</figcaption>
+</figure>
+
+十四項具名 numerical checks 全部通過，source-verification gate 亦通過。已被取代的 sampled spanning oracle，其最大誤差由 61 levels 的 $0.075548$ 降至 3,841 levels 的 $0.000434$；正式目標仍採 exact ordered-pixel oracle。六個 $512^2/1024^2$ convergence fields 的最大臨界差為 $0.008351$。在固定 audit field 上反轉 connectivity convention，臨界差恰為零；這只核證該場，不能宣稱一般不變性。Secondary 12-field pruning study 把 contrast 由 $0$ 增至 $0.18$ 時，median error 由 $0.1170$ 降至 $0.0953$，其後至 $0.36$ 不再下降；90th-percentile errors 仍介乎 $0.2726$ 與 $0.3801$。
+
+下圖案例是凍結設計中的 deterministic explanatory selections，不是新增 performance estimates。同一 held-out Ising field 024 在 $z=-0.750$ 經 coarse observation 後，由潛在不跨域變成觀測雙方向跨域；在 $z=-0.900$ 加入 boundary texture 後，則由潛在雙方向跨域變成觀測不跨域。另行配對的 Matérn／germ–grain fields 擁有完全相同的記錄融池比例 $0.4600$，但 $(\beta_0,\beta_1)$ 分別為 $(125,41)$ 與 $(12,0)$。
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/false-threshold-gallery.svg" alt="在同一已記錄 scalar level 的 held-out 潛在與觀測遮罩所形成的假陽性及假陰性，以及另行生成、比例匹配但拓撲不同的一對遮罩。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖九。</strong> 首兩欄把一個 held-out 潛在場與其預定 observation 在同一已記錄 level 配對，圖內列明 observation 及 level provenance。第三欄另行構造面積比例匹配但拓撲不同的 Matérn／germ–grain pair。</figcaption>
+</figure>
+
+## 有明確界線的 MOSAiC 案例
+
+合成場能提供受控真值，卻不能包含真實海冰的所有結構。觀測案例使用 Fuchs 與 Birnbaum 在 PANGAEA 發布的 MOSAiC Leg 4 floe 資料，當中包含 2020 年 6 月 30 日及 7 月 22 日的 0.5 m orthomosaics 與已分類 surface polygons。資料的 change log 不能忽略：修正版曾替換錯誤的七月影像，因此證據紀錄會固定下載檔案 hash，而不只記錄 DOI。CC BY 4.0 容許在署名下再用，但公開網站只放已核准、不暴露地理位置的衍生圖與 aggregate measurements。
+
+兩個日期不會被當成密集時間序列。兩幅 TIFF 先在投影空間取交集，兩層 polygons 再 rasterise 至同一 $512^2$ 網格，分析並進一步限制在兩日 classified-floe masks 的交集。Domain-aware Betti counts 排除 unclassified pixels，而不是把它們當作冰；spanning 以不規則共同定義域的 outer envelope 判斷。差異仍可能來自融化、排水、變形及分類，因此文章不會反推季節滲流時刻。
+
+預先聲明的 secondary check 只會在日期、投影、共同範圍及尺度檢查全部通過時，才使用 Niehaus 與 Spreen 的 Sentinel-2 melt-pond-fraction product。該產品的 10 m cells 內含融池比例估計，不是 10 m 二元相片。把它轉成水網絡需要另一個 threshold 及 mixed-pixel interpretation。若缺乏相容 scene 或配準失敗，會正式記錄排除，而不會在看過圖樣後另選一個相近日期補位。
+
+Niehaus 等人以較高解析度產品評估 Sentinel-2 retrieval，並用它記錄空間與時間變異。這支持把該產品用作觀測尺度比較，卻不會把一個 fractional satellite pixel 變成潛在融池拓撲真值。因此，案例只問一個較保守問題：在這些特定場景的多種合理表示下，哪些定性連通陳述保持不變？
+
+<figure class="article-figure">
+  <img src="/science/resolution-robust-arctic-melt-pond-topology/mosaic-case-study.svg" alt="兩個日期及受控 aggregate scales 下、不顯示地理位置的 MOSAiC 配對融池比例、拓撲摘要與 Euler 敏感度。" width="960" height="580" loading="lazy" decoding="async" />
+  <figcaption><strong>圖十。</strong> MOSAiC 案例是觀測敏感度示範，而不是潛在真值。圖中展示配對 aggregate fractions、topology 及 Euler sensitivity，並附 provenance、privacy 與 scale footer。Sentinel-2 排除狀態記錄在正文及 evidence ledger，而不是聲稱已畫在此圖。</figcaption>
+</figure>
+
+在共同的 $71{,}875$-cell classified-floe domain 上，6 月 30 日場景的融池比例為 $0.3317$，$(\beta_0,\beta_1,\chi)=(907,65,842)$，橫向與縱向均不跨域。修正後的 7 月 22 日場景，融池比例為 $0.4399$，拓撲摘要為 $(1223,146,1077)$，橫向跨域而縱向不跨域；若把 submerged ice 一併計入，比例只改為 $0.4429$。這些量使用每 cell 約 $3.427$ m 的共同 audit grid，不是原生 0.5 m 像素標籤；它們描述兩種觀測表示，並非潛在臨界點或季節趨勢。兩個 matching-date Sentinel-2 requests 均返回 HTTP 503，而產品 metadata 沒有聲明受控 pixelwise comparison 所需的 floe-motion/co-registration transform，故衛星比較被排除，文章不報告任何 Sentinel-2 數值。
+
+## 這項基準能教我們甚麼
+
+第一項教訓與量測有關。影像解析度不只是環繞固定物件的一個 standard error，它會改變拓撲統計所作用的物件。低於 point-spread 及採樣尺度的狹橋不會變成「稍有不確定的橋」，而可能完全消失；反過來，平均亦可能填補狹窄冰縫而創造水相連通。因此，觀測必須進入 forward model。
+
+第二項教訓與多重摘要有關。融池覆蓋率、分形尺度、Betti 曲線、跨域及瓶頸寬度並非同一個自明事件的可互換估計器。每項量都把圖樣改變操作化為不同幾何事件。它們互相一致時能增加信心；彼此分歧時，則揭示「臨界點」一詞實際指向哪種改變。
+
+第三項教訓是負面結果的價值。一項方法可以在排名中第一，卻仍未通過預先聲明的全分層穩健性判定。這不表示基準失敗，而可能表示指定觀測範圍對單一二元影像堆疊而言過於困難，或研究需要時間、光譜、深度或物理資訊才能恢復臨界點。
+
+第四項教訓關於尺度。Persistent homology 是 multiscale 方法，但 persistence diagram 無法還原感測器從未解析的資訊。對 filtering function 小擾動的穩定性，不等於對破壞性採樣不變。拓撲工具能揭露尺度依賴，不能消除尺度依賴。
+
+第五項教訓屬於科學敘事。一對視覺上吸引的北極影像很容易引出融池合併、排水或 albedo feedback 的因果故事。本研究並沒有識別這些因果機制。合成實驗識別已知 observation operator 對診斷估計的影響；真實資料案例則記錄不同表示方式帶來的敏感度。正因為界線清楚，這兩種結果才有用。
+
+## 限制
+
+三個合成生成器刻意互有差異，但絕不完整。Matérn fields、germ–grain geometry 及 random-field Ising model 無法代表雪地形、水力路由、側向融化、排水、變形及再凍結的所有組合。跨越這三個家族的穩健性，不等於跨越整個北極的穩健性。
+
+基準的潛在真值是一項操作性定義：在高解析度 raster 上，使用融池四鄰接得到的第一個有限視窗跨域事件，再以潛在覆蓋率表示。水力學定義可能要求最低水深或導水率；光學定義可能關心輻射連通；生態定義亦可能取決於透射光場。本文真值適合審核影像拓撲，並非通用物理 order parameter。
+
+即使解析度很高，有限視窗仍會影響結果。分支可以進入或離開 crop；畫面外的大尺度路徑不能被觀察。基準雖然改變裁切大小，卻不能由單一冰排推斷 infinite-domain criticality。三角晶格核查只是把程式與已知漸近基準比較，不會令相關融池場等同獨立 site percolation。
+
+分割誤差亦經過簡化。預定 segmentation-bias stratum 精確採用一 observed-pixel 向外 grayscale dilation，並與 mild stratum 共用同一 random stream；它沒有模擬向內位移、空間變動 calibration 或 learned classifier。模糊、radiometric noise、相關邊界擾動及 resampling 涵蓋若干重要模式，但真實分類器的錯誤可以依類別、紋理及場景而變。雲、陰影、submerged ice、鏡面反射與照明幾何可能造成合成 operator 未包括的結構性錯誤。
+
+另一項限制來自「像素值」與「物理水面」之間並非一對一。RGB 亮度受太陽角度、觀看方向、水深、冰底反射及水中物質影響；同一融池內亦可能有強烈色彩梯度。合成 operator 把這些因素壓縮成 scalar pond score 及雜訊，方便識別觀測誤差，卻不能逐一代表 radiative transfer。故此，某方法在 score perturbation 下穩定，不等於它在所有感測波段、照明條件與分類模型下穩定。
+
+類別定義亦會改變拓撲。PANGAEA polygons 把 ponds、snow/ice、open water 及 submerged ice 分開，但研究問題必須決定 submerged ice 是屬於水網絡、冰相，還是需要排除的不確定帶。把 open water 與 pond 合併可能令冰排邊緣天然成為跨域水路；完全刪除邊界像素則改變定義域。主分析先按 provenance 文件凍結 mapping，其他合理 mapping 只作 sensitivity analysis。若結論隨 mapping 反轉，文章會報告表示依賴，而不會挑選較符合敘事的一個。
+
+合成 benchmark 亦沒有模擬配準誤差造成的局部拉伸與旋轉。兩個日期的 orthomosaics 已在共同參考框架處理，但任何 resampling 都可能改變一像素狹頸。觀測案例因此不會進行逐像素因果差分，只比較每個日期在多個解析度及 class mappings 下是否維持相同定性判定。這種較弱設計犧牲了吸引人的「融化造成某條水道」故事，換取不超越資料識別能力的結論。
+
+最後，所謂方向性跨域以圖像座標定義，不會被解讀為海冰上的固定地理流向。冰排在漂移、旋轉及變形，影像方位亦可因處理而改變。方向結果用來檢驗 anisotropy 與數碼演算法；若沒有額外力學、地形及水力資料，不能把橫向或縱向先連通解讀成實際排水偏好。這條界線對實測圖尤其重要，因為一幅精美方向箭咀很容易造成超出證據的物理解釋。
+
+公開 MOSAiC 案例只有兩個日期，沒有完整解析轉變軌跡。配準至共同範圍不代表所有物理條件固定。Sentinel-2 產品在更粗尺度提供 fractional estimates；兩項資料均沒有不可觀測的 latent labels。因此，觀測分析不能把合成誤差幅度驗證為經驗真值。
+
+Persistent-homology 及 fractal estimates 需要分析者選擇 filtration、邊界處理、persistence pruning、固定最高 $96^2$ 的 PH compute grid、scaling interval、最小分支尺寸及 breakpoint rule。凍結選擇可保護 held-out evaluation，卻不表示這些選擇唯一正確。文章必須報告敏感度，而不是把它藏起來。
+
+最後，bootstrap intervals 量化的是已聲明生成器與參數設計下，不同取樣潛在場之間的變異。它們沒有包含生成器的結構不確定性、融化物理的不確定性，也沒有涵蓋觀測產品的全部系統誤差。因此，所有聲稱均限於本基準及有界案例。
+
+## 給未來影像研究的實用審核表
+
+以分割影像報告連通轉變之前，先說明研究對象：相類別、定義域、像素尺度、鄰接慣例、邊界條件及跨域方向。亦要指出臨界點是以時間、物理水位、面積比例、水道半徑還是另一變量作索引。分析完成後，單憑一幅曲線無法補回這些選擇。
+
+其次，把觀測管線放在物理假說與統計量之間。最低限度應測試合理的 blur、resampling、segmentation-boundary displacement、boundary texture error 及 crop。每次應改動同一影像或同一潛在場，以形成配對比較。若觀測選擇引起的臨界移動，比研究所比較科學條件之間的差異更大，這項不穩定性必須寫入結論。
+
+可以使用多項摘要，但不能在看過理想答案後才投票。Direct spanning、area statistic、shape statistic 及 multiscale topology statistic 展示不同失敗模式。研究應預先聲明哪一項估計主要目標，哪一些只作支持診斷。
+
+報告亦應同時保留「估計值」與「決策」兩層。兩個方法的 median error 可以很接近，但其中一個可能因少數嚴重錯誤而未通過 90th-percentile gate；此時不能只說兩者平均表現相若。反過來，方法未通過一項刻意嚴格的 gate，也不等於其所有輸出毫無資訊。數值摘要、失敗分布及預定決策規則應並列，讓讀者分辨相對比較、絕對合格與科學解釋三種不同判斷。
+
+必須計算無法估計的案例。Break point 無解、persistence computation 超出資源限制、或場景沒有可辯護共同範圍，全部都是資料，而不是麻煩。刪除這些案例，只會令脆弱方法在最容易處理的子集上看似準確。
+
+最後，要分開 implementation verification 與 scientific validation。精確遮罩、恆等式及晶格核查可以證明程式有否計算已聲明統計量；它們不能證明該統計量是排水或反照率的正確物理描述。真實資料示範可以顯示方法有關聯及可應用，卻不能憑空創造潛在真值。
+
+## 結語
+
+我們從來不是在沒有儀器的情況下觀察融池臨界點。每項判定背後都有攝影系統、像素網格、分類器、觀測視窗及連通定義。拓撲的銳利轉變令它很有吸引力，也令它特別脆弱：一條被刪除或憑空產生的水道，可能在總面積幾乎不變時完全逆轉結論。
+
+本研究把這種脆弱性轉化為可檢驗實驗。高解析度合成場提供凍結的潛在目標；配對 observation operators 分離形態與量測；六類診斷在同一 held-out gate 下競爭；精確 fixtures 及收斂測試審核實作；有明確界線的 MOSAiC 案例則示範如何把這份謹慎帶入真實影像。
+
+證據沒有找出普遍具解析度穩健性的診斷。直接跨域在 pooled 比較中最準確，但一次只移動一個 observed pixel 的邊界位移，已足以令它失守 all-strata gate。因此，可辯護的結論不是指定一個較漂亮的北極臨界值，而是建立審核規則：公開 observation operator、保留 tail failures，並在連通結論經不起觀測改變時選擇 abstain。
+
+## 參考文獻
+
+1. C. Polashenski, D. Perovich, and Z. Courville (2012). “The mechanisms of sea ice melt pond formation and evolution.” *Journal of Geophysical Research: Oceans, 117*, C01001. [https://doi.org/10.1029/2011JC007231](https://doi.org/10.1029/2011JC007231)
+2. C. Hohenegger, B. Alali, K. R. Steffen, D. K. Perovich, and K. M. Golden (2012). “Transition in the fractal geometry of Arctic melt ponds.” *The Cryosphere, 6*, 1157–1162. [https://doi.org/10.5194/tc-6-1157-2012](https://doi.org/10.5194/tc-6-1157-2012)
+3. P. Popović, B. B. Cael, M. Silber, and D. S. Abbot (2018). “Simple Rules Govern the Patterns of Arctic Sea Ice Melt Ponds.” *Physical Review Letters, 120*, 148701. [https://doi.org/10.1103/PhysRevLett.120.148701](https://doi.org/10.1103/PhysRevLett.120.148701)
+4. Y. Ma, I. Sudakov, C. Strong, and K. M. Golden (2019). “Ising model for melt ponds on Arctic sea ice.” *New Journal of Physics, 21*, 063029. [https://doi.org/10.1088/1367-2630/ab26db](https://doi.org/10.1088/1367-2630/ab26db)
+5. W. Offord, M. Coughlan, I. J. Hewitt, H. A. Harrington, and G. Grindstaff (2022). “Topological Data Analysis Detects Percolation Thresholds in Arctic Melt-Pond Evolution.” arXiv:2212.07961. [https://arxiv.org/abs/2212.07961](https://arxiv.org/abs/2212.07961)
+6. V. Robins, M. Saadatfar, O. Delgado-Friedrichs, and A. P. Sheppard (2016). “Percolating length scales from topological persistence analysis of micro-CT images of porous materials.” *Water Resources Research, 52*, 315–329. [https://doi.org/10.1002/2015WR017937](https://doi.org/10.1002/2015WR017937)
+7. D. Cohen-Steiner, H. Edelsbrunner, and J. Harer (2005). “Stability of persistence diagrams.” *Proceedings of the 21st Annual Symposium on Computational Geometry*, 263–271. [https://doi.org/10.1145/1064092.1064133](https://doi.org/10.1145/1064092.1064133)
+8. H. Edelsbrunner, D. Letscher, and A. Zomorodian (2002). “Topological persistence and simplification.” *Discrete & Computational Geometry, 28*, 511–533. [https://doi.org/10.1007/s00454-002-2885-2](https://doi.org/10.1007/s00454-002-2885-2)
+9. N. Fuchs and G. Birnbaum (2023). “Orthomosaics and surface type classifications of MOSAiC Leg 4 floe (2020-06-30, 2020-07-22).” PANGAEA dataset. [https://doi.org/10.1594/PANGAEA.949167](https://doi.org/10.1594/PANGAEA.949167)
+10. H. Niehaus and G. Spreen (2022). “Melt pond fraction on Arctic sea-ice from Sentinel-2 satellite optical imagery (2017–2021).” PANGAEA dataset. [https://doi.org/10.1594/PANGAEA.950885](https://doi.org/10.1594/PANGAEA.950885)
+11. H. Niehaus, G. Spreen, G. Birnbaum, L. Istomina, E. Jäkel, F. Linhardt, N. Neckel, N. Fuchs, M. Nicolaus, T. Sperzel, R. Tao, M. Webster, and N. Wright (2023). “Sea Ice Melt Pond Fraction Derived From Sentinel-2 Data: Along the MOSAiC Drift and Arctic-Wide.” *Geophysical Research Letters, 50*, e2022GL102102. [https://doi.org/10.1029/2022GL102102](https://doi.org/10.1029/2022GL102102)
+12. X. Miao, H. Xie, S. F. Ackley, D. K. Perovich, and C. Ke (2015). “Object-based detection of Arctic sea ice and melt ponds using high spatial resolution aerial photographs.” *Cold Regions Science and Technology, 119*, 211–222. [https://doi.org/10.1016/j.coldregions.2015.06.014](https://doi.org/10.1016/j.coldregions.2015.06.014)
+13. C. Polashenski, K. M. Golden, D. K. Perovich, E. Skyllingstad, A. Arnsten, C. Stwertka, and N. Wright (2017). “Percolation blockage: A process that enables melt pond formation on first year Arctic sea ice.” *Journal of Geophysical Research: Oceans, 122*, 413–440. [https://doi.org/10.1002/2016JC011994](https://doi.org/10.1002/2016JC011994)
+14. M. Nicolaus, C. Katlein, J. Maslanik, and S. Hendricks (2012). “Changes in Arctic sea ice result in increasing light transmittance and absorption.” *Geophysical Research Letters, 39*, L24501. [https://doi.org/10.1029/2012GL053738](https://doi.org/10.1029/2012GL053738)。期刊其後刊出[勘誤](https://doi.org/10.1002/grl.50523)，修正 absolute irradiance 數值，同時保留原文所述 relative-flux 主要結論；本文沒有把該等修正數值用於定量分析。

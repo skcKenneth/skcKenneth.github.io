@@ -1,0 +1,150 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MathExpression from "../../components/MathExpression.astro";
+import MeltPondTopologyLab from "../../components/MeltPondTopologyLab.astro";
+---
+
+<BaseLayout
+  title="Melt-Pond Topology Observation Lab"
+  description="A bilingual interactive laboratory for testing how blur, pixel size, segmentation bias, and digital connectivity alter topological measurements of synthetic Arctic melt ponds."
+  type="Teaching"
+  alternatePath="/zh/teaching/melt-pond-topology-lab/"
+>
+  <header class="page-head mp-page-head">
+    <div class="container">
+      <p class="eyebrow">Topology · percolation · observation error</p>
+      <h1>Can a camera create a connectivity threshold that was never there?</h1>
+      <p class="lead">Begin with a known synthetic pond field. Blur it, reduce its resolution, and displace its segmented boundary. The latent geometry stays fixed, but its measured components, holes, spanning state, and narrowest resolvable bridge may not.</p>
+      <div class="actions">
+        <a class="button" href="#interactive-lab">Run the model</a>
+        <a class="button secondary" href="/writing/topology-at-the-edge-of-resolution/">Read the research article</a>
+        <a class="button secondary" href="/teaching/model-laboratory/">All interactive models</a>
+      </div>
+    </div>
+  </header>
+
+  <div>
+    <section class="section mp-primer">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">The mathematical object</p><h2>Water level builds a nested family of shapes.</h2></div>
+          <p>A scalar topography becomes a binary pond mask by thresholding. Raising the level can add pond pixels, merge components, close ice islands, and eventually produce a path across the image.</p>
+        </div>
+        <div class="mp-equation-grid">
+          <article>
+            <span>01</span><h3>Sublevel filtration</h3>
+            <MathExpression display expression={String.raw`P_h=\{(x,y):z(x,y)\le h\}`} ariaLabel="P sub h is the set of x y where z of x y is less than or equal to h." />
+            <p>The control uses a rank-normalised level, so <em>h</em> is close to the latent pond-area fraction.</p>
+          </article>
+          <article>
+            <span>02</span><h3>Connected pieces and holes</h3>
+            <MathExpression display expression={String.raw`\chi(P_h)=\beta_0(P_h)-\beta_1(P_h)`} ariaLabel="Euler characteristic of P h equals beta zero minus beta one." />
+            <p><MathExpression expression={String.raw`\beta_0`} ariaLabel="beta zero" /> counts pond components; <MathExpression expression={String.raw`\beta_1`} ariaLabel="beta one" /> counts enclosed ice holes under the selected dual-connectivity convention.</p>
+          </article>
+          <article>
+            <span>03</span><h3>Observation operator</h3>
+            <MathExpression display expression={String.raw`\widehat P=\mathcal B_d\!\left(\mathcal D_r(K_\sigma * \mathbf 1_{P_h})\right)\oplus\varepsilon_\partial`} ariaLabel="P hat is boundary displacement by d after downsampling r of a blurred pond indicator, with boundary error epsilon." />
+            <p>Blur and block averaging are followed by a signed boundary displacement and then boundary-label errors before topology is measured.</p>
+          </article>
+        </div>
+        <p class="small">The lab pairs pond 4-connectivity with ice 8-connectivity by default. This complementary convention avoids counting a diagonal contact as connected in both phases at once. The alternative 8/4 convention is included as an explicit sensitivity check.</p>
+      </div>
+    </section>
+
+    <section class="section mp-lab-section" id="interactive-lab">
+      <div class="container">
+        <MeltPondTopologyLab locale="en" mode="full" fixture="matern-broad-isotropic" seed={240824} />
+      </div>
+    </section>
+
+    <section class="section mp-investigate">
+      <div class="container mp-investigate-grid">
+        <div>
+          <p class="eyebrow">Four investigations</p>
+          <h2>Change one part of the camera at a time.</h2>
+          <ol>
+            <li><strong>Find a latent transition.</strong> Set resolution to 1, blur and errors to zero, then raise water level until the field first spans. Record whether the first span is horizontal or vertical.</li>
+            <li><strong>Coarsen without changing the pond.</strong> Hold the level and seed fixed. Move from a 96 × 96 observation to 48 × 48, 24 × 24, and 12 × 12. Watch for a span that appears, disappears, or changes direction.</li>
+            <li><strong>Separate blur from displacement.</strong> Blur may close a narrow gap; positive displacement expands the segmented pond boundary, while negative displacement erodes it. Test whether the two errors cancel or reinforce one another.</li>
+            <li><strong>Stress the convention.</strong> Switch from pond 4 / ice 8 to pond 8 / ice 4. If the verdict changes, the claimed threshold depends on digital topology rather than only physical geometry.</li>
+          </ol>
+        </div>
+        <aside>
+          <p class="eyebrow">Reading the output</p>
+          <h3>No single diagnostic is the topology.</h3>
+          <dl>
+            <div><dt>β₀</dt><dd>How many disconnected pond pieces remain?</dd></div>
+            <div><dt>β₁</dt><dd>How many ice islands are enclosed by water?</dd></div>
+            <div><dt>χ</dt><dd>Does fragmentation or enclosure dominate?</dd></div>
+            <div><dt>Directional span</dt><dd>Is there a pond path from left to right, top to bottom, or both?</dd></div>
+            <div><dt>Resolvable throat</dt><dd>What is the widest-path bottleneck, measured by an Euclidean-distance clearance proxy?</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section mp-boundaries-section">
+      <div class="container mp-boundaries-grid">
+        <div>
+          <p class="eyebrow">Model boundary</p>
+          <h2>A controlled distortion experiment, not an Arctic reconstruction.</h2>
+          <p>The twelve fixtures contain only deterministic synthetic 96 × 96 scalar fields: four Matérn-style topographies, four germ–grain coalescence fields, and four Ising-style morphology shifts. No satellite, drone, or field-survey pixels are shipped to the browser.</p>
+          <p>The boundary-dimension value is a finite-grid box-counting estimate, not proof of a scale-free fractal law. The throat measure is a grid-based maximum-bottleneck clearance, not a hydraulic discharge or drainage prediction. A spanning path is a geometric event inside one image window, not evidence of a system-wide physical percolation transition.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Reproducibility contract</p>
+          <h3>What is fixed</h3>
+          <ul>
+            <li>All fields are 96 × 96, uint8, row-major, and carry SHA-256 hashes.</li>
+            <li>The operator order is fixed from decode through display expansion.</li>
+            <li>Boundary errors use an indexed integer hash, not an unrecorded browser random stream.</li>
+            <li>Twelve expected summaries lock Python/JavaScript-compatible topology fixtures.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section mp-references">
+      <div class="container">
+        <div class="section-head"><div><p class="eyebrow">Research basis</p><h2>Selected starting points.</h2></div><p>The experiment extends an established melt-pond geometry and topology literature by focusing specifically on observation-induced threshold error.</p></div>
+        <ol class="reference-list">
+          <li><span>Hohenegger et al. (2012), “Transition in the fractal geometry of Arctic melt ponds,” <a href="https://doi.org/10.5194/tc-6-1157-2012">The Cryosphere</a>.</span></li>
+          <li><span>Popović et al. (2018), “Simple Rules Govern the Patterns of Arctic Sea Ice Melt Ponds,” <a href="https://doi.org/10.1103/PhysRevLett.120.148701">Physical Review Letters</a>.</span></li>
+          <li><span>Offord et al. (2022), “Topological Data Analysis Detects Percolation Thresholds in Arctic Melt-Pond Evolution,” <a href="https://arxiv.org/abs/2212.07961">arXiv</a>.</span></li>
+          <li><span>Fuchs and Birnbaum (2023), “Orthomosaics and surface type classifications of MOSAiC Leg 4 floe (2020-06-30, 2020-07-22),” <a href="https://doi.org/10.1594/PANGAEA.949167">PANGAEA</a>.</span></li>
+          <li><span>Niehaus and Spreen (2022), “Melt pond fraction on Arctic sea-ice from Sentinel-2 satellite optical imagery (2017–2021),” <a href="https://doi.org/10.1594/PANGAEA.950885">PANGAEA</a>.</span></li>
+        </ol>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .mp-page-head { background: linear-gradient(122deg, var(--paper) 0 68%, #d7e7e2 68% 100%); }
+  .mp-page-head h1 { max-width: 19ch; }
+  .mp-primer { background: #e8ede9; }
+  .mp-equation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid #111; }
+  .mp-equation-grid article { min-width: 0; padding: 1.2rem 1.2rem 1rem 0; }
+  .mp-equation-grid article + article { padding-left: 1.2rem; border-left: 1px solid #aab4ae; }
+  .mp-equation-grid article > span { color: #8f432e; font: 700 .72rem var(--mono); }
+  .mp-equation-grid h3 { margin: .4rem 0 .7rem; color: #111; }
+  .mp-equation-grid p { color: #36403b; font-size: .82rem; }
+  .mp-equation-grid :global(.math-expression) { color: #111; }
+  .mp-lab-section { background: #142720; }
+  .mp-investigate { background: #eee7dc; }
+  .mp-investigate-grid, .mp-boundaries-grid { display: grid; grid-template-columns: minmax(0, .62fr) minmax(280px, .38fr); gap: clamp(2rem, 7vw, 7rem); }
+  .mp-investigate li { margin-bottom: 1rem; }
+  .mp-investigate aside { padding-top: 1rem; border-top: 3px solid #00676f; }
+  .mp-investigate dl div { display: grid; grid-template-columns: minmax(90px, .32fr) 1fr; gap: .8rem; padding: .7rem 0; border-bottom: 1px solid #c9c0b4; }
+  .mp-investigate dt { color: #111; font-weight: 800; }
+  .mp-investigate dd { margin: 0; color: #3e4642; font-size: .82rem; }
+  .mp-boundaries-section { background: #dfe9e5; }
+  .mp-boundaries-grid > div:last-child { border-top: 3px solid #8f432e; padding-top: 1rem; }
+  .mp-boundaries-grid li { margin-bottom: .7rem; }
+  .mp-references { background: #f7f4ed; }
+  @media (max-width: 800px) {
+    .mp-equation-grid, .mp-investigate-grid, .mp-boundaries-grid { grid-template-columns: 1fr; }
+    .mp-equation-grid article + article { padding-left: 0; border-left: 0; border-top: 1px solid #aab4ae; }
+    .mp-page-head { background: var(--paper); }
+  }
+</style>

@@ -8,8 +8,24 @@ const isZh = locale === "zh-Hant";
 
 const research = await getCollection(isZh ? "researchZh" : "research", ({ data }) => data.featured && !data.draft);
 const projects = (await getCollection(isZh ? "projectsZh" : "projects", ({ data }) => data.featured && !data.draft))
-  .sort((a, b) => b.data.year - a.data.year);
-const allWriting = await getCollection(isZh ? "writingZh" : "writing", ({ data }) => data.featured && !data.draft && !data.archived);
+  .sort((a, b) =>
+    b.data.lastUpdated.valueOf() - a.data.lastUpdated.valueOf()
+    || b.data.year - a.data.year
+    || (a.data.title < b.data.title ? -1 : a.data.title > b.data.title ? 1 : 0)
+  );
+const writingCollection = await getCollection(isZh ? "writingZh" : "writing", ({ data }) => !data.draft && !data.archived);
+const allWriting = writingCollection.filter(({ data }) => data.featured);
+const portfolioEntries = writingCollection.filter(({ data }) =>
+  data.date?.getUTCFullYear() === 2026 && ["Research Notes", "研究筆記"].includes(data.type)
+);
+const portfolioCount = portfolioEntries.length;
+const latestPortfolioUpdate = new Date(Math.max(...portfolioEntries.map(({ data }) => (data.lastUpdated ?? data.date).valueOf())));
+const portfolioUpdated = latestPortfolioUpdate.toLocaleDateString(isZh ? "zh-Hant-TW" : "en-GB", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC"
+});
 const writing = allWriting
   .sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0))
   .slice(0, 3);
@@ -22,7 +38,7 @@ const copy = isZh ? {
   primary: "閱讀最新研究",
   secondary: "探索教學",
   dossier: "2026 年研究專輯",
-  dossierNote: "十個互不重複的計算研究，全部提供英文及繁體中文版。",
+  dossierNote: `${portfolioCount} 個互不重複的計算研究，全部提供英文及繁體中文版。最近更新：${portfolioUpdated}。`,
   latestEyebrow: "最新文章",
   latestTitle: "研究問題、驗證與限制應該在同一篇文章出現。",
   latestIntro: "每篇研究文章均由私人 ScienceProject 的已核實結果人工撰寫，並以核准研究圖、數值檢查、負面結果、聲稱界線及參考文獻支持論述。",
@@ -52,7 +68,7 @@ const copy = isZh ? {
   primary: "Read the latest research",
   secondary: "Explore teaching",
   dossier: "2026 research portfolio",
-  dossierNote: "Ten distinct computational studies, each available in English and Traditional Chinese.",
+  dossierNote: `${portfolioCount} distinct computational studies, each available in English and Traditional Chinese. Updated ${portfolioUpdated}.`,
   latestEyebrow: "Latest writing",
   latestTitle: "Question, verification, and limitation belong in the same article.",
   latestIntro: "Every research article is manually written from verified private ScienceProject results and supported by approved figures, numerical checks, negative findings, claim boundaries, and references.",

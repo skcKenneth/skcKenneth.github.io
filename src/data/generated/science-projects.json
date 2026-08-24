@@ -4364,5 +4364,114 @@
     "documentation_excerpt": "A private synthetic protocol study of memory decay, cutoff scheduling, tail latency, and reliability-aware abstention.",
     "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/risk-sensitive-quantum-repeater-scheduling/README.md",
     "local_hero_image": "/science/risk-sensitive-quantum-repeater-scheduling/mechanism-timeline.svg"
+  },
+  {
+    "slug": "resolution-robust-arctic-melt-pond-topology",
+    "title": "Topology at the Edge of Resolution",
+    "summary": "A frozen false-threshold audit finds that no single melt-pond diagnostic survives every declared observation and morphology stress, despite strong aggregate performance from exact raw spanning.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Arctic Sea Ice",
+      "Topological Data Analysis",
+      "Observation Error"
+    ],
+    "methods": [
+      "Paired synthetic benchmark",
+      "Persistent homology",
+      "Observation and finite-resolution audit"
+    ],
+    "featured": true,
+    "project_root": "resolution-robust-arctic-melt-pond-topology",
+    "hero_image": "resolution-robust-arctic-melt-pond-topology/figures/publish/observation-pipeline.svg",
+    "publish_assets": [
+      {
+        "filename": "observation-pipeline.svg",
+        "alt": "Parallel scalar-field and binary-mask views of one latent field under mild sampling, one-pixel segmentation displacement, and coarse cropping.",
+        "caption": "Observation variants can change connectivity even when they begin from one frozen latent field.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/observation-pipeline.svg"
+      },
+      {
+        "filename": "morphology-atlas.svg",
+        "alt": "Matérn, germ-grain, and held-out random-field Ising masks at three matched pond fractions, annotated with components, holes, and spanning state.",
+        "caption": "Matched area fraction does not determine topology across morphology families.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/morphology-atlas.svg"
+      },
+      {
+        "filename": "topology-oracle-primer.svg",
+        "alt": "Exact component, hole, directional-spanning, and Euclidean-distance bottleneck examples.",
+        "caption": "Components, holes, spanning, and resolvable throats answer different geometric questions.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/topology-oracle-primer.svg"
+      },
+      {
+        "filename": "diagnostic-curves.svg",
+        "alt": "Latent and coarse-observation Betti, persistence, fractal, throat, and all-six threshold-estimator comparisons.",
+        "caption": "Six estimators can disagree on the same latent-observed pair because they respond to different events.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/diagnostic-curves.svg"
+      },
+      {
+        "filename": "latent-threshold-map.svg",
+        "alt": "Pooled frozen both-direction thresholds and horizontal-versus-vertical gaps for three morphology families.",
+        "caption": "The exact finite-grid oracle is itself a distribution rather than one universal pond fraction.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/latent-threshold-map.svg"
+      },
+      {
+        "filename": "observation-stress-map.svg",
+        "alt": "Conditional median threshold errors and independently reported failure rates across six held-out observation settings.",
+        "caption": "A method that is accurate on average can still fail the worst generator-observation stratum.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/observation-stress-map.svg"
+      },
+      {
+        "filename": "heldout-errors.svg",
+        "alt": "Successful held-out error distributions with field-bootstrap median intervals and a separate all-stack failure panel.",
+        "caption": "Exact raw spanning has the smallest aggregate median, but its tail and worst stratum exceed the frozen gates.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/heldout-errors.svg"
+      },
+      {
+        "filename": "robustness-shift.svg",
+        "alt": "Generator-specific observation-stratum errors, latent anisotropy gaps, and a six-field 512-to-1024 resolution audit.",
+        "caption": "Generator shift, directionality, and finite resolution bound the scope of the benchmark result.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/robustness-shift.svg"
+      },
+      {
+        "filename": "false-threshold-gallery.svg",
+        "alt": "Recorded false-positive and false-negative observation pairs beside equal-area fields with different topology.",
+        "caption": "Observation can create or erase spanning, while equal area can conceal different topology.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/false-threshold-gallery.svg"
+      },
+      {
+        "filename": "mosaic-case-study.svg",
+        "alt": "Non-geolocating aggregate MOSAiC pond fractions, topology counts, and Euler sensitivity across two corrected dates and audit-grid scales.",
+        "caption": "The bounded MOSAiC case demonstrates representation sensitivity, not latent percolation truth or a seasonal trend.",
+        "generated_by": "resolution-robust-arctic-melt-pond-topology/src/meltpond_topology/figures.py",
+        "source_path": "resolution-robust-arctic-melt-pond-topology/figures/publish/mosaic-case-study.svg"
+      }
+    ],
+    "technical_url": "",
+    "repository_url": "",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Controlled synthetic scalar fields with aggregate CC BY 4.0 MOSAiC metrics",
+    "research_question": "Which image diagnostic recovers an exact latent both-direction melt-pond spanning threshold after controlled observation error and held-out morphology shift?",
+    "limitations": [
+      "No diagnostic passed every predeclared generator-by-observation gate; aggregate rank is not universal robustness.",
+      "The synthetic generators are controlled morphology tests, not calibrated Arctic melt, drainage, or climate models.",
+      "The two-date MOSAiC case tests representation sensitivity only and cannot identify latent percolation truth, seasonal timing, or causality."
+    ],
+    "last_updated": "2026-08-24",
+    "category": "Topological Data Analysis",
+    "documentation_excerpt": "A private, frozen benchmark of false connectivity thresholds under blur, sampling, segmentation displacement, boundary error, finite windows, and morphology shift.",
+    "documentation_url": "",
+    "local_hero_image": "/science/resolution-robust-arctic-melt-pond-topology/observation-pipeline.svg"
   }
 ]

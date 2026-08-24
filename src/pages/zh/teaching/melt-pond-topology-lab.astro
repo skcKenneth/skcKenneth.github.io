@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import MathExpression from "../../../components/MathExpression.astro";
+import MeltPondTopologyLab from "../../../components/MeltPondTopologyLab.astro";
+---
+
+<BaseLayout
+  title="融池拓撲觀測實驗室"
+  description="以雙語互動實驗測試模糊、像素大小、分割偏差及數碼連通慣例如何改變合成北極融池的拓撲量度。"
+  type="教學"
+  locale="zh-Hant"
+  alternatePath="/teaching/melt-pond-topology-lab/"
+>
+  <header class="page-head mp-page-head">
+    <div class="container">
+      <p class="eyebrow">拓撲 · 滲流 · 觀測誤差</p>
+      <h1>相機會否製造一個原本不存在的連通臨界點？</h1>
+      <p class="lead">由一個已知的合成融池場開始，再加入模糊、降低解析度及分割邊界位移。Latent 幾何沒有改變，但量度所得的連通分量、洞、跨域狀態及最窄可分辨橋接未必保持不變。</p>
+      <div class="actions">
+        <a class="button" href="#interactive-lab">開始實驗</a>
+        <a class="button secondary" href="/zh/writing/topology-at-the-edge-of-resolution/">閱讀研究文章</a>
+        <a class="button secondary" href="/zh/teaching/model-laboratory/">全部互動模型</a>
+      </div>
+    </div>
+  </header>
+
+  <div>
+    <section class="section mp-primer">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">數學對象</p><h2>水位建立一族彼此嵌套的形狀。</h2></div>
+          <p>把標量地形按閾值轉成二值融池 mask。提高水位會加入融池像素、合併分量、包圍冰島，並可能首次形成橫跨影像的路徑。</p>
+        </div>
+        <div class="mp-equation-grid">
+          <article>
+            <span>01</span><h3>Sublevel filtration</h3>
+            <MathExpression display expression={String.raw`P_h=\{(x,y):z(x,y)\le h\}`} ariaLabel="P sub h is the set of x y where z of x y is less than or equal to h." />
+            <p>控制項使用 rank-normalised 水位，因此 <em>h</em> 約等於 latent 融池面積比例。</p>
+          </article>
+          <article>
+            <span>02</span><h3>連通分量與洞</h3>
+            <MathExpression display expression={String.raw`\chi(P_h)=\beta_0(P_h)-\beta_1(P_h)`} ariaLabel="Euler characteristic of P h equals beta zero minus beta one." />
+            <p><MathExpression expression={String.raw`\beta_0`} ariaLabel="beta zero" /> 計融池分量；<MathExpression expression={String.raw`\beta_1`} ariaLabel="beta one" /> 按所選 dual-connectivity 慣例計算被融池包圍的冰面洞。</p>
+          </article>
+          <article>
+            <span>03</span><h3>觀測算子</h3>
+            <MathExpression display expression={String.raw`\widehat P=\mathcal B_d\!\left(\mathcal D_r(K_\sigma * \mathbf 1_{P_h})\right)\oplus\varepsilon_\partial`} ariaLabel="P hat is boundary displacement by d after downsampling r of a blurred pond indicator, with boundary error epsilon." />
+            <p>先進行模糊及區塊平均，再作帶正負號的分割邊界位移與邊界錯標，然後才量度拓撲。</p>
+          </article>
+        </div>
+        <p class="small">實驗預設配對融池 4-connectivity 與冰面 8-connectivity，避免一個對角接觸同時在兩個相位都被視為連通。你亦可以切換至 8/4 配對，作為明確的敏感度檢查。</p>
+      </div>
+    </section>
+
+    <section class="section mp-lab-section" id="interactive-lab">
+      <div class="container">
+        <MeltPondTopologyLab locale="zh-Hant" mode="full" fixture="matern-broad-isotropic" seed={240824} />
+      </div>
+    </section>
+
+    <section class="section mp-investigate">
+      <div class="container mp-investigate-grid">
+        <div>
+          <p class="eyebrow">四組探究</p>
+          <h2>每次只改變相機的一個環節。</h2>
+          <ol>
+            <li><strong>先找 latent transition。</strong>把解析度設為 1，將模糊及錯誤歸零，再提高水位至融池首次橫跨影像。記錄首次出現的是左右、上下還是雙方向連通。</li>
+            <li><strong>只降低解析度，不改融池。</strong>固定水位及 seed，把觀測由 96 × 96 依次降至 48 × 48、24 × 24及12 × 12。檢查連通會否出現、消失或改變方向。</li>
+            <li><strong>分開模糊與位移。</strong>模糊可能填合窄小缺口；正位移會擴張分割所得的融池邊界，負位移則會侵蝕它。測試兩種誤差互相抵消還是共同放大。</li>
+            <li><strong>壓力測試連通慣例。</strong>由融池 4／冰面 8 切換至融池 8／冰面 4。若判斷改變，所謂臨界點便依賴數碼拓撲定義，而不只取決於物理形狀。</li>
+          </ol>
+        </div>
+        <aside>
+          <p class="eyebrow">閱讀輸出</p>
+          <h3>沒有單一指標等同「拓撲」。</h3>
+          <dl>
+            <div><dt>β₀</dt><dd>剩下多少個彼此分離的融池分量？</dd></div>
+            <div><dt>β₁</dt><dd>有多少個冰面區域被水完全包圍？</dd></div>
+            <div><dt>χ</dt><dd>碎裂還是包圍結構佔主導？</dd></div>
+            <div><dt>方向連通</dt><dd>融池路徑能否左右、上下或雙方向橫跨影像？</dd></div>
+            <div><dt>可分辨喉道</dt><dd>以 Euclidean-distance clearance proxy 計算的 widest-path bottleneck 有多寬？</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section mp-boundaries-section">
+      <div class="container mp-boundaries-grid">
+        <div>
+          <p class="eyebrow">模型界線</p>
+          <h2>這是受控失真實驗，不是北極重建。</h2>
+          <p>十二組 fixture 只包含確定性合成的 96 × 96 標量場：四組 Matérn-style 地形、四組 germ–grain 合併場及四組 Ising-style 形態偏移。瀏覽器不會載入任何衛星、無人機或實地調查像素。</p>
+          <p>邊界維數只是有限格點的 box-counting estimate，不能證明形態遵從跨尺度分形律；喉道量度是格點 widest-path clearance，而不是水力流量或排水預測；一幅影像內的 spanning path 亦不等於系統尺度的物理滲流證據。</p>
+        </div>
+        <div>
+          <p class="eyebrow">重現契約</p>
+          <h3>哪些條件保持固定</h3>
+          <ul>
+            <li>所有場均為 96 × 96、uint8、row-major，並附 SHA-256。</li>
+            <li>由 decode 至放大顯示的觀測次序固定。</li>
+            <li>邊界錯標使用 indexed integer hash，而非無紀錄的瀏覽器隨機流。</li>
+            <li>十二組預期摘要鎖定 Python／JavaScript 可共用的拓撲 fixtures。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section mp-references">
+      <div class="container">
+        <div class="section-head"><div><p class="eyebrow">研究基礎</p><h2>精選起點。</h2></div><p>融池幾何與拓撲已有重要研究；本實驗把焦點收窄至觀測程序所造成的臨界點誤差。</p></div>
+        <ol class="reference-list">
+          <li><span>Hohenegger 等（2012），〈Transition in the fractal geometry of Arctic melt ponds〉，<a href="https://doi.org/10.5194/tc-6-1157-2012">The Cryosphere</a>。</span></li>
+          <li><span>Popović 等（2018），〈Simple Rules Govern the Patterns of Arctic Sea Ice Melt Ponds〉，<a href="https://doi.org/10.1103/PhysRevLett.120.148701">Physical Review Letters</a>。</span></li>
+          <li><span>Offord 等（2022），〈Topological Data Analysis Detects Percolation Thresholds in Arctic Melt-Pond Evolution〉，<a href="https://arxiv.org/abs/2212.07961">arXiv</a>。</span></li>
+          <li><span>Fuchs 與 Birnbaum（2023），〈Orthomosaics and surface type classifications of MOSAiC Leg 4 floe (2020-06-30, 2020-07-22)〉，<a href="https://doi.org/10.1594/PANGAEA.949167">PANGAEA</a>。</span></li>
+          <li><span>Niehaus 與 Spreen（2022），〈Melt pond fraction on Arctic sea-ice from Sentinel-2 satellite optical imagery (2017–2021)〉，<a href="https://doi.org/10.1594/PANGAEA.950885">PANGAEA</a>。</span></li>
+        </ol>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .mp-page-head { background: linear-gradient(122deg, var(--paper) 0 68%, #d7e7e2 68% 100%); }
+  .mp-page-head h1 { max-width: 19ch; }
+  .mp-primer { background: #e8ede9; }
+  .mp-equation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid #111; }
+  .mp-equation-grid article { min-width: 0; padding: 1.2rem 1.2rem 1rem 0; }
+  .mp-equation-grid article + article { padding-left: 1.2rem; border-left: 1px solid #aab4ae; }
+  .mp-equation-grid article > span { color: #8f432e; font: 700 .72rem var(--mono); }
+  .mp-equation-grid h3 { margin: .4rem 0 .7rem; color: #111; }
+  .mp-equation-grid p { color: #36403b; font-size: .82rem; }
+  .mp-equation-grid :global(.math-expression) { color: #111; }
+  .mp-lab-section { background: #142720; }
+  .mp-investigate { background: #eee7dc; }
+  .mp-investigate-grid, .mp-boundaries-grid { display: grid; grid-template-columns: minmax(0, .62fr) minmax(280px, .38fr); gap: clamp(2rem, 7vw, 7rem); }
+  .mp-investigate li { margin-bottom: 1rem; }
+  .mp-investigate aside { padding-top: 1rem; border-top: 3px solid #00676f; }
+  .mp-investigate dl div { display: grid; grid-template-columns: minmax(90px, .32fr) 1fr; gap: .8rem; padding: .7rem 0; border-bottom: 1px solid #c9c0b4; }
+  .mp-investigate dt { color: #111; font-weight: 800; }
+  .mp-investigate dd { margin: 0; color: #3e4642; font-size: .82rem; }
+  .mp-boundaries-section { background: #dfe9e5; }
+  .mp-boundaries-grid > div:last-child { border-top: 3px solid #8f432e; padding-top: 1rem; }
+  .mp-boundaries-grid li { margin-bottom: .7rem; }
+  .mp-references { background: #f7f4ed; }
+  @media (max-width: 800px) {
+    .mp-equation-grid, .mp-investigate-grid, .mp-boundaries-grid { grid-template-columns: 1fr; }
+    .mp-equation-grid article + article { padding-left: 0; border-left: 0; border-top: 1px solid #aab4ae; }
+    .mp-page-head { background: var(--paper); }
+  }
+</style>
