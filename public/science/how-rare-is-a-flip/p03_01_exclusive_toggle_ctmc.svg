@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="7.16in" height="3.15in" viewBox="0 0 515.520 226.800" role="img" aria-labelledby="title desc">
+<title id="title">Exclusive-toggle CTMC and fixed first-hit event</title>
+<desc id="desc">Synthetic low-copy mutually repressing toggle with an exclusive U/A/B operator, configured reaction rates, fixed initial state, and the Phase-1 B-dominant first-hit event.</desc>
+<rect x="0.000" y="0.000" width="515.520" height="226.800" fill="#FFFFFF"/>
+<text x="257.760" y="18.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="10.000" font-weight="700" text-anchor="middle">Exclusive-toggle CTMC used for the Phase-1 smoke benchmark</text>
+<rect x="45.000" y="52.000" width="94.000" height="34.000" fill="#DCECF7" stroke="#202020" stroke-width="0.800"/>
+<text x="92.000" y="70.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="700" text-anchor="middle">A-bound operator</text>
+<rect x="211.000" y="52.000" width="94.000" height="34.000" fill="#F2F2F2" stroke="#202020" stroke-width="0.800"/>
+<text x="258.000" y="70.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="700" text-anchor="middle">Unbound operator</text>
+<rect x="377.000" y="52.000" width="94.000" height="34.000" fill="#DDF1E8" stroke="#202020" stroke-width="0.800"/>
+<text x="424.000" y="70.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="700" text-anchor="middle">B-bound operator</text>
+<line x1="211.000" y1="62.000" x2="139.000" y2="62.000" stroke="#0072B2" stroke-width="1.000"/>
+<polygon points="139.000,62.000 144.000,64.700 144.000,59.300" fill="#0072B2" stroke="#0072B2" stroke-width="0.500"/>
+<line x1="139.000" y1="77.000" x2="211.000" y2="77.000" stroke="#4D4D4D" stroke-width="1.000"/>
+<polygon points="211.000,77.000 206.000,74.300 206.000,79.700" fill="#4D4D4D" stroke="#4D4D4D" stroke-width="0.500"/>
+<line x1="305.000" y1="62.000" x2="377.000" y2="62.000" stroke="#009E73" stroke-width="1.000"/>
+<polygon points="377.000,62.000 372.000,59.300 372.000,64.700" fill="#009E73" stroke="#009E73" stroke-width="0.500"/>
+<line x1="377.000" y1="77.000" x2="305.000" y2="77.000" stroke="#4D4D4D" stroke-width="1.000"/>
+<polygon points="305.000,77.000 310.000,79.700 310.000,74.300" fill="#4D4D4D" stroke="#4D4D4D" stroke-width="0.500"/>
+<text x="175.000" y="51.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">bind A: 0.8 n_A</text>
+<text x="175.000" y="95.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">unbind A: 0.35</text>
+<text x="341.000" y="51.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">bind B: 0.8 n_B</text>
+<text x="341.000" y="95.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">unbind B: 0.35</text>
+<rect x="70.000" y="119.000" width="140.000" height="37.000" fill="#EAF4FB" stroke="#0072B2" stroke-width="1.000"/>
+<text x="140.000" y="134.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="9.000" font-weight="700" text-anchor="middle">A proteins</text>
+<text x="140.000" y="147.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">birth 1.5; free decay 0.55 n</text>
+<rect x="306.000" y="119.000" width="140.000" height="37.000" fill="#E7F4EE" stroke="#009E73" stroke-width="1.000"/>
+<text x="376.000" y="134.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="9.000" font-weight="700" text-anchor="middle">B proteins</text>
+<text x="376.000" y="147.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">birth 1.5; free decay 0.55 n</text>
+<rect x="214.000" y="106.000" width="88.000" height="62.000" fill="#FDEBDD" stroke="#D55E00" stroke-width="0.900"/>
+<text x="258.000" y="120.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="700" text-anchor="middle">Mutual repression</text>
+<text x="258.000" y="136.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">opposing bound</text>
+<text x="258.000" y="149.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">state -&gt; 0.08 x birth</text>
+<line x1="214.000" y1="131.000" x2="210.000" y2="137.000" stroke="#D55E00" stroke-width="1.000" stroke-dasharray="4 3"/>
+<polygon points="210.000,137.000 215.020,134.337 210.527,131.342" fill="#D55E00" stroke="#D55E00" stroke-width="0.500"/>
+<line x1="302.000" y1="131.000" x2="306.000" y2="137.000" stroke="#D55E00" stroke-width="1.000" stroke-dasharray="4 3"/>
+<polygon points="306.000,137.000 305.473,131.342 300.980,134.337" fill="#D55E00" stroke="#D55E00" stroke-width="0.500"/>
+<rect x="34.000" y="184.000" width="447.520" height="27.000" fill="#F7F7F7" stroke="#202020" stroke-width="0.800"/>
+<text x="257.760" y="197.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="700" text-anchor="middle">Initial: (A=6, B=0, s=A)  |  First hit by T=12: B-bound, B &gt;= 4, and B-A &gt;= 2</text>
+<text x="257.760" y="219.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.500" font-weight="400" text-anchor="middle">Synthetic low-copy surrogate; not a biological validation model or final rarity ladder.</text>
+</svg>

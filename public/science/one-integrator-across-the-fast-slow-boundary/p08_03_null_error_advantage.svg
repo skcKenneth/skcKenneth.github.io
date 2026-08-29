@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="515.520pt" height="273.600pt" viewBox="0 0 515.520 273.600">
+<title>Null error-advantage comparison</title>
+<desc>Finest-step error envelope and AP-to-backward-Euler error ratio across the frozen epsilon grid.</desc>
+<rect x="0.000" y="0.000" width="515.520" height="273.600" fill="#FFFFFF" stroke="none" stroke-width="0.000"/>
+<text x="257.760" y="16.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="10.000pt" font-weight="700" text-anchor="middle">The AP update passes its envelope but does not beat backward Euler on error</text>
+<text x="30.000" y="39.700" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.700pt" font-weight="700" text-anchor="start">(a) Finest-step weighted error</text>
+<text x="327.000" y="39.700" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.700pt" font-weight="700" text-anchor="start">(b) AP / BE error ratio</text>
+<line x1="53.000" y1="63.000" x2="53.000" y2="168.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="53.000" y1="168.000" x2="263.000" y2="168.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="53.000" y1="63.000" x2="53.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="53.000" y1="168.000" x2="53.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="53.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-6</text>
+<line x1="123.000" y1="63.000" x2="123.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="123.000" y1="168.000" x2="123.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="123.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-4</text>
+<line x1="193.000" y1="63.000" x2="193.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="193.000" y1="168.000" x2="193.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="193.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-2</text>
+<line x1="263.000" y1="63.000" x2="263.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="263.000" y1="168.000" x2="263.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="263.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">0</text>
+<line x1="53.000" y1="158.455" x2="263.000" y2="158.455" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="50.000" y1="158.455" x2="53.000" y2="158.455" stroke="#000000" stroke-width="0.600"/>
+<text x="48.000" y="161.455" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-3</text>
+<line x1="53.000" y1="110.727" x2="263.000" y2="110.727" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="50.000" y1="110.727" x2="53.000" y2="110.727" stroke="#000000" stroke-width="0.600"/>
+<text x="48.000" y="113.727" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-2.5</text>
+<line x1="53.000" y1="63.000" x2="263.000" y2="63.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="50.000" y1="63.000" x2="53.000" y2="63.000" stroke="#000000" stroke-width="0.600"/>
+<text x="48.000" y="66.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-2</text>
+<text x="158.000" y="195.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="400" text-anchor="middle">log10 epsilon</text>
+<text x="53.000" y="58.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="700" text-anchor="start">log10 weighted error</text>
+<polyline points="263.000,88.810 244.699,94.418 228.000,101.398 209.699,115.292 193.000,115.580 174.699,115.579 158.000,115.579 123.000,115.580 88.000,115.580 53.000,115.580" fill="none" stroke="#0072B2" stroke-width="1.400"/>
+<circle cx="263.000" cy="88.810" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="244.699" cy="94.418" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="228.000" cy="101.398" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="209.699" cy="115.292" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="193.000" cy="115.580" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="174.699" cy="115.579" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="158.000" cy="115.579" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="123.000" cy="115.580" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="88.000" cy="115.580" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="53.000" cy="115.580" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<polyline points="263.000,93.622 244.699,96.956 228.000,102.455 209.699,115.880 193.000,145.126 174.699,145.197 158.000,145.216 123.000,145.225 88.000,145.225 53.000,145.226" fill="none" stroke="#009E73" stroke-width="1.400" stroke-dasharray="5 3"/>
+<rect x="260.500" y="91.122" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="242.199" y="94.456" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="225.500" y="99.955" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="207.199" y="113.380" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="190.500" y="142.626" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="172.199" y="142.697" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="155.500" y="142.716" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="120.500" y="142.725" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="85.500" y="142.725" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<rect x="50.500" y="142.726" width="5.000" height="5.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.100"/>
+<line x1="327.000" y1="63.000" x2="327.000" y2="168.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="327.000" y1="168.000" x2="487.000" y2="168.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="327.000" y1="63.000" x2="327.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="327.000" y1="168.000" x2="327.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="327.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-6</text>
+<line x1="380.333" y1="63.000" x2="380.333" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="380.333" y1="168.000" x2="380.333" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="380.333" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-4</text>
+<line x1="433.667" y1="63.000" x2="433.667" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="433.667" y1="168.000" x2="433.667" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="433.667" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-2</text>
+<line x1="487.000" y1="63.000" x2="487.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="487.000" y1="168.000" x2="487.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="487.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">0</text>
+<line x1="327.000" y1="153.000" x2="487.000" y2="153.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="324.000" y1="153.000" x2="327.000" y2="153.000" stroke="#000000" stroke-width="0.600"/>
+<text x="322.000" y="156.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">1</text>
+<line x1="327.000" y1="115.500" x2="487.000" y2="115.500" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="324.000" y1="115.500" x2="327.000" y2="115.500" stroke="#000000" stroke-width="0.600"/>
+<text x="322.000" y="118.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">1.5</text>
+<line x1="327.000" y1="78.000" x2="487.000" y2="78.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="324.000" y1="78.000" x2="327.000" y2="78.000" stroke="#000000" stroke-width="0.600"/>
+<text x="322.000" y="81.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">2</text>
+<text x="407.000" y="195.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="400" text-anchor="middle">log10 epsilon</text>
+<text x="327.000" y="58.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="700" text-anchor="start">error ratio</text>
+<polyline points="487.000,143.770 473.057,148.265 460.333,151.064 446.390,151.930 433.667,75.038 419.723,74.767 407.000,74.699 380.333,74.670 353.667,74.667 327.000,74.667" fill="none" stroke="#CC79A7" stroke-width="1.400"/>
+<line x1="327.000" y1="153.000" x2="487.000" y2="153.000" stroke="#D55E00" stroke-width="1.000" stroke-dasharray="4 3"/>
+<circle cx="487.000" cy="143.770" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="473.057" cy="148.265" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="460.333" cy="151.064" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="446.390" cy="151.930" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="433.667" cy="75.038" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="419.723" cy="74.767" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="407.000" cy="74.699" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="380.333" cy="74.670" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="353.667" cy="74.667" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="327.000" cy="74.667" r="2.400" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<line x1="72.000" y1="216.000" x2="88.000" y2="216.000" stroke="#0072B2" stroke-width="1.400"/>
+<text x="92.000" y="218.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="start">AP</text>
+<line x1="128.000" y1="216.000" x2="144.000" y2="216.000" stroke="#009E73" stroke-width="1.400" stroke-dasharray="5 3"/>
+<text x="148.000" y="218.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="start">backward Euler</text>
+<text x="257.760" y="249.300" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.300pt" font-weight="700" text-anchor="middle">NULL comparative result: AP error is higher at every frozen epsilon (ratio 1.01 to 2.04); no runtime or solver-superiority claim.</text>
+</svg>

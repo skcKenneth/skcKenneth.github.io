@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="pipeline-title pipeline-desc">
+  <title id="pipeline-title">Calibration-aware path from classifier scores to synthetic patrol allocations</title>
+  <desc id="pipeline-desc">A five-stage left-to-right diagram separates classifier probabilities, four disjoint data roles, two calibration steps, cell-level aggregation with predictive intervals, and constrained patrol-time allocation. A lower boundary states that the experiment is synthetic and does not establish field effectiveness.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+    <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#0072B2" stroke-width="3" opacity="0.22"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="675" fill="#FFFFFF"/>
+  <text x="60" y="57" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="700">From probability scores to a patrol-time plan</text>
+  <text x="60" y="88" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="17">Every arrow introduces an assumption that must be checked separately.</text>
+  <rect x="870" y="38" width="270" height="42" rx="21" fill="#FFF4E6" stroke="#D55E00" stroke-width="2"/>
+  <text x="1005" y="65" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">SYNTHETIC MANUSCRIPT MODEL</text>
+
+  <line x1="248" y1="300" x2="278" y2="300" stroke="#6B7280" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="470" y1="300" x2="500" y2="300" stroke="#6B7280" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="714" y1="300" x2="744" y2="300" stroke="#6B7280" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="938" y1="300" x2="968" y2="300" stroke="#6B7280" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="45" y="142" width="203" height="318" rx="12" fill="#EDF6FB" stroke="#0072B2" stroke-width="2.5"/>
+    <text x="66" y="180" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">1  PERCEPTION OUTPUT</text>
+    <text x="66" y="217" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">Classifier scores</text>
+    <rect x="70" y="252" width="150" height="72" rx="8" fill="#FFFFFF" stroke="#0072B2" stroke-width="2"/>
+    <circle cx="98" cy="278" r="10" fill="#0072B2"/>
+    <circle cx="127" cy="278" r="10" fill="#56B4E9"/>
+    <circle cx="156" cy="278" r="10" fill="#009E73"/>
+    <circle cx="185" cy="278" r="10" fill="#E69F00"/>
+    <text x="145" y="310" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5">four-class probability vector</text>
+    <text x="66" y="359" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="16">Named risk-proxy class</text>
+    <text x="66" y="385" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">is consumed downstream.</text>
+    <text x="66" y="423" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="700">Not a poacher label</text>
+  </g>
+
+  <g>
+    <rect x="278" y="142" width="192" height="318" rx="12" fill="#F6F3FB" stroke="#6A3D9A" stroke-width="2.5"/>
+    <text x="299" y="180" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">2  DISJOINT ROLES</text>
+    <text x="299" y="217" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">No label reuse</text>
+    <rect x="302" y="248" width="144" height="39" rx="7" fill="#FFFFFF" stroke="#6A3D9A" stroke-width="1.8"/>
+    <text x="374" y="273" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">calibrator fit</text>
+    <rect x="302" y="299" width="144" height="39" rx="7" fill="#FFFFFF" stroke="#6A3D9A" stroke-width="1.8"/>
+    <text x="374" y="324" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">metric evaluation</text>
+    <rect x="302" y="350" width="144" height="39" rx="7" fill="#FFFFFF" stroke="#6A3D9A" stroke-width="1.8"/>
+    <text x="374" y="375" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">interval calibration</text>
+    <rect x="302" y="401" width="144" height="39" rx="7" fill="#FFFFFF" stroke="#6A3D9A" stroke-width="1.8"/>
+    <text x="374" y="426" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">deployment check</text>
+  </g>
+
+  <g>
+    <rect x="500" y="142" width="214" height="318" rx="12" fill="#EDF8F4" stroke="#009E73" stroke-width="2.5"/>
+    <text x="521" y="180" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">3  CALIBRATION</text>
+    <text x="521" y="217" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">Two different jobs</text>
+    <circle cx="548" cy="275" r="18" fill="#0072B2"/>
+    <text x="582" y="270" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="700">Temperature scaling</text>
+    <text x="582" y="293" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">full class vector</text>
+    <line x1="548" y1="308" x2="548" y2="345" stroke="#6B7280" stroke-width="2" stroke-dasharray="6 5"/>
+    <path d="M532 363 L548 347 L564 363 L548 379 Z" fill="#E69F00" stroke="#111111" stroke-width="1.5"/>
+    <text x="582" y="357" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="700">Monotone Platt map</text>
+    <text x="582" y="380" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">risk-proxy probability</text>
+    <text x="521" y="423" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">Ranking and decision use</text>
+    <text x="521" y="443" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">are evaluated separately.</text>
+  </g>
+
+  <g>
+    <rect x="744" y="142" width="194" height="318" rx="12" fill="#FFF8E9" stroke="#E69F00" stroke-width="2.5"/>
+    <text x="765" y="180" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">4  AGGREGATION</text>
+    <text x="765" y="217" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">Cell-level risk</text>
+    <rect x="772" y="253" width="138" height="95" fill="url(#hatch)" stroke="#0072B2" stroke-width="2"/>
+    <path d="M780 330 L803 307 L826 315 L850 279 L875 294 L902 267" fill="none" stroke="#0072B2" stroke-width="3"/>
+    <circle cx="803" cy="307" r="5" fill="#FFFFFF" stroke="#0072B2" stroke-width="2"/>
+    <circle cx="850" cy="279" r="5" fill="#FFFFFF" stroke="#0072B2" stroke-width="2"/>
+    <circle cx="902" cy="267" r="5" fill="#FFFFFF" stroke="#0072B2" stroke-width="2"/>
+    <text x="765" y="382" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Expected counts</text>
+    <text x="765" y="408" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Poisson-binomial interval</text>
+    <text x="765" y="434" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">Held-out width adjustment</text>
+  </g>
+
+  <g>
+    <rect x="968" y="142" width="187" height="318" rx="12" fill="#FFF1EF" stroke="#D55E00" stroke-width="2.5"/>
+    <text x="989" y="180" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">5  DECISION MODEL</text>
+    <text x="989" y="217" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">Patrol hours</text>
+    <rect x="997" y="254" width="20" height="96" fill="#56B4E9" stroke="#111111" stroke-width="1.2"/>
+    <rect x="1028" y="283" width="20" height="67" fill="#0072B2" stroke="#111111" stroke-width="1.2"/>
+    <rect x="1059" y="313" width="20" height="37" fill="#E69F00" stroke="#111111" stroke-width="1.2"/>
+    <rect x="1090" y="328" width="20" height="22" fill="#D55E00" stroke="#111111" stroke-width="1.2"/>
+    <line x1="990" y1="350" x2="1123" y2="350" stroke="#111111" stroke-width="1.5"/>
+    <text x="989" y="384" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">Fixed budget + cell cap</text>
+    <text x="989" y="410" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">Point or upper-bound plan</text>
+    <text x="989" y="432" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="700">Evaluated against</text>
+    <text x="989" y="450" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="700">synthetic oracle utility</text>
+  </g>
+
+  <rect x="45" y="505" width="1110" height="125" rx="10" fill="#F7F7F5" stroke="#6B7280" stroke-width="2" stroke-dasharray="9 6"/>
+  <text x="70" y="541" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="700">EVIDENCE BOUNDARY</text>
+  <circle cx="78" cy="575" r="7" fill="#009E73"/>
+  <text x="96" y="581" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="16">Tests probability-to-decision propagation inside a controlled synthetic landscape.</text>
+  <path d="M72 608 L84 596 M72 596 L84 608" stroke="#D55E00" stroke-width="3"/>
+  <text x="96" y="608" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="16">Does not identify poachers, validate a real classifier, optimise travel routes, or prove field effectiveness.</text>
+</svg>

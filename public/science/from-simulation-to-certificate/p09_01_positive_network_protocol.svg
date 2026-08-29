@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="716" height="360" viewBox="0 0 716 360">
+<title>P09 frozen positive-network certificate protocol</title>
+<desc>Two leaky compartments, two uncertain endpoints, stress contraction, finite spectral diagnostics, and verified quadratic endpoint inequalities.</desc>
+<rect width="716" height="360" fill="#FFFFFF"/>
+<text x="18.000" y="19.000" text-anchor="start" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#111111">a</text>
+<text x="48.000" y="19.000" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111111">One positive network, two kinds of evidence</text>
+<text x="48.000" y="35.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.4" font-weight="400" fill="#111111">Frozen synthetic 2 x 2 family; uncertainty is a line segment, not a fitted physical system</text>
+<rect x="18.000" y="52.000" width="310.000" height="271.000" rx="5.000" fill="#F8F8F8" stroke="#BBBBBB" stroke-width="0.8"/>
+<text x="34.000" y="73.000" text-anchor="start" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#111111">Leaky two-compartment dynamics</text>
+<circle cx="102.000" cy="151.000" r="36.000" fill="#FFFFFF" stroke="#0072B2" stroke-width="2.2"/>
+<circle cx="242.000" cy="151.000" r="36.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="2.2"/>
+<text x="102.000" y="148.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111111">x1</text>
+<text x="102.000" y="164.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="400" fill="#111111">compartment 1</text>
+<text x="242.000" y="148.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#111111">x2</text>
+<text x="242.000" y="164.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="400" fill="#111111">compartment 2</text>
+<line x1="139.000" y1="137.000" x2="203.000" y2="137.000" stroke="#009E73" stroke-width="1.3"/>
+<polygon points="203.000,137.000 197.000,140.000 197.000,134.000" fill="#009E73" stroke="none" stroke-width="0.8"/>
+<text x="171.000" y="128.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="700" fill="#111111">k12</text>
+<line x1="205.000" y1="168.000" x2="141.000" y2="168.000" stroke="#6F4C9B" stroke-width="1.3" stroke-dasharray="6 4"/>
+<polygon points="141.000,168.000 147.000,165.000 147.000,171.000" fill="#6F4C9B" stroke="none" stroke-width="0.8"/>
+<text x="171.000" y="184.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="700" fill="#111111">k21</text>
+<line x1="102.000" y1="188.000" x2="102.000" y2="224.000" stroke="#0072B2" stroke-width="1.3"/>
+<polygon points="102.000,224.000 99.000,218.000 105.000,218.000" fill="#0072B2" stroke="none" stroke-width="0.8"/>
+<line x1="242.000" y1="188.000" x2="242.000" y2="224.000" stroke="#D55E00" stroke-width="1.3"/>
+<polygon points="242.000,224.000 239.000,218.000 245.000,218.000" fill="#D55E00" stroke="none" stroke-width="0.8"/>
+<text x="102.000" y="239.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="400" fill="#111111">removal r1</text>
+<text x="242.000" y="239.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="400" fill="#111111">removal r2</text>
+<rect x="40.000" y="263.000" width="266.000" height="43.000" rx="3.000" fill="#FFF4D6" stroke="#C49A00" stroke-width="0.8"/>
+<text x="173.000" y="278.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.3" font-weight="700" fill="#111111">A is Metzler; column leakage = (r1, r2) &gt; 0</text>
+<text x="173.000" y="294.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.0" font-weight="400" fill="#111111">s contracts endpoints to midpoint; theta mixes them</text>
+<rect x="350.000" y="52.000" width="348.000" height="61.000" rx="5.000" fill="#ECECEC" stroke="#6F6F6F" stroke-width="1.3"/>
+<rect x="350.000" y="52.000" width="8.000" height="61.000" rx="4.000" fill="#6F6F6F" stroke="none" stroke-width="0.8"/>
+<text x="370.000" y="72.000" text-anchor="start" font-family="Arial, sans-serif" font-size="9.2" font-weight="700" fill="#111111">Finite spectral checks</text>
+<text x="370.000" y="91.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.4" font-weight="400" fill="#111111">20,001 fixed theta values + 25 seeded values</text>
+<text x="370.000" y="107.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.1" font-weight="400" fill="#111111">Diagnostic only: uncovered theta values remain</text>
+<rect x="350.000" y="125.000" width="348.000" height="74.000" rx="5.000" fill="#D7EBF5" stroke="#0072B2" stroke-width="1.3"/>
+<rect x="350.000" y="125.000" width="8.000" height="74.000" rx="4.000" fill="#0072B2" stroke="none" stroke-width="0.8"/>
+<text x="370.000" y="145.000" text-anchor="start" font-family="Arial, sans-serif" font-size="9.2" font-weight="700" fill="#111111">Diagonal quadratic construction</text>
+<text x="370.000" y="164.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.4" font-weight="400" fill="#111111">P=diag(p,1-p), trace(P)=1</text>
+<text x="370.000" y="180.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.1" font-weight="400" fill="#111111">Restricted shape; endpoint residuals verified</text>
+<rect x="350.000" y="211.000" width="348.000" height="74.000" rx="5.000" fill="#D6EEE6" stroke="#009E73" stroke-width="1.3"/>
+<rect x="350.000" y="211.000" width="8.000" height="74.000" rx="4.000" fill="#009E73" stroke="none" stroke-width="0.8"/>
+<text x="370.000" y="231.000" text-anchor="start" font-family="Arial, sans-serif" font-size="9.2" font-weight="700" fill="#111111">Full quadratic construction</text>
+<text x="370.000" y="250.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.4" font-weight="400" fill="#111111">P=[[p,q],[q,1-p]], trace(P)=1</text>
+<text x="370.000" y="266.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.1" font-weight="400" fill="#111111">Endpoint LMIs certify every convex mixture</text>
+<rect x="350.000" y="297.000" width="348.000" height="26.000" rx="3.000" fill="#FDE9E5" stroke="#D55E00" stroke-width="1.0"/>
+<text x="524.000" y="313.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="700" fill="#111111">Feasible grid construction; no global SDP-optimum claim</text>
+<text x="690.000" y="344.000" text-anchor="end" font-family="Arial, sans-serif" font-size="6.6" font-weight="400" fill="#111111">Synthetic Phase-1 | config SHA c1c20c5e...e1ebc4</text>
+</svg>

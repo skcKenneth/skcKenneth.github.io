@@ -21,13 +21,18 @@ for (const project of projects) {
 }
 
 const editorialFiles = (await readdir(resolve(root, "src/content/projects"))).filter((file) => /\.mdx?$/.test(file));
+const editorialSlugs = new Set(editorialFiles.map((file) => file.replace(/\.mdx?$/, "")));
 const catalogueCount = projects.filter((project) => project.catalog_only).length;
 const editorialCount = projects.length - catalogueCount;
-if (editorialCount !== editorialFiles.length) errors.push(`manifest has ${editorialCount} editorial entries but content has ${editorialFiles.length} files`);
+for (const project of projects.filter((project) => !project.catalog_only)) {
+  if (!editorialSlugs.has(project.slug)) {
+    errors.push(`ScienceProject editorial entry has no matching content file: ${project.slug}`);
+  }
+}
 
 if (errors.length) {
   console.error(`Science catalogue check failed (${errors.length}):`);
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`Checked ${projects.length} ScienceProject routes: ${editorialCount} editorial overviews and ${catalogueCount} inventory entries.`);
+console.log(`Checked ${projects.length} ScienceProject routes: ${editorialCount} editorial overviews and ${catalogueCount} inventory entries; ${editorialFiles.length - editorialCount} independent curated project(s).`);

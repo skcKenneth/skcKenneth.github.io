@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="metrics-title metrics-desc">
+  <title id="metrics-title">Manuscript-reported calibration and decision metrics from synthetic experiments</title>
+  <desc id="metrics-desc">Four cards summarize manuscript-reported changes in top-label calibration error, risk-proxy calibration error, oracle-relative patrol regret, and predictive interval coverage. A lower panel separates conclusions supported inside the synthetic experiment from claims not established by it. The values were not independently reproduced for this blog note.</desc>
+  <defs>
+    <marker id="metric-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+    <pattern id="diag" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="#6A3D9A" stroke-width="2" opacity="0.22"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="720" fill="#FFFFFF"/>
+  <text x="60" y="55" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="700">What the manuscript reports—and what remains untested</text>
+  <text x="60" y="87" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="17">Twenty synthetic networks × 400 cells; values below were not independently reproduced for this Blog note.</text>
+
+  <g>
+    <rect x="50" y="126" width="260" height="268" rx="12" fill="#EDF6FB" stroke="#0072B2" stroke-width="2.5"/>
+    <text x="72" y="162" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">A  TOP-LABEL ECE</text>
+    <text x="91" y="219" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">raw scores</text>
+    <circle cx="126" cy="274" r="38" fill="#FFFFFF" stroke="#D55E00" stroke-width="5"/>
+    <text x="126" y="282" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="700">0.341</text>
+    <line x1="170" y1="274" x2="219" y2="274" stroke="#6B7280" stroke-width="3" marker-end="url(#metric-arrow)"/>
+    <text x="245" y="219" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">temperature</text>
+    <rect x="213" y="242" width="67" height="64" rx="8" fill="#56B4E9" stroke="#0072B2" stroke-width="3"/>
+    <text x="246" y="282" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">0.048</text>
+    <text x="72" y="342" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">Lower is better.</text>
+    <text x="72" y="366" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13">Reported dispersion: ±0.010 / ±0.010</text>
+  </g>
+
+  <g>
+    <rect x="330" y="126" width="260" height="268" rx="12" fill="#EDF8F4" stroke="#009E73" stroke-width="2.5"/>
+    <text x="352" y="162" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">B  RISK-PROXY ECE</text>
+    <text x="379" y="217" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">raw</text>
+    <circle cx="379" cy="267" r="32" fill="#FFFFFF" stroke="#D55E00" stroke-width="4"/>
+    <text x="379" y="275" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="19" font-weight="700">0.111</text>
+    <line x1="414" y1="267" x2="441" y2="267" stroke="#6B7280" stroke-width="2.5" marker-end="url(#metric-arrow)"/>
+    <text x="465" y="217" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">temp.</text>
+    <rect x="436" y="237" width="58" height="60" rx="8" fill="#56B4E9" stroke="#0072B2" stroke-width="3"/>
+    <text x="465" y="274" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" font-weight="700">0.057</text>
+    <line x1="497" y1="267" x2="520" y2="267" stroke="#6B7280" stroke-width="2.5" marker-end="url(#metric-arrow)"/>
+    <text x="548" y="217" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">task</text>
+    <path d="M548 232 L583 267 L548 302 L513 267 Z" fill="#E69F00" stroke="#111111" stroke-width="2"/>
+    <text x="548" y="274" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="700">0.017</text>
+    <text x="352" y="342" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13">Calibrate the class used by the decision.</text>
+    <text x="352" y="366" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13">Reported dispersion: ±0.013 / ±0.005</text>
+  </g>
+
+  <g>
+    <rect x="610" y="126" width="260" height="268" rx="12" fill="#FFF1EF" stroke="#D55E00" stroke-width="2.5"/>
+    <text x="632" y="162" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">C  PATROL REGRET</text>
+    <text x="658" y="219" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">raw plan</text>
+    <circle cx="688" cy="274" r="38" fill="#FFFFFF" stroke="#D55E00" stroke-width="5"/>
+    <text x="688" y="282" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="700">2.64%</text>
+    <line x1="731" y1="274" x2="778" y2="274" stroke="#6B7280" stroke-width="3" marker-end="url(#metric-arrow)"/>
+    <text x="815" y="219" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">task-calibrated</text>
+    <rect x="780" y="242" width="72" height="64" rx="8" fill="#009E73" stroke="#111111" stroke-width="2"/>
+    <text x="816" y="282" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="700">0.33%</text>
+    <text x="632" y="342" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">Percent of synthetic oracle utility.</text>
+    <text x="632" y="366" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="12.5">Reported dispersion: ±0.51 / ±0.08 points</text>
+  </g>
+
+  <g>
+    <rect x="890" y="126" width="260" height="268" rx="12" fill="#F6F3FB" stroke="#6A3D9A" stroke-width="2.5"/>
+    <text x="912" y="162" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700">D  INTERVAL COVERAGE</text>
+    <rect x="918" y="218" width="204" height="102" fill="url(#diag)" stroke="#6A3D9A" stroke-width="2"/>
+    <line x1="934" y1="271" x2="1106" y2="271" stroke="#D55E00" stroke-width="3" stroke-dasharray="9 6"/>
+    <text x="1102" y="233" text-anchor="end" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13">nominal 0.900</text>
+    <circle cx="1016" cy="250" r="12" fill="#FFFFFF" stroke="#6A3D9A" stroke-width="4"/>
+    <text x="1016" y="305" text-anchor="middle" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="700">0.932</text>
+    <text x="912" y="342" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">Held-out width calibration.</text>
+    <text x="912" y="366" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="13">Reported dispersion: ±0.020</text>
+  </g>
+
+  <rect x="50" y="432" width="540" height="230" rx="12" fill="#EDF8F4" stroke="#009E73" stroke-width="2"/>
+  <text x="76" y="470" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="700">SUPPORTED INSIDE THE SYNTHETIC EXPERIMENT</text>
+  <circle cx="82" cy="512" r="7" fill="#009E73"/>
+  <text x="101" y="518" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Calibration errors were evaluated on a disjoint batch.</text>
+  <circle cx="82" cy="550" r="7" fill="#009E73"/>
+  <text x="101" y="556" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Decision regret was compared with a synthetic oracle.</text>
+  <circle cx="82" cy="588" r="7" fill="#009E73"/>
+  <text x="101" y="594" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Upper-bound planning has a measurable nominal cost.</text>
+  <circle cx="82" cy="626" r="7" fill="#009E73"/>
+  <text x="101" y="632" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Every number remains manuscript-reported here.</text>
+
+  <rect x="610" y="432" width="540" height="230" rx="12" fill="#FFF1EF" stroke="#D55E00" stroke-width="2"/>
+  <text x="636" y="470" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="700">NOT ESTABLISHED</text>
+  <path d="M636 506 L648 518 M636 518 L648 506" stroke="#D55E00" stroke-width="3"/>
+  <text x="662" y="518" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Calibration of a deployed camera-trap classifier.</text>
+  <path d="M636 544 L648 556 M636 556 L648 544" stroke="#D55E00" stroke-width="3"/>
+  <text x="662" y="556" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Identification of poachers or authorised personnel.</text>
+  <path d="M636 582 L648 594 M636 594 L648 582" stroke="#D55E00" stroke-width="3"/>
+  <text x="662" y="594" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Operational patrol benefit, routing, or field safety.</text>
+  <path d="M636 620 L648 632 M636 632 L648 620" stroke="#D55E00" stroke-width="3"/>
+  <text x="662" y="632" fill="#111111" font-family="DejaVu Sans, Arial, sans-serif" font-size="15">Independent reproduction or distribution-free coverage.</text>
+</svg>

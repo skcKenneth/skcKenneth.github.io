@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="716" height="360" viewBox="0 0 716 360">
+<title>P09 predeclared gate and residual audit</title>
+<desc>Six frozen gates, endpoint residual margins, and grid-sensitivity values are shown with the benchmark-specific PASS verdict and locked claim boundary.</desc>
+<rect width="716" height="360" fill="#FFFFFF"/>
+<text x="18.000" y="19.000" text-anchor="start" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#111111">d</text>
+<text x="48.000" y="19.000" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111111">Every frozen gate passed, within a deliberately narrow claim</text>
+<text x="48.000" y="35.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.4" font-weight="400" fill="#111111">Direct residual verification and rerun identity matter more than the appearance of the curves</text>
+<rect x="28.000" y="58.000" width="318.000" height="57.000" rx="4.000" fill="#D6EEE6" stroke="#009E73" stroke-width="1.1"/>
+<circle cx="51.000" cy="78.000" r="13.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.5"/>
+<text x="51.000" y="81.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="700" fill="#111111">G1</text>
+<text x="73.000" y="77.000" text-anchor="start" font-family="Arial, sans-serif" font-size="8.1" font-weight="700" fill="#111111">Positive leaky structure</text>
+<text x="73.000" y="96.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.0" font-weight="400" fill="#111111">min leakage 0.126459 &gt;= 0.1</text>
+<text x="328.000" y="80.000" text-anchor="end" font-family="Arial, sans-serif" font-size="7.0" font-weight="700" fill="#111111">PASS</text>
+<rect x="370.000" y="58.000" width="318.000" height="57.000" rx="4.000" fill="#D6EEE6" stroke="#009E73" stroke-width="1.1"/>
+<circle cx="393.000" cy="78.000" r="13.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.5"/>
+<text x="393.000" y="81.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="700" fill="#111111">G2</text>
+<text x="415.000" y="77.000" text-anchor="start" font-family="Arial, sans-serif" font-size="8.1" font-weight="700" fill="#111111">Endpoint LMI residuals</text>
+<text x="415.000" y="96.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.0" font-weight="400" fill="#111111">all 20 constructed certificates verified</text>
+<text x="670.000" y="80.000" text-anchor="end" font-family="Arial, sans-serif" font-size="7.0" font-weight="700" fill="#111111">PASS</text>
+<rect x="28.000" y="128.000" width="318.000" height="57.000" rx="4.000" fill="#D6EEE6" stroke="#009E73" stroke-width="1.1"/>
+<circle cx="51.000" cy="148.000" r="13.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.5"/>
+<text x="51.000" y="151.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="700" fill="#111111">G3</text>
+<text x="73.000" y="147.000" text-anchor="start" font-family="Arial, sans-serif" font-size="8.1" font-weight="700" fill="#111111">Balanced-limit agreement</text>
+<text x="73.000" y="166.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.0" font-weight="400" fill="#111111">relative diff. 3.60e-11 &lt;= 1e-5</text>
+<text x="328.000" y="150.000" text-anchor="end" font-family="Arial, sans-serif" font-size="7.0" font-weight="700" fill="#111111">PASS</text>
+<rect x="370.000" y="128.000" width="318.000" height="57.000" rx="4.000" fill="#D6EEE6" stroke="#009E73" stroke-width="1.1"/>
+<circle cx="393.000" cy="148.000" r="13.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.5"/>
+<text x="393.000" y="151.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="700" fill="#111111">G4</text>
+<text x="415.000" y="147.000" text-anchor="start" font-family="Arial, sans-serif" font-size="8.1" font-weight="700" fill="#111111">Full-to-dense proximity</text>
+<text x="415.000" y="166.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.0" font-weight="400" fill="#111111">max gap 5.69e-07 &lt;= 0.005</text>
+<text x="670.000" y="150.000" text-anchor="end" font-family="Arial, sans-serif" font-size="7.0" font-weight="700" fill="#111111">PASS</text>
+<rect x="28.000" y="198.000" width="318.000" height="57.000" rx="4.000" fill="#D6EEE6" stroke="#009E73" stroke-width="1.1"/>
+<circle cx="51.000" cy="218.000" r="13.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.5"/>
+<text x="51.000" y="221.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="700" fill="#111111">G5</text>
+<text x="73.000" y="217.000" text-anchor="start" font-family="Arial, sans-serif" font-size="8.1" font-weight="700" fill="#111111">Stressed diagonal contrast</text>
+<text x="73.000" y="236.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.0" font-weight="400" fill="#111111">gap 0.611148; alpha 0.104080</text>
+<text x="328.000" y="220.000" text-anchor="end" font-family="Arial, sans-serif" font-size="7.0" font-weight="700" fill="#111111">PASS</text>
+<rect x="370.000" y="198.000" width="318.000" height="57.000" rx="4.000" fill="#D6EEE6" stroke="#009E73" stroke-width="1.1"/>
+<circle cx="393.000" cy="218.000" r="13.000" fill="#FFFFFF" stroke="#009E73" stroke-width="1.5"/>
+<text x="393.000" y="221.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="700" fill="#111111">G6</text>
+<text x="415.000" y="217.000" text-anchor="start" font-family="Arial, sans-serif" font-size="8.1" font-weight="700" fill="#111111">Grid sensitivity</text>
+<text x="415.000" y="236.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.0" font-weight="400" fill="#111111">max abs. diff. 6.76e-05 &lt;= 0.001</text>
+<text x="670.000" y="220.000" text-anchor="end" font-family="Arial, sans-serif" font-size="7.0" font-weight="700" fill="#111111">PASS</text>
+<rect x="28.000" y="274.000" width="424.000" height="53.000" rx="4.000" fill="#F8F8F8" stroke="#BBBBBB" stroke-width="0.8"/>
+<text x="42.000" y="291.000" text-anchor="start" font-family="Arial, sans-serif" font-size="8.2" font-weight="700" fill="#111111">Full-stress direct residual audit</text>
+<text x="42.000" y="309.000" text-anchor="start" font-family="Arial, sans-serif" font-size="7.1" font-weight="400" fill="#111111">max eigenvalue: diagonal -8.634e-11 | full -1.264e-10 | required &lt;= 1e-10</text>
+<text x="42.000" y="321.000" text-anchor="start" font-family="Arial, sans-serif" font-size="6.5" font-weight="400" fill="#111111">Negative values mean the checked endpoint inequalities retain margin.</text>
+<rect x="466.000" y="274.000" width="222.000" height="53.000" rx="4.000" fill="#E8E0F0" stroke="#6F4C9B" stroke-width="1.1"/>
+<text x="577.000" y="292.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.3" font-weight="700" fill="#111111">PHASE-1 VERDICT: PASS</text>
+<text x="577.000" y="309.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.8" font-weight="400" fill="#111111">canonical = rerun, byte-for-byte</text>
+<text x="577.000" y="321.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.5" font-weight="400" fill="#111111">REFRAME literature gate retained</text>
+<text x="358.000" y="345.000" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.8" font-weight="700" fill="#111111">Locked: no theorem, global SDP optimum, scaling, physical validation, or universal superiority claim</text>
+</svg>

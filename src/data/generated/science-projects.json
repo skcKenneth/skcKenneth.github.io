@@ -4473,5 +4473,804 @@
     "documentation_excerpt": "A private, frozen benchmark of false connectivity thresholds under blur, sampling, segmentation displacement, boundary error, finite windows, and morphology shift.",
     "documentation_url": "",
     "local_hero_image": "/science/resolution-robust-arctic-melt-pond-topology/observation-pipeline.svg"
+  },
+  {
+    "slug": "when-effective-diffusivity-stops-being-effective",
+    "title": "When Effective Diffusivity Stops Being Effective",
+    "summary": "A frozen one-dimensional benchmark maps where the harmonic effective diffusivity preserves a periodic slab release curve and where finite cell count invalidates that scalar reduction.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Transport Phenomena",
+      "Numerical Analysis"
+    ],
+    "methods": [
+      "Periodic homogenization",
+      "Conservative finite-volume diffusion",
+      "Held-out calibration audit"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release",
+    "hero_image": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/figures/publish/p02_03_harmonic_reliability_map.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p02_01_frozen_microstructure.svg",
+        "alt": "Symmetric slow-fast-slow periodic slab cells beside the harmonic and arithmetic effective-diffusivity ratios over the frozen contrast grid.",
+        "caption": "Every material interface is aligned with a finite-volume face; the harmonic and arithmetic coefficients are fixed before evaluation.",
+        "generated_by": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/figures/publish/p02_01_frozen_microstructure.svg"
+      },
+      {
+        "filename": "p02_02_release_trajectories.svg",
+        "alt": "Finite-volume, harmonic, arithmetic, and early-fitted release curves for one and thirty-two material periods at diffusivity contrast one thousand.",
+        "caption": "The harmonic model breaks down for one coarse period but agrees with the resolved reference at thirty-two periods in this frozen family.",
+        "generated_by": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/figures/publish/p02_02_release_trajectories.svg"
+      },
+      {
+        "filename": "p02_03_harmonic_reliability_map.svg",
+        "alt": "Adequate, grey, and breakdown classifications for the harmonic release model over three contrasts and six finite period counts.",
+        "caption": "Nine coarse-scale cases break the predeclared harmonic-model gates, two are grey, and seven fine-scale cases are adequate.",
+        "generated_by": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/figures/publish/p02_03_harmonic_reliability_map.svg"
+      },
+      {
+        "filename": "p02_04_early_fit_holdout.svg",
+        "alt": "Early-window maximum release error against held-out time-to-ninety-percent-release error for eighteen heterogeneous cases.",
+        "caption": "Three one-period cases meet the early-fit threshold yet exceed the held-out late-event threshold; later release was not used for calibration.",
+        "generated_by": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/figures/publish/p02_04_early_fit_holdout.svg"
+      },
+      {
+        "filename": "p02_05_numerical_verification.svg",
+        "alt": "Homogeneous finite-volume error against an analytic slab series and joint space-time refinement changes across the frozen parameter grid.",
+        "caption": "The independent homogeneous control and all twenty-four canonical-to-refined comparisons pass their unchanged numerical gates.",
+        "generated_by": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/figures/publish/p02_05_numerical_verification.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic one-dimensional periodic diffusion and release trajectories",
+    "research_question": "For one frozen symmetric periodic slab family, how do finite period count and diffusivity contrast change the release-curve accuracy of the harmonic homogenized model?",
+    "limitations": [
+      "The evidence covers one one-dimensional periodic binary geometry and one fixed boundary phase, not random, imaged, or higher-dimensional media.",
+      "The model omits swelling, erosion, degradation, binding, reaction, moving interfaces, and experimental calibration.",
+      "Release fractions and t50/t90 are synthetic curve events, not clinical endpoints or formulation recommendations."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release; python scripts/run_phase1.py --config configs/phase1.json; python scripts/check_reproducibility.py --config configs/phase1.json; python scripts/plot_phase1.py; python scripts/validate_phase1.py",
+    "last_updated": "2026-08-29",
+    "category": "Transport Phenomena",
+    "readme_path": "math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/README.md",
+    "documentation_excerpt": "A verified finite-scale benchmark that separates a narrow harmonic-homogenization reliability map from broader pharmaceutical, clinical, and higher-dimensional claims.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P02_homogenization_heterogeneous_drug_release/README.md",
+    "local_hero_image": "/science/when-effective-diffusivity-stops-being-effective/p02_03_harmonic_reliability_map.svg"
+  },
+  {
+    "slug": "how-rare-is-a-flip",
+    "title": "How Rare Is a Flip?",
+    "summary": "A literature-reframed stochastic-toggle study first verifies an error-controlled finite-state reference and seeded Gillespie baseline before any rare-event sampler comparison.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Stochastic Processes",
+      "Rare-Event Simulation"
+    ],
+    "methods": [
+      "Continuous-time Markov chain",
+      "Finite-state projection",
+      "Gillespie stochastic simulation"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch",
+    "hero_image": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/figures/publish/p03_01_exclusive_toggle_ctmc.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p03_01_exclusive_toggle_ctmc.svg",
+        "alt": "Exclusive-toggle continuous-time Markov-chain schematic showing operator binding, protein production, repression, decay, initial state, and the fixed first-hit event.",
+        "caption": "The Phase-1 benchmark is a declared low-copy synthetic surrogate, not a biological validation model or the final rarity ladder.",
+        "generated_by": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/scripts/plot_smoke.py",
+        "source_path": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/figures/publish/p03_01_exclusive_toggle_ctmc.svg"
+      },
+      {
+        "filename": "p03_02_fsp_vs_naive_ssa.svg",
+        "alt": "Finite-state-projection probability reference beside a seeded naive-SSA estimate and its 95 percent Wilson interval.",
+        "caption": "The seeded SSA interval intersects the narrow finite-state reference bracket in the declared smoke regime.",
+        "generated_by": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/scripts/plot_smoke.py",
+        "source_path": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/figures/publish/p03_02_fsp_vs_naive_ssa.svg"
+      },
+      {
+        "filename": "p03_03_seeded_interval_calibration.svg",
+        "alt": "Thirty-two independent seeded naive-SSA Wilson intervals compared with the finite-state probability reference, with two missed intervals marked by crosses.",
+        "caption": "Thirty of thirty-two small-batch intervals intersect the controlled reference; this remains a smoke diagnostic rather than a precision coverage study.",
+        "generated_by": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/scripts/plot_smoke.py",
+        "source_path": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/figures/publish/p03_03_seeded_interval_calibration.svg"
+      },
+      {
+        "filename": "p03_04_fsp_truncation_audit.svg",
+        "alt": "Log-scale finite-state overflow audit showing cap 18 failing and cap 20 passing the unchanged one times ten to the minus eight tolerance.",
+        "caption": "The failed cap-18 attempt is preserved; enlarging the state cap, rather than relaxing the tolerance, produces the admissible reference.",
+        "generated_by": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/scripts/plot_smoke.py",
+        "source_path": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/figures/publish/p03_04_fsp_truncation_audit.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic low-copy exclusive-toggle trajectories and finite-state probability calculations",
+    "research_question": "Can a controlled reference and seeded baseline be established before testing where rare-event estimators lose reliability under progress-coordinate misspecification?",
+    "limitations": [
+      "Phase 1 validates only one tractable synthetic first-hit regime; it does not test AMS, FFPilot, or a final rarity ladder.",
+      "The model is not fitted to a biological toggle and provides no experimental or biological validation.",
+      "The thirty-two small batches are a technical interval diagnostic, not a high-precision coverage experiment or an efficiency comparison."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch; python scripts/run_smoke.py --config configs/smoke.yaml; python scripts/plot_smoke.py; python scripts/validate_smoke.py",
+    "last_updated": "2026-08-29",
+    "category": "Stochastic Processes",
+    "readme_path": "math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/README.md",
+    "documentation_excerpt": "A verified Phase-1 benchmark that keeps literature novelty, truncation error, Monte Carlo uncertainty, and untested rare-event claims separate.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P03_rare_event_genetic_switch/README.md",
+    "local_hero_image": "/science/how-rare-is-a-flip/p03_01_exclusive_toggle_ctmc.svg"
+  },
+  {
+    "slug": "when-polynomial-chaos-crosses-a-fold",
+    "title": "When Polynomial Chaos Crosses a Fold",
+    "summary": "A literature-reframed CSTR benchmark tests a global Legendre surrogate against an oracle fold-aligned two-element surrogate at the same 16 forward evaluations.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Uncertainty Quantification",
+      "Nonlinear Dynamics"
+    ],
+    "methods": [
+      "Legendre stochastic collocation",
+      "Saddle-node bifurcation analysis",
+      "Multi-element polynomial chaos"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds",
+    "hero_image": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/figures/publish/p04_02_global_vs_fold_aligned_response.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p04_01_cstr_fold_protocol.svg",
+        "alt": "Dimensionless CSTR equilibrium curve showing stable cold and hot branches, the middle saddle, two folds, the frozen uncertain-input interval, and the declared cold-start ignition jump.",
+        "caption": "The response is a right-continuous quasi-static history operator; it is not a finite-rate ignition simulation.",
+        "generated_by": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/scripts/plot_smoke.py",
+        "source_path": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/figures/publish/p04_01_cstr_fold_protocol.svg"
+      },
+      {
+        "filename": "p04_02_global_vs_fold_aligned_response.svg",
+        "alt": "Branch-explicit conversion response compared with a global degree-15 Legendre surrogate and a fold-aligned two-element degree-7 plus degree-7 surrogate across the ignition fold.",
+        "caption": "At the same 16 forward evaluations, the global polynomial oscillates across the jump while the oracle-aligned elements remain branch-specific.",
+        "generated_by": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/scripts/plot_smoke.py",
+        "source_path": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/figures/publish/p04_02_global_vs_fold_aligned_response.svg"
+      },
+      {
+        "filename": "p04_03_response_error_near_fold.svg",
+        "alt": "Logarithmic pointwise absolute conversion errors for global and fold-aligned surrogates with the oracle ignition-fold boundary marked at standardized input zero.",
+        "caption": "The error audit separates one-sided fold limits from grid-dependent maxima and discloses the display floor.",
+        "generated_by": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/scripts/plot_smoke.py",
+        "source_path": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/figures/publish/p04_03_response_error_near_fold.svg"
+      },
+      {
+        "filename": "p04_04_matched_budget_reliability.svg",
+        "alt": "Paired hatched bars compare RMSE, Wasserstein-1 error, hot-state probability error, and invalid-support mass for two surrogates using 16 forward evaluations each.",
+        "caption": "The fold-aligned surrogate passes the frozen reliability gates, but its analytic oracle split cost is excluded and no total-cost claim is made.",
+        "generated_by": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/scripts/plot_smoke.py",
+        "source_path": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/figures/publish/p04_04_matched_budget_reliability.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic dimensionless CSTR equilibria and deterministic surrogate audit grids",
+    "research_question": "Under one fold-centered uncertainty law and a declared cold-start quasi-static history, how does an oracle fold-aligned surrogate compare with a global polynomial at a matched forward-evaluation budget?",
+    "limitations": [
+      "The analytic fold is supplied as an oracle boundary and its discovery cost is excluded, so this is neither an adaptive algorithm nor a total-cost comparison.",
+      "The result covers one dimensionless synthetic CSTR, one uncertainty interval, one history convention, and one 16-evaluation budget.",
+      "No calibrated reactor, finite-rate ignition dynamics, wider parameter sweep, industrial safety conclusion, or universal polynomial-chaos superiority is established."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds; python scripts/run_smoke.py; python scripts/plot_smoke.py; python -m pytest -q; python scripts/check_repo.py",
+    "last_updated": "2026-08-29",
+    "category": "Uncertainty Quantification",
+    "readme_path": "math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/README.md",
+    "documentation_excerpt": "A verified Phase-1 replication-extension that separates fold-crossing surrogate reliability from untested adaptive, cost, physical, and safety claims.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P04_multielement_pce_cstr_folds/README.md",
+    "local_hero_image": "/science/when-polynomial-chaos-crosses-a-fold/p04_02_global_vs_fold_aligned_response.svg"
+  },
+  {
+    "slug": "random-stress-tests-are-not-certificates",
+    "title": "Random Stress Tests Are Not Certificates",
+    "summary": "A frozen synthetic CSTR-like benchmark separates feasible stress-test incumbents from a deterministic set-wise worst-case interval with an explicit valid gap.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Global Optimization",
+      "Chemical Engineering",
+      "Reliability and Uncertainty"
+    ],
+    "methods": [
+      "Interval branch-and-bound",
+      "Analytic monotonicity reduction",
+      "Latin hypercube stress testing"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate",
+    "hero_image": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/figures/publish/p07_02_certificate_convergence.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p07_01_model_reduction.svg",
+        "alt": "Declared synthetic temperature, kinetic-intensity, and heat-removal box reduced to a one-dimensional search by proved derivative signs, beside the lower-bound, upper-bound, and stop-rule certificate definition.",
+        "caption": "Global derivative signs fix the kinetic and heat-removal coordinates at one corner; interval branch-and-bound certifies the remaining temperature coordinate.",
+        "generated_by": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/figures/publish/p07_01_model_reduction.svg"
+      },
+      {
+        "filename": "p07_02_certificate_convergence.svg",
+        "alt": "Certified optimality gap and lower-upper objective bounds across processed deterministic branch-and-bound nodes.",
+        "caption": "The valid set-wise gap closes to 4.126 times ten to the minus seven under the unchanged one times ten to the minus six gate.",
+        "generated_by": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/figures/publish/p07_02_certificate_convergence.svg"
+      },
+      {
+        "filename": "p07_03_stress_shortfall.svg",
+        "alt": "Median fixed-design shortfall for IID and Latin-hypercube stress tests over four budgets, with zero of thirty-two declared hits in every method-budget cell.",
+        "caption": "The zero-hit counts belong only to the exact frozen seeds and budgets; no population miss probability or safety probability is inferred.",
+        "generated_by": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/figures/publish/p07_03_stress_shortfall.svg"
+      },
+      {
+        "filename": "p07_04_local_not_certificate.svg",
+        "alt": "Thirty-two multistart local-search distances from the certified upper bound beside a comparison of feasible incumbents and a deterministic global interval.",
+        "caption": "Nineteen starts reach within the certificate width and thirteen do not, but no local result supplies the required set-wise upper bound.",
+        "generated_by": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/figures/publish/p07_04_local_not_certificate.svg"
+      },
+      {
+        "filename": "p07_05_worstcase_slice.svg",
+        "alt": "Synthetic thermal-drift curves for the proved worst corner, box midpoint, and opposite corner beside the temperature derivative at the worst corner.",
+        "caption": "The interior temperature maximizer is bracketed after the two uncertainty coordinates are fixed by global derivative signs.",
+        "generated_by": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/figures/publish/p07_05_worstcase_slice.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic dimensionless algebraic CSTR-like drift objective and fixed seeded optimization designs",
+    "research_question": "For one declared synthetic bounded objective, what distinguishes a valid worst-case interval from high values returned by fixed stress tests and multistart local search?",
+    "limitations": [
+      "The certificate applies only to one synthetic dimensionless algebraic objective and a one-dimensional search obtained from proved derivative signs.",
+      "The IID and Latin-hypercube zero-hit counts cover exact fixed seeds and budgets and do not estimate a general miss probability or confidence level.",
+      "No dynamic CSTR, physical runaway boundary, experiment, plant, safety guarantee, or novel global-optimization method is established."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate; python -m unittest discover -s tests -v; python scripts/run_experiment.py --output results/canonical.json; python scripts/run_experiment.py --output results/rerun.json; python scripts/check_reproducibility.py; python scripts/plot_results.py; python scripts/check_repo.py",
+    "last_updated": "2026-08-30",
+    "category": "Global Optimization",
+    "readme_path": "math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/README.md",
+    "documentation_excerpt": "A frozen replication-extension benchmark that keeps valid global bounds distinct from fixed-design incumbents and physical CSTR safety claims.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P07_global_worstcase_cstr_certificate/README.md",
+    "local_hero_image": "/science/random-stress-tests-are-not-certificates/p07_02_certificate_convergence.svg"
+  },
+  {
+    "slug": "can-a-mesh-preserve-the-event",
+    "title": "Can a Mesh Preserve the Event?",
+    "summary": "A frozen growing-domain reaction-diffusion benchmark stops before adaptive comparison because the declared modal-transfer event never satisfies its establishment rule.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Numerical Analysis",
+      "Mathematical Biology",
+      "Adaptive Finite Elements"
+    ],
+    "methods": [
+      "Uniform P1 finite elements",
+      "Conservative finite differences",
+      "Event admissibility audit"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns",
+    "hero_image": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/figures/publish/p01_01_event_score.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p01_01_event_score.svg",
+        "alt": "Nested uniform finite-element and independent conservative finite-difference modal-transfer scores over the full horizon and around the raw threshold crossing.",
+        "caption": "Every growing-domain solve crosses the raw score threshold, but the crossing is diagnostic only because the frozen establishment rule fails.",
+        "generated_by": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/scripts/plot_phase1a.py",
+        "source_path": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/figures/publish/p01_01_event_score.svg"
+      },
+      {
+        "filename": "p01_02_establishment_audit.svg",
+        "alt": "Mode-one amplitude and mode-one modal fraction for the fine finite-element and finite-difference solutions against the two frozen establishment thresholds.",
+        "caption": "Both establishment requirements had to persist for 50 time units; the longest simultaneous run was 16.",
+        "generated_by": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/scripts/plot_phase1a.py",
+        "source_path": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/figures/publish/p01_02_establishment_audit.svg"
+      },
+      {
+        "filename": "p01_03_null_concordance.svg",
+        "alt": "Raw score-crossing diagnostics and longest establishment runs for three nested finite-element solves, an independent finite-difference solve, and a no-growth control.",
+        "caption": "The discretizations agree on a refined diagnostic transition, while every formal event time remains null.",
+        "generated_by": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/scripts/plot_phase1a.py",
+        "source_path": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/figures/publish/p01_03_null_concordance.svg"
+      },
+      {
+        "filename": "p01_04_activator_profiles.svg",
+        "alt": "Fine finite-element and independent finite-difference activator profiles at times 500, 540, and 600 around the non-admissible score transition.",
+        "caption": "The two spatial discretizations resolve the same profile transition; this is numerical concordance, not an admissible event or biological validation.",
+        "generated_by": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/scripts/plot_phase1a.py",
+        "source_path": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/figures/publish/p01_04_activator_profiles.svg"
+      },
+      {
+        "filename": "p01_05_negative_control.svg",
+        "alt": "Growing and no-growth finite-element controls compared with identical initial condition, horizon, and event analyzer for modal-transfer score and mode-one amplitude.",
+        "caption": "The no-growth control has no raw score crossing; neither growing nor no-growth run has an admissible event.",
+        "generated_by": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/scripts/plot_phase1a.py",
+        "source_path": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/figures/publish/p01_05_negative_control.svg"
+      },
+      {
+        "filename": "p01_06_verification_orders.svg",
+        "alt": "Manufactured temporal and spatial finite-element errors and conservative finite-difference Neumann-space errors with observed convergence orders.",
+        "caption": "Operator and order checks pass, but numerical verification cannot replace the failed event-admissibility gate.",
+        "generated_by": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/scripts/plot_phase1a.py",
+        "source_path": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/figures/publish/p01_06_verification_orders.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic one-dimensional growing-domain reaction-diffusion trajectories and event diagnostics",
+    "research_question": "Does one frozen modal-transfer definition admit a converged independent reference before any goal-adaptive finite-element comparison is attempted?",
+    "limitations": [
+      "The declared event is inadmissible because its 50-unit establishment rule fails; every formal event time is null.",
+      "Residual adaptivity, an adjoint, goal marking, matched-resolution comparison, effectivity and efficiency claims were not executed.",
+      "The model is a synthetic one-dimensional prescribed-growth benchmark with no biological calibration or general finite-element superiority claim."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns; python -m unittest discover -s tests -v; python scripts/run_phase1a.py --config configs/phase1a.toml --results-root results/phase1a --attempt-id attempt-0001; python scripts/run_phase1a.py --config configs/phase1a.toml --results-root results/phase1a --attempt-id attempt-0002; python scripts/compare_phase1a_attempts.py --results-root results/phase1a --first attempt-0001 --second attempt-0002",
+    "last_updated": "2026-08-30",
+    "category": "Numerical Analysis",
+    "readme_path": "math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/README.md",
+    "documentation_excerpt": "A fail-closed Phase-1A reference-feasibility audit: the operators verify and independent solvers agree diagnostically, but the preregistered event is absent.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P01_goal_adaptive_fem_growing_patterns/README.md",
+    "local_hero_image": "/science/can-a-mesh-preserve-the-event/p01_01_event_score.svg"
+  },
+  {
+    "slug": "when-a-reduced-ventilation-model-leaves-its-training-regime",
+    "title": "When a Reduced Ventilation Model Leaves Its Training Regime",
+    "summary": "A frozen synthetic POD and POD-DEIM audit stops at nominal inadmissibility before any ventilation-shift reliability claim can be made.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Reduced-Order Modeling",
+      "Indoor Transport",
+      "Numerical Reliability"
+    ],
+    "methods": [
+      "Proper orthogonal decomposition",
+      "Discrete empirical interpolation",
+      "Conservative finite-volume transport"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift",
+    "hero_image": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/figures/publish/p05_01_basis_nominal_gate.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p05_01_basis_nominal_gate.svg",
+        "alt": "Nominal POD singular-value decay beside nominal-holdout errors for POD, POD-DEIM, and a static lookup normalized by frozen gates.",
+        "caption": "The selected basis is compact, but neither POD nor POD-DEIM passes the nominal field gate, so the shift audit stops.",
+        "generated_by": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/figures/publish/p05_01_basis_nominal_gate.svg"
+      },
+      {
+        "filename": "p05_02_shift_metrics.svg",
+        "alt": "Field, exposure-integral, and event-duration errors for POD, POD-DEIM, and static lookup across nominal, single-shift, and combined synthetic cases.",
+        "caption": "Shift-case errors remain diagnostics because the nominal control already failed its frozen admissibility gate.",
+        "generated_by": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/figures/publish/p05_02_shift_metrics.svg"
+      },
+      {
+        "filename": "p05_03_nominal_timeseries.svg",
+        "alt": "Reference, POD, POD-DEIM, and static-lookup person-zone concentration traces with a frozen threshold and time-resolved field error for the nominal holdout.",
+        "caption": "The nominal control already distorts person-zone traces and field error, so later shift differences cannot be attributed to distribution shift.",
+        "generated_by": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/figures/publish/p05_03_nominal_timeseries.svg"
+      },
+      {
+        "filename": "p05_04_diagnostic_failure.svg",
+        "alt": "Actual POD-DEIM field-error ordering beside the 24-point sampled-residual warning-score ordering for five locked cases.",
+        "caption": "The warning score is anti-correlated with actual error at Spearman minus 0.50, below the frozen plus 0.60 gate.",
+        "generated_by": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/figures/publish/p05_04_diagnostic_failure.svg"
+      },
+      {
+        "filename": "p05_05_nominal_fields.svg",
+        "alt": "Full-order, POD, and POD-DEIM synthetic concentration fields at 660 seconds with the absolute POD-DEIM error field.",
+        "caption": "The fields are synthetic passive-scalar surrogates, not calibrated indoor measurements or health-risk maps.",
+        "generated_by": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/figures/publish/p05_05_nominal_fields.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic two-dimensional passive-scalar trajectories, person-zone summaries, and reduced-model diagnostics",
+    "research_question": "Can nominally trained POD and POD-DEIM first pass a frozen nominal trust gate before schedule, source-location, and ventilation shifts are interpreted?",
+    "limitations": [
+      "Neither reduced model passed the nominal field gate, so Phase 1 cannot attribute any additional failure to a declared shift.",
+      "The sampled-residual warning rule and the five-times speed gate were refuted on this frozen implementation and five-case audit.",
+      "This is not a calibrated building, airflow, carbon-dioxide, infection-risk, health, controller-safety, or deployment study."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift; python -m unittest discover -s tests -v; python scripts/run_phase1.py --config configs/phase1.toml --attempt-id attempt-0001; python scripts/run_phase1.py --config configs/phase1.toml --attempt-id attempt-0002; python scripts/check_reproducibility.py; python scripts/plot_phase1.py; python scripts/check_repo.py",
+    "last_updated": "2026-08-30",
+    "category": "Reduced-Order Modeling",
+    "readme_path": "math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/README.md",
+    "documentation_excerpt": "A frozen fail-closed POD and POD-DEIM benchmark in which the full-order reference verifies but the nominal reduced models remain inadmissible.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P05_pod_deim_ventilation_shift/README.md",
+    "local_hero_image": "/science/when-a-reduced-ventilation-model-leaves-its-training-regime/p05_01_basis_nominal_gate.svg"
+  },
+  {
+    "slug": "assimilating-what-you-can-observe",
+    "title": "Assimilating What You Can Observe",
+    "summary": "A frozen synthetic six-patch EnKF benchmark separates optimistic latent observations from correct aggregated/delayed reports and a deliberately misspecified operator, while retaining a failed coverage gate.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Data Assimilation",
+      "Mathematical Epidemiology",
+      "Uncertainty Calibration"
+    ],
+    "methods": [
+      "Ensemble Kalman filter",
+      "Metapopulation SIR model",
+      "Observation-operator stress test"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics",
+    "hero_image": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/figures/publish/p06_01_observation_operator_protocol.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p06_01_observation_operator_protocol.svg",
+        "alt": "Six-patch latent SIR network mapped to direct latent observations, the correct adjacent-pair delayed reporting operator, and a deliberately wrong non-adjacent no-delay operator.",
+        "caption": "All four arms share one synthetic truth and prior; only the presence and mapping of observations change.",
+        "generated_by": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/figures/publish/p06_01_observation_operator_protocol.svg"
+      },
+      {
+        "filename": "p06_02_assimilation_state_recovery.svg",
+        "alt": "Four panels compare patch-one infected truth, ensemble means, and pointwise 90 percent intervals during assimilation for open-loop, direct, correct aggregate-delay, and misspecified arms.",
+        "caption": "The correct operator improves point recovery, but its all-patch 90 percent coverage remains below the frozen calibration gate.",
+        "generated_by": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/figures/publish/p06_02_assimilation_state_recovery.svg"
+      },
+      {
+        "filename": "p06_03_heldout_peak_forecasts.svg",
+        "alt": "Four held-out total-infected forecasts show truth, ensemble mean, and 90 percent intervals from day 44 through day 100 for each frozen arm.",
+        "caption": "The correct operator matches the synthetic peak day while misspecification is five days late; no observations are used after day 44.",
+        "generated_by": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/figures/publish/p06_03_heldout_peak_forecasts.svg"
+      },
+      {
+        "filename": "p06_04_predeclared_gate_audit.svg",
+        "alt": "Bar panels compare state RMSE, 90 percent coverage, peak-day error, and peak-intensity error, with the correct-arm coverage failure highlighted.",
+        "caption": "Four of five recovery gates pass, but 0.563 coverage fails the 0.70 lower bound, so the conclusion remains partial.",
+        "generated_by": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/figures/publish/p06_04_predeclared_gate_audit.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic six-patch SIR trajectories and Gaussian observation streams",
+    "research_question": "How do direct latent, correct aggregated-and-delayed, and deliberately misspecified observation operators change EnKF state recovery, calibration, and held-out peak forecasts under one frozen synthetic truth?",
+    "limitations": [
+      "The correct arm fails the frozen 90 percent latent-state coverage gate, so recovery is only partial despite improved point errors.",
+      "The benchmark uses one six-patch model, prior, seed family, aggregation, delay kernel, and Gaussian-noise specification.",
+      "No real dengue or surveillance data, fitted epidemiology, clinical or public-health validation, operational forecast, or universal EnKF result is provided."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics; python -m unittest discover -s tests -v; python scripts/run_phase1.py; python scripts/run_phase1.py --output results/p06_phase1_rerun.json --signature results/p06_phase1_rerun_signature.json; python scripts/validate_phase1.py --compare results/p06_phase1_rerun.json; python scripts/plot_phase1.py; python scripts/check_repo.py",
+    "last_updated": "2026-08-30",
+    "category": "Data Assimilation",
+    "readme_path": "math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/README.md",
+    "documentation_excerpt": "A failure-preserving synthetic EnKF study where the correct observation operator improves point recovery but does not pass the predeclared state-coverage gate.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P06_enkf_aggregated_spatial_epidemics/README.md",
+    "local_hero_image": "/science/assimilating-what-you-can-observe/p06_01_observation_operator_protocol.svg"
+  },
+  {
+    "slug": "when-a-traffic-solver-invents-a-jam",
+    "title": "When a Traffic Solver Invents a Jam",
+    "summary": "A failure-preserving LWR benchmark shows how final shock-grid alignment can make a cell-average norm look exact while threshold arrival and queue accounting remain biased.",
+    "status": "Reproducible verified null",
+    "year": 2026,
+    "topics": [
+      "Traffic Flow",
+      "Numerical Analysis",
+      "Conservation Laws"
+    ],
+    "methods": [
+      "Finite-volume methods",
+      "Exact Riemann reference",
+      "Operational event diagnostics"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks",
+    "hero_image": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/figures/publish/p10_01_shock_profiles.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p10_01_shock_profiles.svg",
+        "alt": "Exact backward LWR shock and three finite-volume density profiles over the full synthetic road and a zoomed sensor neighbourhood, with fixed sensor and queue threshold marked.",
+        "caption": "A near-exact final cell-average norm can coexist with a smeared operational front at the fixed sensor.",
+        "generated_by": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/figures/publish/p10_01_shock_profiles.svg"
+      },
+      {
+        "filename": "p10_02_operational_bias.svg",
+        "alt": "Log-scale threshold-arrival delay and transition-width refinement for Godunov, Rusanov and MUSCL-Godunov schemes across four cell counts.",
+        "caption": "Arrival delay and transition width shrink regularly even though the frozen global-L1 gate fails.",
+        "generated_by": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/figures/publish/p10_02_operational_bias.svg"
+      },
+      {
+        "filename": "p10_03_queue_metrics.svg",
+        "alt": "Log-scale absolute final queue-length and congestion area-time errors for three frozen finite-volume schemes across four grids.",
+        "caption": "A smeared front changes threshold-defined synthetic queue accounting; these quantities are not empirical vehicle delays.",
+        "generated_by": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/figures/publish/p10_03_queue_metrics.svg"
+      },
+      {
+        "filename": "p10_04_gate_null.svg",
+        "alt": "Side-by-side final cell-average L1 error and threshold-arrival delay, highlighting an N=50 grid-alignment anomaly and the retained scientific null.",
+        "caption": "The N=50 alignment breaks the strict monotone-L1 gate while operational arrival error refines under every grid doubling.",
+        "generated_by": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/figures/publish/p10_04_gate_null.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic dimensionless LWR Riemann trajectories and threshold-defined diagnostics",
+    "research_question": "Can final shock-grid alignment make a cell-average refinement gate misleading while fixed operational event and queue metrics still expose numerical bias?",
+    "limitations": [
+      "The evidence covers one dimensionless Greenshields shock, one sensor, one threshold, one CFL and four grids.",
+      "No empirical road, detector, calibration, travel-time forecast, safety conclusion or transport-policy recommendation is involved.",
+      "The study derives no modified-equation coefficient, proves no new theorem and makes no universal ranking of finite-volume schemes."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks; python -m unittest discover -s tests -v; python scripts/run_phase1.py --output results/canonical.json; python scripts/run_phase1.py --output results/rerun.json; python scripts/check_reproducibility.py; python scripts/plot_phase1.py; python scripts/rasterize_pdf_qa.py; python scripts/check_repo.py",
+    "last_updated": "2026-08-30",
+    "category": "Numerical Analysis",
+    "readme_path": "math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/README.md",
+    "documentation_excerpt": "A frozen synthetic traffic-shock benchmark where a verified null separates global cell-average accuracy from threshold-defined operational bias.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P10_modified_equation_traffic_shocks/README.md",
+    "local_hero_image": "/science/when-a-traffic-solver-invents-a-jam/p10_01_shock_profiles.svg"
+  },
+  {
+    "slug": "one-integrator-across-the-fast-slow-boundary",
+    "title": "One Integrator Across the Fast-Slow Boundary",
+    "summary": "A frozen Michaelis-Menten property audit verifies conservation, non-negativity and the fixed-step slow limit while preserving the null result that its AP update does not beat backward Euler on error.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Enzyme Kinetics",
+      "Singular Perturbations",
+      "Numerical Analysis"
+    ],
+    "methods": [
+      "Linearly implicit AP integration",
+      "Radau IIA reference",
+      "Backward Euler and RK4 audit"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics",
+    "hero_image": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/figures/publish/p08_03_null_error_advantage.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p08_01_fastslow_property_audit.svg",
+        "alt": "Dimensionless fast-slow enzyme equations, exact invariant, and three audited properties of the linearly implicit update.",
+        "caption": "The project separates analytically supported structure from empirical finite-grid accuracy and makes no new-solver claim.",
+        "generated_by": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/figures/publish/p08_01_fastslow_property_audit.svg"
+      },
+      {
+        "filename": "p08_02_crossregime_trajectories.svg",
+        "alt": "Reference, AP, backward-Euler and reduced product trajectories at epsilon one and epsilon one-millionth.",
+        "caption": "The same fixed step tracks slow product formation in both panels, while the reduced curve is not a full-model substitute at epsilon one.",
+        "generated_by": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/figures/publish/p08_02_crossregime_trajectories.svg"
+      },
+      {
+        "filename": "p08_03_null_error_advantage.svg",
+        "alt": "Finest-step weighted errors and AP-to-backward-Euler error ratios across the frozen epsilon grid.",
+        "caption": "The AP envelope passes, but its error is higher than backward Euler at every frozen epsilon, preserving the comparative null.",
+        "generated_by": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/figures/publish/p08_03_null_error_advantage.svg"
+      },
+      {
+        "filename": "p08_04_convergence_slowlimit.svg",
+        "alt": "AP weighted-error convergence for three stiffness values and last-pair observed order across all frozen epsilon values.",
+        "caption": "First-order convergence and the correct fixed-step slow limit survive the declared finite-grid audit.",
+        "generated_by": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/figures/publish/p08_04_convergence_slowlimit.svg"
+      },
+      {
+        "filename": "p08_05_event_and_feasibility.svg",
+        "alt": "Product-half event times and a physical-status matrix for AP, backward Euler and RK4 across the stiffness grid.",
+        "caption": "Reduced-event agreement emerges only at small epsilon, while fixed RK4 fails or becomes nonphysical in 28 of 40 frozen cases.",
+        "generated_by": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/scripts/plot_results.py",
+        "source_path": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/figures/publish/p08_05_event_and_feasibility.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic dimensionless irreversible Michaelis-Menten trajectories and numerical-property diagnostics",
+    "research_question": "Can one simple linearly implicit update preserve proved structure and the correct fixed-step slow limit across a frozen stiffness grid without implying error or runtime superiority?",
+    "limitations": [
+      "The evidence covers one synthetic dimensionless irreversible Michaelis-Menten family, ten epsilon values, four fixed steps and one ill-prepared initial condition.",
+      "The study introduces no new AP/IMEX solver or uniform-accuracy theorem and does not provide an external Radau/BDF/VODE work-precision comparison.",
+      "There is no biochemical parameter fit, experiment, biological validation, clinical conclusion or claim beyond the declared finite grid."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics; python -m unittest discover -s tests -v; python scripts/run_experiment.py --output results/canonical.json; python scripts/run_experiment.py --output results/rerun.json; python scripts/check_reproducibility.py; python scripts/plot_results.py; python scripts/rasterize_pdf_qa.py; python scripts/check_repo.py",
+    "last_updated": "2026-08-30",
+    "category": "Numerical Analysis",
+    "readme_path": "math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/README.md",
+    "documentation_excerpt": "A literature-reframed property audit in which structural and slow-limit gates pass but the proposed AP error advantage is refuted.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P08_asymptotic_preserving_enzyme_kinetics/README.md",
+    "local_hero_image": "/science/one-integrator-across-the-fast-slow-boundary/p08_03_null_error_advantage.svg"
+  },
+  {
+    "slug": "from-simulation-to-certificate",
+    "title": "From Simulation to Certificate",
+    "summary": "A frozen synthetic two-compartment positive-network benchmark separates finite spectral checks from verified all-parameter decay certificates and audits a benchmark-specific diagonal restriction gap.",
+    "status": "Reproducible study",
+    "year": 2026,
+    "topics": [
+      "Positive Systems",
+      "Robust Control",
+      "Numerical Verification"
+    ],
+    "methods": [
+      "Lyapunov inequalities",
+      "Polytopic uncertainty",
+      "Certificate residual audit"
+    ],
+    "featured": false,
+    "project_root": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates",
+    "hero_image": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/figures/publish/p09_02_certificate_decay_stress.svg",
+    "figure_qa": {
+      "status": "PASS",
+      "artifact": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/figures/visual_qa.json",
+      "original_size_reviewed": true,
+      "overlap_checked": true,
+      "clipping_checked": true
+    },
+    "publish_assets": [
+      {
+        "filename": "p09_01_positive_network_protocol.svg",
+        "alt": "Two leaky compartments and three evidence cards distinguish finite spectral checks from diagonal and full quadratic endpoint certificates.",
+        "caption": "The frozen synthetic protocol separates evidence at sampled parameter values from inequalities that cover every convex mixture.",
+        "generated_by": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/figures/publish/p09_01_positive_network_protocol.svg"
+      },
+      {
+        "filename": "p09_02_certificate_decay_stress.svg",
+        "alt": "Decay rate versus endpoint-imbalance stress for dense and seeded finite diagnostics and verified diagonal and full quadratic certificates.",
+        "caption": "Within the frozen two-compartment family, the diagonal certificate drops under stress while the full construction stays close to the dense diagnostic.",
+        "generated_by": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/figures/publish/p09_02_certificate_decay_stress.svg"
+      },
+      {
+        "filename": "p09_03_full_stress_theta_audit.svg",
+        "alt": "Full-stress decay curve and seeded parameter points with horizontal full and diagonal robust certificate bounds across the entire uncertainty segment.",
+        "caption": "A plotted parameter curve remains finite evidence; the verified endpoint inequalities support the horizontal all-theta certificate bounds.",
+        "generated_by": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/figures/publish/p09_03_full_stress_theta_audit.svg"
+      },
+      {
+        "filename": "p09_04_predeclared_gate_audit.svg",
+        "alt": "Six passed frozen gates, full-stress residual eigenvalues, byte-identical rerun status, and the narrow literature-reframed claim boundary.",
+        "caption": "All six benchmark gates pass, without implying a new theorem, global SDP optimum, scaling result, physical validation, or universal superiority.",
+        "generated_by": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/scripts/plot_phase1.py",
+        "source_path": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/figures/publish/p09_04_predeclared_gate_audit.svg"
+      }
+    ],
+    "technical_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates",
+    "repository_url": "https://github.com/skcKenneth/ScienceProject/tree/main/math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates",
+    "code_available": true,
+    "data_available": false,
+    "student_suitable": true,
+    "data_type": "Synthetic two-compartment Metzler matrices, finite spectral diagnostics, and verified quadratic certificate records",
+    "research_question": "How does a diagonal restriction change the constructed robust decay lower bound as endpoint imbalance increases in one frozen positive leaky-transfer family?",
+    "limitations": [
+      "The evidence covers one synthetic two-state line segment and does not establish a general law of diagonal-LMI conservatism.",
+      "The deterministic grid constructs feasible trace-normalized matrices but is not a globally optimal SDP solver or a large-network scaling study.",
+      "No physical system, experimental data, controller, safety conclusion, new theorem, or universal certificate ranking is provided."
+    ],
+    "reproduce_command": "cd math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates; python -m unittest discover -s tests -v; python scripts/run_phase1.py; python scripts/run_phase1.py --output results/p09_phase1_rerun.json --signature results/p09_phase1_rerun_signature.json; python scripts/validate_phase1.py --compare results/p09_phase1_rerun.json; python scripts/plot_phase1.py; python scripts/check_repo.py",
+    "last_updated": "2026-08-30",
+    "category": "Applied Mathematics",
+    "readme_path": "math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/README.md",
+    "documentation_excerpt": "A literature-reframed certificate-quality audit that keeps finite spectral checks distinct from verified all-parameter decay bounds.",
+    "documentation_url": "https://github.com/skcKenneth/ScienceProject/blob/main/math-modeling-research-portfolio-2026/P09_lmi_positive_network_certificates/README.md",
+    "local_hero_image": "/science/from-simulation-to-certificate/p09_02_certificate_decay_stress.svg"
   }
 ]

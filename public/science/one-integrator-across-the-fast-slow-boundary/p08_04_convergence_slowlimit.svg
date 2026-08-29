@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="515.520pt" height="273.600pt" viewBox="0 0 515.520 273.600">
+<title>Convergence and slow-limit audit</title>
+<desc>AP error convergence, observed order, and fixed-step slow-limit evidence.</desc>
+<rect x="0.000" y="0.000" width="515.520" height="273.600" fill="#FFFFFF" stroke="none" stroke-width="0.000"/>
+<text x="257.760" y="16.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="10.000pt" font-weight="700" text-anchor="middle">First-order convergence and the fixed-step slow limit survive the frozen audit</text>
+<text x="53.000" y="39.700" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.700pt" font-weight="700" text-anchor="start">(a) AP convergence</text>
+<text x="326.000" y="39.700" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.700pt" font-weight="700" text-anchor="start">(b) Last-pair observed order</text>
+<line x1="53.000" y1="63.000" x2="53.000" y2="168.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="53.000" y1="168.000" x2="263.000" y2="168.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="53.000" y1="63.000" x2="53.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="53.000" y1="168.000" x2="53.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="53.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">0.025</text>
+<line x1="123.000" y1="63.000" x2="123.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="123.000" y1="168.000" x2="123.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="123.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">0.05</text>
+<line x1="193.000" y1="63.000" x2="193.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="193.000" y1="168.000" x2="193.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="193.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">0.1</text>
+<line x1="263.000" y1="63.000" x2="263.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="263.000" y1="168.000" x2="263.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="263.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">0.2</text>
+<line x1="53.000" y1="168.000" x2="263.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="50.000" y1="168.000" x2="53.000" y2="168.000" stroke="#000000" stroke-width="0.600"/>
+<text x="48.000" y="171.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-3</text>
+<line x1="53.000" y1="141.750" x2="263.000" y2="141.750" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="50.000" y1="141.750" x2="53.000" y2="141.750" stroke="#000000" stroke-width="0.600"/>
+<text x="48.000" y="144.750" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-2.5</text>
+<line x1="53.000" y1="115.500" x2="263.000" y2="115.500" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="50.000" y1="115.500" x2="53.000" y2="115.500" stroke="#000000" stroke-width="0.600"/>
+<text x="48.000" y="118.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-2</text>
+<line x1="53.000" y1="89.250" x2="263.000" y2="89.250" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="50.000" y1="89.250" x2="53.000" y2="89.250" stroke="#000000" stroke-width="0.600"/>
+<text x="48.000" y="92.250" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-1.5</text>
+<line x1="53.000" y1="63.000" x2="263.000" y2="63.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="50.000" y1="63.000" x2="53.000" y2="63.000" stroke="#000000" stroke-width="0.600"/>
+<text x="48.000" y="66.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-1</text>
+<text x="158.000" y="195.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="400" text-anchor="middle">step size h</text>
+<text x="53.000" y="58.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="700" text-anchor="start">log10 weighted error</text>
+<polyline points="263.000,85.971 193.000,99.655 123.000,114.414 53.000,129.696" fill="none" stroke="#0072B2" stroke-width="1.300"/>
+<circle cx="263.000" cy="85.971" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="193.000" cy="99.655" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="123.000" cy="114.414" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="53.000" cy="129.696" r="2.500" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<polyline points="263.000,97.975 193.000,113.277 123.000,124.157 53.000,136.619" fill="none" stroke="#D55E00" stroke-width="1.300" stroke-dasharray="5 3"/>
+<rect x="260.500" y="95.475" width="5.000" height="5.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.100"/>
+<rect x="190.500" y="110.777" width="5.000" height="5.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.100"/>
+<rect x="120.500" y="121.657" width="5.000" height="5.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.100"/>
+<rect x="50.500" y="134.119" width="5.000" height="5.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.100"/>
+<polyline points="263.000,97.922 193.000,113.213 123.000,128.749 53.000,144.419" fill="none" stroke="#009E73" stroke-width="1.300" stroke-dasharray="2 2"/>
+<line x1="260.500" y1="95.422" x2="265.500" y2="100.422" stroke="#009E73" stroke-width="1.100"/>
+<line x1="260.500" y1="100.422" x2="265.500" y2="95.422" stroke="#009E73" stroke-width="1.100"/>
+<line x1="190.500" y1="110.713" x2="195.500" y2="115.713" stroke="#009E73" stroke-width="1.100"/>
+<line x1="190.500" y1="115.713" x2="195.500" y2="110.713" stroke="#009E73" stroke-width="1.100"/>
+<line x1="120.500" y1="126.249" x2="125.500" y2="131.249" stroke="#009E73" stroke-width="1.100"/>
+<line x1="120.500" y1="131.249" x2="125.500" y2="126.249" stroke="#009E73" stroke-width="1.100"/>
+<line x1="50.500" y1="141.919" x2="55.500" y2="146.919" stroke="#009E73" stroke-width="1.100"/>
+<line x1="50.500" y1="146.919" x2="55.500" y2="141.919" stroke="#009E73" stroke-width="1.100"/>
+<line x1="326.000" y1="63.000" x2="326.000" y2="168.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="326.000" y1="168.000" x2="487.000" y2="168.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="326.000" y1="63.000" x2="326.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="326.000" y1="168.000" x2="326.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="326.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-6</text>
+<line x1="379.667" y1="63.000" x2="379.667" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="379.667" y1="168.000" x2="379.667" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="379.667" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-4</text>
+<line x1="433.333" y1="63.000" x2="433.333" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="433.333" y1="168.000" x2="433.333" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="433.333" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">-2</text>
+<line x1="487.000" y1="63.000" x2="487.000" y2="168.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="487.000" y1="168.000" x2="487.000" y2="171.000" stroke="#000000" stroke-width="0.600"/>
+<text x="487.000" y="180.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">0</text>
+<line x1="326.000" y1="148.909" x2="487.000" y2="148.909" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="323.000" y1="148.909" x2="326.000" y2="148.909" stroke="#000000" stroke-width="0.600"/>
+<text x="321.000" y="151.909" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">0.6</text>
+<line x1="326.000" y1="110.727" x2="487.000" y2="110.727" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="323.000" y1="110.727" x2="326.000" y2="110.727" stroke="#000000" stroke-width="0.600"/>
+<text x="321.000" y="113.727" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">0.8</text>
+<line x1="326.000" y1="72.545" x2="487.000" y2="72.545" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="323.000" y1="72.545" x2="326.000" y2="72.545" stroke="#000000" stroke-width="0.600"/>
+<text x="321.000" y="75.545" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">1</text>
+<text x="406.500" y="195.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="400" text-anchor="middle">log10 epsilon</text>
+<text x="326.000" y="58.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="700" text-anchor="start">observed order</text>
+<polyline points="487.000,78.850 472.969,89.212 460.167,112.914 446.136,76.175 433.333,74.156 419.303,74.169 406.500,74.171 379.667,74.171 352.833,74.171 326.000,74.171" fill="none" stroke="#CC79A7" stroke-width="1.400"/>
+<line x1="326.000" y1="158.455" x2="487.000" y2="158.455" stroke="#D55E00" stroke-width="1.000" stroke-dasharray="4 3"/>
+<circle cx="487.000" cy="78.850" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="472.969" cy="89.212" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="460.167" cy="112.914" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="446.136" cy="76.175" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="433.333" cy="74.156" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="419.303" cy="74.169" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="406.500" cy="74.171" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="379.667" cy="74.171" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="352.833" cy="74.171" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<circle cx="326.000" cy="74.171" r="2.300" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.800"/>
+<line x1="69.000" y1="215.000" x2="85.000" y2="215.000" stroke="#0072B2" stroke-width="1.300"/>
+<circle cx="77.000" cy="215.000" r="2.200" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.000"/>
+<text x="89.000" y="217.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="700" text-anchor="start">eps 1</text>
+<line x1="130.000" y1="215.000" x2="146.000" y2="215.000" stroke="#D55E00" stroke-width="1.300" stroke-dasharray="5 3"/>
+<rect x="136.000" y="212.800" width="4.400" height="4.400" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.000"/>
+<text x="150.000" y="217.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="700" text-anchor="start">eps 0.1</text>
+<line x1="206.000" y1="215.000" x2="222.000" y2="215.000" stroke="#009E73" stroke-width="1.300" stroke-dasharray="2 2"/>
+<text x="226.000" y="217.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="700" text-anchor="start">eps 1e-6</text>
+<text x="257.760" y="249.400" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.400pt" font-weight="700" text-anchor="middle">Minimum last-pair order = 0.789; max fixed-step AP-limit error = 3.448e-07.</text>
+</svg>

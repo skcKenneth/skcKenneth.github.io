@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-08-29",
+  "reviewMethod": "Original 1200-unit SVGs rendered at 3200-pixel width, with a 6400-pixel-width detail render for the revised coverage panel, then inspected for text collisions, data occlusion, and four-edge clipping.",
+  "status": "PASS",
+  "figures": [
+    {
+      "file": "public/images/writing/from-pixels-to-patrols/calibration-to-allocation-pipeline.svg",
+      "sha256": "a9646cb7bddeef7061e02ce53b229964f306addaf828177ee5d98fe5fd7bd1af",
+      "renderedPixels": [3200, 1800],
+      "overlapDetected": false,
+      "clippingDetected": false
+    },
+    {
+      "file": "public/images/writing/from-pixels-to-patrols/manuscript-reported-metrics.svg",
+      "sha256": "d47794dd0ad39c7ac30704550ee2618ef2487e8b39fc188f327423cbc33e0991",
+      "renderedPixels": [3200, 1920],
+      "overlapDetected": false,
+      "clippingDetected": false
+    }
+  ],
+  "revisionHistory": [
+    {
+      "file": "public/images/writing/from-pixels-to-patrols/manuscript-reported-metrics.svg",
+      "revision": 1,
+      "outcome": "REJECTED",
+      "sha256": "5d9c1bd488920119a005b90e74b9ec0c23bce9d5a61229cafc3961752b9d195b",
+      "issue": "The interval-coverage marker touched the nominal 0.900 label.",
+      "action": "Moved the label upward, regenerated the full-size image, and inspected a higher-resolution panel crop."
+    },
+    {
+      "file": "public/images/writing/from-pixels-to-patrols/manuscript-reported-metrics.svg",
+      "revision": 2,
+      "outcome": "ACCEPTED",
+      "sha256": "d47794dd0ad39c7ac30704550ee2618ef2487e8b39fc188f327423cbc33e0991",
+      "overlapDetected": false,
+      "clippingDetected": false
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="515.520pt" height="273.600pt" viewBox="0 0 515.520 273.600">
+<title>Fixed-design stress-test shortfall</title>
+<desc>Design-conditional IID and Latin-hypercube shortfalls and frozen hit counts.</desc>
+<rect x="0.000" y="0.000" width="515.520" height="273.600" fill="#FFFFFF" stroke="none" stroke-width="0.000"/>
+<text x="257.760" y="16.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="10.000pt" font-weight="700" text-anchor="middle">Fixed stress-test designs remain below the certified worst-case incumbent</text>
+<text x="22.000" y="37.700" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.700pt" font-weight="700" text-anchor="start">(a) Design-conditional shortfall</text>
+<text x="305.000" y="37.700" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.700pt" font-weight="700" text-anchor="start">(b) Declared hit counts</text>
+<line x1="55.000" y1="62.000" x2="55.000" y2="182.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="55.000" y1="182.000" x2="275.000" y2="182.000" stroke="#000000" stroke-width="0.800"/>
+<line x1="55.000" y1="62.000" x2="55.000" y2="182.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="55.000" y1="182.000" x2="55.000" y2="185.000" stroke="#000000" stroke-width="0.600"/>
+<text x="55.000" y="194.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">32</text>
+<line x1="128.333" y1="62.000" x2="128.333" y2="182.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="128.333" y1="182.000" x2="128.333" y2="185.000" stroke="#000000" stroke-width="0.600"/>
+<text x="128.333" y="194.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">128</text>
+<line x1="201.667" y1="62.000" x2="201.667" y2="182.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="201.667" y1="182.000" x2="201.667" y2="185.000" stroke="#000000" stroke-width="0.600"/>
+<text x="201.667" y="194.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">512</text>
+<line x1="275.000" y1="62.000" x2="275.000" y2="182.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="275.000" y1="182.000" x2="275.000" y2="185.000" stroke="#000000" stroke-width="0.600"/>
+<text x="275.000" y="194.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="middle">2048</text>
+<line x1="55.000" y1="182.000" x2="275.000" y2="182.000" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="52.000" y1="182.000" x2="55.000" y2="182.000" stroke="#000000" stroke-width="0.600"/>
+<text x="50.000" y="185.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-2</text>
+<line x1="55.000" y1="153.429" x2="275.000" y2="153.429" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="52.000" y1="153.429" x2="55.000" y2="153.429" stroke="#000000" stroke-width="0.600"/>
+<text x="50.000" y="156.429" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-1.5</text>
+<line x1="55.000" y1="124.857" x2="275.000" y2="124.857" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="52.000" y1="124.857" x2="55.000" y2="124.857" stroke="#000000" stroke-width="0.600"/>
+<text x="50.000" y="127.857" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-1</text>
+<line x1="55.000" y1="96.286" x2="275.000" y2="96.286" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="52.000" y1="96.286" x2="55.000" y2="96.286" stroke="#000000" stroke-width="0.600"/>
+<text x="50.000" y="99.286" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">-0.5</text>
+<line x1="55.000" y1="67.714" x2="275.000" y2="67.714" stroke="#D9D9D9" stroke-width="0.400"/>
+<line x1="52.000" y1="67.714" x2="55.000" y2="67.714" stroke="#000000" stroke-width="0.600"/>
+<text x="50.000" y="70.714" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="end">0</text>
+<text x="165.000" y="209.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="400" text-anchor="middle">evaluations per replicate</text>
+<text x="55.000" y="57.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="8.000pt" font-weight="700" text-anchor="start">log10 shortfall</text>
+<circle cx="55.000" cy="71.592" r="3.000" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="128.333" cy="86.983" r="3.000" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="201.667" cy="104.163" r="3.000" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<circle cx="275.000" cy="115.905" r="3.000" fill="#FFFFFF" stroke="#0072B2" stroke-width="1.100"/>
+<polyline points="55.000,71.592 128.333,86.983 201.667,104.163 275.000,115.905" fill="none" stroke="#0072B2" stroke-width="1.400"/>
+<rect x="52.000" y="74.500" width="6.000" height="6.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.100"/>
+<rect x="125.333" y="85.889" width="6.000" height="6.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.100"/>
+<rect x="198.667" y="102.126" width="6.000" height="6.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.100"/>
+<rect x="272.000" y="117.625" width="6.000" height="6.000" fill="#FFFFFF" stroke="#D55E00" stroke-width="1.100"/>
+<polyline points="55.000,77.500 128.333,88.889 201.667,105.126 275.000,120.625" fill="none" stroke="#D55E00" stroke-width="1.400" stroke-dasharray="5 3"/>
+<line x1="75.000" y1="42.000" x2="90.000" y2="42.000" stroke="#0072B2" stroke-width="1.400"/>
+<text x="94.000" y="44.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="start">IID</text>
+<line x1="131.000" y1="42.000" x2="146.000" y2="42.000" stroke="#D55E00" stroke-width="1.400" stroke-dasharray="5 3"/>
+<text x="150.000" y="44.000" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.000pt" font-weight="400" text-anchor="start">LHS</text>
+<rect x="318.000" y="57.000" width="170.000" height="128.000" fill="#FFFFFF" stroke="#000000" stroke-width="0.600"/>
+<text x="329.000" y="72.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="700" text-anchor="start">budget</text>
+<text x="391.000" y="72.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="700" text-anchor="start">IID</text>
+<text x="444.000" y="72.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="700" text-anchor="start">LHS</text>
+<line x1="318.000" y1="81.000" x2="488.000" y2="81.000" stroke="#D9D9D9" stroke-width="0.500"/>
+<text x="329.000" y="94.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">32</text>
+<text x="391.000" y="94.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">0 / 32</text>
+<text x="444.000" y="94.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">0 / 32</text>
+<line x1="318.000" y1="104.000" x2="488.000" y2="104.000" stroke="#D9D9D9" stroke-width="0.500"/>
+<text x="329.000" y="117.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">128</text>
+<text x="391.000" y="117.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">0 / 32</text>
+<text x="444.000" y="117.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">0 / 32</text>
+<line x1="318.000" y1="127.000" x2="488.000" y2="127.000" stroke="#D9D9D9" stroke-width="0.500"/>
+<text x="329.000" y="140.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">512</text>
+<text x="391.000" y="140.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">0 / 32</text>
+<text x="444.000" y="140.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">0 / 32</text>
+<line x1="318.000" y1="150.000" x2="488.000" y2="150.000" stroke="#D9D9D9" stroke-width="0.500"/>
+<text x="329.000" y="163.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">2048</text>
+<text x="391.000" y="163.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">0 / 32</text>
+<text x="444.000" y="163.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="400" text-anchor="start">0 / 32</text>
+<text x="257.760" y="221.400" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.400pt" font-weight="400" text-anchor="middle">Hit means shortfall &lt;= 1e-4 under the frozen rule; every count is tied to exact seeds in canonical.json.</text>
+<text x="257.760" y="249.500" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="7.500pt" font-weight="700" text-anchor="middle">No population miss probability, confidence level, or safety probability is inferred from these fixed designs.</text>
+</svg>
