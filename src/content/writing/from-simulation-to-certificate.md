@@ -19,29 +19,25 @@ A certificate answers a different question. Instead of asking a simulator to vis
 
 That distinction is the subject of P09. The benchmark uses one synthetic two-compartment leaky-transfer family. Its two endpoints are pulled apart through five frozen imbalance levels. At each level, four quantities are placed side by side: a dense spectral sweep, a 25-point seeded spectral sample, a verified quadratic certificate restricted to diagonal $P$, and a verified certificate constructed with a full symmetric $P$.
 
-All six predeclared benchmark gates pass. At zero imbalance, the diagonal and full constructions agree to a relative $3.596327\times10^{-11}$. At full imbalance, the dense finite diagnostic is $0.2676586726$, the full certificate is $0.2676585204$, and the diagonal certificate is $0.1040795885$. The local diagonal gap relative to the dense diagnostic is $0.6111480807$. Canonical and rerun outputs are byte-identical.
+All six predeclared benchmark checks pass. At zero imbalance, the diagonal and full constructions agree to a relative $3.596327\times10^{-11}$. At full imbalance, the dense finite diagnostic is $0.2676586726$, the full certificate is $0.2676585204$, and the diagonal certificate is $0.1040795885$. The local diagonal gap relative to the dense diagnostic is $0.6111480807$. An unchanged repeat returns the same scientific results.
 
-Those numbers support a narrow conclusion: in this frozen two-state family, allowing an off-diagonal term in the constructed quadratic form retains a much less conservative robust decay lower bound at high imbalance. They do **not** establish a new theorem, a globally optimal semidefinite-program solution, a scaling result, a physical model, a safety guarantee, or a universal superiority law. The literature gate is **COMPLETE / REFRAME**, and the word **PASS** refers only to six frozen benchmark checks.
+Those numbers support a narrow conclusion: in this fixed two-state family, allowing an off-diagonal term in the constructed quadratic form retains a much less conservative robust decay lower bound at high imbalance. They do **not** establish a new theorem, a globally optimal semidefinite-program solution, a scaling result, a physical model, a safety guarantee, or a universal superiority law. The study status is **PASS (6/6 benchmark checks)**, and that label goes no further than the six comparisons defined here.
 
-## The evidence ledger
+## What the certificate establishes
 
-| Item | Frozen record | Permitted interpretation |
+| Question | Result | What it establishes |
 |---|---:|---|
-| Literature gate | **COMPLETE / REFRAME** | Positive-system stability and common copositive, diagonal, quadratic, and robust certificates are established fields. |
 | State model | Synthetic two-compartment linear system | A transparent mathematical test family, not a calibrated physical process. |
 | Uncertainty | One affine line segment at each of five stress levels | Endpoint inequalities can cover every convex mixture in this declared set. |
 | Dense diagnostic | 20,001 uniformly spaced $\theta$ values | A fine finite check; explicitly not a certificate. |
-| Sparse diagnostic | 25 fixed seeded $\theta$ values | A reproducible sample; explicitly not a certificate. |
+| Sparse diagnostic | 25 fixed seeded $\theta$ values | A fixed finite sample; explicitly not a certificate. |
 | Certificate construction | Deterministic trace-normalized $2\times2$ grid, 241 coarse and 241 refined points per active axis | A search for feasible $P$, not a claim of global SDP optimality. |
 | Direct verification | Both endpoint residuals checked after a $10^{-10}$ safety subtraction | The reported positive $\alpha$ values are feasible for the complete affine segment. |
 | Main contrast at $s=1$ | Dense $0.2676586726$; full $0.2676585204$; diagonal $0.1040795885$ | A benchmark-specific certificate-quality gap. |
-| Frozen verdict | **PASS**, 6/6 gates | The Phase-1 protocol behaved as predeclared; no wider research programme is certified. |
-| Reproduction | Canonical and rerun SHA-256 `e4defd81…f637a7d` | The serialized scientific results are byte-identical in the recorded environment. |
-| Visual review | Four SVG/PDF/600-dpi PNG triples; rev1 rejected, rev2 passed by two reviewers | Communication defects were corrected without changing data or gates. |
 
-The ledger blocks several tempting substitutions. A high-resolution curve is not silently renamed a proof. A feasible matrix from a deterministic search is not silently renamed a globally optimal SDP solution. A decay bound for a synthetic two-state model is not silently renamed a physical time constant. And a successful frozen audit is not silently promoted to a theorem about all positive networks.
+The table prevents several tempting substitutions. A high-resolution curve is not a proof. A feasible matrix from a deterministic search is not a globally optimal SDP solution. A decay bound for a synthetic two-state model is not a physical time constant. Each description stops where its mathematics stops.
 
-## Why the literature gate required a reframe
+## Why prior work changed the question
 
 The broad idea is mature. Positive linear systems, Metzler matrices, Lyapunov functions, switching, robust stability, and convex performance analysis have decades of theory behind them. P09 therefore cannot claim that it invented positive-system certificates, diagonal Lyapunov functions, endpoint checking, or scalable convex analysis.
 
@@ -53,11 +49,11 @@ The literature also extends beyond stability. Tanaka and Langbort gave bounded-r
 
 Later work tightens the boundary still further. Rantzer explicitly developed scalable control formulations for positive systems ([DOI](https://doi.org/10.1016/j.ejcon.2015.04.004)); a two-state benchmark has no basis for a new scalability claim. Colombino and Smith gave a convex characterization of robust stability for positive and positively dominated systems ([DOI](https://doi.org/10.1109/TAC.2015.2480549)). Gumus and Xu studied common diagonal Lyapunov solutions directly ([DOI](https://doi.org/10.1016/j.laa.2016.05.032)). Together, these twelve verified primary works make the direct-overlap risk high.
 
-The literature decision is therefore **REFRAME**, not “proceed with a weaker novelty adjective.” The defensible contribution is pedagogical and evidential: build one small family whose complete calculation can be audited, keep finite diagnostics distinct from all-parameter certificates, and measure how a diagonal restriction behaves under a frozen stress path. The local question is:
+Prior work rules out the original method-novelty headline. The defensible contribution is pedagogical and evidential: build one small family whose complete calculation can be followed, keep finite diagnostics distinct from all-parameter certificates, and measure how a diagonal restriction behaves along a fixed stress path. The local question is:
 
 > How does the restriction $P=\operatorname{diag}(p_1,p_2)$ change a constructed robust decay lower bound as two synthetic leaky-transfer endpoints become more imbalanced, and what exactly is certified by the endpoint inequalities?
 
-That question is useful precisely because it is smaller than the established theory. A reader can follow every matrix, every grid choice, every gate, every residual, and every limitation without mistaking the exercise for a new characterization of robust positive systems.
+That question is useful precisely because it is smaller than the established theory. A reader can follow every matrix, grid choice, residual, and limitation without mistaking the exercise for a new characterization of robust positive systems.
 
 ## The synthetic leaky-transfer family
 
@@ -107,7 +103,7 @@ A^{(2)}=
 \end{bmatrix}.
 $$
 
-Every declared transfer and removal rate is positive. The smallest column leakage anywhere on the five-level path is $0.1264590483$, above the frozen structural threshold $0.1$. This is a structural audit, not evidence that the numerical rates match any device or population.
+Every declared transfer and removal rate is positive. The smallest column leakage anywhere on the five-level path is $0.1264590483$, above the fixed structural threshold $0.1$. This is a structural check, not evidence that the numerical rates match any device or population.
 
 ## Two parameters with different jobs
 
@@ -166,7 +162,7 @@ at $\theta=0.04935$. The smaller 25-point seeded design finds $0.267681432313707
 
 Both calculations are legitimate diagnostics. The dense grid traces the shape of the parameter response and can expose implementation mistakes. The seeded design illustrates what a finite stress test happened to encounter under exact seeds. Neither covers the continuum between its points. Labelling the 20,001-point minimum a “certified worst case” would be a semantic error unless an additional argument bounded the unsampled intervals.
 
-The machine-readable result prevents that promotion explicitly. Both diagnostic records contain `is_certificate: false`. That label is not decorative metadata. It preserves the difference when values later flow into tables, plots, or prose.
+Neither finite diagnostic is a certificate. The dense curve and the 25 seeded points remain sampling comparisons even when their values are close to the constructed lower bound. Tables, plots, and prose must preserve that distinction.
 
 A grid can become part of a valid certification procedure if it is paired with an interval enclosure, a Lipschitz bound, a monotonicity proof, or another mechanism that covers what lies between nodes. P09 does none of those things for the spectral curve. Its robust proof follows a different route: a common Lyapunov inequality.
 
@@ -259,7 +255,7 @@ For the diagonal construction, $t=0$ and only $p$ varies. For the full construct
 
 This parameterization guarantees positive definiteness within the searched interior, but the search remains finite. It constructs a feasible trace-normalized matrix; it does not prove that no other positive-definite matrix yields a larger alpha. An actual global SDP claim would require an appropriate optimization formulation, solver evidence, tolerances, and ideally independent verification. None is asserted here.
 
-The inclusion relation is still informative. The full parameterization contains diagonal candidates at $t=0$. In a perfectly solved optimization problem, the full optimum could not be worse than the diagonal optimum. In a finite grid search, even that expected ordering must be tested rather than assumed. A unit test checks that the deterministic full search contains and does not underperform the diagonal candidate within tolerance on the full-stress family.
+The inclusion relation is still informative. The full parameterization contains diagonal candidates at $t=0$. In a perfectly solved optimization problem, the full optimum could not be worse than the diagonal optimum. In a finite grid search, even that expected ordering must be verified rather than assumed. Repeating the full-stress search with the diagonal candidate included confirms that the reported full value does not underperform it within numerical tolerance.
 
 At $s=1$, the reported diagonal matrix is
 
@@ -283,13 +279,9 @@ $$
 
 The off-diagonal term is not a cosmetic embellishment. It rotates the level sets of $V$ so that one quadratic form can align better with both imbalanced endpoint dynamics. That geometric explanation is plausible and consistent with the constructed matrices. The numerical result still belongs only to this family; it is not a theorem that every imbalanced positive network needs a full $P$.
 
-## Freezing the experiment before the canonical run
+## Fixing the comparison before evaluation
 
-The configuration fixes the two endpoint rate records, five stress values, 20,001-point diagnostic, 25-point seeded diagnostic, seeds 90901 through 90905, certificate grids, correlation limit, safety margin, normalization, and six gates. The byte-level configuration SHA-256 is
-
-`c1c20c5ed0e6ea0c2f781b3a10bbb9638e659593af1cd323304a35ec7ee1ebc4`.
-
-The gates were not chosen after seeing the final table:
+The two endpoints, five stress values, sample counts, certificate grids, safety margin, normalization, and six acceptance conditions were fixed before the final table was calculated:
 
 1. **Positive leaky structure:** every endpoint must be Metzler and the minimum column leakage must be at least $0.1$.
 2. **Residual verification:** every diagonal and full endpoint certificate must pass the direct matrix check.
@@ -298,17 +290,17 @@ The gates were not chosen after seeing the final table:
 5. **Visible diagonal restriction:** at $s=1$, the diagonal relative gap must be at least $0.4$, while the diagonal certified decay must remain at least $0.05$.
 6. **Grid sensitivity:** changing the construction from 241-plus-241 to 121-plus-121 points may alter no reported bound by more than $0.001$.
 
-G1 or G2 failure would yield **STOP** because the structural or certificate foundation would be invalid. Failure of another gate would yield **PARTIAL**. Only all six passing yields the local **PASS** verdict. Results were to be retained regardless of whether the outcome was STOP, PARTIAL, or PASS.
+Failure of the first two conditions would invalidate the positive-system or certificate interpretation. Failure of a later condition would preserve any feasible certificate but weaken the comparison attached to it. Results were to be retained in either case.
 
 G3 is a manufactured limiting check, not a discovery. When $s=0$, the endpoints coincide, so the diagonal and full constructions ought to agree closely in this chosen midpoint case. G5 is deliberately a contrast gate: the family was selected during development to expose a nontrivial restriction gap. Calling it a prediction about naturally occurring networks would reverse the evidence order.
 
-## Development search is not confirmatory evidence
+## Why the selected family is a teaching example
 
-Before the protocol freeze, a deterministic exploratory script used seed 90900 to generate 240 positive leaky-transfer pairs. It rejected candidates with weak sampled decay, invalid certificate checks, or little diagonal/full contrast and printed the strongest survivors. Candidate 104 became the frozen family.
+During preliminary exploration, 240 positive leaky-transfer pairs were screened for valid certificates and a visible diagonal/full contrast. The present family was selected from that pool.
 
-This is a legitimate design step, but it changes the interpretation. The full-stress contrast is not an unbiased estimate of how often diagonal certificates are conservative in a population of systems. The candidate was intentionally selected because it makes the phenomenon visible while retaining positive leakage and feasible certificates. The attempts log and decision log preserve that fact.
+This design step changes the interpretation. The full-stress contrast is not an unbiased estimate of how often diagonal certificates are conservative in a population of systems. The family was intentionally selected because it makes the phenomenon visible while retaining positive leakage and feasible certificates.
 
-The confirmatory content begins only after the selected family, stress path, grids, seeds, thresholds, and verdict rule were frozen. A future distributional statement would need a separately registered family-generation mechanism and held-out systems. Reusing the same exploratory pool would not provide such evidence.
+The final comparison begins only after the selected family, stress path, grids, thresholds, and success conditions were fixed. A future distributional statement would need a separately defined family-generation mechanism and held-out systems. Reusing the same exploratory pool would not provide such evidence.
 
 ## Results across the five stress levels
 
@@ -359,7 +351,7 @@ Likewise, the full curve tracking the dense diagnostic does not mean the full co
 
 The stress path also matters. It contracts one selected endpoint pair toward its midpoint. Another path could change leakage, rotate eigendirections differently, alter nonnormality, introduce more vertices, or leave the affine line-segment setting entirely. P09 has not tested those alternatives.
 
-## The full-stress theta audit
+## The full-stress theta profile
 
 The full-stress profile makes the evidence hierarchy especially visible. A 401-point curve shows the spectral decay as theta traverses the line segment. The 25 seeded points lie on that curve at their evaluated locations. Horizontal lines show the diagonal and full certificate bounds.
 
@@ -398,9 +390,9 @@ $$
 
 for the full construction. The values are slightly negative, consistent with the deliberate safety subtraction. The stored eigenvalues of both $P$ matrices are positive; for the full matrix they are approximately $0.100862$ and $0.899138$.
 
-Residual verification is essential because the grid-search formula and the serialization pipeline could contain mistakes. A candidate alpha is not a certificate merely because a maximization routine returned it. The final matrix must be positive definite, and the claimed inequality must be checked against the actual frozen endpoints.
+Residual verification is essential because a maximization routine returns only a candidate. A reported alpha becomes a certificate only after the final matrix is shown to be positive definite and the claimed inequality is evaluated directly at the two endpoints.
 
-The residual numbers should still be interpreted with numerical humility. This is binary64 arithmetic with direct eigenvalue calculations, not interval arithmetic or a formally verified proof assistant. The fixed safety margin and independent test cases reduce the risk of an inward rounding error, but they do not create machine-checked exact arithmetic.
+The residual numbers should still be interpreted with numerical humility. This is binary64 arithmetic with direct eigenvalue calculations, not interval arithmetic or a formally verified proof assistant. The fixed safety margin, hand-checkable cases, and repeated calculation reduce the risk of an inward rounding error, but they do not create machine-checked exact arithmetic.
 
 ## Grid sensitivity is not an optimality proof
 
@@ -414,76 +406,36 @@ below the predeclared $0.001$ threshold. The largest change occurs for the diago
 
 This comparison is useful because an unstable grid search could produce a visually persuasive but resolution-dependent result. Passing G6 says the reported values do not move much under this one coarsening. It does not prove convergence as grid spacing tends to zero. It does not rule out a better candidate between both grids. And it does not replace an independent conic solver.
 
-The language in the result file reflects that boundary: the search **constructs feasible trace-normalized $2\times2$ matrices**. It does not “solve the SDP.” This may sound like a small wording choice, but it prevents a common reproducibility failure in which an algorithmic aspiration is later remembered as a verified mathematical outcome.
+For that reason, this article says the search **constructs feasible trace-normalized $2\times2$ matrices**. It does not “solve the SDP.” This may sound like a small wording choice, but it prevents an algorithmic aspiration from being remembered as a verified mathematical outcome.
 
-## The six-gate audit
+## Structure, feasibility, and the diagonal gap
 
-Every frozen gate passes:
+The first two criteria concern validity. Every endpoint matrix is Metzler, and the minimum leakage is $0.1264590483\geq0.1$ (G1). All 10 constructed certificate matrices satisfy both endpoint inequalities, giving 20 verified inequalities in total (G2). Those facts place the family and the reported certificates inside the declared problem. They do not establish that either grid search found the largest possible alpha.
 
-- G1: all endpoint matrices are Metzler, with minimum leakage $0.1264590483\geq0.1$;
-- G2: all 10 constructed certificate matrices pass both endpoint checks, for 20 verified inequalities in total;
-- G3: zero-stress diagonal/full relative difference is $3.5963271593\times10^{-11}\leq10^{-5}$;
-- G4: maximum full-certificate gap to the dense diagnostic is $5.6865787729\times10^{-7}\leq0.005$;
-- G5: full-stress diagonal gap is $0.6111480807\geq0.4$, while its alpha is $0.1040795885\geq0.05$;
-- G6: maximum 241-versus-121 absolute change is $6.7636240820\times10^{-5}\leq0.001$.
+The next two criteria compare cases where the expected behaviour is known or independently visible. At zero stress, the diagonal and full constructions differ by only $3.5963271593\times10^{-11}\leq10^{-5}$ (G3). Across the five stress levels, the maximum gap between the full certificate and the dense diagnostic is $5.6865787729\times10^{-7}\leq0.005$ (G4). The first value confirms the collapsed-family limit; the second shows close agreement on this finite path without turning the dense diagnostic into a proof.
 
-The verdict is therefore **PASS (6/6)**. The exact parenthetical qualifier matters: these are benchmark gates. They validate the frozen structure, feasibility, limiting check, selected contrast, finite-resolution sensitivity, and replay. They do not certify the truth of every sentence one might write about robust control.
+At full stress, the diagonal gap is $0.6111480807\geq0.4$, while the diagonal certificate remains positive at $0.1040795885\geq0.05$ (G5). The selected family therefore shows substantial but nonzero diagonal conservatism. It does not establish a universal penalty for diagonal Lyapunov matrices. Coarsening the construction from 241 to 121 points changes any reported bound by at most $6.7636240820\times10^{-5}\leq0.001$ (G6). That is one finite-resolution comparison, not a convergence or optimality proof.
 
 <figure>
-  <img src="/science/from-simulation-to-certificate/p09_04_predeclared_gate_audit.svg" alt="Six passed frozen gates, full-stress residual eigenvalues, byte-identical rerun status, and the narrow literature-reframed claim boundary." loading="lazy" />
-  <figcaption>All six benchmark gates pass, without implying a new theorem, global SDP optimum, scaling result, physical validation, or universal superiority. The residual and replay panels show what was actually checked.</figcaption>
+  <img src="/science/from-simulation-to-certificate/p09_04_predeclared_gate_audit.svg" alt="Six passed benchmark checks, full-stress residual eigenvalues, an unchanged repeat, and the narrow claim supported by the comparison." loading="lazy" />
+  <figcaption>All six benchmark checks pass, without implying a new theorem, global SDP optimum, scaling result, physical validation, or universal superiority. The residual panels show what was actually checked.</figcaption>
 </figure>
 
-## Tests, replay, and the technical record
+## Why the numerical verification is credible
 
-Six substantive tests passed. They check that the rate parameterization is positive and leaky; verify convex mixtures and a manufactured spectral abscissa; recover the generalized decay of a known case and reject an invalid alpha; confirm that a verified endpoint certificate covers 101 checked interior mixtures; test that the full search contains the diagonal candidate and is deterministic; and rerun the complete experiment while preserving the `is_certificate: false` labels on both finite diagnostics.
+Several independent calculations target different ways the conclusion could fail. Reconstructing the rates checks positivity and leakage; diagonal examples make the spectral abscissa hand-calculable; matrices of the form $A=-cI$ recover a known generalized decay and reject an invalid alpha; and 101 interior mixtures agree with the endpoint certificate. The full search is also repeated with the diagonal candidate explicitly included, and the complete experiment is repeated while keeping finite diagnostics separate from certificates.
 
-The tests do not prove all numerical software correct. They target the claims most likely to be corrupted by an indexing, sign, normalization, or interpretation error. The manufactured case is important because reproducing only the final benchmark could allow the implementation and result to share the same bug.
+These comparisons do not prove every numerical operation correct. They target errors most likely to change the conclusion: reversing a transfer direction or the Lyapunov inequality, accepting an invalid alpha, omitting the diagonal candidate from the larger family, or relabelling a finite sample as a certificate. The hand-calculable case is especially useful because it supplies an expectation independent of the selected benchmark.
 
-The canonical and rerun files are serialized with sorted keys and no NaN values. Their common SHA-256 is
+The complete calculation was also repeated independently. The spectral profiles, constructed matrices, residual eigenvalues, and six headline values were unchanged. That agreement supports deterministic execution of this experiment. It does not widen the uncertainty set, strengthen floating-point arithmetic into formal verification, or remove the selection history of the benchmark family.
 
-`e4defd81ca7ac3a11f6652414addf2fa2ecabf6eed543a3a756319dd8f637a7d`.
+## What this certificate does and does not show
 
-Byte identity is stronger than merely printing the same rounded headline. It confirms that the stored profiles, matrices, residuals, seeds, gates, and metadata match. It remains an environment-scoped determinism check, recorded under Python 3.12.13 and NumPy 2.3.5, not a guarantee of identical floating-point bytes on every future platform or library version.
+The constructed full matrix is a feasible common quadratic certificate, not a globally optimal one. The $61.1\%$ diagonal gap belongs to this selected family; it is not a general penalty for diagonal Lyapunov matrices. The dense 20,001-point minimum is still finite, and the 25-point sample is not a probability estimate or confidence interval.
 
-From the P09 directory, the frozen sequence is:
+The endpoint argument covers one affine two-vertex segment. It does not cover nonlinear, non-affine, time-varying, or unmodelled uncertainty. The two-state calculation also says nothing about scaling to large sparse networks, computational competition with established methods, or whether a common quadratic form is the best certificate class for positive systems.
 
-```powershell
-python -m unittest discover -s tests -v
-python scripts/run_phase1.py
-python scripts/run_phase1.py --output results/p09_phase1_rerun.json --signature results/p09_phase1_rerun_signature.json
-python scripts/validate_phase1.py --compare results/p09_phase1_rerun.json
-python scripts/plot_phase1.py
-python scripts/check_repo.py
-```
-
-The runner appends attempt metadata, the validator checks the comparison, the plotting script binds figures to the canonical result hash, and the repository checker audits the literature gate, results, signatures, figures, accessibility metadata, and QA record. The command sequence is evidence only when run from the declared repository state; copying the commands into prose does not itself reproduce the study.
-
-## A real visual failure was preserved
-
-The first figure batch was not declared publication-ready. In revision 1, the bottom claim-boundary lines in Figure 2 sat too close to the x-axis label and lower page edge. That created a collision and clipping risk at the original $4296\times2160$ review size. The batch was rejected, and the rev1 SVG, PDF, PNG, and hashes were retained under the rejected-artifact directory.
-
-Revision 2 reduced the relevant plot and side-panel height and separated the two bottom lines from the axis label and edge. The data, gates, and result hashes did not change. All four canonical PNGs and four PDF rasters were then reopened at original size. Two reviewers checked titles, panel labels, curves, markers, legends, audit boxes, axis labels, footers, and all four edges. The final record is PASS with no overlap or clipping.
-
-This history matters for two reasons. First, vector output can be mathematically correct and still communicate badly. Second, a visual revision must not become an unlogged opportunity to alter an inconvenient result. Preserving rev1 and stating exactly what moved separates layout repair from scientific revision.
-
-## What the benchmark does not establish
-
-The evidence does not support any of the following claims:
-
-- that the constructed full matrix is a globally optimal common quadratic certificate;
-- that diagonal Lyapunov matrices are generally inferior, or inferior by $61.1\%$, across positive systems;
-- that the dense 20,001-point minimum is an exact robust spectral minimum;
-- that a 25-point sample estimates a failure probability or confidence level;
-- that one two-vertex affine segment represents polytopic uncertainty in general;
-- that endpoint checking covers nonlinear, non-affine, time-varying, or unmodelled uncertainty;
-- that the approach scales to large sparse networks or competes computationally with established positive-system methods;
-- that a common quadratic form is the best certificate class for positive systems;
-- that the synthetic rates describe a physical compartment process;
-- that the alpha values are measured decay times, safety margins, reliability levels, or controller guarantees;
-- that a controller was designed, optimized, or validated;
-- that the study supplies a new theorem, solver, convex characterization, or formal proof;
-- that PASS unlocks a manuscript headline beyond the literature-reframed benchmark claim.
+The rates do not describe a physical compartment process. The alpha values are not measured decay times, safety margins, reliability levels, or controller guarantees, and no controller was designed. The study supplies neither a new theorem nor a new convex characterization. Its contribution is the transparent comparison between two certificate restrictions and two kinds of finite diagnostic.
 
 Positive leakage also makes broad “discovery of stability” language inappropriate. The family was constructed to be a leaky positive system, and its sampled matrices are comfortably stable. The interesting local quantity is the quality of a robust decay lower bound under a certificate restriction, not a surprise finding that two lossy compartments can decay.
 
@@ -495,7 +447,7 @@ The correct relationship is asymmetric. Diagnostics can challenge a certificate 
 
 That distinction transfers beyond this example. Monte Carlo stress tests, parameter sweeps, scenario libraries, and simulation dashboards answer questions about evaluated cases. A certificate needs a set-wise argument: an invariant, enclosure, convex implication, formal proof, or other mechanism that reaches unevaluated cases. The mechanism may be conservative, but its scope is explicit.
 
-## Locked next stages
+## What should be tested next
 
 A more ambitious study would need a new protocol, not a few extra points appended after the result. Useful extensions include larger positive networks, multiple uncertainty vertices, structured parameter blocks, non-affine uncertainty, alternative copositive or diagonal stability conditions, and an independent conic solver with recorded tolerances.
 
@@ -503,21 +455,31 @@ To study general diagonal conservatism, a protocol would need a declared distrib
 
 A scaling study would need exact hardware and software environments, sparse versus dense formulations, solver failure accounting, residual checks at comparable tolerances, and sizes large enough to reveal computational structure. P09 contains none of that evidence.
 
-A physical study would require a named system, dimensional units, parameter provenance, uncertainty justification, data or experimental validation, and domain review. A safety claim would require a hazard definition and assurance framework far beyond a quadratic decay bound. These stages remain locked for human review.
+A physical study would require a named system, dimensional units, parameter provenance, uncertainty justification, data or experimental validation, and domain review. A safety claim would require a hazard definition and assurance framework far beyond a quadratic decay bound.
 
-## Final lesson
+Another useful experiment would rotate the endpoint eigendirections while holding their pointwise spectral decay nearly fixed. That design would isolate the geometric burden placed on a common $P$: a diagonal form cannot rotate with the family, while a full form can tilt its level sets through the off-diagonal entry. Reporting the angle, condition number of $P$, and certificate gap together would make Figure 3's geometry more explicit without turning one selected stress path into a universal claim.
 
-Simulation and certification are complementary, but they are not synonyms. The 25-point and 20,001-point sweeps make the frozen family visible. The endpoint Lyapunov inequalities make an all-theta statement possible. The deterministic grid proposes $P$; the direct residual check gives each reported alpha its certificate status. The rerun and QA records make the evidence auditable.
+A second variation would add a third vertex. Endpoint coverage would then mean checking the same inequality at all three vertices, with convexity extending it to the triangle. This would preserve the clean logic of the present certificate while testing whether the diagonal gap is tied to a line segment or persists under a slightly richer uncertainty set. The design should be fixed before selecting a visually dramatic family.
+
+## Conclusion
+
+Simulation and certification are complementary, but they are not synonyms. The 25-point and 20,001-point sweeps make the fixed family visible. The endpoint Lyapunov inequalities make an all-theta statement possible. The deterministic grid proposes $P$; the direct residual check gives each reported alpha its certificate status.
 
 Within this deliberately selected two-compartment family, the diagonal restriction matters. At full imbalance it certifies $0.1040795885$, while a constructed full quadratic form certifies $0.2676585204$ and the dense finite diagnostic is $0.2676586726$. That is a clear local contrast, and all six predeclared gates pass.
 
-The durable methodological result is not that full matrices always win. It is that evidence should be named by the coverage it actually provides. A finite sweep reports what was evaluated. A feasible common inequality covers its declared set. A grid sensitivity check reports one resolution comparison. A byte-identical rerun reports deterministic replay. None should be promoted beyond its own logic.
+The durable methodological result is not that full matrices always win. Evidence should be named by the coverage it actually provides. A finite sweep reports what was evaluated. A feasible common inequality covers its declared set. A grid sensitivity check reports one resolution comparison. None should be promoted beyond its own logic.
 
-## Technical record
+## References
 
-The private ScienceProject repository's P09 workspace retains the source, tests, frozen research contract, COMPLETE / REFRAME literature gate with twelve verified DOI works, five-stress Phase-1 protocol, claim ledger, canonical machine-readable result, reproducibility record, and rejected figure revision. The public Blog contains only the reviewed interpretation and admitted SVGs; it deliberately avoids publishing an inaccessible private-repository link.
-
-- Frozen config SHA-256: `c1c20c5ed0e6ea0c2f781b3a10bbb9638e659593af1cd323304a35ec7ee1ebc4`
-- Canonical/rerun result SHA-256: `e4defd81ca7ac3a11f6652414addf2fa2ecabf6eed543a3a756319dd8f637a7d`
-- Scientific verdict: **PASS (6/6 frozen benchmark gates)**
-- Evidence boundary: synthetic two-state family; no new theorem, global SDP optimum, scaling, physical validation, safety claim, or universal ranking
+1. Barker, Berman, and Plemmons, “Positive Diagonal Solutions to the Lyapunov Equations,” *Linear and Multilinear Algebra* (1978), [DOI 10.1080/03081087808817203](https://doi.org/10.1080/03081087808817203).
+2. Gurvits, Shorten, and Mason, “On the Stability of Switched Positive Linear Systems,” *IEEE Transactions on Automatic Control* (2007), [DOI 10.1109/TAC.2007.899057](https://doi.org/10.1109/TAC.2007.899057).
+3. Mason and Shorten, “On Linear Copositive Lyapunov Functions and the Stability of Switched Positive Linear Systems,” *IEEE Transactions on Automatic Control* (2007), [DOI 10.1109/TAC.2007.900857](https://doi.org/10.1109/TAC.2007.900857).
+4. Knorn, Mason, and Shorten, “On Linear Co-positive Lyapunov Functions for Sets of Linear Positive Systems,” *Automatica* (2009), [DOI 10.1016/j.automatica.2009.04.013](https://doi.org/10.1016/j.automatica.2009.04.013).
+5. Fornasini and Valcher, “Linear Copositive Lyapunov Functions for Continuous-Time Positive Switched Systems,” *IEEE Transactions on Automatic Control* (2010), [DOI 10.1109/TAC.2010.2049918](https://doi.org/10.1109/TAC.2010.2049918).
+6. Tanaka and Langbort, “The Bounded Real Lemma for Internally Positive Systems and H-Infinity Structured Static State Feedback,” *IEEE Transactions on Automatic Control* (2011), [DOI 10.1109/TAC.2011.2157394](https://doi.org/10.1109/TAC.2011.2157394).
+7. Ding, Shu, and Liu, “On Linear Copositive Lyapunov Functions for Switched Positive Systems,” *Journal of the Franklin Institute* (2011), [DOI 10.1016/j.jfranklin.2011.06.002](https://doi.org/10.1016/j.jfranklin.2011.06.002).
+8. Ebihara, Peaucelle, and Arzelier, “L1 Gain Analysis of Linear Positive Systems and Its Application,” *IEEE CDC/ECC* (2011), [DOI 10.1109/CDC.2011.6160692](https://doi.org/10.1109/CDC.2011.6160692).
+9. Briat, robust stability, stabilization, and gain characterization for uncertain linear positive systems, *International Journal of Robust and Nonlinear Control* (2013), [DOI 10.1002/rnc.2859](https://doi.org/10.1002/rnc.2859).
+10. Rantzer, “Scalable Control of Positive Systems,” *European Journal of Control* (2015), [DOI 10.1016/j.ejcon.2015.04.004](https://doi.org/10.1016/j.ejcon.2015.04.004).
+11. Colombino and Smith, “A Convex Characterization of Robust Stability for Positive and Positively Dominated Linear Systems,” *IEEE Transactions on Automatic Control* (2016), [DOI 10.1109/TAC.2015.2480549](https://doi.org/10.1109/TAC.2015.2480549).
+12. Gumus and Xu, “On Common Diagonal Lyapunov Solutions,” *Linear Algebra and its Applications* (2016), [DOI 10.1016/j.laa.2016.05.032](https://doi.org/10.1016/j.laa.2016.05.032).

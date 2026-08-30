@@ -16,34 +16,31 @@ redirectFrom: []
 
 一個機理模型儲存的狀態，往往不是監測系統直接看到的量。空間流行病模型可以逐區保存易感、感染、康復人口，也可以保存傳播參數與近日個案的報告佇列；現實中的報告卻可能把鄰近地區加總、延遲數日才出現、只呈報實際發生量的一部分，並且帶有量度雜訊。若把這種報告當成「當日、逐區、完整的 latent infected state」直接送進 filter，改變的不只是符號，而是整個統計問題。
 
-本專案把這個差異變成一個小型而可核查的合成實驗。單一 deterministic 六區 SIR trajectory 提供隱藏 truth；四個比較 arms 使用同一條 truth、同一個 96-member prior ensemble、同一個動力系統、同一組 seeds、同一批 assimilation dates 及同一段 held-out horizon。它們唯一不同之處，是資料是否進入 filter，以及進入時所用的 observation operator：open loop 完全不更新；direct latent comparator 不切實際地看見六個感染狀態；目標 arm 使用預先申明的鄰區聚合、報告延遲、呈報比例與雜訊；misspecified arm 則用錯誤分組、沒有延遲及錯誤呈報比例，解讀同一條 aggregate stream。
+本專案把這個差異變成一個小型受控合成實驗。單一 deterministic 六區 SIR trajectory 提供隱藏 truth；四個比較 arms 使用同一條 truth、同一個 96-member prior ensemble、同一個動力系統、同一組 seeds、同一批 assimilation dates 及同一段 held-out horizon。它們唯一不同之處，是資料是否進入 filter，以及進入時所用的 observation operator：open loop 完全不更新；direct latent comparator 不切實際地看見六個感染狀態；目標 arm 使用預先申明的鄰區聚合、報告延遲、呈報比例與雜訊；misspecified arm 則用錯誤分組、沒有延遲及錯誤呈報比例，解讀同一條 aggregate stream。
 
 若只看 point estimates，結果相當吸引。日數 0–44 之間，open loop 的 infected-state RMSE 是 $264.26$；正確 aggregate-and-delay operator 降至 $36.09$；錯誤 operator 則是 $126.34$。正確 arm 在沒有再接收觀察的 held-out 區間預測到真正峰值日，峰值強度誤差只有 $0.743\%$；錯誤 arm 遲五日，強度誤差 $4.726\%$。正確 arm 的 mean normalized innovation squared 是 $0.959$，落在固定的合理區間內。
 
-但 uncertainty 結果沒有通過。名義上的 90% infected-state interval，在固定的 state-time audit 中只覆蓋 $0.562963$，低於預先申明的最低門檻 $0.70$。五個核心 recovery gates 中四個通過，coverage gate 失敗，所以最後狀態必須是 **PARTIAL**，不能寫成 fully supported。RMSE 漂亮、平均 innovation 合理、peak forecast 準確，都不能抹去 latent uncertainty 的系統性 undercoverage。
+但 uncertainty 結果沒有通過。名義上的 90% infected-state interval，在固定的 state-time comparison 中只覆蓋 $0.562963$，低於預先申明的最低門檻 $0.70$。五個核心 recovery criteria 中四個通過，coverage criterion 失敗，所以最後狀態必須是 **PARTIAL**，不能寫成 fully supported。RMSE 漂亮、平均 innovation 合理、peak forecast 準確，都不能抹去 latent uncertainty 的系統性 undercoverage。
 
 本文所有數據均為 synthetic。「epidemic」、「reporting」與「forecast」只描述一個受控的六區數學 benchmark。沒有使用登革熱資料、病人紀錄、行政區個案、醫院報告、公共衞生介入或資源配置資料，也沒有臨床或政策建議。本實驗只用來說明 observation operator 如何改變 state recovery，並不驗證任何實際疫情系統。
 
-## 先讀證據帳本
+## 比較結果顯示了甚麼
 
-| 項目 | 固定的第一階段紀錄 | 可以作出的解釋 |
+| 問題 | 結果 | 為何重要 |
 |---|---:|---|
-| 文獻 gate | **REFRAME** | EnKF epidemic forecasting 與 observation-function effects 已有成熟工作；本文是 replication-extension 教學審核。 |
+| 研究背景 | EnKF epidemic forecasting 與 observation-function effects 已有成熟工作 | 本文是一個聚焦的教學 benchmark，不是新的 filtering method。 |
 | Truth | deterministic 六區 SIR，每區 10,000 人 | 一條合成 latent trajectory，不是 fitted disease model。 |
 | Prior | 共用 96-member ensemble 與固定 seeds | 四個 arms 的初始 uncertainty 完全配對。 |
 | Assimilation | 第 2 至 44 日，每兩日一次 | 單一 frozen update schedule。 |
 | Holdout | 第 44 至 100 日 | 第 44 日後不再同化任何 observation。 |
 | Correct stream | 三組相鄰區 incidence sums；0/1/2 日 weights $(0.15,0.35,0.50)$；reporting fraction $0.62$ | Operator 由建構時已知，不是由數據估計。 |
 | Wrong stream | 非相鄰分組、無延遲、reporting fraction $0.82$ | 刻意的 joint misspecification，不是另一個 fitted model。 |
-| 主要結果 | 五個 recovery gates 中四個通過 | 正確 operator 改善 point recovery 與 peak forecast。 |
-| 失敗 gate | 90% state coverage $0.562963<0.70$ | 目標 arm 在固定 latent-state audit 中 underdispersed。 |
-| Verdict | **PARTIAL** | 不能升格為完整的 calibrated-recovery claim。 |
-| 重現 | canonical 與 rerun 共用 SHA-256 `965f1b…d734` | 指定 setup 下的 deterministic outputs 一致。 |
-| 圖像 QA | 四組 SVG/PDF/600-dpi PNG triples | 兩個 callout layout 被拒後，最終版本以原尺寸重驗 overlap 與 clipping。 |
+| Point recovery | 五個 recovery checks 中四個通過 | 正確 operator 改善 state means 與 held-out peak forecast。 |
+| Uncertainty failure | 90% state coverage $0.562963<0.70$ | 目標 arm 在固定 latent-state comparison 中 underdispersed。 |
 
-這張 ledger 防止數種偷換概念。Direct latent arm 不是實務上應選的方案，而是看見隱藏狀態後形成的 optimistic ceiling。正確 arm 的 innovation statistic 合理，不代表 latent intervals 已校準。研究動機與 dengue surveillance 有關，也不會把合成六區結果變成登革熱證據。Deterministic replay 證明 computation 可重播，但不增加 empirical validity。
+這個比較防止數種偷換概念。Direct latent arm 不是實務上應選的方案，而是看見隱藏狀態後形成的 optimistic ceiling。正確 arm 的 innovation statistic 合理，不代表 latent intervals 已校準。研究動機與 dengue surveillance 有關，也不會把合成六區結果變成登革熱證據。
 
-## 文獻 gate 為何是 REFRAME
+## 文獻如何改變研究問題
 
 Ensemble data assimilation 在流行病模型中的應用早已建立。Evensen 在 1994 年奠定 sequential ensemble construction 的基礎（[DOI](https://doi.org/10.1029/94JC00572)）；Anderson 的 ensemble adjustment Kalman filter 則提供一個廣泛使用的 deterministic alternative 與 sampling diagnostics（[DOI](https://doi.org/10.1175/1520-0493(2001)129%3C2884:AEAKFF%3E2.0.CO;2)）。因此，本地 implementation 不能聲稱發明 ensemble filtering。
 
@@ -124,7 +121,7 @@ $$
 
 每次 analysis 後，implementation 把 epidemiological components 投影至非負值、重新正規化使每區 $S+I+R$ 等於人口，並把 transmission multiplier 限制在 $[0.45,1.55]$。這些 safeguards 保持 synthetic state 的 physical feasibility，但不是 posterior correctness 的證明。
 
-## 固定比較設計
+## 四組配對比較
 
 四個 arms 都在第 $2,4,\ldots,44$ 日同化，之後不再接收 observation，直接 forecast 至第 100 日。Prior ensemble 有 96 members；prior、direct observations、aggregate observations 及各 arm 的 propagation/update perturbations 均使用分開而固定的 seeds。沒有任何 arm 在看見 final truth 後再調參。
 
@@ -172,9 +169,9 @@ Correct aggregate-and-delay arm 同樣預測真正的第 62 日峰值；peak-int
 
 Correct 與 direct arms 的 held-out total 90% coverage 都是 $1.0$，但這不能抵銷 assimilation state undercoverage。Total infected 是跨 patches 的加總，holdout interval 又屬另一個時間窗口與另一個 functional；patch-level errors 可以在加總中互相抵銷，total interval 亦可能夠寬而容納 truth，即使不少 individual latent states 被漏掉。
 
-## 預先申明的 gates
+## 比較結果如何判定
 
-Result file 共有六個 named checks。G1 是 contextual check：direct latent RMSE 必須不高於 correct-operator RMSE 的 $0.8$ 倍，才可視作 optimistic comparator；觀察值 $0.3236$，所以通過。
+比較使用六項預先指定的準則。G1 提供背景對照：direct latent RMSE 必須不高於 correct-operator RMSE 的 $0.8$ 倍，才可視作 optimistic comparator；觀察值 $0.3236$，所以通過。
 
 五個核心 recovery gates 是：
 
@@ -184,16 +181,16 @@ Result file 共有六個 named checks。G1 是 contextual check：direct latent 
 4. **G5：** correct mean NIS 必須在 $[0.25,2.5]$；觀察值 $0.9591$，通過。
 5. **G6：** correct peak-day 與 intensity errors 不得差於 wrong；觀察值 $0$ 日及 $0.743\%$，相對 $5$ 日及 $4.726\%$，通過。
 
-Protocol 規定五項全部通過才可輸出 `SUPPORTED_IN_THIS_PHASE1`；三或四項通過是 `PARTIAL`；更少則是 `REFUTED_OR_NULL`。本次四項通過，所以 machine verdict 固定為 `PARTIAL`。
+固定規則要求五項全部通過，才可作出完整 recovery statement。本次四項通過，所以 point 與 peak improvement 仍然成立，但更強的 calibrated-recovery statement 不成立。
 
 <figure>
   <img src="/science/assimilating-what-you-can-observe/p06_04_predeclared_gate_audit.svg" alt="四個 panels 比較 open、direct、correct、wrong observation arms 的 infected-state RMSE、empirical 90 percent state coverage、held-out peak-day error 與 peak-intensity error，並突出失敗的 coverage gate。" loading="lazy" />
-  <figcaption>Point accuracy 與 held-out peak performance 改善，但預設 state-coverage target 沒有通過。一個核心 gate 失敗，足以把 recovery claim 限制為 PARTIAL。</figcaption>
+  <figcaption>Point accuracy 與 held-out peak performance 改善，但預設 state-coverage target 沒有通過。這項 uncertainty failure 令完整 recovery claim 不成立。</figcaption>
 </figure>
 
 這條規則阻止常見的修辭捷徑：只刊登成功的 RMSE 與 forecast panels。Uncertainty failure 是同等重要的 evidence，不能變成補充資料中的小字。
 
-## 先做 metric crosswalk，才寫 headline
+## 為何幾項 metrics 會得出不同印象
 
 四項主要 diagnostics 回答不同問題，不能壓成一個單一分數。RMSE 問 ensemble mean 在 infected-count 單位上是否接近 latent truth；spatial correlation 問六區 pattern 在移除大部分 level 與 scale information 後是否同步起伏；empirical coverage 問 ensemble 所申報的 uncertainty 是否以承諾頻率容納 truth；NIS 問三維 observed aggregate space 中的 residual，相對 predicted observation covariance 是否合理；held-out peak functional 又問未來 total 的 derived event，而不是每個 latent component。
 
@@ -217,7 +214,7 @@ Protocol 規定五項全部通過才可輸出 `SUPPORTED_IN_THIS_PHASE1`；三�
 
 這些是 plausible explanations，不是實驗已分辨的 causes。後續 phase 必須預先申明 ensemble-size、inflation、localization、smoothing 與 aggregation ablations，才可討論哪個修改真正改善 calibration。
 
-## Wrong arm 能說甚麼，不能說甚麼
+## Wrong arm 能說明甚麼，又不能說明甚麼
 
 Wrong arm 同時改變 spatial grouping、delay 與 reporting fraction。較差的 RMSE、forecast 與 coverage 證明這個 composite mismatch 在 frozen design 中有實質後果；它不能告訴我們三個因素誰最重要，也不能證明所有錯誤 operators 永遠較差。某些 wrong models 在特定 truth 下可能碰巧互相補償。
 
@@ -238,7 +235,7 @@ Wrong arm 同時改變 spatial grouping、delay 與 reporting fraction。較差�
 - Joint misspecification experiment 已識別每個 component 的個別效應；
 - 單一 deterministic synthetic truth 足以證明 general robustness。
 
-Repository 內沒有任何真實人物或 case record，亦沒有 clinical、public-health 或 policy readiness claim。
+本文沒有使用任何真實人物或 case record，亦沒有 clinical、public-health 或 policy readiness claim。
 
 ## 從線性代數看「看不見」的方向
 
@@ -248,7 +245,7 @@ Repository 內沒有任何真實人物或 case record，亦沒有 clinical、pub
 
 延遲令問題再多一層。現在的報告不只對空間做加總，亦把三個相鄰日子的 incidence 按固定權重混合。某個較高報告可以來自今天較高、昨天較高，或前日較高；動力方程會限制可能組合，但噪聲與有限更新頻率仍留下時間方向的不確定性。故此，正確算子只表示 filter 沒有故意使用錯誤 measurement equation，不等於 inverse problem 已變成唯一且容易。
 
-這也解釋 direct arm 的角色。它近乎逐區直接觀察 $I_1,ldots,I_6$，大幅削弱上述零空間，所以可作為「若資訊非常充足，現有 algorithm 是否能跟上 truth」的實作診斷。它與正確 aggregate arm 的差距主要反映資訊條件不同，不能被改寫成「實務上應該收集不存在的 latent counts」。
+這也解釋 direct arm 的角色。它近乎逐區直接觀察 $I_1,\ldots,I_6$，大幅削弱上述零空間，所以可作為「若資訊非常充足，現有 algorithm 是否能跟上 truth」的實作診斷。它與正確 aggregate arm 的差距主要反映資訊條件不同，不能被改寫成「實務上應該收集不存在的 latent counts」。
 
 ## 逐步追蹤一次錯誤更新
 
@@ -258,9 +255,9 @@ Repository 內沒有任何真實人物或 case record，亦沒有 clinical、pub
 
 一次更新後，兩個 arms 都會保持非負與人口守恆，看上去數值穩定；錯誤 arm 的曲線亦可能跟隨整體上升趨勢，令 correlation 不差。可是物理可行、趨勢相似與 measurement semantics 正確是三個不同判準。累積多次更新後，小偏差會進入 day-44 initial condition，再傳播至沒有新資料的 holdout，因此 wrong arm 最後出現五日 peak delay 與顯著較大的 forecast error。
 
-這個逐步故事只是對既定機制的解讀，不是另一次數值實驗。本研究沒有把三種錯誤單獨開關，所以不能用目前數值量化「哪一種錯誤貢獻幾多百分比」。它的用途，是提醒讀者不要把一句「operator wrong」理解成單一 scalar parameter 偏差。
+這個逐步故事只是對既定機制的解讀，不是另一次數值實驗。本研究沒有把三種錯誤單獨開關，所以不能用目前數值量化「哪一種錯誤貢獻幾多百分比」。它的用途，是提醒讀者不要把一句「operator wrong」理解成單一 scalar parameter 偏差。真正的 attribution 至少要分開改動 grouping、delay 與 reporting fraction，再加入事前指定的交互組合；否則任何單因歸因都超出這次比較。
 
-## 如何逐張審核四幅圖
+## 四幅圖各自回答甚麼
 
 第一幅圖是 protocol diagram，不是結果圖。讀者應先確認左方 hidden state 與右方三條 observation pathways 的資訊量不同；direct comparator 的虛線箭頭不能與可實施的 aggregate stream 混為一談。圖底亦明確寫出 synthetic truth、共用 prior 與 frozen seeds，避免把 arm 差異歸因於不同初始抽樣。
 
@@ -268,82 +265,70 @@ Repository 內沒有任何真實人物或 case record，亦沒有 clinical、pub
 
 第三幅圖轉到 day 44 之後的 total infected。每個 panel 共用同一 truth，而且不再 assimilate observations；所以 peak-day comparison 是真正的 protocol holdout。可是 total 是六區加總，與第二幅圖的 patch-level states 不是同一 estimand。若只看到 correct arm 的 peak 幾乎吻合便宣布 uncertainty 成功，就會跨越圖與圖之間的定義界線。
 
-第四幅圖是決策面板。左上比較 RMSE，右上比較 state coverage，左下是 peak-day error，右下是 peak-intensity error。黃色範圍標出 coverage 的固定目標，紅框把 G4 failure 與 `PARTIAL` 結論直接放在同一視野。讀者應特別檢查 bar label、門檻與 caption 是否與 machine-readable result 一致，而不是只比較柱高。
-
-圖像本身亦接受另一層驗收：標題是否碰頁邊、panel label 是否被 callout 蓋住、legend 是否壓到座標軸、tick label 是否被裁、文字是否有可讀對比、SVG 與 PDF/PNG 是否表達同一資料。早期版本確實出現 callout 遮字，因此被保留為 rejected revisions；最終通過並不表示從未犯錯，而是錯誤被辨認、修正、重驗且沒有改動數據。
+第四幅圖把四個判斷放在同一面板：左上比較 RMSE，右上比較 state coverage，左下是 peak-day error，右下是 peak-intensity error。黃色範圍標出 coverage 的固定目標，紅框則把 G4 failure 放在 point 與 peak improvements 旁邊。不能只比較柱高而忽略每一格回答的問題不同。
 
 ## 為何單一合成 truth 只能回答窄問題
 
-固定一條 truth 有明顯優點：每個 arm 遇到完全相同的 epidemic trajectory，差異不會被不同真值或 seeds 混淆；所有 metrics 亦可逐位重算。這種設計很適合 implementation audit 與 mechanism demonstration，尤其可確認 observation operators 是否真的按規格讀取同一 stream。
+固定一條 truth 有明顯優點：每個 arm 遇到完全相同的 epidemic trajectory，差異不會被不同真值或 seeds 混淆；所有 metrics 亦可逐位重算。這種設計適合核對數值行為及比較 observation mechanism，尤其可確認各 operators 是否按同一套規則讀取同一 stream。
 
 限制同樣明顯。某個 operator 在這條 trajectory 上改善，不代表在不同初始感染位置、傳播速度、mixing strength、delay kernel、reporting fraction 或 noise level 下仍保持相同排序。Peak 在第 62 日、assimilation 在第 44 日停止，也是單一幾何關係；若 peak 更早、更平或有多峰，forecast metrics 可能改變。固定 ring topology 亦沒有涵蓋稠密、稀疏、方向性或時間變動 network。
 
-因此 deterministic signature 的意義只到「相同輸入會產生相同輸出」。它不等於 Monte Carlo robustness，不等於跨 model class validity，更不等於 field generalisation。下一階段若要談穩健性，應先建立多個預先生成而不因結果篩選的 truths，為每個情境保留個別 failure，再報告分布而不是只報平均。若要談現實資料，則要另外處理真值不可見、報告修訂、缺失、空間邊界改變與參數不可辨識；不能把 synthetic truth 的可得性偷偷帶入現場敘事。
+因此，重複計算一致的意義只到「相同輸入會產生相同輸出」。它不等於 Monte Carlo robustness，不等於跨 model class validity，更不等於 field generalisation。下一階段若要談穩健性，應先建立多個預先生成而不因結果篩選的 truths，為每個情境保留個別 failure，再報告分布而不是只報平均。若要談現實資料，則要另外處理真值不可見、報告修訂、缺失、空間邊界改變與參數不可辨識；不能把 synthetic truth 的可得性偷偷帶入現場敘事。
 
-## 一份可重播的審核順序
+門檻的作用不是把連續數值假裝成自然定律。Coverage 下限 $0.70$、NIS 範圍與 RMSE ratios 都是本次比較的決策規則，讓「甚麼結果足以支持哪一句話」在看到結果前已清楚。另一個研究團隊可以選擇更嚴格門檻，但應在新實驗前解釋用途、誤判代價及容許的 uncertainty。本文只按自己的固定規則解讀結果，不把這些數字當成所有資料同化工作的普遍標準。
 
-負責任的讀者或 reviewer 可以按以下次序核查。第一，先讀 configuration，確認 population、mixing、initial truth、prior、assimilation window、delay weights、reporting fractions、noise 及 seeds 已固定。第二，檢查 correct 與 wrong arms 是否真的消耗同一 aggregate observations，而不是各自生成有利 data。第三，重跑 canonical 與 rerun，確認 result bytes 或指定 signature 一致。第四，逐項重算 G2 至 G6，不以文章文字代替 machine record。
+通過四項檢查也不代表獲得「五分之四的真理」。Coverage 對 calibrated-recovery statement 是必要條件，不能由較好 RMSE 抵銷。這使後續研究知道應把資源放在 uncertainty representation，而不是繼續美化已經不錯的 point estimate。
 
-第五，分開檢查 conservation、nonnegativity 與 accuracy。前兩者通過只表示 state 有基本可行性，不足以推論 recovery。第六，對照每幅圖的數字、圖例、caption 與 result JSON，特別尋找被省略的 failed gate。第七，以原尺寸打開 raster outputs 及由 PDF 重新輸出的頁面，檢查 overlap、clipping 與字體；縮圖看似正常並不足夠。最後，才閱讀 headline 與 limitations，確認結論沒有由 synthetic benchmark 跳到 dengue、clinical 或 policy claim。
+## 數值核對能建立甚麼
 
-這個順序刻意把 configuration 與 machine evidence 放在敘事之前。若 prose 與 result file 衝突，應先查 code、hash、tests 及重跑輸出；若 figure 與數值衝突，figure 必須被拒而不是由 caption 解釋過去。可重現研究的價值不只在於別人能得到同一張漂亮圖，而是別人能看見同一個失敗，並追溯 verdict 為何沒有被改寫。
+以相同輸入重複計算，得到相同 state histories、metrics 與 coverage failure。Population conservation、nonnegativity、observation dimensions 及 aggregate-and-delay calculation 亦符合各自的數學定義。這些數值結果支持目前比較，卻不會增加其 empirical scope。
 
-還要注意，門檻的作用不是把連續數值假裝成自然定律。Coverage 下限 $0.70$、NIS 範圍與各個 RMSE ratios 都是本次 protocol 的決策規則；它們讓「甚麼結果足以支持哪一句話」在執行前可被反駁，也避免作者看完結果才選標準。另一個研究團隊可以合理地選擇更嚴格門檻，但必須在新實驗前解釋用途、誤判代價及允許的 uncertainty。本文只聲稱依自己的 frozen rules 得到 PARTIAL，不聲稱這些數字是所有資料同化工作的普遍標準。
+一個重複得到的 synthetic result 仍然是 synthetic。兩次一致，只表示 undercoverage 不是這次 calculation 的單次偶然；它不能證明不同 truth、parameters、networks 或 reporting mechanisms 下仍會保持同一排序。那些問題需要新的 experiment family。
 
-同樣地，通過四項 gate 不代表獲得四分之五的真理。Gates 並非可互換票數：coverage 對 calibrated-recovery statement 是必要條件，所以它的 failure 不能由較好 RMSE 抵銷。這種明確的 claim-to-gate mapping，令負面結果仍然有資訊價值，也令後續研究知道應把資源放在 uncertainty representation，而不是再把已經很好的 point estimate 修飾得更漂亮。
+## 改善了甚麼，又有甚麼仍未解決
 
-## 可重現性與失敗保留
-
-Byte-level configuration hash 是
-
-`5181dc6b8c418e95cc03c8991dda8a077b64a4d0b0595f4137d4be9a877f9b19`，
-
-canonical parsed-JSON configuration hash 是
-
-`0c51b22126e8d23aad34fbeb973c45e0ea0d7885cebb79cfc2ad39fce80ff177`。
-
-Canonical 與 rerun result files 共用 SHA-256
-
-`965f1b302d3c1157aa486c5c05c7c20799f4b604442fd06a0c0f80a34991d734`。
-
-Technical repository 分開記錄 prior、observation streams 與 arm updates 的 seeds。Evidence tests 檢查 population conservation、operator dimensions、deterministic replay、主要 metrics 與預期 PARTIAL gate；repository checker 另核對 bibliography、result JSON、signatures、四組 figure triples、SVG accessibility metadata 與 QA record。
-
-Visual QA 亦保留真正失敗。Figures 2 與 3 第一版的 metric callouts 蓋住 in-axes y-label，只剩前方字母露出，所以 exports 被拒。第二版移除 collision，沒有改變數據。其後因 checker 要求每個 SVG text element 明確使用黑色，第三版只改文字顏色，geometry 與 content 不變；四張 4296×2160 PNG 及四張由最終 PDF 重新 rasterize 的圖仍逐張以原尺寸重開，標題、panel labels、callouts、legends、data、tick labels 及四邊 clipping 均通過獨立 overlap review。
-
-Failure history 具有科研價值，因為它分開 communication defect 與 data change。Layout revision 可以移動文字，但不可以移動 gate、替換 result 或刪走 failed coverage panel。
-
-## 如何閱讀 PARTIAL
-
-「Partial」不是好壞印象的平均，而是 frozen rule 的 deterministic decision。正確 operator 相對 open loop 與 wrong mapping，確實改善 state point estimates，亦得到合理 mean innovations 與準確 held-out peak；這些 narrow claims 在 benchmark 內有支持。可是同一 ensemble 沒有達到最低 state coverage，所以「以 calibrated uncertainty 恢復 latent field」這個更廣闊 statement 不獲支持。
+這個結論不是好壞印象的平均。正確 operator 相對 open loop 與 wrong mapping，確實改善 state point estimates，亦得到合理 mean innovations 與準確 held-out peak；這些 narrow claims 在 benchmark 內有支持。可是同一 ensemble 沒有達到最低 state coverage，所以「以 calibrated uncertainty 恢復 latent field」這個更廣闊 statement 不獲支持。
 
 寫成「正確 operator works」會過度概括；寫成「正確 operator fails」又會丟棄真正的 point 與 forecast improvement。最精確的結論是：
 
 > 在這個固定 synthetic experiment 中，明確建模已知的 aggregation 與 delay，可恢復不少因 partial observation 而流失的 point 與 peak performance；但 latent infected states 的 ensemble 仍然 underdispersed。
 
-這句話同時保存 ledger 的兩面，亦沒有 operational extrapolation。
+這句話同時保存兩方面的結果，亦沒有 operational extrapolation。
 
-## 一個負責任的下一階段
+## 下一步應測試甚麼
 
 新 protocol 應研究 coverage failure，而不是事後把它調走。候選 frozen axes 包括 ensemble size、inflation、localization、iterative updates、fixed-lag smoothing、delay-kernel uncertainty、reporting-fraction estimation、pairwise 與 larger aggregation，以及 controlled process mismatch。每個 change 應在多條 held-out synthetic truths 上評估，而不是只用一個 seed family。
+
+最清楚的設計可分成兩層。第一層固定 observation operator，只改 uncertainty representation：例如 48、96、192 members，配合數個事前指定的 inflation levels，並比較有無 localization 與 fixed-lag smoothing。每個設定都在同一批預先生成的 truths 上運行，逐條保存 patch-level coverage、observation-space NIS、interval width 與 peak error。若 coverage 改善但 intervals 變得過闊，結果便應如實顯示 trade-off，而不是只報較高命中率。
+
+第二層固定 filter setting，把 grouping、delay kernel 與 reporting fraction 分開改變。可以先逐一改一項，再加入事前指定的二因子 combinations，判斷錯誤是近似相加，還是會由 transmission multiplier 的補償而互相抵銷。Correct stream 與所有 wrong interpretations 必須繼續使用同一 noisy observations，否則 data realization 的差異會混入 operator effect。
+
+多條 truth 亦不能只換 random seed。初始感染位置、transmission scale、ring mixing strength、peak timing、delay weights 與 noise level 應按預設格點或分層設計改變。報告要同時列出每條 truth 的 failure，而非只給平均 RMSE；否則少數嚴重 undercoverage 可被大量容易 cases 沖淡。這樣才可判斷目前 $0.562963$ 是某條 trajectory 的特殊幾何，還是多種 partial-observation settings 中反覆出現的模式。
+
+## 如何分辨 calibration 改善與單純加闊區間
+
+最直接的修補是增加 ensemble spread，例如 multiplicative inflation；但 interval 變闊自然會提高 coverage，所以單看 coverage 上升不足以判定方法更好。下一個實驗應同時報告 interval width、RMSE、NIS 與一個事前指定的 proper scoring rule。若 coverage 由 $0.563$ 升到目標範圍，但 width 擴大至失去決策價值，這是 coverage 與 sharpness 的交換，不應寫成無條件 improvement。
+
+Calibration 亦要按資訊方向拆開。每個 adjacent pair 的 total direction 被直接觀察，pair 內的 contrast direction 則主要靠 dynamics 與 covariance 推斷。可以把 error 和 interval coverage 投影到這兩類 directions，再看 inflation 是修復弱觀察 contrast，還是把所有方向一律放大。如果 NIS 仍接近一，而 contrast-space coverage 特別低，就比單一 all-state percentage 更接近本次 failure mechanism。
+
+Localization 的測試也要符合六區 ring geometry。過強 localization 可能切斷真正跨區 transmission correlation；過弱則讓 finite-ensemble noise 把一個 aggregate report 傳到太遠 patches。合理設計應預先指定數個半徑，對每條 truth 比較 correction 在 observed pair、nearest neighbours 與遠端 patches 的分布，並檢查 population conservation 後 spread 是否被 projection 再次壓窄。
+
+Fixed-lag smoother 回看近日 queue states，理論上更配合延遲報告，卻使用未來於當時不可得的 observations 來改善過去估計。故此 smoother result 必須與 filter result 分開命名。它可以回答 retrospective state reconstruction 是否改善，不能直接冒充 real-time forecast performance。Day-44 之後的 held-out peak 仍要由當時可用資訊出發，才保持原來 forecast question。
+
+最後，calibration 不應只在全時段平均。感染初期 counts 低、增長段 steep、峰值附近 dynamics 轉向，三段的 observability 與 Gaussian approximation 都不同。分段 coverage curve 能指出 underdispersion 在何時形成，也能判斷某種修補只是推遲 failure，還是真正維持 uncertainty。這些 diagnostics 都應在新 truths 打開前固定，避免看到某段最漂亮才決定報哪一段。
+
+目前 operator 由建構時完全已知，實際 surveillance 卻往往要估計 reporting fraction 與 delay weights。下一步若把這些量加入 ensemble state，interval 必須同時反映 parameter uncertainty 與 latent-state uncertainty；若先以全部資料估好 weights，再把它們當成固定真值，會低估兩階段 estimation 帶來的 spread。更嚴格的設計可用 training period 估計 reporting process，在 untouched period 同時檢查 observed reports、latent synthetic truth 與 peak forecast，並把 operator-parameter coverage 與 infected-state coverage 分開。這樣才可判斷較闊 uncertainty 是來自合理傳播 reporting ambiguity，還是 filter 本身失去辨識能力。
+
+每次修補亦要保留 direct、correct、wrong 與 open-loop 四組比較。若只重跑 correct arm，coverage 上升可能來自較容易的新 truth，而非 uncertainty method；配對設計才能把這兩種解釋分開。
 
 Attribution design 應把 grouping、delay 與 reporting fraction 分開及交互改變，辨認每種 misspecification 主要傷害哪一項 metric，並測試 interactions 是否近似 additive。Sensitivity panel 亦應分開 observation-space NIS、patch-level state coverage 與 total-field coverage。
 
 只有在 synthetic calibration 理解清楚後，real-data work 才有意義。屆時需要 data provenance、reporting definitions、revision 與 delay process、privacy governance、適合該 disease 與 geography 的 model、parameter identifiability analysis、真正 out-of-sample periods 及 domain-expert review。那會是一個新 project，不是本 benchmark 的小附註。
 
-## 最後一課
+## 結論
 
 Data assimilation 並非直接吸收 reality，而是吸收 measurement model 的輸出。當 filter internal state 與 reporting system output 不同，observation operator 是 scientific model 的一部分，不是外圍 plumbing。
 
 本次 frozen result 沒有製造成功故事。Known aggregate-and-delay operator 把 assimilation RMSE 由 open loop 的 $264.26$ 降至 $36.09$，優於 wrong operator 的 $126.34$，亦保存準確 held-out peak；但 nominal 90% latent-state interval 只覆蓋 $56.30\%$，所以完整 recovery claim 失敗。Direct latent arm 仍然只是 unrealistic upper benchmark；wrong arm 亦只展示 joint misspecification，不是 universal law。
 
 方法上的實際教訓很簡單：送入同化器的應是 instrument 或 reporting process 真正可觀察的量；uncertainty 要在 observation space 與 latent space 分別評估；若 calibration gate 失敗，便讓它留在圖中與結論中。
-
-## 技術紀錄
-
-- 技術紀錄：ScienceProject 私人 repository 內的 P06 EnKF aggregated spatial epidemics 工作區
-- Literature verdict：**REFRAME**
-- Scientific verdict：**PARTIAL**；G2、G3、G5、G6 通過，G4 失敗
-- Frozen design：六區、96 members、assimilation days 2–44、held-out forecast 至 day 100
-- Correct-arm metrics：RMSE $36.090$、correlation $0.8523$、state coverage $0.562963$、mean NIS $0.9591$、peak error $0$ 日及 $0.743\%$
-- Canonical/rerun SHA-256：`965f1b302d3c1157aa486c5c05c7c20799f4b604442fd06a0c0f80a34991d734`
-- Evidence boundary：只有 deterministic synthetic truth；沒有 real dengue、clinical、operational 或 universal EnKF claim

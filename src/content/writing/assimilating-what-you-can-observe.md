@@ -15,34 +15,31 @@ redirectFrom: []
 
 A mechanistic model stores states that a surveillance system may never observe. A spatial epidemic model may evolve the susceptible, infected, and recovered populations of every patch, together with parameters and reporting queues. A real report may combine neighbouring regions, arrive late, contain only a fraction of incident cases, and include measurement noise. Passing that report to a filter as though it were the current latent infected state does not merely simplify notation. It changes the statistical problem.
 
-This project turns that distinction into a small, auditable experiment. One deterministic six-patch synthetic SIR trajectory supplies the hidden truth. Four arms share the same truth, 96-member prior ensemble, model, seeds, assimilation dates, and held-out horizon. They differ only in whether and how observations reach the filter: an open loop receives none; an unrealistically direct comparator sees all six latent infected counts; the target arm uses the declared adjacent-pair aggregation, reporting delay, reporting fraction, and noise; and a deliberately misspecified arm applies the wrong grouping, no delay, and the wrong reporting fraction to the same aggregate stream.
+This project turns that distinction into a small, controlled synthetic experiment. One deterministic six-patch SIR trajectory supplies the hidden truth. Four arms share the same truth, 96-member prior ensemble, model, seeds, assimilation dates, and held-out horizon. They differ only in whether and how observations reach the filter: an open loop receives none; an unrealistically direct comparator sees all six latent infected counts; the target arm uses the declared adjacent-pair aggregation, reporting delay, reporting fraction, and noise; and a deliberately misspecified arm applies the wrong grouping, no delay, and the wrong reporting fraction to the same aggregate stream.
 
 The point-estimate result is encouraging. During days 0–44, infected-state RMSE is $264.26$ for open loop, $36.09$ with the correct aggregate-and-delay operator, and $126.34$ with the wrong operator. The correct arm predicts the held-out total-infected peak on the true day, with $0.743\%$ intensity error; the wrong arm is five days late with $4.726\%$ intensity error. Its mean normalized innovation squared is $0.959$, inside the frozen plausible range.
 
-But the uncertainty result fails. The nominal 90% infected-state interval covers only $0.562963$ of the frozen state-time points, below the predeclared minimum $0.70$. Four of five recovery gates pass, and the coverage gate does not. The final status is therefore **PARTIAL**, not supported. Good RMSE, plausible average innovation, and an accurate peak do not erase systematic undercoverage.
+But the uncertainty result fails. The nominal 90% infected-state interval covers only $0.562963$ of the frozen state-time points, below the predeclared minimum $0.70$. Four of five recovery gates pass, and the coverage gate does not. The final status is therefore **PARTIAL**, not fully supported. Good RMSE, plausible average innovation, and an accurate peak do not erase systematic undercoverage.
 
 Everything here is synthetic. “Epidemic,” “reporting,” and “forecast” describe a controlled six-patch mathematical benchmark. No dengue records, patients, districts, case reports, interventions, clinical decisions, or public-health recommendations are involved. The experiment teaches how an observation operator affects state recovery; it does not validate an operational outbreak system.
 
-## The evidence ledger
+## What the comparison found
 
-| Item | Frozen Phase-1 record | Permitted interpretation |
+| Question | Finding | Why it matters |
 |---|---:|---|
-| Literature gate | **REFRAME** | EnKF epidemic forecasting and observation-function effects are established; this is a replication-extension teaching audit. |
+| Research context | EnKF epidemic forecasting and observation-function effects are established | This is a focused teaching benchmark, not a new filtering method. |
 | Truth | Deterministic six-patch SIR, 10,000 people per patch | A synthetic latent trajectory, not a fitted disease model. |
 | Prior | Shared 96-member ensemble and fixed seeds | Matched initial uncertainty across all four arms. |
 | Assimilation | Every two days from day 2 through day 44 | One frozen update schedule. |
 | Holdout | Day 44 through day 100 | No observations are assimilated after day 44. |
 | Correct observations | Three adjacent-pair incidence sums, 0/1/2-day delay weights $(0.15,0.35,0.50)$, reporting fraction $0.62$ | The operator is known by construction, not estimated. |
 | Wrong observations | Non-adjacent pairs, no delay, reporting fraction $0.82$ | Deliberate joint misspecification, not an alternative fitted model. |
-| Main result | Four of five recovery gates pass | Point and forecast recovery improve under the declared operator. |
-| Failed gate | 90% state coverage $0.562963<0.70$ | The correct arm is underdispersed on the frozen latent-state audit. |
-| Verdict | **PARTIAL** | The result cannot be promoted to a fully supported recovery claim. |
-| Reproduction | Canonical and rerun share SHA-256 `965f1b…d734` | Deterministic outputs match under the recorded setup. |
-| Visual QA | Four final SVG/PDF/600-dpi PNG triples | Original-size overlap and clipping checks passed after two rejected callout layouts. |
+| Point recovery | Four of five recovery checks pass | State means and held-out peak forecasts improve under the declared operator. |
+| Uncertainty failure | 90% state coverage $0.562963<0.70$ | The correct arm is underdispersed on the frozen latent-state comparison. |
 
-The ledger prevents several substitutions. The direct latent arm is not the practical winner; it is an optimistic ceiling because it observes what a normal reporting process hides. The correct arm is not “calibrated” merely because its innovation statistic is plausible. A synthetic six-patch result is not dengue evidence merely because dengue motivated the observation-delay question.
+The comparison prevents several substitutions. The direct latent arm is not the practical winner; it is an optimistic ceiling because it observes what a normal reporting process hides. The correct arm is not “calibrated” merely because its innovation statistic is plausible. A synthetic six-patch result is not dengue evidence merely because dengue motivated the observation-delay question.
 
-## Why the literature gate said REFRAME
+## Why the literature changed the question
 
 Ensemble data assimilation in epidemic models is well established. Evensen's sequential ensemble construction laid the EnKF foundation in 1994 ([DOI](https://doi.org/10.1029/94JC00572)), and Anderson's ensemble adjustment Kalman filter developed a widely used deterministic alternative and sampling diagnostics ([DOI](https://doi.org/10.1175/1520-0493(2001)129%3C2884:AEAKFF%3E2.0.CO;2)). A local implementation cannot claim to invent ensemble filtering.
 
@@ -52,7 +49,7 @@ The overlap is closer still. Mitchell and Arnold directly studied observation-fu
 
 Reporting delay is likewise an established measurement problem. Bastos and colleagues developed a disease-surveillance nowcasting framework with explicit delay correction, including dengue applications ([DOI](https://doi.org/10.1002/sim.8303)). Yang and colleagues used a delay convolution in Bayesian epidemic assimilation ([DOI](https://doi.org/10.1371/journal.pcbi.1009807)). Bretó and co-authors formalized plug-and-play inference for partially observed mechanistic systems ([DOI](https://doi.org/10.1214/08-AOAS201)), while King and colleagues showed how process and measurement errors can create biased and overconfident outbreak inference ([DOI](https://doi.org/10.1098/rspb.2015.0347)).
 
-The literature gate therefore returns **REFRAME**. The defensible contribution is not a new filter, a new dengue model, or a discovery that reporting matters. It is a transparent synthetic stress test that holds truth, prior, dynamics, seeds, and update schedule fixed while contrasting four observation pathways and applying predeclared state, calibration, and held-out peak gates.
+Earlier work therefore forces a **REFRAME**. The defensible contribution is not a new filter, a new dengue model, or a discovery that reporting matters. It is a transparent synthetic stress test that holds truth, prior, dynamics, seeds, and update schedule fixed while contrasting four observation pathways and applying predeclared state, calibration, and held-out peak criteria.
 
 The narrow question is:
 
@@ -124,7 +121,7 @@ If $h$ is wrong, the innovation $y_k-y_k^f$ is interpreted in the wrong coordina
 
 After every analysis, this implementation projects epidemiological components to nonnegative values, renormalizes $S+I+R$ to each patch population, and bounds the transmission multiplier in $[0.45,1.55]$. Those safeguards preserve physical feasibility in the synthetic state. They are algorithmic choices, not proofs of posterior correctness.
 
-## The frozen comparison
+## A matched four-arm comparison
 
 All arms use assimilation days $2,4,\ldots,44$ and forecast without further observations through day 100. The prior ensemble contains 96 members. Separate frozen seeds control the prior, direct observations, aggregate observations, and each arm's propagation/update perturbations. No arm is tuned after seeing the final truth.
 
@@ -151,7 +148,7 @@ The correct operator does not recover everything. Aggregating six patches into t
 
 ## The coverage failure
 
-Nominal coverage is not a decorative uncertainty band. For every audited patch-day state, the experiment checks whether the truth falls between the ensemble's 5th and 95th percentiles. A well-calibrated nominal 90% interval need not equal exactly 0.9 in one finite dependent sample, but the protocol declares a deliberately broad admissible band $[0.70,0.99]$. Falling below $0.70$ is treated as material undercoverage; exceeding $0.99$ would flag excessive width.
+Nominal coverage is not a decorative uncertainty band. For every fixed patch-day state in the comparison, the experiment checks whether the truth falls between the ensemble's 5th and 95th percentiles. A well-calibrated nominal 90% interval need not equal exactly 0.9 in one finite dependent sample, but the protocol declares a deliberately broad admissible band $[0.70,0.99]$. Falling below $0.70$ is treated as material undercoverage; exceeding $0.99$ would flag excessive width.
 
 The correct arm covers only $0.562963$ of state-time points. Its mean interval width is $48.21$, yet its latent error grows enough that many truth values fall outside. The coverage gate G4 therefore fails.
 
@@ -172,9 +169,9 @@ The correct aggregate-and-delay arm also predicts the true peak day 62. Its peak
 
 The correct and direct arms both show holdout total 90% coverage of $1.0$. This does not undo the assimilation state undercoverage. Total infected is a sum across patches and the holdout interval is a different functional over a different time window. Aggregation can cancel patch-level errors, and a total interval can be wide enough to contain the truth even when many individual latent states are missed.
 
-## The predeclared gates
+## How the comparison was judged
 
-Six named checks appear in the result file. G1 is contextual: direct latent RMSE must be at most $0.8$ times correct-operator RMSE for the direct arm to count as an optimistic comparator. It passes at $0.3236$.
+Six declared criteria organize the comparison. G1 is contextual: direct latent RMSE must be at most $0.8$ times correct-operator RMSE for the direct arm to count as an optimistic comparator. It passes at $0.3236$.
 
 The five core recovery gates are:
 
@@ -184,26 +181,26 @@ The five core recovery gates are:
 4. **G5:** correct mean NIS in $[0.25,2.5]$. Observed $0.9591$—pass.
 5. **G6:** correct peak-day and intensity errors no worse than wrong. Observed $0$ days and $0.743\%$ versus $5$ days and $4.726\%$—pass.
 
-The protocol says all five are required for `SUPPORTED_IN_THIS_PHASE1`. Three or four passes produce `PARTIAL`; fewer produce `REFUTED_OR_NULL`. Four pass, so the machine verdict is `PARTIAL`.
+The fixed rule requires all five checks for a fully supported recovery statement. Four pass here, so the point and peak improvements remain valid but the stronger calibrated-recovery statement does not.
 
 <figure>
-  <img src="/science/assimilating-what-you-can-observe/p06_04_predeclared_gate_audit.svg" alt="Four-panel gate audit comparing infected-state RMSE, empirical 90 percent state coverage, held-out peak-day error and peak-intensity error across open, direct, correct and wrong observation arms, with the failed coverage gate highlighted." loading="lazy" />
-  <figcaption>Point accuracy and held-out peak performance improve, but the declared state-coverage target does not pass. One failed core gate limits the recovery claim to PARTIAL.</figcaption>
+  <img src="/science/assimilating-what-you-can-observe/p06_04_predeclared_gate_audit.svg" alt="Four-panel results comparison of infected-state RMSE, empirical 90 percent state coverage, held-out peak-day error and peak-intensity error across open, direct, correct and wrong observation arms, with the failed coverage threshold highlighted." loading="lazy" />
+  <figcaption>Point accuracy and held-out peak performance improve, but the declared state-coverage target does not pass. That failed uncertainty check prevents a fully supported recovery claim.</figcaption>
 </figure>
 
 This rule blocks a common rhetorical shortcut: reporting only the successful RMSE and forecast panels. The uncertainty failure is co-equal evidence.
 
-## A metric crosswalk before any headline
+## Why the metrics disagree
 
 The four principal diagnostics answer different questions and should not be collapsed into one score. RMSE asks whether ensemble means are close to latent truth in the units of infected count. Spatial correlation asks whether the six-patch pattern rises and falls together after removing much of the level and scale information. Empirical coverage asks whether the ensemble's declared uncertainty contains truth at the promised frequency. NIS asks whether residuals in the three-dimensional observed aggregate space are plausible relative to the predicted observation covariance. A held-out peak functional then asks a fifth question about a derived future total, not about every latent component.
 
-That crosswalk explains several otherwise surprising comparisons. The wrong arm can have correlation $0.8525$, slightly above the correct arm's $0.8523$, while its RMSE is more than three times larger. The correct arm can have NIS $0.9591$ while its latent coverage is only $0.563$. Correct and direct arms can cover the held-out total at every audited time while the correct arm misses many patch-level states during assimilation. None of these results authorizes choosing the most flattering metric; they reveal that each metric projects a different aspect of a partially observed system.
+That crosswalk explains several otherwise surprising comparisons. The wrong arm can have correlation $0.8525$, slightly above the correct arm's $0.8523$, while its RMSE is more than three times larger. The correct arm can have NIS $0.9591$ while its latent coverage is only $0.563$. Correct and direct arms can cover the held-out total at every evaluated time while the correct arm misses many patch-level states during assimilation. None of these results authorizes choosing the most flattering metric; they reveal that each metric projects a different aspect of a partially observed system.
 
 For the same reason, the verdict is not a weighted average designed after seeing the table. The protocol assigns the state-coverage gate a veto over a fully supported recovery claim. If a future study prefers a different hierarchy—for example, prioritising only peak timing—it must declare that estimand and rule before running the experiment. It cannot retroactively rename this benchmark's failed uncertainty target as irrelevant.
 
 ## Why the correct arm can still undercover
 
-Several mechanisms can produce the observed pattern without contradicting the implementation checks.
+The observation geometry permits several mechanisms that can produce the observed pattern.
 
 First, **aggregation destroys contrast**. An adjacent-pair total can be reproduced by many allocations between its two patches. Cross-patch dynamics help reconstruct the split, but they do not create direct measurements.
 
@@ -217,7 +214,7 @@ Fifth, **model truth equals filter model family**. There is no structural proces
 
 These are plausible explanations, not separately identified causes. The frozen experiment was designed to compare operators, not to attribute undercoverage through an ablation study. A later phase would need to predeclare ensemble-size, inflation, localization, smoothing, and aggregation ablations.
 
-## What the wrong arm demonstrates—and what it cannot
+## What the wrong arm demonstrates, and what it cannot
 
 The wrong arm jointly changes spatial grouping, delay, and reporting fraction. Its poorer RMSE, forecast, and coverage show that this composite mismatch is consequential in the frozen design. The comparison cannot say whether grouping, delay, or fraction contributes most. It also cannot say that every misspecified operator must perform worse; some wrong models can compensate accidentally under a particular truth.
 
@@ -240,39 +237,43 @@ The following claims are outside the evidence:
 - that the joint misspecification experiment identifies individual causes;
 - that one deterministic synthetic truth establishes general robustness.
 
-No real person or case record appears in the repository. There is no claim of clinical, public-health, or policy readiness.
+No real person or case record is used. There is no claim of clinical, public-health, or policy readiness.
 
-## Reproducibility and failure preservation
+## Why aggregation leaves invisible directions
 
-The byte-level configuration hash is
+The simplest pair-total observation already shows the identifiability problem. Ignore delay for a moment and suppose the first report is $y=I_1+I_2$. The states $(I_1,I_2)=(40,60)$ and $(55,45)$ both produce $y=100$. Moving along the contrast direction $(1,-1)$ changes the two latent patch values while leaving the observed total unchanged. That direction lies in the null space of the aggregation operator.
 
-`5181dc6b8c418e95cc03c8991dda8a077b64a4d0b0595f4137d4be9a877f9b19`,
+With six patches compressed to three adjacent totals, every pair has a similar within-pair contrast. Cross-patch transmission and observations at later dates constrain those contrasts indirectly, but indirect constraint is not direct measurement. If the ensemble covariance becomes too narrow in a weakly observed direction, the three reported totals can remain plausible while individual patch truths fall outside their intervals. That is exactly the pattern behind a reasonable mean NIS and poor latent-state coverage.
 
-and the canonical parsed-JSON configuration hash is
+Delay adds temporal ambiguity. A high report today can reflect higher incidence today, yesterday, or two days ago because the declared weights mix three queue entries. The dynamics rule out some combinations, but observation noise and two-day update spacing leave others possible. Using the correct operator ensures that the filter asks the right inverse problem. It does not make the inverse problem unique.
 
-`0c51b22126e8d23aad34fbeb973c45e0ea0d7885cebb79cfc2ad39fce80ff177`.
+This also explains the direct arm. Observing all six $I_i$ values removes much of the spatial null space and avoids the reporting queue, so the arm tests whether the algorithm can track the truth when information is unusually rich. Its lower RMSE is informative about the cost of aggregation. It is not an argument that a surveillance system can collect latent counts that do not exist as direct measurements.
 
-Canonical and rerun result files share SHA-256
+## How one wrong update reaches the held-out peak
 
-`965f1b302d3c1157aa486c5c05c7c20799f4b604442fd06a0c0f80a34991d734`.
+Consider a report that rises because incidence from the previous two days is now arriving through the delay kernel. The correct arm first generates an equivalent delayed pair total for every ensemble member. Its innovation then measures a difference between predictions and data expressed through the same reporting process. The sample covariance distributes that discrepancy back into patch states, recent incidence queues, and the transmission multiplier.
 
-The technical repository records separate seeds for the prior, observation streams, and arm updates. Evidence tests check conservation, operator dimensions, deterministic replay, key metrics, and the expected PARTIAL gate. The repository checker validates the complete bibliography, result JSON, signatures, four figure triples, SVG accessibility metadata, and QA record.
+The wrong arm treats the same number as an undelayed report. It therefore assigns too much of a delayed rise to the current state. It also groups patch 1 with patch 4 rather than patch 2, so the correction can move into the wrong spatial locations. Finally, the assumed reporting fraction $0.82$ interprets a given report as less underlying incidence than the correct fraction $0.62$ would imply. These errors interact, and the filter may partly compensate by changing the transmission multiplier.
 
-Visual QA also retains real failures. The first revision of Figures 2 and 3 placed metric callouts over an in-axes y-label, leaving stray leading letters visible. Those exports were rejected. Revision 2 removed the collision without changing any data. A final checker-driven revision explicitly set every SVG text element to black while leaving geometry and content unchanged. All four final 4296×2160 PNGs and all four final PDF rasters were then independently reopened at original size; titles, panel labels, callouts, legends, data, tick labels, and all four edges passed overlap and clipping review.
+Both arms remain nonnegative and conserve population after the update. Their curves can even rise together, which helps explain the wrong arm's respectable spatial correlation. Numerical feasibility and trend agreement, however, do not make the observation semantics correct. Repeated updates carry the discrepancy into the day-44 ensemble, and that ensemble becomes the initial condition for the observation-free forecast. The five-day peak delay is therefore a downstream consequence of a jointly misspecified update pathway, not evidence that any one of its three errors is solely responsible.
 
-The failure history is scientifically relevant because it distinguishes a communication defect from a data change. A layout revision may move text. It must not move a gate, replace a result, or omit the failed coverage panel.
+## What the numerical verification establishes
 
-## How to read a PARTIAL result
+Repeating the calculation with the same inputs returned the same state histories, metrics, and coverage failure. Conservation, nonnegativity, observation dimensions, and aggregate-delay calculations also agree with their mathematical definitions. This numerical agreement supports the comparison without extending its empirical scope.
 
-“Partial” is not an average of good and bad impressions. It is a deterministic decision from the frozen rule. The correct operator clearly improves state point estimates relative to open loop and the wrong mapping. It produces plausible mean innovations and a strong held-out peak. Those claims are supported inside the benchmark. The same ensemble does not achieve the declared minimum state coverage, so a broader statement that it recovers the latent field *with calibrated uncertainty* is not supported.
+A repeated synthetic result is still synthetic. Matching runs show that the undercoverage is not a one-run accident in this calculation; they do not show that the model is stable across different truths, parameters, networks, or reporting mechanisms. Those questions require a new set of experiments.
+
+## What improved, and what did not
+
+The result is not an average of good and bad impressions. The correct operator clearly improves state point estimates relative to open loop and the wrong mapping. It produces plausible mean innovations and a strong held-out peak. Those claims are supported inside the benchmark. The same ensemble does not achieve the declared minimum state coverage, so a broader statement that it recovers the latent field *with calibrated uncertainty* is not supported.
 
 This wording matters. Saying “the correct operator works” would be too broad. Saying “the correct operator fails” would throw away real point and forecast improvements. The precise claim is:
 
 > In this frozen synthetic experiment, explicitly modelling the known aggregation and delay recovers much of the point and peak performance lost to partial observation, but the ensemble remains underdispersed for latent infected states.
 
-That sentence contains both sides of the ledger and no operational extrapolation.
+That sentence keeps both findings together and makes no operational extrapolation.
 
-## A responsible next phase
+## What should be tested next
 
 A new protocol could investigate the coverage failure rather than tune it away. Candidate frozen axes include ensemble size, inflation, localization, iterative updates, fixed-lag smoothing, delay-kernel uncertainty, reporting-fraction estimation, pairwise versus larger aggregation, and controlled process mismatch. Each change should be evaluated on multiple held-out synthetic truths rather than one seed family.
 
@@ -280,20 +281,10 @@ An attribution design should vary grouping, delay, and reporting fraction separa
 
 Only after synthetic calibration is understood would real-data work be meaningful. That would require data provenance, reporting definitions, revision and delay processes, privacy governance, a model appropriate to the disease and geography, parameter identifiability analysis, out-of-sample periods, and domain-expert review. Such a study would be a new project, not a footnote to this benchmark.
 
-## Final lesson
+## Conclusion
 
 Data assimilation does not ingest reality. It ingests a measurement model. When a filter's internal state and a reporting system's output differ, the observation operator is part of the scientific model, not plumbing around it.
 
 The frozen result makes that point without manufacturing a success. A known aggregate-and-delay operator cuts assimilation RMSE from $264.26$ open loop to $36.09$, outperforms the wrong operator's $126.34$, and preserves an accurate held-out peak. Yet its nominal 90% latent-state interval covers only $56.30\%$, so the declared full recovery claim fails. The direct latent arm remains an unrealistic upper benchmark, and the wrong arm demonstrates joint misspecification rather than a universal law.
 
 The practical methodological lesson is simple: assimilate what the instrument or reporting process can actually observe, evaluate uncertainty in both observation and latent spaces, and let a failed calibration gate remain visible.
-
-## Technical record
-
-- Technical record: private P06 EnKF aggregated spatial epidemics workspace in the ScienceProject repository
-- Literature verdict: **REFRAME**
-- Scientific verdict: **PARTIAL**; G2, G3, G5, and G6 pass, G4 fails
-- Frozen design: six patches, 96 members, assimilation days 2–44, held-out forecast through day 100
-- Correct-arm key metrics: RMSE $36.090$, correlation $0.8523$, state coverage $0.562963$, mean NIS $0.9591$, peak error $0$ days and $0.743\%$
-- Canonical/rerun SHA-256: `965f1b302d3c1157aa486c5c05c7c20799f4b604442fd06a0c0f80a34991d734`
-- Evidence boundary: deterministic synthetic truth only; no real dengue, clinical, operational, or universal EnKF claim

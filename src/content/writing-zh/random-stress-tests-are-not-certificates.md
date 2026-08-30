@@ -40,13 +40,13 @@ $$
 
 比較結果刻意保留了不舒服的一面。IID-uniform 與 Latin-hypercube sampling 都使用 budgets 32、128、512、2,048，每個 method-budget cell 有三十二個固定 seeds。按 $10^{-4}$ shortfall rule 計算，八個 cells 全部是 0/32 hits。這只描述指定 designs；它不等於 population miss probability，也沒有 confidence level。Projected-gradient multistart 比 sampling 更接近：19/32 starts 到達 certificate width 內，另外十三次留在很低的 basin。即使十九個好結果與 dense reference 幾乎一致，它們仍然沒有 global upper bound。
 
-## 先讀 claim ledger，再看漂亮曲線
+## 甚麼得到證明，甚麼只經抽樣
 
-下表把 machine evidence、可容許說法與常見誤讀放在同一頁。這是整項工作的編輯防線。
+下表把數學上界與只來自已評估 points 的結果分開。
 
-| 項目 | Frozen evidence | 可容許推論 |
+| 問題 | 結果 | 為何重要 |
 |---|---:|---|
-| 文獻 gate | **COMPLETE / REFRAME** | Deterministic global bounds、interval methods、sampling design、scenario theory 與 CSTR uncertainty 已有成熟研究；P07 是 replication-extension benchmark。 |
+| 研究背景 | Deterministic global bounds、interval methods、sampling design、scenario theory 與 CSTR uncertainty 已有成熟研究 | 本文是一個聚焦 benchmark，不是新 optimizer 或 reactor theory。 |
 | Uncertainty set | $T\in[0.4,2]$、$z\in[-28,-20]$、$H\in[0.5,2]$ | 一個指定 rectangular box，不是量測所得 operating envelope。 |
 | Monotonicity | $\partial J/\partial z>0$、$\partial J/\partial H<0$ | 每個 maximizer 都在 $z=-20$、$H=0.5$。 |
 | Certificate | $[1.4443773087849885,1.4443777214279065]$ | 此 synthetic maximum 位於 interval 內。 |
@@ -54,14 +54,12 @@ $$
 | Dense reference | 200,001 points；best value $1.4443773092028358$ | 獨立 numerical check 沒有衝破 upper bound；它本身不提供 proof。 |
 | IID/LHS | 八個 cells 各為 0/32 hits | 只限 exact seeds、budgets、box、objective 與 $10^{-4}$ rule。 |
 | Local search | 19/32 starts 在 certificate width 內 | 某些 starts 給出強 incumbents；沒有一個 local run 提供 set-wise UB。 |
-| Reproducibility | 兩次 scientific signature 同為 `db6320da…1d473` | Frozen scientific content 可確定重播；runtime metadata 不在 signature 內。 |
-| Figure QA | 五組 SVG/PDF/600-dpi PNG 通過 | Export layout 可讀；視覺驗收不是 interval proof。 |
 
 Dense reference 與 certificate 的職責不同。把 $[0.4,2]$ 切成 200,001 個 temperatures，可以很有效地發現明顯 bug；若任何 grid value 高過 certified UB，enclosure 必定有問題。然而，相鄰 grid points 之間仍是未評估 continuum。除非另有 derivative bound、interval arithmetic 或解析結構，不能因為網格很密便假設中間沒有尖峰。
 
-## 文獻 gate 為何要求 REFRAME
+## 文獻如何改變研究問題
 
-原先構想接近「為 uncertain CSTR safety 發展一個新 worst-case method」。Primary literature audit 顯示這個 headline 不成立。
+原先構想接近「為 uncertain CSTR safety 發展一個新 worst-case method」。與 primary literature 比較後，這個 headline 並不成立。
 
 McCormick 在 1976 年已為 factorable nonconvex programs 建立 convex underestimators（[DOI](https://doi.org/10.1007/BF01580665)）。Ryoo 與 Sahinidis 發展帶 global bounds 的 branch-and-reduce（[DOI](https://doi.org/10.1007/BF00138689)），Sahinidis 亦記錄 BARON general-purpose deterministic global software（[DOI](https://doi.org/10.1007/BF00138693)）。Adjiman、Dallwig、Floudas 與 Neumaier 的 alphaBB work 奠定 smooth nonconvex NLP 的理論（[DOI](https://doi.org/10.1016/S0098-1354(98)00027-1)）。Deussen 與 Naumann 更直接研究 interval branch-and-bound 中的 monotonicity 及 separability（[DOI](https://doi.org/10.1007/s10898-022-01265-6)）；Moeller 等人在另一應用比較 rigorous interval maximization、stochastic methods 與 local methods（[DOI](https://doi.org/10.1007/s11081-022-09729-0)）。
 
@@ -131,7 +129,7 @@ $$
 -(T-T_{\mathrm{cool}})<0.
 $$
 
-Machine audit 記錄 $\partial J/\partial z$ 的 minimum 為 $1.906519333497153\times10^{-7}$，$\partial J/\partial H$ 的 maximum 為 $-0.2$。兩個 signs 在完整 box 都成立，因此任一 global maximizer 必須位於
+Derivative check 記錄 $\partial J/\partial z$ 的 minimum 為 $1.906519333497153\times10^{-7}$，$\partial J/\partial H$ 的 maximum 為 $-0.2$。兩個 signs 在完整 box 都成立，因此任一 global maximizer 必須位於
 
 $$
 z^\star=-20,\qquad H^\star=0.5.
@@ -212,7 +210,7 @@ $$
 
 打印一個長小數作「the optimum」會隱藏仍未消除的 numerical uncertainty。Interval 誠實地顯示算法尚未定位 exact maximizer 至無限精度，但已把所有可能 values 包在指定寬度內。這個 uncertainty 只屬於 frozen function 的 set-wise numerical bound；model-form error、box 外參數、物理量測誤差完全沒有被處理。
 
-## 固定 stress-test comparison
+## 固定 stress tests 得到甚麼
 
 Sampling comparison 有兩個 designs。IID uniform 在三維 box 獨立抽點；Latin hypercube 在每個 coordinate 分層，再隨機配對。兩者都用 budgets 32、128、512、2,048，每個 method-budget cell 有 32 個 recorded seeds。
 
@@ -260,7 +258,7 @@ value 為 $1.4443773092118821$，甚至略高過 branch-and-bound representative
   <figcaption>十九個 starts 到達 certificate width 內，十三個留在很低位置；沒有一個 local result 提供 global upper bound。</figcaption>
 </figure>
 
-Code naming 亦影響 claim discipline。Local outputs 稱為 `value`、`point`、`shortfall_to_certified_lower`，而不是 `certified_optimum`。Plot 把 global UB 另行標示，claim ledger 再重複。這種重複不是裝飾，它防止 downstream prose 把 best feasible value 悄悄升級成 worst-case certificate。
+命名會改變讀者如何理解結果。Local output 是某個 feasible point 的 value，以及它與已知 lower benchmark 的 shortfall；把它叫作 `certified optimum` 會改變數學意義。Plot 因此把 global UB 與 local values 分開。這可防止一個常見錯誤：高 feasible value 在反覆轉述後，逐漸被改名為 worst case，卻從未對其餘集合建立上界。
 
 ## 一維 worst-corner slice 應放在 proof 之後
 
@@ -275,53 +273,23 @@ Evidence ordering 很重要。先在 full domain 證 coordinate signs，再縮�
 
 Independent dense grid 也應在 certificate definition 之後使用。它是 adversarial check：若 dense value 超過 UB，implementation 立即失敗。現在它落在 interval 內，表示這項明顯矛盾不存在；但 grid 本身仍不能排除 inter-grid spike。
 
-## Gates、tests 與 deterministic signature
+## 如何核對 certificate
 
-Scientific gate 有四項：monotonicity signs 在 declared box 成立；certificate gap 不大於 $10^{-6}$；independent dense reference 位於 interval；overall gate 只有在前三項全部通過時才為 true。四項均 pass。
+數值判定有四項：monotonicity signs 在 declared box 成立；certificate gap 不大於 $10^{-6}$；independent dense reference 位於 interval；certificate 只有在前三項全部通過時才接受。四項均 pass。
 
-Sampling 或 local search 不需要「成功」才能令 certificate pass。反過來，即使 sample 全部 hit，一個 invalid UB 仍然令 scientific gate fail。這個 dependency structure 避免 comparator outcome 左右 certificate definition。
+Sampling 或 local search 不需要「成功」才能令 certificate 成立。反過來，即使 sample 全部 hit，一個 invalid UB 仍然令認證失效。Comparator outcome 不會改變 certificate 的定義。
 
-Mathematical tests 覆蓋 sigmoid 與 derivatives、monotonicity reduction、interval enclosures 對 adversarial dense probes 的 validity、outward guard、branch-and-bound containment、sampling bounds 與 seeds、Latin-hypercube strata、local projection 及 deterministic signature。Repository checker 再驗 literature status、DOI count、protocol hash、canonical/rerun equality、claim ledger、figure manifests、SVG text rules、publish asset equality 與 two-reviewer visual QA。
-
-Canonical 與 rerun 共用 scientific signature：
-
-$$
-\texttt{db6320da30c6000e5f398583de8ad0900577b62bb5e37ffc9b74ed6dc181d473}.
-$$
-
-Runtime、timestamp、platform string 與 environment label 不進 signature。這樣分層是必要的：processor load 可以改變 seconds，卻不應令同一 frozen scientific record 被判定不同。
-
-Figure pipeline 由 machine-readable result、configuration 與 reproducibility record 生成五張 native SVG、五張 vector PDF、五張 600-dpi PNG、逐圖 manifests 與 byte-identical publish SVGs。Color 同時配合 dash、marker、panel position 或 textual status，SVG text 明確為黑色。
+獨立核對涵蓋 derivative signs、interval enclosures、outward guards、branch containment、Latin-hypercube strata 與 local projection。一次完全不改設定的重複計算得到相同 certificate interval、gap 及 comparator results。這些核對支持 implementation，卻不會擴大 certificate 的覆蓋範圍。
 
 五張圖亦不是五個互不相干的裝飾。第一張先把三個 comparator 的 terminal shortfall 放在同一尺度，回答「哪些方法只交出 incumbent」；第二張把每次 branch 後的 lower、upper endpoints 與 gap 分開畫，回答「certificate 如何收窄」；第三張保留全部 replicate distributions，避免只展示最幸運的 seed；第四張把 local-start output 與 certified upper bound 的距離並列，讓十九個 near starts 和十三個 low-basin starts 同時可見；第五張才顯示 reduced temperature slice、certified point 與 reference。若只刊第五張，平滑曲線很容易令人以為 dense plotting 已證明 maximum。按這個次序閱讀，圖表會把 search evidence、bound evidence 和 geometry evidence分開。
 
-圖像審核也要檢查語義，而不只是像素。Legend 必須清楚指出哪條線是 lower bound、哪條是 upper bound；panel heading 若被 PDF 左邊裁去「(a)」，讀者仍可能猜到內容，但 export 已不符合可重用標準；顏色若是唯一區分，灰階列印與色覺差異會丟失狀態。因此 final figures 同時用顏色、line style、marker 與直接文字。Alt text 不會照抄 caption，而是描述圖中比較關係，例如所有 fixed sampling cells 均零命中、local starts 分成兩群，以及 certified interval 包住 dense reference。這樣即使不依賴顏色或不能查看 raster，核心證據方向仍可辨識。
+最重要的是，五張圖傳達三種不同的科學證據。Samples 只給出已評估點的 incumbents，local trajectory 只顯示 search behavior，dense grid 只提供有限交叉檢查；只有與函數 enclosure 對應的上下界序列才支撐 certificate。很多 samples 聚在峰頂附近、local trajectory 看似收斂，或 dense grid 非常細，都不會把有限觀察提升為 global upper bound。
 
-最重要的是，任何圖都不會提升原本的證據級別。很多 samples 聚在峰頂附近仍然不是 upper bound；一條看似收斂的 local trajectory 仍然不是 global proof；一個非常細的 dense grid 仍可能穿過窄峰之間。只有與函數 enclosure 對應的上下界序列才支撐 certificate。圖像 pipeline 的工作是忠實傳遞這個區別，而不是用出版風格替方法加上它沒有的保證。
+Dense grid 提供另一項獨立檢查。若 200,001 個 values 中任何一個超過 reported upper endpoint，certificate implementation 便立即失敗；目前 grid best 落在 interval 內。這份 agreement 不會把 grid 變成 proof，但排除了一個清楚矛盾。
 
-Visual QA 亦保留 rejection history。初版五圖中四張因 spacing 或 wording 被拒；PDF raster 又暴露 dash-state 與 clipped panel headings，其中一個 heading 要第二次大幅移入 safe boundary 才通過。Final PNG 與 300-dpi PDF rasters 均以 original detail 檢查 text-text、text-data、legend-data、panel labels 及四邊 clipping。這只證明 export 可讀，不能代替 interval validity tests。
+重複 calculation 亦不會擴大 claim。它只說明 interval 與 comparison 不是相同 inputs 下的單次偶然。任何新 box、objective、branch rule、seeds、budgets 或 hit tolerance 都會提出新問題，需要新的結果。
 
-## 如何重現而不偷改 protocol
-
-私人技術 repository 的 P07 目錄保留 research contract、literature gate、claim ledger、canonical result、source、tests 及被拒圖像 revisions。公開 Blog 只包含經審閱的詮釋與獲准 SVG，不會向讀者提供無法存取的私人 repository 連結。這種分工亦令重新執行程式不能靜默改寫文章：任何新數值都要先通過相同 gates、hash 與圖像審核，才可重新整理公開解讀。
-
-在 project directory 執行：
-
-~~~powershell
-python -m unittest discover -s tests -v
-python scripts/run_experiment.py --output results/canonical.json
-python scripts/run_experiment.py --output results/rerun.json
-python scripts/check_reproducibility.py
-python scripts/plot_results.py
-python scripts/rasterize_pdf_qa.py
-python scripts/check_repo.py
-~~~
-
-Fresh run 應重現 signature、certificate interval、gap、stress-test records 與 local outputs。Recorded renderer stack 下 figure hashes 亦應一致。若換 compatible fonts 或 compression stack，visual bytes 可以不同，但 scientific signature 應保持不變，manifest 會把兩層差異分開。
-
-任何新 box、objective、branch rule、seeds、budgets 或 hit tolerance 都是新 protocol。它們可以形成 follow-up，但必須有新 lock 與新 evidence record，不能把現有 PASS 直接搬過去。
-
-## 四個容易越界的詞
+## 四個容易被誤解的詞
 
 第一個是「CSTR」。讀者可能自然聯想到物理 reactor，但這個 objective 沒有時間動力、mass/energy balance、heat capacity、coolant response、feed disturbance 或 controller。Maximum 不能轉成 runaway temperature、safe limit、alarm threshold 或 emergency action。
 
@@ -347,13 +315,13 @@ $$
 
 實作上的細節同樣屬於證據。浮點運算若把理論 upper bound 向下捨入，可能在最後幾位把有效區間錯誤收窄。P07 沒有宣稱已建立一套通用 directed-rounding library，而是在這個固定、低維的函數上使用保守 guard，並以 dense grid 和數學測試作獨立交叉檢查。Dense grid 不會令 bound 變得有效；它的角色是偵測顯然錯誤的 enclosure，例如 reference value 落在 reported interval 之外。真正的邏輯次序仍是先證明 enclosure 對整段成立，再用外部計算測試實作是否符合該邏輯。
 
-停止條件也必須作用於全域 gap，而不是最後切開的單一 interval。若目前 queue 中仍有另一段的 $U(I)$ 很高，即使最新 child 已非常窄，整個問題仍未認證。P07 的 $4.1264291805731546\times10^{-7}$ 是 incumbent 與所有 active intervals 的最大 upper bound 之差；因此低於 $10^{-6}$ 才觸發 PASS。把平均 interval width、best-node width 或 optimizer step size 當作 certificate gap，會改變聲稱的數學意義。
+停止條件也必須作用於全域 gap，而不是最後切開的單一 interval。若目前 queue 中仍有另一段的 $U(I)$ 很高，即使最新 child 已非常窄，整個問題仍未認證。P07 的 $4.1264291805731546\times10^{-7}$ 是 incumbent 與所有 active intervals 的最大 upper bound 之差；因此低於 $10^{-6}$ 才完成認證。把平均 interval width、best-node width 或 optimizer step size 當作 certificate gap，會改變聲稱的數學意義。
 
-這套記帳方式亦解釋為何「十三個 nodes」不能單獨成為效率結論。節點數取決於 analytic reduction、initial box、bound formula、branch rule 與 tolerance。另一個 objective 或較鬆的 enclosure 可能需要遠多於十三個節點。本文只報告 frozen protocol 的實際節點數，沒有外推 complexity rate，也沒有把這個小型 benchmark 寫成大型 global solver 的性能證明。
+這套上下界更新方式亦解釋為何「十三個 nodes」不能單獨成為效率結論。節點數取決於 analytic reduction、initial box、bound formula、branch rule 與 tolerance。另一個 objective 或較鬆的 enclosure 可能需要遠多於十三個節點。本文只報告固定設計下的實際節點數，沒有外推 complexity rate，也沒有把這個小型 benchmark 寫成大型 global solver 的性能證明。
 
 ## 零命中表格應如何閱讀
 
-每個 0/32 cell 都是一個完整但很窄的觀察：指定方法、指定 budget、指定三十二個 seeds，在指定 $10^{-4}$ shortfall 定義下，沒有一次 hit。它回答的是可重現的設計問題，而不是一個未知抽樣分布的普遍機率。若把三十二次看成獨立 Bernoulli trials，再計算 confidence interval，還需要先定義 sampling mechanism、target event 和 inference model；P07 沒有預先註冊這項推論，也沒有把 seeds 當成從某個母體隨機抽取的統計樣本。因此本文只展示 counts、shortfalls 和 exact design。
+每個 0/32 cell 都是一個完整但很窄的觀察：指定方法、指定 budget、指定三十二個 seeds，在指定 $10^{-4}$ shortfall 定義下，沒有一次 hit。它回答的是固定設計下的比較問題，而不是一個未知抽樣分布的普遍機率。若把三十二次看成獨立 Bernoulli trials，再計算 confidence interval，還需要先定義 sampling mechanism、target event 和 inference model；P07 沒有預先註冊這項推論，也沒有把 seeds 當成從某個母體隨機抽取的統計樣本。因此本文只展示 counts、shortfalls 和 exact design。
 
 Budget 由 32 增加至 2,048，best value 可以逐步靠近峰值，但「靠近」與「命中」由不同門檻決定。最好的 sample 是可行點，所以它永遠提供一個可靠 lower bound；其 shortfall 卻要與 certified lower endpoint 或 reference carefully 比較。若事後看完數據才把 hit tolerance 放寬，便會把 exploratory choice 混入 confirmatory result。P07 固定 $10^{-4}$ 後才評估，故即使某些點視覺上貼近曲線頂部，仍按同一規則記為 miss。
 
@@ -361,11 +329,21 @@ Latin hypercube 的 stratification 改善各 coordinate 的 marginal coverage，
 
 「全部零命中」亦不能轉成危險發生率或漏檢率。$J$ 不是事故指標，box 不是 plant exposure distribution，hit rule 也不是 safety threshold。即使以真正 reactor model 取代 proxy，若沒有參數機率、觀測誤差、時間依賴與 validation data，stress-test frequencies 仍只描述 computational design。這是為何圖注和正文反覆寫明 fixed seeds/budgets，而沒有寫百分比風險。
 
-讀者若要重算 comparator，應先核對 seed mapping、sampling transformation、budget nesting 與 tie handling。只報「跑了 2,048 點」不足以重現；同樣 seed 在不同 random-number library 或不同 draw ordering 下可以得到另一批點。P07 把 exact seeds 與 machine-readable records 留在 repository，讓 0/32 成為可核對事實，同時避免把一次設計的結果冒充抽樣方法的一般性質。
+同一 seed 在不同 random-number library 或 draw ordering 下可以生成另一批 points，所以「跑了 2,048 點」本身不足以定義一個 sampling design。本文的 0/32 只對指定 mapping、transformation、budgets 與 tie handling 成立。這項限制不妨礙比較，但它禁止把一次設計的結果冒充抽樣方法的一般性質。
+
+## 機率聲稱需要另一種實驗
+
+把每個 0/32 cell 改寫成 miss probability，需要先補上本文沒有的統計對象。研究者必須界定未來重複是同一 objective 下重新抽 points，還是從某個 problem population 抽出新的 objectives；兩者的母體、獨立性與 target event 完全不同。Hit rule 也要在看到 shortfalls 前選定，否則 confidence interval 只是替事後門檻加上統計外觀。
+
+若研究問題只關心固定 objective 下 IID sampler 的 hit rate，可另行設計大量獨立 draws，申明 random-number transformation，並為估計誤差設定區間。這仍然只會得到 design-conditional probability，不會為未抽到 points 建立函數上界。若研究問題希望跨 objectives 比較 algorithms，則要先定義 problem generator、dimension、geometry、smoothness 及 boundary structure 的分布，再把每個 problem 視為一個抽樣單位。P07 沒有做這兩種推論中的任何一種。
+
+Budget 增加時，best feasible value 通常會改善，但 hit rate 與 certificate 是兩個不同問題。即使 2,048-point sampling 在另一輪取得 32/32 hits，它仍只證明每次找到接近 benchmark 的 lower bound；除非同時對未搜尋集合建立 valid enclosure，否則不會變成 global certificate。相反，一個有效 interval algorithm 可以在 sampling table 全部零命中時照樣認證，因為它的 upper bound 不依賴 comparator 是否幸運。
+
+這也說明公平比較要把 information access 寫清楚。本次 deterministic route 使用 exact derivative signs，把 $z,H$ 直接固定到 corner；generic IID 與 LHS 並不知道這個結構。如果 boundary-aware sampler 同樣得到 derivative information，它會把資源集中在剩餘 temperature interval，很可能找到更好的 incumbent。它仍需另一個 enclosure 才能認證。下一個比較應分開報告 function evaluations、derivative evaluations、bound operations 與最終 gap，不能只用 wall-clock 或 best value 排名。
 
 ## 審閱一個 worst-case 聲稱的七個問題
 
-第一，問題集合是否完整公開？至少要有每個變數的 bounds、單位或 dimensionless 定義、coupling constraints，以及 objective 在邊界上的定義。若報告只給一個 optimum point，讀者無法知道「global」是相對哪個集合。P07 把三維 closed box 寫入 frozen configuration，任何擴大或平移都會成為新問題。
+第一，問題集合是否完整公開？至少要有每個變數的 bounds、單位或 dimensionless 定義、coupling constraints，以及 objective 在邊界上的定義。若報告只給一個 optimum point，讀者無法知道「global」是相對哪個集合。P07 的結果只對文中三維 closed box 成立，任何擴大或平移都會成為新問題。
 
 第二，objective 是否與聲稱對象一致？一個方便優化的 surrogate score 不會自動等於 physical temperature、yield loss 或 failure probability。P07 的名稱借用 CSTR 語境來建立可辨識的形狀，但結論只屬於合成 algebraic proxy。這條邊界應出現在摘要、圖注與結論，而不只是藏在 limitations。
 
@@ -373,17 +351,29 @@ Latin hypercube 的 stratification 改善各 coordinate 的 marginal coverage，
 
 第四，解析 reduction 的適用條件有沒有在整個集合成立？P07 不是在幾個 grid points 看見偏導同號，而是對 box 上所有 admissible states 建立 sign argument，才把 $z,H$ 固定到 corner。若 derivative 在 box 內變號，corner reduction 便失效，必須保留相應 dimensions 或用另一個有效 bound。局部單調跡象不能偷換成全域證明。
 
-第五，停止 tolerance 是否事前固定，而且與數值尺度相稱？看到結果後把 $10^{-6}$ 改成 $10^{-5}$，可能把 FAIL 變 PASS，卻破壞 confirmatory interpretation。另一方面，極小 tolerance 也不代表物理準確；它只控制 numerical enclosure。P07 的 tolerance、branch rule、guard 與 node accounting 都進 protocol hash，讓讀者辨識何者在結果前已鎖定。
+第五，停止 tolerance 是否事前固定，而且與數值尺度相稱？看到結果後把 $10^{-6}$ 改成 $10^{-5}$，可能把不通過變成通過，卻破壞 confirmatory interpretation。另一方面，極小 tolerance 也不代表物理準確；它只控制 numerical enclosure。P07 的 tolerance、branch rule、guard 與 node accounting 都在結果前固定。
 
-第六，有沒有獨立的實作檢查？Property tests 應覆蓋 enclosure domination、children coverage、monotonicity signs、feasibility、deterministic ordering 與 signature stability。Dense reference 可以補充，但不能代替 validity property。圖像亦需要另外做原尺寸與 PDF raster QA，因為一張被裁掉「upper bound」字樣的圖可能令讀者誤解，即使 JSON 完全正確。
+第六，有沒有獨立的實作檢查？Property tests 應覆蓋 enclosure domination、children coverage、monotonicity signs、feasibility 與 deterministic ordering。Dense reference 可以補充，但不能代替 validity property；它最有力的作用，是在任何 evaluated value 超過 reported UB 時立即否定 implementation。
 
-第七，negative 或 null comparator result 有沒有原樣保存？在這裏，sampling 八個 cells 的 0/32 和 local search 的 19/32 near hits 都有價值，因為它們展示 incumbent 與 certificate 的分界。若只挑選最接近 maximum 的 seed，會隱藏 basin sensitivity；若只展示 poor starts，又會誇大 heuristic weakness。完整 fixed-design table 才讓比較維持可審計。
+第七，negative 或 null comparator result 有沒有原樣保存？在這裏，sampling 八個 cells 的 0/32 和 local search 的 19/32 near hits 都有價值，因為它們展示 incumbent 與 certificate 的分界。若只挑選最接近 maximum 的 seed，會隱藏 basin sensitivity；若只展示 poor starts，又會誇大 heuristic weakness。完整 fixed-design table 才讓比較維持可核查。
 
 這七問不會把任何 optimizer 自動變成認證工具，但可以快速識別聲稱是否缺少 set-wise bound、是否把 probability 偷帶入 deterministic result，或是否把 synthetic proxy 誤寫成實體安全結論。對 P07 而言，答案都被限制在 Phase 1 小問題內；它是一個語義和證據結構示範，不是工業 certification workflow。
 
-## 下一階段要令問題真正變難
+## 若單調性不再成立，證書要怎樣改
 
-現有 example 因 monotonicity 消去兩個 coordinates，故意保持可審計。下一階段若只是再次使用相同 reduction，不應包裝成 algorithm novelty。更有內容的 protocol 可以：
+P07 之所以能用十三個 processed nodes 收窄 gap，關鍵不是 branch-and-bound 本身突然變得容易，而是兩條 derivative signs 在整個 box 成立。若 $\partial J/\partial z$ 或 $\partial J/\partial H$ 在區域內改變符號，便不能再把相應 coordinate 固定在 boundary。只在 dense grid 上看見大部分 signs 相同也不夠，因為一小段未察覺的 sign change 已可令 corner reduction 漏掉更高值。
+
+最保守的做法是把變號 coordinate 留在 branch state，為每個多維 box 建 valid upper enclosure。若 derivative interval 在某個 child box 重新取得固定符號，才可在該 child 局部消去一個方向。這種 local monotonicity 會產生不規則的 search tree：有些 regions 很快降維，有些仍需在三維細分。Certificate gap 依然是所有 active boxes 的最大 upper bound 與 global incumbent 之差，不能只看已降維的容易 regions。
+
+另一條路是建立 convex relaxation 或 McCormick envelopes，令每個 box 的 nonlinear terms 有可證明上下界。Bounds 可能較鬆，nodes 因而增加；但只要 enclosure valid，速度慢仍然比一個錯誤地向內收縮的「緊 bound」可靠。比較 interval 與 relaxation methods 時，應使用相同 uncertainty set、tolerance 及 arithmetic policy，並分開報 bound evaluations 與 feasible evaluations，否則 best value 接近只反映 search，不能說明認證效率。
+
+若 dimension 增加，sampling 的 incumbent 可能改善得更慢，而 deterministic bounds 也可能受 curse of dimensionality 影響。這並不改變定義：兩者是否 certificate 仍由 set-wise upper bound 決定，不由 wall-clock 排名決定。下一個 benchmark 應故意加入 derivative sign changes、coupling constraints 與 narrow interior peak，同時保留 known reference 或獨立 enclosure，才可觀察 clean one-dimensional logic 在何處開始承受壓力。
+
+Physical CSTR 問題還要再多一層。動態 mass 與 energy balances 會把 decision variables 變成 trajectories，runaway criterion 亦可能取決於 event time、stability 或 constraint violation，而非一個 static score。此時先要定義被認證的 quantity，再選擇能包住 integration error、parameter box 與 model equations 的方法。把 P07 的 algebraic UB 原封不動套到動態安全聲稱，會跨越目前完全沒有處理的 model-form 與 discretization uncertainty。
+
+## 下一步應測試甚麼
+
+現有 example 因 monotonicity 消去兩個 coordinates，故意保持容易核查。下一階段若只是再次使用相同 reduction，不應包裝成 algorithm novelty。更有內容的 protocol 可以：
 
 - 選擇 derivatives 在 box 內改 sign 的 synthetic objective；
 - 在同一 tolerance 比較 interval、convex-relaxation 與其他 deterministic bounds；
@@ -399,7 +389,7 @@ Latin hypercube 的 stratification 改善各 coordinate 的 marginal coverage，
 
 公平比較亦要注意 information asymmetry。Deterministic method 使用 exact derivatives 與 monotonicity；IID/LHS 刻意 generic。這個不對稱正好說明 structure 的價值，但不能變成 universal efficiency ranking。若 boundary-aware sampler 同樣使用 derivative signs，它可以直接把 $z,H$ 固定在 corner，很快找到更好 incumbent；除非它同時包住 remaining temperature interval，否則仍沒有 certificate。
 
-## 最實用的報告規則
+## 結論
 
 Worst-case report 應明確列出 gap 的兩端。
 
@@ -411,7 +401,7 @@ P07 對一個 reduced synthetic objective 把 gap 關到 $4.1264291805731546\tim
 
 > 對指定 synthetic dimensionless objective 及 bounded set，deterministic interval run 以低於 $10^{-6}$ 的 gap 包住 global maximum；固定 seeded sampling 與 multistart outputs 是沒有 set-wise upper bounds 的 feasible incumbents。
 
-## 文獻 gate 保留的 primary literature
+## 參考文獻
 
 1. Garth P. McCormick，〈Computability of Global Solutions to Factorable Nonconvex Programs: Part I, Convex Underestimating Problems〉，*Mathematical Programming* 10（1976），[DOI 10.1007/BF01580665](https://doi.org/10.1007/BF01580665)。
 2. Ho-Sung Ryoo 與 Nikolaos V. Sahinidis，〈A Branch-and-Reduce Approach to Global Optimization〉，*Journal of Global Optimization* 8（1996），[DOI 10.1007/BF00138689](https://doi.org/10.1007/BF00138689)。

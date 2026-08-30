@@ -22,25 +22,22 @@ redirectFrom: []
 
 第二個結果針對早期校準。研究另以解析微結構曲線中 $0.1\le F\le0.5$ 的資料，擬合一個標量 $D_{\mathrm{fit}}$，之後才在未參與擬合的後半段檢查誤差。在恰好三個預先定義的見證案例 $(\kappa,N)=(10,1),(100,1),(1000,1)$ 中，早期最大誤差分別只有 $0.752\%$、$0.845\%$、$0.856\%$，卻在 held-out $t_{90}$ 產生 $11.11\%$、$12.09\%$、$12.17\%$ 的相對誤差。這證明的是三個固定見證，不是所有經擬合的擴散係數都會失敗。
 
-整個項目只提供單一合成族群的數值證據。它不是均質化失效的普遍定理，不是藥物配方模型，也沒有包含膨潤、侵蝕、降解、結合、溶解、反應、移動界面、非 Fick 傳輸、臨床反應、劑量、療效或安全。文獻 gate 的結論是 **REFRAME**：週期均質化、微結構解析釋放、連通性、表觀擴散率與有限瞬態偏差已有充分先行工作；本地貢獻應被寫成可審計的 replication-extension benchmark，而不是新的有效係數公式。
+整個項目只提供單一合成族群的數值證據。它不是均質化失效的普遍定理，不是藥物配方模型，也沒有包含膨潤、侵蝕、降解、結合、溶解、反應、移動界面、非 Fick 傳輸、臨床反應、劑量、療效或安全。文獻審查把研究結論定為 **REFRAME**，因為週期均質化、微結構解析釋放、連通性、表觀擴散率與有限瞬態偏差都有充分先行工作。這個決定把研究價值放在受控的有限尺度基準，而非提出新的有效係數公式。
 
-## 一頁讀懂證據帳本
+## 基準測試結果
 
-| 項目 | 凍結的第一階段證據 | 可以支持甚麼 |
+| 問題 | 結果 | 為何重要 |
 |---|---:|---|
-| 文獻 gate | **REFRAME** | 可做受控可靠性圖，但不能宣稱一般性新穎發現。 |
-| 幾何 | 一種一維週期慢–快–慢薄板 | 只代表連接兩側的橫向障礙，不代表一般形貌。 |
-| 邊界 | 兩端完美吸收 | 只測一種邊界條件及一個邊界相位。 |
-| 網格 | $\kappa\in\{1,10,100,1000\}$，$N\in\{1,2,4,8,16,32\}$ | 恰好 24 個預註冊案例，其中六個是均質控制。 |
-| 調和結果 | 18 個異質案例中 7 adequate、2 grey、9 breakdown | 此有限網格上的經驗尺度邊界。 |
-| 早期擬合 | 三個 $N=1$ 見證 | 在這三例中，早期合格仍可伴隨 held-out $t_{90}$ 失敗。 |
-| 數值驗證 | 九個科學檢查為真；24 個 refinement 檢查通過 | 觀察到的模型差異大於已記錄的離散不確定性。 |
-| 重現 | 最近兩次 PASS 有相同 signature 97e221…41e2e | 凍結數值材料可確定性再生。 |
-| 仍鎖定 | 其他相位、形貌、機制、資料及 final evaluation | 本文不提前聲稱其結果。 |
+| 測試了甚麼？ | 一種一維週期慢–快–慢薄板，兩端皆為完美吸收 | 結果只適用於一種橫向障礙及一個邊界相位。 |
+| 比較範圍有多大？ | $\kappa\in\{1,10,100,1000\}$，$N\in\{1,2,4,8,16,32\}$ | 24 個案例包括六個均質控制及 18 個異質案例。 |
+| 調和模型何時足夠？ | 異質案例中 7 adequate、2 grey、9 breakdown | 有限瞬態同時受尺度分離影響，不能只看係數。 |
+| 模式在哪裏改變？ | $N=16$ 及 $32$ 時所有對比均 adequate | 這是測試網格上的經驗轉折，不是普遍週期數定理。 |
+| 早期擬合能否預測後期事件？ | 三個 $N=1$ 擬合在早期合格，$t_{90}$ 卻偏差逾 $5\%$ | $0.1\le F\le0.5$ 的貼合不能保證後期準確。 |
+| 差異是否來自離散誤差？ | 九項科學檢查及 24 項 refinement 檢查通過 | 分類差異大於量得的數值離散變化。 |
 
 「有限尺度 breakdown」與「均質化理論錯誤」必須分開。對宣告的一維週期 cell problem，調和係數正是其解析有效係數。本研究檢查的不是這個極限係數是否成立，而是一個只含有限 $N$ 個週期的瞬態曲線，是否已接近到能通過指定的軌跡及事件容差。breakdown 標籤只表示某個 comparator 跨過某個凍結門檻；它不推翻週期均質化。
 
-## 文獻審核為何令題目必須改寫
+## 文獻為何改變了研究問題
 
 異質聚合物釋放與有效傳輸並非新的組合。Chandrasekaran 與 Hillman 在 1980 年已建立異質聚合物矩陣釋放模型（[DOI](https://doi.org/10.1002/jps.2600691119)）。Auriault 與 Lewandowska 把週期均質化、有效擴散係數與實驗連在一起，並強調介質能否被均質化所需的尺度條件（[DOI](https://doi.org/10.1023/A:1006599410942)）。Rim、Pinsky 與 van Osdol 則使用三維均質化計算角質層的有效擴散率（[DOI](https://doi.org/10.1016/j.memsci.2007.02.018)）。
 
@@ -52,7 +49,7 @@ redirectFrom: []
 
 這 15 篇 primary works 共同阻止一個過度寬廣的標題：週期擴散均質化已建立；有效擴散率描述釋放已建立；連通性、percolation、影像導出的微結構、瞬態偏差、多組分傳輸及實驗驗證也都已有研究。P02 的受限搜尋沒有找到「同一對稱一維 cell、有限週期數、同一 contrast grid，再以 $F$、$t_{50}$、$t_{90}$ 聯合分類」的完全相同協議，但搜尋不到不是不存在的證明。可辯護的位置只是：把這個窄問題做成透明、可再生、可被後續擴展的基準。
 
-## 凍結的一維擴散問題
+## 一維擴散問題
 
 薄板的無因次空間域為
 
@@ -120,7 +117,7 @@ D_{\mathrm{slow}}=\frac{1}{\kappa},
 \kappa\in\{1,10,100,1000\}.
 $$
 
-因為 cell 是慢–快–慢並且恰好重複，兩個 perfect-sink 邊界接觸的都是慢相。這個相位在評估前已鎖定。若把相同週期圖案平移，有限 $N$ 下靠近表面的瞬態可能改變；第一階段沒有對相位平均，也沒有做 boundary-phase ablation。
+因為 cell 是慢–快–慢並且恰好重複，兩個 perfect-sink 邊界接觸的都是慢相。這個相位在評估前已固定。若把相同週期圖案平移，有限 $N$ 下靠近表面的瞬態可能改變；第一階段沒有對相位平均，也沒有做 boundary-phase ablation。
 
 一維幾何還帶來很強的拓撲限制：每一層慢材料都橫跨整個截面，沒有任何繞路。因此本研究代表的是連續橫向障礙，而不是二維曲折路徑、孤立 inclusions、隨機孔隙或三維 percolating network。
 
@@ -175,7 +172,7 @@ $$
 
 在 $\kappa=10,100,1000$ 時，比率分別是 $3.025$、$25.5025$ 與 $250.50025$。對串聯層幾何，算術混合會愈來愈忽略慢層造成的瓶頸；它在這裡是刻意簡單的負向 baseline，不是這個方向上的嚴肅均質化公式。它在異質網格上表現很差，亦不能推導成「算術平均在所有方向和所有形貌都錯」。
 
-## 鎖定同一個無因次時鐘
+## 共用同一個無因次時鐘
 
 所有曲線都使用
 
@@ -183,7 +180,7 @@ $$
 \tau=D_h t
 $$
 
-作橫軸。輸出間隔固定為 $\Delta\tau=0.001$，終點固定為 $\tau=0.6$。程式不會看到某案例較慢才為它延長 horizon。24 個解析 reference 都在這個鎖定終點前到達 $t_{50}$ 與 $t_{90}$，所以沒有 right censoring。
+作橫軸。輸出間隔固定為 $\Delta\tau=0.001$，終點固定為 $\tau=0.6$。程式不會看到某案例較慢才為它延長 horizon。24 個解析 reference 都在這個固定終點前到達 $t_{50}$ 與 $t_{90}$，所以沒有 right censoring。
 
 若均質薄板的係數是 $D$，定義 $r=D/D_h$。兩端 perfect sink 的解析釋放級數為
 
@@ -207,7 +204,7 @@ $$
 
 時間推進使用 fixed-step backward Euler。canonical run 每個輸出間隔內有 128 個 substeps，refined run 有 256 個。對稱 implicit matrix 只被對角化一次，再透過 eigenvalue powers 重現重複的 backward-Euler 更新；不同案例不會得到事後調整的步長。
 
-solver 同時記錄濃度上下界、$F$ 的單調性、backward-Euler recurrence residual、matrix symmetry、正的 off-diagonal face coefficients，以及空間守恆 audit。守恆檢查以 extended precision 組合 interior 與 boundary face fluxes，獨立驗證所有 cell divergences 會 telescopically 化成兩側 perfect-sink outflow。
+solver 同時記錄濃度上下界、$F$ 的單調性、backward-Euler recurrence residual、matrix symmetry、正的 off-diagonal face coefficients，以及空間守恆檢查。守恆計算以 extended precision 組合 interior 與 boundary face fluxes，獨立驗證所有 cell divergences 會 telescopically 化成兩側 perfect-sink outflow。
 
 ## 先驗證，再容許分類
 
@@ -237,26 +234,26 @@ $$
 2. 所有案例通過 joint space–time refinement；
 3. 所有濃度保持在容差內；
 4. 所有 release curves 單調；
-5. 所有 mass audits 通過；
-6. 所有 backward-Euler recurrence audits 通過；
+5. 所有 mass-balance checks 通過；
+6. 所有 backward-Euler recurrence checks 通過；
 7. 所有 operators 對稱且 face couplings 為正；
 8. 所有材料 interfaces 都被精確表示；
-9. 所有 reference $t_{50}$、$t_{90}$ 在鎖定 horizon 前發生。
+9. 所有 reference $t_{50}$、$t_{90}$ 在固定 horizon 前發生。
 
 ### 數值誤差與模型誤差如何分開
 
-這三層檢查各自回答不同的反駁。解析均質控制檢查的是：同一 solver 在沒有異質界面時，是否能重現已知 slab series；如果連這一步都失敗，後面的 harmonic discrepancy 可能只是 boundary implementation 或 time integration 錯誤。exact-interface 及 operator audits 檢查的是：binary coefficient 是否真的以宣告方式進入離散式，而沒有把 interface 錯置、把 arithmetic face value 當成 harmonic resistance，或破壞離散守恆。
+這三層檢查各自回答不同的反駁。解析均質控制檢查的是：同一 solver 在沒有異質界面時，是否能重現已知 slab series；如果連這一步都失敗，後面的 harmonic discrepancy 可能只是 boundary implementation 或 time integration 錯誤。exact-interface 及 operator checks 檢查的是：binary coefficient 是否真的以宣告方式進入離散式，而沒有把 interface 錯置、把 arithmetic face value 當成 harmonic resistance，或破壞離散守恆。
 
 joint space–time refinement 則問：把 cell 數與 protocol 保持不變，只同時加密 spatial cells 及 backward-Euler substeps，reference curve 與事件時間會不會顯著移動。全網格最大的 release change 只有 $1.0718674\times10^{-4}$，而分類涉及的 adequate threshold 是 $0.02$、breakdown threshold 是 $0.05$；事件 refinement changes 也遠低於相應 event gates。這種數量級分離並不證明 reference 是連續方程的精確解，卻足以排除「分類主要由目前離散誤差驅動」這個較簡單解釋。
 
-濃度 bounds、monotone release、positive face coupling 與 mass telescoping 也不是裝飾性 tests。擴散方程在本設定下應保留非負濃度，兩端 perfect sinks 應令總質量只減不增；如果 numerical curve 出現負濃度、釋放倒退或無法由 boundary flux 解釋的質量消失，即使圖形看似平滑，也不能用來判讀有效係數。P02 先把這些 invariants 寫進機器可讀 check，再容許 C1–C3 claims 轉為 supported，正是把「程式跑完」與「結果可進入文章」分成兩個 gate。
+濃度 bounds、monotone release、positive face coupling 與 mass telescoping 也不是裝飾性 tests。擴散方程在本設定下應保留非負濃度，兩端 perfect sinks 應令總質量只減不增；如果 numerical curve 出現負濃度、釋放倒退或無法由 boundary flux 解釋的質量消失，即使圖形看似平滑，也不能用來判讀有效係數。這些 invariants 令可靠性曲線具備可解讀的數值基礎；通過它們不會證明 harmonic model 正確，只能排除一些本來就不應接受的數值軌跡。
 
 <figure>
   <img src="/science/when-effective-diffusivity-stops-being-effective/p02_05_numerical_verification.svg" alt="繁中數值核查圖：左圖把均質 finite-volume 誤差與解析級數門檻比較，右圖顯示所有對比與週期數的聯合空間時間加密變化均很小。" loading="lazy" />
   <figcaption>獨立均質控制與 joint space–time refinement 把 finite-scale model discrepancy 與單純 under-resolution artifact 分開。圖中門檻在查看分類前已固定。</figcaption>
 </figure>
 
-## adequate、grey、breakdown 的凍結規則
+## 如何定義 adequate、grey 與 breakdown
 
 對每一個異質案例，只有在最大曲線誤差
 
@@ -282,7 +279,7 @@ $$
 
 二元 pass/fail 很容易把不同程度的偏差擠成同一結論。這裡的 grey 有明確集合定義：案例沒有同時通過全部 $2\%$ adequate conditions，但亦沒有任何指標到達 $5\%$ breakdown condition。它不是研究者憑視覺覺得「差不多」，也不是允許事後挑選最有利 metric 的保留區。以 $N=8$ 的兩個高 contrast 案例為例，真正阻止 adequate 的只是最大 trajectory error 稍高於 $2\%$；兩個 event errors 仍低於 $2\%$，而所有指標離 $5\%$ breakdown 還很遠。把它們寫成 breakdown 會誇大結果，把它們寫成 adequate 又會違反 protocol。
 
-grey 的存在亦提醒讀者，「effective enough」必須相對一個用途及 tolerance 定義。本研究選擇 whole-curve maximum error 加兩個 event errors，是因為只看平均平方誤差可能掩蓋局部時間偏移；但另一個應用若關心 flux peak、特定早期區間或不同 crossing level，可靠性地圖可合理地不同。本文沒有證明這組 gates 是臨床或工業標準，它們只是一組在結果前鎖定、能被一致重算的 benchmark decision rules。
+grey 的存在亦提醒讀者，「effective enough」必須相對一個用途及 tolerance 定義。本研究選擇 whole-curve maximum error 加兩個 event errors，是因為只看平均平方誤差可能掩蓋局部時間偏移；但另一個應用若關心 flux peak、特定早期區間或不同 crossing level，可靠性地圖可合理地不同。本文沒有證明這組 gates 是臨床或工業標準，它們只是一組在查看結果前固定、能被一致重算的 benchmark decision rules。
 
 此外，24-case 表中的 $\kappa=1$ controls 不會被偷偷加入「七個 adequate」來提高成功比例。七、二、九的分母固定為 18 個 heterogeneous cases；六個 homogeneous controls 的角色是確認 geometry generator 與 comparators 在沒有 contrast 時回到相同問題。這種分母與 control 分工若不說清楚，很容易把方法驗證和研究發現混在一起。
 
@@ -298,7 +295,7 @@ grey 的存在亦提醒讀者，「effective enough」必須相對一個用途�
 
 在 $\kappa=10$，最大調和 release error 隨 $N$ 倍增，依序由 $14.90\%$ 降到 $7.39\%$、$3.70\%$、$1.85\%$、$0.803\%$、$0.184\%$。在 $\kappa=100$，$N=1,8,16$ 的對應數字是 $17.11\%$、$2.098\%$、$0.923\%$。在 $\kappa=1000$，三個數字是 $17.35\%$、$2.123\%$、$0.935\%$。這個下降是凍結 family 上的數值趨勢，本文沒有從六個 $N$ 值擬合或宣稱普遍收斂率。
 
-$N=8$ 清楚顯示 contrast 為何會在邊界附近重要。對 $\kappa=10$，最大曲線誤差 $1.8535\%$、$t_{50}$ 誤差 $1.4473\%$、$t_{90}$ 誤差 $0.4988\%$，全部通過 adequate gate。對 $\kappa=100$，最大誤差為 $2.0983\%$，剛超過 adequate 的 $2\%$ trajectory threshold，但離 breakdown 很遠；事件誤差是 $1.6828\%$ 與 $0.6224\%$。對 $\kappa=1000$，最大誤差 $2.1229\%$，事件誤差 $1.7079\%$ 與 $0.6365\%$。後兩例因此必須叫 grey，而不能寫成失敗。
+$N=8$ 清楚顯示 contrast 為何會在邊界附近重要。對 $\kappa=10$，最大曲線誤差 $1.8535\%$、$t_{50}$ 誤差 $1.4473\%$、$t_{90}$ 誤差 $0.4988\%$，全部通過 adequate gate。對 $\kappa=100$，最大誤差為 $2.0983\%$，剛超過 adequate 的 $2\%$ trajectory threshold，但離 breakdown 很遠；事件誤差是 $1.6828\%$ 與 $0.6224\%$。對 $\kappa=1000$，最大誤差 $2.1229\%$，事件誤差 $1.7079\%$ 與 $0.6365\%$。後兩例因此必須叫 grey，而不能寫成失敗。這個邊界個案亦說明，整條曲線與兩個事件時間提供互補資訊；其中一項剛越線，不應抹去另外兩項仍接近 reference 的事實。
 
 到 $N=16$，三個 contrast 全部 adequate。即使 $\kappa=1000$，最大 release error 也只有 $0.9349\%$，相對 $t_{50}$ 誤差 $0.4344\%$，相對 $t_{90}$ 誤差 $0.1625\%$。在 $N=32$，三個最大誤差均約為 $0.2\%$ 或更低。這些數字說明「在本網格上愈細愈接近」，但不能把 $N$ 單獨抽離於 cell geometry、邊界及 tolerance 使用。
 
@@ -334,7 +331,7 @@ $$
 0.1\le F_{\mathrm{FV}}\le0.5
 $$
 
-的 indices。目標是該早期 window 上的均方誤差；搜尋以 bounded log-scale golden-section 完成 96 次 iteration。$F>0.5$ 的曲線點與 $t_{90}$ 完全不進入 objective，因此後段是實際 held-out audit，不是同一資料上的重新命名。
+的 indices。目標是該早期 window 上的均方誤差；搜尋以 bounded log-scale golden-section 完成 96 次 iteration。$F>0.5$ 的曲線點與 $t_{90}$ 完全不進入 objective，因此後段是真正的 held-out test，不是同一資料上的重新命名。
 
 預先宣告的見證條件是：早期最大誤差不超過 $0.02$，但 held-out 相對 $t_{90}$ 誤差至少 $0.05$。結果只有三個案例符合，而且全是 $N=1$：
 
@@ -365,45 +362,23 @@ $$
 
 早期擬合結論同樣狹窄：存在三個凍結見證，curve-calibrated scalar 可通過宣告的 early window，卻在 held-out $t_{90}$ 失敗。這不是「所有 fitted diffusivity 不可信」，也不表示 $t_{90}$ 具有臨床意義；$t_{90}$ 在此只是未參與擬合的晚期曲線事件。
 
-## PASS 前保留的失敗紀錄
+## 為何守恆不能省略
 
-環境紀錄有四次失敗起步。system Python 缺少 NumPy；bundled runtime 缺少 SciPy，促使實作改為 NumPy-only solver，而不是私下安裝未聲明依賴；research virtual environment 在載入 NumPy compiled extension 時失敗；Conda environment 印出六個通過的 test dots，之後在 NumPy eigensolver 以 Windows code $0xc06d007f$ crash。這些被分類為 environment failures，不是科學結果。
+最初兩次計算沒有通過守恆檢查，所以當時暫時得到的 adequate、grey 及 breakdown 分類均被棄用。問題來自質量平衡的核對方式，而不是測試案例本身。修正後以 extended precision 組裝內部及邊界通量，再驗證所有 cell divergence 能 telescope 成兩端 sink outflow；model、24 個案例、thresholds 及 fit window 全部保持不變。
 
-更重要的是，最初兩次 canonical scientific attempts 也回傳 **FAIL**，因為原先 mass audit 未通過。當時暫時生成的 adequate、grey、breakdown lists 與 early-fit witnesses 都被保存，但明確標成 **BLOCKED**，不得進入 claim ledger。最終 solver 以 extended precision 組裝 interface 及 boundary fluxes，檢查空間 divergence 是否 telescope，並把這個 audit 與 reconstructed time-layer subtraction 分開。為了取得 PASS，model、24-case grid、thresholds 與 fit window 都沒有放寬。
+修正後兩次完整計算得到相同數值。互相獨立的核對涵蓋 effective coefficients、exact-interface volume fraction、harmonic face flux、analytic slab series、event interpolation 與 censoring、matrix structure、spectral backward Euler 對 direct solve、held-out fit window 的分隔，以及 inclusive classification thresholds。先前的失敗值得保留，因為一條外觀看似平滑的釋放曲線，若無法用邊界通量解釋流失質量，便不能拿來判斷有效係數。
 
-修正 audit 後，最近兩次 canonical attempts 均為 **PASS**，而且有完全相同的 numerical signature：
+## 事件時間為何提供額外資訊
 
-$$
-\texttt{97e2212131f533a38d79897966c3cfdd028b16f8868e922c73eb6ab853141e2e}.
-$$
+Whole-curve maximum 與 event-time error 檢查同一條曲線的不同特徵。前者找釋放分率最大的垂直距離，後者量度水平 crossing 移動多少。在曲線較平的位置，一個不大的垂直偏差可以造成明顯時間位移；在較陡的位置，同樣偏差對 crossing time 的影響可能小得多。因此兩個摘要不能互相取代。
 
-兩次在記錄的 Windows/Python 環境所量得 runtime 約為 $4.11$ 與 $3.80$ 秒。runtime 不包含在 deterministic signature 中，也沒有被用作方法速度比較。
+局部線性化可把這個關係寫得更直觀。若 $F(t_q)=q$，曲線在 crossing 附近受到小擾動 $\Delta F$，時間位移約為 $\Delta t_q\approx-\Delta F/F'(t_q)$。分母是當地斜率，所以相同的 release-fraction error 在不同事件位置會轉成不同 time error。本文沒有把這個近似當成誤差界；它只解釋為何聯合檢查曲線與事件比單一 norm 更合適。
 
-九個 mathematical unit tests 通過，覆蓋 effective coefficients、exact-interface volume fraction、harmonic face flux、analytic slab series、event interpolation 與 censoring、operator structure、spectral backward Euler 對 direct solve、held-out-fit leakage，以及 inclusive classification thresholds。repository checker 與 two-run reproducibility checker 亦通過。
+$N=4$ 的案例把差別顯示得很清楚。三個 contrast 的最大 harmonic-curve error 約為 $3.7\%$ 至 $4.2\%$，尚未超過 $5\%$ trajectory breakdown threshold；但相對 $t_{50}$ 誤差由 $5.96\%$ 起，所以三例仍然都是 breakdown。若只看軌跡門檻，便會漏掉事件定義原本要捕捉的時間偏移。
 
-## 圖像完整性與實際視覺檢查
+Early-fit experiment 檢查另一種失效。標量係數只根據 $0.1\le F\le0.5$ 的 resolved curve 選出，然後在不重新擬合的情況下評估 $t_{90}$。三個 one-period 見證是在校準資料以外失敗，不能以「早期曲線很接近」消除這個結果；held-out event 正是用來測試這次外推。
 
-五張 publication figures 均由 saved result JSON、frozen configuration 及 reproducibility record 生成。每張都有 native SVG、vector PDF、600-dpi PNG、manifest 與 publish SVG；受管 publish SVG 的 hash 與 canonical source 相符。SVG 文字保持 live text，黑色文字有明確設定，顏色亦配合 line style、marker、fill code 或文字標籤，不以顏色作唯一編碼。
-
-最終 PNG 以原始 $4296\times2160$ 尺寸檢查 title 與 panel 分隔、legend clearance、annotation collisions、axis-label clipping、footer placement 及邊緣 clipping。微結構 labels 與 comparator legend 清楚；兩個 trajectory panels 與 shared legend 沒有碰撞；可靠性地圖每格可讀；三個 early-fit witness labels 互相分開；兩個 verification panels、門檻、legend 與 footer 都在畫布內。本文只嵌入已通過的最終 revision。
-
-視覺檢查只能證明 layout integrity，不能替代科學驗證。所有數值主張仍來自 machine-readable result，而不是從圖上量像素。
-
-## 如何重現這個基準
-
-私人技術 repository 的 P02 目錄保留 frozen configuration、source、unit tests、results、attempt history、figure generator、hashes、machine-readable Phase-1 result、research contract、literature gate 及 claim ledger。公開 Blog 刻意只展示經審閱的詮釋與獲准圖像；可重現證據仍以技術紀錄為準，亦不向訪客提供失效的私人連結。
-
-在 P02 目錄及已驗證 Python 環境中，核心命令是：
-
-~~~powershell
-python scripts/run_phase1.py --config configs/phase1.json
-python -m unittest discover -s tests -v
-python scripts/check_repo.py
-python scripts/check_reproducibility.py --config configs/phase1.json
-python scripts/plot_phase1.py
-~~~
-
-成功重現應顯示九個 tests 為 OK、repository 與 reproducibility checks 為 PASS、最近兩次成功 run 的 signatures 相同，並保留 frozen scientific signature 97e221…41e2e。實際 runtime 可以因硬件與系統負載不同而改變。
+這些 metrics 亦指出一個直接的後續實驗。把週期圖案相對兩端 sinks 平移，可能改變早期 boundary layers，卻不會改變 infinite-period harmonic coefficient。對多個 boundary phases 重做相同的曲線與事件分析，便可判斷 $N=8$ 附近的轉折主要來自 bulk scale separation，還是由哪一種材料接觸表面所驅動。
 
 ## 無法被一個平均數消除的限制
 
@@ -421,11 +396,11 @@ python scripts/plot_phase1.py
 
 **comparator 成本不對稱。** $D_h$ 是解析量，$D_a$ 是 naive baseline，$D_{\mathrm{fit}}$ 消耗 resolved calibration data 及 optimization。三者沒有 matched setup cost，因此結果不是 efficiency 或 total-cost comparison。
 
-**沒有 final evaluation。** 更廣幾何、boundary shifts、random 或 imaged structures、external calibration 及 final held-out evaluation 仍被鎖定。第一階段是 reproducible benchmark，不是 formulation recommendation。
+**沒有 final evaluation。** 更廣幾何、boundary shifts、random 或 imaged structures、external calibration 及 final held-out evaluation 尚未進行。第一階段是受控數值 benchmark，不是 formulation recommendation。
 
-## 仍然鎖定的下一階段
+## 下一步應測試甚麼
 
-較完整的研究計劃可以先預註冊，再逐項解鎖：
+較完整的研究計劃可以先預註冊，再逐項測試：
 
 - 在同一一維 cell 上系統改動 boundary phase；
 - 改變 phase fractions 與 layer ordering；
@@ -438,9 +413,9 @@ python scripts/plot_phase1.py
 - 進行 physical calibration 與 external experimental validation；
 - 保留真正 final held-out evaluation，再決定可刊登 claim。
 
-本文沒有暗示這些階段已經運行，也不能從 24-case chart 推算它們的答案。這種鎖定不是缺點包裝，而是把第一階段證據與未來研究清楚分界。
+本文沒有暗示這些階段已經運行，也不能從 24-case chart 推算它們的答案。這個分界只把第一階段已完成的比較，與仍待測試的問題清楚分開。
 
-## 最有用而不誇大的結論
+## 結論
 
 有效係數回答的是尺度極限問題；有限釋放實驗回答的是瞬態、邊界條件化問題。在這個 frozen slab 中，當尺度分離足夠清楚，兩者在宣告門檻內一致；當整塊薄板只包含一、二或四個粗 cell，兩者就不一致。
 
@@ -450,7 +425,7 @@ python scripts/plot_phase1.py
 
 最誠實的結尾必須保持條件式：**在這一個合成、diffusion-only 的週期薄板中，scale separation 改善時調和有效擴散率逐漸可靠；粗的 finite-cell transient 與只用早期資料的 calibration，則可跨過預先宣告的 failure gates。**
 
-## 文獻 gate 保留的 primary literature
+## 參考文獻
 
 1. S. K. Chandrasekaran 與 R. Hillman，〈Heterogeneous model of drug release from polymeric matrix〉，*Journal of Pharmaceutical Sciences* 69（1980），[DOI 10.1002/jps.2600691119](https://doi.org/10.1002/jps.2600691119)。
 2. Jean-Louis Auriault 與 Jolanta Lewandowska，〈Effective Diffusion Coefficient: From Homogenization to Experiment〉，*Transport in Porous Media* 27（1997），[DOI 10.1023/A:1006599410942](https://doi.org/10.1023/A:1006599410942)。

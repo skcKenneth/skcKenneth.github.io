@@ -21,25 +21,22 @@ The resulting 24-case grid contains six homogeneous controls and 18 heterogeneou
 
 The early-window comparator supplies a second warning. A scalar diffusivity fitted only where the resolved release fraction satisfies $0.1\le F\le0.5$ meets the early error gate yet misses held-out $t_{90}$ by more than $5\%$ in exactly three declared witnesses: $(\kappa,N)=(10,1),(100,1),(1000,1)$. Their early maximum errors are $0.752\%$, $0.845\%$, and $0.856\%$, while their held-out $t_{90}$ errors are $11.11\%$, $12.09\%$, and $12.17\%$.
 
-These findings are numerical evidence for one frozen family. They are not a theorem about homogenization, not a general connectivity map, not a calibrated pharmaceutical model, and not a claim about swelling, erosion, degradation, binding, dissolution, reaction, moving interfaces, non-Fickian transport, clinical response, dose, efficacy, or safety. The literature gate returned **REFRAME** because periodic homogenization, microstructure-resolved release, connectivity effects, apparent diffusivity, and finite-transient deviations are all established. The local contribution is an auditable replication-extension benchmark, not a new effective-diffusivity formula.
+These findings are numerical evidence for one fixed family. They are not a theorem about homogenization, not a general connectivity map, not a calibrated pharmaceutical model, and not a claim about swelling, erosion, degradation, binding, dissolution, reaction, moving interfaces, non-Fickian transport, clinical response, dose, efficacy, or safety. The literature review led to a **REFRAME** decision because periodic homogenization, microstructure-resolved release, connectivity effects, apparent diffusivity, and finite-transient deviations are all established. That decision makes the useful contribution a controlled finite-scale benchmark, not a new effective-diffusivity formula.
 
-## The claim ledger in one page
+## What the benchmark found
 
-| Item | Frozen Phase-1 evidence | What it supports |
+| Question | Finding | Why it matters |
 |---|---:|---|
-| Literature gate | **REFRAME** | A controlled validity chart is defensible; generic novelty is not. |
-| Geometry | One 1-D periodic slow–fast–slow laminate | A single connected transverse barrier family, not general morphology. |
-| Boundaries | Perfect sinks at both ends | One fixed boundary condition and boundary phase. |
-| Grid | $\kappa\in\{1,10,100,1000\}$, $N\in\{1,2,4,8,16,32\}$ | Exactly 24 preregistered cases; six at $\kappa=1$ are controls. |
-| Harmonic result | 7 adequate, 2 grey, 9 breakdown among 18 heterogeneous cases | An empirical finite-scale boundary on this grid. |
-| Early-fit result | Three $N=1$ witnesses | Early calibration can pass while held-out $t_{90}$ fails in these cases. |
-| Verification | Nine scientific checks true; 24 refinement checks pass | Discrepancies exceed the recorded numerical uncertainty. |
-| Reproduction | Two latest PASS runs share signature 97e221…41e2e | Deterministic regeneration of the frozen numerical material. |
-| Locked scope | Other phases, morphologies, mechanisms, data, final evaluation | No claim about them appears here. |
+| What was tested? | One 1-D periodic slow–fast–slow laminate with perfect sinks | The result concerns one transverse barrier family and one boundary phase. |
+| How broad was the comparison? | $\kappa\in\{1,10,100,1000\}$ and $N\in\{1,2,4,8,16,32\}$ | The 24 cases include six homogeneous controls and 18 heterogeneous cases. |
+| When was the harmonic model adequate? | 7 adequate, 2 grey, 9 breakdown among the heterogeneous cases | Scale separation, not the coefficient alone, controls the finite transient. |
+| Where did the pattern change? | All contrasts were adequate at $N=16$ and $32$ | This is an empirical transition on the tested grid, not a universal cell-count rule. |
+| Did early fitting predict the late event? | Three $N=1$ fits passed early but missed $t_{90}$ by more than $5\%$ | A close fit over $0.1\le F\le0.5$ did not guarantee late-time accuracy. |
+| Were the discrepancies resolved numerically? | Nine scientific checks and 24 refinement checks passed | The classification differences are larger than the measured discretization changes. |
 
 The distinction between “finite-scale boundary” and “homogenization fails” matters. The harmonic coefficient is the correct periodic coefficient for the declared 1-D cell problem. The benchmark asks whether a *finite transient response* is already close enough for specific trajectory and event tolerances. A breakdown label means that one comparator crossed one frozen numerical gate. It does not invalidate homogenization theory.
 
-## Why the literature audit changed the project
+## Why the literature changed the question
 
 Heterogeneous polymer release and effective transport are not new combinations. Chandrasekaran and Hillman modeled release from a heterogeneous polymeric matrix in 1980 ([DOI](https://doi.org/10.1002/jps.2600691119)). Auriault and Lewandowska connected periodic homogenization, an effective diffusion coefficient, and experiment while emphasizing the conditions under which a medium can be homogenized ([DOI](https://doi.org/10.1023/A:1006599410942)). Rim, Pinsky, and van Osdol used three-dimensional homogenization to calculate effective diffusivity in the stratum corneum ([DOI](https://doi.org/10.1016/j.memsci.2007.02.018)).
 
@@ -51,9 +48,9 @@ The constitutive limitations are equally established. Salehi and colleagues deri
 
 Together, these 15 primary works block a broad headline. Periodic diffusion homogenization is established. Effective-diffusivity release is established. Connectivity, percolation, image-derived microstructure, transient deviations, multicomponent transport, and experimental validation are established. A one-dimensional synthetic chart cannot be advertised as a general drug–polymer discovery.
 
-The literature audit did not find, in its bounded search, the exact combination of the frozen symmetric 1-D cell, finite period count, contrast grid, and joint $F$, $t_{50}$, $t_{90}$ classification protocol. That negative search is not proof of absence. It merely leaves room for a transparent benchmark that can be independently reproduced and later extended.
+The bounded literature search did not find the exact combination of the stated symmetric 1-D cell, finite period count, contrast grid, and joint $F$, $t_{50}$, $t_{90}$ classification protocol. That negative search is not proof of absence. It merely leaves room for a transparent benchmark that can later be checked and extended.
 
-## The frozen diffusion problem
+## The diffusion problem
 
 The slab occupies
 
@@ -121,13 +118,13 @@ D_{\mathrm{slow}}=\frac{1}{\kappa},
 \kappa\in\{1,10,100,1000\}.
 $$
 
-Because the unit cell is slow–fast–slow and repeats exactly, both perfect-sink boundaries meet the slow phase. That phase placement was frozen before evaluation. A different shift of the same periodic pattern could change finite-$N$ transients near the surfaces. Phase 1 does not average over shifts or perform a boundary-phase ablation.
+Because the unit cell is slow–fast–slow and repeats exactly, both perfect-sink boundaries meet the slow phase. That phase placement was fixed before evaluation. A different shift of the same periodic pattern could change finite-$N$ transients near the surfaces. Phase 1 does not average over shifts or perform a boundary-phase ablation.
 
 In a one-dimensional slab, each slow layer spans the transverse cross-section. There are no paths around it. The study therefore represents connected transverse barriers, not tortuous two-dimensional routes, disconnected inclusions, random pores, or percolating three-dimensional networks.
 
 <figure>
   <img src="/science/when-effective-diffusivity-stops-being-effective/p02_01_frozen_microstructure.svg" alt="Four repeated slow-fast-slow binary cells between perfect sinks, followed by harmonic and arithmetic coefficient ratios over contrasts one to one thousand." loading="lazy" />
-  <figcaption>The frozen one-dimensional cell and its preregistered scalar comparators. Interfaces coincide with finite-volume faces; the boundary phase and perfect sinks are not varied.</figcaption>
+  <figcaption>The fixed one-dimensional cell and its predeclared scalar comparators. Interfaces coincide with finite-volume faces; the boundary phase and perfect sinks are not varied.</figcaption>
 </figure>
 
 ## Why the harmonic coefficient is the benchmark
@@ -173,7 +170,7 @@ $$
 
 That ratio is $3.025$ at $\kappa=10$, $25.5025$ at $\kappa=100$, and $250.50025$ at $\kappa=1000$. In a series-layer geometry, the arithmetic mixture increasingly ignores the bottleneck imposed by the slow layers. It is included as a deliberately naive baseline, not as a serious homogenization formula for this orientation.
 
-## One locked nondimensional clock
+## One nondimensional clock
 
 All curves are reported against
 
@@ -181,7 +178,7 @@ $$
 \tau=D_h t.
 $$
 
-The output grid is fixed at $\Delta\tau=0.001$ through $\tau=0.6$. The horizon is not extended case by case after seeing whether an event is reached. All 24 resolved references reach both events before the locked horizon, so none is right-censored.
+The output grid is fixed at $\Delta\tau=0.001$ through $\tau=0.6$. The horizon is not extended case by case after seeing whether an event is reached. All 24 resolved references reach both events before the fixed horizon, so none is right-censored.
 
 For a homogeneous slab with coefficient $D$, define $r=D/D_h$. The exact perfect-sink release series is
 
@@ -206,7 +203,7 @@ which is the correct series resistance for two half-cells. The canonical grid us
 
 Time evolution uses fixed-step backward Euler. The canonical run has 128 internal substeps per output interval; the refined run has 256. The symmetric implicit matrix is diagonalized once, then its eigenvalues are powered to reproduce repeated backward-Euler updates without configuration-specific step tuning.
 
-The solver records concentration bounds, monotonicity of $F$, a backward-Euler recurrence residual, matrix symmetry and positive off-diagonal face coefficients, and a spatial conservation audit. The conservation check assembles face fluxes in extended precision and verifies that cell divergences telescope to the two perfect-sink outflows.
+The solver records concentration bounds, monotonicity of $F$, a backward-Euler recurrence residual, matrix symmetry and positive off-diagonal face coefficients, and a spatial conservation check. The conservation calculation assembles face fluxes in extended precision and verifies that cell divergences telescope to the two perfect-sink outflows.
 
 ## Verification before classification
 
@@ -228,7 +225,7 @@ $$
 
 against a $2\times10^{-3}$ limit. The largest relative $t_{50}$ change is $6.1278\times10^{-5}$ and the largest relative $t_{90}$ change is $3.3340\times10^{-5}$, both far below the $0.005$ event-refinement limit.
 
-Third, the recorded concentrations remain within the $10^{-10}$ floating-point tolerance around $[0,1]$. The largest saved concentration is $1.0000000000320508$ and the smallest is positive. Release increments remain positive; the smallest audited increment is $2.1552\times10^{-5}$. Maximum operator asymmetry is zero, the smallest off-diagonal coefficient is positive, the maximum mass-balance residual is $2.274\times10^{-13}$, and the largest audited backward-Euler recurrence residual is $4.091\times10^{-12}$.
+Third, the recorded concentrations remain within the $10^{-10}$ floating-point tolerance around $[0,1]$. The largest saved concentration is $1.0000000000320508$ and the smallest is positive. Release increments remain positive; the smallest recorded increment is $2.1552\times10^{-5}$. Maximum operator asymmetry is zero, the smallest off-diagonal coefficient is positive, the maximum mass-balance residual is $2.274\times10^{-13}$, and the largest recorded backward-Euler recurrence residual is $4.091\times10^{-12}$.
 
 The nine top-level scientific checks are all true:
 
@@ -236,18 +233,18 @@ The nine top-level scientific checks are all true:
 2. all cases pass joint space–time refinement;
 3. all concentrations stay within tolerance;
 4. all release curves are monotone;
-5. all mass audits pass;
-6. all backward-Euler recurrence audits pass;
+5. all mass-balance checks pass;
+6. all backward-Euler recurrence checks pass;
 7. all operators are symmetric with positive face couplings;
 8. all material interfaces are exact;
-9. all reference $t_{50}$ and $t_{90}$ events occur before the locked horizon.
+9. all reference $t_{50}$ and $t_{90}$ events occur before the fixed horizon.
 
 <figure>
-  <img src="/science/when-effective-diffusivity-stops-being-effective/p02_05_numerical_verification.svg" alt="Two-panel numerical audit showing homogeneous finite-volume error below the analytic-series gate and small canonical-to-refined release changes for every contrast and period count." loading="lazy" />
+  <img src="/science/when-effective-diffusivity-stops-being-effective/p02_05_numerical_verification.svg" alt="Two-panel numerical verification showing homogeneous finite-volume error below the analytic-series threshold and small canonical-to-refined release changes for every contrast and period count." loading="lazy" />
   <figcaption>The independent homogeneous control and joint space-time refinement separate finite-scale model discrepancy from a trivial under-resolution artifact.</figcaption>
 </figure>
 
-## Classification gates were fixed before results
+## How the three outcomes are defined
 
 For every heterogeneous case, the harmonic model is **adequate** only if
 
@@ -302,7 +299,7 @@ The arithmetic curve behaves very differently because $D_a/D_h=250.50025$ at thi
 
 <figure>
   <img src="/science/when-effective-diffusivity-stops-being-effective/p02_02_release_trajectories.svg" alt="Resolved, harmonic, arithmetic, and early-fitted release curves at contrast one thousand for one period and thirty-two periods, illustrating breakdown and adequate harmonic regimes." loading="lazy" />
-  <figcaption>At fixed harmonic coefficient, changing only finite cell count changes the transient agreement. The comparison uses one locked normalized-time grid and event interpolation rule.</figcaption>
+  <figcaption>At fixed harmonic coefficient, changing only finite cell count changes the transient agreement. The comparison uses one fixed normalized-time grid and event interpolation rule.</figcaption>
 </figure>
 
 ## The early-window fit and its held-out test
@@ -319,7 +316,7 @@ $$
 0.1\le F_{\mathrm{FV}}\le0.5.
 $$
 
-The search is performed in log diffusivity with 96 fixed golden-section iterations. Samples with $F>0.5$ and the entire $t_{90}$ event are held out from fitting and tuning. A unit test modifies the held-out curve while keeping the early window fixed and verifies that the fitted coefficient does not change.
+The search is performed in log diffusivity with 96 fixed golden-section iterations. Samples with $F>0.5$ and the entire $t_{90}$ event are held out from fitting and tuning. As a separation check, changing only the held-out portion while keeping the early window fixed leaves the fitted coefficient unchanged.
 
 The early-fit/late-failure gate requires an early-window maximum error no greater than $0.02$ and a held-out $t_{90}$ relative error at least $0.05$. Exactly three cases pass both sides:
 
@@ -338,7 +335,7 @@ The fitting cost and resolved calibration data are not free. $D_{\mathrm{fit}}$ 
   <figcaption>The three filled N equals one points pass the early-window gate yet exceed the held-out late-event gate. Calibration indices stop at resolved release fraction 0.5.</figcaption>
 </figure>
 
-## What the result says—and what it does not
+## What this result shows and what remains open
 
 The strongest supported statement is conditional:
 
@@ -350,45 +347,21 @@ The result does not identify a universal number of cells. Change the boundary ph
 
 The early-fit result is similarly narrow. It establishes three frozen witnesses in which a curve-calibrated scalar passes the declared early window and fails held-out $t_{90}$. It does not prove that all fitted diffusivities are untrustworthy or that $t_{90}$ is clinically meaningful.
 
-## Failures preserved before the PASS
+## Why mass conservation could not be skipped
 
-The environment history contains four failed starts. A system Python lacked NumPy. A bundled runtime lacked SciPy, which prompted a NumPy-only implementation rather than an undeclared installation. A research virtual environment failed while importing NumPy’s compiled extension. A Conda environment printed six passing test dots and then crashed in a NumPy eigensolver with Windows code $0xc06d007f$. These are classified as environment failures, not scientific evidence.
+The first two calculations failed their conservation check, so their provisional adequate, grey, and breakdown labels were discarded. The problem lay in how mass balance was evaluated, not in the declared cases. The corrected calculation assembles interior and boundary fluxes in extended precision and verifies that the cell divergences telescope to the two sink outflows. The model, 24-case grid, thresholds, and fit window stayed unchanged.
 
-The first two canonical scientific attempts also returned **FAIL** because the original mass audit did not pass. Their provisional adequate/grey/breakdown lists and early-fit witnesses were recorded but explicitly marked **BLOCKED**. The final solver audits spatial conservation by assembling interface and boundary fluxes in extended precision and checking telescoping independently of reconstructed time-layer subtraction. The model, 24-case grid, thresholds, and fit window were not relaxed to obtain a pass.
+After that correction, two complete calculations returned the same numerical results. Independent comparisons cover the effective coefficients, exact-interface volume fraction, harmonic face flux, analytic slab series, event interpolation and censoring, matrix structure, the spectral backward-Euler update against a direct solve, separation of the held-out fit window, and inclusive classification thresholds. The earlier failure matters because a smooth-looking release curve is still unusable if its lost mass cannot be explained by boundary flux.
 
-After that correction, two latest canonical attempts returned **PASS** with identical numerical signature
+## Why the event times add information
 
-$$
-\texttt{97e2212131f533a38d79897966c3cfdd028b16f8868e922c73eb6ab853141e2e}.
-$$
+A whole-curve maximum and an event-time error test different features of the same trajectory. The maximum asks for the largest vertical separation in release fraction. The event error asks how far a horizontal crossing moves. Near a shallow part of the curve, a modest vertical error can shift a crossing substantially; near a steep part, the same vertical error can produce a much smaller time shift. Neither summary can replace the other.
 
-Their measured runtimes were approximately $4.11$ and $3.80$ seconds on the recorded Windows/Python setup. Runtime is excluded from the deterministic signature and is not used to rank methods.
+The $N=4$ cases make this distinction concrete. Their maximum harmonic-curve errors are about $3.7\%$ to $4.2\%$, below the $5\%$ trajectory breakdown threshold. Their relative $t_{50}$ errors begin at $5.96\%$, so all three are still breakdown cases. Looking only at the trajectory threshold would miss the timing error that the event definition was designed to detect.
 
-Nine mathematical unit tests pass. They cover effective coefficients, exact-interface volume fraction, harmonic face flux, the analytic slab series, event interpolation and censoring, operator structure, spectral backward Euler against a direct solve, held-out-fit leakage, and inclusive classification thresholds. Repository and two-run reproducibility checks also pass.
+The early-fit experiment probes a different failure. It chooses a scalar coefficient from the portion of the resolved curve with $0.1\le F\le0.5$, then evaluates $t_{90}$ without refitting. The three one-period witnesses therefore fail outside the information used for calibration. Their late errors cannot be repaired by saying that the early curve looked close; the held-out event was deliberately chosen to test that extrapolation.
 
-## Figure integrity and visual review
-
-The five publication figures are generated from the saved result JSON, frozen configuration, and reproducibility record. Each has native SVG, vector PDF, 600-dpi PNG, a manifest, and a publish SVG. The current publish SVGs are hash-identical to their canonical SVG counterparts. Text remains live in SVG, black text is explicit, and color is backed by line styles, markers, fill codes, or labels.
-
-At original $4296\times2160$ size, the final PNGs were inspected for title and panel separation, legend clearance, annotation collisions, axis-label clipping, footer placement, and edge clipping. The microstructure labels and comparator legend remain clear; the two trajectory panels and shared legend do not collide; every reliability-map cell is readable; the three early-fit witness labels remain separated; and the two verification panels, gates, legend, and footer are contained within the canvas. Only final publication assets are embedded here.
-
-This visual check establishes layout integrity, not scientific validity. Numerical claims still come from the machine-readable result, not pixel measurement.
-
-## Reproducing the benchmark
-
-The private technical repository contains the frozen configuration, source, unit tests, results, attempt history, figure generator, and hashes. Its P02 directory retains the machine-readable Phase-1 result, research contract, literature gate, and claim ledger. The public Blog deliberately exposes only the reviewed interpretation and admitted figure assets, while the technical record remains the reproducibility source of truth.
-
-Using the verified Python environment from the P02 directory, the core commands are:
-
-~~~powershell
-python scripts/run_phase1.py --config configs/phase1.json
-python -m unittest discover -s tests -v
-python scripts/check_repo.py
-python scripts/check_reproducibility.py --config configs/phase1.json
-python scripts/plot_phase1.py
-~~~
-
-A successful reproduction should return the nine tests as OK, repository and reproducibility checks as PASS, identical signatures for the two latest successful runs, and the frozen scientific signature 97e221…41e2e. Exact runtime need not match.
+These metrics also suggest the next useful sensitivity study. Moving the periodic pattern relative to the two sinks could change the early boundary layers without changing the infinite-period harmonic coefficient. Repeating the same curve and event analysis over several boundary phases would show whether the $N=8$ transition is driven mainly by bulk scale separation or by which material touches the surface.
 
 ## Limitations that cannot be averaged away
 
@@ -406,11 +379,11 @@ A successful reproduction should return the nine tests as OK, repository and rep
 
 **Comparator asymmetry.** $D_h$ is analytic, $D_a$ is naive, and $D_{\mathrm{fit}}$ consumes resolved calibration data and optimization. They answer different questions and do not have matched setup costs.
 
-**No final evaluation.** Wider geometries, boundary shifts, random or imaged structures, external calibration, and final evaluation remain locked. Phase 1 is a reproducible benchmark, not a formulation recommendation.
+**No final evaluation.** Wider geometries, boundary shifts, random or imaged structures, external calibration, and final evaluation have not been tested. Phase 1 is a controlled numerical benchmark, not a formulation recommendation.
 
-## Locked next stages
+## What should be tested next
 
-A stronger research programme could preregister, then separately unlock:
+A stronger research programme could predeclare the design, then test:
 
 - boundary-phase shifts for the same one-dimensional cell;
 - unequal phase fractions and alternative layer orderings;
@@ -425,7 +398,7 @@ A stronger research programme could preregister, then separately unlock:
 
 Nothing in this article claims that those stages have been run. Their results cannot be inferred from the 24-case chart.
 
-## The useful lesson
+## Conclusion
 
 An effective coefficient answers a scale-limit question. A finite release experiment asks a transient, boundary-conditioned question. When those scales are well separated in this frozen slab, the two answers agree within the declared gates. When only one, two, or four coarse cells span the slab, they do not.
 
@@ -433,9 +406,9 @@ The study therefore does not conclude that effective diffusivity is ineffective.
 
 The early-fit witnesses add a complementary caution: good calibration on the first half of a curve does not guarantee a correct late event. That result is especially valuable because the held-out boundary was set before fitting.
 
-The honest ending is conditional and reproducible: **in this one synthetic diffusion-only laminate, effective diffusivity becomes reliable as scale separation improves, while coarse finite-cell transients and early-only calibration can cross predeclared failure gates.**
+The honest ending is conditional: **in this one synthetic diffusion-only laminate, effective diffusivity becomes reliable as scale separation improves, while coarse finite-cell transients and early-only calibration can cross predeclared failure thresholds.**
 
-## Primary literature retained by the gate
+## References
 
 1. S. K. Chandrasekaran and R. Hillman, “Heterogeneous model of drug release from polymeric matrix,” *Journal of Pharmaceutical Sciences* 69 (1980), [DOI 10.1002/jps.2600691119](https://doi.org/10.1002/jps.2600691119).
 2. Jean-Louis Auriault and Jolanta Lewandowska, “Effective Diffusion Coefficient: From Homogenization to Experiment,” *Transport in Porous Media* 27 (1997), [DOI 10.1023/A:1006599410942](https://doi.org/10.1023/A:1006599410942).

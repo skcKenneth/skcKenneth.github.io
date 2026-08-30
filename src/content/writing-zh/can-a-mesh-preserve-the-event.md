@@ -18,30 +18,25 @@ redirectFrom: []
 
 原來的研究構想很直接：在一個按指定速率指數增長的一維區間上，Schnakenberg 反應擴散圖樣由一階空間模態轉移到二階模態；然後比較均勻有限元素、residual-based adaptivity 與 event-goal adaptivity，看看哪一種方法能用較少計算量保留首次 modal-transfer time。可是，這個比較從未獲准開始。
 
-凍結的事件定義不只要求一條分數曲線穿過門檻。mode one 必須先同時滿足幅度與 modal purity 兩個條件，並連續維持五十個時間單位；只有在這段 establishment interval 之後，modal-transfer score 向上穿越 $S=0.5$ 才可稱為 $t^*$。所有 growing-domain FEM 與 FD 計算都在時間約五百四十出現明顯的 raw crossing，之後 $S$ 更接近一。然而，兩個 establishment 條件同時成立的最長時間只有十六。formal analyzer 因此在所有 solver 上都回傳 `event_time: null`。
+凍結的事件定義不只要求一條分數曲線穿過門檻。mode one 必須先同時滿足幅度與 modal purity 兩個條件，並連續維持五十個時間單位；只有在這段 establishment interval 之後，modal-transfer score 向上穿越 $S=0.5$ 才可稱為 $t^*$。所有 growing-domain FEM 與 FD 計算都在時間約五百四十出現明顯的 raw crossing，之後 $S$ 更接近一。然而，兩個 establishment 條件同時成立的最長時間只有十六。因此，所有 solver 都找不到符合申明定義的事件時間。
 
-這就是 Phase-1A 的結果。專案沒有在看過曲線後縮短時間窗、移動門檻、改用 peak count，亦沒有把 raw crossing 重新命名為正式事件。終止判定是 **STOP_PHASE1A**。Residual adaptivity、adjoint、goal marking、estimator effectivity、matched-resolution comparison 與效率結論全部保持 locked，而且沒有執行。
+這就是 Phase-1A 的結果。專案沒有在看過曲線後縮短時間窗、移動門檻、改用 peak count，亦沒有把 raw crossing 重新命名為正式事件。終止判定是 **STOP_PHASE1A**。Residual adaptivity、adjoint、goal marking、estimator effectivity、matched-resolution comparison 與效率測試都沒有執行，所以本文不會對它們作出結論。
 
-## 先把證據邊界寫清楚
+## 這個實驗發現了甚麼
 
-| 項目 | 凍結紀錄 | 可以支持甚麼 |
+| 問題 | 結果 | 為甚麼重要 |
 |---|---:|---|
-| 文獻 gate | **REFRAME** | 可以做 replication-extension benchmark，不能聲稱方法原創性。 |
-| 模型 | 一個 prescribed-growth 一維 Schnakenberg 系統 | 合成數值個案，不是生物校準。 |
-| 時域 | $T=1200$ | 容納預期 transition 與事後 persistence window。 |
-| FEM 層級 | $(128,0.2)$、$(256,0.1)$、$(512,0.05)$ | 三組 nested uniform P1 FEM space-time resolution。 |
-| 獨立核對 | 1024-cell conservative FD，$dt=0.025$ | 另一套 assembly 的診斷 reference，不是效率競爭者。 |
-| raw crossing | 539.45 至 541.39 | 一個隨 refinement 移動的可見 transition。 |
-| 最長 establishment | 16；要求 50 | 凍結定義下的事件不存在。 |
-| formal event time | 所有 growing solves 均為 `null` | 不能計 event-time error，亦不能比較 adaptivity。 |
-| no-growth control | 沒有 raw crossing；沒有 event | 相同 detector 不會在移除 growth 後製造 split。 |
-| numerical verification | 時間一階、空間二階、constant residual 為零 | 相關 operator 的實作行為符合預期。 |
-| 重現 | 兩次 signature 同為 `acc4a…7344` | 凍結設定下的 null 是 deterministic。 |
-| 未執行部分 | residual/goal adaptivity、adjoint、effectivity、efficiency | 對這些階段沒有結果，也沒有 claim。 |
+| 測試了甚麼模型？ | 一個 prescribed-growth 一維 Schnakenberg 系統，計算至 $T=1200$ | 這是合成數值個案，不是生物校準。 |
+| 兩種離散方法有否看見相同 dynamics？ | 三層 nested P1 FEM 與獨立組裝的 1024-cell conservative FD 高度一致 | 可見 transition 不像是單一 solver 的 assembly 錯誤。 |
+| 可見分數何時穿越 $0.5$？ | 539.45 至 541.39 | 這是 refined diagnostic，不是正式事件。 |
+| mode one 事前是否建立得夠久？ | 最長 16；要求 50 | predecessor condition 有明顯距離。 |
+| 合格事件時間是甚麼？ | 所有 growing solves 都沒有合格事件 | event-time error 與 mesh comparison 都未定義。 |
+| detector 會否在沒有 growth 時製造 transition？ | 沒有 raw crossing，也沒有 event | 相同 detector 通過 negative control。 |
+| 完全不改設定再算一次會否改變結果？ | 不會；兩次計算的科學結果相同，事件同樣不存在 | 結果在既定 setup 下可重複。 |
 
-這張表刻意分開三件事。第一，operator-level verification 可以通過。第二，FEM 與一套獨立組裝的 FD 可以在肉眼可見的 transition 上高度一致。第三，預先申報的 event predicate 仍然可以是假。前兩項證據不能把第三項由 false 改成 true。
+Operator-level verification 可以通過，FEM 與獨立組裝的 FD 亦可以在可見 transition 上高度一致，但預先申報的 event predicate 仍然是假。把 trajectory 算得更細，不能將一個未成立的條件變成成立。
 
-## 文獻審計為何把研究問題收窄
+## 既有研究如何改變問題
 
 Growing-domain pattern formation 並不是空白領域。Crampin、Gaffney 與 Maini 在一九九九年推導 growing domain 上的 reaction–diffusion equations，並以 Schnakenberg system 展示 frequency doubling（[DOI](https://doi.org/10.1006/bulm.1999.0131)）。他們其後用 piecewise-linear analysis 更直接研究 mode doubling 與 tripling（[DOI](https://doi.org/10.1007/s002850100112)），並在相關模型中處理 nonuniform growth（[DOI](https://doi.org/10.1006/bulm.2002.0295)）。所以，本專案可以把 canonical mechanism 當作 benchmark，卻不能把 growth-induced peak splitting 包裝成新發現。
 
@@ -53,7 +48,7 @@ Adaptivity 也不是新主意。Venkataraman、Lakkis 與 Madzvamuse 報告 grow
 
 First-threshold time 本身也是特殊 quantity of interest。Chaudhry、Estep、Stevens 與 Tavener 對 differential equations 的 first time to a threshold 推導 error representation（[DOI](https://doi.org/10.1007/s10543-020-00825-0)），後續 PDE work 把 adjoint-based estimate 延伸到 evolutionary semilinear parabolic equation（[DOI](https://doi.org/10.1007/s10543-023-00947-1)）。Cliffe、Collis 與 Houston 則在 goal-oriented framework 中處理 nonsmooth travel-time functional（[DOI](https://doi.org/10.1137/140960499)）。
 
-有限的 targeted search 沒有找到完全相同的組合：這個一維 frequency-doubling case、這個 smooth modal score、這個 establishment predicate、一套 independently assembled reference，以及 uniform、residual 與 event-goal marking 的 matched-resolution comparison。這種「沒有找到」不是不存在的證明。它只容許一條很窄的 replication-extension 問題：在已宣告的 protocol 下，必要的 reference event 能否先被建立？
+有限的 targeted search 沒有找到完全相同的組合：這個一維 frequency-doubling case、這個 smooth modal score、這個 establishment predicate、一套 independently assembled reference，以及 uniform、residual 與 event-goal marking 的 matched-resolution comparison。這種「沒有找到」不是不存在的證明。它只留下很窄的後續問題：在已宣告的 protocol 下，必要的 reference event 能否先被建立？
 
 ## 凍結的 growing-domain 模型
 
@@ -72,7 +67,7 @@ $$
 
 Growth-rate parameter 是 $\rho=0.001$，而 $\gamma=e^{2\rho t}$。物理區間變長時，拉回 reference coordinate 的 diffusion coefficient 乘上 $\gamma^{-1}$，所以 diffusion 的相對作用逐步減弱。這是從 primary literature 選出的 nondilute slow-growth benchmark。被省略的 dilution term 是 benchmark choice 的一部分，並非程式遺漏，更不能把結果外推到所有 growing-tissue equations。
 
-參數命名需要特別說明。Repository 沿用 Schnakenberg 慣例，把 $a=0.1$、$b=0.9$；但第一個 reaction component 的 production term 是 $b=0.9$，第二個則是 $a=0.1$：
+參數命名需要特別說明。本研究沿用 Schnakenberg 慣例，把 $a=0.1$、$b=0.9$；但第一個 reaction component 的 production term 是 $b=0.9$，第二個則是 $a=0.1$：
 
 $$
 R_1=b-c_1c_2^2,
@@ -94,10 +89,10 @@ $$
 
 ## Event definition 必須先於答案
 
-對 activator $c_1$，先扣除空間平均，再投影到 Neumann cosine modes：
+對 activator $c_2$，先扣除空間平均，再投影到 Neumann cosine modes：
 
 $$
-a_k(t)=\frac{\int_0^1[c_1(x,t)-\bar c_1(t)]\cos(k\pi x)\,dx}
+a_k(t)=\frac{\int_0^1[c_2(x,t)-\bar c_2(t)]\cos(k\pi x)\,dx}
 {\int_0^1\cos^2(k\pi x)\,dx},
 \qquad k=1,2.
 $$
@@ -119,7 +114,7 @@ $S$ 接近零代表 mode one 佔兩個追蹤 modes 的主要能量，接近一�
 5. crossing 必須唯一，而且其後 $S\geq0.5$ 再維持五十個時間單位；
 6. crossing 需滿足 dimensionless transversality check $T|S'(t^*)|\geq0.1$。
 
-Crossing time 若存在，才以相鄰輸出點線性插值。Uniqueness、persistence 與 transversality 亦只能在 establishment 通過後評估。這個順序防止程式把一個數學上不存在的 formal event 用附帶診斷補成數值。
+Crossing time 若存在，才以相鄰輸出點線性插值。Uniqueness、persistence 與 transversality 亦只能在 establishment 通過後評估。這個順序防止程式把一個數學上不存在的申明事件用附帶診斷補成數值。
 
 ## 為何不用 peak count
 
@@ -127,11 +122,11 @@ Crossing time 若存在，才以相鄰輸出點線性插值。Uniqueness、persi
 
 Smooth modal score 避開部分問題。它把整個空間 profile 壓成連續 coefficients，也能在不同網格之間用相同 functional 比較。但 smooth 不等於 admissible。若 source mode 從未按定義建立，或 crossing 來回多次、未能保持、斜率近乎零，單一 $S=0.5$ 仍不能代表穩健事件。
 
-所以，這個 project 沒有聲稱 modal score 是唯一正確的 biological definition。它只要求 protocol 一旦凍結，就不能在結果不合意時改回較方便的 peak count。Event definition 可以在下一個有版本標記的研究重新設計，不能在同一 attempt 裏回溯修改。
+所以，這個 project 沒有聲稱 modal score 是唯一正確的 biological definition。它只要求 protocol 一旦凍結，就不能在結果不合意時改回較方便的 peak count。Event definition 可以在下一個有版本標記的研究重新設計，不能在同一次實驗裏回溯修改。
 
 ## 為何 horizon 是 1200
 
-預期的 raw transition 約在五百四十，formal event 又要求事後五十個時間單位 persistence。$T=1200$ 為事件前建立、crossing 後檢查及意外延遲留下足夠空間。這不是因為看見 transition 後才延長的 horizon。
+預期的 raw transition 約在五百四十，申明事件又要求事後五十個時間單位 persistence。$T=1200$ 為事件前建立、crossing 後檢查及意外延遲留下足夠空間。這不是因為看見 transition 後才延長的 horizon。
 
 更長時域也不能修補前置 establishment failure。最長 simultaneous run 發生在 raw transition 之前，而且只有十六。把終點由 1200 延長不會改寫已經發生的 history。反過來，若只計到五百四十，則可能因沒有完整 post-event window 而得到另一種不可判定。固定較長 horizon 把這兩種問題分開。
 
@@ -139,16 +134,16 @@ Smooth modal score 避開部分問題。它把整個空間 profile 壓成連續 
 
 Uniform FEM 使用 continuous piecewise-linear basis。Mass matrix 與 stiffness matrix 分別依標準一維 element assembly 建立，Neumann boundary condition 由 weak form 自然進入。Diffusion 以 implicit step 處理，reaction 以 first-order explicit evaluation 處理。Initial condition 並非單純在 nodes 取樣，而是透過 consistent mass projection 投影到 finite-element space。
 
-三個 nested levels 同時 refinement 空間與時間：128 elements 配 $dt=0.2$、256 配 $0.1$、512 配 $0.05$。這個 coupling 不是用來分離 space 與 time order；分離的 order verification 另有 manufactured tests。三層 nonlinear solve 的作用是檢查 event diagnostics 隨實際 production resolution 的穩定性。
+三個 nested levels 同時 refinement 空間與時間：128 elements 配 $dt=0.2$、256 配 $0.1$、512 配 $0.05$。這個 coupling 不是用來分離 space 與 time order；分離的 order verification 另有 manufactured calculations。三層 nonlinear solve 的作用是檢查 event diagnostics 隨已申明 resolution 的穩定性。
 
 Fine FD 使用 1024 個 cell centers 與 $dt=0.025$。它以 conservative flux differences、boundary zero flux 與相同階數的 IMEX treatment 獨立組裝。FD 不調用 FEM matrix assembler，不重用 FEM quadrature，亦不是把 FEM solution interpolate 到另一網格後冒充 reference。
 
-兩套 formulation 只共享 model parameters、deterministic initial condition、horizon、output schema、event analyzer 與凍結設定。不同 spatial representation 對相同 modal history 的 agreement，比兩個只改 resolution 的相同 code path 更能排除共同 assembly mistake。不過，fine FD 仍然不是絕對真值。它是一個較細、已宣告的 independent cross-check；真正的 reference 還需要 admissible event 及 convergence gate，後者在此失敗。
+兩套 formulation 只共享 model parameters、deterministic initial condition、horizon 與 event definition。不同 spatial representation 對相同 modal history 的 agreement，比兩個只改 resolution 的相同 code path 更能排除共同 assembly mistake。不過，fine FD 仍然不是絕對真值。它是一個較細、已宣告的 independent cross-check；真正的 reference 還需要 admissible event 及所列 convergence conditions，後者在此失敗。
 
 ## 很像答案的 raw crossing 並不算數
 
 <figure class="article-figure">
-  <img src="/science/can-a-mesh-preserve-the-event/p01_01_event_score.svg" alt="四個增長域求解器的模態轉移分數，以及原始門檻穿越附近的放大圖；所有正式事件時間均為空值。" loading="lazy" />
+  <img src="/science/can-a-mesh-preserve-the-event/p01_01_event_score.svg" alt="四個增長域求解器的模態轉移分數，以及原始門檻穿越附近的放大圖；所有計算都沒有合格事件時間。" loading="lazy" />
   <figcaption>圖一：三個 nested P1 FEM 與獨立 conservative FD 對 raw score transition 高度一致，但凍結的五十時間單位 establishment 條件失敗，所以 crossing 只屬診斷。</figcaption>
 </figure>
 
@@ -161,9 +156,9 @@ Fine FD 使用 1024 個 cell centers 與 $dt=0.025$。它以 conservative flux d
 | FEM | 512 elements，$dt=0.05$ | 539.7169 |
 | FD | 1024 cells，$dt=0.025$ | 539.4518 |
 
-這組數字很容易誘惑人把 finest value 當作 event time，甚至對序列 extrapolate。可是，formal analyzer 根本未獲准開始搜尋 $t^*$，因為 prerequisite establishment interval 不存在。因此 machine-readable record 是 `crossing_count=0`、`established=false`、`persistent=false`、`transversal=false`、`unique=false`、`event_time=null`。Raw crossing 另存於標明 diagnostic-only 的欄位。
+這組數字很容易誘惑人把 finest value 當作 event time，甚至對序列 extrapolate。可是，prerequisite establishment interval 不存在，所以正式的 $t^*$ 搜尋根本不會開始。沒有 admissible crossing，就沒有後續的 persistence、transversality 或 uniqueness 可檢查，event time 因而仍未定義；raw crossing 只作 diagnostic 報告。
 
-這不是行政式 bookkeeping。First-threshold adjoint 依賴 event functional 的 derivative 與一個可辨識 crossing。若 formal predicate 失敗後才以目測 crossing 替代，reported number 就與原本 quantity of interest 脫節，往後再精確的 estimator 也只是在估計另一個未申報的量。
+這個區分會改變實際量度的數學量。First-threshold adjoint 依賴 event functional 的 derivative 與一個可辨識 crossing。若申明條件失敗後才以目測 crossing 替代，reported number 就與原本 quantity of interest 脫節，往後再精確的 estimator 也只是在估計另一個未申報的量。
 
 ## 失敗在可見 split 之前已經發生
 
@@ -176,33 +171,33 @@ Panel (a) 解釋為何只看 amplitude 會誤判為通過。$|a_1|$ 很快超過
 
 缺少的條件在 panel (b)。Mode-one fraction 從一很快降到約 0.75，之後在看似 mode-one plateau 的大部分時間低於 0.8。它在 transition 前短暫回到 threshold 以上，但與 amplitude condition 的 qualifying overlap 只維持十六。
 
-兩條件共同存在，是為了避免把很弱或高度 mixed 的 state 當成 clean transfer 的 predecessor。這條 rule 是否為最佳科學定義，可以在未來版本討論；目前紀錄只能說這個 trajectory 不符合已凍結定義。看見結果後刪去 purity condition，等同改變研究問題。
+兩條件共同存在，是為了避免把很弱或高度 mixed 的 state 當成 clean transfer 的 predecessor。這條 rule 是否為最佳科學定義，可以在未來版本討論；本次 trajectory 只能說是不符合已凍結定義。看見結果後刪去 purity condition，等同改變研究問題。
 
 Score 的劇烈上升也不能補救。$S$ 的分子與分母只描述 mode one 與 mode two 的相對 ownership，不記錄 state 之前是否按標準建立。即使分數由近零移到近一，source state 的歷史資格仍可失敗。
 
-## FEM 與 FD 對 null 結果一致
+## FEM 與 FD 都顯示事件不存在
 
 <figure class="article-figure">
-  <img src="/science/can-a-mesh-preserve-the-event/p01_03_null_concordance.svg" alt="三層有限元素、細網格有限差分與無增長控制的原始穿越時間和最長建立區間；所有 admissible event 均為空值。" loading="lazy" />
+  <img src="/science/can-a-mesh-preserve-the-event/p01_03_null_concordance.svg" alt="三層有限元素、細網格有限差分與無增長控制的原始穿越時間和最長建立區間；所有計算都沒有合格事件。" loading="lazy" />
   <figcaption>圖三：refinement 令 diagnostic crossing 收斂，但所有 growing solves 的 establishment 都只有十六；no-growth control 為七，全部低於五十。</figcaption>
 </figure>
 
-左 panel 保留 raw crossing 的數值資訊，卻沒有錯叫它 formal event。時間由 541.39 隨 joint refinement 移向 539.45。右 panel 才是決定性 gate：每個 growing-domain method 的 longest duration 都是十六，與虛線五十有清楚距離；no-growth fine FEM 的 duration 是七，而且沒有 raw crossing。
+左 panel 保留 raw crossing 的數值資訊，卻沒有錯叫它申明事件。時間由 541.39 隨 joint refinement 移向 539.45。右 panel 才是決定性檢查：每個 growing-domain method 的 longest duration 都是十六，與虛線五十有清楚距離；no-growth fine FEM 的 duration 是七，而且沒有 raw crossing。
 
-這是對 negative result 的 concordance。兩套 solver 不是各自因不相關錯誤而失敗；它們解析出幾乎相同 modal history，並以同一個未修改 predicate 評估。Null 經 refinement 保留，也經 spatial discretization family 的改變保留。
+這是對 negative result 的 concordance。兩套 solver 不是各自因不相關錯誤而失敗；它們解析出幾乎相同 modal history，並以同一個未修改 predicate 評估。事件不存在的結論經 refinement 保留，也經 spatial discretization family 的改變保留。
 
-因此，結果比「程式找不到事件」更具體：machine-readable diagnostics 清楚指出 simultaneous condition 未能持續。可是，它又比「frequency doubling 沒有發生」窄。Spatial profile 的確由一種主要結構轉向另一種，raw score 亦有 crossing。失敗的只是這個 initial condition、horizon 與 event definition 的 conjunction。
+因此，結果比「程式找不到事件」更具體：simultaneous condition 未能持續。可是，它又比「frequency doubling 沒有發生」窄。Spatial profile 的確由一種主要結構轉向另一種，raw score 亦有 crossing。失敗的只是這個 initial condition、horizon 與 event definition 的 conjunction。
 
 ## Spatial profiles 說明了甚麼
 
 <figure class="article-figure">
   <img src="/science/can-a-mesh-preserve-the-event/p01_04_activator_profiles.svg" alt="細網格有限元素與保守有限差分在時間五百、五百四十及六百的活化子空間剖面，呈現原始模態轉移前中後。" loading="lazy" />
-  <figcaption>圖四：fine FEM 與 independent FD 在 raw transition 前、附近與之後解析出相同 profile；這支持 diagnostic narrative，不能把 null 改成 event。</figcaption>
+  <figcaption>圖四：fine FEM 與 independent FD 在 raw transition 前、附近與之後解析出相同 profile；這支持 diagnostic narrative，卻不能把不存在的事件改成已發生。</figcaption>
 </figure>
 
 在 $t=500$，activator profile 沿 reference interval 大致下降；$t=540$ 時形成強烈 interior peak；到 $t=600$，高值區的形狀再次改變。Cosine coefficients 把這種空間結構轉換成可比較的 modal summary。FEM 與 FD curves 幾乎重合，說明 raw transition 不是單一 solver 或繪圖 interpolation 的 artifact。
 
-這些 profiles 同時展示 peak count 的 discretion。Endpoint shoulder、寬而平的 maximum 或剛出現的 curvature change 是否算一個峰，會令 counting event 前後移動。Modal score 提供連續診斷，卻仍需要 establishment、uniqueness、persistence 與 transversality 才能成為 formal event。
+這些 profiles 同時展示 peak count 的 discretion。Endpoint shoulder、寬而平的 maximum 或剛出現的 curvature change 是否算一個峰，會令 counting event 前後移動。Modal score 提供連續診斷，卻仍需要 establishment、uniqueness、persistence 與 transversality 才能成為申明事件。
 
 圖中沒有任何 biological structure identification。橫軸是 reference coordinate，不是測得的 tissue length；縱軸是 synthetic model state，不是 concentration assay。兩種 numerical methods 一致，只是 implementation evidence，並非 equations 已描述某個 organism 的證據。
 
@@ -210,14 +205,14 @@ Score 的劇烈上升也不能補救。$S$ 的分子與分母只描述 mode one 
 
 <figure class="article-figure">
   <img src="/science/can-a-mesh-preserve-the-event/p01_05_negative_control.svg" alt="增長率零點零零一的增長計算與零增長控制的模態分數和一階模態幅度，兩者使用同一初值與偵測器。" loading="lazy" />
-  <figcaption>圖五：只把 $\rho$ 由 0.001 改為零，raw score crossing 就消失；兩個 runs 均沒有 admissible event，但 null 的原因不同。</figcaption>
+  <figcaption>圖五：只把 $\rho$ 由 0.001 改為零，raw score crossing 就消失；兩個 runs 均沒有合格事件，但原因不同。</figcaption>
 </figure>
 
-Negative control 只把 $\rho$ 由 0.001 改成零。它保留 fine FEM grid、time step、initial condition、horizon、output schedule 與 event code。其 $S$ 維持約 0.24，mode-one amplitude 仍然建立，沒有 raw crossing，也沒有 formal event。
+Negative control 只把 $\rho$ 由 0.001 改成零。它保留 fine FEM grid、time step、initial condition、horizon、output schedule 與 event code。其 $S$ 維持約 0.24，mode-one amplitude 仍然建立，沒有 raw crossing，也沒有合格事件。
 
 Growing run 的行為明顯不同：score 最終接近一，mode-one amplitude 崩落。這只支持 synthetic model 內的一條有限敘述，即 prescribed growth 在固定參數下改變 modal trajectory。它不能挽救 event，因為 establishment history 仍然失敗，也不能推論真實生物組織的 growth mechanism。
 
-Negative control 的價值不是強迫 primary result 變 positive，而是檢查 detector specificity。相同 detector 不會因 stationary-domain numerical drift 製造 crossing。它也說明兩個 `event_time=null` 可以有不同原因：no-growth run 缺少 raw transfer；growing run 有 raw transfer，卻沒有合格 predecessor establishment。保存 failure reason 可避免把所有 null 混為一類。
+Negative control 的價值不是強迫 primary result 變 positive，而是檢查 detector specificity。相同 detector 不會因 stationary-domain numerical drift 製造 crossing。它也說明事件可以因兩種不同原因不存在：no-growth run 缺少 raw transfer；growing run 有 raw transfer，卻沒有合格 predecessor establishment。分清原因可避免把兩種情況混為一談。
 
 ## Numerical verification 通過，事件仍然失敗
 
@@ -236,9 +231,9 @@ $$
 
 並使用 homogeneous Neumann boundaries。FEM temporal errors 在 $dt=0.02,0.01,0.005$ 的 observed orders 是 0.990 與 0.995。FEM spatial errors 在 16、32、64 elements 的 orders 是 2.064 與 2.282。Conservative FD Neumann Laplacian 在 32、64、128 cells 的 orders 是 1.9997 與 1.9999。Constant vector 對 FEM stiffness matrix 與 FD flux Laplacian 都在 machine precision 內屬於 nullspace。
 
-Nonlinear runs 全程有限，亦在凍結的 $-10^{-8}$ tolerance 內非負；global minima 約為 0.110。這些 checks 很重要，因為若 event 缺失源自 blow-up、negative concentration、破壞的 Neumann flux 或錯誤空間階數，整個 null 便不可解釋。
+Nonlinear runs 全程有限，亦在凍結的 $-10^{-8}$ tolerance 內非負；global minima 約為 0.110。這些 checks 很重要，因為若 event 缺失源自 blow-up、negative concentration、破壞的 Neumann flux 或錯誤空間階數，整個 negative result 便不可解釋。
 
-Checks 通過只回答窄問題：實作的 operators 與 time treatment 在指定 verification cases 表現一致。它們不證明 nonlinear trajectory exact，不證明所有 output functionals 都已收斂，更不能在 recorded modal history 只有十六 qualifying units 時創造五十-unit interval。
+Checks 通過只回答窄問題：實作的 operators 與 time treatment 在指定 verification cases 表現一致。它們不證明 nonlinear trajectory exact，不證明所有 output functionals 都已收斂，更不能在 modal history 只有十六 qualifying units 時創造五十-unit interval。
 
 ## 為何不能報 event-time error
 
@@ -248,11 +243,11 @@ $$
 |t_h^*-t_{ref}^*|
 $$
 
-並不會令兩個 null values 成為數字。把 raw crossing 代入只會計算另一個 diagnostic 的 refinement difference，並非 preregistered event-time error。
+並不會令兩個不存在的事件時間成為數字。把 raw crossing 代入只會計算另一個 diagnostic 的 refinement difference，並非 preregistered event-time error。
 
-同樣地，不能把「所有方法都是 null」解讀成 zero error。Null equality 不是 numerical equality；它表示 functional 在每一條 trajectory 上都未定義。也不能在 bar chart 中把 null 畫成零，因為零代表事件在初始時間發生。Canonical JSON 保留真正的 `null`，figure 亦以文字與 gate outcome 表達。
+同樣地，不能把「所有方法都找不到事件」解讀成 zero error。這不是 numerical equality，而是 functional 在每一條 trajectory 上都未定義。也不能在 bar chart 中把缺失的事件時間畫成零，因為零代表事件在初始時間發生。圖表因此直接標示事件不存在，並用文字說明原因。
 
-Reference-feasibility tolerance 原定為 nested event times 相差不超過 $10^{-4}T$，FEM 與 independent FD 相差不超過 $2\times10^{-4}T$。這些 tolerance 沒有被 raw crossings 冒名通過。只有在 formal event 存在、unique、persistent 且 transversal 時才適用。這一點保護後續 comparison 不會以錯誤 endpoint 開始。
+Reference-feasibility tolerance 原定為 nested event times 相差不超過 $10^{-4}T$，FEM 與 independent FD 相差不超過 $2\times10^{-4}T$。這些 tolerance 沒有被 raw crossings 冒名通過。只有在申明事件存在、unique、persistent 且 transversal 時才適用。這一點保護後續 comparison 不會以錯誤 endpoint 開始。
 
 ## 從軌跡到停止判定的完整邏輯
 
@@ -262,9 +257,9 @@ Reference-feasibility tolerance 原定為 nested event times 相差不超過 $10
 
 第三層才檢查前置狀態。幅度門檻要求第一模態不是接近零的數值噪聲，純度門檻要求其在追蹤的兩個模態中真正佔優。這兩條件必須同時連續五十個時間單位，而不是各自在不同時段成立。實際最長重疊只有十六，所以第三層失敗。
 
-第四層原本要在前置狀態合格後搜尋向上穿越，再檢查唯一性、事後維持及非切向性。由於第三層未通過，第四層沒有合法起點。紀錄中的 `false` 並非表示程式在一個已承認事件上量得不良斜率，而是表示這些後續資格沒有被授予。這也是為何不能只挑出視覺上最陡的一次穿越。
+第四層原本要在前置狀態合格後搜尋向上穿越，再檢查唯一性、事後維持及非切向性。由於第三層未通過，第四層沒有合法起點。這並非表示一個已承認事件具有不良斜率，而是後續條件根本未到評估階段。這也是為何不能只挑出視覺上最陡的一次穿越。
 
-第五層才是建立參考值。若正式事件存在，三層有限元素的事件時間要在指定容差內穩定，最細有限元素亦要與獨立有限差分一致。這些比較需要數值型事件時間，不能把空值相減。故第五層未執行，而不是以「大家都是空值」當作通過。
+第五層才是建立參考值。若申明事件存在，三層有限元素的事件時間要在指定容差內穩定，最細有限元素亦要與獨立有限差分一致。這些比較需要數值型事件時間，不能對不存在的時間做減法。故第五層未執行，而不是以「大家都找不到事件」當作通過。
 
 第六層才輪到自適應策略。它會需要可微的事件量、參考事件時間、誤差定義、配對成本與估計器。前五層任何一層失敗，都足以阻止第六層。本次停止點精確位於第三層，並保留第一、二層的正面數值證據。這種分層紀錄比單一成功或失敗標籤更有資訊，也避免讀者誤以為程式崩潰或自適應方法已輸掉比較。
 
@@ -288,43 +283,33 @@ Reference-feasibility tolerance 原定為 nested event times 相差不超過 $10
 
 新版本還應使用開發、驗證與最終評估的分離。現有軌跡已揭露哪個條件失敗，可以用來發展候選定義，卻不能再作無偏最終驗證。應在其他預先指定參數或初值上檢查候選規則，再把選定規則凍結，最後於未打開的軌跡評估是否存在、唯一、穩定及可跨方法重現。
 
-這樣做不是要求事件定義永遠不變，而是要求變更有版本、有理由、有新資料邊界。研究方法可以從 null 中學習；不能做的是抹去原先 null，讓讀者以為新定義一直存在。
+這樣做不是要求事件定義永遠不變，而是要求變更有版本、有理由、有新資料邊界。研究方法可以從這次事件失敗中學習；不能做的是抹去原先結果，讓讀者以為新定義一直存在。
 
-## 原定 adaptive comparison 為何沒有運行
+## 下一步應測試甚麼
 
 完整設計原本包括三個策略。Uniform refinement 提供 baseline；residual marking 根據 state-equation residual 與 flux jump 選 element；goal marking 則以 event-time adjoint 權重集中 event functional 最敏感的 regions。比較會固定 accuracy target 或 matched computational budget，報 event-time error、degrees of freedom、steps、work proxy、effectivity 與 wall-clock distribution。
 
-Phase-1A 只獲准建立 reference feasibility。它沒有 residual estimator implementation、沒有 dual solve、沒有 Dörfler marking、沒有 mesh transfer study，也沒有 matched-budget timing。這些缺項不是「未寫進文章」而已；contract 與 claim ledger 明確把它們鎖住。
+Phase-1A 只處理 reference feasibility。它沒有 residual estimator implementation、dual solve、Dörfler marking、mesh transfer study 或 matched-budget timing。這些不是漏寫的結果，而是尚未進行的研究工作。
 
 因此，不能從 uniform FEM 與 fine FD 的一致推論 adaptive method superiority，也不能說 event-goal mesh 會較高效。甚至「網格能否保留事件」這個標題在目前只是研究問題。現有答案是：對 frozen benchmark 而言，沒有 admissible event 可供任何 mesh 保存。
 
-一個合理下一階段可能先版本化 event definition，例如重新考慮 predecessor purity 或改用具物理意義的 functional，再以新的 protocol 重做 feasibility。那會是新 experiment，不是把本次 STOP 改判。另一個方向是在保持 event definition 下改變 model parameter 或 initial perturbation，但亦必須在運行前宣告 grid、horizon、gates 與 multiplicity rule。
+下一階段有兩條清楚路線。第一條是重新論證 event definition，例如調整 predecessor purity 或改用具物理意義的 functional，再用新 protocol 重做 feasibility。第二條保留現有 event definition，改變 model parameter 或 initial perturbation，尋找真正能建立 predecessor state 的 regime。兩條路線都要事前固定 grid、horizon、判定條件與 multiplicity rule，不能把本次結果改判成成功。
 
-## Reproducibility 不把 runtime 當成數值資料
+若重新設計 event definition，development cases 與 confirmatory cases 必須分開。前者可以用來觀察 amplitude 與 purity histories，協助提出 threshold 和 window；一旦看 held-out cases，這些數值便不能再改。確認階段亦不應只報平均 crossing time，而要同時列出 event existence rate、multiple crossings、transversality、最長 establishment duration，以及各條 trajectory 距離判定門檻有多遠。只在一條 trajectory 上成立的定義，仍不足以支撐 mesh comparison。這個 split 也避免利用 held-out trajectory 反覆調整定義。
 
-兩個 canonical attempts 使用完全相同 production configuration，沒有在第一次 null 後修改 threshold 或 window。其 numerical JSON byte-equivalent，canonical signature 都是
+若保留現有定義，parameter study 要尋找相鄰而非孤立的 feasible regime。候選事件至少應在兩種 numerical formulations 與多個 resolution 上保持 unique、persistent 及 transversal，然後才比較 uniform、residual 與 goal-oriented refinement。最好在三個或以上相鄰參數點重複這項檢查，確認 event 不是剛好貼着 threshold 的偶然個案。Matched-budget table 亦要明確保留沒有 event 的 cases，不能刪去失敗案例後只對成功案例排名。這樣的下一階段才真正回答標題，而不是重命名今次的 raw crossing。
 
-`acc4a406360bca26f89d032d5251c06e20b12f2153c557358ed3fa6175447344`。
+## 重複運算為何重要
 
-Frozen configuration hash 是
+兩次完全不改設定的運算得到相同 modal histories、事件判定、controls 與 verification results，並且同樣找不到合格事件。兩次 wall-clock time 略有差別，因為 scheduling 與 system state 會影響 elapsed time。Runtime 因而沒有放入 scientific comparison，亦沒有被用來支持 efficiency claim。
 
-`49dbc1cae23113a5562bc8fd5c24cb51cec86a55e0cfddd23193748a71a86691`。
+Matrix properties 與 consistent-mass projection 支持空間離散；manufactured solutions 分別量度時空收斂階；event interpolation、uniqueness、persistence 與 transversality 提供事件邏輯的不同視角；negative control 則確認 detector 不會在無增長時製造 crossing。完全相同設定下重算仍得到同一 modal history 與停止結論。這些結果不會令 event 成立，但能排除多種常見 numerical error，並把失敗定位在五十時間單位的前置條件。
 
-Signature 包含 model、discretization、modal histories、event fields、control、verification 與 terminal verdict；不包含 wall-clock runtime、timestamp 或 machine-specific path。這個分離很重要。相同數值計算在不同電腦可能耗時不同，但不能因 elapsed time 改變而被誤判成不重現；反過來，相同 runtime 也不能證明數值內容相同。
+## 獨立離散能排除甚麼
 
-Preflight 曾發現一個 test fixture 的 shape 與 detector input contract 不一致。修正只改 synthetic fixture，production configuration、hash、threshold、window 與 event code 沒有更動。Before/after evidence 保留在 attempt history。這類修正可以接受，因為它不在看過 scientific result 後調校 endpoint。
+FEM 與 FD 使用相同模型、初值、輸出時間及事件定義，但空間離散及組裝方式不同。兩者所得 modal histories、穿越位置與事件不存在的結論接近，使「結果只來自某一種 assembly 錯誤」這個解釋較不可信。不過，兩套方法仍可能共享 event definition、模型方程或輸出解讀上的錯誤；它們的一致亦不能變成生物驗證。這次交叉核對能支持的窄結論，是前置狀態不足五十時間單位這項失敗，在更換離散 family 後仍然存在。
 
-正式 test suite 有十七個 substantive tests，涵蓋 config freeze、FEM/FD matrix properties、consistent-mass projection、manufactured orders、event interpolation、uniqueness、persistence、transversality、negative control、canonical schema 與 signature stability。Tests 通過與 scientific gate 失敗同時成立，正是這次 audit 的重點。
-
-## 圖像 QA 也是 evidence chain
-
-六幅 canonical figures 都由 machine-readable result 重新生成，並輸出 SVG、PDF 與 600-dpi PNG；blog 使用的 publish SVG 與 technical repository 的 accepted files 位元一致。所有文字為黑色，顏色以線型、marker、hatch 或直接文字作 redundant encoding，不能只靠紅綠區分結果。SVG 內含 title 與 description，manifest 記錄 source result、script、revision 與 hash。
-
-Visual QA 不只是檢查檔案可開啟。每個 PNG 及其 PDF raster counterpart 都在原尺寸查看四邊、panel headings、legends、ticks、annotations、curves 與 markers。過程保留 rejected-to-revised history：早期 revision 曾有 annotation 穿過曲線、order labels 太接近 segment，以及 negative-control PDF 的左上 panel heading 被裁掉。Final-006 把 heading 移入安全邊界，六組最終 PNG/PDF pairs 全部通過 overlap 與 clipping review。
-
-保留 rejected revision 很重要。如果只留下最後圖，讀者無法判斷 QA 是真正執行，還是事後一句聲明。Rejection record 表明哪些位置失敗、如何修正，以及 scientific data 沒有被改動。圖形 layout correction 不應偷偷改 result array，亦不應用 opaque textbox 蓋住曲線。
-
-## 這個 null 對 event design 的啟示
+## 這次事件失敗對 event design 的啟示
 
 第一，event 是一個帶歷史的 predicate，不一定是當下 scalar threshold。Establishment 與 persistence 把「從哪個 state 轉到哪個 state」寫進定義。只保存 crossing point 而遺失其前後 history，會令不同物理敘事共享同一數字。
 
@@ -332,42 +317,29 @@ Visual QA 不只是檢查檔案可開啟。每個 PNG 及其 PDF raster counterp
 
 第三，convergence of a surrogate 不等於 existence of the target. Raw crossing sequence 看來規整，甚至可以估計 order；但 target event 未定義。Numerical analyst 必須先問 functional 是否 well posed，再問 discretization error 多大。
 
-第四，independent formulations 最有價值的時候，不一定是確認 positive result。FEM/FD concordance 令我們較有把握 null 不是某個 spatial assembly artifact。Negative evidence 若有 precise failure reason、refinement 與 control，也可以是扎實結果。
+第四，independent formulations 最有價值的時候，不一定是確認 positive result。FEM/FD concordance 令我們較有把握事件缺失不是某個 spatial assembly artifact。Negative evidence 若有 precise failure reason、refinement 與 control，也可以是扎實結果。
 
-第五，stop rule 需要在運行前具體。若規則只寫「結果不夠好便再調」，就不能區分 protocol refinement 與 outcome tuning。本專案的 STOP 是因 formal event null，而不是因 adaptive method 表現差。後者根本未被測試。
+第五，stop rule 需要在運行前具體。若規則只寫「結果不夠好便再調」，就不能區分 protocol refinement 與 outcome tuning。本專案在這裏停止，是因申明事件未成立，而不是因 adaptive method 表現差。後者根本未被測試。
 
-## 哪些 claims 仍然被封鎖
+## 這個結果能說明甚麼，仍有甚麼未解
 
-以下敘述沒有 evidence，因此文章不會暗示它們成立：
+這個結果支持四項結論。相關 operators 通過所列 verification；nested FEM 與獨立組裝的 conservative FD 解析出高度一致的 modal histories 與 spatial profiles；no-growth control 沒有 raw transition；而最關鍵的 predecessor state 只維持十六個時間單位，遠低於所需的五十，所以所有計算都沒有合格事件時間。完全不改設定再算一次，scientific result 亦沒有改變。
 
-- goal-oriented adaptive mesh 比 uniform 或 residual mesh 更準確；
-- residual estimator 對此 nonlinear growing-domain problem reliable 或 efficient；
-- adjoint effectivity 接近一；
-- adaptive strategy 以較少 degrees of freedom 保存 peak splitting；
-- FEM 一般優於 FD，或 FD 是 exact reference；
-- synthetic modal transfer 對應真實 tissue patterning event；
-- 這個 benchmark 是首個 growing-domain adaptivity 或 threshold-time method；
-- raw crossing 539.45 是正式 $t^*$。
+未解問題同樣清楚。研究沒有運行 adaptive mesh、residual estimator、adjoint 或 matched-budget comparison，因此不知道它們的 accuracy 與 efficiency。約五百四十的 raw crossing 不是 validated event time。這個一維 synthetic model 亦不能代表二維 growing domains、其他 kinetics、其他 initial conditions，更不能直接對應某個 developmental system。
 
-可以支持的 claims 只有：solver operators 通過所列 tests；FEM 與 independent FD 對 diagnostic transition 一致；no-growth control 沒有 raw crossing；所有 growing solves 的 establishment 最長十六；formal event 全部 null；兩次 canonical numerical records 相同；因此 Phase-1A 按 frozen rule 停止。
+這些限制不會抹去數值發現，反而說明它的位置：一個 sharp、refined 而且 repeatable 的 transition，仍然可能未滿足後續 mesh comparison 所需要的 event definition。
 
-## 精確的重現邊界
+若下一階段重設 event definition，應先回答三個問題。新的 predecessor state 有沒有可量度的物理或數學理由？在不同 resolution 與 independent formulation 下，event 是否 unique 且 transversal？若某條 trajectory 沒有 event，comparison 如何如實保留這個結果，而不是把它改畫成零？這三點比先選 adaptive algorithm 更早，因為 algorithm 只能逼近一個已經定義好的 quantity。
 
-Technical repository 保存 frozen configuration、environment file、solver source、test suite、attempt directories、top-level summary JSON、figure generator、publish assets、visual QA ledger、claim ledger、decision log、literature gate 與 references。最小重現次序是：先驗證 configuration hash；運行 tests；執行一個 canonical attempt；以相同設定再執行 reproduction attempt；比較 numerical signature；由 canonical JSON 生成 figures；最後執行 artifact 與 visual-QA checks。
+## 結論
 
-重現的核心不是要求另一台機器有相同 runtime，而是要求所有 scientific fields、null values、gate decisions 與 signature 相同。Dependency versions 與實際 Python executable 被記錄，避免默認 environment 悄悄漂移。任何改動 threshold、establishment window、initial condition、horizon 或 grid 的 run 都應產生新 config hash，不能覆寫現有 attempts。
+這個 benchmark 解析出清楚、隨 refinement 穩定並經 independent FD 核對的 raw modal transition。它也通過 selected operator verification，並在 no-growth control 中避免虛假 crossing。可是，凍結的 predecessor establishment 只維持十六，而要求是五十。因此，所有計算都沒有合格事件時間。
 
-Blog 本身不取代 repository。文章把決策鏈翻譯成可閱讀敘事；machine-readable JSON 才是 numbers 的權威來源，claim ledger 界定何者可公開，visual manifest 則把每幅圖連回 generator 與 data。若 prose 與 JSON 不一致，應以 frozen result 與 tests 為準並修正文稿。
+所以，問題「哪一種 mesh 最能保存事件」在本 Phase 沒有可比較答案。Uniform FEM 沒有勝出，adaptive FEM 亦沒有失敗，因為後者根本未被運行。準確說法是：這個 event definition 在這條 trajectory 上未建立 reference feasibility，任何 event-time error、effectivity 或 efficiency comparison 都未定義。
 
-## 一個精確而有限的結論
+若把 539.45 改叫 $t^*$，文章會得到較順眼的 positive plot，卻失去原本 quantity of interest。如實保留事件未成立的結果留下一個直接教訓：在最佳化網格之前，先證明要保存的事件真的存在。
 
-這個 benchmark 解析出清楚、隨 refinement 穩定並經 independent FD 核對的 raw modal transition。它也通過 selected operator verification，並在 no-growth control 中避免虛假 crossing。可是，凍結的 predecessor establishment 只維持十六，而要求是五十。所有 formal event times 因而是 null。
-
-所以，問題「哪一種 mesh 最能保存事件」在本 Phase 沒有可比較答案。不是 uniform FEM 勝出，不是 adaptive FEM 失敗，也不是 growth pattern 不存在。準確說法是：這個 event definition 在這個 frozen trajectory 上未建立 reference feasibility，任何 event-time error、effectivity 或 efficiency comparison 都不具 admissibility。
-
-STOP 保存了研究的意義。若把 539.45 改叫 $t^*$，文章會得到較順眼的 positive plot，卻失去原本 quantity of interest。保留 null 則留下可審計的教訓：在最佳化網格之前，先證明要保存的事件真的存在。
-
-## 文獻 gate 使用的 primary works
+## 參考文獻
 
 - Crampin, Gaffney & Maini (1999), growing-domain reaction–diffusion 與 frequency doubling. [DOI](https://doi.org/10.1006/bulm.1999.0131)
 - Crampin, Gaffney & Maini (2002), mode doubling/tripling 的 piecewise-linear analysis. [DOI](https://doi.org/10.1007/s002850100112)

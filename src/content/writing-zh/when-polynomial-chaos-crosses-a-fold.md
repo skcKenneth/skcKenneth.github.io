@@ -20,30 +20,25 @@ redirectFrom: []
 
 然而，局部方法事先得到解析 fold 位置。這個 fold 是一個 **analytic oracle**，其推導、尋找或設定成本沒有計入 16 對 16 的 fit budget。因此本文只稱它為 **fold-aligned**，絕不稱為 adaptive。這不是 total-cost comparison，也沒有證明自動演算法能從 16 次評估找出分界，更沒有物理、工業安全或普遍優越性的結論。
 
-在這條窄而清楚的證據界線內，第一階段結果很明確。全域 surrogate 的 response RMSE 是 $0.0783280594$，fold-aligned surrogate 是 $0.000248551855$，相差約 $315.14$ 倍；Wasserstein-1 error 分別為 $0.0439521168$ 與 $5.03489790\times10^{-5}$，相差約 $872.95$ 倍。在已申明的 cold-start、quasi-static、increasing-$Da$、right-continuous history 下，解析 hot-state probability 是 $0.5$；全域結果為 $0.4710647474$，fold-aligned 結果為 $0.5$。全域 surrogate 還產生 $0.0531311035$ 的 invalid-support mass，局部版本在既定 audit grid 上則為零。
+在這個範圍內，第一階段結果很明確。全域 surrogate 的 response RMSE 是 $0.0783280594$，fold-aligned surrogate 是 $0.000248551855$，相差約 $315.14$ 倍；Wasserstein-1 error 分別為 $0.0439521168$ 與 $5.03489790\times10^{-5}$，相差約 $872.95$ 倍。在已申明的 cold-start、quasi-static、increasing-$Da$、right-continuous history 下，解析 hot-state probability 是 $0.5$；全域結果為 $0.4710647474$，fold-aligned 結果為 $0.5$。全域 surrogate 還產生 $0.0531311035$ 的 invalid-support mass，局部版本在既定 evaluation grid 上則為零。
 
-這些是單一 frozen Phase-1 benchmark 的可重現數值，不是新 multi-element PCE 方法的發明。文獻 gate 結論是 **REFRAME**，因為 polynomial chaos、分岔不確定性、random-space partition、automatic discontinuity detection 與 uncertain CSTR 已有直接先行研究。本地工作的可辯護價值，是把 branch history、oracle disclosure、matched fit budget、參考解及 pass/fail rule 綁成一個可審計 stress test。
+這些數值只屬於單一固定的第一階段 benchmark，不是新 multi-element PCE 方法的發明。文獻審查把研究結論定為 **REFRAME**，因為 polynomial chaos、分岔不確定性、random-space partition、automatic discontinuity detection 與 uncertain CSTR 都有直接先行研究。這個標記指比較一個精確的 matched-fit 問題，而不是宣稱發明 multi-element polynomial chaos。
 
-## 先把證據與推論分開
+## 折疊點附近發生了甚麼
 
-以下表格先列出機器紀錄，再限定每項紀錄能支持的說法。
-
-| 項目 | 第一階段固定紀錄 | 可作出的解釋 |
+| 問題 | 結果 | 為何重要 |
 |---|---:|---|
-| 文獻 gate | **REFRAME** | 原本籠統的 novelty headline 與既有研究重疊，必須縮成單一案例的可靠性檢查。 |
-| 模型範圍 | 合成、無因次 CSTR | 一個 canonical numerical model，不是經實驗校準的反應器。 |
-| 歷史規則 | cold start、準靜態增加 $Da$、ignition 處右連續 | 一個確定性的 branch-selection operator，不是有限升溫速率模擬。 |
-| 不確定性 | $Da=Da_{\mathrm{ign}}+0.008\xi$，$\xi\sim U[-1,1]$ | 只有一個對稱、以 fold 為中心的輸入分佈。 |
-| 全域 fit | degree 15，16 次 Gauss–Legendre 評估 | 一種 global polynomial allocation。 |
-| 局部 fit | 兩個 degree-7 elements，每邊 8 次 | oracle fold-aligned allocation，不是 automatic partition。 |
-| 成本計算 | fold discovery cost 不包括在內 | fit call 數相同；total cost 未比較。 |
-| 決策 | 16 個 checks 全部為 true，狀態 **SUPPORTED** | frozen smoke rule 通過，不是普遍方法排名。 |
-| 重現 | 兩次完整 rerun 共用 signature 84359c…9043 | 在紀錄環境與設定下可確定重現數值材料。 |
-| 尚未解鎖 | wider sweeps、adaptive split、physical calibration、final evaluation | 本文沒有暗示這些工作已完成。 |
+| 使用了甚麼模型？ | 合成、無因次 CSTR | 它是 canonical numerical model，不是經實驗校準的反應器。 |
+| 如何定義 branch history？ | cold start、準靜態增加 $Da$、ignition 處右連續 | 這是一種固定歷史下的響應，不是有限升溫速率模擬。 |
+| 使用了甚麼不確定性？ | $Da=Da_{\mathrm{ign}}+0.008\xi$，$\xi\sim U[-1,1]$ | 輸入分佈對稱並以 ignition fold 為中心。 |
+| 全域方法如何分配 16 次 calls？ | 在整個區間建立一個 degree-15 fit | 連續 polynomial 必須跨越響應跳躍。 |
+| 局部方法如何分配 16 次 calls？ | 兩個 degree-7 fits，每側 8 次 | Oracle split 令每個 polynomial 只近似一條 smooth branch。 |
+| 比較建立了甚麼？ | 16 項科學檢查全部通過，狀態 **SUPPORTED** | 結果支持這個 smoke comparison，不是普遍方法排名。 |
+| 哪項成本沒有計入？ | 解析 fold location | Fit-call budget 相同，但 total setup cost 未比較。 |
 
 「同一 budget」若沒有說明 budget 的單位，便很容易造成誤解。本研究匹配的是建立 surrogate 所用的 response-model calls。全域方法不需要已知分界，局部方法卻得到精確 fold。若在複雜模型中要靠 continuation、額外 solver calls、pilot samples、classifier 或人工判讀找出 fold，這些都應計入 end-to-end cost。本階段沒有估算這部分，所以不能把「16 對 16」改寫成「相同總成本」。
 
-## 為甚麼文獻 gate 必須 REFRAME
+## 文獻為何改變了研究問題
 
 專案最初容易形成一個過大的故事：adaptive multi-element polynomial chaos 能在 thermal bistability 下勝過 global PCE。正式運算前的文獻審查顯示，這種說法把已建立的領域當成空白。
 
@@ -205,7 +200,7 @@ $$
 \Pr(y\ge0.8)=\Pr(\xi\ge0)=0.5.
 $$
 
-這個 $0.5$ 並不是艱難的 rare-event calculation。它的作用是形成透明的 event audit：如果 surrogate 把 jump 拉平或把 threshold crossing 移位，event probability 便會立刻反映。
+這個 $0.5$ 並不是艱難的 rare-event calculation。它提供一項透明的 event check：如果 surrogate 把 jump 拉平或把 threshold crossing 移位，event probability 便會立刻反映。
 
 ## 全域 degree-15 Legendre surrogate
 
@@ -250,7 +245,7 @@ $\eta_-$ 與 $\eta_+$ 分別把兩個 physical elements 映到 $[-1,1]$。每個
 
 ## Reference 如何與 surrogate 分離
 
-Reference response 不使用兩個 surrogate 之一。對每個 audit input，程式在 exact scalar steady curve 上按指定 branch 進行 deterministic bisection。Cold root 的 bracket 位於 ignition temperature 以下；middle root 位於兩個 fold temperatures 之間；hot root 位於 extinction temperature 以上。這種 branch-explicit 求解可避免 Newton method 因初值而落到錯誤 equilibrium。
+Reference response 不使用兩個 surrogate 之一。對每個 evaluation input，都在 exact scalar steady curve 上按指定 branch 進行 deterministic bisection。Cold root 的 bracket 位於 ignition temperature 以下；middle root 位於兩個 fold temperatures 之間；hot root 位於 extinction temperature 以上。這種 branch-explicit 求解可避免 Newton method 因初值而落到錯誤 equilibrium。
 
 Fine reference 用 32,768 個 midpoint cells，coarse check 用 16,384。由 coarse 到 fine，全域 RMSE 只改變 $9.49\times10^{-9}$，全域 Wasserstein-1 改變 $1.56\times10^{-9}$；fold-aligned 的相應變化為 $8.02\times10^{-8}$ 與 $2.65\times10^{-9}$。全部低於預先固定的 $10^{-6}$ reference-grid tolerance。
 
@@ -288,16 +283,16 @@ $$
 
 <figure>
   <img src="/science/when-polynomial-chaos-crosses-a-fold/p04_03_response_error_near_fold.svg" alt="在標準化輸入零點附近，以 logarithmic scale 比較 global 與 fold-aligned surrogate 的 pointwise absolute response error，並標出解析 ignition fold。" loading="lazy" />
-  <figcaption>Pointwise audit 把依賴 grid spacing 的 maximum error 與穩定 one-sided fold-limit diagnostic 分開，並申報零誤差在圖上的 display floor。</figcaption>
+  <figcaption>Pointwise comparison 把依賴 grid spacing 的 maximum error 與穩定 one-sided fold-limit diagnostic 分開，並申報零誤差在圖上的 display floor。</figcaption>
 </figure>
 
 ### 為何不能只看一個 average error
 
-Discontinuity 會把很大的 pointwise error 集中在窄區域，RMSE 平方後對這些 errors 非常敏感。Result JSON 的欄位雖名為 \`mean_absolute_error\`，程式實際計算的是 predicted sample mean 與 reference sample mean 之差的絕對值，而不是逐點 absolute error 的平均；正負 oscillations 可先互相抵銷。因此表格稱它為 saved absolute mean error，不把 $2.306\times10^{-4}$ 誤寫成一般 MAE，也不以它推論 event reliability 良好。全域 threshold shift 仍造成 $0.02894$ absolute probability error，另有 $5.31\%$ input mass 被映到 invalid response support。
+Discontinuity 會把很大的 pointwise error 集中在窄區域，RMSE 平方後對這些 errors 非常敏感。另一個平均量實際計算的是 predicted sample mean 與 reference sample mean 之差的絕對值，而不是逐點 absolute error 的平均；正負 oscillations 可先互相抵銷。因此本文稱它為 absolute mean difference，不把 $2.306\times10^{-4}$ 誤寫成一般 MAE，也不以它推論 event reliability 良好。全域 threshold shift 仍造成 $0.02894$ absolute probability error，另有 $5.31\%$ input mass 被映到 invalid response support。
 
 因此 benchmark 同時看四類量：RMSE 衡量 response fidelity；Wasserstein-1 衡量 output distribution；hot probability 檢查明確事件；invalid-support mass 檢查 surrogate 是否創造不可能的 conversion。只有一個漂亮的平均誤差，很容易掩蓋對決策最重要的 failure mode。
 
-### 為何 dense-grid maximum 不是 gate
+### 為何不採用 dense-grid maximum 作判準
 
 Response 在 fold 右連續且不連續。Dense grid 通常靠近 jump，卻不一定正好取到 jump。Maximum error 會隨「最近 sample 離 jump 多遠」而變；增加 grid density 甚至可能令 maximum 變大，而 surrogate 本身完全沒變。
 
@@ -307,85 +302,50 @@ Response 在 fold 右連續且不連續。Dense grid 通常靠近 jump，卻不�
 
 解析 history-conditioned hot probability 是 $0.5$。全域 polynomial 的 $y=0.8$ crossing 太遲，得到 $0.4710647474$。Fold-aligned representation 在 split 使用右側 element，threshold calculation 得到 $0.5$。
 
-全域 polynomial 亦會 overshoot $[0,1]$ conversion range；audit grid 上對應 input mass 為 $0.0531311035$。Fold-aligned measured invalid-support mass 為零。這個零只屬於既定 interval、degree、nodes 與 audit；它不是 local polynomial 自動 preserve support 的 theorem。
+全域 polynomial 亦會 overshoot $[0,1]$ conversion range；evaluation grid 上對應 input mass 為 $0.0531311035$。Fold-aligned measured invalid-support mass 為零。這個零只屬於既定 interval、degree、nodes 與 evaluation；它不是 local polynomial 自動 preserve support 的 theorem。
 
 <figure>
   <img src="/science/when-polynomial-chaos-crosses-a-fold/p04_04_matched_budget_reliability.svg" alt="成對 hatch bars 比較全域與 fold-aligned surrogate 的 RMSE、Wasserstein-1 error、hot-state probability error 及 invalid-support mass，兩者各用 16 次 fit evaluations。" loading="lazy" />
   <figcaption>Fold-aligned surrogate 通過 frozen reliability gates；零值以申報的 display floor 顯示，而 analytic fold-location cost 被排除，所以不能解讀為 total-cost result。</figcaption>
 </figure>
 
-## 預先固定的 decision rule
+## 如何判定這次比較
 
-Configuration 在解讀結果前已寫入以下 thresholds：
+以下 thresholds 在解讀結果前已經固定：
 
 - RMSE reduction 至少 $10\times$；
 - Wasserstein-1 reduction 至少 $5\times$；
 - fold-aligned hot-probability error 不超過 $0.01$；
-- audit grid 上 fold-aligned invalid-support mass 等於零；
-- reference、residual、quadrature、reconstruction、fold 與 stability checks 全部為 true。
+- evaluation grid 上 fold-aligned invalid-support mass 等於零；
+- reference、residual、quadrature、reconstruction、fold 與 stability calculations 全部在已申明 tolerance 內。
 
-實際 $315.14$ 與 $872.95$ 超過首兩個 gates；hot-probability error 與 invalid-support mass 都為零；16 個 named checks 全部通過。因此 machine-readable decision 是 **SUPPORTED**，其 scope 原文是「one frozen fold-centered CSTR smoke benchmark」。
+實際 $315.14$ 與 $872.95$ 超過首兩個 thresholds；hot-probability error 與 invalid-support mass 都為零，其餘 supporting calculations 亦保持在已申明 tolerance 內。因此這個 fold-centered CSTR smoke benchmark 符合所有事前申明的判準。
 
-這裏的 supported 不是整個研究計畫的 release approval，不會自動解鎖 final headline，也不代表所有 ME-PCE。它只表示第一階段預先申明的 smoke criteria 在 frozen case 中成立。
+這些判準只屬於本次比較，不會把 matched-fit result 變成 total-cost result，也不代表所有 ME-PCE。
 
-## 16 個 scientific checks
+## 為何數值結果可信
 
-Saved result 逐一記錄：
+Analytic fold locations 與 independent scan/bisection 一致，derivative residuals 在 tolerance 內，兩個 folds 亦都是 simple。Frozen initial state 位於 unique stable cold equilibrium；sampled outer branches 保持 stable，middle branch 是 saddle，steady-state residuals 亦在 tolerance 內。這些結果共同支持用來定義 discontinuous response 的 branch history。
 
-1. analytic folds 與 independent bisection 一致；
-2. 兩個 folds 都是 simple；
-3. fold derivative residuals 通過；
-4. frozen initial state 是 unique stable cold equilibrium；
-5. sampled outer branches stable；
-6. middle branch 是 saddle；
-7. steady-state residuals 通過；
-8. Gauss weights sum to two；
-9. discrete Legendre orthogonality 通過；
-10. collocation nodes 可重建；
-11. reference grid converged；
-12. fit forward-evaluation budget 相同；
-13. RMSE improvement gate 通過；
-14. Wasserstein improvement gate 通過；
-15. fold-aligned hot-probability gate 通過；
-16. fold-aligned valid-support gate 通過。
+兩種 surrogate construction 另有獨立數值核對。Gauss weights 與 discrete Legendre orthogonality 符合預期，collocation nodes 可重建至 roundoff；reference-grid refinement 令各項 error 改變少於 $10^{-6}$，而兩個 fits 都使用 16 次 forward evaluations。完整計算重做後，scientific metrics 保持相同。這些吻合支持有限比較，但不會把 oracle-aligned benchmark 變成 automatic 或 total-cost result。
 
-Pytest 共有五個 focused test functions，分別覆蓋 analytic folds、initial state、branch history 與 stability、matched collocation construction、以及 saved-result provenance。Repository check 與 result validator 再處理 policy 和 artifact consistency。「五個 test functions」與「16 個 machine-readable checks」不是矛盾，因為每個 focused test 包含多項 scientific assertions。
+## 如何測試 split location 的誤差
 
-Numerical result signature 是
+目前 local surrogate 的優勢包含一項明確資訊：element boundary 恰好等於解析 ignition fold。這項 oracle information 可以用一個直接的 sensitivity experiment 拆開。保持 16 次 fit calls、polynomial degree、input law 及 branch history 不變，只把 split 依序移到 $Da_{\mathrm{ign}}\pm\delta$。每個 $\delta$ 都重新計算 response RMSE、Wasserstein-1、hot probability 及 invalid-support mass，便可觀察 localization error 如何傳入四種結果。
 
-$$
-\texttt{84359c190e22acad2352e1eb1b1cbd36d13895a91f009a6b94351ecc3f8a9043}.
-$$
+對均勻分佈而言，最初的 event-probability penalty 應約為 $|\delta|/0.016$，因為 $0.016$ 是整個 input interval 寬度。這條線只是第一階近似。當 misplaced boundary 令其中一個 polynomial 必須跨越部分 jump，ordinary approximation error 會加入，實際曲線便可能離開線性關係。正負位移亦未必完全對稱，因為 cold 與 hot branches 的 curvature 不同。
 
-兩次完整保留 reruns 具有同一 signature。Plot rerun 亦重現全部 20 個 generated hashes：四張 figures，每張包含 SVG、PDF、600-dpi PNG、manifest 與 publish SVG。每個 publish SVG 與 canonical SVG hash-identical。
+這個實驗能回答「準確知道 fold 有多重要」，但仍不等於 automatic detection。真正 adaptive comparison 還要加入 pilot calls、continuation、partition decision、定位失敗及 fallback 的成本。Sensitivity study 先量度位置誤差的科學後果，之後才有基礎判斷一個 detector 需要達到多高精度。
 
-## 失敗紀錄沒有被刪去
+為免位置敏感度又受事後選點影響，$\delta$ 網格應在查看結果前固定。Pilot offsets 只用來選擇合理範圍，另留正、負兩側的 held-out offsets 作最終評估；每一點同時報 signed probability shift、RMSE、Wasserstein error、invalid-support mass，並標記移位後的 split 是否跨過 collocation node。這樣才可把 locator bias 與普通 polynomial-fit error 分開，而不是只以一條平均曲線掩蓋方向差異。
 
-第一次真實 attempt 沒有產生 scientific result。當時直接呼叫 Conda environment executable，卻沒有先 activate environment；NumPy 在 DLL startup、linear-algebra path 中失敗，Windows error code 為 $0xc06d007f$。Append-only attempt history 明確標示 scientific evaluation 尚未開始。
+Split 偏向 cold side 與偏向 hot side 亦應分開報告。若 boundary 放在真實 fold 左側，右側 polynomial 的 element 會包含一小段 cold response，然後才跨入 hot branch；若 boundary 放在右側，左側 polynomial 會被迫包含 jump 之後的一小段 hot response。兩種情況都令其中一個本來 smooth 的 element 重新遇到 discontinuity，但受影響的 branch、node placement 與 curvature 不同。只畫 $|\delta|$ 的平均曲線可能會掩蓋這個方向差異。
 
-啟動正確環境後，startup 問題消失；研究者沒有為了取得 PASS 而放寬 numerical tolerances 或 decision gates。失敗仍保留為 sequence 1，其後才是 canonical PASS runs。
+每個 misplaced-split case 應保留與目前相同的四類量，而不是只看 RMSE。即使整體 response error 仍小，threshold crossing 也可能移動；即使 hot probability 尚算接近，polynomial 仍可能在 $[0,1]$ 以外產生 invalid-support mass。Wasserstein-1 則檢查 output distribution 是否因局部 oscillation 而改形。四個量一起讀，才能分辨「事件邊界稍為移位」與「整個 surrogate representation 已重新跨越 jump」。
 
-這種分類可避免兩種錯誤。Environment failure 不應被當成數學方法失敗；但也不應因下一次成功而被抹去。可重現研究不只要保存最後數字，也要說明程式如何在真實機器上成功啟動。
+這項 sensitivity test 也有清楚的反證結果。若很小的 localization error 已把 $315.14$ 與 $872.95$ 的優勢大幅消除，便表示 oracle 結果對 split precision 極敏感，後續方法必須把定位不確定性當成主要誤差來源。若優勢在一段可量度的 $\delta$ 範圍內仍保留，才有理由進一步研究 detector 能否以合理成本達到該範圍。兩種答案都比直接宣稱 local method 普遍較好更有用。
 
-Visual QA 亦保留 rejected-to-revised history。Figure 1 的第一版 in-axes legend 遮住 cold-fold 與 protocol region，所以 legend 被移到 axes 下方並增加 bottom margin。Figure 3 的 fold line 穿過 one-sided-limit annotation，因此改用較短、white-backed、完全位於 $x=0$ 右方的 callout。Figure 4 被拒兩次：第一版 labels、title、legend、footer 互相擁擠；第二版 upper-right legend 仍貼近 invalid-mass label；第三版才預留一個空的 log-scale decade 並把 legend 置中。
-
-四張 final PNG 都是 $4296\times2160$、約 600 dpi，並在 original size 由兩個 reviewer roles 檢查 overlap、clipping、label clearance 與 readability。Figure 2 第一版通過；Figures 1、3 各修改一次；Figure 4 修改兩次。Final visual-QA status 為 **PASS**，並以 SHA-256 綁定每張實際查看的 binary。這比只說「圖已美化」更可審計。
-
-## 如何重現 Phase 1
-
-Verified environment 使用 Python 3.12.13、NumPy 2.4.6、PyYAML 6.0.3、Pillow 12.3.0、Matplotlib 3.11.0 及 pytest 9.1.1；technical repository 的 requirements-smoke file 保存 exact pins。Activate 環境後，在 P04 project directory 執行：
-
-~~~powershell
-python scripts/run_smoke.py
-python scripts/plot_smoke.py
-python -m pytest -q
-python scripts/check_repo.py
-python scripts/validate_smoke.py
-~~~
-
-Numerical script 讀取 frozen YAML config，寫出 deterministic result JSON 與獨立 runtime record，並 append attempt history。Plot script 讀取已保存 result，而不是悄悄重跑另一個 experiment；它會重建四套 accessible figure artifacts 及 manifests。
-
-成功重現應見到 **PASS**、16 個 checks 全為 true，以及 signature 84359c…9043。Signature 一致驗證 frozen numerical material，不要求 wall-clock time 相同。紀錄 setup 的 canonical runtime 約 22.50 seconds，但速度受 hardware 與 environment 影響，並非 scientific decision metric。
+正負 $\delta$ 的結果亦應分開畫出，讓讀者直接看到 branch curvature 與 node allocation 是否造成不對稱，而不是用單一平均值把方向效應消去。
 
 ## 限制不是附註，而是結論的一部分
 
@@ -401,9 +361,9 @@ Numerical script 讀取 frozen YAML config，寫出 deterministic result JSON �
 
 第六，模型 synthetic 且 dimensionless。沒有 experimental calibration、parameter identification、heat-transfer design、materials constraint、controller validation、hazard analysis 或 chemical safety case。Hot 只表示數學門檻 $y\ge0.8$。
 
-第七，zero invalid-support mass 是固定 audit construction 的 empirical result，不是 positivity certificate；exact $0.5$ match 也不是 general event-accuracy theorem。單一 discontinuity 的大 improvement factors 不構成 universal superiority。
+第七，zero invalid-support mass 是固定 evaluation construction 的 empirical result，不是 positivity certificate；exact $0.5$ match 也不是 general event-accuracy theorem。單一 discontinuity 的大 improvement factors 不構成 universal superiority。
 
-第八，文獻 gate 是有紀錄的 structured search，不是「已證明沒有任何相似工作」。它支持 REFRAME 與保守 claim boundary，不能單獨證明 novelty。
+第八，文獻審查不是「已證明沒有任何相似工作」。它支持保守解讀，不能單獨證明 novelty。
 
 ## 從 threshold shift 直接讀出 probability error
 
@@ -437,7 +397,7 @@ $$
 
 Fold-aligned surrogate 沒有需要跨過 jump 的單一 polynomial。Event boundary 已由 element boundary 承擔，而 right-continuous rule 把 fold 點交給右側 hot element，所以 threshold probability 回到 $0.5$。但這個 exact match 主要反映 oracle alignment 與對稱 input law；若 split 有位置誤差 $\delta$，最直接的 probability penalty 便約為 $|\delta|/0.016$，直到其他 polynomial crossing errors 介入。這個簡單比例正是未來「misplaced split sensitivity」值得預先註冊的原因。
 
-Branch classification error rate 亦提供交叉檢查。Global value $0.0289306641$ 與 probability error 非常接近，但不完全相同，因為前者在固定 midpoint audit grid 上計數，後者由 polynomial threshold roots 作連續 probability calculation。兩者接近支持共同機理；細微差異則提醒我們 grid statistic 與解析 root integration 不應混成同一個量。Fold-aligned 兩者都為零，只代表 frozen audit resolution 與既定算法。
+Branch classification error rate 亦提供交叉檢查。Global value $0.0289306641$ 與 probability error 非常接近，但不完全相同，因為前者在固定 midpoint evaluation grid 上計數，後者由 polynomial threshold roots 作連續 probability calculation。兩者接近支持共同機理；細微差異則提醒我們 grid statistic 與解析 root integration 不應混成同一個量。Fold-aligned 兩者都為零，只代表固定 evaluation resolution 與既定算法。
 
 ## 16 次 evaluation 究竟買到了甚麼
 
@@ -447,7 +407,7 @@ Gauss–Legendre nodes 不包含 interval endpoints。這代表 local fits 並�
 
 Matched node count 可排除一個簡單混淆：局部結果不是因為偷偷使用更多 response calls。但它不能排除 information advantage。知道 split location 相當於先得到一項對近似空間非常重要的 model structure。公平的 Phase-1 問題是「在同樣 fit calls 下，這項 oracle information 的效果有多大」；公平的後續問題才是「取得及驗證這項 information 要付多少代價」。
 
-未來 total-cost ledger 至少應分開記錄四類開支。第一類是正式 surrogate fit calls；第二類是尋找或追蹤 fold 的 pilot 與 continuation calls；第三類是 partition decision、error indicator 與可能的 repartition calls；第四類是失敗嘗試、solver recovery 與 validation calls。若只報第一類，adaptive method 可能看起來不合理地便宜；若把 analytic derivation 當成免費常識，亦會把 canonical model 的特殊便利錯當成通用能力。
+未來 total-cost comparison 至少應分開記錄四類開支。第一類是正式 surrogate fit calls；第二類是尋找或追蹤 fold 的 pilot 與 continuation calls；第三類是 partition decision、error indicator 與可能的 repartition calls；第四類是失敗嘗試、solver recovery 與 validation calls。若只報第一類，adaptive method 可能看起來不合理地便宜；若把 analytic derivation 當成免費常識，亦會把 canonical model 的特殊便利錯當成通用能力。
 
 還要區分一次性 setup 與重複使用成本。若同一 fold map 可服務數千次 downstream queries，setup cost 或可攤薄；若 parameters、geometry 或 operating protocol 每次改變都要重新定位 fold，它便不能忽略。兩種情況沒有哪一種可由本 smoke benchmark 決定。未來報告應同時列出一次 fit 的 marginal cost、包含定位的 first-run cost，以及在明確 reuse count 下的 amortized cost，而不是只給一個沒有分母的 speedup。如此才可判斷 oracle advantage 在實際工作流中是否仍有意義。
 
@@ -457,25 +417,25 @@ Matched node count 可排除一個簡單混淆：局部結果不是因為偷偷�
 
 Figure 1 先回答「到底近似哪一個 response」：它同時顯示 stable branches、middle saddle、兩個 folds、uncertain interval 與 cold-start jump。若沒有這張圖，讀者很容易把 hot probability 誤解成三個 equilibrium 之間的自然 occupancy。
 
-Figure 2 回答「兩個 approximation spaces 如何跨越 jump」：reference、global dashed-circle curve 與 fold-aligned dash-dot-triangle curve 有顏色以外的 redundant encodings。它展示 global oscillation，但本身不應用來估算精確 improvement factor，精確值仍以 JSON metrics 為準。
+Figure 2 回答「兩個 approximation spaces 如何跨越 jump」：reference、global dashed-circle curve 與 fold-aligned dash-dot-triangle curve 有顏色以外的 redundant encodings。它展示 global oscillation，但本身不應用來估算精確 improvement factor；精確比較仍應以正文列出的數值為準。
 
 Figure 3 回答「error 集中在哪裏」：log scale 讓多個 orders of magnitude 同時可見，解析 fold 在標準化 input 的 $x=0$ 被明確標出。Zero errors 需要 display floor 才能畫在 log axis；caption 申報這個 floor，避免把顯示高度誤認為非零量測。
 
-Figure 4 回答「可靠性 metrics 在 matched fit budget 下如何比較」：RMSE、Wasserstein-1、hot-probability error 與 invalid mass 排在同一 audit 中。Zero bars 同樣使用 display floor，而 footer 再次寫明 oracle fold-location cost excluded。它是結果摘要，不是總成本排名。
+Figure 4 回答「可靠性 metrics 在 matched fit budget 下如何比較」：RMSE、Wasserstein-1、hot-probability error 與 invalid mass 放在同一幅比較圖中。Zero bars 同樣使用 display floor，而 footer 再次寫明 oracle fold-location cost excluded。它是結果摘要，不是總成本排名。
 
-Visual design 使用 Okabe–Ito palette、line styles、markers、hatching、labels 與 live SVG text，避免只靠顏色傳遞意義。Manifest 記錄每張圖由同一 result JSON 與 frozen config 產生；publish SVG 與 canonical SVG hash-identical。這些措施不能代替 scientific validation，但可令「圖上所見」與「機器可讀 result」保持可追溯關係。
+Visual design 使用 Okabe–Ito palette、line styles、markers、hatching 與 labels，避免只靠顏色傳遞意義。這些呈現選擇不能代替 scientific validation，但能讓讀者在彩色、灰階或色覺差異下辨認同一組比較。
 
 ## 如何把大 improvement factor 放回正確尺度
 
 $315.14$ 與 $872.95$ 很容易成為吸睛 headline，但 ratio 會同時受 numerator 與 denominator 影響。這裏 local denominator 很小，因為每個 element 內的 branch 極平滑，而且 split location 精確。若 uncertainty interval 更寬、branch curvature 更強、fold location 有偏差或 degree allocation 改變，ratio 可大幅不同。因此文章同時報 absolute errors，不讓 ratio 脫離尺度。
 
-此外，RMSE ratio 與 Wasserstein ratio 不相等，因為兩個 metrics 回答不同問題。RMSE 對 input-wise response mismatch 敏感；Wasserstein-1 比較 output distributions，允許以最小搬運距離配對 mass。Global oscillation 同時破壞 pointwise map 與 distribution，但破壞程度不必按同一比例。兩個 gates 分別固定為 $10\times$ 與 $5\times$，正是為了避免用一個 metric 代理所有 reliability dimensions。
+此外，RMSE ratio 與 Wasserstein ratio 不相等，因為兩個 metrics 回答不同問題。RMSE 對 input-wise response mismatch 敏感；Wasserstein-1 比較 output distributions，允許以最小搬運距離配對 mass。Global oscillation 同時破壞 pointwise map 與 distribution，但破壞程度不必按同一比例。兩個 thresholds 分別固定為 $10\times$ 與 $5\times$，正是為了避免用一個 metric 代理所有 reliability dimensions。
 
 Global invalid-support mass $0.0531311035$ 亦不應被誤稱為「物理事故機率」。它只是 surrogate 生成 $y<0$ 或 $y>1$ 的 input measure，揭示 polynomial overshoot。它是 numerical plausibility diagnostic；若要討論實際 safety，必須另有 dimensional model、calibration、hazard threshold、operating protocol 與驗證資料，本專案全部沒有。
 
-## 尚被鎖定的下一階段
+## 下一步應測試甚麼
 
-Research contract 列出自然但尚未授權的工作：
+後續實驗應包括：
 
 - 改變 uncertainty width、中心相對 fold 的 offset 與 polynomial budget；
 - 人為擾動 split location，量度 localization error sensitivity；
@@ -484,12 +444,14 @@ Research contract 列出自然但尚未授權的工作：
 - 加入多個 uncertain parameters 與 nonuniform laws；
 - 比較 finite-rate dynamics 與 quasi-static history；
 - 只有在有 traceable experimental evidence 時才進行 physical calibration；
-- protocol freeze 後才可作 final evaluation；
-- 通過相應 gates 後才討論 public headline、paper claim 或 venue submission。
+- protocol 固定後才可作 final evaluation；
+- 把這次 preliminary fit comparison 與任何後續 method-level conclusion 分開。
+
+Split-location sensitivity 至少要在多個 held-out fold offsets 上重複，否則單一 error curve 無法分辨 locator bias 與 branch-fit error。
 
 列出這些方向不代表工作已開始。本文沒有 automatic split result、沒有 total-cost conclusion、沒有 calibrated physical reactor、沒有 safety conclusion，也沒有 final sweep。
 
-## 最後可保留的結論
+## 結論
 
 Canonical model 的兩個 simple folds 經 analytic formula 與 independent scan/bisection 互相核對。Frozen initial point 位於 unique stable cold regime。Branch-explicit reference 落實右連續 cold-start history，並通過 residual、stability 與 grid-convergence checks。
 
@@ -499,9 +461,9 @@ Canonical model 的兩個 simple folds 經 analytic formula 與 independent scan
 
 最重要的 lesson 不是「local PCE 勝出」，而是 budget comparison 必須同時申報每個方法得到甚麼 structural information、哪些成本被計入。此處知道 jump 在哪裏極具價值；Phase 1 在一個刻意有利的 oracle setting 量度這項價值。下一個真正的科學問題，是當 fold 必須由資料找出、location 有誤差、setup cost 全部入帳時，優勢還剩多少。
 
-在那些 stage 解鎖並完成前，唯一誠實的標題仍是條件句：**當 polynomial chaos 跨過這個 fold，全域多項式在 frozen test 中不可靠；oracle fold-aligned representation 修復了 fit，但 oracle 本身就是答案的一部分。**
+在那些研究完成前，唯一誠實的標題仍是條件句：**當 polynomial chaos 跨過這個 fold，全域多項式在 frozen test 中不可靠；oracle fold-aligned representation 修復了 fit，但 oracle 本身就是答案的一部分。**
 
-## 文獻 gate 所用十篇 primary works
+## 參考文獻
 
 1. Isabella Carla Gonnella、Moaad Khamlich、Federico Pichi、Gianluigi Rozza，〈A Stochastic Perturbation Approach to Nonlinear Bifurcating Problems〉，*Journal of Scientific Computing*（2026），[DOI 10.1007/s10915-026-03338-0](https://doi.org/10.1007/s10915-026-03338-0)。
 2. Giacomo Venier、Isabella Carla Gonnella、Federico Pichi、Gianluigi Rozza，〈Stochastic bifurcation analysis via polynomial chaos: consistency and convergence of branch-approximating solutions〉（2026），[arXiv DOI 10.48550/arXiv.2605.31288](https://doi.org/10.48550/arXiv.2605.31288)。

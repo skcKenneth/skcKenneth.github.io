@@ -15,33 +15,28 @@ redirectFrom: []
 
 A genetic switch can spend a long time looking stable and then change state in a short, noisy burst. That contrast makes the phrase “How often does it flip?” sound simpler than it is. The probability depends on what counts as a flip, when observation stops, which stochastic model is being simulated, and whether the numerical method can resolve an event that may occur only rarely.
 
-This project began with an ambitious comparison: test adaptive multilevel splitting against direct Gillespie simulation and an error-controlled forward-flux baseline. The literature audit changed that plan before the comparison was run. Rare-event sampling on genetic and biochemical switches is not an empty field, and a generic demonstration that enhanced sampling can outperform brute force would repeat established work. The gate therefore returned **REFRAME**.
+This project began with an ambitious comparison: test adaptive multilevel splitting against direct Gillespie simulation and an error-controlled forward-flux baseline. The literature review changed that plan before the comparison was run. Rare-event sampling on genetic and biochemical switches is not an empty field, and a generic demonstration that enhanced sampling can outperform brute force would repeat established work. The review therefore led to **REFRAME**: narrow the question before computing.
 
 The defensible question is narrower: on one fixed exclusive-toggle continuous-time Markov chain, can a future benchmark expose where an estimator loses calibration as its progress coordinate is deliberately degraded, while charging every method for setup and sampling? That future question requires a trustworthy reference and a verified direct-simulation baseline first.
 
-This article reports only that foundation. It is a **synthetic, low-copy Phase-1 smoke study**. A finite-state projection (FSP) at molecule cap 20 brackets the declared fixed-horizon hit probability between $0.2575946379$ and $0.2575946395$, with overflow probability $1.62\times10^{-9}$. A seeded direct SSA run records $1580$ hits among $6000$ trajectories, an estimate of $0.26333$, with a 95% Wilson interval from $0.25234$ to $0.27463$. In 32 smaller independently seeded batches, 30 Wilson intervals intersect the FSP bracket. Four focused tests, the repository check, and the documented reproduction pass.
+This article reports only that foundation. It is a **synthetic, low-copy Phase-1 smoke study**. A finite-state projection (FSP) at molecule cap 20 brackets the declared fixed-horizon hit probability between $0.2575946379$ and $0.2575946395$, with overflow probability $1.62\times10^{-9}$. A seeded direct SSA run records $1580$ hits among $6000$ trajectories, an estimate of $0.26333$, with a 95% Wilson interval from $0.25234$ to $0.27463$. In 32 smaller independently seeded batches, 30 Wilson intervals intersect the FSP bracket. Structural invariants and a hand-calculable special case provide separate numerical checks.
 
 Those are the complete positive claims. No adaptive multilevel splitting or FFPilot result appears here. There is no rare-event speedup, no biological validation, and no final rarity ladder. The event probability is roughly one quarter in this smoke configuration, so it would be especially misleading to present the calculation as evidence that a difficult rare-event regime has already been solved.
 
-## A result ledger before interpretation
+## What Phase 1 established
 
-It helps to put the evidence boundary in one place before discussing the mathematics.
-
-| Item | Phase-1 record | What it supports |
+| Question | Finding | Why it matters |
 |---|---:|---|
-| Literature gate | `REFRAME` | The generic efficiency question is already substantially answered; a reliability-boundary benchmark is the narrower defensible direction. |
-| Model | Synthetic low-copy exclusive-toggle CTMC | A controlled numerical test case, not a named biological circuit. |
-| Event | First entry into a declared $B$-dominant set by $T=12$ | A fixed-horizon hitting probability, not automatically a stationary switching rate or an MFPT. |
-| FSP, cap 18 | Failed the fixed overflow/bracket tolerance | The failed truncation remains part of the audit trail. |
-| FSP, cap 20 | $[0.2575946379,\,0.2575946395]$, overflow $1.62\times10^{-9}$ | A tight reference bracket for this one smoke event. |
-| Seeded SSA | $1580/6000=0.26333$ | A direct Monte Carlo estimate for the same model and event. |
-| SSA uncertainty | Wilson 95% interval $[0.25234,\,0.27463]$ | The direct estimate is statistically compatible with the narrow FSP bracket. |
-| Batch diagnostic | 30 of 32 intervals intersect the FSP bracket | A small smoke diagnostic, not a high-precision coverage result. |
-| Verification | Four tests, repository check, reproduction pass | Internal computational consistency for Phase 1. |
+| What system was used? | A synthetic low-copy exclusive-toggle CTMC | It is a controlled numerical case, not a named biological circuit. |
+| What counts as the event? | First entry into a declared $B$-dominant set by $T=12$ | The result is a fixed-horizon hit probability, not a stationary rate or MFPT. |
+| Was cap 18 sufficient? | No; it exceeded the fixed overflow and bracket tolerance | The failed truncation shows why the state space had to be enlarged. |
+| What did cap 20 provide? | $[0.2575946379,\,0.2575946395]$, overflow $1.62\times10^{-9}$ | It gives a tight reference bracket for this smoke event. |
+| What did direct simulation give? | $1580/6000=0.26333$ | Its Wilson interval $[0.25234,\,0.27463]$ intersects the FSP bracket. |
+| Did the smaller batches agree perfectly? | No; 30 of 32 intervals intersected the bracket | The two misses expose ordinary finite-sample variation. |
 
-The wording in the last column is deliberate. An interval intersecting a reference does not prove that every implementation detail is correct. A passing test suite does not validate a biochemical mechanism. A very narrow truncation bracket does not turn a moderately probable event into a rare one. Each piece of evidence answers one question and leaves several others open.
+The wording in the last column is deliberate. An interval intersecting a reference does not prove that every numerical detail is correct. Agreement with structural and analytic checks does not validate a biochemical mechanism. A very narrow truncation bracket does not turn a moderately probable event into a rare one. Each piece of evidence answers one question and leaves several others open.
 
-## Why the literature gate changed the headline
+## Why the literature changed the question
 
 The original attraction of the project was computational. If direct simulation waits through many ordinary reaction events before observing a transition, a splitting or importance-sampling method may concentrate effort near transition pathways. That idea is important, but it is not new.
 
@@ -220,9 +215,9 @@ The width of this bracket is exactly the overflow probability, apart from numeri
 
 That distinction is why the overflow tolerance was not relaxed after a failed attempt. A finite-state calculation is only useful as a reference if its declared error control survives contact with the chosen state space.
 
-## The failed cap-18 attempt stays in the record
+## Why cap 18 was rejected
 
-The first saved attempt used $C=18$. It produced the bracket
+With $C=18$, the calculation produced the bracket
 
 $$
 [0.2575946336,\,0.2575947078]
@@ -255,11 +250,13 @@ $$
 $$
 
 <figure class="article-figure">
-  <img src="/science/how-rare-is-a-flip/p03_04_fsp_truncation_audit.svg" alt="Log-scale truncation audit showing cap 18 as a failed FSP attempt above the fixed overflow tolerance and cap 20 as a passing attempt below it." width="1031" height="454" loading="lazy" decoding="async" />
+  <img src="/science/how-rare-is-a-flip/p03_04_fsp_truncation_audit.svg" alt="Log-scale truncation check showing cap 18 as a failed FSP attempt above the fixed overflow tolerance and cap 20 as a passing attempt below it." width="1031" height="454" loading="lazy" decoding="async" />
   <figcaption><strong>Figure 2.</strong> The truncation tolerance stayed fixed. Cap 18 failed and remains visible; increasing the molecule cap to 20 reduced overflow below the unchanged Phase-1 threshold.</figcaption>
 </figure>
 
 Keeping the failure is more than housekeeping. If only the successful cap were shown, a reader could not tell whether the state space was enlarged according to a fixed rule or whether a tolerance was adjusted until the desired label appeared. The retained attempt documents which control failed and what changed: the cap increased; the criterion did not.
+
+Cap 20 is not being treated as the unbounded state space. Its value comes from the probability bracket, not from the label on the cap. The retained-state calculation gives the lower bound, and adding the unresolved overflow mass gives the upper bound. Once that gap is $1.62\times10^{-9}$, the omitted states can change the declared hit probability by no more than that amount under this construction. A larger cap might narrow the bracket further, but it would not alter the scale of the comparison with the much wider SSA interval.
 
 ## Comparing the bounded reference with seeded SSA
 
@@ -302,25 +299,23 @@ $$
 
 but the word “coverage” carries a repeated-sampling meaning. Thirty-two batches are too few to estimate a nominal 95% coverage probability tightly. Moreover, the diagnostic is based on interval intersection with a narrow probability bracket, rather than an exactly represented scalar truth. Here the bracket is so tight that the difference is negligible for visual interpretation, yet the distinction should remain explicit.
 
-The two misses are informative rather than embarrassing. At 300 trajectories per batch, binomial variation is large enough that some intervals need not include a fixed probability. Removing those seeds would convert a calibration check into selection on the outcome. Preserving them makes the diagnostic auditable and keeps the article from implying perfect behavior.
+The two misses are informative rather than embarrassing. At 300 trajectories per batch, binomial variation is large enough that some intervals need not include a fixed probability. Removing those seeds would convert a calibration check into selection on the outcome. Preserving them makes the diagnostic fully visible and keeps the article from implying perfect behavior.
 
-## What the four tests actually check
+## Why the numerical verification is credible
 
-The focused suite contains four tests. One checks that emitted reaction channels have positive rates and preserve valid nonnegative states, including occupancy-dependent repression and free-protein degradation. A second checks that the finite generator is conservative, has nonnegative off-diagonal rates, and has nonpositive diagonal entries. A third compares the FSP implementation with an analytic single-birth first-hit probability,
+The emitted reaction channels have positive rates and preserve valid nonnegative states, including occupancy-dependent repression and free-protein degradation. The finite generator is conservative, with nonnegative off-diagonal rates and nonpositive diagonal entries. A separate calculation compares the FSP result with the analytic single-birth first-hit probability
 
 $$
 \Pr(\tau\le T)=1-e^{-\lambda T},
 $$
 
-in a special case where that answer is known. The fourth runs the seeded SSA twice in the same analytic case, checks deterministic regeneration under the fixed seed, and checks that its Wilson interval contains the analytic probability.
+in a special case where that answer is known. In the same special case, seeded SSA gives a Wilson interval containing the analytic probability, while repeating the calculation with the same fixed seed reproduces its result.
 
-All four tests passed. The repository check passed, and the documented Phase-1 reproduction passed. These checks connect general invariants to a known special case and then to the saved smoke artifact.
-
-They do not establish that the synthetic rates describe a real cell. They do not prove that every possible reaction-network implementation error has been excluded. They do not validate AMS or FFPilot, because those methods are not part of the Phase-1 result. They also do not unlock the final rarity ladder. Test success is evidence of internal computational consistency, not a license to widen the scientific claim.
+Together, these comparisons connect general invariants to a known special case and then to the reported smoke calculation. They do not establish that the synthetic rates describe a real cell, exclude every possible numerical error, or validate AMS or FFPilot, because those methods are not part of the Phase-1 result. They also establish no result on the final rarity ladder. Numerical agreement strengthens this baseline without widening the scientific claim.
 
 ## Established knowledge versus the local smoke result
 
-This separation is the central editorial rule for the project.
+This separation is the central scientific distinction for the project.
 
 **Established in the cited primary literature:** rare-event methods have been applied to biochemical and genetic switching; interface placement and reaction-coordinate quality matter; weighted and biased sampling can access transition probabilities and pathways; setup and sampling uncertainty require error control; and finite-state master-equation calculations can provide controlled references in tractable regimes.
 
@@ -328,7 +323,7 @@ This separation is the central editorial rule for the project.
 
 **Not observed locally:** any result for adaptive multilevel splitting, FFPilot, importance sampling, progress-coordinate degradation, matched-compute efficiency, rare-event speedup, a preregistered rarity ladder, stationary switching rates, mean first-passage-time accuracy, or biological data.
 
-The distinction blocks a subtle but common reasoning error. A method can be well established in literature without having been implemented in this repository. Conversely, a local baseline can be reproducible without being novel or biologically realistic. Combining the two into “we proved rare-event sampling works for genetic switches” would attribute other researchers’ results to a Phase-1 smoke run.
+The distinction prevents a subtle but common reasoning error. A method can be well established in literature without having been tested in this Phase-1 study. Conversely, a local baseline can be internally consistent without being novel or biologically realistic. Combining the two into “we proved rare-event sampling works for genetic switches” would attribute other researchers’ results to a small smoke calculation.
 
 ## Why this event is not yet the promised rare event
 
@@ -336,11 +331,11 @@ The title asks how rare a flip is, but the Phase-1 answer is intentionally munda
 
 This moderate probability is useful for software validation. Direct simulation produces many hits, so implementation mistakes can be detected without an enormous compute budget. The finite-state truncation is also tractable, so its overflow mass can be driven below a tight fixed tolerance. These properties make the regime a good smoke test.
 
-They make it a poor basis for a speedup claim. When events are common, a rare-event method can spend more on pilot runs, interfaces, replicas, or coordinate design than direct SSA spends collecting hits. The literature gate explicitly turned the study toward total-cost accounting, but Phase 1 does not measure that accounting. It would be invalid to take the passing reference comparison and infer that an enhanced sampler will later be faster.
+They make it a poor basis for a speedup claim. When events are common, a rare-event method can spend more on pilot runs, interfaces, replicas, or coordinate design than direct SSA spends collecting hits. The literature review turned the study toward total-cost accounting, but Phase 1 does not measure that accounting. It would be invalid to take the passing reference comparison and infer that an enhanced sampler will later be faster.
 
 Nor does the current probability define a “flip rate.” Shortening or lengthening $T$, changing the target margin, changing the required operator occupancy, or changing the starting state would produce a different probability. The future rarity ladder must freeze those design choices and alter only preregistered regime controls. Until that ladder is run, the project has no empirical statement about how estimator reliability changes with rarity.
 
-## The benchmark that remains locked
+## What the next benchmark must test
 
 The reframed research design calls for several ingredients that are future work, not implied results:
 
@@ -352,23 +347,23 @@ The reframed research design calls for several ingredients that are future work,
 6. all pilot, interface-selection, training, and tuning cost charged to the method that incurs it; and
 7. a non-rare regime in which enhanced sampling is not assumed to help.
 
-This is a plan, not an achievement list. No item involving AMS, FFPilot, coordinate stress testing, matched-compute comparison, or the final ladder has been executed in the evidence reported here. The literature gate supplies the reason to run such a benchmark; it does not supply its outcome.
+This is a plan, not an achievement list. No item involving AMS, FFPilot, coordinate stress testing, matched-compute comparison, or the final ladder has been executed in the evidence reported here. The literature review supplies the reason to run such a benchmark; it does not supply its outcome.
 
 The future benchmark could also fail to produce a useful boundary. If preregistered coordinate degradation does not lead to a reproducible change in calibration, or if total-cost accounting leaves no practically meaningful result beyond the established literature, the honest conclusion would be a null or stopped project. Reframing protects against manufacturing novelty from a generic speedup demonstration.
 
-## What this Phase-1 foundation contributes
+## What Phase 1 contributes
 
-The contribution is procedural and bounded. The event is written as a first-hit set rather than an informal visual flip. The direct estimator has a named uncertainty interval rather than an unqualified decimal. The finite-state reference exposes overflow mass rather than hiding truncation. The failed cap-18 attempt remains visible. Independent seeds expose two missed batch intervals. Tests include both structural invariants and an analytic special case. The public article states what was not run alongside what passed.
+The contribution is procedural and bounded. The event is written as a first-hit set rather than an informal visual flip. The direct estimator has a named uncertainty interval rather than an unqualified decimal. The finite-state reference exposes overflow mass rather than hiding truncation. The failed cap-18 calculation remains visible. Independent seeds expose two missed batch intervals, while structural invariants and an analytic special case support the baseline. The article states what was not run alongside what passed.
 
-These choices do not make the underlying methods new. They make the next decision easier to audit. If a later estimator disagrees with the cap-20 reference in a tractable regime, investigators can ask whether the problem lies in coordinate choice, sampling variance, interval construction, or implementation. If direct SSA and the reference had failed to agree here, building an elaborate rare-event comparison on top would have been premature.
+These choices do not make the underlying methods new. They make the next result easier to interpret. If a later estimator disagrees with the cap-20 reference in a tractable regime, investigators can ask whether the problem lies in coordinate choice, sampling variance, interval construction, or implementation. If direct SSA and the reference had failed to agree here, building an elaborate rare-event comparison on top would have been premature.
 
 The most important number may therefore be neither $0.26333$ nor $0.2575946387$. It may be 18: the cap that failed and was preserved. A reliability study earns credibility by retaining the point where a control did not pass, then changing one justified input—the state-space cap—without moving the threshold.
 
-## Reading the figures as evidence
+## How to read the figures
 
-The four figures form a logical sequence rather than decoration. Figure 1 declares the synthetic state model and target event. Figure 2 compares two independently structured probability calculations. Figure 3 exposes run-to-run interval variation and retains the misses. Figure 4 records the truncation failure and the controlled correction. Read in that order, they move from question to comparison to uncertainty to audit trail.
+The four figures form a logical sequence rather than decoration. Figure 1 declares the synthetic state model and target event. Figure 2 records the truncation failure and the controlled correction. Figure 3 compares two independently structured probability calculations. Figure 4 exposes run-to-run interval variation and retains the misses. Read in that order, they move from question to reference, baseline comparison, and uncertainty diagnostic.
 
-None is a biological diagram in the experimental sense. The network schematic represents the code-level CTMC. None shows AMS particles, forward-flux interfaces, a rarity ladder, or a speedup curve, because those artifacts do not exist in Phase 1. The captions repeat this boundary so that an isolated image cannot easily inherit a stronger claim than the article.
+None is a biological diagram in the experimental sense. The network schematic represents the mathematical CTMC. None shows AMS particles, forward-flux interfaces, a rarity ladder, or a speedup curve because those experiments were not run in Phase 1. The captions say this directly so that an isolated image does not inherit a stronger claim than the article.
 
 ## A compact answer to the title
 
@@ -380,11 +375,11 @@ $$
 
 Seeded direct simulation is compatible with that reference at its stated uncertainty: $1580$ hits in $6000$ trajectories give $0.26333$, with a 95% Wilson interval of $[0.25234,\,0.27463]$. Thirty of 32 smaller batch intervals intersect the bracket.
 
-That answer is about one smoke event. It does not say how often a real genetic switch flips, how fast an enhanced sampler would be, whether a progress coordinate is reliable, or what happens along the final rarity ladder. The literature gate says those broader computational questions have substantial precedent and require a narrower reliability test.
+That answer is about one smoke event. It does not say how often a real genetic switch flips, how fast an enhanced sampler would be, whether a progress coordinate is reliable, or what happens along the final rarity ladder. The literature review shows that those broader computational questions have substantial precedent and require a narrower reliability test.
 
 So the project ends Phase 1 with a useful asymmetry: the numerical reference is tight, while the scientific claim is intentionally small. That is the right direction. Precision in a calculation should narrow uncertainty about the declared model; it should not widen the scope of what the model is allowed to represent.
 
-## Primary literature used in the gate
+## References
 
 1. Allen, R. J., Warren, P. B., & ten Wolde, P. R. (2005). Sampling Rare Switching Events in Biochemical Networks. *Physical Review Letters, 94*, 018104. [https://doi.org/10.1103/PhysRevLett.94.018104](https://doi.org/10.1103/PhysRevLett.94.018104)
 2. Allen, R. J., Frenkel, D., & ten Wolde, P. R. (2006). Simulating Rare Events in Equilibrium or Nonequilibrium Stochastic Systems. *The Journal of Chemical Physics, 124*, 024102. [https://doi.org/10.1063/1.2140273](https://doi.org/10.1063/1.2140273)

@@ -17,31 +17,28 @@ A traffic simulation can conserve every vehicle, keep density inside its admissi
 
 There is a second, more treacherous effect. A global cell-average error can look exceptionally small when the exact discontinuity happens to land on a grid boundary at the final reporting time. That alignment says almost nothing about how accurately the numerical front crossed a sensor earlier. In the frozen example studied here, the coarsest Godunov solution has a final cell-average $L^1$ error of only $1.37\times10^{-11}$, yet it reports the threshold arrival $0.517647$ time units late. Refining once to 100 cells makes the final $L^1$ error *larger*, $4.60\times10^{-4}$, even while the arrival delay is cut in half.
 
-That is why this project retains a scientific null. Its preregistered-style Phase-1 gate required strictly refining final $L^1$ error for Godunov and Rusanov across all four grids. Both checks failed. The result file therefore says `phase1_pass=false`. Nothing was tuned after seeing the anomaly, and no failed criterion was deleted. The useful conclusion is not that the solvers are invalid. It is that a single global norm, sampled at a single fortunate time, is not an adequate operational audit of a moving discontinuity.
+That is why this project retains a scientific null. Its predeclared Phase-1 criterion required strictly refining final $L^1$ error for Godunov and Rusanov across all four grids. Both checks failed, so the final-norm criterion is not supported. Nothing was tuned after seeing the anomaly, and no failed criterion was deleted. The useful conclusion is not that the solvers are invalid. It is that a single global norm, sampled at a single fortunate time, is not an adequate operational validation of a moving discontinuity.
 
-The benchmark is deliberately synthetic and dimensionless. It contains no road geometry, detector feed, vehicle trajectory, calibrated fundamental diagram, travel-time validation, safety threshold, or policy intervention. Words such as “queue,” “arrival,” and “congestion area-time” name mathematical functionals of the simulated density. They must not be mistaken for observed vehicle delay. Within that boundary, the experiment is exact enough to expose the measurement problem and small enough to reproduce line by line.
+The benchmark is deliberately synthetic and dimensionless. It contains no road geometry, detector feed, vehicle trajectory, calibrated fundamental diagram, travel-time validation, safety threshold, or policy intervention. Words such as “queue,” “arrival,” and “congestion area-time” name mathematical functionals of the simulated density. They must not be mistaken for observed vehicle delay. Within that boundary, the exact solution makes the measurement problem transparent enough to analyze line by line.
 
-## The evidence ledger
+## What the traffic experiment found
 
-Before discussing numerical methods, it helps to separate the machine record from the interpretation.
+The central results can be read directly from the model, error definitions, and four figures.
 
-| Item | Frozen Phase-1 record | What it permits us to say |
+| Question | Result | Why it matters |
 |---|---:|---|
-| Literature gate | **REFRAME** | LWR shocks and shock-capturing methods are mature; this is a replication-extension diagnostic, not a new traffic solver. |
 | Model | Scalar LWR with $q(\rho)=\rho(1-\rho)$ | One dimensionless concave flux, not an empirically calibrated fundamental diagram. |
 | Initial states | $\rho_L=0.1$, $\rho_R=0.95$ at $x_0=1$ | One backward-moving Riemann shock. |
 | Domain and horizon | $x\in[0,2]$, $T=6$ | One closed numerical experiment with fixed boundary states. |
 | Exact speed | $s=-0.05$ | The discontinuity reaches the fixed sensor $x_s=0.8$ at $t=4$. |
 | Operational threshold | $\rho_s=0.8$ | A declared numerical event definition, not a statutory congestion standard. |
 | Numerical design | Three schemes, $N=50,100,200,400$, CFL $0.8$ | Twelve conservative finite-volume cases under a matched grid ladder. |
-| Invariant checks | All finite, bounded, conservative, and observed | Necessary implementation checks passed; they do not by themselves prove accuracy. |
-| Frozen scientific gate | **NULL / FAIL** | Strict final-$L^1$ refinement failed for Godunov and Rusanov and remains failed. |
-| Reproducibility | Two runs share signature `62029d…eee4` | The recorded numerical outputs reproduce deterministically on the frozen setup. |
-| Visual QA | Four SVG/PDF/600-dpi PNG triples passed | Final exports were checked at original size for overlap and four-edge clipping. |
+| Invariant checks | All finite, bounded, conservative, and observed | Necessary numerical safeguards held; they do not by themselves prove accuracy. |
+| Main comparison | **NULL / FAIL** | Strict final-$L^1$ refinement failed for Godunov and Rusanov and remains failed. |
 
-The distinction in the last column is the core editorial rule. A conservation residual near machine precision is evidence that the discrete accounting closes. It is not evidence that a sensor event is timely. A small final norm is evidence about a particular state comparison. It is not automatically evidence about a moving threshold crossing. A deterministic signature shows that the computation can be repeated; it does not convert a synthetic experiment into empirical traffic validation.
+The distinction in the last column is the core interpretive rule. A conservation residual near machine precision shows that the discrete accounting closes. It does not show that a sensor event is timely. A small final norm describes a particular state comparison, not the complete history of a moving threshold crossing.
 
-## Why the literature gate required a reframe
+## Why prior work changed the question
 
 The starting idea suggested that a modified-equation view might reveal how a traffic solver “invents” congestion through artificial viscosity. That is a reasonable teaching motivation, but it is not a defensible novelty claim. The relevant mathematical and transportation literature is much older and broader than this experiment.
 
@@ -51,11 +48,11 @@ Daganzo's cell-transmission model connected a practical discrete traffic represe
 
 High-resolution shock computation is also established territory. Harten's high-resolution schemes for hyperbolic conservation laws ([DOI](https://doi.org/10.1016/0021-9991(83)90136-5)) and the central schemes of Kurganov and Tadmor ([DOI](https://doi.org/10.1006/jcph.2000.6459)) long predate this benchmark. Friedrich, Kolb, and Göttlich provide a more recent Godunov-type traffic-flow comparison in a non-local LWR setting ([DOI](https://doi.org/10.3934/nhm.2018024)).
 
-The evidence therefore cannot support “we discovered numerical diffusion in traffic flow,” “we invented a better shock solver,” or “we derived a new universal modified-equation coefficient.” The literature gate returns **REFRAME**, not because the problem is uninteresting, but because the honest local question is narrower:
+The literature verdict is **REFRAME**. The evidence cannot support “we discovered numerical diffusion in traffic flow,” “we invented a better shock solver,” or “we derived a new universal modified-equation coefficient.” The honest local question is narrower:
 
-> For one frozen backward LWR shock, can final shock-grid alignment make a cell-average refinement gate misleading while fixed sensor-arrival and threshold-defined queue metrics still expose numerical bias?
+> For one fixed backward LWR shock, can final shock-grid alignment make a cell-average refinement criterion misleading while fixed sensor-arrival and threshold-defined queue metrics still expose numerical bias?
 
-This question is a replication-extension diagnostic. Its value comes from binding an exact solution, a sensor definition, several error functionals, an unchanged pass/fail rule, and a complete failure record. It does not depend on pretending that mature theory is novel.
+This question is a controlled extension of established theory. Its value comes from comparing an exact solution, a sensor definition, several error functionals, and an unchanged decision rule while retaining the failed final-norm result. It does not depend on pretending that mature theory is novel.
 
 ## The exact LWR problem
 
@@ -197,7 +194,7 @@ The transition width is the spatial distance between the locations where the fin
 
 <figure>
   <img src="/science/when-a-traffic-solver-invents-a-jam/p10_02_operational_bias.svg" alt="Log-scale threshold-arrival delay and transition-width refinement for Godunov, Rusanov and MUSCL-Godunov schemes across four cell counts." loading="lazy" />
-  <figcaption>Arrival delay and transition width shrink regularly under grid doubling for all three frozen schemes, even though the preregistered global-$L^1$ gate returns a null.</figcaption>
+  <figcaption>Arrival delay and transition width shrink regularly under grid doubling for all three fixed schemes, even though the predeclared global-$L^1$ criterion is not met.</figcaption>
 </figure>
 
 Two additional functionals translate the density field into threshold-defined bookkeeping. The final queue length measures the spatial extent classified as congested at $T=6$. The congestion area-time integrates that classified extent over the whole horizon. Their exact reference values are $1.3$ and $6.9$ in the dimensionless experiment. The code evaluates numerical counterparts consistently on every grid and reports signed and absolute errors.
@@ -221,9 +218,9 @@ Several patterns deserve precise wording.
 
 First, every scheme shows regular improvement in the fixed arrival metric under each grid doubling. The delay is approximately halved. Second, transition width also shrinks regularly. Third, the threshold-defined queue functionals improve, though the first Godunov queue-length reduction is especially large because geometry affects the final threshold intersection. Fourth, Rusanov is consistently more diffusive than Godunov on these metrics. Fifth, MUSCL reconstruction does not materially separate itself from Godunov in this test.
 
-None of those statements rescues the frozen global gate. The gate did not ask whether *some* operational metrics improve. It asked whether final $L^1$ error decreases strictly for all refinements in Godunov and Rusanov. It does not.
+None of those statements changes the predeclared global criterion. It requires final $L^1$ error to decrease strictly at every refinement for both Godunov and Rusanov. Neither sequence does.
 
-## The frozen null, in full
+## Why the final norm failed its test
 
 The Godunov final $L^1$ sequence is
 
@@ -243,20 +240,20 @@ $$
 2.01\times10^{-3}.
 $$
 
-It also increases at the first step before entering a regular refinement regime. Both booleans `godunov_l1_refines` and `rusanov_l1_refines` are therefore false. Since they are part of the declared checks, `phase1_pass` is false.
+It also increases at the first step before entering a regular refinement regime. Neither Godunov nor Rusanov therefore satisfies the required strictly decreasing four-grid sequence, so the declared final-norm criterion fails.
 
 <figure>
   <img src="/science/when-a-traffic-solver-invents-a-jam/p10_04_gate_null.svg" alt="Side-by-side final cell-average L1 error and threshold-arrival delay, highlighting an N equals 50 grid-alignment anomaly and the retained scientific null." loading="lazy" />
   <figcaption>The null is the result: a near-zero coarse-grid final norm caused by alignment coexists with a 0.517647 late threshold arrival, while arrival error refines under every grid doubling.</figcaption>
 </figure>
 
-There were several tempting but invalid ways to make the dashboard green. The study could have started the refinement check at $N=100$, moved the final time so the $N=50$ shock no longer aligned, weakened “strictly monotone” to “eventually decreasing,” changed the error to point samples, or replaced the gate with arrival delay after inspecting the output. Each change might define a sensible *new* experiment. None is a legitimate repair to this frozen one.
+It would be easy to make the result appear favourable. The comparison could start at $N=100$, move the final time so the $N=50$ shock no longer aligns, weaken “strictly monotone” to “eventually decreasing,” change the error to point samples, or replace the primary criterion with arrival delay after inspecting the output. Each change might define a sensible *new* experiment. None changes the result of this fixed comparison.
 
 Preserving the failure is more informative. It documents a counterexample to the implicit assumption that a coarse-to-fine final norm must be monotone in a discontinuity problem. It also shows why validation criteria should be chosen to match the intended output before the numerical results are known.
 
 ## Reference and invariant checks still matter
 
-A null scientific gate does not mean the implementation is unconstrained. All twelve cases pass several lower-level checks:
+Failure of the final-norm criterion does not make the calculation unconstrained. All twelve cases meet several necessary numerical conditions:
 
 - every stored quantity is finite;
 - density remains inside the declared interval $[0.1,0.95]$;
@@ -267,14 +264,14 @@ A null scientific gate does not mean the implementation is unconstrained. All tw
 
 These checks make the null interpretable. If mass leaked, density became negative, or the event detector missed a crossing, the failed refinement sequence could be an implementation defect. Instead, the consistency checks isolate the failure to the relationship between grid geometry and the chosen final-time norm.
 
-The hierarchy is worth keeping explicit:
+These layers answer different questions:
 
-1. **Reference checks** establish the exact shock and event quantities for the canonical problem.
-2. **Invariant checks** establish conservative, bounded numerical execution.
-3. **Metric checks** quantify state, event, interface, and threshold-functional errors.
-4. **Scientific gates** decide whether the predeclared claim survived.
+1. **Exact reference:** establishes the shock and event quantities for the canonical problem.
+2. **Numerical admissibility:** establishes conservative, bounded numerical execution.
+3. **Reported errors:** quantify state, event, interface, and threshold-functional differences.
+4. **Primary criterion:** determines whether the predeclared final-norm claim is supported.
 
-Passing levels one and two does not force level four to pass. Good scientific software must be able to report “the computation is valid and the claim is unsupported.”
+The exact reference and admissibility conditions can hold while the primary criterion fails. That is what happens here: the computation is valid, but the final-norm claim is unsupported.
 
 ## Why “invents a jam” is a diagnostic title
 
@@ -313,27 +310,19 @@ The benchmark supports a narrow numerical statement. It does **not** establish a
 5. **A new convergence theorem.** The study records four-grid behavior; it proves no asymptotic rate.
 6. **A derived modified-equation coefficient.** No general artificial-viscosity formula is fitted or claimed.
 7. **The superiority of MUSCL reconstruction.** Its near-coincidence with Godunov here is a case result, not a method verdict.
-8. **That global norms are useless.** The result shows incompleteness for an event-focused audit, not irrelevance.
+8. **That global norms are useless.** The result shows incompleteness for event-focused validation, not irrelevance.
 
 Those limitations are part of the result rather than boilerplate. They prevent a clean synthetic counterexample from being inflated into a transportation claim.
 
-## Reproducibility and preserved failures
+## Why the null is credible
 
-The frozen configuration has SHA-256
+An independent $T=6$ calculation returned the same twelve case results, including the near-zero coarse-grid norm, the $0.517647$ arrival delay, and both non-monotone refinement sequences. Separate analytic and numerical comparisons recover the shock speed and exact cell-average reference, keep density within bounds, close the mass balance, and detect every declared crossing.
 
-`7035d72b80f7057f168c75a6be0033a15ba1d0fc7cc924bb2e894bd04fa5e88f`.
+Every comparison in this article uses $T=6$, the time at which the defining mesh alignment occurs. A different final time would alter that geometry and answer a different question, so the interpretation is tied to the stated horizon rather than extrapolated to arbitrary times.
 
-Two complete executions produce the identical numerical signature
+The null is therefore not explained by lost mass, negative density, a missed event, or a point-sample reference. It comes from a known geometric mechanism: the final shock happens to coincide with a boundary of the coarse mesh while the earlier sensor crossing does not share that phase. Repeating the calculation confirms the numbers; the exact solution explains them.
 
-`62029daa5d8d2185c5cdf1ad30bf7f3279db448f480cc233169466019a22eee4`.
-
-Ten evidence tests pass after replaying the canonical $T=6$ protocol, and the repository checker validates the literature record, configuration hash, result structure, expected null, figure inventory, accessibility metadata, and reproduction signature. The technical repository contains the exact command sequence, machine-readable JSON, tests, reference ledger, decision log, and figure manifests.
-
-The failure log also records problems that do not change the science. The source prompt contained several incorrect or unrelated DOI records; they were repaired against primary metadata and the rejected identifiers remain documented. One plotting environment hung during `savefig`; a project-local Python environment generated the canonical figures without regenerating the numerical result JSON. An early regression test accidentally replayed $T=1$ instead of the frozen $T=6$ alignment case; the test was corrected to test the already-declared protocol, with no parameter, result, gate, or signature change.
-
-Visual QA produced another useful rejection. The first Figure 4 callout sat too close to the steep Godunov segment. That export was rejected. The annotation was moved into an empty axes-coordinate region and placed in a light box. The final four PNG files and all four independently rasterized PDF files were reopened one by one at original size. Legends, data, annotations, panel titles, tick labels, and all four edges were checked for overlap and clipping before the SVG copies were admitted to the public site.
-
-This record matters because “reproducible” should describe more than a successful final command. It should include what failed, why the accepted correction did not alter the scientific protocol, and which outputs were regenerated.
+The two observables interrogate different geometries. The final $L^1$ norm aggregates cell averages over the whole road, while the arrival time depends on one local threshold crossing. Exact alignment can cancel the first error without cancelling the second, which is why conservation and a small terminal norm cannot substitute for direct event validation.
 
 ## A better validation question
 
@@ -341,9 +330,15 @@ The most productive change is not to ask, “Which scheme has the smallest numbe
 
 If the output is total vehicle count, conservation deserves priority. If it is density reconstruction, state norms and spatial structure matter. If it is the time a front reaches a detector, the event definition and interpolation require direct verification. If it is a queue duration above a threshold, sensitivity to that threshold and to numerical transition width becomes part of the validation problem.
 
-This functional-first view avoids two common errors. The first is proxy substitution: validating a convenient state norm and assuming every downstream metric is therefore valid. The second is dashboard shopping: computing many metrics after the run and highlighting whichever ones support the desired claim. A frozen hierarchy avoids both. Declare the intended functional, retain reference and invariant checks, and specify what combination constitutes success before computation.
+This functional-first view avoids proxy substitution and metric shopping. Proxy substitution validates a convenient state norm and then assumes every downstream metric is valid. Metric shopping computes many summaries after the run and highlights whichever support the desired claim. Fix the intended functional, retain exact-reference and admissibility conditions, and specify what constitutes success before computation.
 
 For teaching, the $N=50$ alignment case is especially useful because the contradiction is visible without advanced machinery. The coarse grid appears “perfect” in one number and clearly late in another. Students can trace both results back to exact geometry rather than treating them as mysterious software behavior.
+
+Threshold sensitivity deserves its own experiment. The exact step crosses every intermediate density threshold at the same instant, but a numerical ramp crosses low thresholds before high ones. A later study could fix several thresholds in advance and plot event time against threshold for each grid. The spread of those times would quantify how much of the reported arrival depends on the operational definition rather than the front location alone.
+
+Grid phase is another independent axis. Shifting the initial discontinuity by a fraction of one cell, or shifting the reporting time while keeping the dynamics unchanged, moves the exact front through different positions inside a cell. Reporting the distribution of errors over those phases would distinguish a method's typical behaviour from the fortunate $N=50$ alignment seen here. One phase cannot supply that distribution.
+
+Shock speed should vary as well. A fixed spatial displacement becomes a time error after division by the front speed, so the same transition width can produce very different arrival delays for slow and fast shocks. A follow-up spanning several left and right states would separate this kinematic amplification from the diffusion introduced by each scheme. The present $-0.05$ speed supplies one transparent example, not a general conversion between grid error and operational delay.
 
 ## What a responsible next stage would test
 
@@ -364,20 +359,10 @@ An empirical traffic study would require a different evidence layer altogether: 
 
 The modified-equation idea could also be revisited, but only with an explicit derivation and a claim matched to what is proved. Fitting an “effective viscosity” after observing four curves would not establish a general coefficient. A serious analysis would distinguish scheme, flux, limiter, solution regime, grid, and time-step dependence, and it would test predictions on held-out configurations.
 
-## Final reading of the null
+## Conclusion
 
-The headline result is intentionally uncomfortable: the coarsest Godunov grid is almost exact in the final cell-average $L^1$ norm and still late at the sensor. The next grid has a worse final norm and a better arrival time. Rusanov shows its own non-monotone first refinement. The preregistered-style gate therefore fails, while conservation, boundedness, reference checks, deterministic reruns, and operational refinement all remain valid.
+The headline result is intentionally uncomfortable: the coarsest Godunov grid is almost exact in the final cell-average $L^1$ norm and still late at the sensor. The next grid has a worse final norm and a better arrival time. Rusanov shows its own non-monotone first refinement. The predeclared final-norm criterion therefore fails. At the same time, conservation and boundedness hold, the reference calculations remain consistent, an independent repeat returns the same values, and the operational errors improve with refinement.
 
 That combination is not a broken study. It is the study's contribution. It demonstrates, in one exact synthetic case, why numerical validation needs a portfolio of declared diagnostics tied to the intended output. A solver can preserve mass without preserving an event time. A norm can be small for a geometric reason that does not benefit an operational functional. A higher-resolution label does not guarantee a visible advantage in every discontinuity-dominated test. And a null result can teach more than a retuned success.
 
 So when the title says that a traffic solver “invents a jam,” the precise meaning is modest: numerical smearing changes threshold-defined congestion bookkeeping. It does not mean that simulated vehicles appeared from nowhere, and it does not describe a real road. The honest lesson is broader and more durable: whenever a scientific conclusion depends on a moving front, validate the front-dependent conclusion directly.
-
-## Technical record
-
-- Technical record: private P10 modified-equation traffic shocks workspace in the ScienceProject repository
-- Literature verdict: **REFRAME**
-- Scientific verdict: **verified null**, with `phase1_pass=false`
-- Canonical exact quantities: shock speed $-0.05$, sensor arrival $4.0$, final queue length $1.3$, congestion area-time $6.9$
-- Numerical design: Godunov, Rusanov, and MUSCL–Godunov; $N=50,100,200,400$; CFL $0.8$
-- Reproduction signature: `62029daa5d8d2185c5cdf1ad30bf7f3279db448f480cc233169466019a22eee4`
-- Evidence boundary: synthetic and dimensionless; no empirical traffic, policy, safety, or universal ranking claim

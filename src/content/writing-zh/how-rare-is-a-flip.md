@@ -16,33 +16,28 @@ redirectFrom: []
 
 一個基因開關可以長時間看似穩定，然後在一小段充滿噪聲的過程中改變狀態。正因如此，「它多久翻轉一次？」聽起來簡單，實際上卻同時包含多個問題：甚麼狀態才算完成翻轉？觀察到哪個時間便停止？所用隨機模型有哪些反應？如果事件真的很少出現，數值方法又能否在可負擔的計算量內給出可靠不確定性？
 
-這個專案最初想直接比較 adaptive multilevel splitting、Gillespie 直接模擬與帶誤差控制的 forward-flux baseline。正式計算開始前的文獻審查改變了研究方向。基因與生化開關的 rare-event sampling 已有深厚先行工作；只展示「增強取樣比 brute force 更有效率」，並不能構成新的研究貢獻。因此文獻 gate 的結論是 **REFRAME**。
+這個專案最初想直接比較 adaptive multilevel splitting、Gillespie 直接模擬與帶誤差控制的 forward-flux baseline。正式計算開始前的文獻審查改變了研究方向。基因與生化開關的 rare-event sampling 已有深厚先行工作；只展示「增強取樣比 brute force 更有效率」，並不能構成新的研究貢獻。因此審查結論是 **REFRAME**，即先縮窄問題，再開始計算。
 
 改寫後可辯護的問題窄得多：在同一個固定的 exclusive-toggle 連續時間馬可夫鏈上，將進度座標由機理合理逐步降質時，未來 benchmark 能否找出估計器失去校準的邊界，而且把前導、設定與正式抽樣成本全部計入？要回答這個問題，首先需要可信的參考機率與已核對的直接模擬 baseline。
 
-本文只報告這個基礎。它是一項**合成、低 copy 數的第一階段 smoke study**。當每個物種的有限狀態上限設為 20，有限狀態投影把已申明有限時域命中機率夾在 $0.2575946379$ 與 $0.2575946395$ 之間，overflow probability 為 $1.62\times10^{-9}$。固定種子的直接 SSA 在 $6000$ 條軌跡中錄得 $1580$ 次命中，估計值為 $0.26333$，95% Wilson 區間為 $0.25234$ 至 $0.27463$。另外 32 個較小、彼此獨立種子的批次中，有 30 個 Wilson 區間與 FSP 機率界相交。四項針對性測試、repository check 及文件所列重現程序均已通過。
+本文只報告這個基礎。它是一項**合成、低 copy 數的第一階段 smoke study**。當每個物種的有限狀態上限設為 20，有限狀態投影把已申明有限時域命中機率夾在 $0.2575946379$ 與 $0.2575946395$ 之間，overflow probability 為 $1.62\times10^{-9}$。固定種子的直接 SSA 在 $6000$ 條軌跡中錄得 $1580$ 次命中，估計值為 $0.26333$，95% Wilson 區間為 $0.25234$ 至 $0.27463$。另外 32 個較小、彼此獨立種子的批次中，有 30 個 Wilson 區間與 FSP 機率界相交。Structural invariants 與一個可手算 special case 提供另外兩層數值核對。
 
 以上就是本階段全部正面結論。本文沒有 adaptive multilevel splitting 或 FFPilot 結果，沒有 rare-event speedup，沒有生物驗證，也沒有最終 rarity ladder。目前 smoke 設定的事件機率大約是四分之一；把這次計算包裝成「已經解決極罕見切換」尤其會誤導讀者。
 
-## 先列證據，再談解釋
+## 第一階段建立了甚麼
 
-在進入數學細節前，先把證據界線集中列出，可以避免同一個數字被賦予超出能力的意義。
-
-| 項目 | 第一階段紀錄 | 它實際支持甚麼 |
+| 問題 | 結果 | 為何重要 |
 |---|---:|---|
-| 文獻 gate | `REFRAME` | 籠統效率問題已有大量答案；較可辯護的是可靠性邊界 benchmark。 |
-| 模型 | 合成低 copy 數 exclusive-toggle CTMC | 受控數值測試案例，不是指定生物迴路。 |
-| 事件 | 在 $T=12$ 前首次進入已申明的 $B$-dominant 集合 | 有限時域命中機率，不可自動等同穩態切換率或平均首達時間。 |
-| FSP，cap 18 | 未通過固定 overflow／bracket tolerance | 失敗截斷被保留在 audit trail。 |
-| FSP，cap 20 | $[0.2575946379,\,0.2575946395]$，overflow $1.62\times10^{-9}$ | 這一個 smoke 事件的狹窄參考界。 |
-| 固定種子 SSA | $1580/6000=0.26333$ | 相同模型與事件的直接 Monte Carlo 估計。 |
-| SSA 不確定性 | Wilson 95% 區間 $[0.25234,\,0.27463]$ | 直接估計在統計不確定性下與狹窄 FSP 界相容。 |
-| 批次 diagnostic | 32 個區間有 30 個相交 | 小型 smoke diagnostic，不是高精度 coverage study。 |
-| 驗證 | 四項測試、repository check、重現程序通過 | 第一階段的內部計算一致性。 |
+| 使用了甚麼系統？ | 合成低 copy 數 exclusive-toggle CTMC | 它是受控數值案例，不是指定生物迴路。 |
+| 甚麼才算事件？ | 在 $T=12$ 前首次進入已申明的 $B$-dominant 集合 | 結果是有限時域命中機率，不是穩態切換率或 MFPT。 |
+| Cap 18 是否足夠？ | 否；它超出固定 overflow 及 bracket tolerance | 這次失敗說明為何必須擴大狀態空間。 |
+| Cap 20 提供甚麼？ | $[0.2575946379,\,0.2575946395]$，overflow $1.62\times10^{-9}$ | 它給出這個 smoke event 的狹窄參考界。 |
+| 直接模擬得到甚麼？ | $1580/6000=0.26333$ | Wilson 區間 $[0.25234,\,0.27463]$ 與 FSP 界相交。 |
+| 小批次是否完全吻合？ | 否；32 個區間中 30 個相交 | 兩個 miss 顯示普通有限樣本變動。 |
 
-最後一欄的措辭刻意收窄。信賴區間碰到參考界，不等於每一行程式都已證明無誤；測試全部通過，不等於生化機理已獲實驗驗證；截斷界非常窄，也不會把中等機率事件變成罕見事件。每項證據只回答一個特定問題，其他問題仍須保持開放。
+最後一欄的措辭刻意收窄。信賴區間碰到參考界，不等於每個數值細節都已證明無誤；結構與解析核對吻合，不等於生化機理已獲實驗驗證；截斷界非常窄，也不會把中等機率事件變成罕見事件。每項證據只回答一個特定問題，其他問題仍須保持開放。
 
-## 為何文獻 gate 必須改寫標題背後的問題
+## 文獻為何改變了研究問題
 
 原來研究構想最吸引人的地方是計算效率。直接模擬可能先經過大量普通反應事件，才偶然看到一次跨 basin 轉換；splitting 或 importance sampling 可以把較多計算資源放在接近轉換路徑的位置。這個想法重要，卻並不新。
 
@@ -221,9 +216,9 @@ $$
 
 正因如此，第一次嘗試失敗後不能放寬 overflow tolerance。有限狀態計算若要成為 reference，其申明的 error control 必須在實際 state space 下通過，而不是看到結果後再改合格線。
 
-## Cap 18 的失敗必須留下
+## 為何 cap 18 被否決
 
-第一個保存的 attempt 使用 $C=18$，得到
+當 $C=18$ 時，計算得到
 
 $$
 [0.2575946336,\,0.2575947078]
@@ -256,13 +251,19 @@ $$
 $$
 
 <figure class="article-figure">
-  <img src="/science/how-rare-is-a-flip/p03_04_fsp_truncation_audit.svg" alt="對數尺度 FSP 截斷 audit：cap 18 位於固定 overflow tolerance 之上而失敗，cap 20 位於 tolerance 之下而通過。" width="1031" height="454" loading="lazy" decoding="async" />
+  <img src="/science/how-rare-is-a-flip/p03_04_fsp_truncation_audit.svg" alt="對數尺度 FSP 截斷檢查：cap 18 位於固定 overflow tolerance 之上而失敗，cap 20 位於 tolerance 之下而通過。" width="1031" height="454" loading="lazy" decoding="async" />
   <figcaption><strong>圖 2。</strong> 截斷合格線保持不變。Cap 18 失敗並被保留；把 molecule cap 增至 20 後，overflow 降至固定的第一階段 threshold 以下。</figcaption>
 </figure>
 
-保留失敗不只是整理檔案的習慣。如果文章只展示成功的 cap，讀者無法分辨 state space 是否依固定規則擴展，也無法知道研究者是否曾把 tolerance 調到恰好出現 PASS。attempt record 清楚寫出失敗的是哪項 control，而修正只改了一個合理輸入：cap 增大，criterion 沒有移動。
+保留失敗不只是整理檔案的習慣。如果文章只展示成功的 cap，讀者無法分辨 state space 是否依固定規則擴展，也無法知道研究者是否曾把 tolerance 調到恰好通過。這裏清楚寫出失敗的是哪項 control，而修正只改了一個合理輸入：cap 增大，criterion 沒有移動。
 
-這也是 reproducibility 與 cherry-picking 的分界之一。可重現並不只指「別人能產生成功結果」，也應讓別人看到在相同判準下哪次結果不夠好，以及下一步為何足以改善該問題。若失敗分支被刪除，最後的漂亮數字會失去決策脈絡。
+這亦是避免 cherry-picking 的關鍵。讀者需要看到同一判準下哪次結果不夠好，以及下一步為何能處理該問題。若失敗分支被刪除，最後的漂亮數字便會失去判斷脈絡。
+
+Cap 20 並沒有被當成無界狀態空間。它是否足夠，要看 probability bracket，而不是 cap 的名稱。保留狀態內的計算給出下界，再把未解析 overflow mass 加上去便得到上界。當兩界只差 $1.62\times10^{-9}$，在這個 construction 下，省略狀態對已申明 hit probability 的最大影響也受同一數量控制。更大的 cap 可以再收窄 bracket，卻不會改變它與較寬 SSA interval 比較時的尺度。
+
+FSP bracket 與 SSA interval 的寬度不能互相取代。前者控制有限狀態截斷造成的 numerical uncertainty；後者描述 $6000$ 次 Bernoulli trials 的 sampling uncertainty。以 $p\approx0.258$ 代入 $\sqrt{p(1-p)/6000}$，standard error 約為 $0.00565$，所以 95% interval 有百分點尺度的寬度並不反常。相比之下，FSP 上下界只差 $1.62\times10^{-9}$。兩個方法在各自不確定性下相容，意思不是它們有同樣精度，而是較粗的 Monte Carlo interval 覆蓋了極窄的截斷參考。
+
+若要收窄 SSA interval，應增加獨立 trajectories；若要收窄 FSP bracket，則應擴大有限狀態空間。把兩種控制分開，才能知道額外計算量實際改善哪一種誤差。
 
 ## 將帶界參考與固定種子 SSA 放在一起
 
@@ -305,29 +306,29 @@ $$
 
 但 coverage 一詞有 repeated-sampling 的統計含義。只有 32 個 batch，不足以緊密估計 nominal 95% coverage probability。除此之外，這裡的判定是 interval 與狹窄 probability bracket 相交，而不是檢查 interval 是否包含一個以無限精度表示的 scalar truth。這個 bracket 已經極窄，視覺解釋差別很小；方法上的區別仍應寫清楚。
 
-兩個 miss 不是要藏起來的尷尬，而是這項診斷最有用的部分。在每批只有 300 條 trajectory 時，binomial variation 足以令少數 interval 不包含固定概率。若把這兩個 seed 刪除，calibration check 便會變成依結果選擇資料。保留它們，使圖表可 audit，也阻止文章暗示 interval 表現完美。
+兩個 miss 不是要藏起來的尷尬，而是這項診斷最有用的部分。在每批只有 300 條 trajectory 時，binomial variation 足以令少數 interval 不包含固定概率。若把這兩個 seed 刪除，calibration check 便會變成依結果選擇資料。保留它們，使圖表可核查，也阻止文章暗示 interval 表現完美。
 
 同樣地，30/32 不可外推到最終 rarity ladder。當 event probability 下降很多、trajectory 變長、batch 中 hit 數可能接近零時，Wilson interval 的寬度與 estimator 行為都會改變。現時 diagnostic 只證明 smoke configuration 沒有出現明顯 baseline/reference 衝突。
 
-## 四項測試究竟檢查了甚麼
+## 為何數值核對可信
 
-focused suite 有四項 test。第一項檢查所有 emitted reaction channel rate 均為正，destination state 保持非負且合法，並核對 occupancy-dependent repression 與 free-protein degradation。第二項檢查 finite generator 是 conservative、off-diagonal rate 非負、diagonal entry 非正。這兩項屬結構 invariant，目的是在正式 probability calculation 前攔截狀態或 rate 組裝錯誤。
+所有 emitted reaction channel rate 都是正值，destination state 保持非負且合法；occupancy-dependent repression 與 free-protein degradation 亦按模型定義組裝。Finite generator 是 conservative、off-diagonal rate 非負、diagonal entry 非正。這些 structural invariants 可在 probability calculation 前揭示 state 或 rate 組裝問題。
 
-第三項把 FSP implementation 與一個有 analytic answer 的 single-birth first-hit special case 比較。在這個情況，
+另一項獨立核對把 FSP calculation 與一個有 analytic answer 的 single-birth first-hit special case 比較。在這個情況，
 
 $$
 \Pr(\tau\le T)=1-e^{-\lambda T}.
 $$
 
-第四項在相同 analytic case 以固定 seed 把 SSA 跑兩次，檢查 deterministic regeneration，並檢查 Wilson interval 包含 analytic probability。
+在相同 analytic case，固定種子的 SSA 得到包含 analytic probability 的 Wilson interval；用同一設定重算亦重現相同結果。
 
-四項 test 均通過，repository check 通過，文件列明的第一階段 reproduction 也通過。這組 checks 把一般 structural invariant、可手算 special case 與保存的 smoke artifact 串起來。
+這些比較把一般 structural invariant、可手算 special case 與本次 smoke calculation 串起來。它們沒有證明 synthetic rate 描述真實細胞，沒有排除所有可能 numerical error，也沒有驗證 adaptive multilevel splitting 或 FFPilot，因為兩者根本不是第一階段結果的一部分；亦未建立任何 final rarity ladder 的結果。數值吻合加強了 baseline，卻不會擴大 scientific claim。
 
-它們沒有證明 synthetic rate 描述真實細胞，沒有排除所有可能 software error，也沒有驗證 adaptive multilevel splitting 或 FFPilot，因為兩者根本不是第一階段結果的一部分。它們同樣沒有解鎖 final rarity ladder。test success 是內部計算一致性的證據，不是擴大 scientific claim 的許可證。
+核對次序亦避免 circular validation：structural invariants 不依賴最後的 hit probability，analytic birth case 不依賴 toggle 的選定 rates，而 SSA interval 又不使用 FSP 的矩陣指數演算法。三者若同時吻合，比單純重跑同一條計算路徑更能支持這個 baseline。
 
 ## 文獻已知與本地 smoke 必須分開
 
-這個區分是整項專案最重要的編輯規則。
+這個區分是整項專案最重要的科學界線。
 
 **十篇 primary literature 已建立的內容：** rare-event method 已應用於生化及 genetic switching；interface placement 與 reaction-coordinate quality 會影響行為；weighted 或 biased sampling 可以研究 transition probability 與 path；設定與抽樣不確定性需要 error control；在 tractable regime，finite-state master-equation calculation 可以提供受控 reference。
 
@@ -335,7 +336,7 @@ $$
 
 **本地沒有觀察：** adaptive multilevel splitting、FFPilot、importance sampling、progress-coordinate degradation、matched-compute efficiency、rare-event speedup、預先註冊 final rarity ladder、stationary switching rate、MFPT accuracy 或 biological data 的任何結果。
 
-如果不作這三層分隔，很容易出現一種推理錯置：一個方法在 literature 中已被驗證，不代表這個 repository 已經實作它；另一方面，本地 baseline 可重現，也不代表它新穎或 biologically realistic。若把兩者揉成「我們證明 rare-event sampling 對 genetic switch 有效」，便會把別人的研究成果錯誤歸到第一階段 smoke run。
+如果不作這三層分隔，很容易出現推理錯置：一個方法在 literature 中已有驗證，不代表第一階段已測試該方法；另一方面，本地 baseline 內部一致，也不代表它新穎或 biologically realistic。若把兩者揉成「我們證明 rare-event sampling 對 genetic switch 有效」，便會把別人的研究成果錯誤歸到這次 smoke calculation。
 
 ## 目前事件為何還不是承諾中的 rare event
 
@@ -343,13 +344,13 @@ $$
 
 這個中等概率對 software validation 很有用。Direct simulation 能產生大量 hit，不需要巨大 compute budget 也可以看出明顯 implementation mistake；finite-state truncation 亦可處理，讓 overflow mass 降至固定的小 tolerance。這些特性令它成為好的 smoke test。
 
-同一批特性也令它不適合支持 speedup claim。事件常見時，rare-event method 可能在 pilot run、interface、replica 或 coordinate design 上花費比 direct SSA 收集 hit 更多成本。文獻 gate 已把未來研究轉向 total-cost accounting，但第一階段沒有量度這種 accounting。不能由 baseline/reference 比對通過，推斷 enhanced sampler 將來必定更快。
+同一批特性也令它不適合支持 speedup claim。事件常見時，rare-event method 可能在 pilot run、interface、replica 或 coordinate design 上花費比 direct SSA 收集 hit 更多成本。文獻審查已把未來研究轉向 total-cost accounting，但第一階段沒有量度這種 accounting。不能由 baseline/reference 比對通過，推斷 enhanced sampler 將來必定更快。
 
 目前 probability 也不是一個「flip rate」。縮短或延長 $T$、改變 target margin、取消 required operator occupancy、改 initial state，都會得到不同 probability。未來 rarity ladder 必須先凍結這些 design choice，只改預先註冊的 regime control。在 ladder 真正執行前，專案沒有 estimator reliability 隨 rarity 變化的 empirical statement。
 
-## 尚未執行的 benchmark 應包含甚麼
+## 下一個 benchmark 必須測試甚麼
 
-REFRAME 後的 research design 要求下列元素；它們是未來工作，不是本文暗示已完成的成果：
+問題收窄後的 research design 要求下列元素；它們是未來工作，不是本文暗示已完成的成果：
 
 1. 在整條預先註冊 rarity ladder 保持同一個 fully specified exclusive-toggle CTMC 與 event definition；
 2. 在 matched total compute 下評估 naive SSA、adaptive multilevel splitting 與 error-controlled forward-flux baseline；
@@ -359,25 +360,25 @@ REFRAME 後的 research design 要求下列元素；它們是未來工作，不�
 6. 把 pilot、interface selection、training 與 tuning cost 計入造成該成本的方法；
 7. 保留一個不預設 enhanced sampling 有優勢的 non-rare regime。
 
-這是一份 plan，不是 achievement list。涉及 AMS、FFPilot、coordinate stress test、matched-compute comparison 或 final ladder 的項目，都沒有在本文 evidence 內執行。文獻 gate 解釋為何值得做這項 benchmark，卻不能代替 benchmark outcome。
+這是一份後續設計，不是 achievement list。涉及 AMS、FFPilot、coordinate stress test、matched-compute comparison 或 final ladder 的項目，都沒有在本文執行。文獻審查解釋為何值得做這項 benchmark，卻不能代替 benchmark outcome。
 
-未來 benchmark 也可能無法產生有用 reliability boundary。如果 preregistered coordinate degradation 沒有造成可重現 calibration change，或者 total-cost accounting 只得到文獻早已解釋的普通結果，誠實結論可以是 null result 或停止研究。REFRAME 的價值之一，正是防止研究者用籠統 speedup demonstration 製造虛假 novelty。
+未來 benchmark 也可能無法產生有用 reliability boundary。如果 preregistered coordinate degradation 沒有造成可重現 calibration change，或者 total-cost accounting 只得到文獻早已解釋的普通結果，誠實結論可以是 null result 或停止研究。這次收窄問題的價值之一，正是防止研究者用籠統 speedup demonstration 製造虛假 novelty。
 
-## 第一階段真正增加的是甚麼
+## 第一階段貢獻了甚麼
 
 這次 contribution 是程序性的，而且範圍有限。Event 被寫成 first-hit set，而不是憑圖看似完成 flip；direct estimator 配有具名 uncertainty interval，而不是一個沒有誤差的 decimal；finite-state reference 顯示 overflow mass，而不是隱藏 truncation；cap-18 failure 留在 record；independent seeds 暴露兩個 missed batch interval；test 同時覆蓋 structural invariant 與 analytic special case；public article 把尚未執行的內容與已通過內容並列。
 
-這些選擇沒有令 underlying method 變成新方法，卻讓下一個 research decision 更容易 audit。若未來 estimator 在 tractable regime 與 cap-20 reference 不合，便可分開調查 coordinate choice、sampling variance、interval construction 與 implementation。若 direct SSA 與 reference 在這裡已不吻合，便不應在其上堆疊更複雜 rare-event comparison。
+這些選擇沒有令 underlying method 變成新方法，卻讓下一個結果更容易解讀。若未來 estimator 在 tractable regime 與 cap-20 reference 不合，便可分開調查 coordinate choice、sampling variance、interval construction 與 implementation。若 direct SSA 與 reference 在這裡已不吻合，便不應在其上堆疊更複雜 rare-event comparison。
 
 因此最重要的數字可能既不是 $0.26333$，也不是 $0.2575946387$，而是 18——那個失敗但被保留的 cap。Reliability study 的可信度，來自它先保留 control 未通過的位置，再只改一個有理由改變的輸入；state-space cap 增大，但 threshold 不動。
 
-## 如何把四幅圖當成證據閱讀
+## 如何閱讀四幅圖
 
-四幅圖不是裝飾，而是一條 logical sequence。圖 1 申明 synthetic state model 與 target event；圖 2 顯示 truncation failure 與 fixed-tolerance correction；圖 3 比較兩條獨立結構的 probability route；圖 4 暴露 run-to-run interval variation 並保留 miss。沿這個次序，讀者由問題走到 reference audit、baseline comparison，再到 uncertainty diagnostic。
+四幅圖不是裝飾，而是一條 logical sequence。圖 1 申明 synthetic state model 與 target event；圖 2 顯示 truncation failure 與 fixed-tolerance correction；圖 3 比較兩條獨立結構的 probability route；圖 4 暴露 run-to-run interval variation 並保留 miss。沿這個次序，讀者由問題走到 reference、baseline comparison，再到 uncertainty diagnostic。
 
-每幅圖都不是 experimental biology 意義下的生物迴路圖。Network schematic 代表 code-level CTMC。圖中沒有 AMS particle、forward-flux interface、rarity ladder 或 speedup curve，因為第一階段沒有這些 artifact。caption 重複 evidence boundary，避免圖像被抽離文章後繼承一個更強但不存在的 claim。
+每幅圖都不是 experimental biology 意義下的生物迴路圖。Network schematic 代表數學 CTMC。圖中沒有 AMS particle、forward-flux interface、rarity ladder 或 speedup curve，因為第一階段沒有進行這些實驗。Caption 直接說明限制，避免圖像被抽離文章後繼承一個更強但不存在的 claim。
 
-圖的視覺編碼也服務於 audit：相交 interval 與 miss 不只靠顏色區分，亦以空心圓與叉號區分；cap failure 與 pass 使用不同 marker 與文字 label；reference 與 estimate 使用不同形狀。即使讀者以灰階或色覺差異閱讀，仍可辨認主要關係。這些是呈現層的可讀性選擇，不會增加 scientific evidence。
+圖的視覺編碼以可讀性為先：相交 interval 與 miss 不只靠顏色區分，亦以空心圓與叉號區分；cap failure 與 pass 使用不同 marker 與文字 label；reference 與 estimate 使用不同形狀。即使讀者以灰階或色覺差異閱讀，仍可辨認主要關係。這些呈現選擇不會增加 scientific evidence。
 
 ## 對標題的最短回答
 
@@ -389,7 +390,7 @@ $$
 
 固定種子 direct simulation 在其抽樣不確定性下與 reference 相容：6000 條 trajectory 有 1580 次 hit，得到 $0.26333$，95% Wilson interval 為 $[0.25234,\,0.27463]$。32 個小 batch interval 有 30 個與 bracket 相交。
 
-這個答案只屬於一個 smoke event。它沒有說真實 genetic switch 多久翻轉，沒有說 enhanced sampler 會快多少，沒有驗證某個 progress coordinate 是否可靠，也沒有描述 final rarity ladder。文獻 gate 說更廣的 computational question 已有大量先例，所以本專案必須用更窄、更嚴格的 reliability test 來證明自身價值。
+這個答案只屬於一個 smoke event。它沒有說真實 genetic switch 多久翻轉，沒有說 enhanced sampler 會快多少，沒有驗證某個 progress coordinate 是否可靠，也沒有描述 final rarity ladder。文獻審查顯示更廣的 computational question 已有大量先例，所以本專案必須用更窄、更嚴格的 reliability test 來證明自身價值。
 
 第一階段最後留下了一種有用的不對稱：numerical reference 很窄，scientific claim 卻刻意很小。這才是正確方向。計算精度只應收窄對已申明模型量的 uncertainty，不應擴大模型被允許代表的世界。
 
@@ -399,13 +400,13 @@ $$
 
 第二個誤讀是把 $0.26333$ 與 FSP midpoint 的差距當作 bias estimate。只有一次 aggregate run，差距同時包含普通 Monte Carlo fluctuation；要估計 bias 或 RMSE，需要固定 estimator、重複獨立 run、明確 reference 與預先指定 summary rule。本文只能說 Wilson interval 與 bracket 相交，不能由一個 point difference 宣稱 direct SSA 有系統性高估或低估。
 
-第三個誤讀是把 30/32 當作已證明長期 95% coverage。這個比例只描述保存的 32 個 small batch，而且「相交」的判斷以 reference interval 為對象。真正 coverage benchmark 應事前固定 replicate count 與 interval construction，再在不同 rarity regime 重複；若看到結果後才增加 batch 或改 interval，nominal calibration 的解釋便會受破壞。第一階段 deliberately 只稱它為 diagnostic。
+第三個誤讀是把 30/32 當作已證明長期 95% coverage。這個比例只描述今次 32 個 small batch，而且「相交」的判斷以 reference interval 為對象。真正 coverage benchmark 應事前固定 replicate count 與 interval construction，再在不同 rarity regime 重複；若看到結果後才增加 batch 或改 interval，nominal calibration 的解釋便會受破壞。第一階段 deliberately 只稱它為 diagnostic。
 
-第四個誤讀是把「文獻中已有 speedup」改寫成「這個本地 code 已有 speedup」。文獻 gate 用十篇 primary work 說明原 generic hypothesis 為何不新；那些研究的方法、模型、event 與 cost accounting 各有自己的設定。本地 smoke 沒有運行 AMS 或 FFPilot，也沒有 matched-compute table。引用先行成果是界定研究位置，不是借用別人的結果替本地 implementation 背書。
+第四個誤讀是把「文獻中已有 speedup」改寫成「本研究已有 speedup」。十篇 primary work 說明原 generic hypothesis 為何不新；那些研究的方法、模型、event 與 cost accounting 各有自己的設定。本地 smoke 沒有運行 AMS 或 FFPilot，也沒有 matched-compute table。引用先行成果是界定研究位置，不是借用別人的結果替本地 calculation 背書。
 
-第五個誤讀是把 `Reproducible study` status 當作「研究已完成所有階段」。這個 status 指第一階段 artifact、設定與檢查有可重現記錄；project limitation 同時明確寫出 Phase 1。可重現性描述的是已執行範圍能否被核查，而不是把未執行範圍變成完成。因而 status 與 limitation 必須一起閱讀。
+第五個誤讀是把第一階段檢查通過當作「研究已完成所有階段」。目前結果只覆蓋明確寫出的 Phase 1；未執行的範圍不會因基礎計算一致而自動變成完成。
 
-## 從這個 smoke study 學習如何組織數值證據
+## 這個 smoke study 如何組織數值比較
 
 這項案例亦可作為數學建模的證據設計示範。第一步不是挑一個複雜算法，而是把 quantity of interest 寫清楚。狀態、起點、target set 與 horizon 一旦固定，SSA 與 FSP 才真正回答同一條問題。若兩種方法各用不同 flip definition，即使數字接近也沒有驗證意義。
 
@@ -413,9 +414,9 @@ $$
 
 第三步是先定合格線，再看結果。Cap 18 失敗時，最容易的做法是把 $10^{-8}$ tolerance 改寬；但那會使判準依結果移動。這次保留 threshold，增加 cap 至 20，再重新計算。這個順序比成功數字本身更能表達 protocol integrity。失敗不是要從研究故事刪除的雜訊，而是判準確實具有約束力的證據。
 
-第四步是令圖表與 claim ledger 對應。Network 圖回答「模擬的是甚麼」；truncation audit 回答「reference 為何可用」；FSP–SSA comparison 回答「兩條 route 是否在 uncertainty 下相容」；batch calibration 圖回答「不同 seed 會有多少變化」。每幅圖只承擔一個主要問題，caption 同時寫 limitation，便較不容易讓視覺效果越過證據界線。
+第四步是讓每幅圖回答一條明確問題。Network 圖回答「模擬的是甚麼」；truncation 圖回答「reference 為何可用」；FSP–SSA comparison 回答「兩條 route 是否在 uncertainty 下相容」；batch calibration 圖回答「不同 seed 會有多少變化」。Caption 同時寫 limitation，避免視覺效果把結論推得過遠。
 
-第五步是把 stop point 寫入結論。第一階段通過不代表應立即宣佈最終研究成功，而是表示基礎足以讓下一個 protocol decision 有意義。下一階段若開始，仍須重新凍結 rarity ladder、coordinate 與 cost rule；若這些條件未完成，就應停留在目前 evidence boundary。這種停點不是保守修辭，而是可重現 workflow 的一部分。
+第五步是把 stop point 寫入結論。第一階段通過不代表應立即宣佈最終研究成功，而是表示基礎足以讓下一個 protocol decision 有意義。下一階段若開始，仍須預先固定 rarity ladder、coordinate 與 cost rule；若這些條件未完成，結論就只能停在第一階段，讓未測試問題與已完成結果保持分開。
 
 ## 為何 endpoint 名稱必須精確
 
@@ -423,9 +424,9 @@ $$
 
 MFPT 則研究 $\mathbb E[\tau_{\mathcal B}]$。若 trajectory 到 observation window 結束仍未命中，便產生 censoring；只平均已命中 path 會改變 estimand。Stationary rate 又需要對 basin occupancy、穩態或近穩態假設及長時間 transition counting 作額外處理。因此後續 benchmark 即使計算多種 endpoint，也必須各自保存 definition 與 reference，不能以一個 $p_T$ bracket 代替全部。
 
-這項精確命名亦關乎 literature comparison。某篇 paper 的 fixed-horizon threshold event、另一篇的 spontaneous flip rate，以及第三篇的 MFPT，可能都使用 rare-event method，卻不是可直接互換的數值 task。文獻 gate 使用它們來界定方法與 validity risk 已有先例；本地計算只與自身申明的 $p_T$ 作一對一核對。
+這項精確命名亦關乎 literature comparison。某篇 paper 的 fixed-horizon threshold event、另一篇的 spontaneous flip rate，以及第三篇的 MFPT，可能都使用 rare-event method，卻不是可直接互換的數值 task。先行研究用來界定已有方法與 validity risk；本地計算只與自身申明的 $p_T$ 作一對一核對。
 
-## 文獻 gate 使用的十篇 primary work
+## 參考文獻
 
 1. Allen, R. J., Warren, P. B., & ten Wolde, P. R. (2005). Sampling Rare Switching Events in Biochemical Networks. *Physical Review Letters, 94*, 018104. [https://doi.org/10.1103/PhysRevLett.94.018104](https://doi.org/10.1103/PhysRevLett.94.018104)
 2. Allen, R. J., Frenkel, D., & ten Wolde, P. R. (2006). Simulating Rare Events in Equilibrium or Nonequilibrium Stochastic Systems. *The Journal of Chemical Physics, 124*, 024102. [https://doi.org/10.1063/1.2140273](https://doi.org/10.1063/1.2140273)

@@ -21,33 +21,31 @@ The full-order reference passes its numerical gate. The reduced models do not pa
 
 The terminal verdict is therefore **STOP_REFERENCE_OR_ROM_INADMISSIBLE**. The reference is admissible; the ROMs are not. Shifted-case trajectories remain useful diagnostics, but Phase 1 cannot attribute their errors to distribution shift because the control condition already fails.
 
-Two additional hypotheses fail. A 24-point sampled-residual warning is anti-correlated with actual POD-DEIM field error at Spearman $-0.50$, below the frozen $+0.60$ gate, and it does not place the two worst cases in its top three. The accepted-attempt median POD-DEIM online speedup is 2.978205301, below a $5\times$ gate. These failures are retained rather than repaired.
+Two additional hypotheses fail. A 24-point sampled-residual warning is anti-correlated with actual POD-DEIM field error at Spearman $-0.50$, below the frozen $+0.60$ gate, and it does not place the two worst cases in its top three. The measured median POD-DEIM online speedup is 2.978205301, below a $5\times$ gate. These failures are retained rather than repaired.
 
 This is a deterministic synthetic transport benchmark. It is not a calibrated room, a computational-fluid-dynamics validation, a carbon-dioxide exposure study, an infection-risk model, a building-control safety assessment, or a deployment claim.
 
 ## What was tested and what stopped
 
-| Item | Frozen Phase-1 record | Interpretation |
+| Question | Finding | Why it matters |
 |---|---:|---|
-| Literature gate | **REFRAME** | Indoor POD, ventilation ROMs, DEIM, and diagnostics have direct precedents. |
+| Research context | Indoor POD, ventilation ROMs, DEIM, and diagnostics have direct precedents | The experiment tests a narrow reliability question rather than claiming a new reduction method. |
 | Domain | $8\,\mathrm m\times5\,\mathrm m$, $36\times24$ cells | One coarse synthetic two-dimensional surrogate. |
 | Time grid | $T=1800$ s, $dt=2$ s | One backward-Euler reference schedule. |
 | Training | four nominal cases | A fixed source-location and pulse-time design. |
-| Evaluation | nominal, schedule, source, ventilation, combined | Five locked cases; only three are single shifts. |
+| Evaluation | nominal, schedule, source, ventilation, combined | Five fixed cases; only three change one declared condition. |
 | POD rank | 6, energy 0.999386845565 | Compact training basis, not a trust certificate. |
 | Source-DEIM rank | 4, energy 1.0 | Exact energy capture for saved source snapshots, not state accuracy. |
-| Reference refinement | relative $L_2=0.002520990049$ | Passes the frozen 0.03 reference gate. |
-| Minimum reference state | 0 | Passes the nonnegativity gate. |
-| Nominal POD field error | 0.181929901217 | Fails the 0.05 field gate. |
-| Nominal POD-DEIM field error | 0.364300559015 | Fails the 0.05 field gate. |
+| Reference refinement | relative $L_2=0.002520990049$ | Below the fixed 0.03 reference threshold. |
+| Minimum reference state | 0 | Satisfies the $-10^{-12}$ nonnegativity threshold. |
+| Nominal POD field error | 0.181929901217 | Exceeds the 0.05 field limit. |
+| Nominal POD-DEIM field error | 0.364300559015 | Exceeds the 0.05 field limit. |
 | Warning correlation | $-0.50$ | Refutes the declared $+0.60$ sampled-residual rule on five cases. |
-| Median POD-DEIM speedup | $2.9782\times$ | Fails the $5\times$ implementation-specific gate. |
-| Reproduction | two identical signatures `8591af…5cfc` | Frozen numerical JSON is reproducible; runtime is separate. |
-| Verdict | **STOP_REFERENCE_OR_ROM_INADMISSIBLE** | No causal shift-reliability conclusion is admitted. |
+| Median POD-DEIM speedup | $2.9782\times$ | Below the implementation-specific $5\times$ target. |
 
 The stop rule prevents a familiar story from being told backwards. Large source-shift and combined-shift errors are visible. It would be tempting to call them evidence that the model “breaks out of distribution.” Yet the nominal control already violates the trust gate by a wide margin. The correct conclusion is not that shift caused failure. It is that this training and reduction design never established a trustworthy baseline from which an additional shift effect could be identified.
 
-## Why the literature gate returned REFRAME
+## Why the literature changed the question
 
 POD has a long history in indoor-environment simulation. Sempey, Inard, Ghiaus, and Allery used POD for fast temperature-field simulation in air-conditioned rooms in 2009 ([DOI](https://doi.org/10.1016/j.buildenv.2008.03.004)). Li, Su, Chu, and Xu developed a fast POD model for indoor thermal-environment simulation and control ([DOI](https://doi.org/10.1016/j.buildenv.2012.11.020)). Li and colleagues also combined POD with a genetic algorithm to optimize office ventilation operation ([DOI](https://doi.org/10.1016/j.enbuild.2013.07.075)). A project cannot claim that indoor POD or POD-based ventilation optimization is new.
 
@@ -57,9 +55,9 @@ Changing boundaries or operating conditions is not untouched territory either. L
 
 The hyper-reduction layer has even clearer foundations. Chaturantabut and Sorensen introduced DEIM for nonlinear model reduction ([DOI](https://doi.org/10.1137/090766498)) and later derived a state-space error estimate for POD-DEIM ([DOI](https://doi.org/10.1137/110822724)). Wirtz, Sorensen, and Haasdonk developed a posteriori error estimation for DEIM-reduced nonlinear systems ([DOI](https://doi.org/10.1137/120899042)). Drmač and Gugercin proposed a selection operator with improved error bounds and extensions ([DOI](https://doi.org/10.1137/15M1019271)). Oxberry and colleagues studied adaptive snapshot selection under limited memory ([DOI](https://doi.org/10.1002/nme.5283)).
 
-These primary works block a broad method claim. POD for indoor fields is established. POD for ventilation design is established. Reduced prediction across operating conditions is established. DEIM and its error analysis are established. The narrow defensible contribution here is a preregistered, failure-preserving audit that asks whether one nominally trained reduction first passes field and person-zone gates, then tests one cheap warning rule across declared synthetic shifts.
+These primary works rule out a broad method claim. POD for indoor fields is established. POD for ventilation design is established. Reduced prediction across operating conditions is established. DEIM and its error analysis are established. The narrow defensible contribution here is a predeclared, failure-preserving comparison that asks whether one nominally trained reduction first passes field and person-zone thresholds, then tests one cheap warning rule across the stated synthetic shifts.
 
-The literature audit is targeted, not systematic. It does not prove that no paper has the exact same five-case layout or warning score. It supports the decision to frame the work as a transparent benchmark rather than a new POD-DEIM method.
+The literature search is targeted, not systematic. It does not prove that no paper has the exact same five-case layout or warning score. It supports the decision to frame the work as a transparent benchmark rather than a new POD-DEIM method.
 
 ## The synthetic transport equation
 
@@ -79,7 +77,7 @@ $$
 
 The nominal velocity is $u=0.04\ \mathrm{m\,s^{-1}}$, nominal removal is $\lambda=0.0025\ \mathrm{s^{-1}}$, and diffusivity is $D=0.03\ \mathrm{m^2\,s^{-1}}$. The localized source has a Gaussian spatial width of 0.42 m, amplitude 0.08 per second, a 360-second pulse width, and 24-second smoothed edges.
 
-The units make the synthetic setup readable; they do not turn it into a validated building model. There are no walls, furniture, buoyancy, turbulence closure, supply jets, return geometry, thermal coupling, occupancy dynamics, sensor error, or measured boundary conditions. A constant horizontal velocity and first-order removal are surrogates chosen for a controlled ROM audit.
+The units make the synthetic setup readable; they do not turn it into a validated building model. There are no walls, furniture, buoyancy, turbulence closure, supply jets, return geometry, thermal coupling, occupancy dynamics, sensor error, or measured boundary conditions. A constant horizontal velocity and first-order removal are surrogates chosen for a controlled ROM comparison.
 
 The cell-centered full-order model uses a $36\times24$ finite-volume grid, first-order upwind advection, conservative diffusive fluxes, and backward Euler with $dt=2$ seconds over 1800 seconds. Snapshots are saved every six steps. The state dimension is therefore 864 cells, small enough for a transparent reference but large enough to exhibit moving source plumes and transport delays.
 
@@ -87,7 +85,7 @@ Two synthetic “person zones” are Gaussian spatial averages centered at $(6.2
 
 The word “exposure” in the figures means the time integral of this synthetic zone average. It has no toxicological, infectious-dose, or health interpretation. No safe or unsafe threshold is being estimated.
 
-## Training cases and the locked evaluation ladder
+## Training cases and the order of comparison
 
 The four training cases all use the nominal velocity and removal rate. Their source locations and pulse starts are:
 
@@ -136,7 +134,7 @@ The lookup is not expected to preserve shifted spatial fields, especially for a 
 
 That mismatch illustrates why several metrics are necessary. A method can miss the field while approximating one integral through cancellation. It can approximate exposure but move the threshold crossing. It can reproduce duration but miss the peak. No single endpoint stands in for the others.
 
-## Frozen trust gates
+## Trust thresholds fixed before evaluation
 
 Nominal admissibility requires each reduced model to satisfy all three:
 
@@ -154,9 +152,9 @@ The field metric is a relative space-time $L_2$ error. The exposure metric is th
 
 The reference itself must have a time-refinement relative difference below 0.03 and a minimum state no lower than $-10^{-12}$. The diagnostic warning must have Spearman correlation at least $+0.60$ with POD-DEIM field error across the five cases and must place the two worst-error cases within its three largest scores. Median POD-DEIM online speedup must be at least five. Runtime excludes offline snapshot generation, basis construction, and DEIM selection.
 
-All ranks, cases, thresholds, monitor points, and gates were frozen before the canonical attempt. None changed after the nominal failure.
+All ranks, cases, thresholds, monitor points, and gates were fixed before the final comparison. None changed after the nominal failure.
 
-## A compact basis that fails the nominal gate
+## A compact basis still fails the nominal test
 
 <figure class="article-figure">
   <img src="/science/when-a-reduced-ventilation-model-leaves-its-training-regime/p05_01_basis_nominal_gate.svg" alt="Nominal training POD spectrum and gate-normalized holdout errors; the selected rank is six, but POD and POD-DEIM both exceed the frozen field gate." loading="lazy" />
@@ -189,11 +187,11 @@ Panel (c) shows time-resolved field error on a logarithmic scale. During the act
 ## Shifted results are diagnostics, not attributed effects
 
 <figure class="article-figure">
-  <img src="/science/when-a-reduced-ventilation-model-leaves-its-training-regime/p05_02_shift_metrics.svg" alt="Field, exposure, and duration errors for POD, POD-DEIM, and static lookup across five locked cases, with nominal and single-shift gates marked." loading="lazy" />
+  <img src="/science/when-a-reduced-ventilation-model-leaves-its-training-regime/p05_02_shift_metrics.svg" alt="Field, exposure, and duration errors for POD, POD-DEIM, and static lookup across five fixed cases, with nominal and single-shift thresholds marked." loading="lazy" />
   <figcaption>Errors across the five frozen cases reveal difficult source and combined trajectories. Because nominal admissibility already fails, the shifted values cannot be interpreted as additional error caused by shift.</figcaption>
 </figure>
 
-The saved metrics are:
+The measured errors are:
 
 | Case | POD field / exposure / duration | POD-DEIM field / exposure / duration | Static field / exposure / duration |
 |---|---:|---:|---:|
@@ -222,9 +220,9 @@ The warning uses residual evaluations at 24 fixed monitor points. It is intended
 
 The ordering is almost perverse for the intended use. The two worst cases receive the smallest warning scores. Ventilation receives the largest score despite having far lower field error than source or combined. Spearman correlation is $-0.50$, not merely below $+0.60$. The worst-two-within-top-three condition also fails.
 
-This directly refutes one warning rule on one five-case synthetic audit. It does not prove that residual diagnostics are impossible. The sampled locations may miss the translated source, the normalization may be unsuitable, or the DEIM structure may make sampled residual small where reconstruction error is large. A new diagnostic would need a new frozen design and fresh evaluation cases.
+This directly refutes one warning rule on one five-case synthetic comparison. It does not prove that residual diagnostics are impossible. The sampled locations may miss the translated source, the normalization may be unsuitable, or the DEIM structure may make sampled residual small where reconstruction error is large. A new diagnostic would need a new fixed design and fresh evaluation cases.
 
-The full-state subspace angle and projection error are saved only as oracle audits. Largest angles are near 90 degrees across cases, while projection errors range from 0.1526 nominal to 0.4666 combined. These quantities use information unavailable to a cheap online warning, so they are not presented as deployable detectors.
+The full-state subspace angle and projection error are used only as oracle diagnostics. Largest angles are near 90 degrees across cases, while projection errors range from 0.1526 nominal to 0.4666 combined. These quantities use information unavailable to a cheap online warning, so they are not presented as deployable detectors.
 
 ## Spatial fields at the nominal pulse midpoint
 
@@ -239,53 +237,33 @@ The image explains why person-zone endpoints differ. Both zones lie near the rig
 
 The field plot cannot support statements about indoor air quality. The scalar has arbitrary synthetic source amplitude. The velocity field is constant. The domain has no physical room features. The person zones are Gaussian weights, not occupants. The image exists to diagnose the numerical reduction.
 
-## The full-order reference passes its gate
+## The reference check supports the comparison
 
-The terminal verdict contains “REFERENCE_OR_ROM” because either layer could have stopped the phase. Here the reference passes. Halving the time step changes the saved full-order trajectory by a relative $L_2$ value of 0.002520990049, below the 0.03 limit. The minimum concentration is exactly zero within the stored precision and satisfies the $-10^{-12}$ nonnegativity floor.
+The full-order reference is numerically adequate for this comparison. Halving the time step changes its trajectory by a relative $L_2$ value of 0.002520990049, below the 0.03 limit. The minimum computed concentration is zero and satisfies the $-10^{-12}$ nonnegativity floor.
 
-Focused tests cover grid geometry, conservative operator behavior, source evaluation, POD orthogonality, DEIM interpolation, exposure functionals, case freezing, signature construction, and result validation. All 20 tests pass in the captured environment.
+Checks of grid conservation, POD orthogonality, DEIM interpolation, source evaluation, and person-zone functionals support the numerical comparison. They do not establish CFD fidelity or show that the reduced basis is accurate outside the tested cases.
+
+The complete numerical experiment was also run a second time with the same fixed inputs. Field histories, endpoint metrics, selected ranks, warning scores, and the final decision all matched. Runtime was compared separately because processor load can change elapsed seconds without changing the numerical result. No rank, threshold, source grid, or monitor location was altered between the two runs.
 
 These checks justify treating the finite-volume trajectory as the declared Phase-1 reference. They do not establish a grid-converged CFD solution or real-flow fidelity. The grid is only $36\times24$, advection is first-order upwind, and the velocity field is prescribed. “Reference” means reference within this synthetic benchmark and its frozen verification criteria.
 
 That boundary is important. A reduced model can be accurately compared with a synthetic full-order model even when neither represents a building. Numerical-model reduction fidelity and physical-model validity are separate layers.
 
-## Why the speed gate also fails
+## Why the speed target also falls short
 
-The accepted attempt records a median POD-DEIM online speedup of 2.978205301 relative to the full-order finite-volume solve. The gate is five. Individual values vary: roughly 2.80 for nominal, 8.99 for schedule, 3.61 for source, 2.93 for ventilation, and 2.98 for combined.
+The median POD-DEIM online speedup is 2.978205301 relative to the full-order finite-volume solve. The gate is five. Individual values vary: roughly 2.80 for nominal, 8.99 for schedule, 3.61 for source, 2.93 for ventilation, and 2.98 for combined.
 
-These timings are tiny, with full-order cases taking only a few hundredths of a second in the captured implementation. Fixed Python and linear-algebra overhead therefore matters. The schedule case's unusually high ratio is not enough to move the median above five. A different machine, compiled kernel, batch size, or state dimension could change the numbers substantially.
+These timings are tiny, with full-order cases taking only a few hundredths of a second in this Python calculation. Fixed Python and linear-algebra overhead therefore matters. The schedule case's unusually high ratio is not enough to move the median above five. A different machine, compiled kernel, batch size, or state dimension could change the numbers substantially.
 
-Offline costs are excluded by design. Snapshot generation, SVD, DEIM basis construction, point selection, and any model-management cost are not in the online ratio. The saved speedup is therefore not an end-to-end economic claim. It asks only whether this implementation meets one preregistered online threshold. It does not.
+Offline costs are excluded by design. Snapshot generation, SVD, DEIM basis construction, point selection, and any model-management cost are not in the online ratio. This speedup is therefore not an end-to-end economic claim. The measured online ratio is simply below the predeclared threshold.
 
-Failure of the speed gate does not cause the scientific STOP, because nominal accuracy already does. It remains a separate refuted claim. Reporting it prevents an inaccurate ROM from being advertised as successful solely because it runs faster.
+Failure of the speed threshold does not determine where the scientific comparison stops, because nominal accuracy already does. It remains a separate refuted claim. Reporting it prevents an inaccurate ROM from being advertised as successful solely because it runs faster.
 
-## Two identical numerical runs, separate runtime records
-
-The frozen configuration SHA-256 is
-`228dec8f69ca5d02adfcd2e7e94242d29bc5184359947446a4ee48d501ff6f4b`.
-Canonical attempts 0001 and 0002 both produce numerical signature
-`8591afc2f1727654ac264197fc24939e81d44d1ccead8e6cbff16093ca05dcfc`.
-Their machine-readable numerical JSON is byte-equivalent.
-
-Runtime is excluded from the signature. That choice permits genuine timing variation without making deterministic numerical reproduction appear to fail. Each attempt records environment, invocation, config snapshot, per-case series, fields, basis data, metrics, summary, numerical signature, and a separate runtime file.
-
-The second attempt did not trigger rank changes, threshold tuning, source-grid changes, or a new monitor selection. It reproduces the null under the same protocol. Immutable attempt directories and append-only lifecycle records preserve the order of work.
-
-Reproducibility does not convert a failed gate into a positive result. It shows that the failure is not a one-run accident under the captured numerical pipeline.
-
-## Visual evidence and rejected revisions
-
-Five canonical figures are exported as SVG, vector PDF, and 600-dpi PNG. Publish SVGs are byte-identical to accepted canonical SVGs. Lines, markers, hatches, direct labels, and panel structure provide redundant encodings. SVGs contain title and description metadata, all text is black, and source metrics are linked through per-figure manifests.
-
-The accepted source revision is `final-003`. The initial layout was rejected for legend-data, annotation-data, and colorbar-axis collisions, as well as layout-bound failures and rasterized field content inside SVG. A second revision fixed geometry but retained raster colorbars, so it was also rejected. The third revision uses vector colorbar solids and passes programmatic checks plus original-size review of all five 600-dpi PNGs and five 2.5-times PDF renders.
-
-The rejected versions are preserved in the technical repository. The site copies only the accepted publish assets and verifies their hashes. No scientific plot is edited in the blog repository.
-
-## What can be claimed
+## What this result does and does not show
 
 The evidence supports four narrow statements.
 
-First, the declared finite-volume reference passes its Phase-1 time-refinement and nonnegativity checks. Second, the selected rank-six POD and rank-four source-DEIM construction do not pass the nominal trust gate. Third, the frozen 24-point sampled-residual score fails to rank the five cases by POD-DEIM field error. Fourth, the accepted implementation does not meet the five-times median online-speed gate.
+First, the declared finite-volume reference passes its Phase-1 time-refinement and nonnegativity checks. Second, the selected rank-six POD and rank-four source-DEIM construction do not pass the nominal trust gate. Third, the frozen 24-point sampled-residual score fails to rank the five cases by POD-DEIM field error. Fourth, the measured median online speedup does not reach the five-times threshold.
 
 The evidence does not support these broader statements:
 
@@ -301,7 +279,7 @@ The evidence does not support these broader statements:
 
 The distinction between a refuted frozen claim and a universal impossibility is essential. A rank-six basis built from four source cases failed this holdout. Another basis, transport-aware coordinate transform, localized library, shifted mode, nonlinear manifold, larger training design, or different hyper-reduction may work. Phase 1 tests none of them.
 
-## What a defensible next phase would change
+## What should be tested next
 
 A next phase should first repair nominal admissibility without using the existing evaluation cases as an unacknowledged tuning set. Possible model-development directions include expanding nominal training locations, separating transport and source bases, using translated or localized bases, increasing rank under a frozen selection rule, or treating source location parametrically rather than asking one linear source basis to represent translations.
 
@@ -313,32 +291,17 @@ Warning design also needs separation from oracle analysis. A deployable score ma
 
 For a physical ventilation claim, the entire evidence layer would change. A dimensional geometry, boundary conditions, turbulence or flow model, mesh study, measurements, sensor uncertainty, calibration split, external validation, and application-specific endpoint would be required. Health language would require still more evidence and domain review. None of that can be inferred from this synthetic surrogate.
 
-## Reproduction boundary
-
-The technical repository contains the frozen config, lock file, exact attempts, tests, and plotting pipeline. The intended sequence from the P05 project root is:
-
-```powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-.\.venv\Scripts\python.exe scripts\run_phase1.py --config configs\phase1.toml --attempt-id attempt-0001
-.\.venv\Scripts\python.exe scripts\run_phase1.py --config configs\phase1.toml --attempt-id attempt-0002
-.\.venv\Scripts\python.exe scripts\check_reproducibility.py
-.\.venv\Scripts\python.exe scripts\plot_phase1.py
-.\.venv\Scripts\python.exe scripts\check_repo.py
-```
-
-Published attempt IDs are immutable; a fresh execution should use new IDs or a separate results root. Environment-specific runtime should not be expected to match byte for byte. The canonical numerical signature and saved JSON define the recorded reproduction claim.
-
-## A precise conclusion
+## Conclusion
 
 The full-order finite-volume reference is admissible under the frozen synthetic checks. Its time-refinement difference is 0.002520990049 and its state stays nonnegative. The training spectrum is compact, with six POD modes capturing 0.999386845565 of snapshot energy. Four source-DEIM modes capture the saved source energy.
 
 Those compression facts do not produce a reliable nominal ROM. POD field and exposure errors exceed their gates. POD-DEIM field, exposure, and duration errors exceed theirs by larger margins. The correct experiment therefore stops before attributing error to schedule, source-location, or ventilation shift.
 
-The shifted diagnostics still reveal where the frozen model performs poorly. Source and combined cases are catastrophic for POD-DEIM, and the cheap residual warning ranks them as low-risk. That warning is refuted on the five locked cases. The implementation also misses its median online-speed target.
+The shifted diagnostics still reveal where the stated model performs poorly. Source and combined cases are catastrophic for POD-DEIM, and the cheap residual warning ranks them as low-risk. That warning is refuted on the five fixed cases. The implementation also misses its median online-speed target.
 
-The useful lesson is procedural, not promotional. A shift study needs a trustworthy nominal control. A compact singular-value spectrum is not that control. A cheap warning must be tested against actual error rather than assumed informative. A speedup matters only after accuracy and scope are stated. Here every gate is allowed to fail, and the failures determine the only defensible headline: **the reference verifies, the nominal reduced models do not, so the training-regime question remains blocked rather than answered by the shifted plots.**
+The useful lesson is procedural, not promotional. A shift study needs a trustworthy nominal control. A compact singular-value spectrum is not that control. A cheap warning must be tested against actual error rather than assumed informative. A speedup matters only after accuracy and scope are stated. The defensible headline is therefore narrow: **the reference passes its stated checks, the nominal reduced models do not, so the shifted plots cannot identify a training-regime effect.**
 
-## Primary works used in the literature gate
+## References
 
 1. Sempey, Inard, Ghiaus, and Allery, “Fast simulation of temperature distribution in air conditioned rooms by using proper orthogonal decomposition” (2009), [DOI 10.1016/j.buildenv.2008.03.004](https://doi.org/10.1016/j.buildenv.2008.03.004).
 2. Li, Su, Chu, and Xu, “A fast-POD model for simulation and control of indoor thermal environment of buildings” (2013), [DOI 10.1016/j.buildenv.2012.11.020](https://doi.org/10.1016/j.buildenv.2012.11.020).

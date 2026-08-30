@@ -21,28 +21,23 @@ That last sentence is both the reason for the strong numerical result and its mo
 
 Within that narrow boundary, the Phase-1 outcome is clear. The global surrogate has response RMSE $0.0783280594$ and Wasserstein-1 error $0.0439521168$. The fold-aligned surrogate has RMSE $0.000248551855$ and Wasserstein-1 error $5.03489790\times10^{-5}$. Those are improvement factors of about $315.14$ and $872.95$. Under the declared cold-start, quasi-static, right-continuous history, the analytic hot-state probability is $0.5$; the global surrogate gives $0.4710647474$, while the fold-aligned surrogate gives $0.5$. The global surrogate also places $0.0531311035$ probability mass outside the valid response support, whereas the fold-aligned surrogate places none.
 
-Those numbers are a reproducible result for one frozen benchmark. They do not establish an adaptive multi-element method, a cheaper end-to-end workflow, physical reactor fidelity, industrial safety, finite-rate ignition behavior, or a theorem about polynomial chaos. The literature gate was **REFRAME**, precisely because polynomial chaos near bifurcations, multi-element partitioning, discontinuity detection, and uncertain CSTR analysis are already established research areas. The local contribution is an auditable, history-explicit, matched-fit-budget stress test—not the invention of multi-element polynomial chaos.
+Those numbers belong to one fixed benchmark. They do not establish an adaptive multi-element method, a cheaper end-to-end workflow, physical reactor fidelity, industrial safety, finite-rate ignition behavior, or a theorem about polynomial chaos. The literature review led to **REFRAME** because polynomial chaos near bifurcations, multi-element partitioning, discontinuity detection, and uncertain CSTR analysis are established research areas. That label means testing a precise matched-fit question rather than claiming to invent multi-element polynomial chaos.
 
-## The evidence ledger
+## What happened near the fold
 
-The most useful way to read this study is to separate what was measured from what might be tempting to infer.
-
-| Item | Frozen Phase-1 record | Permitted interpretation |
+| Question | Finding | Why it matters |
 |---|---:|---|
-| Literature gate | **REFRAME** | The generic novelty claim was too broad; a single-case reliability benchmark remained defensible. |
-| Physical scope | Synthetic dimensionless CSTR | A canonical numerical model, not a calibrated reactor. |
-| History | Cold start, quasi-static increasing $Da$, right-continuous at ignition | A deterministic branch-selection operator, not a finite ramp-rate simulation. |
-| Uncertainty | $Da=Da_{\mathrm{ign}}+0.008\xi$, $\xi\sim U[-1,1]$ | One symmetric fold-centered input law. |
-| Global fit | Degree 15, 16 Gauss-Legendre evaluations | One global polynomial allocation. |
-| Local fit | Two degree-7 elements, 8 evaluations per side | A fold-aligned oracle allocation, not automatic partitioning. |
-| Setup accounting | Analytic fold cost excluded | Fit budgets match; total costs do not. |
-| Decision | All 16 checks true, status **SUPPORTED** | The frozen smoke criteria passed, not a universal method ranking. |
-| Reproducibility | Two complete reruns share signature 84359c…9043 | Deterministic numerical reproduction on the recorded setup. |
-| Locked work | Wider sweeps, adaptive splitting, physical calibration, final evaluation | No result from these stages is claimed here. |
+| What model was used? | A synthetic dimensionless CSTR | It is a canonical numerical model, not a calibrated reactor. |
+| How was branch history defined? | Cold start, quasi-static increasing $Da$, right-continuous at ignition | The response is deterministic under one history, not a finite-rate simulation. |
+| What uncertainty was applied? | $Da=Da_{\mathrm{ign}}+0.008\xi$, $\xi\sim U[-1,1]$ | The input law is symmetric and centered on the ignition fold. |
+| How were the 16 calls allocated globally? | One degree-15 fit over the whole interval | A continuous polynomial must cross the response jump. |
+| How were the 16 calls allocated locally? | Two degree-7 fits, 8 calls on each side | The oracle split lets each polynomial see only one smooth branch. |
+| What did the comparison establish? | All 16 scientific checks passed; status **SUPPORTED** | The result supports this smoke comparison, not a universal method ranking. |
+| What cost was omitted? | Analytic fold location | Fit-call budgets match, but total setup costs do not. |
 
 This separation matters because “same budget” has several meanings. The two fits use the same number of calls to the response model. Only one fit is told where to split. If locating a fold required continuation, additional solves, adjoints, experiments, or a classifier, those costs would belong in a total-cost study. Phase 1 intentionally does not estimate them.
 
-## Why the literature gate said REFRAME
+## Why the literature changed the question
 
 The initial project title suggested a broad claim: adaptive multi-element polynomial chaos could rescue uncertainty propagation across thermal bistability in a CSTR. The literature review made that headline indefensible before computation began.
 
@@ -54,7 +49,7 @@ There are also two adjacent lines of work that constrain the novelty claim. Bour
 
 These ten primary works establish the broad landscape. Global polynomial approximation can struggle when a response loses smoothness. Partitioning random space is established. Adaptive or automatic discontinuity localization is established. Polynomial chaos has been combined with bifurcation analysis, and probabilistic methods have been applied to uncertain CSTRs. A local experiment cannot honestly be presented as discovering any of those facts.
 
-The reframed question is narrower and more auditable:
+The reframed question is narrower and fully specified:
 
 > Under one frozen, fold-centered uncertainty law and one declared branch history, how different are a global polynomial and an oracle fold-aligned two-element polynomial when both fits spend 16 forward evaluations?
 
@@ -209,7 +204,7 @@ $$
 \Pr(y\ge0.8)=\Pr(\xi\ge0)=\frac{1}{2}.
 $$
 
-This exact $0.5$ is a particularly transparent event audit. It is not a difficult probability calculation, and it should not be sold as one. Its purpose is to expose whether a surrogate shifts or smears a sharp branch transition enough to change an event measure.
+This exact $0.5$ provides a particularly transparent event check. It is not a difficult probability calculation, and it should not be sold as one. Its purpose is to expose whether a surrogate shifts or smears a sharp branch transition enough to change an event measure.
 
 ## The global construction
 
@@ -258,7 +253,7 @@ However, the split is not discovered from those values. It is supplied by the an
 
 ## Building an independent reference
 
-The reference response does not come from either surrogate. For each audit input, the code solves the named branch by deterministic bisection on the exact scalar steady curve. Branch intervals are explicit: cold roots lie below the ignition temperature, middle roots between the fold temperatures, and hot roots above the extinction temperature. This prevents Newton iteration from converging to whichever nearby root happens to attract it.
+The reference response does not come from either surrogate. For each evaluation input, the named branch is solved by deterministic bisection on the exact scalar steady curve. Branch intervals are explicit: cold roots lie below the ignition temperature, middle roots between the fold temperatures, and hot roots above the extinction temperature. This prevents Newton iteration from converging to whichever nearby root happens to attract it.
 
 The fine reference uses 32,768 midpoint cells; the coarse check uses 16,384. Moving from coarse to fine changes the global RMSE by $9.49\times10^{-9}$ and the global Wasserstein-1 error by $1.56\times10^{-9}$. The corresponding fold-aligned changes are $8.02\times10^{-8}$ and $2.65\times10^{-9}$. Every change is below the frozen $10^{-6}$ reference-convergence tolerance.
 
@@ -296,12 +291,12 @@ These large factors are not mysterious. The experimental design gives the local 
 
 <figure>
   <img src="/science/when-polynomial-chaos-crosses-a-fold/p04_03_response_error_near_fold.svg" alt="Log-scale pointwise absolute errors for the global and fold-aligned response surrogates near standardized input zero, with the analytic ignition fold marked." loading="lazy" />
-  <figcaption>The pointwise audit distinguishes grid-dependent maxima from stable one-sided fold-limit diagnostics and discloses the plotting floor used for zero errors.</figcaption>
+  <figcaption>The pointwise comparison distinguishes grid-dependent maxima from stable one-sided fold-limit diagnostics and discloses the plotting floor used for zero errors.</figcaption>
 </figure>
 
-### Why RMSE is large while the saved absolute mean error looks smaller
+### Why RMSE can be large while the absolute difference of means is small
 
-A discontinuity concentrates very large pointwise errors in a narrow region. Squaring those errors makes RMSE sensitive to the oscillatory jump neighborhood. The JSON field named \`mean_absolute_error\` is implemented as the absolute difference between the predicted and reference sample means—not as the mean of pointwise absolute errors—so positive and negative oscillations can cancel before the absolute value is taken. The table therefore labels it “saved absolute mean error” and does not treat it as MAE.
+A discontinuity concentrates very large pointwise errors in a narrow region. Squaring those errors makes RMSE sensitive to the oscillatory jump neighborhood. The other reported average is the absolute difference between the predicted and reference sample means—not the mean of pointwise absolute errors—so positive and negative oscillations can cancel before the absolute value is taken. It is therefore described as an absolute mean difference and is not interpreted as MAE.
 
 The global absolute mean error of $2.306\times10^{-4}$ is not an argument that the event error is negligible. Its threshold shift produces a $0.02894$ absolute probability error, and $5.31\%$ of the surrogate distribution falls outside valid support. Wasserstein-1 asks whether the surrogate reproduces the response distribution; the hot probability tests a declared event; invalid-support mass checks whether the polynomial invents values outside the conversion range. This is exactly why a reliability benchmark needs several metrics rather than one average.
 
@@ -309,91 +304,72 @@ The global absolute mean error of $2.306\times10^{-4}$ is not an argument that t
 
 The response is right-continuous and discontinuous at the fold. A dense grid usually samples close to, but not exactly at, the jump. Its maximum error therefore depends on the closest sample distance. Refining the grid can change that maximum without changing the underlying surrogate.
 
-For this reason, the frozen decision rule does not use dense-grid maximum error as a pass/fail gate. The saved result reports it—$0.389750045$ globally and $0.00747760805$ locally—but treats the one-sided fold maximum as the more stable diagnostic. This is a small but important example of designing a metric around the mathematics rather than selecting whichever number looks most impressive.
+For this reason, the decision rule does not use dense-grid maximum error as a pass/fail criterion. The measured values are $0.389750045$ globally and $0.00747760805$ locally, while the one-sided fold maximum is treated as the more stable diagnostic. This is a small but important example of designing a metric around the mathematics rather than selecting whichever number looks most impressive.
 
 ### Event and support behavior
 
 The analytic history-conditioned hot probability is $0.5$. The global polynomial crosses $y=0.8$ too late, giving $0.4710647474$. The fold-aligned representation uses the declared right element at the split and gives exactly $0.5$ under the implemented threshold calculation.
 
-The global polynomial also overshoots the response support $[0,1]$. The measured input mass mapping to invalid values is $0.0531311035$. The fold-aligned surrogate has zero measured invalid-support mass on the audit grid. Again, that zero belongs to this one configuration; it is not a theorem that local polynomials preserve support.
+The global polynomial also overshoots the response support $[0,1]$. The measured input mass mapping to invalid values is $0.0531311035$. The fold-aligned surrogate has zero measured invalid-support mass on the evaluation grid. Again, that zero belongs to this one configuration; it is not a theorem that local polynomials preserve support.
 
 <figure>
   <img src="/science/when-polynomial-chaos-crosses-a-fold/p04_04_matched_budget_reliability.svg" alt="Paired hatched bars comparing RMSE, Wasserstein-1 error, hot-state probability error, and invalid-support mass for global and fold-aligned surrogates with 16 fit evaluations each." loading="lazy" />
   <figcaption>The fold-aligned surrogate passes the frozen reliability gates. Zero values use a disclosed display floor; analytic fold-location cost is excluded, so this is not a total-cost comparison.</figcaption>
 </figure>
 
-## The frozen decision rule
+## How the comparison was judged
 
-The thresholds were written into the configuration before interpreting the final metrics:
+The thresholds were chosen before interpreting the final metrics:
 
 - at least $10\times$ RMSE reduction;
 - at least $5\times$ Wasserstein-1 reduction;
 - fold-aligned hot-probability error no greater than $0.01$;
-- zero fold-aligned invalid-support mass on the audit grid;
-- all reference, residual, quadrature, reconstruction, fold, and stability checks true.
+- zero fold-aligned invalid-support mass on the evaluation grid;
+- reference, residual, quadrature, reconstruction, fold, and stability calculations all within their stated tolerances.
 
-The observed factors $315.14$ and $872.95$ exceed the first two thresholds. The hot-probability error and invalid-support mass are both zero. All 16 named checks are true, so the machine-readable decision is **SUPPORTED** for “one frozen fold-centered CSTR smoke benchmark.”
+The observed factors $315.14$ and $872.95$ exceed the first two thresholds. The hot-probability error and invalid-support mass are both zero, while the supporting calculations remain within their stated tolerances. The comparison therefore meets every criterion declared for this one fold-centered CSTR smoke benchmark.
 
-The word “supported” is scoped by that final phrase. It is not a release gate for the wider research programme, and it does not unlock a final headline. It means that the predeclared Phase-1 smoke comparison behaved as required.
+Those criteria concern this comparison only. They do not rank all multi-element methods or turn a matched-fit result into a total-cost result.
 
-## Sixteen checks, not one favorable chart
+## Why the numerical result is credible
 
-The saved result records these 16 checks:
+The analytic fold locations agree with an independent scan and bisection, their derivative residuals satisfy tolerance, and both folds are simple. The frozen initial state has a unique stable cold equilibrium; sampled outer branches remain stable, the middle branch is a saddle, and the steady-state residuals stay within tolerance. These checks support the branch history used to define the discontinuous response.
 
-1. analytic and independently bisected folds agree;
-2. both folds are simple;
-3. fold derivative residuals satisfy tolerance;
-4. the frozen initial state has a unique stable cold equilibrium;
-5. sampled outer branches are stable;
-6. the middle branch is a saddle;
-7. steady-state residuals satisfy tolerance;
-8. Gauss weights sum to two;
-9. discrete Legendre orthogonality holds;
-10. collocation nodes are reconstructed;
-11. the reference grid is converged;
-12. the forward-evaluation budgets match;
-13. the RMSE improvement gate passes;
-14. the Wasserstein improvement gate passes;
-15. the fold-aligned hot-probability gate passes;
-16. the fold-aligned valid-support gate passes.
+The two surrogate constructions are checked on a separate numerical layer. Gauss weights and discrete Legendre orthogonality behave as expected, collocation nodes are reconstructed to roundoff, the reference-grid refinement changes every reported error by less than $10^{-6}$, and both fits use 16 forward evaluations. Repeating the full calculation returns the same scientific metrics. This agreement supports the finite comparison without turning an oracle-aligned benchmark into an automatic or total-cost result.
 
-Five focused pytest functions independently exercise the analytic folds, initial state, branch history and stability, matched collocation construction, and saved-result provenance. The repository check and result validator add policy and artifact checks. The automated test count is not the same as the 16 machine-readable scientific checks: several scientific assertions live within each focused test.
+## How a threshold shift becomes probability error
 
-The numerical result carries signature
+The global surrogate's hot-state error can be checked without treating it as a black-box statistic. The right-continuous reference changes branch at
 
 $$
-\texttt{84359c190e22acad2352e1eb1b1cbd36d13895a91f009a6b94351ecc3f8a9043}.
+Da_{\mathrm{ign}}=0.057329640075221795,
 $$
 
-Two complete retained reruns have that signature. The plot script reproduced all 20 generated artifact hashes: four figures, each with SVG, PDF, 600-dpi PNG, manifest, and publish SVG. The publish SVG for every figure is hash-identical to its canonical SVG.
+while the global polynomial crosses $y=0.8$ at
 
-## Failures belong in the record
+$$
+Da_G=0.0577926041163755.
+$$
 
-The first real attempt did not produce a scientific result. It directly invoked the Conda environment executable without activating the environment. NumPy failed during DLL startup inside a linear-algebra path, and Windows returned code $0xc06d007f$. The attempt record explicitly says that scientific evaluation had not begun.
+The shift is therefore
 
-Activating the intended environment fixed the startup path. The decision tolerances and scientific gates were not relaxed. The failed attempt remains the first line of the append-only attempt history, followed by passing canonical runs.
+$$
+\Delta Da=Da_G-Da_{\mathrm{ign}}=0.0004629640411537.
+$$
 
-This distinction prevents two opposite mistakes. An environment failure should not be misdiagnosed as evidence against the mathematical method. But it also should not be erased merely because a later command works. Reproducibility includes the conditions required to start the computation.
+The uniform input interval has width $0.016$. Moving the left edge of the hot region to the right by $\Delta Da$ removes the probability mass
 
-The visual pipeline has its own failure history. Figure 1 was rejected because an in-axes legend obscured part of the cold-fold and protocol region; the legend was moved below the axes. Figure 3 was rejected because the fold line crossed a one-sided-limit annotation; the callout was shortened, backed in white, and moved to the right. Figure 4 was rejected twice: first because labels and footer crowded the plot, and again because the legend still crowded the invalid-mass label. The final revision reserves an empty log-scale decade and centers the legend.
+$$
+\frac{\Delta Da}{0.016}=0.0289352525721.
+$$
 
-All four final $4296\times2160$ PNGs were reviewed at original size for overlap, clipping, label clearance, and readability. Figure 2 passed on its first review; Figures 1 and 3 passed after one revision, and Figure 4 after two. The final visual-QA record is **PASS** and binds each reviewed image to its SHA-256 hash. “Rejected then revised” is stronger evidence than pretending the first layouts were publication-ready.
+That value matches the recorded global hot-probability error $0.028935252572106385$. The estimate $0.4710647474$ is therefore understandable as $0.5-0.0289352526$, not as an unexplained quadrature discrepancy. A response error concentrated near one jump can still move several percentage points of event probability.
 
-## Reproducing Phase 1
+The fold-aligned construction does not ask one polynomial to cross that jump. Its element boundary carries the discontinuity, and the right-continuous rule assigns the fold point to the hot element. That is why it recovers $0.5$ in this symmetric case. The exact match still depends on oracle alignment. If the supplied split moved by $\delta$, the leading probability penalty would be about $|\delta|/0.016$ until ordinary polynomial crossing errors became comparable.
 
-The verified environment used Python 3.12.13, NumPy 2.4.6, PyYAML 6.0.3, Pillow 12.3.0, Matplotlib 3.11.0, and pytest 9.1.1. Exact pins are in the technical repository. After activating that environment, run from the P04 project directory:
+This relation suggests a direct next experiment: displace the split by a declared sequence of positive and negative offsets while holding all 16 fit calls fixed. Plot event error against $|\delta|/0.016$, then check where response approximation error causes the observed curve to depart from that simple line. Such a test would measure sensitivity to imperfect fold localization without pretending that an automatic detector has already been built.
 
-~~~powershell
-python scripts/run_smoke.py
-python scripts/plot_smoke.py
-python -m pytest -q
-python scripts/check_repo.py
-python scripts/validate_smoke.py
-~~~
-
-The numerical script reads the frozen YAML configuration, writes a deterministic result JSON and a separate runtime record, and appends attempt history. The plot script reads the saved result rather than silently recomputing a different experiment. It regenerates all four accessible figure families and their manifests.
-
-A successful reproduction should report **PASS**, all 16 checks true, and numerical signature 84359c…9043. Matching that signature verifies the frozen numerical material, not a particular wall-clock time. The recorded canonical runtime was about 22.50 seconds on one Windows 11 setup, but runtime is hardware- and environment-dependent and is not a scientific decision metric.
+To keep that sensitivity study interpretable, the offset grid should be fixed before its outcomes are inspected. Pilot offsets can be used to choose a useful range, while separate held-out positive and negative offsets test the final rule. Reporting the signed probability shift together with RMSE, Wasserstein error, invalid-support mass, and whether a displaced split crosses a collocation node would help separate locator bias from ordinary polynomial-fit error.
 
 ## What Phase 1 does not establish
 
@@ -411,13 +387,13 @@ Fifth, branch history is idealized. The response assumes a cold start and infini
 
 Sixth, the model is dimensionless and synthetic. There is no data calibration, parameter-identification uncertainty, heat-transfer design, material constraint, controller, hazard analysis, or chemical safety case. “Hot” is merely the declared numerical condition $y\ge0.8$.
 
-Seventh, the decision metrics are empirical on fixed audit constructions. Zero measured invalid-support mass is not an analytic positivity certificate. An exact event match at $0.5$ is not general probability accuracy. Large improvement factors on one discontinuity are not universal superiority.
+Seventh, the decision metrics are empirical on fixed evaluation sets. Zero measured invalid-support mass is not an analytic positivity certificate. An exact event match at $0.5$ is not general probability accuracy. Large improvement factors on one discontinuity are not universal superiority.
 
-Finally, the literature gate is a structured search result, not proof of exhaustive absence. It justifies the REFRAME verdict and the cautious local claim. It cannot certify novelty by itself.
+Finally, the literature review is not proof that no similar work exists. It justifies the cautious local claim, but it cannot certify novelty by itself.
 
-## The locked next stages
+## What should be tested next
 
-The research contract leaves several natural questions deliberately locked:
+The next experiments should address several questions:
 
 - repeat the comparison across wider uncertainty widths, offsets from the fold, and polynomial budgets;
 - perturb the supplied split to measure sensitivity to localization error;
@@ -427,11 +403,11 @@ The research contract leaves several natural questions deliberately locked:
 - compare finite-rate dynamics with the quasi-static history operator;
 - calibrate a physical model only if traceable experimental evidence becomes available;
 - perform a final evaluation only after its protocol is frozen;
-- consider any public headline, paper claim, or venue submission only after those gates.
+- separate this preliminary fit comparison from any later method-level conclusion.
 
 Listing these steps does not claim they have begun. They remain future work. In particular, there is no automatic split, no total-cost result, no calibrated physical reactor, no safety conclusion, and no final sweep hidden behind the Phase-1 figures.
 
-## What survived the stress test
+## Conclusion
 
 Several conclusions do survive careful qualification.
 
@@ -445,7 +421,7 @@ The strongest lesson is not that local polynomial chaos “wins.” It is that a
 
 Until those stages are run, the honest headline remains conditional: **when polynomial chaos crosses this fold, a global polynomial is unreliable; an oracle fold-aligned representation repairs the frozen fit, but the oracle is part of the answer.**
 
-## Primary literature used by the gate
+## References
 
 1. Isabella Carla Gonnella, Moaad Khamlich, Federico Pichi, and Gianluigi Rozza, “A Stochastic Perturbation Approach to Nonlinear Bifurcating Problems,” *Journal of Scientific Computing* (2026), [DOI 10.1007/s10915-026-03338-0](https://doi.org/10.1007/s10915-026-03338-0).
 2. Giacomo Venier, Isabella Carla Gonnella, Federico Pichi, and Gianluigi Rozza, “Stochastic bifurcation analysis via polynomial chaos: consistency and convergence of branch-approximating solutions” (2026), [arXiv DOI 10.48550/arXiv.2605.31288](https://doi.org/10.48550/arXiv.2605.31288).

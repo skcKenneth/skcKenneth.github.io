@@ -17,7 +17,7 @@ A stress test can evaluate thousands of points and still leave the worst point u
 
 That distinction is easy to blur in applied work. A table reports the best of 2,048 samples, several seeds agree to four decimals, and a multistart run returns the same candidate from most starting points. The number feels settled. Yet every item in that description is a lower bound on a maximum: each evaluated point proves that the true maximum is at least as large as the best observed value. Certification needs the other side. It needs a valid upper bound on every point that was not evaluated, plus a stopping rule that makes the distance between the feasible lower bound and the set-wise upper bound explicit.
 
-This project builds the smallest example in which that difference can be audited line by line. The objective resembles a thermal-drift score for a continuous stirred-tank reactor, but the resemblance stops at the algebra. It is a synthetic, dimensionless, static function on a bounded box. There is no dynamic reactor state, no heat-capacity model, no physical unit, no calibrated kinetics, no experiment, and no plant-safety boundary. The certificate concerns one mathematical maximum only.
+This project builds the smallest example in which that difference can be checked line by line. The objective resembles a thermal-drift score for a continuous stirred-tank reactor, but the resemblance stops at the algebra. It is a synthetic, dimensionless, static function on a bounded box. There is no dynamic reactor state, no heat-capacity model, no physical unit, no calibrated kinetics, no experiment, and no plant-safety boundary. The certificate concerns one mathematical maximum only.
 
 The frozen run succeeds on that narrow task. It returns
 
@@ -39,13 +39,13 @@ below the declared tolerance of $10^{-6}$. An independent dense evaluation of 20
 
 The comparison is deliberately uncomfortable. For each fixed IID-uniform and Latin-hypercube budget of 32, 128, 512, and 2,048 points, all 32 seeded replicates miss the declared $10^{-4}$ shortfall rule. That is a record of those exact designs. It is not an estimated miss probability, a confidence statement, or evidence that random sampling usually fails. The local search is stronger in this example: 19 of 32 starts reach within the certificate width. The remaining 13 finish far below. Even the 19 good incumbents have no global upper bound.
 
-## Read the evidence ledger before the chart
+## What was certified—and what was only sampled
 
-The project was designed around claim control. The following table separates what the machine record supports from phrases that would exceed it.
+The table separates a mathematical bound from results that come only from evaluated points.
 
-| Item | Frozen evidence | Permitted interpretation |
+| Question | Finding | Why it matters |
 |---|---:|---|
-| Literature gate | **COMPLETE / REFRAME** | Global deterministic bounds, interval methods, sampling designs, scenario theory, and CSTR uncertainty are established. This is a replication-extension benchmark. |
+| Research context | Global deterministic bounds, interval methods, sampling designs, scenario theory, and CSTR uncertainty are established | This is a focused benchmark, not a new optimization algorithm or reactor theory. |
 | Uncertainty set | $T\in[0.4,2]$, $z\in[-28,-20]$, $H\in[0.5,2]$ | One declared rectangular box, not a measured operating envelope. |
 | Reduction | $\partial J/\partial z>0$, $\partial J/\partial H<0$ on the full box | Every maximizer lies at $z=-20$, $H=0.5$. |
 | Certified interval | $[1.4443773087849885,1.4443777214279065]$ | The synthetic maximum lies inside this interval. |
@@ -53,12 +53,10 @@ The project was designed around claim control. The following table separates wha
 | Dense reference | 200,001 temperatures; value $1.4443773092028358$ | An independent numerical check lies inside the certificate; it is not the proof. |
 | IID and LHS comparison | $0/32$ hits in each of eight method-budget cells | A design-conditional count for exact seeds, budgets, and the $10^{-4}$ rule. |
 | Multistart local search | 19/32 starts within certificate width | Strong feasible incumbents from some starts, no valid global upper bound. |
-| Reproducibility | Two identical scientific signatures, `db6320da…1d473` | Frozen scientific content reproduces exactly; runtime metadata is excluded. |
-| Figure QA | Five SVG/PDF/600-dpi PNG triples passed | Layout and export integrity were inspected; visual QA is not scientific proof. |
 
 One row deserves emphasis: a dense reference and a certificate answer different questions. The dense grid asks whether a very fine finite set contains a value compatible with the certified interval. It can catch an obvious implementation error. It still leaves gaps between adjacent grid points. The deterministic algorithm must bound those gaps. Calling the grid itself a certificate would silently assume the unsampled variation is harmless.
 
-## The literature gate changed the project
+## Why the literature changed the question
 
 The initial project title suggested a new worst-case method for uncertain reactor safety. Current primary literature did not support that headline.
 
@@ -68,7 +66,7 @@ Sampling has its own mature literature. McKay, Beckman, and Conover introduced t
 
 The reactor context is also established and materially richer than this proxy. Uppal, Ray, and Poore studied multiplicity and dynamic behavior in non-isothermal CSTRs ([DOI](https://doi.org/10.1016/0009-2509(74)80089-8)). Vajda and Rabitz analyzed parametric sensitivity for a CSTR ([DOI](https://doi.org/10.1016/0009-2509(93)81066-5)). Zaldivar and co-authors developed a general runaway criterion across reactor classes ([DOI](https://doi.org/10.1016/S0950-4230(03)00003-2)). Grossmann and colleagues reviewed mathematical programming for process systems under uncertainty ([DOI](https://doi.org/10.1016/j.compchemeng.2016.03.002)).
 
-The overlap verdict is high. The repository therefore claims no new global-optimization algorithm and no new reactor-safety theory. Its defensible purpose is educational and evidential: put a valid upper bound, fixed sampling designs, and multistart incumbents in one frozen experiment, then show exactly which statements follow from each object.
+The overlap is high. This study therefore claims no new global-optimization algorithm and no new reactor-safety theory. Its purpose is narrower: put a valid upper bound, fixed sampling designs, and multistart incumbents in one experiment, then show which statements follow from each object.
 
 <figure>
   <img src="/science/random-stress-tests-are-not-certificates/p07_01_model_reduction.svg" alt="Synthetic three-variable objective, bounded uncertainty box, monotonicity signs, exact corner reduction, and the distinction between a certificate and an incumbent." />
@@ -132,7 +130,7 @@ $$
 -(T-T_{\mathrm{cool}})<0.
 $$
 
-The machine audit records a minimum $\partial J/\partial z$ of $1.906519333497153\times10^{-7}$ and a maximum $\partial J/\partial H$ of $-0.2$. The signs therefore hold throughout the full box. Every global maximizer must use the largest allowed $z$ and the smallest allowed $H$:
+The derivative check records a minimum $\partial J/\partial z$ of $1.906519333497153\times10^{-7}$ and a maximum $\partial J/\partial H$ of $-0.2$. The signs therefore hold throughout the full box. Every global maximizer must use the largest allowed $z$ and the smallest allowed $H$:
 
 $$
 z^\star=-20,\qquad H^\star=0.5.
@@ -217,7 +215,7 @@ It satisfies $L\leq f_{\mathrm{dense}}\leq U$. The dense value is slightly above
 
 A certificate interval is often more informative than a long decimal printed as “the optimum.” The interval exposes remaining numerical uncertainty. It also forces the implementation to state what has and has not been bounded. Here the uncertainty is algorithmic and set-wise on one synthetic function. It has nothing to do with model-form error, uncertain physical parameters outside the declared box, or plant measurement error.
 
-## The frozen stress-test comparison
+## What the fixed stress tests found
 
 The sampling comparison contains two methods:
 
@@ -268,7 +266,7 @@ This is a good local solution. It is also still an incumbent. The local algorith
   <figcaption>Nineteen of 32 starts reach within the certificate width and 13 remain far below. None of the 32 local runs supplies the certified upper bound.</figcaption>
 </figure>
 
-This distinction affects how results should be named in code and prose. The implementation calls local outputs `value`, `point`, and `shortfall_to_certified_lower`. It does not call them certified optima. The plot labels the global upper bound separately. The claim ledger repeats the distinction. Redundant wording may look cautious, but it prevents a common semantic bug: storing a high feasible value in a variable named `worst_case` and later forgetting that it was never bounded from above.
+Names matter here. A local output is a value at a feasible point, together with its shortfall from a known lower benchmark. Calling it a certified optimum would change the mathematical meaning. The plot therefore labels the global upper bound separately from every local value. This avoids a common reporting error: a high feasible result gradually being renamed “worst case” even though no bound was placed over the rest of the set.
 
 ## The worst-case slice and the exact corner logic
 
@@ -283,52 +281,46 @@ The order of evidence matters. First prove the coordinate signs on the full doma
 
 The same discipline applies to the independent dense grid. It comes after the valid certificate is defined. Its role is adversarial checking: if the dense value exceeded the upper bound, the enclosure or implementation would be wrong. Because it lies inside, one important inconsistency is absent. But the grid cannot rule out an unseen inter-grid spike by itself.
 
-## Frozen gates, tests, and signatures
+## What validates the certificate
 
-The scientific gate has four clauses:
+The numerical decision has four clauses:
 
 1. the monotonicity signs hold on the declared uncertainty set;
 2. the certificate gap is at most $10^{-6}$;
 3. the independent dense reference lies inside the interval;
-4. the complete gate is true only if all preceding clauses pass.
+4. the certificate is accepted only if all preceding clauses pass.
 
-All four pass. No sampling or local-search success is needed for the certificate. Conversely, favorable stress-test results could not rescue a failed upper-bound gate.
+All four pass. No sampling or local-search success is needed for the certificate. Conversely, favorable stress-test results could not rescue an invalid upper bound.
 
-The mathematical tests check more than file existence. They cover sigmoid and derivative calculations, monotonicity reduction, validity of interval enclosures over adversarial dense probes, outward roundoff guards, branch-and-bound interval containment, sampling bounds and seeds, Latin-hypercube strata, local projection, and deterministic signatures. The repository checker verifies the literature status, DOI count, protocol hash, canonical and rerun equality, claim ledger, figure manifests, SVG text rules, publish-asset equality, and two-reviewer visual QA.
+Independent checks exercise derivative signs, interval enclosures, outward guards, branch containment, Latin-hypercube strata, and local projection. An unchanged repeat returned the same certificate interval and gap as well as the same comparator results. These checks support the implementation without expanding what the certificate covers.
 
-The canonical run and rerun share this scientific signature:
+The dense grid provides another useful adversarial check. If any of its 200,001 values had exceeded the reported upper endpoint, the certificate implementation would have failed immediately. Its value instead lies within the interval. That agreement does not make the grid a proof, but it removes one clear contradiction between an independently evaluated feasible point and the claimed enclosure.
+
+A repeated calculation cannot broaden the claim. It shows that the reported interval and comparison are not one-run accidents under the fixed inputs. A different box, objective, branch rule, seed schedule, sample budget, or hit tolerance asks a new question and requires a new result.
+
+## What every branch preserves
+
+The active branch-and-bound queue represents temperature intervals that have not yet been ruled out. For each interval $I$, the algorithm stores an upper value $U(I)$ that covers every temperature inside it. Evaluated points supply a global feasible lower bound $L$. As long as the queue is active, the true maximum must satisfy
 
 $$
-\texttt{db6320da30c6000e5f398583de8ad0900577b62bb5e37ffc9b74ed6dc181d473}.
+L\leq J^*\leq\max_{I\in\mathcal Q}U(I).
 $$
 
-Runtime, timestamp, platform strings, and environment labels are excluded from the signature. That choice is deliberate. Scientific determinism means the frozen model, seeds, trace, bounds, and comparison results canonicalize identically. Wall time can change with processor load and should not make the scientific record appear different.
+This statement is stronger than “the best point has stopped improving.” A stable incumbent describes search history. The inequality still covers the continuum of unevaluated points. Whenever an interval is split, both children need new valid enclosures. A child may be discarded only when its upper bound is no higher than the current incumbent; a poor midpoint is not enough.
 
-The figure pipeline reads the machine result, configuration, and reproducibility record. It produces five native SVGs, five vector PDFs, and five 600-dpi PNGs, plus a manifest for each figure and byte-identical publish SVGs. Every SVG text node is explicitly black, while color is paired with line style, marker, panel position, or textual status.
+Roundoff matters because an upper bound rounded inward can make the final gap look smaller than it is. This experiment uses a conservative outward guard for its fixed, low-dimensional function and checks the bound calculations against dense probes. It does not claim a general directed-rounding system. The logical order remains important: the enclosure must be valid first, then independent evaluations can look for implementation contradictions.
 
-The first visual pass did not simply approve everything. Four of five draft PNGs needed spacing or wording revisions. PDF rasterization exposed a dash-state issue and later exposed clipped panel headings in two files. One heading required a second, larger move into the safe region. Those rejected observations remain in `figures/visual_qa.json`. The final five PNGs and five 300-dpi PDF rasters were reopened at original detail and passed for text collision, legend-data overlap, panel-label collision, and clipping on all four edges.
+The stopping rule uses the largest upper bound across all active intervals. A narrow interval processed most recently says nothing about another interval whose upper bound remains high. This is why the final $4.1264291805731546\times10^{-7}$ gap compares the incumbent with the most permissive unresolved upper bound, not an average interval width or optimizer step size.
 
-Visual QA proves that the exported evidence can be read. It does not prove the upper enclosure. The interval tests and mathematical derivation carry that burden.
+Thirteen processed nodes are enough for this function because two coordinates were removed analytically and the remaining enclosures are tight. That node count is not an efficiency law. A different function, a looser bound, a larger box, or a changed tolerance could require far more work.
 
-## Reproduction without changing the claim
+## What a probability claim would require
 
-The private technical repository's P07 directory retains the research contract, literature gate, claim ledger, canonical result, source, tests, and rejected figure revisions. The public Blog contains the reviewed interpretation and admitted SVGs but no inaccessible private-repository link.
+Each zero-hit cell answers a narrow design question: for one method, one budget, 32 specified replicates, and the fixed $10^{-4}$ rule, no replicate hit. Turning that count into a miss probability would require an inferential experiment. It would need a defined population of future draws or future optimization problems, a sampling mechanism, an independence model, and a target event chosen before observing the table.
 
-From the project directory, the intended sequence is:
+None of those objects is supplied here. The seeds make the computational comparison repeatable; they are not a random sample from a declared population of possible studies. A binomial interval calculated after the fact would therefore attach a probability model that the experiment never specified.
 
-~~~powershell
-python -m unittest discover -s tests -v
-python scripts/run_experiment.py --output results/canonical.json
-python scripts/run_experiment.py --output results/rerun.json
-python scripts/check_reproducibility.py
-python scripts/plot_results.py
-python scripts/rasterize_pdf_qa.py
-python scripts/check_repo.py
-~~~
-
-A fresh scientific run should reproduce the signature, interval, gap, stress-test records, and local results. Figure hashes will reproduce under the recorded rendering stack. A different compatible stack may render fonts or compression differently while leaving the scientific signature unchanged; the manifest makes that distinction visible.
-
-Reproduction does not authorize altering the frozen tolerance after seeing the result. A different box, objective, branch rule, seed schedule, sample budget, or hit tolerance is a new protocol. It may be a useful follow-up, but it should produce a new lock and a new evidence record.
+Budget growth also needs careful language. More samples can improve the best feasible value while all runs remain outside a fixed hit tolerance. The best sample still gives a valid lower bound at every budget. It never becomes an upper bound, and relaxing the tolerance after seeing the shortfalls would change the comparison. A future statistical study could estimate design-conditional hit rates, but it would be a separate experiment from this deterministic certificate benchmark.
 
 ## What the certificate does not say
 
@@ -346,9 +338,9 @@ The zero-hit table is also easy to overstate. It cannot support “random stress
 
 Local search receives the same treatment. Nineteen near-certificate starts do not prove that multistart usually succeeds. Thirteen poor starts do not prove that gradient methods usually fail. The only general conceptual statement is definitional: a feasible local incumbent without a valid set-wise upper bound is not a global certificate.
 
-## A useful next phase would make the problem harder
+## What should be tested next
 
-The present example is intentionally easy enough to audit. Monotonicity removes two coordinates. A next phase should not quietly present the same reduction as a new algorithm. It could test where the clean logic begins to strain:
+The present example is intentionally easy enough to verify. Monotonicity removes two coordinates. A next phase should not quietly present the same reduction as a new algorithm. It could test where the clean logic begins to strain:
 
 - choose a synthetic objective whose derivative signs change over the box;
 - compare interval, convex-relaxation, and mixed deterministic bounds under one tolerance;
@@ -364,7 +356,7 @@ Each item changes the research question. None is evidenced by the current run.
 
 A particularly useful comparison would match information fairly. The deterministic method gains exact derivative structure and monotonicity. IID and LHS are deliberately generic. That asymmetry is part of the lesson, but it is not a universal efficiency ranking. A boundary-aware sampler that uses the same derivative signs would immediately concentrate on $z=-20$, $H=0.5$. It could find a better incumbent quickly and still lack an upper bound unless it also encloses the remaining temperature interval.
 
-## The practical rule
+## Conclusion
 
 A worst-case report should name both sides of the gap.
 
@@ -376,7 +368,7 @@ The final sentence should remain as narrow as the calculation:
 
 > For the declared synthetic dimensionless objective on the declared bounded set, the deterministic interval run encloses the global maximum within a gap below $10^{-6}$; the fixed seeded sampling and multistart results are feasible incumbents without set-wise upper bounds.
 
-## Primary literature retained by the gate
+## References
 
 1. Garth P. McCormick, “Computability of Global Solutions to Factorable Nonconvex Programs: Part I, Convex Underestimating Problems,” *Mathematical Programming* 10 (1976), [DOI 10.1007/BF01580665](https://doi.org/10.1007/BF01580665).
 2. Ho-Sung Ryoo and Nikolaos V. Sahinidis, “A Branch-and-Reduce Approach to Global Optimization,” *Journal of Global Optimization* 8 (1996), [DOI 10.1007/BF00138689](https://doi.org/10.1007/BF00138689).
