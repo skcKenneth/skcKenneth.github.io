@@ -2,34 +2,34 @@
 title: 網格能否保留這個事件？
 slug: can-a-mesh-preserve-the-event
 sourceSlug: can-a-mesh-preserve-the-event
-summary: 這項可重現 Phase-1A 審計在 adaptive-mesh 比較前停止，因為凍結的 modal-transfer event 從未通過 50-unit establishment rule。
+summary: 這個 matched-work Phase-1 experiment 比較 uniform、residual 與 DWR meshes；在 36 elements 下，uniform 反而最能保留 growing-domain modal-transition time。
 year: 2026
-lastUpdated: 2026-08-30
+lastUpdated: 2026-09-05
 status: Reproducible study
 featured: false
 topics: [數值分析, 數學生物學, 自適應有限元素]
-methods: [Uniform P1 finite elements, Conservative finite differences, Event admissibility audit]
-researchQuestion: 在進行任何 goal-adaptive finite-element 比較前，一個凍結的 modal-transfer 定義能否先產生收斂且經獨立方法核對的 reference event？
-dataType: 合成一維 growing-domain reaction-diffusion trajectories 與 event diagnostics
+methods: [Uniform P1 finite elements, Residual mesh adaptation, Dual-weighted residual adaptation]
+researchQuestion: 在相同 production work 下，one-shot goal-oriented adaptation 能否比 uniform 或 residual meshes 更準確地保留 smooth modal-transition time？
+dataType: 合成一維 growing-domain reaction-diffusion trajectories、meshes 與 modal-transition diagnostics
 codeAvailable: true
 dataAvailable: false
 studentSuitable: true
-heroImage: /science/can-a-mesh-preserve-the-event/p01_01_event_score.svg
+heroImage: /science/can-a-mesh-preserve-the-event/phase1_reference_event.svg
 period: 2026
-validation: 兩次不改設定的 canonical attempts 共用同一 numerical signature；17 個 tests 與獨立 assembly/order checks 全部通過，六組 canonical PNG/PDF figures 亦通過原尺寸 overlap 與 clipping 複核。
+validation: Spectral reference 在 simultaneous space-time refinement 後只移動 0.000641；事件是 transversal，adjoint sensitivity 與 finite difference 的 relative difference 為 8.24e-9，四張 publication figures 均通過原尺寸 overlap 與 clipping 複核。
 keyFindings:
-  - 所有 growing-domain FEM 與 FD solves 都在時間約 539.45 至 541.39 出現 diagnostic raw S=0.5 crossing，但沒有一個通過凍結的 50-unit establishment rule。
-  - 同時符合 amplitude 與 modal-fraction 條件的最長區間只有 16 time units，因此所有 formal event time 都是 null，terminal verdict 為 STOP_PHASE1A。
-  - Residual adaptivity、adjoint、goal marking、estimator effectivity、matched-resolution comparison 與 efficiency claims 均維持 locked，沒有執行。
+  - Independent reference event 是 46.7916；refinement shift 為 0.000641，crossing slope 是 0.0584。
+  - 在相同 36-element production work 下，uniform event-time error 為 2.6001、DWR 為 3.2752、residual 為 4.4030。
+  - 全部 errors 都超過預定 1.5 ceiling，因此保留 Phase-1 REFRAME verdict，不作 method-superiority claim。
 limitations:
-  - 結果只是對一個合成一維 prescribed-growth Schnakenberg benchmark 及一個 event definition 的 reference-feasibility null。
-  - Solver verification 通過不能挽救失敗的 event gate，亦不能在看到結果後用 raw score crossing 取代原定義。
-  - 不支持 biological calibration、adaptive-mesh result、一般 finite-element 排名或 computational-efficiency 結論。
+  - 這只是一次 deterministic 36-element smoke experiment，不是 convergence study 或一般 adaptive-method ranking。
+  - One-shot DWR mesh 承接一個偏遲的 coarse-pilot event，而 residual 混合 spatial、temporal 與 splitting effects。
+  - Synthetic one-dimensional model 沒有 biological calibration，matched primal work 亦未包含 estimator overhead。
 redirectFrom: []
 ---
 
 ## 編輯導讀
 
-文獻 gate 結論是 **REFRAME**：growing-domain reaction–diffusion pattern、adaptive FEM、nonlinear reaction–diffusion goal adaptivity 與 first-threshold-time error estimation 均已有直接先行研究。因此，專案先處理一個更窄的必要條件：確認某個 smooth modal-transfer event 是否真的存在，並可由獨立數值方法建立 reference。
+這次實驗已經進入 adaptive comparison：先以 independent spectral solver 建立 verified smooth event，再讓 uniform、residual 與 DWR meshes 使用相同 production DOFs。Uniform 的誤差最小，但所有方法都未通過預定 ceiling。
 
-這個必要條件失敗。完整文章請閱讀[網格能否保留這個事件？](/zh/writing/can-a-mesh-preserve-the-event/)，內容包括凍結 event definition、不能被升格為 event 的 raw crossing、FEM/FD concordance、no-growth control、numerical verification、rejected-to-accepted visual history、精確重現紀錄，以及仍然 locked 的 adaptive claims。
+完整文章請閱讀[網格能否保留這個事件？](/zh/writing/can-a-mesh-preserve-the-event/)，內容包括 model、event sensitivity、matched-work design、四張 publication figures、coarse-pilot diagnosis，以及下一步所需的 refinement ladder。

@@ -1,326 +1,233 @@
 ---
 title: "Can a Mesh Preserve the Event?"
 slug: can-a-mesh-preserve-the-event
-summary: A frozen growing-domain reaction–diffusion benchmark reaches a convincing raw modal transition, yet the preregistered event remains null and the adaptive-mesh comparison must stop.
+summary: A matched-work experiment asks whether uniform, residual, or goal-oriented finite-element meshes best preserve a growing-domain modal-transition time. In this first smoke test, uniform wins.
 date: 2026-08-30
-lastUpdated: 2026-08-30
+lastUpdated: 2026-09-05
 featured: false
-topics: [Numerical analysis, Finite elements, Reaction–diffusion, Event detection, Reproducibility]
-heroImage: /science/can-a-mesh-preserve-the-event/p01_01_event_score.svg
+topics: [Numerical analysis, Finite elements, Reaction–diffusion, Event detection, Goal-oriented adaptivity]
+heroImage: /science/can-a-mesh-preserve-the-event/phase1_reference_event.svg
 type: Research Notes
 archived: false
 scienceProject: can-a-mesh-preserve-the-event
 redirectFrom: []
 ---
 
-A numerical pattern can look as if it has split while the event used to measure that split does not exist. That distinction decided this project before any adaptive mesh was compared.
+The most interesting result of this experiment is the one I did not expect: giving a mesh more information did not make it more accurate. With the same 36-element production budget, a uniform finite-element mesh located the modal transition more accurately than either a conventional residual mesh or a dual-weighted-residual (DWR) mesh designed for that event.
 
-The intended benchmark was straightforward to state. A one-dimensional Schnakenberg reaction–diffusion pattern evolves on a prescribed exponentially growing domain. A mode-one profile is expected to give way to a mode-two profile. Uniform finite elements, residual-based adaptivity, and event-goal adaptivity would then be compared by their error in the first modal-transfer time. The comparison was never reached.
+The independent spectral reference placed the transition at $t^*_{ref}=46.7916$. The uniform mesh reported $49.3918$, an absolute error of $2.6001$. DWR reduced the error relative to residual adaptation, but still arrived at $50.0668$, or $3.2752$ late. The residual mesh was last at $51.1947$, or $4.4030$ late. All three missed a registered accuracy ceiling of 1.5 time units, so the Phase 1 verdict is **REFRAME**, not a claim that uniform refinement is generally superior.
 
-The frozen event required more than a score crossing. Mode one first had to remain established for 50 continuous time units under two simultaneous amplitude and modal-purity conditions. Only after that establishment interval could an upward crossing of the modal-transfer score at $S=0.5$ count. Every growing-domain finite-element and finite-difference solve produced a raw crossing near time 540 and eventually reached $S=1$. Yet the longest simultaneous establishment run was only 16 time units. Under the declared definition, none of the trajectories has an admissible event time.
-
-That is the result. It was not converted into a success by shortening the window, moving the threshold, replacing the event with peak count, or reporting the raw crossing as $t^*$. The terminal verdict is **STOP_PHASE1A**. Residual adaptivity, the adjoint, goal marking, estimator effectivity, matched-resolution comparisons, and efficiency tests were not run, so this article makes no claims about them.
-
-This negative result is useful because it exposes a dependency that is easy to hide in computational papers. Before asking which mesh preserves an event most accurately, one must show that the declared event is present, unique, persistent, transversal, and reproducible across independent numerical formulations. A sharp-looking transition in a plot satisfies none of those conditions by itself.
+That distinction matters. DWR is not disproved by one coarse, one-shot trial. Instead, the experiment exposes a concrete failure mechanism: the adaptive meshes were selected from a 24-element pilot whose own event was already about 7.19 time units late. Its first-order DWR correction was also extremely large. A mesh indicator built around that poor linearisation can emphasize mathematically relevant locations and still fail to repair the event time.
 
 ## What the experiment found
 
 | Question | Finding | Why it matters |
 |---|---:|---|
-| What was modelled? | One prescribed-growth 1-D Schnakenberg system to $T=1200$ | This is a synthetic numerical case, not a biological calibration. |
-| Did two discretizations see the same dynamics? | Three nested P1 FEM levels and a separately assembled 1024-cell conservative FD solve agreed closely | The visible transition is unlikely to be an assembly error unique to one solver. |
-| When did the visible score cross $0.5$? | Between $539.45$ and $541.39$ | The crossing is a refined diagnostic, not yet the declared event. |
-| Was mode one established long enough beforehand? | 16 time units, with 50 required | The predecessor condition fails by a wide margin. |
-| What is the admissible event time? | None exists for any growing-domain solve | Event-time error and mesh comparisons are undefined. |
-| Did the detector create a transition without growth? | No raw crossing and no event | The same detector passes the negative control. |
-| Did an unchanged repeat alter the result? | No; both runs reached the same scientific conclusion | The result is repeatable under the stated setup. |
+| Is there a stable reference event? | $t^*_{ref}=46.7916$ | The comparison has a defined target. |
+| Does reference refinement move it? | $0.000641$ time units | Reference uncertainty is tiny beside every FEM error. |
+| Is the crossing transversal? | $\dot G(t^*)=0.0584$ | The root is not nearly tangent. |
+| Which mesh is best at 36 elements? | Uniform, error $2.6001$ | Selective placement did not win this smoke test. |
+| How did DWR perform? | Error $3.2752$, effectivity $2.686$ | It ranked second and overestimated the error magnitude. |
+| How did residual adaptation perform? | Error $4.4030$ | Reducing a field residual did not protect the event. |
+| Did any FEM run pass the error ceiling? | No | The next step is a refinement ladder, not promotion. |
 
-The computation passes its operator checks, and the finite-element and finite-difference solutions agree on the visible transition. The declared event is still absent. A well-resolved trajectory cannot turn a false event predicate into a true one.
-
-## Why earlier work changed the question
-
-Growing-domain pattern formation is established territory. Crampin, Gaffney, and Maini derived reaction–diffusion equations on growing domains and demonstrated frequency-doubling behavior in the Schnakenberg system in 1999 ([DOI](https://doi.org/10.1006/bulm.1999.0131)). Their later piecewise-linear analysis examined mode doubling and tripling more directly ([DOI](https://doi.org/10.1007/s002850100112)), while nonuniform domain growth was treated in a related model family ([DOI](https://doi.org/10.1006/bulm.2002.0295)). A blog can use this canonical mechanism as a benchmark, but it cannot present peak splitting under growth as a new discovery.
-
-Finite-element treatment of these systems is also mature. Madzvamuse, Wathen, and Maini applied moving-grid FEM to a biological pattern generator ([DOI](https://doi.org/10.1016/S0021-9991(03)00294-8)). Subsequent work examined moving-grid Turing simulations ([DOI](https://doi.org/10.1007/s10915-004-4617-7)), time stepping on fixed and growing domains ([DOI](https://doi.org/10.1016/j.jcp.2005.09.012)), and the effect of grid velocity on selected patterns ([DOI](https://doi.org/10.1016/j.jcp.2006.11.022)). The last point is especially important here: a plausible pattern is not automatically a mesh-independent pattern.
-
-Verified evolving-domain discretizations create a further constraint. MacKenzie and Madzvamuse analyzed stability and convergence for finite differences on a one-dimensional growing domain ([DOI](https://doi.org/10.1093/imanum/drp030)). Lakkis, Madzvamuse, and Venkataraman established error results for an implicit-explicit finite-element approximation on evolving domains ([DOI](https://doi.org/10.1137/120880112)). MacKenzie, Rowlatt, and Insall later developed a conservative ALE finite-element scheme on evolving two-dimensional domains ([DOI](https://doi.org/10.1137/19M1298585)). A new benchmark must therefore verify its particular implementation rather than treating basic solver correctness as its contribution.
-
-Nor is adaptivity new in this setting. Venkataraman, Lakkis, and Madzvamuse reported adaptive finite elements for semilinear reaction–diffusion systems on growing domains ([DOI](https://doi.org/10.1007/978-3-642-33134-3_8)). Xie and Hu applied adaptively moving finite elements to reaction–diffusion systems, including a growing-domain example ([DOI](https://doi.org/10.4208/nmtma.2016.m1229)). Li and Yi developed goal-oriented a posteriori estimators for nonlinear reaction–diffusion problems ([DOI](https://doi.org/10.1016/j.cam.2022.114362)). Taken together, these works rule out describing this study as the first adaptive growing-domain solver or the first goal-oriented reaction–diffusion method.
-
-Finally, first-threshold time is already recognized as a special quantity of interest. Chaudhry, Estep, Stevens, and Tavener derived error representations for first time to a threshold in differential equations ([DOI](https://doi.org/10.1007/s10543-020-00825-0)). The PDE extension gives adjoint-based error estimates for a functional of an evolutionary semilinear parabolic equation ([DOI](https://doi.org/10.1007/s10543-023-00947-1)). Cliffe, Collis, and Houston treated a nonsmooth travel-time functional in a goal-oriented framework ([DOI](https://doi.org/10.1137/140960499)). The correct contribution class here is therefore a controlled benchmark that combines established ingredients, not a new event-time theory.
-
-The bounded search did not locate the exact conjunction of this one-dimensional frequency-doubling case, this smooth modal score, this establishment predicate, an independent reference, and a matched-resolution comparison of uniform, residual, and event-goal marking. That negative search does not prove absence. It leaves a narrow follow-up question: under a declared protocol, can the prerequisite event be established well enough to support such a comparison?
-
-## The frozen growing-domain system
-
-The reference coordinate is $x\in[0,1]$. Homogeneous Neumann conditions apply at both ends. In the pulled-back coordinate, the two concentrations satisfy
-
-$$
-\partial_t \mathbf c
-=\gamma(t)^{-1}
-\operatorname{diag}(1,0.01)\,\partial_{xx}\mathbf c
-+
-\begin{bmatrix}
-0.9-c_1c_2^2\\
-0.1-c_2+c_1c_2^2
-\end{bmatrix},
-\qquad
-\gamma(t)=e^{0.002t}.
-$$
-
-The growth-rate parameter is $\rho=0.001$, with $\gamma(t)=e^{2\rho t}$. Diffusion in the reference coordinate is therefore weakened by $\gamma^{-1}$ as the physical domain grows. The model follows the nondilute slow-growth benchmark selected from the primary literature. The neglected dilution term is part of that benchmark choice and is not silently restored.
-
-The parameter naming deserves an explicit note. In the Schnakenberg notation used in this study, $a=0.1$ and $b=0.9$, but the first reaction component has production $b=0.9$ and the second has production $a=0.1$:
-
-$$
-R_1=b-c_1c_2^2,
-\qquad
-R_2=a-c_2+c_1c_2^2.
-$$
-
-Writing the numerical values directly in the equation avoids swapping $a$ and $b$ when comparing implementations. The homogeneous state is $(\bar c_1,\bar c_2)=(0.9,1.0)$.
-
-The initial condition is deterministic:
-
-$$
-c_1(x,0)=0.9\,[1-0.005\cos(\pi x)],
-\qquad
-c_2(x,0)=1.0\,[1+0.005\cos(\pi x)].
-$$
-
-This is a 0.5% opposed mode-one perturbation. It is not the random realization in the motivating paper. Fixing it removes seed variation from a feasibility test and makes two independent executions exactly comparable.
-
-The physical language must stay modest. The variables are synthetic concentrations in a prescribed-growth pattern model. There is no organism, measured tissue, fitted growth law, estimated kinetic parameter, cell lineage, gene network, or experimental validation. The benchmark is inspired by developmental pattern formation; it does not make a developmental-biological claim.
-
-## Why peak count was not used as the event
-
-Counting peaks is intuitive but numerically brittle. A tiny shoulder may or may not be counted depending on smoothing, grid spacing, derivative noise, prominence settings, or the location of a mesh node. Integer peak count also changes discontinuously, which complicates an adjoint intended to target event-time error.
-
-The benchmark instead projects the mean-subtracted activator $c_2$ onto cosine modes. Let $a_m(t)$ denote the coefficient of mode $m$. The smooth modal-transfer score is
-
-$$
-S(t)=\frac{a_2(t)^2}{a_1(t)^2+a_2(t)^2+10^{-16}}.
-$$
-
-When mode one dominates, $S$ is near zero. When mode two dominates, $S$ is near one. Squaring removes sign ambiguity. The small fixed denominator regularizer prevents division by zero without materially changing scores at established amplitudes.
-
-A raw upward crossing $S=0.5$ means the squared contributions of modes one and two are equal at that instant. It does not say that a meaningful mode-one state existed beforehand. It does not say that mode two remains dominant afterward. It does not rule out several crossings. It does not establish a nonzero slope. Each of those omissions can make a threshold time unsuitable as a comparison target.
-
-The protocol therefore separated establishment from transfer. Mode one was declared established only after a continuous 50-unit interval in which both
-
-$$
-|a_1(t)|\ge 0.1
-$$
-
-and
-
-$$
-\frac{a_1(t)^2}{a_1(t)^2+a_2(t)^2+10^{-16}}\ge0.8
-$$
-
-held simultaneously. Only after the end of such an interval could the first upward $S=0.5$ crossing be searched. The event also had to be unique, remain above the threshold for 50 subsequent units, and be transversal under
-
-$$
-T\,|S'(t^*)|\ge0.1.
-$$
-
-The medium and fine FEM event times then had to agree within $10^{-4}T=0.12$, while fine FEM and independent FD had to agree within $2\times10^{-4}T=0.24$. All states had to remain finite and above $-10^{-8}$. The no-growth control had to contain no admissible event, and a second unchanged execution had to return the same scientific result.
-
-This predicate is intentionally demanding because a later goal-adaptive comparison would optimize error in $t^*$. If the target itself is unstable, ambiguous, or definition-dependent, a smaller reported error is not meaningful.
-
-## Why the horizon was 1200
-
-For $\rho=0.001$, the motivating growth study identifies a characteristic interval $\log(2)/\rho\approx693$ between frequency doublings. A horizon of $T=1200$ was frozen before the nonlinear run. It was long enough to cover initial pattern establishment, one anticipated transition, and a 50-unit post-crossing persistence check without targeting a later cascade.
-
-The horizon was not extended after the event failed. Extending it could reveal another transition, but that would be a new protocol answering a different question. Nor was the 50-unit establishment window shortened to fit the observed 16-unit run. A feasibility rule has value only when it remains fixed after inspection.
-
-## Two numerical formulations, not two copies of one code path
-
-The uniform finite-element method uses continuous piecewise-linear basis functions, consistent mass and stiffness matrices, nodal reaction evaluation, implicit diffusion, and explicit reaction. The three nested pairs are
-
-$$
-(N_e,\Delta t)=(128,0.2),(256,0.1),(512,0.05).
-$$
-
-The fine finite-difference calculation uses 1024 cell centers and $\Delta t=0.025$. It is assembled independently as a conservative flux-difference scheme with zero boundary fluxes and the same first-order implicit-explicit time treatment. It does not call the FEM matrix assembler, reuse FEM quadrature, or interpolate a FEM solution and label it a reference.
-
-Both formulations use the same model parameters, deterministic initial condition, horizon, output times, event definition, and unchanged detector settings. Agreement between them is more informative than agreement between two resolutions of one code path because distinct spatial representations are less likely to share the same assembly mistake.
-
-The independent FD solve is still not an absolute truth oracle. It is a cross-check at a finer declared resolution. The intended reference would have required a converged admissible event under the nested and cross-formulation tolerances. Since the event is absent, no reference event time exists to subtract from a candidate mesh-strategy time.
-
-## The raw crossing that does not count
+The experiment is deliberately small. It establishes that the reference, event derivative, three equal-size production meshes, and error estimator can all be executed coherently. It does not establish an asymptotic rate, a cost advantage, or a universal ranking.
 
 <figure class="article-figure">
-  <img src="/science/can-a-mesh-preserve-the-event/p01_01_event_score.svg" alt="Modal-transfer scores from four growing-domain solvers across the full horizon and near the raw S equals 0.5 crossing; no trajectory has an admissible event time." loading="lazy" />
-  <figcaption>Nested P1 FEM and independent conservative FD agree on a sharp raw score transition. The crossing remains diagnostic because the frozen 50-unit establishment condition failed.</figcaption>
+  <img src="/science/can-a-mesh-preserve-the-event/phase1_reference_event.svg" alt="Registered and refined reference linearisations crossing zero at nearly identical transition times." loading="lazy" />
+  <figcaption>The reference event is well separated from simultaneous space-time refinement uncertainty. The lines are local linearisations, not complete trajectories.</figcaption>
 </figure>
 
-Across the full horizon, all four growing-domain curves are nearly indistinguishable at the displayed scale. The score rises early to roughly 0.25, drifts around 0.3, collapses near time 530, and then rises rapidly through 0.5 toward one. The zoom shows a refined shift in raw crossing time:
+## Why the question is about an event, not a field
 
-| Solver | Resolution | Diagnostic raw crossing |
-|---|---:|---:|
-| FEM | 128 elements, $dt=0.2$ | 541.3928 |
-| FEM | 256 elements, $dt=0.1$ | 540.2555 |
-| FEM | 512 elements, $dt=0.05$ | 539.7169 |
-| FD | 1024 cells, $dt=0.025$ | 539.4518 |
+Reaction–diffusion simulations produce concentrations over space and time. The scientific statement of interest may instead concern when the field changes character. A tissue pattern may gain a stripe, a chemical mode may overtake another mode, or an activation front may first reach a threshold. These are event questions.
 
-Those values look like a respectable convergence sequence. It would be easy to report the finest number as an event time, or to extrapolate the sequence. Doing so would change the endpoint after seeing the data. The search for $t^*$ stops because the prerequisite establishment interval does not exist. There is therefore no admissible crossing to test for persistence, transversality, or uniqueness, and the event time remains undefined. The raw crossing is reported only as a diagnostic.
+Field accuracy and event accuracy are related but not interchangeable. A solution can have a modest norm error while moving a threshold crossing appreciably. Conversely, a field may differ away from the critical modes but preserve their crossing time. If the question is “when?”, refining a mesh solely where the field residual is large may spend resolution in the wrong place.
 
-This distinction changes the mathematical quantity being measured. A future adjoint for first-threshold time would depend on the derivative of the event functional and on an identifiable crossing. Substituting an informal visual crossing after the declared conditions fail would sever the link between the quantity of interest and the reported number.
-
-## The failure happens before the visible split
-
-<figure class="article-figure">
-  <img src="/science/can-a-mesh-preserve-the-event/p01_02_establishment_audit.svg" alt="Mode-one amplitude and modal fraction for fine FEM and independent FD; the simultaneous qualifying run lasts 16 time units rather than the required 50." loading="lazy" />
-  <figcaption>The amplitude condition is satisfied for a long interval, but modal purity remains below its 0.8 threshold for most of that interval. Their simultaneous persistence lasts only 16 time units.</figcaption>
-</figure>
-
-Panel (a) explains why a quick amplitude check would pass. The absolute mode-one coefficient rapidly exceeds 0.1, stays near 1.5 for hundreds of time units, then collapses as the mode-two profile emerges. There is plainly a strong mode-one component.
-
-Panel (b) supplies the missing condition. The mode-one fraction falls quickly from one to about 0.75, then spends most of the apparent mode-one plateau below the required 0.8. It briefly rises above 0.8 shortly before the transition, but the qualifying overlap with the amplitude condition lasts only 16 units. The required duration is 50.
-
-The two conditions were designed to prevent a weak or strongly mixed state from serving as the predecessor to a clean transfer event. In this trajectory the amplitude is strong but the representation is already mixed. Whether the rule is the best scientific definition is a legitimate question for a future version. It cannot be answered by weakening the rule inside the completed frozen version.
-
-The establishment failure also explains why the dramatic score rise is not enough. A transfer score can move from near zero to near one even when the source state did not satisfy the declared purity standard. The numerator and denominator define relative modal ownership, not the historical legitimacy of the state being left.
-
-## FEM and FD agree that the event is absent
-
-<figure class="article-figure">
-  <img src="/science/can-a-mesh-preserve-the-event/p01_03_null_concordance.svg" alt="Raw crossing diagnostics and longest establishment durations for three nested FEM solves, fine FD, and the no-growth control; no admissible event time exists." loading="lazy" />
-  <figcaption>Refinement aligns the diagnostic crossing, while every growing solve reaches only a 16-unit establishment run and the no-growth control reaches seven. The admissible event is absent throughout.</figcaption>
-</figure>
-
-The left panel preserves the numerical information without mislabeling it. Raw crossing times move from 541.39 toward 539.45 as the joint space-time resolution is refined. The right panel shows the decisive check: every growing-domain method has longest duration 16, far below the dashed line at 50. The no-growth fine FEM control has duration seven and no raw crossing.
-
-This is concordance on a negative result. The solvers do not merely fail independently for unrelated reasons. They resolve nearly the same modal histories and apply the same unchanged predicate to those histories. The event remains absent after refinement and after changing the spatial discretization family.
-
-The result is stronger than “the program did not find an event”: the required simultaneous condition does not persist. It is also narrower than “frequency doubling does not occur.” The spatial profile visibly moves from one dominant interior structure to another, and the raw score crosses. What fails is this specific admissibility definition on this initial condition and horizon.
-
-## What the spatial profiles show
-
-<figure class="article-figure">
-  <img src="/science/can-a-mesh-preserve-the-event/p01_04_activator_profiles.svg" alt="Fine P1 FEM and conservative FD activator profiles at times 500, 540, and 600, showing the spatial structure before, near, and after the raw transition." loading="lazy" />
-  <figcaption>Fine FEM and independent FD resolve the same activator profiles before, near, and after the raw modal transition. The visual agreement supports the diagnostic interpretation; it does not create the declared event.</figcaption>
-</figure>
-
-At $t=500$, the activator profile decreases across the reference interval. At $t=540$, a strong interior peak has formed. By $t=600$, the high region has shifted again. The cosine coefficients summarize this changing spatial structure, while the near-overlap of FEM and FD curves shows that the raw modal transition is not a plotting artifact from one solver.
-
-The profiles also show why integer peak count would invite discretion. Depending on whether an endpoint shoulder, broad maximum, or emerging curvature change is counted, a peak-based event can move. The modal score gives a continuous diagnostic, but continuity alone does not supply establishment, uniqueness, persistence, or transversality. The event predicate needs all of them.
-
-Nothing in this figure identifies a biological structure. The horizontal axis is a reference coordinate, not a measured tissue length. The vertical axis is a synthetic model state, not a concentration assay. Matching two numerical methods is evidence about numerical implementation, not evidence that the equations describe an organism.
-
-## The negative control uses the identical detector
-
-<figure class="article-figure">
-  <img src="/science/can-a-mesh-preserve-the-event/p01_05_negative_control.svg" alt="Modal-transfer score and mode-one amplitude for the rho equals 0.001 growing run and rho equals zero control, using the same initial condition, horizon, and detector." loading="lazy" />
-  <figcaption>Removing growth prevents the raw score crossing under the same fine-FEM grid, time step, initial condition, horizon, and event code. Neither run has an admissible event.</figcaption>
-</figure>
-
-The no-growth control changes only $\rho$ from 0.001 to zero. It retains the fine FEM discretization, initial condition, horizon, output schedule, and detector. Its score remains near 0.24 and its mode-one amplitude remains established. There is no raw crossing and no admissible event.
-
-The growing run behaves differently: its score eventually approaches one and its mode-one amplitude collapses. This supports a limited mechanistic statement inside the synthetic model: prescribed growth changes the modal trajectory under the frozen parameters. It does not rescue the event because the establishment history still fails.
-
-A good negative control need not turn the primary result positive. Here it checks detector specificity. The detector does not create a crossing from numerical drift in a stationary-domain trajectory. It also separates two ways an event can be absent: the no-growth run lacks a raw transfer, while the growing run has a raw transfer but lacks the required predecessor establishment. Stating the reason for each failure prevents the two outcomes from being treated as equivalent.
-
-## Numerical verification passes, and the event still fails
-
-<figure class="article-figure">
-  <img src="/science/can-a-mesh-preserve-the-event/p01_06_verification_orders.svg" alt="P1 FEM IMEX time error, FEM space error, and conservative FD Neumann-space RMS error with observed orders near one, two, and two." loading="lazy" />
-  <figcaption>Manufactured and analytic checks recover the expected first-order time and second-order spatial behavior. These tests validate assembly and convergence trends; they do not alter the event predicate.</figcaption>
-</figure>
-
-The manufactured problem is
+This study uses a modal transition because it is smoother than peak counting. Let $a_k(u)$ denote the cosine coefficient of the activator perturbation for mode $k$. The event functional is
 
 $$
-u_t=0.1u_{xx}-0.3u,
-\qquad
-u(x,0)=\cos(\pi x),
+G(u)=a_7(u)^2-a_6(u)^2.
 $$
 
-with homogeneous Neumann boundaries. FEM temporal errors at $dt=0.02,0.01,0.005$ yield observed orders 0.990 and 0.995. FEM spatial errors at 16, 32, and 64 elements yield orders 2.064 and 2.282. The conservative FD Neumann Laplacian at 32, 64, and 128 cells yields orders 1.9997 and 1.9999. Constant vectors lie in the nullspace to machine precision for both the FEM stiffness matrix and the FD flux Laplacian.
-
-The nonlinear runs remain finite and nonnegative within the frozen $-10^{-8}$ tolerance. Global minima are around 0.110. These checks matter because an absent event caused by blow-up, negative concentrations, a broken Neumann flux, or a first-order spatial bug would be uninterpretable.
-
-Passing them answers a narrower question: the implemented operators and time treatment behave consistently on selected verification problems. It does not prove the nonlinear trajectory is exact. It does not prove every output functional is converged. It certainly does not make an establishment interval appear where the modal histories contain only 16 qualifying units.
-
-This is a useful pattern for scientific software: verification failures can invalidate a scientific conclusion, but verification success does not force the hypothesis to pass. Software quality is a prerequisite for a credible negative result, not a mechanism for avoiding one.
-
-## Why no event-time error can be reported
-
-Suppose one were to call 539.45 the reference event time. A coarse FEM error could then be written as approximately $|541.39-539.45|=1.94$. That calculation is arithmetically correct and scientifically inadmissible. Both values are diagnostic raw crossings obtained before a prerequisite in the declared definition.
-
-The absolute event-time error
+The event time is the first negative-to-positive root after $t=10$:
 
 $$
-|t^*_{h,\Delta t}-t^*_{\mathrm{ref}}|
+t^*=\inf\{t\ge 10:G(u(t))=0,\ \dot G(t)>0\}.
 $$
 
-is defined only when both event times exist under the same event definition. Here neither $t^*_{h,\Delta t}$ nor $t^*_{\mathrm{ref}}$ exists. Their difference is therefore undefined, not zero and not a small error. The endpoint is unavailable.
+Before the crossing, mode 6 carries more squared amplitude; afterwards, mode 7 does. Squaring avoids an arbitrary modal sign, and a transversal crossing gives a differentiable local event time. The definition measures a precise transfer of spectral dominance. It should not be silently re-described as a topological split or a biological developmental landmark.
 
-The same logic blocks estimator effectivity. A ratio between an adjoint estimate and a true event-time error has no denominator. It blocks missed-event and extra-crossing comparisons because there is no admissible reference crossing. It blocks a geometric-mean error ranking across matched budgets because each required error is undefined.
+Peak count was excluded. Counting maxima looks intuitive, but it is discontinuous under small perturbations, depends on prominence and smoothing rules, and can change when a shallow shoulder appears. A modal equality provides a clean scalar root for verification and adjoint analysis.
 
-One might instead redefine the endpoint as raw crossing time and begin a new benchmark. That could be defensible if declared before its results are inspected, accompanied by a revised mathematical rationale and new controls for uniqueness and persistence. It would be a new experiment rather than a repair to Phase 1A.
+## The growing-domain model
+
+The benchmark is a one-dimensional Schnakenberg reaction–diffusion system on a prescribed growing interval. After mapping the physical coordinate to a fixed reference coordinate $\xi\in[0,1]$, the concentrations satisfy
+
+$$
+u_t=a-u+u^2v+\frac{D_u}{L(t)^2}u_{\xi\xi}-\frac{\dot L(t)}{L(t)}u,
+$$
+
+$$
+v_t=b-u^2v+\frac{D_v}{L(t)^2}v_{\xi\xi}-\frac{\dot L(t)}{L(t)}v,
+$$
+
+with no-flux conditions. Here $a=0.1$, $b=0.9$, $D_u=8\times10^{-4}$, and $D_v=2\times10^{-2}$. The domain has a slow exponential component and a smooth growth pulse centred near $t=45$. As $L(t)$ changes, diffusion weakens in reference coordinates and the dilution term removes concentration at rate $\dot L/L$.
+
+This combines two mechanisms. Reaction and diffusion determine which modes can grow, while domain growth changes physical wavelengths and the effective diffusion scale. The pulse makes the mode-6 to mode-7 passage occur within 60 time units. The initial perturbation contains several cosine components and uses a fixed seed. None of these choices represents fitted biological data.
+
+The reference coordinate lets every mesh occupy the same unit interval. A node at $\xi=0.4$ moves physically as $L(t)$ changes, but its reference label remains fixed. The comparison can therefore separate element placement from physical expansion.
+
+## Why earlier work narrowed the contribution
+
+Growing-domain pattern formation is established. Crampin, Gaffney, and Maini derived reaction–diffusion equations on growing domains and studied frequency-doubling in the Schnakenberg system. Later studies developed moving-grid and evolving-domain schemes, analysed convergence, and showed that grid motion can affect selected patterns. The facts that growth can alter a Turing pattern and that finite elements can simulate it are not new contributions here.
+
+Adaptivity is also prior art. Residual estimators for semilinear reaction–diffusion systems and adaptive finite elements on growing domains already exist. Goal-oriented methods weight residuals with an adjoint associated with a chosen quantity. First-time-to-threshold functionals have their own error-representation literature because moving a root is not the same problem as reducing a state norm.
+
+The useful gap is narrower: take one smooth event, verify an independent reference, give uniform, residual, and DWR strategies the same production degrees of freedom, and retain the result even if the goal-oriented method does not win. This is a benchmark question, not a novelty claim for any ingredient.
+
+## Two numerical views of the transition
+
+The reference solver is intentionally different from the compared finite-element solver. It uses cell-centred cosine modes, a fine 512-cell representation, and Strang splitting with a step of $0.0025$. Diffusion is diagonal in cosine space, while reaction and dilution use a second-order update. A simultaneous refinement doubles the cells and halves the time step.
+
+The production solver uses nodal continuous piecewise-linear finite elements. It assembles consistent mass and stiffness matrices on each mesh, advances reaction and dilution at the same temporal order, and treats diffusion with Crank–Nicolson. Its time step is $0.02$. The event is evaluated through quadrature-based cosine projections.
+
+The solvers share the model, initial state, and event, but not their spatial representation or diffusion update. Agreement addresses a useful class of implementation errors. It cannot rule out an error in assumptions shared by both and does not supply experimental validation.
+
+The reference crossing occurs at $46.7916133$. Refining space and time moves it to $46.7909721$. The shift, $6.41\times10^{-4}$, is over four thousand times smaller than the best production error. The crossing slope is $0.058425$, far above the registered floor of $0.002$. Thus an unresolved or tangent reference root is not deciding the comparison.
+
+## Three meshes with one budget
+
+Every production mesh has 36 elements and 37 degrees of freedom per scalar state. With two variables and 3,000 steps, each solve uses 222,000 primal degree-of-freedom steps. This is a matched primal-work proxy, not matched wall-clock cost. The pilot, indicator, enriched adjoint, and mesh selection add overhead to adaptive strategies.
+
+The uniform mesh divides the interval equally. The residual mesh starts from a 24-element pilot, accumulates flux-jump indicators for both fields, and splits the largest-scoring elements. The DWR mesh solves an enriched backward adjoint whose terminal condition comes from event-time sensitivity. It weights the residual by that adjoint up to the pilot event, then refines the largest contributors.
+
+<figure class="article-figure">
+  <img src="/science/can-a-mesh-preserve-the-event/phase1_meshes.svg" alt="Node locations for uniform, residual-adapted, and DWR-adapted one-shot meshes, each using 36 elements." loading="lazy" />
+  <figcaption>Equal element counts do not mean equal placement. Residual adaptation and DWR concentrate the same budget in different parts of the reference interval.</figcaption>
+</figure>
+
+These are one-shot designs, not repeated solve-estimate-mark-refine cycles. This limitation is central. A goal-oriented method depends on a useful primal and adjoint linearisation; one coarse pilot may be too inaccurate for its indicator to predict what a later mesh needs.
+
+## The matched-work result
+
+The uniform mesh is best on both reported errors. Its event time of $49.3918$ is $2.6001$ late, and its relative final-field error is $0.1131$. DWR gives $50.0668$, $3.2752$ late, with field error $0.1596$. Residual adaptation gives $51.1947$, $4.4030$ late, with field error $0.1405$.
+
+<figure class="article-figure">
+  <img src="/science/can-a-mesh-preserve-the-event/phase1_strategy_comparison.svg" alt="Transition-time error bars and a scatter plot comparing event-time error with final-field error for uniform, residual, and DWR meshes." loading="lazy" />
+  <figcaption>The left panel is the primary endpoint. The right panel shows why a field-norm ranking cannot replace an event-time ranking.</figcaption>
+</figure>
+
+Adaptivity is not automatically advantageous at a fixed coarse budget. Uniform coverage can protect global phase balance for a cosine functional. The adaptive rankings also depend on the endpoint: DWR is worse than residual on field error but better on event time, consistent with its goal even though it does not beat uniform.
+
+No run misses the event. The failure is quantitative: every event appears, but every FEM time is more than 1.5 units from the reference. That ceiling was fixed before reading the ranking. Phase 1 therefore calls for diagnosis, not promotion of the least inaccurate method.
+
+## What the adjoint checks
+
+For a transversal root $G(u(t^*))=0$, a perturbation $\delta u$ changes the event time to first order by
+
+$$
+\delta t^*=-\frac{G_u(u(t^*))\,\delta u(t^*)}{\dot G(t^*)}.
+$$
+
+This supplies the terminal quantity for the backward adjoint and a direct verification target. The analytic event-time derivative is $2.77896594$ for a declared modal perturbation. A centred finite difference gives $2.77896596$. Their relative difference is $8.24\times10^{-9}$.
+
+<figure class="article-figure">
+  <img src="/science/can-a-mesh-preserve-the-event/phase1_sensitivity_effectivity.svg" alt="Estimator effectivity for three meshes and agreement between adjoint and finite-difference event-time sensitivities." loading="lazy" />
+  <figcaption>The derivative check is extremely close, so basic root sensitivity is not the likely source of the ranking. All estimators overpredict the actual error magnitude.</figcaption>
+</figure>
+
+Effectivity compares an estimated signed error $\eta$ with $t^*_{ref}-t^*_h$. A value near one is ideal. Absolute effectivities are $3.000$ for uniform, $1.786$ for residual, and $2.686$ for DWR. The registered smoke band was broad, $[0.1,10]$, so DWR does not fail it. Yet none is close enough to one for a calibrated stopping rule.
+
+Derivative verification is necessary but insufficient. It shows that endpoint linearisation behaves under a controlled perturbation near the reference. It does not guarantee that a coarse trajectory lies in the linear regime, that a discrete adjoint represents every split operator, or that an accumulated residual isolates spatial error.
+
+## Why uniform won this round
+
+The immediate clue is the pilot. On 24 elements, the FEM event occurs at $53.9806$, about 7.19 units after the reference. The first-order DWR correction is $-80.336$, far larger than the true discrepancy. The local representation is being asked to operate too far from the reference trajectory.
+
+Four mechanisms deserve testing. First, the endpoint is global: cosine coefficients integrate over the whole domain. Uniform coverage may preserve global phase balance better than selective refinement at low resolution. Second, the indicator is frozen from one coarse pilot; after inserting nodes, the trajectory and adjoint change but the mesh is not updated again. Third, the current residual mixes spatial, temporal, reaction-splitting, and interpolation effects, although the mesh can act only on space. Fourth, equal production DOF-steps exclude adaptive overhead.
+
+These are hypotheses, not post hoc conclusions. Their value is to turn “DWR lost” into experiments that can distinguish a coarse-linearisation problem from an unsuitable endpoint or an accounting problem.
+
+## What this result does, and does not, show
+
+The result supports a limited statement. A smooth mode-6 to mode-7 event exists. An independent reference resolves it at $46.7916$; simultaneous refinement moves it only $0.000641$; the root is transversal; and the event derivative matches finite differences. All three 36-element FEM runs detect one event. At equal production degrees of freedom, uniform has the smallest event-time error, followed by DWR and residual.
+
+It does not show that uniform meshes are generally better or that DWR is unsuitable for event times. There is one parameter set, initial perturbation, event, pilot size, production size, and time step. No convergence ladder is complete. The study does not compare equal total runtime, separate spatial from temporal estimator contributions, treat two-dimensional geometry, test remeshing transfer, fit biological data, or sample robustness over seeds.
+
+Here “best” means only the smallest observed event-time error among these three 36-element runs. It is not a ranking beyond them.
 
 ## What should be tested next
 
-The original comparison contained three primal strategies: uniform P1 FEM, a standard residual or field-norm adaptive FEM, and an adjoint-driven event-goal strategy. Fine fixed-grid FD would serve only as an independent reference check.
+The next experiment should preserve this smoke result and add a refinement ladder. Pilot and production sizes should increase together across at least three registered budgets. Each budget should include the same three strategies, independent reference, and event. The main comparison should show error against both production work and total runtime.
 
-The primary fairness axis was cumulative primal space-time resolution,
+The estimator should separate spatial, temporal, reaction, and splitting terms. Time-step refinement at fixed mesh would reveal whether $\Delta t=0.02$ masks spatial gains. Repeated DWR cycles would test the one-shot limitation. If the pilot remains outside the useful linear regime, continuation could move from an easier approximation toward the registered root.
 
-$$
-\sum_n \mathrm{ndof}_n,
-$$
+Robustness should use a preregistered set of initial spectra, not repeated draws until DWR wins. Alternative mode pairs and pulse amplitudes can test how global the result is while keeping the endpoint comparable. Promotion should require stable improvement at finer budgets, effectivity approaching one, no missed or extra roots, and transparent pilot and adjoint overhead.
 
-matched within 5% across strategies. Final degrees of freedom alone were excluded because a method could use a fine mesh briefly or take many more time steps. This resolution measure still would not equal total computational cost. A future end-to-end timing comparison would have to include the primal solve, adjoint, estimator, field transfer, remeshing, and any rejected steps under the same computing conditions.
+## How to read the four figures together
 
-The preregistered success condition was demanding: at three matched-resolution levels, the goal strategy's geometric-mean event-time error had to be no more than half that of both uniform and residual adaptivity, with no missed or extra crossing. Estimator effectivity had to lie in $[0.5,2.0]$ on the two finest non-reference goal-adaptive levels. A compute-efficiency claim would require a separately preregistered matched-wall-clock comparison.
+Each figure answers a different question, and their order matters. The reference-event panel asks whether there is a sufficiently stable target. If the blue and orange crossings were visibly separated, any ranking of the production methods would inherit that ambiguity. They are almost coincident, and the measured shift is tiny, so the target passes this first check. The nonzero slope adds another safeguard: the event is not created by a flat curve grazing zero.
 
-None of those metrics exists. There is no hidden adaptive run summarized only in prose. No residual marker, adjoint, goal marker, remeshing study, effectivity table, or wall-clock ranking was executed after the prerequisite failed. The blog title is therefore a question whose answer remains untested for meshes: the completed result concerns whether there is an event to preserve.
+The mesh panel then shows what the strategies actually changed. It is tempting to describe an adaptive method only by its name, as though “residual” or “DWR” uniquely determined a computation. In practice, the selected nodes are part of the result. The residual mesh spends many of its added nodes around the centre and right half, with several coarse gaps elsewhere. DWR concentrates more strongly in the left half and leaves visibly wider elements toward the right. Those choices reflect different accumulated indicators from the same pilot.
 
-## Why repeated runs matter
+The error panel is the experiment’s answer. Its left side compares the registered quantity, so that side determines the ranking. The scatter on the right is diagnostic. Uniform lies at the lowest event error and lowest final-field error. Residual and DWR swap order across the two axes. That swap is evidence that the event functional is doing real work: had every method ranked identically under every metric, the goal-oriented construction would have added little information.
 
-Two unchanged runs returned the same modal histories, event diagnostics, controls, verification results, and conclusion that the event is absent. Their wall-clock times differed slightly because scheduling and system state affect elapsed time. Runtime was therefore kept out of the scientific comparison, and neither timing was used to support an efficiency claim.
+Finally, the sensitivity and effectivity panel separates a verified component from an unsettled one. The two derivative bars agree almost perfectly, supporting the calculus used to construct the adjoint terminal condition. The effectivity bars are not as reassuring. They sit above one, showing systematic overprediction of error magnitude at this resolution. Reading only the derivative panel would therefore be too optimistic; reading only the effectivity panel would obscure that the endpoint derivative itself has passed a strong independent check.
 
-The matrices retain their expected properties, the consistent-mass projection behaves correctly, and the manufactured problems recover the expected convergence orders. Event interpolation, uniqueness, persistence, transversality, and the negative control give independent views of the event logic. These results do not rescue the event; they show that its absence survives numerical checks aimed at common sources of error.
+Together the figures form a chain: the target is stable, the strategies make materially different meshes, the resulting errors have a clear ordering, and the estimator is directionally useful but poorly calibrated. No single panel carries the whole conclusion.
 
-## What the independent formulation can rule out
+## Fairness is more than matching the last mesh
 
-The FEM and FD calculations share the same model, initial condition, output times, and event definition, but they do not share the same spatial assembly. Their close agreement therefore makes an assembly-specific error a less plausible explanation for the null. It cannot rule out a mistake common to both formulations—for example, in the event definition, model equation, or interpretation of the modal output—and it does not turn numerical concordance into biological validation. The value of the comparison is narrower: the failed establishment condition survives a change of discretization family.
+“Same number of elements” sounds like an unambiguous fairness condition, but it answers only one accounting question. All three production runs solve the same number of unknowns at each of the same time levels. This prevents an adaptive method from winning merely by using a larger final system. It also makes the primary comparison easy to inspect.
 
-## What the failed event teaches about event design
+However, residual and DWR need information that uniform refinement does not. Both first solve the coarse pilot. Residual then calculates and accumulates indicators. DWR additionally interpolates the trajectory to an enriched space, assembles linearised operators, solves a backward adjoint, and projects contributions back to parent elements. If wall time were the endpoint, those costs would belong in the numerator.
 
-The 50-unit establishment rule did exactly what it was designed to do: it rejected a visually tempting transition whose predecessor state was not sufficiently pure for long enough. That outcome may indicate that the rule is too strict for this trajectory, that the initial perturbation produces a mixed modal state, or that the chosen score is not the right coordinate for a frequency-doubling event. Phase 1A cannot distinguish those explanations.
+There is another subtlety. A production DOF-step is not identical across meshes at the hardware level. Sparse-matrix structure, conditioning, cache behaviour, and solver implementation can change runtime even when matrix dimensions match. The recorded solve times are close, but one machine and one execution are not enough to make an efficiency claim. Runtime noise should be measured with repetitions and a declared summary statistic.
 
-Several redesigns are conceivable. Establishment could be based on a different smooth functional, a relative growth-rate criterion, a neighborhood in modal state space, or a persistence concept less sensitive to a fixed purity level. One could study threshold sensitivity across a preregistered grid, use an event manifold defined from continuation, or formulate a first-passage condition in a two-dimensional $(a_1,a_2)$ plane. One could also choose raw crossing time as the endpoint and accept its weaker interpretation.
+A future paper should therefore report two comparisons. The first is approximation efficiency: event error against primal DOF-steps, which isolates what a chosen mesh does for the forward solve. The second is end-to-end efficiency: event error against total elapsed cost, including pilot, estimator, adjoint, transfer, and any rejected refinement cycle. DWR could improve the first while losing the second, or vice versa. Both outcomes are scientifically meaningful.
 
-Each option changes the estimand. A defensible next phase would specify the scientific meaning first, use pilot data only for design, freeze the revised rule, and evaluate it on fresh calculations. It would preserve the Phase-1A outcome rather than overwriting it. If several definitions are compared, multiplicity and selection rules would need to be explicit.
+Fairness also applies to stopping rules. If uniform uses 36 elements while DWR is allowed to refine until its estimator is satisfied, the final meshes no longer share a budget. Conversely, stopping every method at the same element count may prevent an estimator from reaching the regime where it becomes reliable. A refinement ladder resolves this tension by comparing curves rather than one selected point. The question becomes not “who won at 36?” alone, but “how rapidly does each error fall, and at what total cost?”
 
-The failure also recommends a staged workflow for other PDE events:
+## Why a negative adaptive result is informative
 
-1. Define the event as a mathematical predicate, including history and persistence.
-2. Check it on a fixed reference family before building an estimator around it.
-3. Verify existence, uniqueness, transversality, and independent-discretization agreement.
-4. Freeze interpolation and output-time rules, since they affect first-crossing estimates.
-5. Preserve absent or ambiguous events as outcomes rather than missing data.
-6. Only then compare mesh strategies or optimization methods on event-time error.
+Computational method stories are often narrated from a successful final figure backwards. Parameters are tuned, an adaptive mesh looks plausible, and the best example becomes the headline. That workflow makes it hard to distinguish a robust advantage from selection after inspection. Here the error ceiling and decision rule make the inconvenient outcome visible.
 
-This sequence costs less than implementing an adjoint for an endpoint that later proves undefined.
+The failure contains more information than a generic statement that resolution was insufficient. Uniform, residual, and DWR all use the same resolution, yet their errors differ systematically. All three detect the same type of crossing, so the problem is not a missed-event convention. The reference uncertainty is negligible, so it is not responsible for the ranking. The event derivative verifies, so a basic sign or denominator error is unlikely. What remains is a narrower collection of possibilities involving pilot quality, residual decomposition, global phase representation, and repeated adaptation.
 
-## What this result does and does not show
+The result also prevents an easy but misleading substitution. Because DWR ranks better than residual on event time, one might announce that goal orientation helps. Because uniform ranks best, one might announce that adaptation hurts. Neither statement is supported. The observed order is real, but the registered accuracy condition fails for all methods. The appropriate conclusion is that Phase 1 has produced a diagnostic ordering without a successful approximation.
 
-The result supports four conclusions. The implemented operators pass the stated verification checks. Nested FEM and independently assembled conservative FD resolve closely aligned modal and spatial histories. The no-growth control has no raw transition. Most importantly, the required predecessor state lasts 16 time units rather than 50, so no trajectory has an admissible event time. Repeating the calculation without changing the setup gives the same scientific result.
+This distinction mirrors experimental science. If three instruments all lie outside an acceptance tolerance, the least biased instrument is not automatically certified. Its relative advantage can guide redesign, but certification requires meeting the absolute criterion. Numerical research benefits from the same discipline.
 
-Several questions remain open. No adaptive mesh, residual estimator, adjoint, or matched-budget comparison was run, so their accuracy and efficiency are unknown. The raw crossing near 540 is not a validated event time. This one-dimensional synthetic model also says nothing about two-dimensional growth, other kinetics, other initial conditions, or a particular developmental system.
+Negative results are especially useful when they preserve the machinery needed to improve. The independent reference, modal event, matched meshes, sensitivity test, estimator output, and visual diagnostics now form a reusable baseline. A refined experiment can change one axis at a time and compare against the retained smoke result. That is much more informative than silently replacing the coarse configuration and presenting only a later success.
 
-Those limits do not weaken the numerical finding. They locate it. The study shows that a visually sharp and repeatable transition can fail the event definition that a later mesh comparison would need.
+## Checks that protect the interpretation
+
+Several checks guard different parts of the conclusion. The reference refinement protects the denominator of every reported event error. Transversality protects the local stability of the root. The adjoint-versus-finite-difference comparison protects the event derivative. Equal production DOF-steps protect the primary resource comparison. Recording final-field error prevents the event metric from hiding broad degradation of the state. Reporting effectivity exposes whether the estimator is calibrated rather than merely finite.
+
+Software checks serve a narrower role. The automated tests cover matrix symmetry and conservation-related properties, modal projection, event location, mesh splitting, configuration loading, sensitivity agreement, and the smoke pipeline. Passing them does not validate the Schnakenberg model or prove a theorem about DWR. It shows that the reported calculation survives checks aimed at common coding failures.
+
+Visual quality is also part of interpretation. Colours are paired with markers or hatching, so the strategies remain distinguishable without relying on hue. Axes state the actual error quantities rather than vague “performance” scores. The reference plot labels its local linearisation explicitly. Captions say when a cost comparison excludes overhead. These choices do not change the data, but they reduce the chance that a reader infers more than the experiment measured.
+
+The strongest protection is still the boundary on the claim. This is a deterministic one-shot Phase 1 smoke experiment. Its role is to decide whether the current design deserves a larger study and to reveal what must change. On that standard it succeeds: it rejects immediate promotion and gives a focused plan for the next computation.
+
+## A practical lesson for event-driven modelling
+
+The workflow generalises beyond this particular PDE. Begin by writing the event as a scalar mathematical condition, including direction, earliest admissible time, and the rule for multiple roots. Then establish a reference whose uncertainty is small relative to the differences one hopes to compare. Check transversality because a nearly tangent root can turn tiny field errors into unstable time shifts. Only after those steps should an adaptive indicator be judged by event-time error.
+
+This ordering prevents an attractive mesh picture from becoming evidence before the endpoint itself is trustworthy. It also makes failed stages informative rather than embarrassing.
+
+The pilot deserves its own acceptance test. Before using its adjoint to move a mesh, compare its event with the reference and inspect the scale of its predicted correction. A correction vastly larger than the observed discrepancy is not merely an unattractive number; it is evidence that linearisation-based marking may be outside its useful regime. The response need not be to abandon DWR. One can increase pilot resolution, refine time independently, repeat adaptation, or decompose the residual before spending a larger production budget.
+
+Finally, retain two views of quality. The target metric answers the scientific question, while a broad state metric checks that optimizing the target has not damaged everything else. Neither should silently replace the other. This discipline keeps an event-driven computation interpretable even when the preferred method fails to win.
 
 ## Conclusion
 
-The numerical trajectory contains a sharp and reproducible raw transfer from mode-one-dominated to mode-two-dominated behavior. Three nested uniform P1 FEM levels and an independently assembled conservative FD calculation place that diagnostic crossing near time 540. Fine spatial profiles agree. A no-growth control does not cross. Manufactured and analytic checks recover the expected time and space orders.
+This Phase 1 experiment reaches the comparison implied by its title, and the answer is conditional. A mesh can preserve the event, but the most informed mesh did not preserve it best at this coarse matched budget.
 
-None of those facts creates the preregistered event. The mode-one amplitude condition is satisfied, but the simultaneous modal-purity condition persists for only 16 units rather than 50. The declared event is absent, so the study stops at Phase 1A.
+The reference is strong enough: the transition is $46.7916$, refinement changes it by $0.000641$, the crossing is transversal, and the adjoint derivative matches finite differences. The production result is clear: uniform error is $2.6001$, DWR error $3.2752$, and residual error $4.4030$. Every value exceeds the registered ceiling, so the verdict is **REFRAME**.
 
-The project therefore answers a question that comes before the title question. It does not yet know whether a mesh can preserve this event, because this event definition does not produce an admissible reference on the stated benchmark. Reporting 539.45 as the event time would answer a different question. The next experiment must either justify a revised event definition in advance or find a parameter regime in which the present definition actually produces a valid reference.
+That outcome is more useful than a forced success. It identifies a late pilot, oversized DWR correction, global endpoint, and mixed residual contributions as targets. The next claim must come from a refinement ladder, not from relabelling this smoke run.
 
 ## References
 

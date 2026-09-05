@@ -1,34 +1,34 @@
 ---
 title: Can a Mesh Preserve the Event?
 slug: can-a-mesh-preserve-the-event
-summary: A reproducible Phase-1A audit stops before adaptive-mesh comparison because the frozen modal-transfer event never satisfies its 50-unit establishment rule.
+summary: A matched-work Phase-1 experiment finds that a uniform mesh preserves a growing-domain modal-transition time better than one-shot residual and DWR meshes at 36 elements.
 year: 2026
-lastUpdated: 2026-08-30
+lastUpdated: 2026-09-05
 status: Reproducible study
 featured: false
 topics: [Numerical analysis, Mathematical biology, Adaptive finite elements]
-methods: [Uniform P1 finite elements, Conservative finite differences, Event admissibility audit]
-researchQuestion: Does one frozen modal-transfer definition admit a converged independent reference before any goal-adaptive finite-element comparison is attempted?
-dataType: Synthetic one-dimensional growing-domain reaction-diffusion trajectories and event diagnostics
+methods: [Uniform P1 finite elements, Residual mesh adaptation, Dual-weighted residual adaptation]
+researchQuestion: At matched production work, does one-shot goal-oriented adaptation preserve a smooth modal-transition time better than uniform or residual meshes?
+dataType: Synthetic one-dimensional growing-domain reaction-diffusion trajectories, meshes, and modal-transition diagnostics
 codeAvailable: true
 dataAvailable: false
 studentSuitable: true
-heroImage: /science/can-a-mesh-preserve-the-event/p01_01_event_score.svg
+heroImage: /science/can-a-mesh-preserve-the-event/phase1_reference_event.svg
 period: 2026
-validation: Two unchanged canonical attempts share one numerical signature; all 17 tests and independent assembly/order checks pass, and all six canonical PNG/PDF figure pairs pass original-size overlap and clipping review.
+validation: The spectral reference changes by only 0.000641 under simultaneous space-time refinement; the event is transversal, the adjoint sensitivity matches finite differences to 8.24e-9 relative difference, and all four figures pass original-size overlap and clipping review.
 keyFindings:
-  - Every growing-domain FEM and FD solve has a diagnostic raw S=0.5 crossing near time 539.45 to 541.39, but no solve satisfies the frozen 50-unit establishment rule.
-  - The longest simultaneous amplitude-and-modal-fraction run is 16 time units, so every formal event time remains null and the terminal verdict is STOP_PHASE1A.
-  - Residual adaptivity, the adjoint, goal marking, estimator effectivity, matched-resolution comparisons, and efficiency claims remain locked and were not executed.
+  - The independent reference event is 46.7916; refinement moves it by 0.000641 and the crossing slope is 0.0584.
+  - At equal 36-element production work, uniform has event-time error 2.6001, DWR 3.2752, and residual adaptation 4.4030.
+  - All errors exceed the registered 1.5 ceiling, so the retained Phase-1 verdict is REFRAME rather than a method-superiority claim.
 limitations:
-  - The result is a reference-feasibility null for one synthetic one-dimensional prescribed-growth Schnakenberg benchmark and one event definition.
-  - Passing solver verification cannot rescue the failed event gate, and a raw score crossing cannot be substituted after seeing the result.
-  - No biological calibration, adaptive-mesh result, general finite-element ranking, or computational-efficiency conclusion is supported.
+  - This is one deterministic 36-element smoke experiment, not a convergence study or a general ranking of adaptive methods.
+  - The one-shot DWR mesh inherits a late coarse-pilot event and its residual mixes spatial, temporal, and splitting effects.
+  - The synthetic one-dimensional model has no biological calibration, and estimator overhead is excluded from matched primal work.
 redirectFrom: []
 ---
 
 ## Editorial overview
 
-The literature gate returned **REFRAME**: growing-domain reaction–diffusion patterns, adaptive FEM, nonlinear reaction–diffusion goal adaptivity, and first-threshold-time error estimation all have direct precedents. The project therefore began with a narrower prerequisite: establish that one smooth modal-transfer event exists and has an independently reproducible reference.
+The experiment now reaches the adaptive comparison. A verified independent reference gives a smooth mode-6 to mode-7 crossing, then uniform, residual, and DWR meshes receive identical production degrees of freedom. Uniform is least inaccurate, while every method misses the registered error ceiling.
 
-That prerequisite failed. Read [Can a Mesh Preserve the Event?](/writing/can-a-mesh-preserve-the-event/) for the frozen event definition, the raw crossing that cannot be promoted to an event, FEM/FD concordance, the no-growth control, numerical verification, rejected-to-accepted visual history, exact reproduction record, and the adaptive claims that remain locked.
+Read [Can a Mesh Preserve the Event?](/writing/can-a-mesh-preserve-the-event/) for the model, event sensitivity, matched-work design, four publication figures, the coarse-pilot diagnosis, and the refinement ladder needed before any broader claim.
