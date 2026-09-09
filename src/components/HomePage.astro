@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "./ProjectCard.astro";
+import { selectLatestWriting } from "../lib/latest-writing.mjs";
 
 const { locale = "en" } = Astro.props;
 const isZh = locale === "zh-Hant";
@@ -14,7 +15,6 @@ const projects = (await getCollection(isZh ? "projectsZh" : "projects", ({ data 
     || (a.data.title < b.data.title ? -1 : a.data.title > b.data.title ? 1 : 0)
   );
 const writingCollection = await getCollection(isZh ? "writingZh" : "writing", ({ data }) => !data.draft && !data.archived);
-const allWriting = writingCollection.filter(({ data }) => data.featured);
 const portfolioEntries = writingCollection.filter(({ data }) =>
   data.date?.getUTCFullYear() === 2026 && ["Research Notes", "研究筆記"].includes(data.type)
 );
@@ -26,9 +26,7 @@ const portfolioUpdated = latestPortfolioUpdate.toLocaleDateString(isZh ? "zh-Han
   day: "numeric",
   timeZone: "UTC"
 });
-const writing = allWriting
-  .sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0))
-  .slice(0, 3);
+const writing = selectLatestWriting(writingCollection);
 
 const copy = isZh ? {
   title: "真實系統的數學模型。",

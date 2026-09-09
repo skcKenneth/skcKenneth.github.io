@@ -31,6 +31,11 @@ The sibling repository is optional because the generated snapshots and approved
 public assets are committed. A temporary GitHub failure therefore does not make
 the personal site unbuildable.
 
+For each new article, publication includes the English and Traditional Chinese
+homepages. Check their current recommendations locally at desktop and mobile
+sizes, then verify both live homepages after Pages reports success for the exact
+pushed commit. An article-list check alone does not complete publication.
+
 ## ScienceProject CI
 
 `publication-metadata.yml` validates the technical manifest and rejects local

@@ -123,6 +123,23 @@ one substantive Traditional Chinese edition whose `sourceSlug` points back to
 the English slug. Run `npm run check:bilingual`; the same strict parity gate is
 part of the production build.
 
+## Homepage publication requirement
+
+Every new bilingual article publication must update and verify both `/` and
+`/zh/`, not only Writing, Projects, or mentoring pages. The homepage dossier
+and Latest writing cards automatically show the three newest non-draft,
+non-archived articles by publication date. `featured: false` must not exclude
+a newly published article from those positions. Equal dates use the shared
+source slug for deterministic bilingual order; this does not imply an order
+of publication within that day. Keep accurate dates and paired metadata.
+
+Verify the homepage article titles, links, images, and mobile layout in the
+local production build and again after the matching Pages deployment succeeds.
+`test:homepage` and `test:homepage:built` enforce selection and rendered parity;
+both run in the complete build. An accepted student-research outcome should
+also be reflected in both About pages when requested, using verified mentoring
+roles and milestones without inferring presentation or proceedings publication.
+
 ## Research and teaching
 
 - Research entries describe programmes and link across projects.
