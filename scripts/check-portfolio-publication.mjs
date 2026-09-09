@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validatePublishSvg } from "./science-sync-policy.mjs";
+import { checkResearchArticles, researchArticles } from "./check-research-articles.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const portfolioSlugs = [
@@ -18,10 +19,10 @@ const portfolioSlugs = [
 ];
 const requestedSlugIndex = process.argv.indexOf("--slug");
 const requestedSlug = requestedSlugIndex >= 0 ? process.argv[requestedSlugIndex + 1] : "";
-if (requestedSlugIndex >= 0 && !portfolioSlugs.includes(requestedSlug)) {
+if (requestedSlugIndex >= 0 && ![...portfolioSlugs, ...Object.keys(researchArticles)].includes(requestedSlug)) {
   throw new Error(`--slug must name one portfolio project; received ${requestedSlug || "<missing>"}`);
 }
-const selectedSlugs = requestedSlug ? [requestedSlug] : portfolioSlugs;
+const selectedSlugs = requestedSlug ? portfolioSlugs.filter(slug => slug === requestedSlug) : portfolioSlugs;
 const minimumFigures = 4;
 const errors = [];
 const inventory = [];
@@ -181,6 +182,8 @@ for (const slug of selectedSlugs) {
 for (const row of inventory) {
   console.log(`${row.slug}: approved ${row.approved}; EN figures ${row.englishFigures}; ZH figures ${row.chineseFigures}`);
 }
+
+errors.push(...checkResearchArticles(requestedSlug ? Object.keys(researchArticles).filter(slug => slug === requestedSlug) : undefined));
 
 if (errors.length) {
   console.error(`Portfolio publication check failed (${errors.length}):\n${errors.map((error) => `- ${error}`).join("\n")}`);

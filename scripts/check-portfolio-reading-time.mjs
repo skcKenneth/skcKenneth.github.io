@@ -17,8 +17,11 @@ const portfolioSlugs = [
   "from-simulation-to-certificate",
   "when-a-traffic-solver-invents-a-jam",
 ];
-const newArticleSlug = "when-early-warnings-cannot-tell-the-difference";
-const checkedSlugs = [...portfolioSlugs, newArticleSlug];
+const researchArticleSlugs = [
+  "when-early-warnings-cannot-tell-the-difference",
+  "when-starting-over-finds-the-target-faster",
+];
+const checkedSlugs = [...portfolioSlugs, ...researchArticleSlugs];
 const requestedSlugIndex = process.argv.indexOf("--slug");
 const requestedSlug = requestedSlugIndex >= 0 ? process.argv[requestedSlugIndex + 1] : "";
 if (requestedSlugIndex >= 0 && !checkedSlugs.includes(requestedSlug)) {
@@ -105,8 +108,8 @@ for (const slug of selectedSlugs) {
   const chineseMinutes = chineseCharacters / 450 + latinWords / 220;
 
   rows.push({ slug, englishMinutes, chineseMinutes, chineseCharacters, latinWords });
-  const requiredMinimum = slug === newArticleSlug ? 22 : minimumMinutes;
-  if (slug === newArticleSlug && (englishMinutes > 30 || chineseMinutes > 30)) {
+  const requiredMinimum = researchArticleSlugs.includes(slug) ? 22 : minimumMinutes;
+  if (researchArticleSlugs.includes(slug) && (englishMinutes > 30 || chineseMinutes > 30)) {
     errors.push(slug + ": both language editions must be at most 30 raw minutes");
   }
   if (englishMinutes < requiredMinimum) {

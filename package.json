@@ -13,6 +13,7 @@
     "sync:teaching": "node scripts/sync-teaching-resources.mjs",
     "test:publication": "node scripts/science-sync-policy.test.mjs",
     "test:math-rendering": "node --test tests/math-rendering-policy.test.mjs",
+    "test:stochastic-resetting": "node --test tests/stochastic-resetting-article.test.mjs",
     "test:math-rendering:built": "node --test tests/math-rendering-built.test.mjs",
     "test:quantum-repeater": "node tests/quantum-repeater-model.test.mjs",
     "test:melt-pond-topology": "node --test tests/melt-pond-topology-model.test.mjs tests/melt-pond-topology-parity.test.mjs",
@@ -34,7 +35,7 @@
     "check:teaching-resources": "node scripts/check-teaching-resources.mjs",
     "build:site": "astro build",
     "index:search": "pagefind --site dist",
-    "build": "node scripts/science-sync-policy.test.mjs && node --test tests/teaching-resource-policy.test.mjs && node --test tests/math-rendering-policy.test.mjs && node --test tests/melt-pond-topology-model.test.mjs tests/melt-pond-topology-parity.test.mjs && node scripts/sync-science-projects.mjs && node scripts/sync-teaching-resources.mjs && node scripts/check-science-assets.mjs && node scripts/check-teaching-resources.mjs && node scripts/migrate-legacy-writing.mjs && node scripts/check-bilingual-content.mjs --strict && node scripts/check-portfolio-reading-time.mjs && node scripts/check-portfolio-publication.mjs && astro check && astro build && node --test tests/math-rendering-built.test.mjs && node --test tests/teaching-resource-built.test.mjs && node --test tests/melt-pond-topology-built.test.mjs && pagefind --site dist && node scripts/check-science-catalog.mjs && node scripts/check-legacy-writing.mjs && node scripts/check-writing-visuals.mjs && node scripts/check-built-links.mjs && node scripts/check-output.mjs",
+    "build": "node scripts/science-sync-policy.test.mjs && node --test tests/teaching-resource-policy.test.mjs && node --test tests/math-rendering-policy.test.mjs && node --test tests/stochastic-resetting-article.test.mjs && node --test tests/melt-pond-topology-model.test.mjs tests/melt-pond-topology-parity.test.mjs && node scripts/sync-science-projects.mjs && node scripts/sync-teaching-resources.mjs && node scripts/check-science-assets.mjs && node scripts/check-teaching-resources.mjs && node scripts/migrate-legacy-writing.mjs && node scripts/check-bilingual-content.mjs --strict && node scripts/check-portfolio-reading-time.mjs && node scripts/check-portfolio-publication.mjs && astro check && astro build && node --test tests/math-rendering-built.test.mjs && node --test tests/teaching-resource-built.test.mjs && node --test tests/melt-pond-topology-built.test.mjs && pagefind --site dist && node scripts/check-science-catalog.mjs && node scripts/check-legacy-writing.mjs && node scripts/check-writing-visuals.mjs && node scripts/check-built-links.mjs && node scripts/check-output.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
