@@ -12,6 +12,7 @@ const status = z.enum([
   "Reproducible study",
   "Manuscript in preparation",
   "Submitted",
+  "Accepted",
   "Published",
   "Teaching case",
   "Archived"

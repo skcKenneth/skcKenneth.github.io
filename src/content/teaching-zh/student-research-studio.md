@@ -3,7 +3,7 @@ title: 學生研究工作室
 slug: student-research-studio
 sourceSlug: student-research-studio
 summary: 由重現一項結果開始，逐步走到提出、測試及傳達獨立數學建模問題的指導路徑。
-lastUpdated: 2026-08-24
+lastUpdated: 2026-09-09
 featured: true
 topics: [研究指導, 驗證, 溝通]
 level: Advanced
@@ -15,6 +15,10 @@ resourceType: Student research
 > **學生研究指導實例 — AI4Nature@AVSS 2026**
 >
 > 我指導參與 *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation* 的學生團隊。官方工作坊議程將該研究列為 2026 年 8 月 31 日 Oral Session 1A 的 Paper ID 7；本人亦列作共同作者。[查看官方議程 →](https://www.ai4nature.tech/program.html)
+
+> **學生研究指導實例 — ADMA 2026**
+>
+> 我指導參與 *When Solar Power Changes Fast: A Multi-Site Audit of Prediction-Interval Reliability under Ramp Events and Sensor Degradation* 的學生研究。正式作者依次為 Hong U Lo、Zibo Gao、Peng Chi Lam、Sok Kin Cheng，所屬機構均為 St. Joseph Diocesan College (The Fifth School), Macao SAR, China；本人亦為通訊作者。研究於 2026 年 9 月 3 日由 Research Track 接納為 Short Paper，9 月 9 日已提交 camera-ready。會議預定於 2026 年 11 月 13–15 日在香港舉行；正式論文集出版資料待確認。[研究長文 →](/zh/writing/when-solar-power-changes-fast/) · [專案與結果 →](/zh/projects/when-solar-power-changes-fast/) · [官方會議 →](https://adma2026.github.io/)
 
 ## 入門證據
 

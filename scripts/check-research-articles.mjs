@@ -7,6 +7,7 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 export const researchArticles = {
   "when-early-warnings-cannot-tell-the-difference": 5,
   "when-starting-over-finds-the-target-faster": 8,
+  "when-solar-power-changes-fast": 8,
 };
 
 export function checkResearchArticles(slugs = Object.keys(researchArticles)) {
