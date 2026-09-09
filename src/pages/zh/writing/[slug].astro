@@ -5,7 +5,7 @@ import ArchiveNotice from "../../../components/ArchiveNotice.astro";
 import ReadingNav from "../../../components/ReadingNav.astro";
 
 export async function getStaticPaths() {
-  const items = (await getCollection("writingZh", ({ data }) => !data.draft))
+  const items = (await getCollection("writingZh", ({ data }) => !data.draft || import.meta.env.DEV))
     .filter((entry) => entry.data.slug !== "legacy-archive")
     .sort((a, b) => (a.data.date?.valueOf() || 0) - (b.data.date?.valueOf() || 0));
   return items.map((entry, index) => ({
@@ -48,6 +48,7 @@ const typeLabels: Record<string, string> = {
 >
   <header class="page-head"><div class="container">
     <p class="eyebrow">{typeLabels[entry.data.type]}</p>
+    {entry.data.draft && <p class="small">草稿預覽 · 尚未刊登</p>}
     <h1>{entry.data.title}</h1>
     <p class="lead">{entry.data.summary}</p>
     <p class="small">{entry.data.date?.toLocaleDateString("zh-Hant-TW", { dateStyle: "long" })} · 約 {readingMinutes} 分鐘閱讀</p>

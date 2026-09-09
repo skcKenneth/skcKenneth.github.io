@@ -17,12 +17,14 @@ const portfolioSlugs = [
   "from-simulation-to-certificate",
   "when-a-traffic-solver-invents-a-jam",
 ];
+const newArticleSlug = "when-early-warnings-cannot-tell-the-difference";
+const checkedSlugs = [...portfolioSlugs, newArticleSlug];
 const requestedSlugIndex = process.argv.indexOf("--slug");
 const requestedSlug = requestedSlugIndex >= 0 ? process.argv[requestedSlugIndex + 1] : "";
-if (requestedSlugIndex >= 0 && !portfolioSlugs.includes(requestedSlug)) {
+if (requestedSlugIndex >= 0 && !checkedSlugs.includes(requestedSlug)) {
   throw new Error(`--slug must name one portfolio article; received ${requestedSlug || "<missing>"}`);
 }
-const selectedSlugs = requestedSlug ? [requestedSlug] : portfolioSlugs;
+const selectedSlugs = requestedSlug ? [requestedSlug] : checkedSlugs;
 
 const errors = [];
 const rows = [];
@@ -103,15 +105,19 @@ for (const slug of selectedSlugs) {
   const chineseMinutes = chineseCharacters / 450 + latinWords / 220;
 
   rows.push({ slug, englishMinutes, chineseMinutes, chineseCharacters, latinWords });
-  if (englishMinutes < minimumMinutes) {
+  const requiredMinimum = slug === newArticleSlug ? 22 : minimumMinutes;
+  if (slug === newArticleSlug && (englishMinutes > 30 || chineseMinutes > 30)) {
+    errors.push(slug + ": both language editions must be at most 30 raw minutes");
+  }
+  if (englishMinutes < requiredMinimum) {
     errors.push(
-      `${relative(root, englishPath)}: ${englishMinutes.toFixed(2)} raw minutes; requires at least ${minimumMinutes}`,
+      `${relative(root, englishPath)}: ${englishMinutes.toFixed(2)} raw minutes; requires at least ${requiredMinimum}`,
     );
   }
-  if (chineseMinutes < minimumMinutes) {
+  if (chineseMinutes < requiredMinimum) {
     errors.push(
       `${relative(root, chinesePath)}: ${chineseMinutes.toFixed(2)} raw minutes `
-      + `(${chineseCharacters} Han characters, ${latinWords} Latin words); requires at least ${minimumMinutes}`,
+      + `(${chineseCharacters} Han characters, ${latinWords} Latin words); requires at least ${requiredMinimum}`,
     );
   }
 }

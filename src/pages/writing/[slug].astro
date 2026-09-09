@@ -7,10 +7,10 @@ import {publicRepositoryUrl} from "../../config/repository-policy";
 import readingTime from "reading-time";
 
 export async function getStaticPaths(){
-  const items=(await getCollection("writing",({data})=>!data.draft))
+  const items=(await getCollection("writing",({data})=>!data.draft || import.meta.env.DEV))
     .filter(x=>x.data.slug!=="legacy-archive")
     .sort((a,b)=>(a.data.date?.valueOf()||0)-(b.data.date?.valueOf()||0));
-  const translations=await getCollection("writingZh",({data})=>!data.draft);
+  const translations=await getCollection("writingZh",({data})=>!data.draft || import.meta.env.DEV);
   const translated=new Set(translations.map(x=>x.data.sourceSlug));
   return items.map((entry,i)=>({
     params:{slug:entry.data.slug},
@@ -32,6 +32,7 @@ const links=[
 <BaseLayout title={entry.data.title} description={entry.data.summary} image={entry.data.heroImage} type="Writing" locale="en" alternatePath={hasTranslation ? `/zh/writing/${entry.data.slug}/` : undefined}>
   <header class="page-head"><div class="container">
     <p class="eyebrow">{entry.data.type}</p>
+    {entry.data.draft && <p class="small">Draft preview · Not published</p>}
     <h1>{entry.data.title}</h1>
     <p class="lead">{entry.data.summary}</p>
     <p class="small">{entry.data.date?.toLocaleDateString("en-GB",{dateStyle:"long"})} · {readingMinutes} min read</p>
