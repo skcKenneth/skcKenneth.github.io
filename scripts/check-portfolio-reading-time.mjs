@@ -21,6 +21,7 @@ const researchArticleSlugs = [
   "when-early-warnings-cannot-tell-the-difference",
   "when-starting-over-finds-the-target-faster",
   "when-solar-power-changes-fast",
+  "when-taking-turns-makes-a-system-unstable",
 ];
 const checkedSlugs = [...portfolioSlugs, ...researchArticleSlugs];
 const requestedSlugIndex = process.argv.indexOf("--slug");
