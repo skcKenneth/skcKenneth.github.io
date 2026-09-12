@@ -1,0 +1,1990 @@
+{
+  "version": 1,
+  "inspectedOn": "2026-09-12",
+  "coverage": {
+    "books": 20,
+    "notes": 27
+  },
+  "books": [
+    {
+      "id": "book-01",
+      "title": "A primer on mathematical models in biology (Lee A. Segel, Leah Edelstein-Keshet)",
+      "pages": 435,
+      "sha256": "7e6af8b547ea3524dd0bfdb76b7564bbc25cf345dc9a5695096b0eeec6cd1ed4",
+      "role": {
+        "en": "Core 1, 3; biology pathway",
+        "zh-Hant": "核心 1、3；生物路線"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-03"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Front Matter",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Chapter 1: Introduction",
+          "pdfPage": 21
+        },
+        {
+          "chapter": "Chapter 2: Introduction to biochemical kinetics",
+          "pdfPage": 33
+        },
+        {
+          "chapter": "Chapter 3: Review of linear differential equations",
+          "pdfPage": 62
+        },
+        {
+          "chapter": "Chapter 4: Introduction to nondimensionalization and scaling",
+          "pdfPage": 86
+        },
+        {
+          "chapter": "Chapter 5: Qualitative behavior of simple differential equation models",
+          "pdfPage": 102
+        },
+        {
+          "chapter": "Chapter 6: Developing a model from the ground up: Case study of the spread of an infection",
+          "pdfPage": 122
+        },
+        {
+          "chapter": "Chapter 7: Phase plane analysis",
+          "pdfPage": 134
+        },
+        {
+          "chapter": "Chapter 8: Quasi steady state and enzyme-mediated biochemical kinetics",
+          "pdfPage": 164
+        },
+        {
+          "chapter": "Chapter 9: Multiple subunit enzymes and proteins: Cooperativity",
+          "pdfPage": 192
+        },
+        {
+          "chapter": "Chapter 10: Dynamic behavior of neuronal membranes",
+          "pdfPage": 213
+        },
+        {
+          "chapter": "Chapter 11: Excitable systems and the FitzHugh–Nagumo equations",
+          "pdfPage": 244
+        },
+        {
+          "chapter": "Chapter 12: Biochemical modules",
+          "pdfPage": 268
+        },
+        {
+          "chapter": "Chapter 13: Discrete networks of genes and cells",
+          "pdfPage": 299
+        },
+        {
+          "chapter": "Chapter 14: For further study",
+          "pdfPage": 327
+        },
+        {
+          "chapter": "Chapter 15: Extended exercises and projects",
+          "pdfPage": 353
+        },
+        {
+          "chapter": "Appendix A: The Taylor approximation and Taylor series",
+          "pdfPage": 370
+        },
+        {
+          "chapter": "Appendix B: Complex numbers",
+          "pdfPage": 378
+        },
+        {
+          "chapter": "Appendix C: A review of basic theory of electricity",
+          "pdfPage": 382
+        },
+        {
+          "chapter": "Appendix D: Proofs of Boolean algebra rules",
+          "pdfPage": 393
+        },
+        {
+          "chapter": "Appendix E: Appendix: XPP files for models in this book",
+          "pdfPage": 398
+        },
+        {
+          "chapter": "Back Matter",
+          "pdfPage": 417
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-02",
+      "title": "Advanced Mathematical Modeling with Technology (Advances in Applied Mathematics) (Fox, William P., Burks, Robert E.)",
+      "pages": 573,
+      "sha256": "eed8325fef543c036c7f0a61a984a9164886799547e6391f8680c8d353708cc7",
+      "role": {
+        "en": "Core 5; modeling and optimization",
+        "zh-Hant": "核心 5；建模與最佳化"
+      },
+      "workshops": [
+        "workshop-05"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Half Title",
+          "pdfPage": 2
+        },
+        {
+          "chapter": "Series Information",
+          "pdfPage": 3
+        },
+        {
+          "chapter": "Title Page",
+          "pdfPage": 4
+        },
+        {
+          "chapter": "Copyright Page",
+          "pdfPage": 5
+        },
+        {
+          "chapter": "Table of Contents",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 12
+        },
+        {
+          "chapter": "1 Perfect Partners: Mathematical Modeling and Technology ",
+          "pdfPage": 18
+        },
+        {
+          "chapter": "2 Review of Modeling With Discrete Dynamical Systems and Modeling Systems of DDS",
+          "pdfPage": 36
+        },
+        {
+          "chapter": "3 Modeling With Differential Equations",
+          "pdfPage": 88
+        },
+        {
+          "chapter": "4 Modeling System of Ordinary Differential Equation",
+          "pdfPage": 146
+        },
+        {
+          "chapter": "5 Regression and Advanced Regression Methods and Models",
+          "pdfPage": 202
+        },
+        {
+          "chapter": "6 Linear, Integer, and Mixed Integer Programming",
+          "pdfPage": 262
+        },
+        {
+          "chapter": "7 Nonlinear Optimization Methods",
+          "pdfPage": 314
+        },
+        {
+          "chapter": "8 Multivariable Optimization",
+          "pdfPage": 356
+        },
+        {
+          "chapter": "9 Simulation Models",
+          "pdfPage": 408
+        },
+        {
+          "chapter": "10 Modeling Decision-Making With Decision-Making-Multi-Attribute Decision Modeling With Technology",
+          "pdfPage": 458
+        },
+        {
+          "chapter": "11 Modeling With Game Theory",
+          "pdfPage": 502
+        },
+        {
+          "chapter": "12 Appendix: Using R",
+          "pdfPage": 560
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 568
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-03",
+      "title": "Applied Mathematics And Modeling For Chemical Engineers, Second Edition (Richard G. Rice, Duong D. Do)",
+      "pages": 397,
+      "sha256": "dc3dedb8a77321a5008334376d59dc4ef7d5b64721a0ab9d833aa7b20904d751",
+      "role": {
+        "en": "Engineering methods and transport",
+        "zh-Hant": "工程方法與輸運"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-06"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Half-Title Page",
+          "pdfPage": 3
+        },
+        {
+          "chapter": "Applied Mathematics And Modeling For Chemical Engineers, Second Edition",
+          "pdfPage": 5
+        },
+        {
+          "chapter": "ISBN: 1-1180-2472-9",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Table of Contents",
+          "pdfPage": 7
+        },
+        {
+          "chapter": "Preface to the Second Edition",
+          "pdfPage": 13
+        },
+        {
+          "chapter": "PART I",
+          "pdfPage": 15
+        },
+        {
+          "chapter": "PART II",
+          "pdfPage": 151
+        },
+        {
+          "chapter": "Appendix A: Review of Methods for Nonlinear Algebraic Equations",
+          "pdfPage": 357
+        },
+        {
+          "chapter": "Appendix B: Derivation of the Fourier–Mellin Inversion Theorem",
+          "pdfPage": 365
+        },
+        {
+          "chapter": "Appendix C: Table of Laplace Transforms",
+          "pdfPage": 371
+        },
+        {
+          "chapter": "Appendix D: Numerical Integration",
+          "pdfPage": 377
+        },
+        {
+          "chapter": "Appendix E: Nomenclature",
+          "pdfPage": 387
+        },
+        {
+          "chapter": "Postface",
+          "pdfPage": 391
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 393
+        },
+        {
+          "chapter": "TrUe LiAr",
+          "pdfPage": 397
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-04",
+      "title": "Fundamentals of Algebraic Modeling An Introduction to Mathematical Modeling with Algebra and Statistics (Daniel L. Timmons, Catherine W. Johnson etc.)",
+      "pages": 459,
+      "sha256": "292d10c307d5021ca7607fbc6cc8752846f641c19efe876501fda26792feca8a",
+      "role": {
+        "en": "Prerequisite algebra and statistics",
+        "zh-Hant": "代數與統計先備"
+      },
+      "workshops": [],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Front Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Title Page",
+          "pdfPage": 2
+        },
+        {
+          "chapter": "Copyright",
+          "pdfPage": 3
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 4
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 7
+        },
+        {
+          "chapter": "Keys to Success",
+          "pdfPage": 12
+        },
+        {
+          "chapter": "Chapter One: A REVIEW OF ALGEBRA FUNDAMENTALS",
+          "pdfPage": 14
+        },
+        {
+          "chapter": "Chapter Two: GRAPHING",
+          "pdfPage": 64
+        },
+        {
+          "chapter": "Chapter Three: FUNCTIONS",
+          "pdfPage": 108
+        },
+        {
+          "chapter": "Chapter Four: MATHEMATICAL MODELS IN CONSUMER MATH",
+          "pdfPage": 170
+        },
+        {
+          "chapter": "Chapter Five: ADDITIONAL APPLICATIONS OF ALGEBRAIC MODELING",
+          "pdfPage": 240
+        },
+        {
+          "chapter": "Chapter Six: MODELING WITH SYSTEMS OF EQUATIONS",
+          "pdfPage": 282
+        },
+        {
+          "chapter": "Chapter Seven: PROBABILITY MODELS",
+          "pdfPage": 314
+        },
+        {
+          "chapter": "Chapter Eight: MODELING WITH STATISTICS",
+          "pdfPage": 362
+        },
+        {
+          "chapter": "Appendix One: Commonly Used Calculator Keys",
+          "pdfPage": 420
+        },
+        {
+          "chapter": "Appendix Two: Formulas Used in This Text",
+          "pdfPage": 424
+        },
+        {
+          "chapter": "Appendix Three: Levels of Data in Statistics",
+          "pdfPage": 426
+        },
+        {
+          "chapter": "Answer Key",
+          "pdfPage": 428
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 448
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-05",
+      "title": "Mathematical and Computational Modeling of Phenomena Arising in Population Biology and Nonlinear Oscillations (Abba B. Gumel)",
+      "pages": 360,
+      "sha256": "42d20e0997b9a5e4cf1fc61f031cea9edfb6f5684becbd57bf697235f3217d68",
+      "role": {
+        "en": "Dynamics-preserving discretizations",
+        "zh-Hant": "保持動態性質的離散化"
+      },
+      "workshops": [
+        "workshop-03",
+        "workshop-06"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Title page",
+          "pdfPage": 4
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 8
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 10
+        },
+        {
+          "chapter": "Career of Professor Ronald E. Mickens",
+          "pdfPage": 10
+        },
+        {
+          "chapter": "A second-order nonstandard finite difference scheme and application to a model of biological and chemical processes",
+          "pdfPage": 16
+        },
+        {
+          "chapter": "A generalized nonstandard finite difference method for a class of autonomous dynamical systems and its applications",
+          "pdfPage": 32
+        },
+        {
+          "chapter": "Higher-order modified nonstandard finite difference methods for autonomous dynamical systems",
+          "pdfPage": 60
+        },
+        {
+          "chapter": "A simple NSFD inspired method for Monod kinetics with small half saturation constants in the chemostat setting",
+          "pdfPage": 76
+        },
+        {
+          "chapter": "Dynamics preserving nonstandard finite difference scheme for a microbial population model incorporating environmental stress",
+          "pdfPage": 90
+        },
+        {
+          "chapter": "Using unity approximations to construct nonstandard finite difference schemes for Bernoulli differential equations",
+          "pdfPage": 108
+        },
+        {
+          "chapter": "On the structure and evolution of poroacoustic solitary waves: Finite-time gradient catastrophe under the Darcy–Jordan model",
+          "pdfPage": 128
+        },
+        {
+          "chapter": "A fractional-order equation and its finite difference scheme for approximating a delay equation",
+          "pdfPage": 156
+        },
+        {
+          "chapter": "Multistability in a discrete-time SI epidemic model with Ricker growth: Infection-induced changes in population dynamics",
+          "pdfPage": 182
+        },
+        {
+          "chapter": "A genetic-epidemiology modeling framework for malaria mosquitoes and disease",
+          "pdfPage": 206
+        },
+        {
+          "chapter": "A retrospective analysis of COVID-19 dynamics in Mexico and Peru: Studying hypothetical changes in the contact rate",
+          "pdfPage": 244
+        },
+        {
+          "chapter": "Mathematical analysis and a nonstandard scheme for a model of the immune response against COVID-19",
+          "pdfPage": 266
+        },
+        {
+          "chapter": "Effects of rising temperature and prescribed fire on Amblyomma Americanum with ehrlichiosis",
+          "pdfPage": 286
+        },
+        {
+          "chapter": "Modeling T-cell repertoire response to a viral infection with short immunity",
+          "pdfPage": 320
+        },
+        {
+          "chapter": "Geometric approach to the construction of Leah-type periodic functions: Basic and analytic properties",
+          "pdfPage": 336
+        },
+        {
+          "chapter": "Discursion on a paper of R. E. Mickens and J. E. Wilkins, Jr.",
+          "pdfPage": 346
+        },
+        {
+          "chapter": "Back Cover",
+          "pdfPage": 360
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-06",
+      "title": "Mathematical Foundations of Deep Learning Models and Algorithms (Konstantinos Spiliopoulos etc.)",
+      "pages": 527,
+      "sha256": "0c17fa9a4e1c8957792ed2c3caff68fb8cd12b2d9891b52580462e4aa23c9b2d",
+      "role": {
+        "en": "Learning-model theory pathway",
+        "zh-Hant": "學習模型理論路線"
+      },
+      "workshops": [
+        "workshop-02",
+        "workshop-05"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Title page",
+          "pdfPage": 5
+        },
+        {
+          "chapter": "Copyright",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 7
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 15
+        },
+        {
+          "chapter": "Notation",
+          "pdfPage": 19
+        },
+        {
+          "chapter": "Chapter 1. Introduction",
+          "pdfPage": 23
+        },
+        {
+          "chapter": "Part 1. Mathematical Introduction to Deep Learning",
+          "pdfPage": 47
+        },
+        {
+          "chapter": "Part 2. Advanced Topics and Convergence Results in Deep Learning",
+          "pdfPage": 273
+        },
+        {
+          "chapter": "Part 3. Appendixes",
+          "pdfPage": 493
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-07",
+      "title": "Mathematical Modeling in Continuum Mechanics (Roger Temam, Alain Miranville)",
+      "pages": 354,
+      "sha256": "ee785ce2c2a2d9e0e38c2f3ee06e8fc2359a258cd763a673a0301d356fb2f2db",
+      "role": {
+        "en": "Continuum and energy-balance pathway",
+        "zh-Hant": "連續介質與能量平衡路線"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-06"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [],
+      "internalOnly": false
+    },
+    {
+      "id": "book-08",
+      "title": "Mathematical Modeling Models, Analysis and Applications (Sandip Banerjee)",
+      "pages": 276,
+      "sha256": "4fefd23065a6cc6065da6d7aa2fc24dd14d80f93ca73d2c90c8141dba9d5caae",
+      "role": {
+        "en": "Core 6; discrete, ODE and spatial models",
+        "zh-Hant": "核心 6；離散、ODE 與空間模型"
+      },
+      "workshops": [
+        "workshop-03",
+        "workshop-06"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Front Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 8
+        },
+        {
+          "chapter": "Foreword",
+          "pdfPage": 12
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 18
+        },
+        {
+          "chapter": "Biography",
+          "pdfPage": 22
+        },
+        {
+          "chapter": "Chapter 1: About Mathematical Modeling",
+          "pdfPage": 24
+        },
+        {
+          "chapter": "Chapter 2: Mathematically Modeling Discrete Processes",
+          "pdfPage": 32
+        },
+        {
+          "chapter": "Chapter 3: Continuous Models Using Ordinary Differential Equations",
+          "pdfPage": 70
+        },
+        {
+          "chapter": "Chapter 4: Spatial Models Using Partial Differential Equations",
+          "pdfPage": 134
+        },
+        {
+          "chapter": "Chapter 5: Modeling with Delay Differential Equations",
+          "pdfPage": 176
+        },
+        {
+          "chapter": "Chapter 6: Modeling with Stochastic Differential Equations",
+          "pdfPage": 214
+        },
+        {
+          "chapter": "Chapter 7: Hints and Solutions",
+          "pdfPage": 242
+        },
+        {
+          "chapter": "Bibliography",
+          "pdfPage": 266
+        },
+        {
+          "chapter": "Back Cover",
+          "pdfPage": 276
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-09",
+      "title": "Mathematical Modelling and Simulation in Chemical Engineering (M. Chidambaram)",
+      "pages": 265,
+      "sha256": "9f2b43d31f57d62e6d126f52a1469e254b298d9a2bd08235f3eeee64150408b6",
+      "role": {
+        "en": "Core 1; chemical system boundaries",
+        "zh-Hant": "核心 1；化工系統邊界"
+      },
+      "workshops": [
+        "workshop-01"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Contents",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Figures",
+          "pdfPage": 12
+        },
+        {
+          "chapter": "Tables",
+          "pdfPage": 16
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 18
+        },
+        {
+          "chapter": "1. Introduction to Mathematical Modelling",
+          "pdfPage": 20
+        },
+        {
+          "chapter": "2. Model Development for Simple Systems",
+          "pdfPage": 30
+        },
+        {
+          "chapter": "3. Model Development for Complex Systems",
+          "pdfPage": 50
+        },
+        {
+          "chapter": "4. Analytical Solutions of Model Equations",
+          "pdfPage": 76
+        },
+        {
+          "chapter": "5. Numerical Solutions of Model Equations",
+          "pdfPage": 94
+        },
+        {
+          "chapter": "6. Modelling and Simulation: Case Studies",
+          "pdfPage": 112
+        },
+        {
+          "chapter": "7. Discrimination of Mathematical Models",
+          "pdfPage": 140
+        },
+        {
+          "chapter": "8. Sensitivity Analysis",
+          "pdfPage": 154
+        },
+        {
+          "chapter": "9. Optimization Methods",
+          "pdfPage": 171
+        },
+        {
+          "chapter": "10. Simulation Using Matlab/Scilab",
+          "pdfPage": 206
+        },
+        {
+          "chapter": "11. Model Based Control",
+          "pdfPage": 234
+        },
+        {
+          "chapter": "References",
+          "pdfPage": 254
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 262
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-10",
+      "title": "Mathematical Modelling with Differential Equations (Ronald E. Mickens)",
+      "pages": 284,
+      "sha256": "30915388e2e99ad42ec7e12f011a86a14e54a57b686e589d8e7553ac04ef354a",
+      "role": {
+        "en": "Core 3; discretization and dynamics",
+        "zh-Hant": "核心 3；離散化與動態"
+      },
+      "workshops": [
+        "workshop-03"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Half Title\r\n",
+          "pdfPage": 2
+        },
+        {
+          "chapter": "Title Page",
+          "pdfPage": 4
+        },
+        {
+          "chapter": "Copyright Page",
+          "pdfPage": 5
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 14
+        },
+        {
+          "chapter": "CHAPTER 0: Preliminaries",
+          "pdfPage": 16
+        },
+        {
+          "chapter": "CHAPTER 1: What Is the p N?",
+          "pdfPage": 48
+        },
+        {
+          "chapter": "CHAPTER 2: Damping/Dissipative Forces",
+          "pdfPage": 58
+        },
+        {
+          "chapter": "CHAPTER 3: The Thomas-Fermi Equation",
+          "pdfPage": 74
+        },
+        {
+          "chapter": "CHAPTER 4: Single Population Growth Models",
+          "pdfPage": 86
+        },
+        {
+          "chapter": "CHAPTER 5: 1 + 2 + 3 + 4 + 5 + \u0001 \u0001 \u0001 = −(1/2)",
+          "pdfPage": 106
+        },
+        {
+          "chapter": "CHAPTER 6: A Truly Nonlinear Oscillator",
+          "pdfPage": 122
+        },
+        {
+          "chapter": "CHAPTER 7: Discretization of Differential Equations",
+          "pdfPage": 142
+        },
+        {
+          "chapter": "CHAPTER 8: SIR Models for Disease Spread",
+          "pdfPage": 176
+        },
+        {
+          "chapter": "CHAPTER 9: Dieting Model",
+          "pdfPage": 196
+        },
+        {
+          "chapter": "CHAPTER 10: Alternate Futures",
+          "pdfPage": 208
+        },
+        {
+          "chapter": "CHAPTER 11: Toy Model of the Universe",
+          "pdfPage": 218
+        },
+        {
+          "chapter": "CHAPTER 12: Diffusion and Heat Equations",
+          "pdfPage": 234
+        },
+        {
+          "chapter": "Appendix",
+          "pdfPage": 254
+        },
+        {
+          "chapter": "Bibliography",
+          "pdfPage": 274
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 278
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-11",
+      "title": "Mathematical models in biology an introduction (Elizabeth S. Allman, John A. Rhodes)",
+      "pages": 386,
+      "sha256": "2363acdea6250c9adaddd220e0019d6f0f67c06ce6f59dc2245a49c93c607646",
+      "role": {
+        "en": "Core 2; biological curve fitting",
+        "zh-Hant": "核心 2；生物曲線擬合"
+      },
+      "workshops": [
+        "workshop-02"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Half-title",
+          "pdfPage": 3
+        },
+        {
+          "chapter": "Dedication",
+          "pdfPage": 4
+        },
+        {
+          "chapter": "Title",
+          "pdfPage": 5
+        },
+        {
+          "chapter": "Copyright",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 7
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 9
+        },
+        {
+          "chapter": "Note on MATLAB",
+          "pdfPage": 13
+        },
+        {
+          "chapter": "1 Dynamic Modeling with Difference Equations",
+          "pdfPage": 17
+        },
+        {
+          "chapter": "2 Linear Models of Structured Populations",
+          "pdfPage": 57
+        },
+        {
+          "chapter": "3 Nonlinear Models of Interactions",
+          "pdfPage": 101
+        },
+        {
+          "chapter": "4 Modeling Molecular Evolution",
+          "pdfPage": 129
+        },
+        {
+          "chapter": "5 Constructing Phylogenetic Trees",
+          "pdfPage": 187
+        },
+        {
+          "chapter": "6 Genetics",
+          "pdfPage": 231
+        },
+        {
+          "chapter": "7 Infectious Disease Modeling",
+          "pdfPage": 295
+        },
+        {
+          "chapter": "8 Curve Fitting and Biological Modeling",
+          "pdfPage": 331
+        },
+        {
+          "chapter": "Appendix A Basic Analysis of Numerical Data",
+          "pdfPage": 361
+        },
+        {
+          "chapter": "Appendix B For Further Reading",
+          "pdfPage": 378
+        },
+        {
+          "chapter": "References",
+          "pdfPage": 381
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 383
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-12",
+      "title": "Mathematical models in biology solution manual (Elizabeth S. Allman, John A. Rhodes)",
+      "pages": 81,
+      "sha256": "c28f0b5dcef7de944b248916c7c6cfb987e81acdcb7a8dd065f6eb8230e323ae",
+      "role": {
+        "en": "Internal checking only; no solution text published",
+        "zh-Hant": "僅供內部核對；不發佈解答文字"
+      },
+      "workshops": [],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [],
+      "internalOnly": true
+    },
+    {
+      "id": "book-13",
+      "title": "Mathematical Models in Developmental Biology (Stephen Childress, Jerome Kenneth Percus)",
+      "pages": 265,
+      "sha256": "ac64e6794e0b1af3578752f50d5354fb5b0f657a4b6240c1589f60c31450c579",
+      "role": {
+        "en": "Pattern formation pathway",
+        "zh-Hant": "圖案形成路線"
+      },
+      "workshops": [
+        "workshop-06"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Title page",
+          "pdfPage": 4
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 8
+        },
+        {
+          "chapter": "Introduction",
+          "pdfPage": 10
+        },
+        {
+          "chapter": "Catastrophe theory",
+          "pdfPage": 22
+        },
+        {
+          "chapter": "Pattern formation",
+          "pdfPage": 44
+        },
+        {
+          "chapter": "Differential adhesion and morphogenesis",
+          "pdfPage": 76
+        },
+        {
+          "chapter": "The origins of movement",
+          "pdfPage": 98
+        },
+        {
+          "chapter": "Chemotaxis",
+          "pdfPage": 134
+        },
+        {
+          "chapter": "Cell proliferation",
+          "pdfPage": 146
+        },
+        {
+          "chapter": "Somite formation in vertebrates",
+          "pdfPage": 182
+        },
+        {
+          "chapter": "Compartments",
+          "pdfPage": 200
+        },
+        {
+          "chapter": "Segmentation of insect embryos",
+          "pdfPage": 218
+        },
+        {
+          "chapter": "Supplementary notes",
+          "pdfPage": 240
+        },
+        {
+          "chapter": "Bibliography",
+          "pdfPage": 246
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 254
+        },
+        {
+          "chapter": "Back Cover",
+          "pdfPage": 265
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-14",
+      "title": "Mathematics of the Financial Markets Financial Instruments and Derivatives Modelling, Valuation and Risk Issues (Alain Ruttiens)",
+      "pages": 351,
+      "sha256": "514f4f4c573d2e86c1c232c1a3fc5b66e8c9cb410813cc3db664980e384c2d9f",
+      "role": {
+        "en": "Financial modeling pathway",
+        "zh-Hant": "金融建模路線"
+      },
+      "workshops": [],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Mathematics of Financial Markets",
+          "pdfPage": 3
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 9
+        },
+        {
+          "chapter": "Foreword",
+          "pdfPage": 13
+        },
+        {
+          "chapter": "Main Notations",
+          "pdfPage": 15
+        },
+        {
+          "chapter": "Introduction",
+          "pdfPage": 17
+        },
+        {
+          "chapter": "Part I The Deterministic Environment",
+          "pdfPage": 19
+        },
+        {
+          "chapter": "Part II The Probabilistic Environment",
+          "pdfPage": 163
+        },
+        {
+          "chapter": "Bibliography",
+          "pdfPage": 337
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 341
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-15",
+      "title": "Modeling Social Behavior Mathematical and Agent-Based Models of Social Dynamics and Cultural Evolution (Paul Smaldino)",
+      "pages": 361,
+      "sha256": "ba8a62b5108b430377000d65540caed1cefb2453f2d5edc681d54fb62d8749db",
+      "role": {
+        "en": "Core 4; rules, replication and model–reality boundaries",
+        "zh-Hant": "核心 4；規則、重複試驗及模型與現實界線"
+      },
+      "workshops": [
+        "workshop-04"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Brief Contents",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Contents",
+          "pdfPage": 8
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 12
+        },
+        {
+          "chapter": "1. Doing Violence to Reality",
+          "pdfPage": 20
+        },
+        {
+          "chapter": "2. Particles",
+          "pdfPage": 42
+        },
+        {
+          "chapter": "3. The Schelling Chapter",
+          "pdfPage": 72
+        },
+        {
+          "chapter": "4. Contagion",
+          "pdfPage": 102
+        },
+        {
+          "chapter": "5. Opinion Dynamics",
+          "pdfPage": 136
+        },
+        {
+          "chapter": "6. Cooperation",
+          "pdfPage": 170
+        },
+        {
+          "chapter": "7. Coordination",
+          "pdfPage": 208
+        },
+        {
+          "chapter": "8. The Scientific Process",
+          "pdfPage": 242
+        },
+        {
+          "chapter": "9. Networks",
+          "pdfPage": 276
+        },
+        {
+          "chapter": "10. Models and Reality",
+          "pdfPage": 312
+        },
+        {
+          "chapter": "11. Maps and Territories",
+          "pdfPage": 334
+        },
+        {
+          "chapter": "Image Credits",
+          "pdfPage": 340
+        },
+        {
+          "chapter": "References",
+          "pdfPage": 342
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 358
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-16",
+      "title": "Neural Networks, Machine Learning, and Image Processing Mathematical Modeling and Applications (Manoj Sahni, Ritu Sahni etc.)",
+      "pages": 221,
+      "sha256": "42722f387f7ad1e84ff808b36689b7fed91cb070842bf9a0ba54984f79686006",
+      "role": {
+        "en": "Applications and critical reading in learning models",
+        "zh-Hant": "學習模型應用與批判閱讀"
+      },
+      "workshops": [],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [
+        {
+          "chapter": "Cover",
+          "pdfPage": 1
+        },
+        {
+          "chapter": "Half Title",
+          "pdfPage": 2
+        },
+        {
+          "chapter": "Title Page",
+          "pdfPage": 4
+        },
+        {
+          "chapter": "Copyright Page",
+          "pdfPage": 5
+        },
+        {
+          "chapter": "Table of Contents",
+          "pdfPage": 6
+        },
+        {
+          "chapter": "Preface",
+          "pdfPage": 8
+        },
+        {
+          "chapter": "Editors",
+          "pdfPage": 10
+        },
+        {
+          "chapter": "Contributors",
+          "pdfPage": 14
+        },
+        {
+          "chapter": "Part I: Mathematical modeling and neural network’s mathematical essence",
+          "pdfPage": 20
+        },
+        {
+          "chapter": "Part II: Simulations in machine learning and image processing",
+          "pdfPage": 118
+        },
+        {
+          "chapter": "Index",
+          "pdfPage": 218
+        }
+      ],
+      "internalOnly": false
+    },
+    {
+      "id": "book-17",
+      "title": "Option Pricing Mathematical Models and Computation (Paul Wilmott, Jeff Dewynne, Sam Howison)",
+      "pages": 234,
+      "sha256": "216809974f937d0d35c081c9efb8c83601e551166eea8ddedadb0c9fbce53fef",
+      "role": {
+        "en": "Financial PDE and numerical-method pathway",
+        "zh-Hant": "金融 PDE 與數值方法路線"
+      },
+      "workshops": [
+        "workshop-06"
+      ],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [],
+      "internalOnly": false
+    },
+    {
+      "id": "book-18",
+      "title": "中学数学建模与赛题集锦 (上海市中学生数学知识应用竞赛组织委员会编 etc.)",
+      "pages": 244,
+      "sha256": "ec0e0c7f5d9154473db0a3e070bb282c057ace06eef4568dff5afbd8170bafc0",
+      "role": {
+        "en": "Context selection and prerequisite activities",
+        "zh-Hant": "情境選擇與先備活動"
+      },
+      "workshops": [],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [],
+      "internalOnly": false
+    },
+    {
+      "id": "book-19",
+      "title": "中学数学建模教与学 (卜月华等主编, 主编卜月华 , 编者卜月华 ... [等] etc.)",
+      "pages": 366,
+      "sha256": "1add4a44d5cd3d5b8cb8928fbed37fef4626388da3fee225070c7217a45fb07e",
+      "role": {
+        "en": "Scaffolding and model-formulation activities",
+        "zh-Hant": "學習支架與模型建構活動"
+      },
+      "workshops": [],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [],
+      "internalOnly": false
+    },
+    {
+      "id": "book-20",
+      "title": "数学建模教学研究与竞赛实践 (吕跃进主编, 吕跃进主编 , 全国大学生教学建模竞赛广西赛区组委会编, 吕跃进 etc.)",
+      "pages": 477,
+      "sha256": "4b19d5724a3178fe26762051f34ee113343c0bbbdd23df989e8ee1749d53f532",
+      "role": {
+        "en": "Teaching practice and reflective writing",
+        "zh-Hant": "教學實踐與反思寫作"
+      },
+      "workshops": [],
+      "scope": "Contents and selected passages inspected; not a full-book review. Scanned sources were visually inspected.",
+      "outline": [],
+      "internalOnly": false
+    }
+  ],
+  "notes": [
+    {
+      "id": "lecture-01",
+      "title": {
+        "en": "Modeling Change",
+        "zh-Hant": "變化的建模"
+      },
+      "workshops": [
+        "workshop-02",
+        "workshop-03"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-01-notes-en.pdf",
+          "sha256": "6ed6b1fc4ab46c5ced46f6eb1608c639655f06766b25bf2fe2af1da0754efc8c"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-01-notes-zh-hant.pdf",
+          "sha256": "66f70e40fd8e9b6e5cd4e521d0a3babf9962136bfde1a60562788482a1adeff4"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-01-slides-en.pdf",
+          "sha256": "d4d3acbd131bc6dbd2aaea10360df8857c6c70466b1317b1ff8bf251eb755f22"
+        }
+      }
+    },
+    {
+      "id": "lecture-02",
+      "title": {
+        "en": "The Modeling Process and Scaling",
+        "zh-Hant": "建模流程與尺度分析"
+      },
+      "workshops": [
+        "workshop-01"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-02-notes-en.pdf",
+          "sha256": "39f570eab505cfd22afcc6d4a7e98756bafb7168c0a1c45f52f53abca354e8b1"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-02-notes-zh-hant.pdf",
+          "sha256": "e0f726d26586c493314fa35068e38fbf61abded28d502614e0a97dbf1f541a5b"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-02-slides-en.pdf",
+          "sha256": "ea73877767ccf720d71ce0c10a83d1ed32c77679935c3c072f8527f1d9474ed2"
+        }
+      }
+    },
+    {
+      "id": "lecture-03",
+      "title": {
+        "en": "Model Fitting and Residual Analysis",
+        "zh-Hant": "模型擬合與殘差分析"
+      },
+      "workshops": [
+        "workshop-02"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-03-notes-en.pdf",
+          "sha256": "631bed31efc25cde085b4d7a700549966c453d701e660a327de0678aa26d0b41"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-03-notes-zh-hant.pdf",
+          "sha256": "0afcddf0a8be1e1e4481a4f9082f5b87670fe6edf9dfd4f4838157600781c030"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-03-slides-en.pdf",
+          "sha256": "46edee9f8caeb68f2bf2da3021e1479c4f13ffc6aa67a5754f931bd18a85e778"
+        }
+      }
+    },
+    {
+      "id": "lecture-04",
+      "title": {
+        "en": "Empirical Models, Interpolation, and Splines",
+        "zh-Hant": "經驗模型、插值與樣條"
+      },
+      "workshops": [
+        "workshop-02"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-04-notes-en.pdf",
+          "sha256": "08d4921f844ad17ae7f41876b28a336df6489c849a0926f7b7f6b03f3c26d6f9"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-04-notes-zh-hant.pdf",
+          "sha256": "203f73a549b9fa9cda92dad97cf407cd9051fcf02339cdc0b69dace8f6963794"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-04-slides-en.pdf",
+          "sha256": "fd90f9357192ee6b67d0e08c174b92077fe1eedfe32e4c9d1edc864726761b63"
+        }
+      }
+    },
+    {
+      "id": "lecture-05",
+      "title": {
+        "en": "Monte Carlo and Discrete-Event Simulation",
+        "zh-Hant": "蒙地卡羅與離散事件模擬"
+      },
+      "workshops": [
+        "workshop-04"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-05-notes-en.pdf",
+          "sha256": "60e6079b9a96b3733ce3900789ef4f72b8a6b5483b7ed4df4924b57f6c9f609d"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-05-notes-zh-hant.pdf",
+          "sha256": "ed5e98f7378625a22555b7da781d090f739023a8a7e7dae8e3763986f336ab3f"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-05-slides-en.pdf",
+          "sha256": "da33e0524e6540bb03e8f6af46d5db99886cfdd3c25716475ed5babc4cb5225f"
+        }
+      }
+    },
+    {
+      "id": "lecture-06",
+      "title": {
+        "en": "Linear Programming and Decision Optimization",
+        "zh-Hant": "線性規劃與決策最佳化"
+      },
+      "workshops": [
+        "workshop-05"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-06-notes-en.pdf",
+          "sha256": "89ae3c2da3ca6bde54552dad958fd1121659927cd38b71b45ad3d1c5a1dc89f8"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-06-notes-zh-hant.pdf",
+          "sha256": "569fd161eb106f294a7f79c7b99f4341d4506e03c85514de12803a7b9038d16a"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-06-slides-en.pdf",
+          "sha256": "f850d655dd5f8fdb1df16d907d6cd71beb561796e170ebaf522256568baeeed4"
+        }
+      }
+    },
+    {
+      "id": "lecture-07",
+      "title": {
+        "en": "Decision Theory and Risk",
+        "zh-Hant": "決策理論與風險"
+      },
+      "workshops": [
+        "workshop-05"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-07-notes-en.pdf",
+          "sha256": "6a0216ecb1b7df2c75b87d6cfa490a922829cc7713d2c412de4a14cea1f390ab"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-07-notes-zh-hant.pdf",
+          "sha256": "0c5e85ba192152fc73a9c9039c5d9fc1b6521d0b4068201d1e10791193b3454f"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-07-slides-en.pdf",
+          "sha256": "690e1aae4ddf0c08d4863b62df7000c7358d03c16384f31820d5e772f3486d43"
+        }
+      }
+    },
+    {
+      "id": "lecture-08",
+      "title": {
+        "en": "Game Theory and Strategic Modeling",
+        "zh-Hant": "博弈論與策略建模"
+      },
+      "workshops": [
+        "workshop-04"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-08-notes-en.pdf",
+          "sha256": "9045d14f0fa4472b0f0fe804f2458373ba1723e508e49c37b335301efa779fd0"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-08-notes-zh-hant.pdf",
+          "sha256": "9ae32d606573c39bb384712845e1c81e17a433fb1725d5d312f20f168db4affd"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-08-slides-en.pdf",
+          "sha256": "a7c1f1249e4f16e17b4380637819db22663aff7b5fe416ef84d7b606fd57de3b"
+        }
+      }
+    },
+    {
+      "id": "lecture-09",
+      "title": {
+        "en": "Differential Equations and Dynamic Models",
+        "zh-Hant": "微分方程與動態模型"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-03",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-09-notes-en.pdf",
+          "sha256": "cac0002248ae83c45cc40dcd247e9d846c6c0ae208a945c07c50bcaec2fe2d6c"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-09-notes-zh-hant.pdf",
+          "sha256": "664bc953bdd00920d1be00262e221c48f6c5db1af4268101d9306be44fafe490"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-09-slides-en.pdf",
+          "sha256": "79533c6e8227cde5572968579dd0f0ec5a26a58990e6259fd2bd7a1c82162da8"
+        }
+      }
+    },
+    {
+      "id": "lecture-10",
+      "title": {
+        "en": "Continuous Optimization and Model Design",
+        "zh-Hant": "連續最佳化與模型設計"
+      },
+      "workshops": [
+        "workshop-05"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-10-notes-en.pdf",
+          "sha256": "997c50e0240e3759b321896aab7061520ee7b9e3176f6a0a55081fb86b0f1612"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-10-notes-zh-hant.pdf",
+          "sha256": "b7ded001690d189109370d9fac99edb38cc9ca9213fc56f32709411beac41540"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-10-slides-en.pdf",
+          "sha256": "498b281b711f0166c6f3a8113fa2c9a7f0785dc86665a2e4086052434dfa4bc4"
+        }
+      }
+    },
+    {
+      "id": "lecture-11",
+      "title": {
+        "en": "Dimensional Analysis and Similitude",
+        "zh-Hant": "量綱分析與相似理論"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-11-notes-en.pdf",
+          "sha256": "db66167ce25570ad3b90ed2230c3914b707b67b0c544d8a5152fe67aea43c51f"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-11-notes-zh-hant.pdf",
+          "sha256": "902f4678214bc497cea3d33aae74799044926ed80caba3ce6013386d7ec4ba11"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-11-slides-en.pdf",
+          "sha256": "90b99cd93038e7b4315060a68d29bc5928671e7407d62c9b55c9190cf8ec47cd"
+        }
+      }
+    },
+    {
+      "id": "lecture-12",
+      "title": {
+        "en": "Graphical and Qualitative Modeling",
+        "zh-Hant": "圖像與定性建模"
+      },
+      "workshops": [
+        "workshop-03"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/lecture-12-notes-en.pdf",
+          "sha256": "e8021058f102fee1898b1b056416e6105f9708880ee19572ef07379cc91d07b1"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/lecture-12-notes-zh-hant.pdf",
+          "sha256": "6c48cfaf5879a3f3a7469cde83efbc3cfef7ebbfc23cd112b2c76bf6bd01a9fa"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/lecture-12-slides-en.pdf",
+          "sha256": "75f7e6111cd7b7de4c6ba17d922cba665837280517c6032a2bc10c5583e09281"
+        }
+      }
+    },
+    {
+      "id": "supplementary-01",
+      "title": {
+        "en": "Sets, Functions, and Mathematical Language",
+        "zh-Hant": "集合、函數與數學語言"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-02",
+        "workshop-03",
+        "workshop-04",
+        "workshop-05",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-01-notes-en.pdf",
+          "sha256": "ae04dbbe529b934588b96daf24a674f34430e9359beb0356c5ea228bf3eefaf2"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-01-notes-zh-hant.pdf",
+          "sha256": "632fabcc4938db05b33933fbfa682e55ae357334630c5054deab81301750569b"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-01-slides-en.pdf",
+          "sha256": "c5d54b025ca4e82d06df7ce0b64a1ef76b3f66ac8a3c960661961e4eb9694d07"
+        }
+      }
+    },
+    {
+      "id": "supplementary-02",
+      "title": {
+        "en": "Numbers, Coordinates, and Geometric Models",
+        "zh-Hant": "數系、坐標與幾何模型"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-02-notes-en.pdf",
+          "sha256": "ae8bb6dd40688037bb91e58e6ac260db750f56bcb0b551ac88dc70240e374333"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-02-notes-zh-hant.pdf",
+          "sha256": "a0b053e8a601f1f52facedd56b361e83b50e872ee9685a99d75512db36a50eb2"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-02-slides-en.pdf",
+          "sha256": "3bd46e1f823e0372a468ef8f89a6eeb132a0857e42efbd67ad1fe6a9b8cdef11"
+        }
+      }
+    },
+    {
+      "id": "supplementary-03",
+      "title": {
+        "en": "Graphs, Transformations, and Periodic Models",
+        "zh-Hant": "圖像變換與週期模型"
+      },
+      "workshops": [
+        "workshop-02",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-03-notes-en.pdf",
+          "sha256": "860961c0aeec4c00eaa486b5b294d245d99618272363e0ba306ba16e5c8b7ce8"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-03-notes-zh-hant.pdf",
+          "sha256": "101781a7d639920bb0b110ba725b2518bca3346908a1aa22c9b48bd78d6b1b3d"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-03-slides-en.pdf",
+          "sha256": "4fdecea32834c067e451e49df8dde2ccd1cc83651477e6dc625f841d05dd769d"
+        }
+      }
+    },
+    {
+      "id": "supplementary-04",
+      "title": {
+        "en": "Limits, Continuity, and Asymptotic Thinking",
+        "zh-Hant": "極限、連續與漸近思維"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-02",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-04-notes-en.pdf",
+          "sha256": "6783d45f0d5de6790812c7d91b65ddbf1237d5cac4bd37b9812a869cea505a5d"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-04-notes-zh-hant.pdf",
+          "sha256": "4a025f261b5a5f8c21209310335e814fb75d1518f989313e41ef71d20e7f7e22"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-04-slides-en.pdf",
+          "sha256": "4285c664696efebc75404fa1987f0dfeed96801de558cc803ddf37248753c3ad"
+        }
+      }
+    },
+    {
+      "id": "supplementary-05",
+      "title": {
+        "en": "Derivatives, Rates, and Local Linear Models",
+        "zh-Hant": "導數、變化率與局部線性模型"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-02",
+        "workshop-03",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-05-notes-en.pdf",
+          "sha256": "9d370b85fd91c8e3eafe5bb809ed59c38561afbdf74f2c6c473451545b2d6018"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-05-notes-zh-hant.pdf",
+          "sha256": "e56c58cc2b24c690c6ceae02e88b93bab241f130988dee3bed561ea03470907c"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-05-slides-en.pdf",
+          "sha256": "afcb65106c1a0908667815600f0b3a57f30f22cdfc5156a3f98c730f2c21f992"
+        }
+      }
+    },
+    {
+      "id": "supplementary-06",
+      "title": {
+        "en": "Applications of Derivatives and Optimization",
+        "zh-Hant": "導數應用與最佳化"
+      },
+      "workshops": [
+        "workshop-02",
+        "workshop-05"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-06-notes-en.pdf",
+          "sha256": "1566f6ea11616b478f6b02fda7a06a5de22565b31347bfdca379e3f1b5899343"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-06-notes-zh-hant.pdf",
+          "sha256": "1e649ab5f0618a117b6514eae3b1f4184cb6e648ddad27475f3018ed29ba2c58"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-06-slides-en.pdf",
+          "sha256": "7e06040b0d8ec035ed810a98eee5c136d521283e2024df266ef9986a6630bf77"
+        }
+      }
+    },
+    {
+      "id": "supplementary-07",
+      "title": {
+        "en": "Definite Integrals, Accumulation, and Numerical Integration",
+        "zh-Hant": "定積分、累積與數值積分"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-07-notes-en.pdf",
+          "sha256": "a5dd1b0a5b44a9bab5962cca76414ebe68a3db4cff48ee909164342ac0c42057"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-07-notes-zh-hant.pdf",
+          "sha256": "cd776d53b66b41af25eb1accfd771b9d4515233f5329ec46ab5d13f12f62abae"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-07-slides-en.pdf",
+          "sha256": "069b1878c46264669d8f0862cd37baf0adc566bebe69b4ffae198edec9957d81"
+        }
+      }
+    },
+    {
+      "id": "supplementary-08",
+      "title": {
+        "en": "Probability Essentials for Modeling and Simulation",
+        "zh-Hant": "建模與模擬的概率基礎"
+      },
+      "workshops": [
+        "workshop-02",
+        "workshop-04"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-08-notes-en.pdf",
+          "sha256": "1b391cfde20dcdd36837bd11320b5c1a6ce0e2cdc874a774ff375d6d117cb7fc"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-08-notes-zh-hant.pdf",
+          "sha256": "8024c72b6df3490a233848f06536c21acc3fb7212cca3aa738295f981b9521fc"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-08-slides-en.pdf",
+          "sha256": "87f07e63e6e82f51df25cd9c8e42094cc605f9c98dfa87f220dc537ca2a57dfa"
+        }
+      }
+    },
+    {
+      "id": "supplementary-09",
+      "title": {
+        "en": "Linear Algebra Essentials for Modeling",
+        "zh-Hant": "建模所需的線性代數基礎"
+      },
+      "workshops": [
+        "workshop-03",
+        "workshop-05",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-09-notes-en.pdf",
+          "sha256": "8650cc9f35e64e40d99c1b4fdefb11030fff60c50fe0b3aec6a54793d45d3eba"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-09-notes-zh-hant.pdf",
+          "sha256": "1037ceb57884dc47853841fd97b458db159d2b215ddf35bbef613c49ffad3067"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-09-slides-en.pdf",
+          "sha256": "f545ffd10bd20dd362a923417a4dd22231fa0a8444067521949aabc88cf57373"
+        }
+      }
+    },
+    {
+      "id": "supplementary-10",
+      "title": {
+        "en": "Multivariable Calculus and Lagrange Multipliers",
+        "zh-Hant": "多變量微積分與拉格朗日乘子"
+      },
+      "workshops": [
+        "workshop-02",
+        "workshop-05",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/supplementary-10-notes-en.pdf",
+          "sha256": "1a6f3e596225c966dd94cd60c01075056ce619837c688eba47a4d5e9c01346c4"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/supplementary-10-notes-zh-hant.pdf",
+          "sha256": "b90198645aa83644670c5877f3234fe742f0fbc0f265be745f68ccdf05d986d8"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/supplementary-10-slides-en.pdf",
+          "sha256": "777ec3ca15819520b50c36584c60c41a56167d0f742769d0a85ca2e70c2f673e"
+        }
+      }
+    },
+    {
+      "id": "writing-01",
+      "title": {
+        "en": "Paper Architecture and Judge Navigation",
+        "zh-Hant": "論文架構與讀者導覽"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-02",
+        "workshop-03",
+        "workshop-04",
+        "workshop-05",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-01-notes-en.pdf",
+          "sha256": "bcb3ad3c460c807a4806bc66148433c85a75b69886dee5d691f9d63e45f00932"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-01-notes-zh-hant.pdf",
+          "sha256": "1000e98388b5186bff5c69ea637e3162f06329b91544be98229f9dc134828eea"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-01-slides-en.pdf",
+          "sha256": "a0566dd21aa44efc6e324f34279330e9319742f73d52d94e7289cf8e4e40c668"
+        }
+      }
+    },
+    {
+      "id": "writing-02",
+      "title": {
+        "en": "The Summary — Claim, Evidence, and Decision",
+        "zh-Hant": "摘要——主張、證據與決策"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-02",
+        "workshop-03",
+        "workshop-04",
+        "workshop-05",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-02-notes-en.pdf",
+          "sha256": "a959a098fa32ea24af8dfb5e428d839785cef873e638a560ff859e693b6c59f0"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-02-notes-zh-hant.pdf",
+          "sha256": "4c3718f4566ac29795d9b2eac5afad1bb7502b3de8726747644a285cada1d29e"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-02-slides-en.pdf",
+          "sha256": "22d33759bfcab4393654fac4f6f6493064daddf8641ddfebdc05bc5531a43763"
+        }
+      }
+    },
+    {
+      "id": "writing-03",
+      "title": {
+        "en": "Building Trust — Assumptions, Validation, and Sensitivity",
+        "zh-Hant": "建立可信度——假設、驗證與敏感度"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-02",
+        "workshop-03",
+        "workshop-04",
+        "workshop-05",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-03-notes-en.pdf",
+          "sha256": "444e47ea9932c27bd8f6843a16ad87d48a4390f78d6cb26d6edd1c1c50dc691f"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-03-notes-zh-hant.pdf",
+          "sha256": "6eeb3aadbb0a625a9fb16c3b0fcc16bb0c9b56eb94997e25828867fa283fa1fe"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-03-slides-en.pdf",
+          "sha256": "007ebee5b8244f93a72c9e25b07b9b6e1b14c0358f30cb0d601daee883baa261"
+        }
+      }
+    },
+    {
+      "id": "writing-04",
+      "title": {
+        "en": "Academic Prose — Precision, Flow, and Evidence",
+        "zh-Hant": "學術文字——精確、連貫與證據"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-02",
+        "workshop-03",
+        "workshop-04",
+        "workshop-05",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-04-notes-en.pdf",
+          "sha256": "2baa2180a4dc99c7210d9ce1c0b94148d5ab3591305ddb11debd69359e1eff46"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-04-notes-zh-hant.pdf",
+          "sha256": "103505ec0f7992cb299b28e21a6d8130f432ae716bf631d7f67c0a74b614f73d"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-04-slides-en.pdf",
+          "sha256": "1b5771e5e4eb14c5d778d2c0b9e29d079b9c438d28e605f588a6bc19aca79429"
+        }
+      }
+    },
+    {
+      "id": "writing-05",
+      "title": {
+        "en": "Visual Evidence, LaTeX, and Submission Engineering",
+        "zh-Hant": "視覺證據、LaTeX 與提交工程"
+      },
+      "workshops": [
+        "workshop-01",
+        "workshop-02",
+        "workshop-03",
+        "workshop-04",
+        "workshop-05",
+        "workshop-06"
+      ],
+      "documents": {
+        "notes_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-en/writing-05-notes-en.pdf",
+          "sha256": "3961d2a9a17c6d4426b9b0b95d20d2b52ca895bf70d5f634c0981b0282206e3b"
+        },
+        "notes_zh_hant": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/notes-zh-hant/writing-05-notes-zh-hant.pdf",
+          "sha256": "7fa319230751a1c1c18d3989fbc3e8d9d09f0dccede6e924005b572550587a3b"
+        },
+        "slides_en": {
+          "url": "/resources/mathematical-modeling-lecture-materials/documents/slides-en/writing-05-slides-en.pdf",
+          "sha256": "b682ab2aaa04c5c38f89f2090a619db14e4706cca3b345e28eda29f871571725"
+        }
+      }
+    }
+  ],
+  "pagePolicy": {
+    "en": "Lesson citations distinguish one-based PDF pages from printed pages. Outline entries provide PDF locations only; no printed page is inferred for them.",
+    "zh-Hant": "課內引用分開列出一基 PDF 頁碼與印刷頁碼。目錄條目只列 PDF 位置，不為它們推算印刷頁。"
+  }
+}

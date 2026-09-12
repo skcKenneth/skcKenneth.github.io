@@ -1,0 +1,4 @@
+{
+  "starter": "def student_model(grid, row, col):\n    # Exercise: implement periodic Moore neighborhood; ignore vacancies.\n    # 孤立代理人設為滿意；空位不納入鄰居比例。\n    return 1.0\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n",
+  "reference": "def student_model(grid,row,col):\n    # Periodic Moore neighborhood; an isolated agent is satisfied by convention.\n    n=len(grid);agent=grid[row,col]\n    values=[grid[(row+dr)%n,(col+dc)%n] for dr in [-1,0,1] for dc in [-1,0,1] if dr or dc]\n    occupied=[v for v in values if v!=0]\n    return sum(v==agent for v in occupied)/len(occupied) if occupied else 1.0\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n"
+}

@@ -1,0 +1,9 @@
+---
+const {locale="en"}=Astro.props;
+const zh=locale==="zh-Hant";
+---
+<section class="workshop-callout"><div class="container">
+  <div><p class="eyebrow">{zh?"從閱讀到實作":"From reading to doing"}</p><h2>{zh?"建立模型，也學會質疑模型。":"Build a model. Learn to question it."}</h2><p>{zh?"六個完整雙語工坊：提出問題、建立假設、編寫 Python、檢驗證據，再帶走你的研究紀錄。免登入。":"Six bilingual workshops: frame a question, build assumptions, write Python, test evidence and take your research record with you. No sign-in."}</p></div>
+  <a class="button" href={`${zh?"/zh":""}/teaching/modeling-workshop/`}>{zh?"進入學習工坊 →":"Enter the workshop →"}</a>
+</div></section>
+<style>.workshop-callout{padding:2.5rem 0;border-block:1px solid var(--line);background:#e8ede6}.workshop-callout>.container{display:flex;gap:2rem;align-items:center;justify-content:space-between}.workshop-callout h2{font-size:clamp(1.7rem,3vw,2.5rem);margin:.4rem 0}.workshop-callout p{max-width:65ch}.workshop-callout .button{flex-shrink:0}@media(max-width:760px){.workshop-callout>.container{flex-direction:column;align-items:flex-start}}</style>

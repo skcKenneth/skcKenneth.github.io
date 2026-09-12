@@ -1,0 +1,8 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import WorkshopLesson from "../../../../components/WorkshopLesson.astro";
+import {lessons} from "../../../../data/workshop-lessons";
+export function getStaticPaths(){return lessons.map(lesson=>({params:{slug:lesson.slug},props:{lesson}}));}
+const {lesson}=Astro.props;
+---
+<BaseLayout title={lesson.title["zh-Hant"]} description={lesson.summary["zh-Hant"]} type="教學" locale="zh-Hant" alternatePath={`/teaching/modeling-workshop/${lesson.slug}/`}><WorkshopLesson lesson={lesson} locale="zh-Hant"/></BaseLayout>

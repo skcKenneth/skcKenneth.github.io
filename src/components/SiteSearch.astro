@@ -1,0 +1,51 @@
+---
+import {lessons} from '../data/workshop-lessons';
+const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
+const zh=locale==='zh-Hant', base=zh?'/zh':'';
+const catalog=[{
+  url:`${base}/teaching/modeling-workshop/`,
+  title:zh?'數學建模學習工坊':'Mathematical Modeling Workshop',
+  aliases:['數學建模學習工坊','Mathematical Modeling Workshop','Math Modeling Workshop'],
+  excerpt:zh?'六個完整雙語單元：建立模型、執行 Python、驗證假設及匯出研究成果。':'Six bilingual units: build models, run Python, verify assumptions and export your research.'
+},...lessons.map(lesson=>({url:`${base}/teaching/modeling-workshop/${lesson.slug}/`,title:lesson.title[locale],aliases:Object.values(lesson.title),excerpt:lesson.summary[locale]}))];
+---
+<section class="section" data-site-search data-locale={locale} data-catalog={JSON.stringify(catalog)}><div class="container measure">
+  <label for="search-input"><strong>{zh?'搜尋網站':'Search the site'}</strong></label>
+  <input id="search-input" type="search" placeholder={zh?'例如：數學建模學習工坊、登革熱、敏感度':'Try “modeling workshop”, “dengue”, or “sensitivity”'} style="display:block;width:100%;padding:.8rem;margin:.5rem 0 1rem;font:inherit;border:1px solid #8b9690"/>
+  <p class="small" data-search-status aria-live="polite">{zh?'請輸入至少兩個字元。':'Type at least two characters.'}</p>
+  <div data-search-results></div>
+  <noscript><p>{zh?'搜尋需要 JavaScript。亦可瀏覽':'Search requires JavaScript. Browse the '}<a href={`${base}/projects/`}>{zh?'專案':'projects'}</a>{zh?'或':' or '}<a href={`${base}/writing/`}>{zh?'文章索引':'writing index'}</a>。</p></noscript>
+</div></section>
+<script>
+import {matchCatalog,mergeSearchResults} from '../lib/search-catalog.mjs';
+type Entry={url:string;title:string;excerpt:string;aliases?:string[]};
+type Pagefind={search:(query:string)=>Promise<{results:{data:()=>Promise<{url:string;meta:{title:string};plain_excerpt:string}>}[]}>};
+for(const root of document.querySelectorAll<HTMLElement>('[data-site-search]')){
+  const input=root.querySelector<HTMLInputElement>('input')!,status=root.querySelector<HTMLElement>('[data-search-status]')!,results=root.querySelector('[data-search-results]')!;
+  const catalog=JSON.parse(root.dataset.catalog!),zh=root.dataset.locale==='zh-Hant';
+  let pagefind:Pagefind|undefined,request=0;
+  const t=(en:string,ch:string)=>zh?ch:en;
+  const render=(entries:Entry[])=>{results.replaceChildren();for(const entry of entries.slice(0,20)){
+    const article=document.createElement('article'),type=document.createElement('p'),heading=document.createElement('h2'),link=document.createElement('a'),excerpt=document.createElement('p');
+    article.className='card';article.style.borderTopWidth='1px';type.className='eyebrow';heading.style.fontSize='1.5rem';
+    const path=new URL(entry.url,location.origin).pathname.replace(/^\/zh\//,'/');type.textContent=path.startsWith('/teaching/')?t('Teaching','教學'):path.startsWith('/projects/')?t('Project','專案'):path.startsWith('/research/')?t('Research','研究'):t('Writing','文章');
+    link.href=entry.url;link.textContent=entry.title;excerpt.textContent=entry.excerpt;heading.append(link);article.append(type,heading,excerpt);results.append(article);
+  }if(!entries.length){const p=document.createElement('p');p.textContent=t('No matching pages.','沒有相符頁面。');results.append(p);}};
+  input.addEventListener('input',async()=>{
+    const id=++request,query=input.value.trim();
+    if(query.length<2){results.replaceChildren();status.textContent=t('Type at least two characters.','請輸入至少兩個字元。');return;}
+    const named=matchCatalog(query,catalog);status.textContent=t('Searching…','搜尋中…');
+    try{
+      const moduleUrl='/pagefind/pagefind.js';pagefind??=await import(/* @vite-ignore */ moduleUrl);
+      const search=await pagefind!.search(query);
+      const indexed=await Promise.all(search.results.slice(0,20).map(async item=>{const result=await item.data();return {url:result.url,title:result.meta.title,excerpt:result.plain_excerpt};}));
+      if(id!==request)return;
+      const merged=mergeSearchResults(named,indexed,location.origin);render(merged);
+      const total=search.results.length+merged.length-indexed.length;
+      status.textContent=zh?`找到 ${total} 個結果`:`${total} result${total===1?'':'s'}`;
+    }catch{
+      if(id!==request)return;render(named);status.textContent=t('Full-text search could not load. Matching course titles are shown when available.','全文搜尋暫時無法載入；如有相符課程名稱，仍會列出。');
+    }
+  });
+}
+</script>

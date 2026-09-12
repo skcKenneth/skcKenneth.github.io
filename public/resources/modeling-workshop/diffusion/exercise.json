@@ -1,0 +1,4 @@
+{
+  "starter": "def student_model(u, dx, boundary):\n    # Exercise: implement approximate the second derivative.\n    # boundary is \"fixed\" or \"periodic\"; 固定邊界或週期邊界。\n    return np.zeros_like(u)\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n",
+  "reference": "def student_model(u,dx,boundary):\n    if boundary==\"periodic\":return (np.roll(u,-1)-2*u+np.roll(u,1))/dx**2\n    result=np.zeros_like(u);result[1:-1]=(u[2:]-2*u[1:-1]+u[:-2])/dx**2\n    return result\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n"
+}

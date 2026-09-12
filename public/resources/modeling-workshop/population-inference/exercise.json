@@ -1,0 +1,4 @@
+{
+  "starter": "def student_model(t, r, capacity):\n    # Exercise: implement logistic trajectory with initial population 5.\n    # 待完成：初始人口為 5 的 Logistic 軌跡。\n    return np.full_like(np.asarray(t, dtype=float), 5.0)\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n",
+  "reference": "def student_model(t, r, capacity, initial=5.0):\n    return capacity / (1 + (capacity / initial - 1) * np.exp(-r * np.asarray(t)))\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n"
+}

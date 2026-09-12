@@ -1,4 +1,5 @@
 ---
+import WorkshopCallout from "./WorkshopCallout.astro";
 import rawCatalogue from "../data/generated/teaching-lecture-catalogue.json";
 import type { LectureAsset, LectureCatalogue, LectureGroup, LectureLocale, LocalizedText } from "../types/lecture-library";
 
@@ -52,6 +53,7 @@ const datasetZip = catalogue.datasets.find((asset) => asset.file.endsWith("stude
 const datasetDictionary = catalogue.datasets.find((asset) => asset.file.endsWith("data-dictionary.json"));
 const datasetFiles = catalogue.datasets.filter((asset) => asset.file.endsWith(".csv"));
 ---
+<WorkshopCallout locale={locale}/>
 <header class="lecture-library-hero">
   <div class="container lecture-library-hero-grid">
     <div>

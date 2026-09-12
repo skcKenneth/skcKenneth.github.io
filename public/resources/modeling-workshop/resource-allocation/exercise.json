@@ -1,0 +1,4 @@
+{
+  "starter": "def student_model(x, profit_x, profit_y):\n    # Exercise: implement total profit from the two decision variables.\n    # 待完成：兩個決策變數對應的總利潤。\n    return 0.0\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n",
+  "reference": "def student_model(x,profit_x,profit_y):\n    return profit_x*x[0]+profit_y*x[1]\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n"
+}

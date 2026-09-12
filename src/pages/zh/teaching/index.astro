@@ -1,4 +1,5 @@
 ---
+import WorkshopCallout from "../../../components/WorkshopCallout.astro";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import LectureLibraryCallout from "../../../components/LectureLibraryCallout.astro";
@@ -101,4 +102,5 @@ const principles = [
     <div><p class="eyebrow">教學與指導</p><h2>把數學、計算與研究習慣放在同一學習序列。</h2></div>
     <div><p>如想討論課程設計、數學建模教學或學生研究指導，歡迎直接聯絡。</p><a class="button secondary" href="mailto:sokkincheng@gmail.com?subject=Teaching%20and%20modeling">聯絡我</a></div>
   </div></section>
+<WorkshopCallout locale="zh-Hant"/>
 </BaseLayout>

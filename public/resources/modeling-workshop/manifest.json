@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "dataType": "synthetic teaching experiments",
+  "slugs": [
+    "mixing-tank",
+    "population-inference",
+    "sir-dynamics",
+    "agent-simulation",
+    "resource-allocation",
+    "diffusion"
+  ],
+  "assets": [
+    {
+      "file": "workshop_core.py",
+      "bytes": 24785,
+      "sha256": "c41c2a9afe3f6b4836a38d113a0ad198357a64b6e16938642b10df248d53375c",
+      "kind": "python-core"
+    },
+    {
+      "file": "source-map.json",
+      "bytes": 64580,
+      "sha256": "773b2789e35df01d98ef230edd38fac000cfe51b137d748f3b4ad26031ec40b4",
+      "kind": "source-map"
+    },
+    {
+      "file": "mixing-tank/exercise.json",
+      "bytes": 1448,
+      "sha256": "29e0b95d1d7995f79b7e267237aa50e892f372bfca2635c37789ad8ccd230f59",
+      "kind": "exercise"
+    },
+    {
+      "file": "mixing-tank/baseline.json",
+      "bytes": 51195,
+      "sha256": "30f654f29e5a558f9b4718e2c0fd45dd93ef408725c5b6c0c857c42a43c816c9",
+      "kind": "baseline"
+    },
+    {
+      "file": "mixing-tank/baseline.csv",
+      "bytes": 7213,
+      "sha256": "440a24b11474942d5745e1472f7f91f53aae9e8b8fb551a2597259f8fb1f8d5f",
+      "kind": "dataset"
+    },
+    {
+      "file": "mixing-tank/reference.ipynb",
+      "bytes": 32832,
+      "sha256": "19892018bf511ae01e342c2dd854339aab1481a22b17e7b05c684dcf66fd795f",
+      "kind": "notebook"
+    },
+    {
+      "file": "mixing-tank/reference.py",
+      "bytes": 25698,
+      "sha256": "c97b349b20d183195ed1972a579a3da3eeb215dd488f57dcab43152ba1846aed",
+      "kind": "python-reference"
+    },
+    {
+      "file": "mixing-tank/figure-1.png",
+      "bytes": 31724,
+      "sha256": "c907f954ea058bca4108b6d39f67f3ad56e4cacd6c0fd984b3ae94344e55a57d",
+      "kind": "figure"
+    },
+    {
+      "file": "population-inference/exercise.json",
+      "bytes": 613,
+      "sha256": "787dc72bae0c101651efc343a34c54c2d8c05f51fb9b37f8cf1bc2841cdcbc45",
+      "kind": "exercise"
+    },
+    {
+      "file": "population-inference/baseline.json",
+      "bytes": 125177,
+      "sha256": "513ec80e1184d64a3298a10e75d2c89be3b77734dd27d65de01c3a494ddf7ca1",
+      "kind": "baseline"
+    },
+    {
+      "file": "population-inference/baseline.csv",
+      "bytes": 3347,
+      "sha256": "bf5b750a05612933a43569ed87434ff0350382cb7ade9954fdd586523cdc5793",
+      "kind": "dataset"
+    },
+    {
+      "file": "population-inference/reference.ipynb",
+      "bytes": 32125,
+      "sha256": "b8b5b8c12903e8562835686c9a9203e0408fcc336f3bdc35b79eeb1ba42c8880",
+      "kind": "notebook"
+    },
+    {
+      "file": "population-inference/reference.py",
+      "bytes": 25181,
+      "sha256": "d61f4a371ad12e547b08fd216e9dc17511897cd6dfe8ee372985907b7948568b",
+      "kind": "python-reference"
+    },
+    {
+      "file": "population-inference/figure-1.png",
+      "bytes": 64810,
+      "sha256": "720f4d989e7a6dc54b1f8cd0134535ebfc648a82d669ddad2d5cd6c3384a7fef",
+      "kind": "figure"
+    },
+    {
+      "file": "population-inference/figure-2.png",
+      "bytes": 25540,
+      "sha256": "1fcd0622368f1b037067eefc2e2c66531ebdfff05f6013dc4bae714edc123500",
+      "kind": "figure"
+    },
+    {
+      "file": "sir-dynamics/exercise.json",
+      "bytes": 599,
+      "sha256": "11667e70c1f0e45c1fd75eb6486d4c10e3721e2d81e19d9e54093df24220f108",
+      "kind": "exercise"
+    },
+    {
+      "file": "sir-dynamics/baseline.json",
+      "bytes": 86687,
+      "sha256": "426b6daa7105235c8856a4639ac815d02550a41b4bce32ed2cb2315327de7680",
+      "kind": "baseline"
+    },
+    {
+      "file": "sir-dynamics/baseline.csv",
+      "bytes": 19531,
+      "sha256": "5802d50bf8def0b812776268de17c81adc3e7f485e82e2fcba4a777b701b0d42",
+      "kind": "dataset"
+    },
+    {
+      "file": "sir-dynamics/reference.ipynb",
+      "bytes": 32138,
+      "sha256": "122f8c5c8e7f14410bb93be2a7de94fa367d8dbd388017bc6ba33704b4fe853a",
+      "kind": "notebook"
+    },
+    {
+      "file": "sir-dynamics/reference.py",
+      "bytes": 25189,
+      "sha256": "c924eb88e32e57395cb6fec237ab966b6e4cbb3927cfedad78cc03bb9785d7c8",
+      "kind": "python-reference"
+    },
+    {
+      "file": "sir-dynamics/figure-1.png",
+      "bytes": 49127,
+      "sha256": "42c0ec0ef048401cc3a081c1fc9766a2c45ef683a3110aa29ed47a8b2f9cafca",
+      "kind": "figure"
+    },
+    {
+      "file": "agent-simulation/exercise.json",
+      "bytes": 813,
+      "sha256": "c50924fc3330b692c642eacb8bb0c822b68b97ce793b55ab84176e51e52be055",
+      "kind": "exercise"
+    },
+    {
+      "file": "agent-simulation/baseline.json",
+      "bytes": 104647,
+      "sha256": "015eac1a2be36edc9fe9c9547b0833d2782f75a90847a0b1a714dfe97c6474d6",
+      "kind": "baseline"
+    },
+    {
+      "file": "agent-simulation/baseline.csv",
+      "bytes": 807,
+      "sha256": "4c7806a4e622f12a9db9d659267243cdcb482a22cef4ba81413500cca640d83e",
+      "kind": "dataset"
+    },
+    {
+      "file": "agent-simulation/reference.ipynb",
+      "bytes": 32407,
+      "sha256": "52616d87ce4600b38a7b1d887f7320aeace7c3b3447cd17ee7a568f46b4700cc",
+      "kind": "notebook"
+    },
+    {
+      "file": "agent-simulation/reference.py",
+      "bytes": 25415,
+      "sha256": "ca88273a8e613483d4308d3393eb9581825e6209734efde21de20eea01f85e4a",
+      "kind": "python-reference"
+    },
+    {
+      "file": "agent-simulation/figure-1.png",
+      "bytes": 28938,
+      "sha256": "a5f62b9b091695cf7deb638ee7018bafc6a2efe38bb34e3dd42267f788c5bdb6",
+      "kind": "figure"
+    },
+    {
+      "file": "agent-simulation/figure-2.png",
+      "bytes": 35372,
+      "sha256": "c35847e00a93eb52f5c8992c5608b1b119a3a4a7903c1549485845f67f8b1505",
+      "kind": "figure"
+    },
+    {
+      "file": "resource-allocation/exercise.json",
+      "bytes": 525,
+      "sha256": "5e408a37e0ff762f77bd37e7ccd6584194edcbd4decba9cc0f27f7efe691f1e5",
+      "kind": "exercise"
+    },
+    {
+      "file": "resource-allocation/baseline.json",
+      "bytes": 44215,
+      "sha256": "9b42dba8a769f4597befee2cef425acd93d7ea2cfb3a8ce9376f0bb3bfe94159",
+      "kind": "baseline"
+    },
+    {
+      "file": "resource-allocation/baseline.csv",
+      "bytes": 183,
+      "sha256": "121c85e41be5ac624303a74e6cc2717c61f46fafb4ab3f52351c7e8410191718",
+      "kind": "dataset"
+    },
+    {
+      "file": "resource-allocation/reference.ipynb",
+      "bytes": 32074,
+      "sha256": "4cd540c580fe30fa4980d79aed6dc4ef9a07ba6c591fb7131d40d2c693fb3fba",
+      "kind": "notebook"
+    },
+    {
+      "file": "resource-allocation/reference.py",
+      "bytes": 25131,
+      "sha256": "9864ba0ad86ba9c35db398eccc5642dd8cb9124d182002dc49f2f987cbf58076",
+      "kind": "python-reference"
+    },
+    {
+      "file": "resource-allocation/figure-1.png",
+      "bytes": 32114,
+      "sha256": "131d847e35ded59bc068fe7ed7bd28112125951841c3b0538c7f23bf728d24cc",
+      "kind": "figure"
+    },
+    {
+      "file": "diffusion/exercise.json",
+      "bytes": 662,
+      "sha256": "2b2b93f1682687b267f0ffae146560ce7f02e2d838329e533c6e969426f2d0f6",
+      "kind": "exercise"
+    },
+    {
+      "file": "diffusion/baseline.json",
+      "bytes": 65820,
+      "sha256": "d9b0cc7e65a9d156d4f59da17ef1bfff3acf4c5faceca1a7196daac3956b60a9",
+      "kind": "baseline"
+    },
+    {
+      "file": "diffusion/baseline.csv",
+      "bytes": 2795,
+      "sha256": "d787eb4e2aa6edd8fc6659eed1790467421090c1eaf29d842c70abcfeaab78c8",
+      "kind": "dataset"
+    },
+    {
+      "file": "diffusion/reference.ipynb",
+      "bytes": 32212,
+      "sha256": "3bdfb12c9af172d3d0a05e05097c7c08f3f10e0edb554fa3d180cc535518da03",
+      "kind": "notebook"
+    },
+    {
+      "file": "diffusion/reference.py",
+      "bytes": 25251,
+      "sha256": "ebf2f134da298ca4b031fa0a036755a99a1566024ce972bc0196c56c1bdcc08b",
+      "kind": "python-reference"
+    },
+    {
+      "file": "diffusion/figure-1.png",
+      "bytes": 46233,
+      "sha256": "32ab913e8973e524a3ca41e3e89e0939ec9b8583a0ed282f0b6f1e31261102f3",
+      "kind": "figure"
+    },
+    {
+      "file": "README.txt",
+      "bytes": 213,
+      "sha256": "3d45367208bee90b31cf1e3f0cea85869e03b88da2d8bdffff1434edfb588fff",
+      "kind": "readme"
+    }
+  ]
+}

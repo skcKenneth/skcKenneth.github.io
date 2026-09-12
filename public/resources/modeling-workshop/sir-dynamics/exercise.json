@@ -1,0 +1,4 @@
+{
+  "starter": "def student_model(y, beta, gamma):\n    # Exercise: implement return [dS/dt, dI/dt, dR/dt], population = 1000.\n    # 待完成：回傳三組人口的變化率，總人口為 1000。\n    return np.zeros(3)\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n",
+  "reference": "def student_model(y, beta, gamma):\n    s,i,r=y; incidence=beta*s*i/1000.0\n    return np.array([-incidence,incidence-gamma*i,gamma*i])\n\nresult = run_lesson(LESSON, PARAMS, SEED, student_model)\nprint(\"Experiment complete / 實驗完成\")\n"
+}
