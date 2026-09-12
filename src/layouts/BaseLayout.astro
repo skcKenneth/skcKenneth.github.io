@@ -51,10 +51,10 @@ const updated = isZh ? "2026 年 8 月 20 日" : "20 August 2026";
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f5f3ed" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
-    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="icon" href="/favicon.ico?v=woven-c2" sizes="16x16 32x32 48x48 64x64" />
+    <link rel="icon" href="/favicon-32x32.png?v=woven-c2" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon.svg?v=woven-c2" type="image/svg+xml" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=woven-c2" sizes="180x180" />
     {noindex && <meta name="robots" content="noindex,follow" />}
     {type && <meta name="pagefind:filter" content={`type:${type}`} />}
     <link rel="canonical" href={canonical} />
@@ -71,7 +71,7 @@ const updated = isZh ? "2026 年 8 月 20 日" : "20 August 2026";
     <header class="site-header">
       <div class="container nav-wrap">
         <a class="brand" href={isZh ? "/zh/" : "/"}>
-          <img class="brand-icon" src="/favicon.svg" alt="" width="44" height="44" aria-hidden="true" />
+          <img class="brand-icon" src="/images/kenneth-woven-knot.svg" alt="" width="44" height="44" aria-hidden="true" />
           <span class="brand-copy">
             <strong>Kenneth Cheng</strong>
             <span>{isZh ? "數學建模" : "Mathematical modeling"}</span>
