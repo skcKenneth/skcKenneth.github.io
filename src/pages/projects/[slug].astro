@@ -19,6 +19,7 @@ const { entry, catalogue } = Astro.props as { entry?: any; catalogue?: any };
 const rendered = entry ? await render(entry) : null;
 const Content = rendered?.Content;
 const d: any = entry?.data ?? catalogue;
+const isEpidemicStudy = d.slug === "can-aggregate-observations-bound-an-epidemic";
 const updated = entry ? d.lastUpdated : new Date(`${d.last_updated}T00:00:00Z`);
 const inventory = Object.entries(catalogue?.inventory ?? {}).filter(([, value]) => Number(value) > 0);
 const technicalUrl = publicRepositoryUrl(d.technicalUrl ?? d.technical_url);
@@ -51,11 +52,16 @@ const hasPublicActions = Boolean(technicalUrl || repositoryUrl || teachingUrl);
     </aside>
     <article class="prose">
       {entry && Content ? <Fragment>
-        {d.heroImage && <Figure src={d.heroImage} alt={`Technical figure from ${d.title}`} caption="A reviewed research figure synchronized from the private technical workspace. The original aspect ratio and labels are preserved." source={technicalUrl}/>}<Content />
+        {d.heroImage && (isEpidemicStudy ? <figure class="epibounds-figure">
+          <img src={d.heroImage} alt="Region 1 truth with set bounds and central ensemble intervals under direct reporting and delayed aggregate reporting." loading="lazy" decoding="async"/>
+          <figcaption>Region 1 in preselected synthetic replicate 0: six direct reports without delay above, two grouped reports delayed five days below. Dashed orange shows outer set bounds, blue the central 95% of 500 EnKF members, and black truth. Measurement error is bounded by five people, process transfer by 0.5 per day, and movement is 0.002 per day. Vertical scales differ.</figcaption>
+        </figure> : <Figure src={d.heroImage} alt={`Technical figure from ${d.title}`} caption="A reviewed research figure synchronized from the private technical workspace. The original aspect ratio and labels are preserved." source={technicalUrl}/>)}<Content />
         <h2>Key findings</h2><ul>{d.keyFindings.map((finding: string) => <li>{finding}</li>)}</ul>
         <h2>Limitations</h2><div class="notice"><ul>{d.limitations.map((limitation: string) => <li>{limitation}</li>)}</ul></div>
-        <h2>Technical record</h2><p>Detailed source, calculations, generated figures, and reproduction instructions are maintained in a private technical workspace. Public articles contain only manually reviewed interpretation and approved figures.</p>
-        <h2>Version history</h2><p><strong>{d.lastUpdated.toISOString().slice(0,10)}</strong> — Curated overview reviewed against repository evidence.</p>
+        {!isEpidemicStudy && <Fragment>
+          <h2>Technical record</h2><p>Detailed source, calculations, generated figures, and reproduction instructions are maintained in a private technical workspace. Public articles contain only manually reviewed interpretation and approved figures.</p>
+          <h2>Version history</h2><p><strong>{d.lastUpdated.toISOString().slice(0,10)}</strong> — Curated overview reviewed against repository evidence.</p>
+        </Fragment>}
       </Fragment> : <Fragment>
         <div class="notice"><strong>Inventory, not endorsement.</strong> This page makes the project discoverable without turning its notebooks, source files, or raw outputs into an editorial article. Findings will only be summarized after manual technical and editorial review.</div>
         <h2>Repository inventory</h2>

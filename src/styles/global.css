@@ -70,6 +70,7 @@ figcaption,.caption { color:var(--muted); font-size:.82rem; line-height:1.5; mar
 .prose .article-figure img,.prose>figure img { width:100%; height:auto; background:#fff; border:1px solid var(--line); }
 .prose .article-figure figcaption,.prose>figure figcaption { max-width:72ch; }
 .prose>figure.fairchoice-figure img { max-width:480px; margin-inline:auto; display:block; border:0; }
+.prose>figure.epibounds-figure img { max-width:480px; margin-inline:auto; display:block; border:0; }
 .prose blockquote,.callout { border-left:3px solid var(--accent); margin:1.8rem 0; padding:.3rem 1.2rem; background:#eceee8; }
 .prose pre { overflow:auto; padding:1rem; border-radius:0; font:0.88rem/1.55 var(--mono); }
 .prose code { font-family:var(--mono); }

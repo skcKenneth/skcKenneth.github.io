@@ -9,6 +9,7 @@ export const researchArticles = {
   "when-starting-over-finds-the-target-faster": 8,
   "when-solar-power-changes-fast": 8,
   "when-taking-turns-makes-a-system-unstable": 8,
+  "can-aggregate-observations-bound-an-epidemic": 8,
 };
 
 export function checkResearchArticles(slugs = Object.keys(researchArticles)) {
