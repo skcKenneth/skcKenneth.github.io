@@ -3,6 +3,11 @@ import {lessons} from '../data/workshop-lessons';
 const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
 const zh=locale==='zh-Hant', base=zh?'/zh':'';
 const catalog=[{
+  url:`${base}/teaching/#math-inquiry-lab`,
+  title:zh?'數學探究室 · Math Inquiry Lab':'Math Inquiry Lab',
+  aliases:['數學探究室','Math Inquiry Lab','math-inquiry-lab'],
+  excerpt:zh?'二次函數、概率及迴歸三個互動活動，結合分層探究任務與教師手冊。':'Three interactive activities on quadratic functions, probability and regression, with layered inquiry tasks and a teacher guide.'
+},{
   url:`${base}/teaching/modeling-workshop/`,
   title:zh?'數學建模學習工坊':'Mathematical Modeling Workshop',
   aliases:['數學建模學習工坊','Mathematical Modeling Workshop','Math Modeling Workshop'],

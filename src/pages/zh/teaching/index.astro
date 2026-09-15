@@ -3,6 +3,7 @@ import WorkshopCallout from "../../../components/WorkshopCallout.astro";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import LectureLibraryCallout from "../../../components/LectureLibraryCallout.astro";
+import MathInquiryLabCallout from "../../../components/MathInquiryLabCallout.astro";
 
 const items = await getCollection("teachingZh", ({ data }) => !data.draft);
 const order: Record<string, number> = { Beginner: 0, Competition: 1, Advanced: 2, Instructor: 3 };
@@ -52,6 +53,7 @@ const principles = [
     </div>
 </header>
 
+  <MathInquiryLabCallout locale="zh-Hant" />
   <LectureLibraryCallout locale="zh-Hant" />
 
   <section class="section"><div class="container">

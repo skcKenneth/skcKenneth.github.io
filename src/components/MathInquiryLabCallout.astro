@@ -1,0 +1,28 @@
+---
+const { locale = "en" } = Astro.props;
+const zh = locale === "zh-Hant";
+const site = "https://skckenneth.github.io/math-inquiry-lab/";
+---
+<section class="inquiry-callout" id="math-inquiry-lab" aria-labelledby="inquiry-title">
+  <div class="container inquiry-callout-grid">
+    <div>
+      <p class="eyebrow">{zh ? "教學設計與開發" : "Teaching design & development"}</p>
+      <h2 id="inquiry-title">{zh ? "數學探究室 · Math Inquiry Lab" : "Math Inquiry Lab"}</h2>
+      <p>{zh ? "我設計及開發的中學數學互動資源，包含二次函數、概率及迴歸三個活動。以預測、操作、記錄與解釋串連探究流程，並提供分層任務與教師手冊。" : "I designed and developed three interactive secondary mathematics activities on quadratic functions, probability and regression. This Traditional Chinese resource connects prediction, experimentation, recording and explanation through layered tasks and a teacher guide."}</p>
+      <p class="small">{zh ? "免登入 · 可選本機筆記 · 參數分享 · 學習紀錄匯出" : "No sign-in · Optional local notes · Parameter sharing · Learning record export"}</p>
+    </div>
+    <div class="inquiry-links">
+      <a class="button" href={site}>{zh ? "進入數學探究室 →" : "Open Math Inquiry Lab →"}</a>
+      <a href={`${site}teacher-guide.html`}>{zh ? "閱讀教師手冊" : "Read the teacher guide"}</a>
+      <a href="https://github.com/skcKenneth/math-inquiry-lab">{zh ? "查看原始碼與測試報告" : "View source and test report"}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .inquiry-callout { padding:2.5rem 0; border-bottom:1px solid var(--line); scroll-margin-top:6rem; }
+  .inquiry-callout-grid { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2rem; align-items:center; }
+  .inquiry-callout h2 { margin:.4rem 0 .8rem; font-size:clamp(1.7rem,3vw,2.5rem); }
+  .inquiry-callout p { max-width:72ch; }
+  .inquiry-links { display:flex; flex-direction:column; align-items:flex-start; gap:.9rem; }
+  @media(max-width:760px) { .inquiry-callout-grid { grid-template-columns:1fr; gap:1rem; } }
+</style>
