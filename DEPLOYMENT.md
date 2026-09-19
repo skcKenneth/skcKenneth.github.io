@@ -6,6 +6,7 @@ The `pages.yml` workflow runs on `master` and manual dispatch. Pull requests run
 the same build without deploying. The job:
 
 1. installs the pinned pnpm/Node toolchain;
+   then runs the dependency security gate (all dependency scopes, every severity);
 2. runs publication-policy unit tests;
 3. fetches or falls back to validated ScienceProject metadata, approved figures, and allowlisted teaching resources;
 4. verifies asset hashes, publish-only provenance, teaching-resource boundaries, SVG policy and bilingual parity;
@@ -23,6 +24,7 @@ token permissions.
 
 ```bash
 pnpm install --frozen-lockfile
+pnpm run check:security
 pnpm build
 pnpm preview
 ```
@@ -35,6 +37,16 @@ For each new article, publication includes the English and Traditional Chinese
 homepages. Check their current recommendations locally at desktop and mobile
 sizes, then verify both live homepages after Pages reports success for the exact
 pushed commit. An article-list check alone does not complete publication.
+
+Every publication also includes dependency security maintenance. Resolve reported
+advisories with the smallest compatible dependency/lockfile update, run focused
+regression checks and the full build, then verify the exact deployed commit.
+The CI security gate blocks deployment on known advisories or an unavailable
+audit service; do not add ignored advisories or `--ignore-registry-errors` simply
+to publish. When GitHub alert access is available, also verify its current alert
+state after the dependency graph refresh. A clean registry audit is not evidence
+that inaccessible GitHub alerts were dismissed or closed. Preserve unrelated
+worktree changes and do not silently expand a patch into a major-version migration.
 
 ## ScienceProject CI
 

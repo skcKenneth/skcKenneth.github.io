@@ -25,6 +25,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Dependency security gate
+        run: pnpm run check:security
       - name: Build, index, and validate
         run: pnpm run build
         env:

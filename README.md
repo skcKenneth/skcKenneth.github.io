@@ -22,7 +22,7 @@ pages never link visitors into the private repository.
 
 ## Local development
 
-Requirements: Node 22.12+ and pnpm 11.7.
+Requirements: Node 22.19+ and pnpm 11.7.
 
 ```bash
 pnpm install --frozen-lockfile
@@ -40,6 +40,12 @@ An authenticated remote asset endpoint may be supplied explicitly through
 pnpm build       # policy tests, sync, bilingual/assets/schema checks, build, search and link hygiene
 pnpm preview     # serve the production output
 ```
+
+Before every publication, run `pnpm run check:security` and address all reported
+dependency advisories, then rerun the full build. Pages CI enforces this gate;
+it does not ignore development/optional dependencies, low-severity findings,
+or an unavailable audit registry. See [DEPLOYMENT.md](DEPLOYMENT.md) for the
+security-update and live-verification procedure.
 
 The build also migrates all previously published `_posts/*.md` bodies into the
 Writing archive. This is a content-preserving migration, not automatic prose

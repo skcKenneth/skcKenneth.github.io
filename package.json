@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@11.7.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.19.0"
   },
   "scripts": {
     "dev": "node scripts/sync-science-projects.mjs && node scripts/sync-teaching-resources.mjs && node scripts/migrate-legacy-writing.mjs && node scripts/sync-workshop.mjs && astro dev",
@@ -33,6 +33,7 @@
     "check:redirects": "node scripts/check-redirects.mjs",
     "check:links": "node scripts/check-built-links.mjs",
     "check:output": "node scripts/check-output.mjs",
+    "check:security": "node --test tests/security-dependencies.test.mjs && pnpm audit --audit-level low",
     "check:science": "node scripts/check-science-catalog.mjs",
     "check:science-assets": "node scripts/check-science-assets.mjs",
     "check:bilingual": "node scripts/check-bilingual-content.mjs --strict",
@@ -49,7 +50,7 @@
     "test:workshop": "node --test tests/workshop.test.mjs tests/search-catalog.test.mjs"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.2.1",
+    "@astrojs/markdown-remark": "7.2.4",
     "@astrojs/mdx": "7.0.2",
     "@astrojs/sitemap": "3.7.3",
     "@codemirror/commands": "^6.11.0",
@@ -57,7 +58,7 @@
     "@codemirror/language": "^6.12.4",
     "@codemirror/state": "^6.7.4",
     "@codemirror/view": "^6.43.11",
-    "astro": "7.1.1",
+    "astro": "7.2.8",
     "katex": "0.17.0",
     "reading-time": "1.5.0",
     "rehype-katex": "7.0.1",
