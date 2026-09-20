@@ -21,8 +21,10 @@ Coverage: all 38 existing lessons; numerical generation, explanation-choice, and
 
 The 12 unit scenarios, predictions, parameter comparisons, dialogue stems, local evidence recorder, transfer tasks, rubrics and teacher observation fields are original design adaptations. Group size and rotating roles are optional website scaffolds, not attributed prescriptions. No claim of experimental validation of this website. Collaboration here means classroom use; no live multi-user service.
 
-## Release validation
+## Initial release validation (historical)
 
 `node scripts/validate-math-studio.cjs`: 38 lesson pools, 304 prompt families, 12,342 unique prompts (including controlled numeric variants), 38 written reasoning tasks, 12 inquiry units. Each chapter/difficulty can provide a 15-question set. All numerical answers are finite and accepted at stated precision; choice options are unique and shuffled answer indices retain the correct option. Scope selection, within-set uniqueness, unseen-first selection, exhausted pool reporting, local history across reload, malformed/denied storage, numeric/choice/written delegated handlers and inquiry recording/persistence are checked. Domain-sensitive geometry, quadratic signs, zero-coefficient equations, triangular boundaries, and slider endpoint SVG values have additional checks.
 
 Plain static project, managed-linux profile; no supported browser preview was available. DOM rendering and interaction logic tested using a VM DOM harness, not a real-browser visual or accessibility audit.
+
+The historical counts and per-scope 15-question statement above describe the initial release. The subsequent learning-support release enforces challenge-family caps and explicitly reports shortages in unexpanded chapters. See [the current content, test, and review contract](math-studio-learning-support.md).
