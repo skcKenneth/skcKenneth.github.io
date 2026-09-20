@@ -1,0 +1,52 @@
+/* Year 7 inquiries extend the existing paper-and-green studio. */
+.g7-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.g7-control{display:flex;flex-direction:column;gap:7px;font-size:.87rem;min-width:0}
+.g7-control label{line-height:1.6}
+.g7-input-pair{display:flex;gap:10px;align-items:center}
+.g7-input-pair input[type=range]{width:100%;min-width:40px;accent-color:#177d70}
+.g7-input-pair input[type=number]{width:92px;flex-shrink:0}
+.g7-control input[type=number],.g7-control select,.g7-workspace select,.g7-check input{border:1px solid #b8c9c1;border-radius:6px;padding:9px;background:#fffdfa;font:inherit;color:#183c38;max-width:100%}
+.g7-control [aria-invalid=true]{border:2px solid #99442e}
+.g7-directions,.g7-case-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.g7-directions{grid-column:1/-1}
+.g7-directions button{min-width:65px;min-height:44px}
+.g7-grade-filter{margin-bottom:20px;display:inline-flex;flex-wrap:wrap}
+.g7-extensions{padding:18px;border:1px solid #dbe5df;margin:0 0 28px;border-radius:10px}
+.g7-task-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.g7-task-grid>.inquiry-step{min-width:0}
+.g7-transfer{grid-column:1/-1}
+.g7-field{display:flex;flex-direction:column;gap:8px;margin:20px 0;font-weight:600}
+.g7-field textarea{box-sizing:border-box;width:100%;resize:vertical;min-height:110px;padding:12px;border:1px solid #bdccc5;border-radius:6px;background:#fffdfa;font:400 .94rem/1.8 inherit;color:#183c38}
+.g7-workspace details{margin:12px 0;padding:12px 14px;border:1px solid #dbe5df;border-radius:6px;background:#fffdfa}
+.g7-workspace details>summary{cursor:pointer;font-weight:600;line-height:1.7}
+.g7-workspace details p{margin:12px 0 0}
+.g7-workspace .inquiry-intro select{display:block;margin:8px 0}
+.g7-evidence{padding:14px;margin:12px 0;border-left:3px solid #177d70;background:#f1f6f2;border-radius:0 6px 6px 0}
+.g7-evidence h4,.g7-comparison h4{margin:0 0 8px}
+.g7-evidence p,.g7-comparison p{font-size:.8rem;overflow-wrap:anywhere}
+.g7-evidence pre,.g7-comparison pre,.g7-print-answer{font:inherit;font-size:.85rem;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+.g7-evidence button{margin:4px 6px 4px 0}
+.g7-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.g7-comparison article{min-width:0;padding:12px;border:1px solid #b8c9c1;border-radius:6px}
+.g7-check{border-top:1px solid #dbe5df;margin-top:22px;padding-top:18px}
+.g7-check label{display:block;margin-bottom:10px}
+.g7-check input{width:140px;margin-right:10px}
+.g7-check small{display:block;line-height:1.7}
+.g7-results{display:grid;grid-template-columns:minmax(80px,1fr) minmax(0,3fr);gap:8px;font-size:.88rem;line-height:1.8}
+.g7-results dt{font-weight:600}.g7-results dd{margin:0;overflow-wrap:anywhere}
+.g7-lab .lab-stage svg{display:block;width:100%;height:auto;max-height:380px}
+.g7-lab #g7-route-text{overflow-wrap:anywhere;font-size:.85rem;grid-column:1/-1}
+.g7-print-answer{display:none}
+.g7-workspace button:focus-visible,.g7-workspace summary:focus-visible,.g7-control input:focus-visible,.g7-control select:focus-visible,.g7-field textarea:focus-visible{outline:3px solid #a77734;outline-offset:3px}
+@media(max-width:900px){.g7-task-grid{grid-template-columns:1fr}.g7-transfer{grid-column:auto}}
+@media(max-width:540px){.g7-controls{grid-template-columns:1fr}.g7-comparison{grid-template-columns:1fr}.g7-results{grid-template-columns:1fr}.g7-results dt{margin-top:10px}.g7-case-buttons button{width:100%;text-align:left}.g7-check input{width:100%;margin-bottom:10px}.g7-workspace .inquiry-step{padding:18px}}
+@media print{
+ .sidebar,.topbar,.site-footer,.lab-selector,.g7-grade-filter,.g7-extensions,.explore-note,.page-heading,.g7-case-buttons,.g7-directions,.g7-workspace button,.g7-workspace textarea,.g7-controls,.g7-check,.inquiry-actions,.g7-workspace select,.g7-workspace a{display:none!important}
+ .app-shell,.page,#main,.explore-layout,.g7-task-grid,.large-lab{display:block!important;width:100%!important;margin:0!important;padding:0!important;max-width:none!important}
+ .g7-workspace,.g7-workspace article,.g7-workspace details,.lab-panel{box-shadow:none!important;background:white!important;color:black!important}
+ .g7-workspace details[open]>*{display:block!important}.g7-workspace details:not([open])>:not(summary){display:none!important}.g7-print-answer{display:block;min-height:3em}
+ .g7-workspace article,.g7-workspace details,.g7-evidence,.lab-stage{break-inside:avoid}
+ .g7-comparison{grid-template-columns:1fr 1fr}.lab-stage svg{max-height:240px!important}
+}
+
+.g7-control input:disabled{opacity:.5}.g7-research{margin-top:20px}

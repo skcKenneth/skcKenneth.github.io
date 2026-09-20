@@ -17,10 +17,12 @@ The owner requested on 2026-09-19 that this mathematics teaching website and fut
 
 Edit the files in public/math-studio directly. Question content lives in data.js and question-bank.js; the pilot challenge definitions are in challenge-bank.js. Foundation lessons and comparisons are in learning-content.js and learning-ui.js, random practice in practice.js, inquiry activities in inquiry.js, navigation in app.js, and presentation in style.css. Update the asset query version in index.html when changing assets. See [learning support](math-studio-learning-support.md) for the current sampler and authoring contract.
 
-Run pnpm test:math-studio, pnpm run check:security, and pnpm build. Both mathematics validation suites also run at the start of the existing build command. Review the diff, publish through the normal repository workflow, and confirm that the Pages deployment for the exact merged commit succeeds before reporting it live. Confirm /math-studio/ and every referenced asset are available without authentication.
+Run pnpm test:math-studio, pnpm run check:security, and pnpm build. All mathematics validation suites also run at the start of the existing build command. Review the diff, publish through the normal repository workflow, and confirm that the Pages deployment for the exact merged commit succeeds before reporting it live. Confirm /math-studio/ and every referenced asset are available without authentication.
 
 ## Classroom use and persistence
 
 Students choose a grade and chapter, or open random practice / inquiry from the side navigation. Inquiry notes and recent question history stay in the same browser; completed inquiry work can be downloaded as text. This is not a central gradebook or live collaborative editor. Records previously stored on the ChatGPT Sites origin do not automatically transfer to the new GitHub Pages origin.
 
 The initial migration preserved 38 chapters, 304 original/template question families, 12,342 deduplicated prompts including numeric variants, and 12 inquiry units. The learning-support release expands the six pilot chapters; current counts are computed from the active pools. Exercise originality, textbook scope, UbD and School as Learning Community references remain visible in the application.
+
+The Year 7 inquiry release provides 12 chapter-aligned core inquiries (21 activities site-wide). See [the curriculum map and teacher review checklist](math-studio-g7-inquiry.md) for content, versioned storage, mathematical checks and classroom use.
