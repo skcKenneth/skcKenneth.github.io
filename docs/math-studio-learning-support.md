@@ -29,7 +29,7 @@ All new mathematics is original. The progression from worked examples through co
 
 ## Validation and classroom review
 
-Run `pnpm test:math-studio`, `pnpm run check:security`, and `pnpm build`. The support suite is part of the build. It checks every generated pilot challenge against separate numerical/constraint oracles, all foundation generators across 160 seeds, contrast branches, and 7,200 seeded selections across counts and histories. Each challenge family must retain at least ten unique variants. The original suite still checks all 38 chapters and all 12 inquiry units, persistence failures, escaping, and UI event paths.
+Run `pnpm test:math-studio`, `pnpm run check:security`, and `pnpm build`. The support suite is part of the build. It checks every generated pilot challenge against separate numerical/constraint oracles, all foundation generators across 160 seeds, contrast branches, and 7,200 seeded selections across counts and histories. Each challenge family must retain at least ten unique variants. The original suite still checks all 38 chapters and all 21 inquiry units (including the 12 Year 7 core inquiries), persistence failures, escaping, and UI event paths.
 
 Manual browser checks: complete a foundation example/completion/independent sequence; make and revise a contrast prediction; inspect negative squares and cubes; answer a challenge and expand its follow-ups while another answer is still a draft; inspect limited-family disclosure and supplementation; test desktop, mobile, and keyboard controls. After publishing, verify the exact deployment commit, public route, static asset hashes, bilingual teaching links, and a real public-site exercise.
 

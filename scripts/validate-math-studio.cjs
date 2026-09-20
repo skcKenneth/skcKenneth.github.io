@@ -3,11 +3,11 @@ const path=require('node:path');const root=path.resolve(__dirname,'..');
 function loadSite(storage=new Map(),broken=false){
  const listeners={},elements={};function element(){return {innerHTML:'',textContent:'',dataset:{},querySelector(){return null;},querySelectorAll(){return [];},setAttribute(){},focus(){},addEventListener(t,fn){(listeners[t]??=[]).push(fn);}};}
  const app=elements.app=element();const ctx=vm.createContext({console,Intl,Date,Math,Set,Map,JSON,Blob,URL,setTimeout,AbortController,localStorage:{getItem(k){if(broken)throw Error('denied');return storage.get(k)||null;},setItem(k,v){if(broken)throw Error('denied');storage.set(k,v);}},window:{scrollY:0,scrollTo(){},addEventListener(){}},document:{title:'',getElementById(id){return elements[id]??=element();},querySelectorAll(){return [];},createElement(){return {click(){}};}}});
- for(const f of ['data.js','learning-content.js','challenge-bank.js','question-bank.js','learning-ui.js','practice.js','inquiry.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,'public','math-studio',f),'utf8'),ctx,{filename:f});
+ for(const f of ['data.js','learning-content.js','challenge-bank.js','question-bank.js','learning-ui.js','practice.js','inquiry.js','inquiry-g7-core.js','inquiry-g7-content.js','inquiry-g7-ui.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,'public','math-studio',f),'utf8'),ctx,{filename:f});
  const evaluate=s=>vm.runInContext(s,ctx);return {ctx,app,elements,listeners,storage,evaluate};
 }
 const s=loadSite(),ev=s.evaluate,bank=ev('PracticeBank'),lessons=ev('lessons');let checked=0;
-assert.equal(lessons.length,38);assert.equal(ev('Object.keys(labInfo).length'),12);
+assert.equal(lessons.length,38);assert.equal(ev('Object.keys(labInfo).length'),21);
 for(const l of lessons){const pool=bank.pool(l.id);assert(pool.length>=30,l.id+' pool');assert.equal(new Set(pool.map(q=>q.key)).size,pool.length);assert(pool.some(q=>q.type==='written'));assert.equal(new Set(pool.map(q=>q.family)).size,ev('!!ChallengeBank.registry['+JSON.stringify(l.id)+']')?12:8);
  for(const q of pool){checked++;assert(q.prompt&&q.steps?.length,q.family);assert([1,2,3].includes(q.level));assert(!/undefined|NaN/.test(JSON.stringify(q)),q.prompt);
  if(q.type==='numeric'){assert(Number.isFinite(q.answer));assert(bank.gradeNumeric(q,String(q.answer)).correct);assert(bank.gradeNumeric(q,q.answerText).correct);assert(!bank.gradeNumeric(q,String(q.answer+1)).correct);if(q.prompt.includes('保留 3 位小數'))assert(bank.gradeNumeric(q,q.answer.toFixed(3)).correct);}
@@ -61,7 +61,7 @@ const evidenceNode={innerHTML:''},inquiryPanel={dataset:{inquiry:'triangle'},que
 input(s,{dataset:{inquiryField:'prediction',inquiryType:'triangle'},value:'我預測等號時不能圍成。'});click(s,{inquiryAction:'capture'},inquiryPanel);assert(evidenceNode.innerHTML.includes('實驗 1'));click(s,{inquiryAction:'capture'},inquiryPanel);assert(s.elements['inquiry-message'].textContent.includes('已記錄'));const third=loadSite(s.storage);third.evaluate("state.view='labs';state.lab='triangle';render()");assert(third.app.innerHTML.includes('我預測等號時不能圍成。'));assert(third.app.innerHTML.includes('實驗 1'));
 // Restricted / malformed localStorage must not break the site.
 const blocked=loadSite(new Map(),true);blocked.evaluate("openLesson('rational')");click(blocked,{practiceAction:'start'},practicePanel);assert(blocked.app.innerHTML.includes('未能保存'));const corrupt=loadSite(new Map([['math-studio-practice-v2','{bad'],['math-studio-inquiry-v2','[]']]));assert(corrupt.app.innerHTML.includes('數學研習室'));
-console.log(JSON.stringify({status:'passed',questionsChecked:checked,...bank.stats(),labs:12,checks:'All pools and scopes, domains, numeric parser, choice remapping, exhaustion, rendering, input history and inquiry persistence'},null,2));
+console.log(JSON.stringify({status:'passed',questionsChecked:checked,...bank.stats(),labs:21,checks:'All pools and scopes, domains, numeric parser, choice remapping, exhaustion, rendering, input history and inquiry persistence'},null,2));
 
 const publicRoot=path.join(root,'public','math-studio');
 const html=fs.readFileSync(path.join(publicRoot,'index.html'),'utf8');
