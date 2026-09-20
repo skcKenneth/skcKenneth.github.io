@@ -5,389 +5,389 @@ const PracticeBank=(()=>{
  const N=(prompt,answer,steps,hint,unit='')=>({type:'numeric',prompt,answer,answerText:prompt.includes('保留 3 位小數')?answer.toFixed(3):num(answer),steps,hint,unit,tolerance:prompt.includes('保留 3 位小數')?.00051:1e-6});
  const C=(prompt,options,steps,hint)=>({type:'choice',prompt,options,answer:0,steps,hint});
  const W=(prompt,steps,rubric,hint)=>({type:'written',prompt,steps,rubric,hint});
- function G(id,functions){generators[id]=functions.map((make,i)=>({make,level:[1,2,2,3][i],family:id+'-v'+(i+1)}));}
- function D(id,items){deep[id]=items.map((item,i)=>({...item,level:i===0?2:3,family:id+'-d'+(i+1)}));}
+ function G(id,items){generators[id]=items;}
+ function D(id,items){deep[id]=items;}
  function seedRandom(seed){let x=seed>>>0;return {int(a,b){x=(Math.imul(1664525,x)+1013904223)>>>0;return a+Math.floor(x/4294967296*(b-a+1));},pick(a){return a[this.int(0,a.length-1)];}};}
 G('rational',[
- r=>{let a=r.int(2,40);return N(`數軸上 A 點表示 −${a}，B 點表示它的相反數。AB 的長度是多少？`,2*a,[`B 表示 ${a}。`,`AB = ${a} − (−${a}) = ${2*a}。`],'距離是右端數值減左端數值。');},
- r=>{let a=r.int(2,15),b=r.int(1,12);return N(`已知 |x| = ${a}，且 x < 0。求 |x − ${b}|。`,a+b,[`由 x < 0，得 x = −${a}。`,`|x − ${b}| = |−${a+b}| = ${a+b}。`],'先根據符號條件確定 x。');},
- r=>{let a=r.int(-20,5),b=a+r.int(4,20);return N(`數軸上 A、B 分別表示 ${num(a)}、${num(b)}。點 P 是 AB 的中點，求 P 表示的數。`,(a+b)/2,[`中點距兩端相同，坐標取平均。`,`P = (${num(a)} + (${num(b)}))/2 = ${num((a+b)/2)}。`],'中點的坐標是兩端坐標的平均。');},
- r=>{let a=r.int(-12,3),b=a+r.int(4,18);return N(`對所有實數 x，求 |x − (${num(a)})| + |x − (${num(b)})| 的最小值。`,b-a,[`兩項分別是點 x 到 ${num(a)}、${num(b)} 的距離。`,`當 x 位於兩點之間（含端點），距離和為 ${b-a}；移到區間外只會增加。`,`故最小值為 ${b-a}。`],'把兩個絕對值看成到兩個固定點的距離。');}
+ {level:1,family:'rational-v1',concept:'rational',misconceptions:[],support:null,make:r=>{let a=r.int(2,40);return N(`數軸上 A 點表示 −${a}，B 點表示它的相反數。AB 的長度是多少？`,2*a,[`B 表示 ${a}。`,`AB = ${a} − (−${a}) = ${2*a}。`],'距離是右端數值減左端數值。');}},
+ {level:2,family:'rational-v2',concept:'rational',misconceptions:[],support:null,make:r=>{let a=r.int(2,15),b=r.int(1,12);return N(`已知 |x| = ${a}，且 x < 0。求 |x − ${b}|。`,a+b,[`由 x < 0，得 x = −${a}。`,`|x − ${b}| = |−${a+b}| = ${a+b}。`],'先根據符號條件確定 x。');}},
+ {level:2,family:'rational-v3',concept:'rational',misconceptions:[],support:null,make:r=>{let a=r.int(-20,5),b=a+r.int(4,20);return N(`數軸上 A、B 分別表示 ${num(a)}、${num(b)}。點 P 是 AB 的中點，求 P 表示的數。`,(a+b)/2,[`中點距兩端相同，坐標取平均。`,`P = (${num(a)} + (${num(b)}))/2 = ${num((a+b)/2)}。`],'中點的坐標是兩端坐標的平均。');}},
+ {level:3,family:'rational-v4',concept:'rational',misconceptions:[],support:null,make:r=>{let a=r.int(-12,3),b=a+r.int(4,18);return N(`對所有實數 x，求 |x − (${num(a)})| + |x − (${num(b)})| 的最小值。`,b-a,[`兩項分別是點 x 到 ${num(a)}、${num(b)} 的距離。`,`當 x 位於兩點之間（含端點），距離和為 ${b-a}；移到區間外只會增加。`,`故最小值為 ${b-a}。`],'把兩個絕對值看成到兩個固定點的距離。');}}
 ]);
 G('operations',[
- r=>{let a=r.int(2,9),b=r.int(2,8),c=r.int(1,7);return N(`計算 −${a}² + ${b} × (−${c})。`,-a*a-b*c,[`先算乘方：−${a}² = −${a*a}。`,`乘法得 −${b*c}，合計 −${a*a+b*c}。`],'先乘方，再乘法，最後相加。');},
- r=>{let n=r.int(4,12),w=r.int(20,80),d=r.int(2,9);return N(`每袋以 ${w} kg 為標準。有 ${n} 袋，每袋偏差平均為 −${d} kg。這批貨的總質量是多少 kg？`,n*(w-d),[`平均每袋質量 = ${w} − ${d} = ${w-d} kg。`,`總質量 = ${n} × ${w-d} = ${n*(w-d)} kg。`],'平均偏差須乘袋數，不能只減一次。','kg');},
- r=>{let start=r.int(10,50),a=r.int(5,20),b=r.int(3,15),c=r.int(2,18);let seq=[start,start+a,start+a-b,start+a-b+c];return N(`賬戶原有 ${start} 元，依次存入 ${a} 元、取出 ${b} 元、存入 ${c} 元。問整個過程（包括起初）最高餘額是多少元？`,Math.max(...seq),[`依次餘額為 ${seq.join('、')} 元。`,`逐項比較，最高為 ${Math.max(...seq)} 元。`],'計算每一筆交易後的餘額，不只看最後結果。','元');},
- r=>{let n=r.int(5,60);return N(`求 1/(1×2) + 1/(2×3) + … + 1/(${n}×${n+1}) 的值。可輸入分數。`,n/(n+1),[`用 1/[k(k+1)] = 1/k − 1/(k+1)。`,`中間項相消，只剩 1 − 1/${n+1} = ${n}/${n+1}。`],'把每一項拆成兩個相鄰分數之差。');}
+ {level:1,family:'operations-v1',concept:'operations',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(2,8),c=r.int(1,7);return N(`計算 −${a}² + ${b} × (−${c})。`,-a*a-b*c,[`先算乘方：−${a}² = −${a*a}。`,`乘法得 −${b*c}，合計 −${a*a+b*c}。`],'先乘方，再乘法，最後相加。');}},
+ {level:2,family:'operations-v2',concept:'operations',misconceptions:[],support:null,make:r=>{let n=r.int(4,12),w=r.int(20,80),d=r.int(2,9);return N(`每袋以 ${w} kg 為標準。有 ${n} 袋，每袋偏差平均為 −${d} kg。這批貨的總質量是多少 kg？`,n*(w-d),[`平均每袋質量 = ${w} − ${d} = ${w-d} kg。`,`總質量 = ${n} × ${w-d} = ${n*(w-d)} kg。`],'平均偏差須乘袋數，不能只減一次。','kg');}},
+ {level:2,family:'operations-v3',concept:'operations',misconceptions:[],support:null,make:r=>{let start=r.int(10,50),a=r.int(5,20),b=r.int(3,15),c=r.int(2,18);let seq=[start,start+a,start+a-b,start+a-b+c];return N(`賬戶原有 ${start} 元，依次存入 ${a} 元、取出 ${b} 元、存入 ${c} 元。問整個過程（包括起初）最高餘額是多少元？`,Math.max(...seq),[`依次餘額為 ${seq.join('、')} 元。`,`逐項比較，最高為 ${Math.max(...seq)} 元。`],'計算每一筆交易後的餘額，不只看最後結果。','元');}},
+ {level:3,family:'operations-v4',concept:'operations',misconceptions:[],support:null,make:r=>{let n=r.int(5,60);return N(`求 1/(1×2) + 1/(2×3) + … + 1/(${n}×${n+1}) 的值。可輸入分數。`,n/(n+1),[`用 1/[k(k+1)] = 1/k − 1/(k+1)。`,`中間項相消，只剩 1 − 1/${n+1} = ${n}/${n+1}。`],'把每一項拆成兩個相鄰分數之差。');}}
 ]);
 G('expressions',[
- r=>{let a=r.int(2,9),b=r.int(1,15),x=r.int(-8,8);return N(`當 x = ${num(x)}，求 ${a}x² − ${b} 的值。`,a*x*x-b,[`先算 x² = ${x*x}。`,`代入得 ${a} × ${x*x} − ${b} = ${num(a*x*x-b)}。`],'負數代入乘方時，底數加括號。');},
- r=>{let a=r.int(3,12),b=r.int(2,20),n=r.int(3,15);return N(`租用器材需付固定費 ${b} 元，每小時另付 ${a} 元。連續使用 ${n} 小時，共付多少元？`,a*n+b,[`固定費與時間無關，總費用 C = ${a}t + ${b}。`,`t = ${n}，C = ${a*n+b} 元。`],'把固定部分與隨時間改變的部分分開。','元');},
- r=>{let n=r.int(5,30);return N(`用火柴排一列相鄰正方形，相鄰兩個正方形共用一條邊。排 ${n} 個正方形，需要幾根火柴？`,3*n+1,[`第一個用 4 根；之後每個只增加 3 根。`,`4 + 3(${n} − 1) = ${3*n+1}。`],'先算第一個，再看每增加一個要添幾根。');},
- r=>{let a=r.int(2,10),b=r.int(-8,8),c=r.int(2,9),d=r.int(1,12);return N(`已知 ${a}x + ${b}y = ${c}，不求 x、y，直接求 ${2*a}x + ${2*b}y + ${d} 的值。`,2*c+d,[`把前兩項合併為 2(${a}x + ${b}y)。`,`原式 = 2 × ${c} + ${d} = ${2*c+d}。`],'留意整體是已知代數式的倍數。');}
+ {level:1,family:'expressions-v1',concept:'expressions',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(1,15),x=r.int(-8,8);return N(`當 x = ${num(x)}，求 ${a}x² − ${b} 的值。`,a*x*x-b,[`先算 x² = ${x*x}。`,`代入得 ${a} × ${x*x} − ${b} = ${num(a*x*x-b)}。`],'負數代入乘方時，底數加括號。');}},
+ {level:2,family:'expressions-v2',concept:'expressions',misconceptions:[],support:null,make:r=>{let a=r.int(3,12),b=r.int(2,20),n=r.int(3,15);return N(`租用器材需付固定費 ${b} 元，每小時另付 ${a} 元。連續使用 ${n} 小時，共付多少元？`,a*n+b,[`固定費與時間無關，總費用 C = ${a}t + ${b}。`,`t = ${n}，C = ${a*n+b} 元。`],'把固定部分與隨時間改變的部分分開。','元');}},
+ {level:2,family:'expressions-v3',concept:'expressions',misconceptions:[],support:null,make:r=>{let n=r.int(5,30);return N(`用火柴排一列相鄰正方形，相鄰兩個正方形共用一條邊。排 ${n} 個正方形，需要幾根火柴？`,3*n+1,[`第一個用 4 根；之後每個只增加 3 根。`,`4 + 3(${n} − 1) = ${3*n+1}。`],'先算第一個，再看每增加一個要添幾根。');}},
+ {level:3,family:'expressions-v4',concept:'expressions',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(-8,8),c=r.int(2,9),d=r.int(1,12);return N(`已知 ${a}x + ${b}y = ${c}，不求 x、y，直接求 ${2*a}x + ${2*b}y + ${d} 的值。`,2*c+d,[`把前兩項合併為 2(${a}x + ${b}y)。`,`原式 = 2 × ${c} + ${d} = ${2*c+d}。`],'留意整體是已知代數式的倍數。');}}
 ]);
 G('polynomial-add',[
- r=>{let a=r.int(2,9),b=r.int(2,7),c=r.int(1,9);return N(`化簡 ${a}x − ${b}(x − ${c}) 後，常數項是多少？`,b*c,[`展開：${a}x − ${b}x + ${b*c}。`,`合併後常數項為 ${b*c}。`],'括號前的負號要乘到每一項。');},
- r=>{let a=r.int(2,8),b=r.int(2,8),n=r.int(2,10);return N(`若 ${a}x²yⁿ 與 −${b}x²y⁵ 是同類項，求 n + ${n}。`,5+n,[`同類項的相同字母指數相等，n = 5。`,`n + ${n} = ${5+n}。`],'係數不同不影響是否為同類項。');},
- r=>{let a=r.int(2,10),b=r.int(1,10),c=r.int(1,9),x=r.int(-5,5);return N(`先化簡再求值：${a}x − [${b}x − (${c} − x)]，其中 x = ${num(x)}。`,(a-b-1)*x+c,[`去中括號得 ${a}x − ${b}x + ${c} − x。`,`合併為 (${a-b-1})x + ${c}。`,`代入 x = ${num(x)}，得 ${num((a-b-1)*x+c)}。`],'先由內到外去括號。');},
- r=>{let a=r.int(2,9),b=r.int(2,8),c=r.int(2,12);return N(`化簡 (${a}m + ${b})x − ${c}x + 7 後，結果與 x 無關。求 m。`,(c-b)/a,[`與 x 無關表示 x 的係數為 0。`,`${a}m + ${b} − ${c} = 0。`,`m = (${c} − ${b})/${a} = ${num((c-b)/a)}。`],'讓變量的係數為零。');}
+ {level:1,family:'polynomial-add-v1',concept:'polynomial-add',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(2,7),c=r.int(1,9);return N(`化簡 ${a}x − ${b}(x − ${c}) 後，常數項是多少？`,b*c,[`展開：${a}x − ${b}x + ${b*c}。`,`合併後常數項為 ${b*c}。`],'括號前的負號要乘到每一項。');}},
+ {level:2,family:'polynomial-add-v2',concept:'polynomial-add',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=r.int(2,8),n=r.int(2,10);return N(`若 ${a}x²yⁿ 與 −${b}x²y⁵ 是同類項，求 n + ${n}。`,5+n,[`同類項的相同字母指數相等，n = 5。`,`n + ${n} = ${5+n}。`],'係數不同不影響是否為同類項。');}},
+ {level:2,family:'polynomial-add-v3',concept:'polynomial-add',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(1,10),c=r.int(1,9),x=r.int(-5,5);return N(`先化簡再求值：${a}x − [${b}x − (${c} − x)]，其中 x = ${num(x)}。`,(a-b-1)*x+c,[`去中括號得 ${a}x − ${b}x + ${c} − x。`,`合併為 (${a-b-1})x + ${c}。`,`代入 x = ${num(x)}，得 ${num((a-b-1)*x+c)}。`],'先由內到外去括號。');}},
+ {level:3,family:'polynomial-add-v4',concept:'polynomial-add',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(2,8),c=r.int(2,12);return N(`化簡 (${a}m + ${b})x − ${c}x + 7 後，結果與 x 無關。求 m。`,(c-b)/a,[`與 x 無關表示 x 的係數為 0。`,`${a}m + ${b} − ${c} = 0。`,`m = (${c} − ${b})/${a} = ${num((c-b)/a)}。`],'讓變量的係數為零。');}}
 ]);
 G('linear-equation',[
- r=>{let a=r.int(2,12),x=r.int(-10,15),b=r.int(1,20);return N(`解方程 ${a}x + ${b} = ${a*x+b}，輸入 x。`,x,[`兩邊減 ${b}，得 ${a}x = ${a*x}。`,`再除以 ${a}，x = ${num(x)}。`],'等式兩邊做相同運算。');},
- r=>{let cost=r.int(8,40)*10,p=r.pick([10,20,25,30]),sale=cost*(100+p)/100;return N(`一件商品售價為 ${num(sale)} 元，利潤率是成本的 ${p}%。求成本。`,cost,[`設成本為 x，售價是 (1 + ${p}/100)x。`,`x = ${num(sale)} ÷ ${1+p/100} = ${cost} 元。`],'利潤率的分母是成本，並非售價。','元');},
- r=>{let a=r.int(2,9),b=a+r.int(1,6),t=r.int(2,12),gap=(b-a)*t;return N(`甲、乙同向行走，速度分別為 ${a}、${b} m/s。甲領先 ${gap} m，乙從此刻開始追趕。多久追上？`,t,[`追近速度是 ${b} − ${a} = ${b-a} m/s。`,`所需時間 = ${gap}/${b-a} = ${t} s。`],'同向追趕用速度差。','秒');},
- r=>{let d=r.int(2,6),a=d+r.int(1,4),b=r.int(2,8)*d,x=r.int(2,15)*d,rhs=(a*x+b)/d;return N(`解方程 (${a}x + ${b})/${d} − x = ${num(rhs-x)}，輸入 x。`,x,[`乘以 ${d}，得 (${a} − ${d})x + ${b} = ${num((rhs-x)*d)}。`,`整理得 x = ${x}。`],'先去分母，並乘遍每一項。');}
+ {level:1,family:'linear-equation-v1',concept:'linear-equation',misconceptions:[],support:null,make:r=>{let a=r.int(2,12),x=r.int(-10,15),b=r.int(1,20);return N(`解方程 ${a}x + ${b} = ${a*x+b}，輸入 x。`,x,[`兩邊減 ${b}，得 ${a}x = ${a*x}。`,`再除以 ${a}，x = ${num(x)}。`],'等式兩邊做相同運算。');}},
+ {level:2,family:'linear-equation-v2',concept:'linear-equation',misconceptions:[],support:null,make:r=>{let cost=r.int(8,40)*10,p=r.pick([10,20,25,30]),sale=cost*(100+p)/100;return N(`一件商品售價為 ${num(sale)} 元，利潤率是成本的 ${p}%。求成本。`,cost,[`設成本為 x，售價是 (1 + ${p}/100)x。`,`x = ${num(sale)} ÷ ${1+p/100} = ${cost} 元。`],'利潤率的分母是成本，並非售價。','元');}},
+ {level:2,family:'linear-equation-v3',concept:'linear-equation',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=a+r.int(1,6),t=r.int(2,12),gap=(b-a)*t;return N(`甲、乙同向行走，速度分別為 ${a}、${b} m/s。甲領先 ${gap} m，乙從此刻開始追趕。多久追上？`,t,[`追近速度是 ${b} − ${a} = ${b-a} m/s。`,`所需時間 = ${gap}/${b-a} = ${t} s。`],'同向追趕用速度差。','秒');}},
+ {level:3,family:'linear-equation-v4',concept:'linear-equation',misconceptions:[],support:null,make:r=>{let d=r.int(2,6),a=d+r.int(1,4),b=r.int(2,8)*d,x=r.int(2,15)*d,rhs=(a*x+b)/d;return N(`解方程 (${a}x + ${b})/${d} − x = ${num(rhs-x)}，輸入 x。`,x,[`乘以 ${d}，得 (${a} − ${d})x + ${b} = ${num((rhs-x)*d)}。`,`整理得 x = ${x}。`],'先去分母，並乘遍每一項。');}}
 ]);
 G('geometry',[
- r=>{let a=r.int(10,80);return N(`一個角的餘角為 ${a}°，求這個角的補角。`,90+a,[`原角 = 90° − ${a}° = ${90-a}°。`,`補角 = 180° − ${90-a}° = ${90+a}°。`],'先求原角，再求補角。','度');},
- r=>{let a=r.int(2,20),b=r.int(2,20);return N(`A、B、C 依次在同一直線上，AB = ${a}、BC = ${b}。M 是 AC 中點，求 MB。`,Math.abs(b-a)/2,[`以 A 為原點，B = ${a}，C = ${a+b}。`,`M = ${(a+b)/2}，MB = |${(a+b)/2} − ${a}| = ${num(Math.abs(b-a)/2)}。`],'中點可能在 B 的左方或右方，距離須取絕對值。');},
- r=>{let a=r.int(2,9),h=r.int(3,12);return N(`圓錐底半徑為 ${a}、高為 ${h}。若體積寫成 kπ，求 k。`,a*a*h/3,[`V = πr²h/3。`,`k = ${a}² × ${h}/3 = ${num(a*a*h/3)}。`],'圓錐體積是同底同高圓柱的三分之一。');},
- r=>{let a=r.int(20,70),b=r.int(10,60);return N(`射線 OB 位於 ∠AOC 內，∠AOB = ${a}°、∠BOC = ${b}°。OM、ON 分別平分 ∠AOB、∠BOC，求 ∠MON。`,(a+b)/2,[`∠MOB = ${a}/2，∠BON = ${b}/2。`,`兩角在 OB 兩側，∠MON = (${a} + ${b})/2 = ${(a+b)/2}°。`],'先明確各條射線在角內的位置。','度');}
+ {level:1,family:'geometry-v1',concept:'geometry',misconceptions:[],support:null,make:r=>{let a=r.int(10,80);return N(`一個角的餘角為 ${a}°，求這個角的補角。`,90+a,[`原角 = 90° − ${a}° = ${90-a}°。`,`補角 = 180° − ${90-a}° = ${90+a}°。`],'先求原角，再求補角。','度');}},
+ {level:2,family:'geometry-v2',concept:'geometry',misconceptions:[],support:null,make:r=>{let a=r.int(2,20),b=r.int(2,20);return N(`A、B、C 依次在同一直線上，AB = ${a}、BC = ${b}。M 是 AC 中點，求 MB。`,Math.abs(b-a)/2,[`以 A 為原點，B = ${a}，C = ${a+b}。`,`M = ${(a+b)/2}，MB = |${(a+b)/2} − ${a}| = ${num(Math.abs(b-a)/2)}。`],'中點可能在 B 的左方或右方，距離須取絕對值。');}},
+ {level:2,family:'geometry-v3',concept:'geometry',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),h=r.int(3,12);return N(`圓錐底半徑為 ${a}、高為 ${h}。若體積寫成 kπ，求 k。`,a*a*h/3,[`V = πr²h/3。`,`k = ${a}² × ${h}/3 = ${num(a*a*h/3)}。`],'圓錐體積是同底同高圓柱的三分之一。');}},
+ {level:3,family:'geometry-v4',concept:'geometry',misconceptions:[],support:null,make:r=>{let a=r.int(20,70),b=r.int(10,60);return N(`射線 OB 位於 ∠AOC 內，∠AOB = ${a}°、∠BOC = ${b}°。OM、ON 分別平分 ∠AOB、∠BOC，求 ∠MON。`,(a+b)/2,[`∠MOB = ${a}/2，∠BON = ${b}/2。`,`兩角在 OB 兩側，∠MON = (${a} + ${b})/2 = ${(a+b)/2}°。`],'先明確各條射線在角內的位置。','度');}}
 ]);
 G('parallel',[
- r=>{let a=r.int(25,155);return N(`兩平行線被截線所截，一對同旁內角中一角為 ${a}°，求另一角。`,180-a,[`同旁內角互補。`,`另一角 = 180° − ${a}° = ${180-a}°。`],'確認角在截線同側且兩線之間。','度');},
- r=>{let x=r.int(10,30),a=r.int(2,4),b=r.int(2,12),angle=a*x+b;return N(`兩平行線被截線所截，一對內錯角分別為 (${a}x + ${b})° 與 ${angle}°。求 x。`,x,[`內錯角相等：${a}x + ${b} = ${angle}。`,`解得 x = ${x}。`],'平行線的內錯角相等。');},
- r=>{let a=r.int(10,70);return N(`兩直線相交，其中一個角為 ${a}°。求此角的鄰補角與對頂角的差（大角減小角）。`,180-2*a,[`對頂角為 ${a}°，鄰補角為 ${180-a}°。`,`兩角之差 = ${180-a} − ${a} = ${180-2*a}°。`],'分別列出對頂角和鄰補角。','度');},
- r=>{let a=r.int(30,70),b=r.int(20,60);return N(`l ∥ m。A 在 l 上，B 在 m 上，P 在兩線之間。射線 PA、PB 都指向左方；PA 與向左的水平線夾角為 ${a}°，PB 與向左的水平線夾角為 ${b}°，且兩射線位於該水平線兩側。求 ∠APB。`,a+b,[`過 P 作與 l、m 平行的水平線。`,`兩角分居水平線兩側，故 ∠APB = ${a}° + ${b}° = ${a+b}°。`],'過轉折點作平行線，將折角拆開。','度');}
+ {level:1,family:'parallel-v1',concept:'parallel',misconceptions:[],support:null,make:r=>{let a=r.int(25,155);return N(`兩平行線被截線所截，一對同旁內角中一角為 ${a}°，求另一角。`,180-a,[`同旁內角互補。`,`另一角 = 180° − ${a}° = ${180-a}°。`],'確認角在截線同側且兩線之間。','度');}},
+ {level:2,family:'parallel-v2',concept:'parallel',misconceptions:[],support:null,make:r=>{let x=r.int(10,30),a=r.int(2,4),b=r.int(2,12),angle=a*x+b;return N(`兩平行線被截線所截，一對內錯角分別為 (${a}x + ${b})° 與 ${angle}°。求 x。`,x,[`內錯角相等：${a}x + ${b} = ${angle}。`,`解得 x = ${x}。`],'平行線的內錯角相等。');}},
+ {level:2,family:'parallel-v3',concept:'parallel',misconceptions:[],support:null,make:r=>{let a=r.int(10,70);return N(`兩直線相交，其中一個角為 ${a}°。求此角的鄰補角與對頂角的差（大角減小角）。`,180-2*a,[`對頂角為 ${a}°，鄰補角為 ${180-a}°。`,`兩角之差 = ${180-a} − ${a} = ${180-2*a}°。`],'分別列出對頂角和鄰補角。','度');}},
+ {level:3,family:'parallel-v4',concept:'parallel',misconceptions:[],support:null,make:r=>{let a=r.int(30,70),b=r.int(20,60);return N(`l ∥ m。A 在 l 上，B 在 m 上，P 在兩線之間。射線 PA、PB 都指向左方；PA 與向左的水平線夾角為 ${a}°，PB 與向左的水平線夾角為 ${b}°，且兩射線位於該水平線兩側。求 ∠APB。`,a+b,[`過 P 作與 l、m 平行的水平線。`,`兩角分居水平線兩側，故 ∠APB = ${a}° + ${b}° = ${a+b}°。`],'過轉折點作平行線，將折角拆開。','度');}}
 ]);
 G('real',[
- r=>{let a=r.int(2,20);return N(`一個正數的算術平方根為 ${a}，求這個正數。`,a*a,[`若 √x = ${a}，則 x = ${a}²。`,`所以 x = ${a*a}。`],'平方與算術平方根互為逆運算。');},
- r=>{let a=r.int(3,18),n=a*a+r.int(1,2*a);return N(`設整數 n 滿足 n < √${n} < n + 1，求 n。`,a,[`${a}² = ${a*a} < ${n} < ${(a+1)*(a+1)} = ${a+1}²。`,`因此 ${a} < √${n} < ${a+1}，n = ${a}。`],'找相鄰兩個完全平方數。');},
- r=>{let a=r.int(2,10),b=r.int(2,10);return N(`計算 √${a*a} + ∛(−${b*b*b})。`,a-b,[`√${a*a} = ${a}，∛(−${b*b*b}) = −${b}。`,`結果為 ${num(a-b)}。`],'平方根符號取非負值，立方根可以為負。');},
- r=>{let a=r.int(-8,8),b=r.int(-8,8);return N(`已知 √(x − (${num(a)})) + (y − (${num(b)}))² = 0，求 x + y。`,a+b,[`兩項均非負，和為 0 時必須各自為 0。`,`x = ${num(a)}，y = ${num(b)}。`,`所以 x + y = ${num(a+b)}。`],'非負數之和為零，則每項均為零。');}
+ {level:1,family:'real-v1',concept:'real',misconceptions:[],support:null,make:r=>{let a=r.int(2,20);return N(`一個正數的算術平方根為 ${a}，求這個正數。`,a*a,[`若 √x = ${a}，則 x = ${a}²。`,`所以 x = ${a*a}。`],'平方與算術平方根互為逆運算。');}},
+ {level:2,family:'real-v2',concept:'real',misconceptions:[],support:null,make:r=>{let a=r.int(3,18),n=a*a+r.int(1,2*a);return N(`設整數 n 滿足 n < √${n} < n + 1，求 n。`,a,[`${a}² = ${a*a} < ${n} < ${(a+1)*(a+1)} = ${a+1}²。`,`因此 ${a} < √${n} < ${a+1}，n = ${a}。`],'找相鄰兩個完全平方數。');}},
+ {level:2,family:'real-v3',concept:'real',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(2,10);return N(`計算 √${a*a} + ∛(−${b*b*b})。`,a-b,[`√${a*a} = ${a}，∛(−${b*b*b}) = −${b}。`,`結果為 ${num(a-b)}。`],'平方根符號取非負值，立方根可以為負。');}},
+ {level:3,family:'real-v4',concept:'real',misconceptions:[],support:null,make:r=>{let a=r.int(-8,8),b=r.int(-8,8);return N(`已知 √(x − (${num(a)})) + (y − (${num(b)}))² = 0，求 x + y。`,a+b,[`兩項均非負，和為 0 時必須各自為 0。`,`x = ${num(a)}，y = ${num(b)}。`,`所以 x + y = ${num(a+b)}。`],'非負數之和為零，則每項均為零。');}}
 ]);
 G('coordinates',[
- r=>{let x=r.int(-8,8),y=r.int(-8,8),a=r.int(1,8),b=r.int(1,8);return N(`點 P(${num(x)}, ${num(y)}) 向右平移 ${a}、向下平移 ${b}。求新點橫、縱坐標的和。`,x+a+y-b,[`新坐標為 (${num(x+a)}, ${num(y-b)})。`,`坐標和 = ${num(x+a+y-b)}。`],'右移改橫坐標，下移改縱坐標。');},
- r=>{let x=r.int(1,9),y=r.int(1,12);return N(`P(${x}, −${y}) 與 Q 關於 x 軸對稱，求 PQ 的長度。`,2*y,[`Q = (${x}, ${y})。`,`兩點橫坐標相同，距離為 ${y} − (−${y}) = ${2*y}。`],'關於 x 軸對稱時，縱坐標變號。');},
- r=>{let a=r.int(2,12),b=r.int(2,12);return N(`O(0,0)、A(${a},0)、B(0,${b}) 組成三角形，求面積。`,a*b/2,[`OA、OB 分別位於兩坐標軸，互相垂直。`,`面積 = ${a} × ${b}/2 = ${num(a*b/2)}。`],'把坐標軸上的線段看成底與高。');},
- r=>{let a=r.int(1,8),b=a+r.int(2,9),h=r.int(1,8);return N(`A(${a},${h})、B(${b},${h})，點 P 在 x 軸上且 PA = PB。求 P 的橫坐標。`,(a+b)/2,[`等距點位於 AB 的垂直平分線。`,`AB 水平，中點橫坐標為 (${a}+${b})/2。`,`故 P = (${(a+b)/2},0)。`],'利用垂直平分線，不必分別計算距離。');}
+ {level:1,family:'coordinates-v1',concept:'coordinates',misconceptions:[],support:null,make:r=>{let x=r.int(-8,8),y=r.int(-8,8),a=r.int(1,8),b=r.int(1,8);return N(`點 P(${num(x)}, ${num(y)}) 向右平移 ${a}、向下平移 ${b}。求新點橫、縱坐標的和。`,x+a+y-b,[`新坐標為 (${num(x+a)}, ${num(y-b)})。`,`坐標和 = ${num(x+a+y-b)}。`],'右移改橫坐標，下移改縱坐標。');}},
+ {level:2,family:'coordinates-v2',concept:'coordinates',misconceptions:[],support:null,make:r=>{let x=r.int(1,9),y=r.int(1,12);return N(`P(${x}, −${y}) 與 Q 關於 x 軸對稱，求 PQ 的長度。`,2*y,[`Q = (${x}, ${y})。`,`兩點橫坐標相同，距離為 ${y} − (−${y}) = ${2*y}。`],'關於 x 軸對稱時，縱坐標變號。');}},
+ {level:2,family:'coordinates-v3',concept:'coordinates',misconceptions:[],support:null,make:r=>{let a=r.int(2,12),b=r.int(2,12);return N(`O(0,0)、A(${a},0)、B(0,${b}) 組成三角形，求面積。`,a*b/2,[`OA、OB 分別位於兩坐標軸，互相垂直。`,`面積 = ${a} × ${b}/2 = ${num(a*b/2)}。`],'把坐標軸上的線段看成底與高。');}},
+ {level:3,family:'coordinates-v4',concept:'coordinates',misconceptions:[],support:null,make:r=>{let a=r.int(1,8),b=a+r.int(2,9),h=r.int(1,8);return N(`A(${a},${h})、B(${b},${h})，點 P 在 x 軸上且 PA = PB。求 P 的橫坐標。`,(a+b)/2,[`等距點位於 AB 的垂直平分線。`,`AB 水平，中點橫坐標為 (${a}+${b})/2。`,`故 P = (${(a+b)/2},0)。`],'利用垂直平分線，不必分別計算距離。');}}
 ]);
 G('systems',[
- r=>{let x=r.int(1,15),y=r.int(1,15);return N(`已知 x + y = ${x+y}，x − y = ${x-y}，求 x。`,x,[`兩式相加得 2x = ${2*x}。`,`x = ${x}。`],'加減消元。');},
- r=>{let a=r.int(2,7),b=a+r.int(2,5),x=r.int(3,15),y=r.int(2,12);return N(`甲票每張 ${a} 元、乙票每張 ${b} 元。共售 ${x+y} 張，收入 ${a*x+b*y} 元。售出甲票多少張？`,x,[`設甲票 x 張，乙票 ${x+y} − x 張。`,`${a}x + ${b}(${x+y} − x) = ${a*x+b*y}。`,`解得甲票 ${x} 張。`],'同時使用張數與總價兩個等量關係。','張');},
- r=>{let x=r.int(1,9),y=r.int(1,9),z=r.int(1,9);return N(`x+y=${x+y}，y+z=${y+z}，z+x=${z+x}。求 x+y+z。`,x+y+z,[`三式相加得 2(x+y+z) = ${2*(x+y+z)}。`,`所以 x+y+z = ${x+y+z}。`],'每個未知數在三式中各出現兩次。');},
- r=>{let a=r.int(2,8),b=r.int(1,9),x=r.int(2,12),y=r.int(1,9);return N(`方程組 x+y=${x+y}，${a}x+${b}y=k 的解滿足 x−y=${x-y}。求 k。`,a*x+b*y,[`由和與差，x = ${x}，y = ${y}。`,`代入 k = ${a}x + ${b}y = ${a*x+b*y}。`],'先利用額外條件確定 x、y，再求參數。');}
+ {level:1,family:'systems-v1',concept:'systems',misconceptions:[],support:null,make:r=>{let x=r.int(1,15),y=r.int(1,15);return N(`已知 x + y = ${x+y}，x − y = ${x-y}，求 x。`,x,[`兩式相加得 2x = ${2*x}。`,`x = ${x}。`],'加減消元。');}},
+ {level:2,family:'systems-v2',concept:'systems',misconceptions:[],support:null,make:r=>{let a=r.int(2,7),b=a+r.int(2,5),x=r.int(3,15),y=r.int(2,12);return N(`甲票每張 ${a} 元、乙票每張 ${b} 元。共售 ${x+y} 張，收入 ${a*x+b*y} 元。售出甲票多少張？`,x,[`設甲票 x 張，乙票 ${x+y} − x 張。`,`${a}x + ${b}(${x+y} − x) = ${a*x+b*y}。`,`解得甲票 ${x} 張。`],'同時使用張數與總價兩個等量關係。','張');}},
+ {level:2,family:'systems-v3',concept:'systems',misconceptions:[],support:null,make:r=>{let x=r.int(1,9),y=r.int(1,9),z=r.int(1,9);return N(`x+y=${x+y}，y+z=${y+z}，z+x=${z+x}。求 x+y+z。`,x+y+z,[`三式相加得 2(x+y+z) = ${2*(x+y+z)}。`,`所以 x+y+z = ${x+y+z}。`],'每個未知數在三式中各出現兩次。');}},
+ {level:3,family:'systems-v4',concept:'systems',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=r.int(1,9),x=r.int(2,12),y=r.int(1,9);return N(`方程組 x+y=${x+y}，${a}x+${b}y=k 的解滿足 x−y=${x-y}。求 k。`,a*x+b*y,[`由和與差，x = ${x}，y = ${y}。`,`代入 k = ${a}x + ${b}y = ${a*x+b*y}。`],'先利用額外條件確定 x、y，再求參數。');}}
 ]);
 G('inequality',[
- r=>{let a=r.int(2,9),b=r.int(-9,9);return N(`不等式 −${a}x > ${-a*b} 可寫成 x < c，求 c。`,b,[`兩邊除以 −${a}，不等號反向。`,`x < ${num(b)}，所以 c = ${num(b)}。`],'除以負數需反向。');},
- r=>{let a=r.int(-10,5),b=a+r.int(3,10);return N(`同時滿足 x > ${num(a)} 與 x ≤ ${num(b)} 的整數有幾個？`,b-a,[`整數解從 ${a+1} 到 ${b}。`,`個數 = ${b} − (${a+1}) + 1 = ${b-a}。`],'留意兩端是否包含。');},
- r=>{let a=r.int(3,9),fixed=r.int(10,30),n=r.int(5,20),budget=fixed+a*n+r.int(0,a-1);return N(`預算 ${budget} 元，先付固定費 ${fixed} 元，每本書 ${a} 元。最多買多少本？`,n,[`設買 x 本：${fixed} + ${a}x ≤ ${budget}。`,`x ≤ ${num((budget-fixed)/a)}，又 x 為非負整數。`,`最多 ${n} 本。`],'先解不等式，再按情境取整數。','本');},
- r=>{let a=r.int(-5,5),n=r.int(2,8);return N(`不等式組 x > ${a}，x < m 恰有 ${n} 個整數解，且 m 是整數。求 m。`,a+n+1,[`整數解是 ${a+1}、…、m−1，共 m−${a}−1 個。`,`m−${a}−1=${n}，所以 m=${a+n+1}。`],'先列出最小與最大的整數解。');}
+ {level:1,family:'inequality-v1',concept:'inequality',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(-9,9);return N(`不等式 −${a}x > ${-a*b} 可寫成 x < c，求 c。`,b,[`兩邊除以 −${a}，不等號反向。`,`x < ${num(b)}，所以 c = ${num(b)}。`],'除以負數需反向。');}},
+ {level:2,family:'inequality-v2',concept:'inequality',misconceptions:[],support:null,make:r=>{let a=r.int(-10,5),b=a+r.int(3,10);return N(`同時滿足 x > ${num(a)} 與 x ≤ ${num(b)} 的整數有幾個？`,b-a,[`整數解從 ${a+1} 到 ${b}。`,`個數 = ${b} − (${a+1}) + 1 = ${b-a}。`],'留意兩端是否包含。');}},
+ {level:2,family:'inequality-v3',concept:'inequality',misconceptions:[],support:null,make:r=>{let a=r.int(3,9),fixed=r.int(10,30),n=r.int(5,20),budget=fixed+a*n+r.int(0,a-1);return N(`預算 ${budget} 元，先付固定費 ${fixed} 元，每本書 ${a} 元。最多買多少本？`,n,[`設買 x 本：${fixed} + ${a}x ≤ ${budget}。`,`x ≤ ${num((budget-fixed)/a)}，又 x 為非負整數。`,`最多 ${n} 本。`],'先解不等式，再按情境取整數。','本');}},
+ {level:3,family:'inequality-v4',concept:'inequality',misconceptions:[],support:null,make:r=>{let a=r.int(-5,5),n=r.int(2,8);return N(`不等式組 x > ${a}，x < m 恰有 ${n} 個整數解，且 m 是整數。求 m。`,a+n+1,[`整數解是 ${a+1}、…、m−1，共 m−${a}−1 個。`,`m−${a}−1=${n}，所以 m=${a+n+1}。`],'先列出最小與最大的整數解。');}}
 ]);
 G('data-collection',[
- r=>{let n=r.int(4,15)*10,k=r.int(1,9);return N(`調查 ${n} 人，其中 ${n*k/10} 人選 A。A 類佔百分之幾？（輸入百分號前數值）`,k*10,[`頻率 = ${n*k/10}/${n} = ${k}/10。`,`百分比為 ${10*k}%。`],'先算部分佔整體的比例。','%');},
- r=>{let k=r.int(1,11);return N(`某類別佔全部人數的 ${k}/12，扇形圖中對應圓心角為多少度？`,30*k,[`全圓 360° 對應全部。`,`圓心角 = 360 × ${k}/12 = ${30*k}°。`],'比例乘 360°。','度');},
- r=>{let total=r.int(20,80)*10,n=r.int(4,10)*10,k=r.int(1,9);return N(`隨機訪問 ${n} 人，${n*k/10} 人每天閱讀。若同一總體有 ${total} 人，估計每天閱讀的人數。`,total*k/10,[`樣本比例 = ${k}/10。`,`估計總體人數 = ${total} × ${k}/10 = ${total*k/10}。`,`這是抽樣估計，並非精確普查值。`],'把樣本比例用於同一總體。','人');},
- r=>{let a=r.int(2,8),b=r.int(2,8),c=r.int(2,8);let total=10*(a+b+c);return N(`A、B、C 三類互不重疊且涵蓋全部，頻數比為 ${a}:${b}:${c}。若總數為 ${total}，求 B 類頻數。`,b*10,[`總份數 = ${a+b+c}，每份 ${total}/${a+b+c}=10。`,`B 類 = ${b} × 10 = ${b*10}。`],'先把比的各項相加求總份數。');}
+ {level:1,family:'data-collection-v1',concept:'data-collection',misconceptions:[],support:null,make:r=>{let n=r.int(4,15)*10,k=r.int(1,9);return N(`調查 ${n} 人，其中 ${n*k/10} 人選 A。A 類佔百分之幾？（輸入百分號前數值）`,k*10,[`頻率 = ${n*k/10}/${n} = ${k}/10。`,`百分比為 ${10*k}%。`],'先算部分佔整體的比例。','%');}},
+ {level:2,family:'data-collection-v2',concept:'data-collection',misconceptions:[],support:null,make:r=>{let k=r.int(1,11);return N(`某類別佔全部人數的 ${k}/12，扇形圖中對應圓心角為多少度？`,30*k,[`全圓 360° 對應全部。`,`圓心角 = 360 × ${k}/12 = ${30*k}°。`],'比例乘 360°。','度');}},
+ {level:2,family:'data-collection-v3',concept:'data-collection',misconceptions:[],support:null,make:r=>{let total=r.int(20,80)*10,n=r.int(4,10)*10,k=r.int(1,9);return N(`隨機訪問 ${n} 人，${n*k/10} 人每天閱讀。若同一總體有 ${total} 人，估計每天閱讀的人數。`,total*k/10,[`樣本比例 = ${k}/10。`,`估計總體人數 = ${total} × ${k}/10 = ${total*k/10}。`,`這是抽樣估計，並非精確普查值。`],'把樣本比例用於同一總體。','人');}},
+ {level:3,family:'data-collection-v4',concept:'data-collection',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=r.int(2,8),c=r.int(2,8);let total=10*(a+b+c);return N(`A、B、C 三類互不重疊且涵蓋全部，頻數比為 ${a}:${b}:${c}。若總數為 ${total}，求 B 類頻數。`,b*10,[`總份數 = ${a+b+c}，每份 ${total}/${a+b+c}=10。`,`B 類 = ${b} × 10 = ${b*10}。`],'先把比的各項相加求總份數。');}}
 ]);
 G('triangles',[
- r=>{let a=r.int(25,70),b=r.int(25,70);return N(`三角形兩內角為 ${a}°、${b}°，求第三角。`,180-a-b,[`內角和是 180°。`,`第三角 = 180 − ${a} − ${b} = ${180-a-b}°。`],'使用內角和。','度');},
- r=>{let a=r.int(3,12),b=r.int(3,12);return N(`三角形兩邊長 ${a}、${b}，第三邊為整數。共有幾種可能的第三邊長？`,2*Math.min(a,b)-1,[`第三邊 x 滿足 |${a}−${b}| < x < ${a+b}。`,`整數從 ${Math.abs(a-b)+1} 至 ${a+b-1}，共 ${2*Math.min(a,b)-1} 個。`],'同時考慮兩邊之差與兩邊之和。');},
- r=>{let a=r.int(20,60),b=r.int(10,30);return N(`三角形一個外角為 ${a+b}°，一個不相鄰內角為 ${a}°。求另一個不相鄰內角。`,b,[`外角等於兩個不相鄰內角之和。`,`另一角 = ${a+b} − ${a} = ${b}°。`],'用外角定理。','度');},
- r=>{let A=r.int(30,110);return N(`△ABC 中，∠A = ${A}°，BI、CI 分別為 ∠B、∠C 的內角平分線，交於 I。求 ∠BIC。`,90+A/2,[`∠IBC + ∠ICB = (180°−${A}°)/2。`,`在 △BIC 中，∠BIC = 180° − (180°−${A}°)/2。`,`所以 ∠BIC = ${90+A/2}°。`],'在小三角形 BIC 中使用內角和。','度');}
+ {level:1,family:'triangles-v1',concept:'triangles',misconceptions:[],support:null,make:r=>{let a=r.int(25,70),b=r.int(25,70);return N(`三角形兩內角為 ${a}°、${b}°，求第三角。`,180-a-b,[`內角和是 180°。`,`第三角 = 180 − ${a} − ${b} = ${180-a-b}°。`],'使用內角和。','度');}},
+ {level:2,family:'triangles-v2',concept:'triangles',misconceptions:[],support:null,make:r=>{let a=r.int(3,12),b=r.int(3,12);return N(`三角形兩邊長 ${a}、${b}，第三邊為整數。共有幾種可能的第三邊長？`,2*Math.min(a,b)-1,[`第三邊 x 滿足 |${a}−${b}| < x < ${a+b}。`,`整數從 ${Math.abs(a-b)+1} 至 ${a+b-1}，共 ${2*Math.min(a,b)-1} 個。`],'同時考慮兩邊之差與兩邊之和。');}},
+ {level:2,family:'triangles-v3',concept:'triangles',misconceptions:[],support:null,make:r=>{let a=r.int(20,60),b=r.int(10,30);return N(`三角形一個外角為 ${a+b}°，一個不相鄰內角為 ${a}°。求另一個不相鄰內角。`,b,[`外角等於兩個不相鄰內角之和。`,`另一角 = ${a+b} − ${a} = ${b}°。`],'用外角定理。','度');}},
+ {level:3,family:'triangles-v4',concept:'triangles',misconceptions:[],support:null,make:r=>{let A=r.int(30,110);return N(`△ABC 中，∠A = ${A}°，BI、CI 分別為 ∠B、∠C 的內角平分線，交於 I。求 ∠BIC。`,90+A/2,[`∠IBC + ∠ICB = (180°−${A}°)/2。`,`在 △BIC 中，∠BIC = 180° − (180°−${A}°)/2。`,`所以 ∠BIC = ${90+A/2}°。`],'在小三角形 BIC 中使用內角和。','度');}}
 ]);
 G('congruence',[
- r=>{let a=r.int(3,15),b=r.int(2,9);return N(`△ABC ≅ △DEF（順序對應），BC = ${a}，EF = 2x + ${b}。求 x。`,(a-b)/2,[`BC 對應 EF，因此 2x + ${b} = ${a}。`,`x = (${a}−${b})/2 = ${num((a-b)/2)}。`],'先看全等式的頂點對應順序。');},
- r=>{let t=r.int(1,8),a=3*t,b=5*t,c=4*t;return N(`P 在 ∠AOB 的平分線上，PM ⟂ OA、PN ⟂ OB，PM = ${a}。△OPM 的周長為 ${a+b+c}。求 OP + ON。`,b+c,[`PM=PN，OP 公共，兩直角三角形由 HL 全等，故 OM=ON。`,`OP+OM = 周長−PM = ${b+c}。`,`所以 OP+ON = ${b+c}。`],'角平分線性質配合直角三角形全等。');},
- r=>{let a=r.int(3,12),b=r.int(3,12),c=r.int(Math.abs(a-b)+1,a+b-1);return N(`△ABC ≅ △DEF，AB=${a}、BC=${b}、CA=${c}（已知能構成三角形）。求兩個三角形的周長總和。`,2*(a+b+c),[`全等三角形周長相等。`,`總和 = 2(${a}+${b}+${c}) = ${2*(a+b+c)}。`],'利用對應邊相等。');},
- r=>{let a=r.int(20,70);return N(`△ABC 中 AB=AC，D 是 BC 中點。已知 ∠BAD=${a}°，求 ∠ABC。`,90-a,[`AB=AC、BD=CD、AD 公共，由 SSS，△ABD≅△ACD。`,`故 AD 平分 ∠A，∠A = ${2*a}°。`,`兩底角相等，每個為 (180−${2*a})/2=${90-a}°。`],'先以 SSS 證明 AD 是角平分線。','度');}
+ {level:1,family:'congruence-v1',concept:'congruence',misconceptions:[],support:null,make:r=>{let a=r.int(3,15),b=r.int(2,9);return N(`△ABC ≅ △DEF（順序對應），BC = ${a}，EF = 2x + ${b}。求 x。`,(a-b)/2,[`BC 對應 EF，因此 2x + ${b} = ${a}。`,`x = (${a}−${b})/2 = ${num((a-b)/2)}。`],'先看全等式的頂點對應順序。');}},
+ {level:2,family:'congruence-v2',concept:'congruence',misconceptions:[],support:null,make:r=>{let t=r.int(1,8),a=3*t,b=5*t,c=4*t;return N(`P 在 ∠AOB 的平分線上，PM ⟂ OA、PN ⟂ OB，PM = ${a}。△OPM 的周長為 ${a+b+c}。求 OP + ON。`,b+c,[`PM=PN，OP 公共，兩直角三角形由 HL 全等，故 OM=ON。`,`OP+OM = 周長−PM = ${b+c}。`,`所以 OP+ON = ${b+c}。`],'角平分線性質配合直角三角形全等。');}},
+ {level:2,family:'congruence-v3',concept:'congruence',misconceptions:[],support:null,make:r=>{let a=r.int(3,12),b=r.int(3,12),c=r.int(Math.abs(a-b)+1,a+b-1);return N(`△ABC ≅ △DEF，AB=${a}、BC=${b}、CA=${c}（已知能構成三角形）。求兩個三角形的周長總和。`,2*(a+b+c),[`全等三角形周長相等。`,`總和 = 2(${a}+${b}+${c}) = ${2*(a+b+c)}。`],'利用對應邊相等。');}},
+ {level:3,family:'congruence-v4',concept:'congruence',misconceptions:[],support:null,make:r=>{let a=r.int(20,70);return N(`△ABC 中 AB=AC，D 是 BC 中點。已知 ∠BAD=${a}°，求 ∠ABC。`,90-a,[`AB=AC、BD=CD、AD 公共，由 SSS，△ABD≅△ACD。`,`故 AD 平分 ∠A，∠A = ${2*a}°。`,`兩底角相等，每個為 (180−${2*a})/2=${90-a}°。`],'先以 SSS 證明 AD 是角平分線。','度');}}
 ]);
 G('symmetry',[
- r=>{let a=r.int(15,75);return N(`等腰三角形一個底角為 ${a}°，求頂角。`,180-2*a,[`兩底角相等，均為 ${a}°。`,`頂角 = 180−2×${a}=${180-2*a}°。`],'區分頂角與底角。','度');},
- r=>{let a=r.int(1,9),b=r.int(1,9);return N(`P(${a},−${b}) 先關於 x 軸對稱，再關於 y 軸對稱。求最終點的兩坐標之和。`,b-a,[`第一次得到 (${a},${b})。`,`第二次得到 (−${a},${b})，坐標和=${num(b-a)}。`],'每次只改對應的那個坐標符號。');},
- r=>{let a=r.int(3,10),b=r.int(3,10);return N(`A(${a},${b})，P 在 y 軸上。AP + BP 的最小值是多少？其中 B(${a},−${b})，且允許 P 是原點。若答案非整數，保留 3 位小數。`,2*Math.hypot(a,b),[`把 B 關於 y 軸反射到 B′(−${a},−${b})。`,`AP+BP=AP+PB′≥AB′；AB′ 經原點，等號可取。`,`最小值=√((${2*a})²+(${2*b})²)≈${(2*Math.hypot(a,b)).toFixed(3)}。`],'反射一個端點，把折線轉成直線。');},
- r=>{let a=r.int(4,16),b=r.int(2,Math.floor(a/2));return N(`等腰三角形兩種邊長為 ${a}、${b}。只有一種能構成三角形（已知 ${2*b} ≤ ${a}）。求周長。`,2*a+b,[`若腰長為 ${b}，則兩腰之和 ${2*b} 不大於底 ${a}，不成立。`,`所以腰長為 ${a}、底長為 ${b}，周長=${2*a+b}。`],'分別討論哪個數是腰長，再用三角形不等式。');}
+ {level:1,family:'symmetry-v1',concept:'symmetry',misconceptions:[],support:null,make:r=>{let a=r.int(15,75);return N(`等腰三角形一個底角為 ${a}°，求頂角。`,180-2*a,[`兩底角相等，均為 ${a}°。`,`頂角 = 180−2×${a}=${180-2*a}°。`],'區分頂角與底角。','度');}},
+ {level:2,family:'symmetry-v2',concept:'symmetry',misconceptions:[],support:null,make:r=>{let a=r.int(1,9),b=r.int(1,9);return N(`P(${a},−${b}) 先關於 x 軸對稱，再關於 y 軸對稱。求最終點的兩坐標之和。`,b-a,[`第一次得到 (${a},${b})。`,`第二次得到 (−${a},${b})，坐標和=${num(b-a)}。`],'每次只改對應的那個坐標符號。');}},
+ {level:2,family:'symmetry-v3',concept:'symmetry',misconceptions:[],support:null,make:r=>{let a=r.int(3,10),b=r.int(3,10);return N(`A(${a},${b})，P 在 y 軸上。AP + BP 的最小值是多少？其中 B(${a},−${b})，且允許 P 是原點。若答案非整數，保留 3 位小數。`,2*Math.hypot(a,b),[`把 B 關於 y 軸反射到 B′(−${a},−${b})。`,`AP+BP=AP+PB′≥AB′；AB′ 經原點，等號可取。`,`最小值=√((${2*a})²+(${2*b})²)≈${(2*Math.hypot(a,b)).toFixed(3)}。`],'反射一個端點，把折線轉成直線。');}},
+ {level:3,family:'symmetry-v4',concept:'symmetry',misconceptions:[],support:null,make:r=>{let a=r.int(4,16),b=r.int(2,Math.floor(a/2));return N(`等腰三角形兩種邊長為 ${a}、${b}。只有一種能構成三角形（已知 ${2*b} ≤ ${a}）。求周長。`,2*a+b,[`若腰長為 ${b}，則兩腰之和 ${2*b} 不大於底 ${a}，不成立。`,`所以腰長為 ${a}、底長為 ${b}，周長=${2*a+b}。`],'分別討論哪個數是腰長，再用三角形不等式。');}}
 ]);
 G('multiply',[
- r=>{let a=r.int(2,8),b=r.int(1,12);return N(`展開 (${a}x − ${b})²，求 x 項的係數。`,-2*a*b,[`完全平方中間項為 −2×${a}x×${b}。`,`係數是 −${2*a*b}。`],'不要漏掉交叉項。');},
- r=>{let a=r.int(2,9),b=r.int(2,9);return N(`(x+${a})(x+${b}) = x² + mx + n，求 m+n。`,a+b+a*b,[`展開得 x²+${a+b}x+${a*b}。`,`m+n=${a+b}+${a*b}=${a+b+a*b}。`],'用分配律展開並比較係數。');},
- r=>{let n=r.int(20,100),d=r.int(1,9);return N(`用乘法公式計算 ${n-d} × ${n+d}。`,n*n-d*d,[`寫成 (${n}−${d})(${n}+${d})。`,`平方差=${n}²−${d}²=${n*n-d*d}。`],'把兩數看成某個中間數加減同一數。');},
- r=>{let s=r.int(5,20),p=r.int(1,Math.floor(s*s/4));return N(`已知 a+b=${s}，ab=${p}，求 a²+b²。`,s*s-2*p,[`(a+b)²=a²+2ab+b²。`,`a²+b²=${s}²−2×${p}=${s*s-2*p}。`],'由完全平方公式反向整理。');}
+ {level:1,family:'multiply-v1',concept:'multiply',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=r.int(1,12);return N(`展開 (${a}x − ${b})²，求 x 項的係數。`,-2*a*b,[`完全平方中間項為 −2×${a}x×${b}。`,`係數是 −${2*a*b}。`],'不要漏掉交叉項。');}},
+ {level:2,family:'multiply-v2',concept:'multiply',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(2,9);return N(`(x+${a})(x+${b}) = x² + mx + n，求 m+n。`,a+b+a*b,[`展開得 x²+${a+b}x+${a*b}。`,`m+n=${a+b}+${a*b}=${a+b+a*b}。`],'用分配律展開並比較係數。');}},
+ {level:2,family:'multiply-v3',concept:'multiply',misconceptions:[],support:null,make:r=>{let n=r.int(20,100),d=r.int(1,9);return N(`用乘法公式計算 ${n-d} × ${n+d}。`,n*n-d*d,[`寫成 (${n}−${d})(${n}+${d})。`,`平方差=${n}²−${d}²=${n*n-d*d}。`],'把兩數看成某個中間數加減同一數。');}},
+ {level:3,family:'multiply-v4',concept:'multiply',misconceptions:[],support:null,make:r=>{let s=r.int(5,20),p=r.int(1,Math.floor(s*s/4));return N(`已知 a+b=${s}，ab=${p}，求 a²+b²。`,s*s-2*p,[`(a+b)²=a²+2ab+b²。`,`a²+b²=${s}²−2×${p}=${s*s-2*p}。`],'由完全平方公式反向整理。');}}
 ]);
 G('factor',[
- r=>{let a=r.int(2,10),b=r.int(2,10);return N(`x²+${a+b}x+${a*b}=(x+m)(x+n)，求 mn。`,a*b,[`展開右式，常數項是 mn。`,`比較係數得 mn=${a*b}。`],'找積與和。');},
- r=>{let a=r.int(2,10),x=r.int(a+1,a+15);return N(`利用因式分解計算 (${x}²−${a*a})/(${x}−${a})。`,x+a,[`分子=(${x}−${a})(${x}+${a})。`,`約去非零因式 ${x}−${a}，結果=${x+a}。`],'先用平方差分解。');},
- r=>{let a=r.int(2,10),b=r.int(2,9);return N(`多項式 ${a}x² − ${a*b*b} 的因式包含 x−k，其中 k>0。求 k。`,b,[`先提 ${a}：${a}(x²−${b*b})。`,`分解為 ${a}(x−${b})(x+${b})，k=${b}。`],'先提公因式，再平方差。');},
- r=>{let a=r.int(2,8),b=r.int(2,8);return N(`若 x² − ${a+b}x + k 可分解成 (x−${a})(x−m)，求 k。`,a*b,[`比較 x 項：${a}+m=${a+b}，故 m=${b}。`,`常數 k=${a}×${b}=${a*b}。`],'同時比較一次項與常數項。');}
+ {level:1,family:'factor-v1',concept:'factor',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(2,10);return N(`x²+${a+b}x+${a*b}=(x+m)(x+n)，求 mn。`,a*b,[`展開右式，常數項是 mn。`,`比較係數得 mn=${a*b}。`],'找積與和。');}},
+ {level:2,family:'factor-v2',concept:'factor',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),x=r.int(a+1,a+15);return N(`利用因式分解計算 (${x}²−${a*a})/(${x}−${a})。`,x+a,[`分子=(${x}−${a})(${x}+${a})。`,`約去非零因式 ${x}−${a}，結果=${x+a}。`],'先用平方差分解。');}},
+ {level:2,family:'factor-v3',concept:'factor',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(2,9);return N(`多項式 ${a}x² − ${a*b*b} 的因式包含 x−k，其中 k>0。求 k。`,b,[`先提 ${a}：${a}(x²−${b*b})。`,`分解為 ${a}(x−${b})(x+${b})，k=${b}。`],'先提公因式，再平方差。');}},
+ {level:3,family:'factor-v4',concept:'factor',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=r.int(2,8);return N(`若 x² − ${a+b}x + k 可分解成 (x−${a})(x−m)，求 k。`,a*b,[`比較 x 項：${a}+m=${a+b}，故 m=${b}。`,`常數 k=${a}×${b}=${a*b}。`],'同時比較一次項與常數項。');}}
 ]);
 G('fractions',[
- r=>{let a=r.int(1,12),b=r.int(2,9);return N(`分式 1/(${b}x−${a*b}) 有意義時，x 不能等於多少？`,a,[`分母不為零：${b}x−${a*b}≠0。`,`所以 x≠${a}。`],'先找讓分母等於零的值。');},
- r=>{let a=r.int(2,9),b=r.int(2,9);return N(`解 ${a}/(x−${b})=1，輸入 x。`,a+b,[`限制 x≠${b}。`,`去分母：${a}=x−${b}，x=${a+b}；檢驗分母非零。`],'先記錄限制，再驗根。');},
- r=>{let a=r.int(2,12),b=r.int(1,7);return N(`當 x=${a+b}，求 (x²−${a*a})/(x−${a}) 的值。`,2*a+b,[`x≠${a}，原式約分為 x+${a}。`,`代入得 ${a+b}+${a}=${2*a+b}。`],'先因式分解，保留分母限制。');},
- r=>{let a=r.int(1,9),b=r.int(2,9);return N(`方程 (x+k)/(x−${a}) = ${b} 去分母後得到的唯一候選根恰為禁值 x=${a}，求 k。`,-a,[`去分母得 x+k=${b}(x−${a})。`,`令候選根 x=${a}，則 ${a}+k=0，k=−${a}。`,`此時原方程無解，因為候選根使分母為零。`],'增根必使原式的分母為零。');}
+ {level:1,family:'fractions-v1',concept:'fractions',misconceptions:[],support:null,make:r=>{let a=r.int(1,12),b=r.int(2,9);return N(`分式 1/(${b}x−${a*b}) 有意義時，x 不能等於多少？`,a,[`分母不為零：${b}x−${a*b}≠0。`,`所以 x≠${a}。`],'先找讓分母等於零的值。');}},
+ {level:2,family:'fractions-v2',concept:'fractions',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(2,9);return N(`解 ${a}/(x−${b})=1，輸入 x。`,a+b,[`限制 x≠${b}。`,`去分母：${a}=x−${b}，x=${a+b}；檢驗分母非零。`],'先記錄限制，再驗根。');}},
+ {level:2,family:'fractions-v3',concept:'fractions',misconceptions:[],support:null,make:r=>{let a=r.int(2,12),b=r.int(1,7);return N(`當 x=${a+b}，求 (x²−${a*a})/(x−${a}) 的值。`,2*a+b,[`x≠${a}，原式約分為 x+${a}。`,`代入得 ${a+b}+${a}=${2*a+b}。`],'先因式分解，保留分母限制。');}},
+ {level:3,family:'fractions-v4',concept:'fractions',misconceptions:[],support:null,make:r=>{let a=r.int(1,9),b=r.int(2,9);return N(`方程 (x+k)/(x−${a}) = ${b} 去分母後得到的唯一候選根恰為禁值 x=${a}，求 k。`,-a,[`去分母得 x+k=${b}(x−${a})。`,`令候選根 x=${a}，則 ${a}+k=0，k=−${a}。`,`此時原方程無解，因為候選根使分母為零。`],'增根必使原式的分母為零。');}}
 ]);
 G('radicals',[
- r=>{let a=r.int(2,12),b=r.pick([2,3,5,6,7]);return N(`√${a*a*b} = k√${b}，求 k。`,a,[`把被開方數拆為 ${a}²×${b}。`,`√${a*a*b}=${a}√${b}，k=${a}。`],'提出完全平方因數。');},
- r=>{let a=r.int(2,8),b=r.int(2,8),c=r.pick([2,3,5]);return N(`√${a*a*c}+√${b*b*c}=k√${c}，求 k。`,a+b,[`兩根式分別為 ${a}√${c}、${b}√${c}。`,`合併後 k=${a+b}。`],'先化簡，再合併同類根式。');},
- r=>{let a=r.int(2,12);return N(`將 1/(√${a+1}−√${a}) 有理化後可寫為 √${a+1}+√${a}。求此數與原分母 √${a+1}−√${a} 的乘積。`,1,[`乘積為平方差。`,`(√${a+1})²−(√${a})²=${a+1}−${a}=1。`],'用共軛式與平方差。');},
- r=>{let a=r.int(2,9),b=a+r.int(2,10);return N(`已知 ${a}<x<${b}，化簡 √((x−${a})²)+√((x−${b})²) 後的值是多少？`,b-a,[`√((x−${a})²)=|x−${a}|=x−${a}。`,`√((x−${b})²)=|x−${b}|=${b}−x。`,`相加得 ${b-a}。`],'√(u²)=|u|，根據區間判斷符號。');}
+ {level:1,family:'radicals-v1',concept:'radicals',misconceptions:[],support:null,make:r=>{let a=r.int(2,12),b=r.pick([2,3,5,6,7]);return N(`√${a*a*b} = k√${b}，求 k。`,a,[`把被開方數拆為 ${a}²×${b}。`,`√${a*a*b}=${a}√${b}，k=${a}。`],'提出完全平方因數。');}},
+ {level:2,family:'radicals-v2',concept:'radicals',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=r.int(2,8),c=r.pick([2,3,5]);return N(`√${a*a*c}+√${b*b*c}=k√${c}，求 k。`,a+b,[`兩根式分別為 ${a}√${c}、${b}√${c}。`,`合併後 k=${a+b}。`],'先化簡，再合併同類根式。');}},
+ {level:2,family:'radicals-v3',concept:'radicals',misconceptions:[],support:null,make:r=>{let a=r.int(2,12);return N(`將 1/(√${a+1}−√${a}) 有理化後可寫為 √${a+1}+√${a}。求此數與原分母 √${a+1}−√${a} 的乘積。`,1,[`乘積為平方差。`,`(√${a+1})²−(√${a})²=${a+1}−${a}=1。`],'用共軛式與平方差。');}},
+ {level:3,family:'radicals-v4',concept:'radicals',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=a+r.int(2,10);return N(`已知 ${a}<x<${b}，化簡 √((x−${a})²)+√((x−${b})²) 後的值是多少？`,b-a,[`√((x−${a})²)=|x−${a}|=x−${a}。`,`√((x−${b})²)=|x−${b}|=${b}−x。`,`相加得 ${b-a}。`],'√(u²)=|u|，根據區間判斷符號。');}}
 ]);
 G('pythagoras',[
- r=>{let k=r.int(1,24);return N(`直角三角形兩直角邊長 ${3*k}、${4*k}，求斜邊長。`,5*k,[`c²=${3*k}²+${4*k}²=${25*k*k}。`,`取正根 c=${5*k}。`],'確認所求是斜邊。');},
- r=>{let k=r.int(1,10);return N(`梯子長 ${13*k} m，底端距牆 ${5*k} m。求頂端離地高度。`,12*k,[`h²=(${13*k})²−(${5*k})²=${144*k*k}。`,`h=${12*k} m。`],'梯子是斜邊，不是直角邊。','m');},
- r=>{let k=r.int(1,10);return N(`長方形長 ${12*k}、寬 ${5*k}，求對角線長與周長的差（周長減對角線）。`,21*k,[`對角線為 √(${12*k}²+${5*k}²)=${13*k}。`,`周長=2(${12*k}+${5*k})=${34*k}。`,`差=${21*k}。`],'先用勾股定理求對角線，再與周長比較。');},
- r=>{let k=r.int(1,24);return N(`等腰三角形腰長 ${5*k}，底長 ${6*k}。求面積。`,12*k*k,[`作底邊高，底邊被平分為 ${3*k}。`,`高=√(${5*k}²−${3*k}²)=${4*k}。`,`面積=${6*k}×${4*k}/2=${12*k*k}。`],'等腰三角形底邊上的高也是中線。');}
+ {level:1,family:'pythagoras-v1',concept:'pythagoras',misconceptions:[],support:null,make:r=>{let k=r.int(1,24);return N(`直角三角形兩直角邊長 ${3*k}、${4*k}，求斜邊長。`,5*k,[`c²=${3*k}²+${4*k}²=${25*k*k}。`,`取正根 c=${5*k}。`],'確認所求是斜邊。');}},
+ {level:2,family:'pythagoras-v2',concept:'pythagoras',misconceptions:[],support:null,make:r=>{let k=r.int(1,10);return N(`梯子長 ${13*k} m，底端距牆 ${5*k} m。求頂端離地高度。`,12*k,[`h²=(${13*k})²−(${5*k})²=${144*k*k}。`,`h=${12*k} m。`],'梯子是斜邊，不是直角邊。','m');}},
+ {level:2,family:'pythagoras-v3',concept:'pythagoras',misconceptions:[],support:null,make:r=>{let k=r.int(1,10);return N(`長方形長 ${12*k}、寬 ${5*k}，求對角線長與周長的差（周長減對角線）。`,21*k,[`對角線為 √(${12*k}²+${5*k}²)=${13*k}。`,`周長=2(${12*k}+${5*k})=${34*k}。`,`差=${21*k}。`],'先用勾股定理求對角線，再與周長比較。');}},
+ {level:3,family:'pythagoras-v4',concept:'pythagoras',misconceptions:[],support:null,make:r=>{let k=r.int(1,24);return N(`等腰三角形腰長 ${5*k}，底長 ${6*k}。求面積。`,12*k*k,[`作底邊高，底邊被平分為 ${3*k}。`,`高=√(${5*k}²−${3*k}²)=${4*k}。`,`面積=${6*k}×${4*k}/2=${12*k*k}。`],'等腰三角形底邊上的高也是中線。');}}
 ]);
 G('quadrilaterals',[
- r=>{let n=r.int(5,25);return N(`求 ${n} 邊形的內角和。`,(n-2)*180,[`內角和=(n−2)×180°。`,`代入 n=${n}，得 ${(n-2)*180}°。`],'可由一頂點分成 n−2 個三角形。','度');},
- r=>{let a=r.int(3,20),b=r.int(3,20);return N(`菱形兩條對角線長 ${2*a}、${2*b}，求面積。`,2*a*b,[`菱形的對角線互相垂直平分。`,`面積=對角線乘積/2=${2*a}×${2*b}/2=${2*a*b}。`],'可把菱形分成四個直角三角形。');},
- r=>{let a=r.int(3,15),b=a+r.int(2,12),h=r.int(2,10);return N(`梯形兩底 ${a}、${b}，高 ${h}。求面積。`,(a+b)*h/2,[`中位線長=(${a}+${b})/2。`,`面積=中位線×高=${num((a+b)*h/2)}。`],'兩底和乘高，再除以二。');},
- r=>{let a=r.int(2,10),b=r.int(2,10);return N(`平行四邊形 ABCD 面積為 ${8*a*b}。E 是 AB 中點，F 是 CD 中點。求四邊形 AEFD 的面積。`,4*a*b,[`AE=AB/2，DF=CD/2，且 AE∥DF，故 AEFD 佔原圖一半底、同高。`,`面積=${8*a*b}/2=${4*a*b}。`],'比較底與高，或利用兩個全等的平行四邊形。');}
+ {level:1,family:'quadrilaterals-v1',concept:'quadrilaterals',misconceptions:[],support:null,make:r=>{let n=r.int(5,25);return N(`求 ${n} 邊形的內角和。`,(n-2)*180,[`內角和=(n−2)×180°。`,`代入 n=${n}，得 ${(n-2)*180}°。`],'可由一頂點分成 n−2 個三角形。','度');}},
+ {level:2,family:'quadrilaterals-v2',concept:'quadrilaterals',misconceptions:[],support:null,make:r=>{let a=r.int(3,20),b=r.int(3,20);return N(`菱形兩條對角線長 ${2*a}、${2*b}，求面積。`,2*a*b,[`菱形的對角線互相垂直平分。`,`面積=對角線乘積/2=${2*a}×${2*b}/2=${2*a*b}。`],'可把菱形分成四個直角三角形。');}},
+ {level:2,family:'quadrilaterals-v3',concept:'quadrilaterals',misconceptions:[],support:null,make:r=>{let a=r.int(3,15),b=a+r.int(2,12),h=r.int(2,10);return N(`梯形兩底 ${a}、${b}，高 ${h}。求面積。`,(a+b)*h/2,[`中位線長=(${a}+${b})/2。`,`面積=中位線×高=${num((a+b)*h/2)}。`],'兩底和乘高，再除以二。');}},
+ {level:3,family:'quadrilaterals-v4',concept:'quadrilaterals',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(2,10);return N(`平行四邊形 ABCD 面積為 ${8*a*b}。E 是 AB 中點，F 是 CD 中點。求四邊形 AEFD 的面積。`,4*a*b,[`AE=AB/2，DF=CD/2，且 AE∥DF，故 AEFD 佔原圖一半底、同高。`,`面積=${8*a*b}/2=${4*a*b}。`],'比較底與高，或利用兩個全等的平行四邊形。');}}
 ]);
 G('function-intro',[
- r=>{let a=r.int(2,8),b=r.int(1,15),x=r.int(2,10);return N(`函數 y=${a}x+${b}，當 x=${x} 時 y 是多少？`,a*x+b,[`將 x=${x} 代入解析式。`,`y=${a}×${x}+${b}=${a*x+b}。`],'輸入決定唯一輸出。');},
- r=>{let a=r.int(2,8),b=r.int(10,30),t=r.int(2,10);return N(`水箱原有 ${b} L，每分鐘注入 ${a} L。${t} 分鐘後有多少升水（未注滿）？`,b+a*t,[`V(t)=${b}+${a}t。`,`V(${t})=${b+a*t} L。`],'初始量是常數項。','L');},
- r=>{let a=r.int(2,9),n=r.int(5,20);return N(`空水箱容量 ${a*n} L，以每分鐘 ${a} L 注水。模型 V=${a}t 只描述注滿前的過程，t 的最大值是多少？`,n,[`注滿時 ${a}t=${a*n}。`,`t=${n}，因此時間範圍是 [0,${n}]。`],'由情境限制自變量。','分鐘');},
- r=>{let fee=r.int(5,20),rate=r.int(2,8),base=r.int(1,3),t=base+r.int(2,10);return N(`停車首 ${base} 小時合共 ${fee} 元，其後每小時 ${rate} 元（按整小時計）。停車 ${t} 小時要付多少元？`,fee+(t-base)*rate,[`超出基本時段的時間是 ${t}−${base}=${t-base} 小時。`,`費用=${fee}+${rate}×${t-base}=${fee+(t-base)*rate} 元。`],'基本收費不能重複計算。','元');}
+ {level:1,family:'function-intro-v1',concept:'function-intro',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=r.int(1,15),x=r.int(2,10);return N(`函數 y=${a}x+${b}，當 x=${x} 時 y 是多少？`,a*x+b,[`將 x=${x} 代入解析式。`,`y=${a}×${x}+${b}=${a*x+b}。`],'輸入決定唯一輸出。');}},
+ {level:2,family:'function-intro-v2',concept:'function-intro',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=r.int(10,30),t=r.int(2,10);return N(`水箱原有 ${b} L，每分鐘注入 ${a} L。${t} 分鐘後有多少升水（未注滿）？`,b+a*t,[`V(t)=${b}+${a}t。`,`V(${t})=${b+a*t} L。`],'初始量是常數項。','L');}},
+ {level:2,family:'function-intro-v3',concept:'function-intro',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),n=r.int(5,20);return N(`空水箱容量 ${a*n} L，以每分鐘 ${a} L 注水。模型 V=${a}t 只描述注滿前的過程，t 的最大值是多少？`,n,[`注滿時 ${a}t=${a*n}。`,`t=${n}，因此時間範圍是 [0,${n}]。`],'由情境限制自變量。','分鐘');}},
+ {level:3,family:'function-intro-v4',concept:'function-intro',misconceptions:[],support:null,make:r=>{let fee=r.int(5,20),rate=r.int(2,8),base=r.int(1,3),t=base+r.int(2,10);return N(`停車首 ${base} 小時合共 ${fee} 元，其後每小時 ${rate} 元（按整小時計）。停車 ${t} 小時要付多少元？`,fee+(t-base)*rate,[`超出基本時段的時間是 ${t}−${base}=${t-base} 小時。`,`費用=${fee}+${rate}×${t-base}=${fee+(t-base)*rate} 元。`],'基本收費不能重複計算。','元');}}
 ]);
 G('linear-function',[
- r=>{let k=r.int(1,9),b=r.int(-10,10);return N(`直線 y=${k}x+(${num(b)}) 與 y 軸相交於 (0,c)，求 c。`,b,[`在 y 軸上 x=0。`,`c=${num(b)}。`],'截距由 x=0 求得。');},
- r=>{let k=r.int(1,7),b=r.int(-8,8),x=r.int(2,8);return N(`直線通過 (0,${num(b)}) 和 (${x},${k*x+b})，求斜率。`,k,[`k=(y₂−y₁)/(x₂−x₁)。`,`k=(${k*x+b}−(${num(b)}))/${x}=${k}。`],'縱坐標增量除以橫坐標增量。');},
- r=>{let k=r.int(1,8),x=r.int(1,10);return N(`直線 y=${k}x−${k*x} 與 x 軸交於 (a,0)，求 a。`,x,[`在 x 軸上 y=0。`,`${k}a−${k*x}=0，a=${x}。`],'零點對應 y=0。');},
- r=>{let k1=r.int(2,8),k2=r.int(1,k1-1),t=r.int(3,15),b1=r.int(5,15),b2=b1+(k1-k2)*t;return N(`方案 A 收 ${b1} 元固定費，每次 ${k1} 元；方案 B 收 ${b2} 元固定費，每次 ${k2} 元。使用多少次時兩方案總費用相同？`,t,[`設次數 x，${b1}+${k1}x=${b2}+${k2}x。`,`(${k1}−${k2})x=${b2-b1}。`,`x=${t} 次；超過此數時 B 較便宜。`],'把兩個收費模型的函數值設為相等。','次');}
+ {level:1,family:'linear-function-v1',concept:'linear-function',misconceptions:[],support:null,make:r=>{let k=r.int(1,9),b=r.int(-10,10);return N(`直線 y=${k}x+(${num(b)}) 與 y 軸相交於 (0,c)，求 c。`,b,[`在 y 軸上 x=0。`,`c=${num(b)}。`],'截距由 x=0 求得。');}},
+ {level:2,family:'linear-function-v2',concept:'linear-function',misconceptions:[],support:null,make:r=>{let k=r.int(1,7),b=r.int(-8,8),x=r.int(2,8);return N(`直線通過 (0,${num(b)}) 和 (${x},${k*x+b})，求斜率。`,k,[`k=(y₂−y₁)/(x₂−x₁)。`,`k=(${k*x+b}−(${num(b)}))/${x}=${k}。`],'縱坐標增量除以橫坐標增量。');}},
+ {level:2,family:'linear-function-v3',concept:'linear-function',misconceptions:[],support:null,make:r=>{let k=r.int(1,8),x=r.int(1,10);return N(`直線 y=${k}x−${k*x} 與 x 軸交於 (a,0)，求 a。`,x,[`在 x 軸上 y=0。`,`${k}a−${k*x}=0，a=${x}。`],'零點對應 y=0。');}},
+ {level:3,family:'linear-function-v4',concept:'linear-function',misconceptions:[],support:null,make:r=>{let k1=r.int(2,8),k2=r.int(1,k1-1),t=r.int(3,15),b1=r.int(5,15),b2=b1+(k1-k2)*t;return N(`方案 A 收 ${b1} 元固定費，每次 ${k1} 元；方案 B 收 ${b2} 元固定費，每次 ${k2} 元。使用多少次時兩方案總費用相同？`,t,[`設次數 x，${b1}+${k1}x=${b2}+${k2}x。`,`(${k1}−${k2})x=${b2-b1}。`,`x=${t} 次；超過此數時 B 較便宜。`],'把兩個收費模型的函數值設為相等。','次');}}
 ]);
 G('statistics',[
- r=>{let a=r.int(1,20),d=r.int(1,7);return N(`數據 ${a}、${a+d}、${a+2*d}、${a+3*d}、${a+4*d} 的中位數是多少？`,a+2*d,[`五個數已排序。`,`中央第 3 個數為 ${a+2*d}。`],'中位數取決於排序後的位置。');},
- r=>{let a=r.int(50,80),b=r.int(70,100),w=r.pick([2,3,4,6,7,8]);return N(`平時 ${a} 分佔 ${w*10}%，測驗 ${b} 分佔 ${100-w*10}%。求加權總分。`,(a*w+b*(10-w))/10,[`總分=${a}×${w}/10+${b}×${10-w}/10。`,`結果=${num((a*w+b*(10-w))/10)}。`],'權重總和須為 1。','分');},
- r=>{let a=r.int(5,30),d=r.int(1,8);return N(`數據 ${a-d}、${a}、${a+d} 的方差是多少？本題以數據個數 n=3 作分母，可輸入分數。`,2*d*d/3,[`平均數為 ${a}，離均差是 −${d}、0、${d}。`,`方差=(${d*d}+0+${d*d})/3=${2*d*d}/3。`],'先求平均數，再求離均差平方的平均。');},
- r=>{let n=r.int(4,12),a=r.int(10,40),x=r.int(5,60);return N(`${n} 個數的平均數是 ${a}，加入一個數 x 後，平均數是 ${num((n*a+x)/(n+1))}（此數值保留 8 位小數）。求 x，取最接近的整數。`,x,[`原總和=${n*a}。`,`新總和≈${num((n*a+x)/(n+1))}×${n+1}=${n*a+x}。`,`新增數 x≈${x}。`],'平均數乘個數得到總和。');}
+ {level:1,family:'statistics-v1',concept:'statistics',misconceptions:[],support:null,make:r=>{let a=r.int(1,20),d=r.int(1,7);return N(`數據 ${a}、${a+d}、${a+2*d}、${a+3*d}、${a+4*d} 的中位數是多少？`,a+2*d,[`五個數已排序。`,`中央第 3 個數為 ${a+2*d}。`],'中位數取決於排序後的位置。');}},
+ {level:2,family:'statistics-v2',concept:'statistics',misconceptions:[],support:null,make:r=>{let a=r.int(50,80),b=r.int(70,100),w=r.pick([2,3,4,6,7,8]);return N(`平時 ${a} 分佔 ${w*10}%，測驗 ${b} 分佔 ${100-w*10}%。求加權總分。`,(a*w+b*(10-w))/10,[`總分=${a}×${w}/10+${b}×${10-w}/10。`,`結果=${num((a*w+b*(10-w))/10)}。`],'權重總和須為 1。','分');}},
+ {level:2,family:'statistics-v3',concept:'statistics',misconceptions:[],support:null,make:r=>{let a=r.int(5,30),d=r.int(1,8);return N(`數據 ${a-d}、${a}、${a+d} 的方差是多少？本題以數據個數 n=3 作分母，可輸入分數。`,2*d*d/3,[`平均數為 ${a}，離均差是 −${d}、0、${d}。`,`方差=(${d*d}+0+${d*d})/3=${2*d*d}/3。`],'先求平均數，再求離均差平方的平均。');}},
+ {level:3,family:'statistics-v4',concept:'statistics',misconceptions:[],support:null,make:r=>{let n=r.int(4,12),a=r.int(10,40),x=r.int(5,60);return N(`${n} 個數的平均數是 ${a}，加入一個數 x 後，平均數是 ${num((n*a+x)/(n+1))}（此數值保留 8 位小數）。求 x，取最接近的整數。`,x,[`原總和=${n*a}。`,`新總和≈${num((n*a+x)/(n+1))}×${n+1}=${n*a+x}。`,`新增數 x≈${x}。`],'平均數乘個數得到總和。');}}
 ]);
 G('sets',[
- r=>{let a=r.int(2,12),b=a+r.int(2,8);return N(`A={1,2,…,${b}}，B={${a},${a+1},…,${b+3}}。求 |A∩B|。`,b-a+1,[`共同元素從 ${a} 至 ${b}。`,`個數=${b}−${a}+1=${b-a+1}。`],'交集取共同部分。');},
- r=>{let a=r.int(15,35),b=r.int(15,35),c=r.int(3,14);return N(`班中 ${a} 人喜歡代數，${b} 人喜歡幾何，${c} 人兩者皆喜歡。至少喜歡一項的有多少人？`,a+b-c,[`兩項人數相加時，共同部分被算兩次。`,`並集個數=${a}+${b}−${c}=${a+b-c}。`],'用容斥原理。','人');},
- r=>{let a=r.int(1,10),b=a+r.int(3,8);return N(`全集 U={1,2,…,${b}}，A={1,2,…,${a}}。A 的補集有多少個元素？`,b-a,[`補集元素是 ${a+1} 至 ${b}。`,`元素個數=${b-a}。`],'補集須相對於已知全集。');},
- r=>{let a=r.int(1,8),b=a+r.int(2,8);return N(`A=[${a},${b}]，B=[m,m+${b-a}]。若 A⊆B，求 m。`,a,[`包含要求 m≤${a} 且 m+${b-a}≥${b}。`,`後者給 m≥${a}，故 m=${a}。`],'把包含關係轉成左右端點的限制。');}
+ {level:1,family:'sets-v1',concept:'sets',misconceptions:[],support:null,make:r=>{let a=r.int(2,12),b=a+r.int(2,8);return N(`A={1,2,…,${b}}，B={${a},${a+1},…,${b+3}}。求 |A∩B|。`,b-a+1,[`共同元素從 ${a} 至 ${b}。`,`個數=${b}−${a}+1=${b-a+1}。`],'交集取共同部分。');}},
+ {level:2,family:'sets-v2',concept:'sets',misconceptions:[],support:null,make:r=>{let a=r.int(15,35),b=r.int(15,35),c=r.int(3,14);return N(`班中 ${a} 人喜歡代數，${b} 人喜歡幾何，${c} 人兩者皆喜歡。至少喜歡一項的有多少人？`,a+b-c,[`兩項人數相加時，共同部分被算兩次。`,`並集個數=${a}+${b}−${c}=${a+b-c}。`],'用容斥原理。','人');}},
+ {level:2,family:'sets-v3',concept:'sets',misconceptions:[],support:null,make:r=>{let a=r.int(1,10),b=a+r.int(3,8);return N(`全集 U={1,2,…,${b}}，A={1,2,…,${a}}。A 的補集有多少個元素？`,b-a,[`補集元素是 ${a+1} 至 ${b}。`,`元素個數=${b-a}。`],'補集須相對於已知全集。');}},
+ {level:3,family:'sets-v4',concept:'sets',misconceptions:[],support:null,make:r=>{let a=r.int(1,8),b=a+r.int(2,8);return N(`A=[${a},${b}]，B=[m,m+${b-a}]。若 A⊆B，求 m。`,a,[`包含要求 m≤${a} 且 m+${b-a}≥${b}。`,`後者給 m≥${a}，故 m=${a}。`],'把包含關係轉成左右端點的限制。');}}
 ]);
 G('logic',[
- r=>{let a=r.int(2,25);return N(`有多少個整數 x 可作為「對所有實數 x，都有 x² > ${a*a}」的反例？`,2*a+1,[`反例須滿足 x²≤${a*a}，即 −${a}≤x≤${a}。`,`整數由 −${a} 至 ${a}，共 ${2*a+1} 個。`],'反例要使原來的不等式不成立，邊界也要計算。');},
- r=>{let a=r.int(2,10);return C(`在實數範圍，「x=${a}」是「x²=${a*a}」的甚麼條件？`,['充分但不必要','必要但不充分','充要','既不充分也不必要'],[`正向成立。`,`反向還可能 x=−${a}，故不必要。`],'分別檢驗兩個方向。');},
- r=>{let a=r.int(2,10);return C(`命題「所有實數 x 都滿足 x>${a}」的否定是？`,[`存在實數 x，使 x≤${a}`,`所有實數 x 都滿足 x≤${a}`,`存在實數 x，使 x<${a}`,`所有實數 x 都滿足 x<${a}`],[`全稱量詞改為存在量詞。`,`同時把 > 否定為 ≤。`],'否定量詞與條件，兩者都要改。');},
- r=>{let a=r.int(1,25);return N(`在條件 p：x>m，q：x>${a} 中，若 p 是 q 的必要但不充分條件，且 m 為整數，求 m 的最大值。`,a-1,[`必要條件要求 q⇒p，故 m≤${a}。`,`若 m=${a} 則充要；不充分要求 m<${a}。`,`最大整數 m=${a-1}。`],'必要但不充分表示反方向成立而正方向不總成立。');}
+ {level:1,family:'logic-v1',concept:'logic',misconceptions:[],support:null,make:r=>{let a=r.int(2,25);return N(`有多少個整數 x 可作為「對所有實數 x，都有 x² > ${a*a}」的反例？`,2*a+1,[`反例須滿足 x²≤${a*a}，即 −${a}≤x≤${a}。`,`整數由 −${a} 至 ${a}，共 ${2*a+1} 個。`],'反例要使原來的不等式不成立，邊界也要計算。');}},
+ {level:2,family:'logic-v2',concept:'logic',misconceptions:[],support:null,make:r=>{let a=r.int(2,10);return C(`在實數範圍，「x=${a}」是「x²=${a*a}」的甚麼條件？`,['充分但不必要','必要但不充分','充要','既不充分也不必要'],[`正向成立。`,`反向還可能 x=−${a}，故不必要。`],'分別檢驗兩個方向。');}},
+ {level:2,family:'logic-v3',concept:'logic',misconceptions:[],support:null,make:r=>{let a=r.int(2,10);return C(`命題「所有實數 x 都滿足 x>${a}」的否定是？`,[`存在實數 x，使 x≤${a}`,`所有實數 x 都滿足 x≤${a}`,`存在實數 x，使 x<${a}`,`所有實數 x 都滿足 x<${a}`],[`全稱量詞改為存在量詞。`,`同時把 > 否定為 ≤。`],'否定量詞與條件，兩者都要改。');}},
+ {level:3,family:'logic-v4',concept:'logic',misconceptions:[],support:null,make:r=>{let a=r.int(1,25);return N(`在條件 p：x>m，q：x>${a} 中，若 p 是 q 的必要但不充分條件，且 m 為整數，求 m 的最大值。`,a-1,[`必要條件要求 q⇒p，故 m≤${a}。`,`若 m=${a} 則充要；不充分要求 m<${a}。`,`最大整數 m=${a-1}。`],'必要但不充分表示反方向成立而正方向不總成立。');}}
 ]);
 G('quadratic-inequality',[
- r=>{let a=r.int(-7,4),b=a+r.int(3,10);return N(`不等式 (x−(${num(a)}))(x−(${num(b)}))<0 的整數解有幾個？`,b-a-1,[`首項係數為正，解集為 (${num(a)},${num(b)})。`,`整數個數=${b-a-1}。`],'先確定兩根之間，再排除端點。');},
- r=>{let a=r.int(1,10);return N(`對所有實數 x，x²−${2*a}x+m≥0。求 m 的最小值。`,a*a,[`配方為 (x−${a})²+m−${a*a}。`,`最小值是 m−${a*a}，故 m≥${a*a}。`],'令二次式的最小值不小於零。');},
- r=>{let a=r.int(-5,4),b=a+r.int(2,8);return N(`不等式 −(x−(${num(a)}))(x−(${num(b)}))≥0 的解集為 [a,b]，求兩端點之和。`,a+b,[`兩邊乘 −1 要反向，得到乘積≤0。`,`解集為 [${num(a)},${num(b)}]，端點和=${num(a+b)}。`],'先處理負的首項係數。');},
- r=>{let a=r.int(2,8),m=r.int(1,8);return N(`不等式 x²−${2*a}x+k<0 的解集為 (${a-m},${a+m})，求 k。`,a*a-m*m,[`端點是方程的兩根。`,`由因式分解，常數 k=(${a-m})(${a+m})=${a*a-m*m}。`],'把解集邊界當作方程的根。');}
+ {level:1,family:'quadratic-inequality-v1',concept:'quadratic-inequality',misconceptions:[],support:null,make:r=>{let a=r.int(-7,4),b=a+r.int(3,10);return N(`不等式 (x−(${num(a)}))(x−(${num(b)}))<0 的整數解有幾個？`,b-a-1,[`首項係數為正，解集為 (${num(a)},${num(b)})。`,`整數個數=${b-a-1}。`],'先確定兩根之間，再排除端點。');}},
+ {level:2,family:'quadratic-inequality-v2',concept:'quadratic-inequality',misconceptions:[],support:null,make:r=>{let a=r.int(1,10);return N(`對所有實數 x，x²−${2*a}x+m≥0。求 m 的最小值。`,a*a,[`配方為 (x−${a})²+m−${a*a}。`,`最小值是 m−${a*a}，故 m≥${a*a}。`],'令二次式的最小值不小於零。');}},
+ {level:2,family:'quadratic-inequality-v3',concept:'quadratic-inequality',misconceptions:[],support:null,make:r=>{let a=r.int(-5,4),b=a+r.int(2,8);return N(`不等式 −(x−(${num(a)}))(x−(${num(b)}))≥0 的解集為 [a,b]，求兩端點之和。`,a+b,[`兩邊乘 −1 要反向，得到乘積≤0。`,`解集為 [${num(a)},${num(b)}]，端點和=${num(a+b)}。`],'先處理負的首項係數。');}},
+ {level:3,family:'quadratic-inequality-v4',concept:'quadratic-inequality',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),m=r.int(1,8);return N(`不等式 x²−${2*a}x+k<0 的解集為 (${a-m},${a+m})，求 k。`,a*a-m*m,[`端點是方程的兩根。`,`由因式分解，常數 k=(${a-m})(${a+m})=${a*a-m*m}。`],'把解集邊界當作方程的根。');}}
 ]);
 G('polynomial-division',[
- r=>{let a=r.int(-5,5),b=r.int(-5,5),c=r.int(1,12);return N(`f(x)=x²+(${num(b)})x+${c}。求 f(x) 除以 x−(${num(a)}) 的餘式。`,a*a+b*a+c,[`由餘式定理，餘式為 f(${num(a)})。`,`代入得 ${num(a*a+b*a+c)}。`],'一次除式 x−a 對應代入 a。');},
- r=>{let a=r.int(1,7),b=r.int(1,9);return N(`若 x−${a} 是 x²+kx−${a*b} 的因式，求 k。`,b-a,[`因式定理給 ${a}²+${a}k−${a*b}=0。`,`除以 ${a}：${a}+k−${b}=0，k=${num(b-a)}。`],'令 f(a)=0。');},
- r=>{let a=r.int(1,7),b=r.int(1,9);return N(`多項式 f(x) 除以 x−${a} 的餘式為 ${b}。求 [2f(x)+x] 除以 x−${a} 的餘式。`,2*b+a,[`已知 f(${a})=${b}。`,`新餘式=2f(${a})+${a}=${2*b+a}。`],'餘式定理可直接作用於整體。');},
- r=>{let a=r.int(1,7),b=a+r.int(1,5),u=r.int(1,9),v=r.int(1,9);return N(`f(x) 除以 (x−${a})(x−${b}) 的餘式為 px+q。若 f(${a})=${u*a+v}，f(${b})=${u*b+v}，求 p。`,u,[`代兩根得 ${a}p+q=${u*a+v}、${b}p+q=${u*b+v}。`,`相減：${b-a}p=${u*(b-a)}，p=${u}。`],'二次除式的餘式最多一次，先設 px+q。');}
+ {level:1,family:'polynomial-division-v1',concept:'polynomial-division',misconceptions:[],support:null,make:r=>{let a=r.int(-5,5),b=r.int(-5,5),c=r.int(1,12);return N(`f(x)=x²+(${num(b)})x+${c}。求 f(x) 除以 x−(${num(a)}) 的餘式。`,a*a+b*a+c,[`由餘式定理，餘式為 f(${num(a)})。`,`代入得 ${num(a*a+b*a+c)}。`],'一次除式 x−a 對應代入 a。');}},
+ {level:2,family:'polynomial-division-v2',concept:'polynomial-division',misconceptions:[],support:null,make:r=>{let a=r.int(1,7),b=r.int(1,9);return N(`若 x−${a} 是 x²+kx−${a*b} 的因式，求 k。`,b-a,[`因式定理給 ${a}²+${a}k−${a*b}=0。`,`除以 ${a}：${a}+k−${b}=0，k=${num(b-a)}。`],'令 f(a)=0。');}},
+ {level:2,family:'polynomial-division-v3',concept:'polynomial-division',misconceptions:[],support:null,make:r=>{let a=r.int(1,7),b=r.int(1,9);return N(`多項式 f(x) 除以 x−${a} 的餘式為 ${b}。求 [2f(x)+x] 除以 x−${a} 的餘式。`,2*b+a,[`已知 f(${a})=${b}。`,`新餘式=2f(${a})+${a}=${2*b+a}。`],'餘式定理可直接作用於整體。');}},
+ {level:3,family:'polynomial-division-v4',concept:'polynomial-division',misconceptions:[],support:null,make:r=>{let a=r.int(1,7),b=a+r.int(1,5),u=r.int(1,9),v=r.int(1,9);return N(`f(x) 除以 (x−${a})(x−${b}) 的餘式為 px+q。若 f(${a})=${u*a+v}，f(${b})=${u*b+v}，求 p。`,u,[`代兩根得 ${a}p+q=${u*a+v}、${b}p+q=${u*b+v}。`,`相減：${b-a}p=${u*(b-a)}，p=${u}。`],'二次除式的餘式最多一次，先設 px+q。');}}
 ]);
 G('function-properties',[
- r=>{let a=r.int(1,9),x=r.int(-6,6);return N(`f(x)=${a}x²+1，求 f(${num(x)})。`,a*x*x+1,[`代入：${a}×(${num(x)})²+1。`,`結果=${a*x*x+1}。`],'先算括號內的平方。');},
- r=>{let a=r.int(2,10),b=r.int(1,9),x=r.int(1,7);return N(`f(x)=${a}x+${b}，g(x)=x²。求 f(g(${x}))。`,a*x*x+b,[`先算 g(${x})=${x*x}。`,`再算 f(${x*x})=${a*x*x+b}。`],'複合函數由內到外。');},
- r=>{let a=r.int(1,10),b=r.int(1,10);return C(`函數 f(x)=√(x−${a})/(x−${a+b}) 的定義域是？`,[`[${a},+∞) 且 x≠${a+b}`,`[${a},+∞)`,`(${a},+∞) 且 x≠${a+b}`,`(−∞,${a}]`],[`根號要求 x≥${a}。`,`分母要求 x≠${a+b}，兩限制同時滿足。`],'取所有限制的交集。');},
- r=>{let a=r.int(1,10),b=r.int(1,10);return N(`f 是奇函數，且 f(${a})=${b}。求 f(−${a})+f(0)。`,-b,[`奇函數 f(−${a})=−f(${a})=−${b}。`,`0 在本題定義域，f(0)=0，因此和為 −${b}。`],'使用奇函數定義；由題式可知 f(0) 存在。');}
+ {level:1,family:'function-properties-v1',concept:'function-properties',misconceptions:[],support:null,make:r=>{let a=r.int(1,9),x=r.int(-6,6);return N(`f(x)=${a}x²+1，求 f(${num(x)})。`,a*x*x+1,[`代入：${a}×(${num(x)})²+1。`,`結果=${a*x*x+1}。`],'先算括號內的平方。');}},
+ {level:2,family:'function-properties-v2',concept:'function-properties',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(1,9),x=r.int(1,7);return N(`f(x)=${a}x+${b}，g(x)=x²。求 f(g(${x}))。`,a*x*x+b,[`先算 g(${x})=${x*x}。`,`再算 f(${x*x})=${a*x*x+b}。`],'複合函數由內到外。');}},
+ {level:2,family:'function-properties-v3',concept:'function-properties',misconceptions:[],support:null,make:r=>{let a=r.int(1,10),b=r.int(1,10);return C(`函數 f(x)=√(x−${a})/(x−${a+b}) 的定義域是？`,[`[${a},+∞) 且 x≠${a+b}`,`[${a},+∞)`,`(${a},+∞) 且 x≠${a+b}`,`(−∞,${a}]`],[`根號要求 x≥${a}。`,`分母要求 x≠${a+b}，兩限制同時滿足。`],'取所有限制的交集。');}},
+ {level:3,family:'function-properties-v4',concept:'function-properties',misconceptions:[],support:null,make:r=>{let a=r.int(1,10),b=r.int(1,10);return N(`f 是奇函數，且 f(${a})=${b}。求 f(−${a})+f(0)。`,-b,[`奇函數 f(−${a})=−f(${a})=−${b}。`,`0 在本題定義域，f(0)=0，因此和為 −${b}。`],'使用奇函數定義；由題式可知 f(0) 存在。');}}
 ]);
 G('exponential',[
- r=>{let a=r.int(2,5),n=r.int(2,6);return N(`求 log_${a}(${a**n})。`,n,[`因為 ${a}^${n}=${a**n}。`,`故對數值為 ${n}。`],'把對數式改寫成指數式。');},
- r=>{let a=r.int(2,5),n=r.int(2,5),b=r.int(1,10);return N(`解 log_${a}(x−${b})=${n}，求 x。`,a**n+b,[`先要求 x>${b}。`,`x−${b}=${a}^${n}=${a**n}，x=${a**n+b}，符合限制。`],'先列真數條件。');},
- r=>{let a=r.int(2,5),m=r.int(2,5),n=r.int(1,4);return N(`求 log_${a}(${a**m}) − log_${a}(${a**n})。`,m-n,[`兩個對數分別為 ${m}、${n}。`,`相減得 ${num(m-n)}。`],'可直接求對數，也可用商法則。');},
- r=>{let a=r.pick([2,3]),n=r.int(3,8),b=r.int(2,6);return N(`某模型初值 ${b}，每期乘 ${a}。首次達到或超過 ${b*a**n} 的期數是多少？`,n,[`第 t 期值為 ${b}×${a}ᵗ。`,`條件化為 ${a}ᵗ≥${a**n}=${a}^${n}。`,`a>1，故最小整數 t=${n}。`],'將倍增過程寫成指數模型，再比較指數。');}
+ {level:1,family:'exponential-v1',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.int(2,5),n=r.int(2,6);return N(`求 log_${a}(${a**n})。`,n,[`因為 ${a}^${n}=${a**n}。`,`故對數值為 ${n}。`],'把對數式改寫成指數式。');}},
+ {level:2,family:'exponential-v2',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.int(2,5),n=r.int(2,5),b=r.int(1,10);return N(`解 log_${a}(x−${b})=${n}，求 x。`,a**n+b,[`先要求 x>${b}。`,`x−${b}=${a}^${n}=${a**n}，x=${a**n+b}，符合限制。`],'先列真數條件。');}},
+ {level:2,family:'exponential-v3',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.int(2,5),m=r.int(2,5),n=r.int(1,4);return N(`求 log_${a}(${a**m}) − log_${a}(${a**n})。`,m-n,[`兩個對數分別為 ${m}、${n}。`,`相減得 ${num(m-n)}。`],'可直接求對數，也可用商法則。');}},
+ {level:3,family:'exponential-v4',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.pick([2,3]),n=r.int(3,8),b=r.int(2,6);return N(`某模型初值 ${b}，每期乘 ${a}。首次達到或超過 ${b*a**n} 的期數是多少？`,n,[`第 t 期值為 ${b}×${a}ᵗ。`,`條件化為 ${a}ᵗ≥${a**n}=${a}^${n}。`,`a>1，故最小整數 t=${n}。`],'將倍增過程寫成指數模型，再比較指數。');}}
 ]);
 G('trigonometry',[
- r=>{let a=15*r.int(1,24);return N(`${a}°=kπ 弧度，求 k（可用分數）。`,a/180,[`度數乘 π/180。`,`k=${a}/180。`],'180° 對應 π 弧度。');},
- r=>{let a=r.int(2,8),w=r.int(2,8);return N(`y=${a}sin(${w}x) 的周期寫成 kπ，求 k。`,2/w,[`周期=2π/|ω|。`,`k=2/${w}。`],'振幅不影響周期。');},
- r=>{let a=r.pick([3,5,8]),c={3:5,5:13,8:17}[a];return N(`θ 是銳角，sinθ=${a}/${c}。求 cos²θ（可用分數）。`,1-a*a/(c*c),[`sin²θ+cos²θ=1。`,`cos²θ=1−${a*a}/${c*c}=${c*c-a*a}/${c*c}。`],'題目求平方，毋須開根。');},
- r=>{let a=r.int(2,9),b=r.int(2,9);return N(`y=${a}sin²x+${b}cos²x 的最大值是多少？`,Math.max(a,b),[`以 cos²x=1−sin²x 代入。`,`y=${b}+(${a-b})sin²x，且 0≤sin²x≤1。`,`最大值在端點取得，為 ${Math.max(a,b)}。`],'把兩個三角函數平方化成一個變量。');}
+ {level:1,family:'trigonometry-v1',concept:'trigonometry',misconceptions:[],support:null,make:r=>{let a=15*r.int(1,24);return N(`${a}°=kπ 弧度，求 k（可用分數）。`,a/180,[`度數乘 π/180。`,`k=${a}/180。`],'180° 對應 π 弧度。');}},
+ {level:2,family:'trigonometry-v2',concept:'trigonometry',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),w=r.int(2,8);return N(`y=${a}sin(${w}x) 的周期寫成 kπ，求 k。`,2/w,[`周期=2π/|ω|。`,`k=2/${w}。`],'振幅不影響周期。');}},
+ {level:2,family:'trigonometry-v3',concept:'trigonometry',misconceptions:[],support:null,make:r=>{let a=r.pick([3,5,8]),c={3:5,5:13,8:17}[a];return N(`θ 是銳角，sinθ=${a}/${c}。求 cos²θ（可用分數）。`,1-a*a/(c*c),[`sin²θ+cos²θ=1。`,`cos²θ=1−${a*a}/${c*c}=${c*c-a*a}/${c*c}。`],'題目求平方，毋須開根。');}},
+ {level:3,family:'trigonometry-v4',concept:'trigonometry',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(2,9);return N(`y=${a}sin²x+${b}cos²x 的最大值是多少？`,Math.max(a,b),[`以 cos²x=1−sin²x 代入。`,`y=${b}+(${a-b})sin²x，且 0≤sin²x≤1。`,`最大值在端點取得，為 ${Math.max(a,b)}。`],'把兩個三角函數平方化成一個變量。');}}
 ]);
 G('vectors',[
- r=>{let a=r.int(-6,6),b=r.int(-6,6),c=r.int(-6,6),d=r.int(-6,6);return N(`a=(${num(a)},${num(b)})，b=(${num(c)},${num(d)})，求 a·b。`,a*c+b*d,[`內積為对應坐標乘積之和。`,`${a}×(${c})+${b}×(${d})=${num(a*c+b*d)}。`],'內積結果是一個數。');},
- r=>{let a=r.int(1,9),b=r.int(1,9),c=r.int(1,9);return N(`非零向量 (${a},${b}) 與 (${c},k) 垂直，求 k。`,-a*c/b,[`垂直使內積為 0：${a*c}+${b}k=0。`,`k=−${a*c}/${b}。`],'用內積等於零。');},
- r=>{let a=r.int(1,10),b=r.int(1,10),k=r.int(2,7);return N(`a=(${a},${b})，b=(${k*a},m)。若 a∥b，求 m。`,k*b,[`第一坐標表明比例是 ${k}。`,`第二坐標也按相同比例：m=${k}×${b}=${k*b}。`],'非零向量共線時坐標成比例。');},
- r=>{let a=r.int(1,8),b=r.int(1,8),c=r.int(1,8);return N(`已知 |u|²=${a}、|v|²=${b}、u·v=0。求 |${c}u−v|²。`,c*c*a+b,[`展開內積：c²|u|²−2c(u·v)+|v|²。`,`垂直使中間項為 0，結果=${c*c}×${a}+${b}=${c*c*a+b}。`],'向量模的平方可展開成內積。');}
+ {level:1,family:'vectors-v1',concept:'vectors',misconceptions:[],support:null,make:r=>{let a=r.int(-6,6),b=r.int(-6,6),c=r.int(-6,6),d=r.int(-6,6);return N(`a=(${num(a)},${num(b)})，b=(${num(c)},${num(d)})，求 a·b。`,a*c+b*d,[`內積為对應坐標乘積之和。`,`${a}×(${c})+${b}×(${d})=${num(a*c+b*d)}。`],'內積結果是一個數。');}},
+ {level:2,family:'vectors-v2',concept:'vectors',misconceptions:[],support:null,make:r=>{let a=r.int(1,9),b=r.int(1,9),c=r.int(1,9);return N(`非零向量 (${a},${b}) 與 (${c},k) 垂直，求 k。`,-a*c/b,[`垂直使內積為 0：${a*c}+${b}k=0。`,`k=−${a*c}/${b}。`],'用內積等於零。');}},
+ {level:2,family:'vectors-v3',concept:'vectors',misconceptions:[],support:null,make:r=>{let a=r.int(1,10),b=r.int(1,10),k=r.int(2,7);return N(`a=(${a},${b})，b=(${k*a},m)。若 a∥b，求 m。`,k*b,[`第一坐標表明比例是 ${k}。`,`第二坐標也按相同比例：m=${k}×${b}=${k*b}。`],'非零向量共線時坐標成比例。');}},
+ {level:3,family:'vectors-v4',concept:'vectors',misconceptions:[],support:null,make:r=>{let a=r.int(1,8),b=r.int(1,8),c=r.int(1,8);return N(`已知 |u|²=${a}、|v|²=${b}、u·v=0。求 |${c}u−v|²。`,c*c*a+b,[`展開內積：c²|u|²−2c(u·v)+|v|²。`,`垂直使中間項為 0，結果=${c*c}×${a}+${b}=${c*c*a+b}。`],'向量模的平方可展開成內積。');}}
 ]);
 G('solve-triangles',[
- r=>{let a=r.int(2,12),b=r.int(2,12);return N(`三角形兩邊 ${a}、${b} 的夾角為 90°，求面積。`,a*b/2,[`S=ab sin C/2。`,`sin90°=1，面積=${num(a*b/2)}。`],'兩邊與夾角可求面積。');},
- r=>{let a=r.int(2,12),b=r.int(2,12);return N(`三角形兩邊 a=${a}、b=${b}，夾角 C=60°。求第三邊長的平方 c²。`,a*a+b*b-a*b,[`餘弦定理 c²=a²+b²−2ab cos C。`,`cos60°=1/2，c²=${a*a+b*b-a*b}。`],'題目求平方，毋須開根。');},
- r=>{let a=r.int(2,12);return N(`△ABC 中 ∠A=30°、∠B=90°，A 的對邊長為 ${a}。求 B 的對邊長。`,2*a,[`由正弦定理 b/sin90°=${a}/sin30°。`,`b=${a}/(1/2)=${2*a}。`],'分清角與對邊。');},
- r=>{let a=r.int(3,12),b=r.int(3,12),c=r.int(Math.max(a,b),a+b-1);return N(`三角形三邊為 ${a}、${b}、${c}。求最大角的餘弦值（可輸入分數）。`,(a*a+b*b-c*c)/(2*a*b),[`最大角對最長邊 ${c}。`,`由餘弦定理 cos C=(${a}²+${b}²−${c}²)/(2×${a}×${b})=${a*a+b*b-c*c}/${2*a*b}。`],'用餘弦定理反求角的餘弦，先找最長邊。');}
+ {level:1,family:'solve-triangles-v1',concept:'solve-triangles',misconceptions:[],support:null,make:r=>{let a=r.int(2,12),b=r.int(2,12);return N(`三角形兩邊 ${a}、${b} 的夾角為 90°，求面積。`,a*b/2,[`S=ab sin C/2。`,`sin90°=1，面積=${num(a*b/2)}。`],'兩邊與夾角可求面積。');}},
+ {level:2,family:'solve-triangles-v2',concept:'solve-triangles',misconceptions:[],support:null,make:r=>{let a=r.int(2,12),b=r.int(2,12);return N(`三角形兩邊 a=${a}、b=${b}，夾角 C=60°。求第三邊長的平方 c²。`,a*a+b*b-a*b,[`餘弦定理 c²=a²+b²−2ab cos C。`,`cos60°=1/2，c²=${a*a+b*b-a*b}。`],'題目求平方，毋須開根。');}},
+ {level:2,family:'solve-triangles-v3',concept:'solve-triangles',misconceptions:[],support:null,make:r=>{let a=r.int(2,12);return N(`△ABC 中 ∠A=30°、∠B=90°，A 的對邊長為 ${a}。求 B 的對邊長。`,2*a,[`由正弦定理 b/sin90°=${a}/sin30°。`,`b=${a}/(1/2)=${2*a}。`],'分清角與對邊。');}},
+ {level:3,family:'solve-triangles-v4',concept:'solve-triangles',misconceptions:[],support:null,make:r=>{let a=r.int(3,12),b=r.int(3,12),c=r.int(Math.max(a,b),a+b-1);return N(`三角形三邊為 ${a}、${b}、${c}。求最大角的餘弦值（可輸入分數）。`,(a*a+b*b-c*c)/(2*a*b),[`最大角對最長邊 ${c}。`,`由餘弦定理 cos C=(${a}²+${b}²−${c}²)/(2×${a}×${b})=${a*a+b*b-c*c}/${2*a*b}。`],'用餘弦定理反求角的餘弦，先找最長邊。');}}
 ]);
 G('solid',[
- r=>{let a=r.int(2,10),h=r.int(2,12);return N(`底面積 ${3*a}、高 ${h} 的棱錐，體積是多少？`,a*h,[`V=Sh/3。`,`V=${3*a}×${h}/3=${a*h}。`],'高度必須垂直底面。');},
- r=>{let r0=r.int(2,9);return N(`半徑 ${r0} 的球，表面積為 kπ。求 k。`,4*r0*r0,[`球表面積=4πr²。`,`k=4×${r0}²=${4*r0*r0}。`],'區分球表面積與球體積。');},
- r=>{let k=r.int(1,6);return N(`圓錐底半徑 ${3*k}、高 ${4*k}，總表面積為 k₀π。求 k₀。`,24*k*k,[`母線長=√(${3*k}²+${4*k}²)=${5*k}。`,`底面積係數=${9*k*k}，側面積係數=${15*k*k}。`,`總係數=${24*k*k}。`],'側面積用母線，體積用高。');},
- r=>{let a=r.int(2,6),k=r.int(2,4);return N(`兩個相似立體的小體積是 ${a}，大立體對應邊是小立體的 ${k} 倍。求大體積。`,a*k**3,[`相似比為 ${k}，體積比是 ${k}³。`,`大體積=${a}×${k**3}=${a*k**3}。`],'長度、面積、體積的倍率分別是一、二、三次方。');}
+ {level:1,family:'solid-v1',concept:'solid',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),h=r.int(2,12);return N(`底面積 ${3*a}、高 ${h} 的棱錐，體積是多少？`,a*h,[`V=Sh/3。`,`V=${3*a}×${h}/3=${a*h}。`],'高度必須垂直底面。');}},
+ {level:2,family:'solid-v2',concept:'solid',misconceptions:[],support:null,make:r=>{let r0=r.int(2,9);return N(`半徑 ${r0} 的球，表面積為 kπ。求 k。`,4*r0*r0,[`球表面積=4πr²。`,`k=4×${r0}²=${4*r0*r0}。`],'區分球表面積與球體積。');}},
+ {level:2,family:'solid-v3',concept:'solid',misconceptions:[],support:null,make:r=>{let k=r.int(1,6);return N(`圓錐底半徑 ${3*k}、高 ${4*k}，總表面積為 k₀π。求 k₀。`,24*k*k,[`母線長=√(${3*k}²+${4*k}²)=${5*k}。`,`底面積係數=${9*k*k}，側面積係數=${15*k*k}。`,`總係數=${24*k*k}。`],'側面積用母線，體積用高。');}},
+ {level:3,family:'solid-v4',concept:'solid',misconceptions:[],support:null,make:r=>{let a=r.int(2,6),k=r.int(2,4);return N(`兩個相似立體的小體積是 ${a}，大立體對應邊是小立體的 ${k} 倍。求大體積。`,a*k**3,[`相似比為 ${k}，體積比是 ${k}³。`,`大體積=${a}×${k**3}=${a*k**3}。`],'長度、面積、體積的倍率分別是一、二、三次方。');}}
 ]);
 G('variation',[
- r=>{let k=r.int(2,8),a=r.int(2,9),b=r.int(2,12);return N(`y 與 x 成正變；x=${a} 時 y=${k*a}。求 x=${b} 時的 y。`,k*b,[`設 y=cx，c=${k*a}/${a}=${k}。`,`x=${b} 時 y=${k*b}。`],'先求比例常數。');},
- r=>{let k=r.int(2,8),a=r.int(2,9),b=r.int(2,9);return N(`y 與 x 成反變，x=${a} 時 y=${k*b}。求 x=${b} 時的 y。`,k*a,[`反變關係 xy=c，c=${a*k*b}。`,`新 y=c/${b}=${k*a}。`],'反變保持乘積不變。');},
- r=>{let k=r.int(2,8),a=r.int(2,6),b=r.int(2,6),c=r.int(2,8);return N(`y 與 x、z 成聯變，當 x=${a}、z=${b} 時 y=${k*a*b}。求 x=${c}、z=${b} 時的 y。`,k*c*b,[`y=kxz；由已知求比例常數 ${k}。`,`代入得 y=${k*c*b}。`],'把聯變寫成兩變量的乘積。');},
- r=>{let a=r.int(2,10),b=r.int(2,8),x=r.int(3,12);return N(`y 的一部分固定，另一部分與 x 成正變。x=1 時 y=${a+b}，x=2 時 y=${a+2*b}。求 x=${x} 時 y。`,a+b*x,[`設 y=A+Bx，兩式相減得 B=${b}。`,`回代得 A=${a}。`,`y(${x})=${a}+${b}×${x}=${a+b*x}。`],'先用兩組數據求固定部分與變動部分。');}
+ {level:1,family:'variation-v1',concept:'variation',misconceptions:[],support:null,make:r=>{let k=r.int(2,8),a=r.int(2,9),b=r.int(2,12);return N(`y 與 x 成正變；x=${a} 時 y=${k*a}。求 x=${b} 時的 y。`,k*b,[`設 y=cx，c=${k*a}/${a}=${k}。`,`x=${b} 時 y=${k*b}。`],'先求比例常數。');}},
+ {level:2,family:'variation-v2',concept:'variation',misconceptions:[],support:null,make:r=>{let k=r.int(2,8),a=r.int(2,9),b=r.int(2,9);return N(`y 與 x 成反變，x=${a} 時 y=${k*b}。求 x=${b} 時的 y。`,k*a,[`反變關係 xy=c，c=${a*k*b}。`,`新 y=c/${b}=${k*a}。`],'反變保持乘積不變。');}},
+ {level:2,family:'variation-v3',concept:'variation',misconceptions:[],support:null,make:r=>{let k=r.int(2,8),a=r.int(2,6),b=r.int(2,6),c=r.int(2,8);return N(`y 與 x、z 成聯變，當 x=${a}、z=${b} 時 y=${k*a*b}。求 x=${c}、z=${b} 時的 y。`,k*c*b,[`y=kxz；由已知求比例常數 ${k}。`,`代入得 y=${k*c*b}。`],'把聯變寫成兩變量的乘積。');}},
+ {level:3,family:'variation-v4',concept:'variation',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(2,8),x=r.int(3,12);return N(`y 的一部分固定，另一部分與 x 成正變。x=1 時 y=${a+b}，x=2 時 y=${a+2*b}。求 x=${x} 時 y。`,a+b*x,[`設 y=A+Bx，兩式相減得 B=${b}。`,`回代得 A=${a}。`,`y(${x})=${a}+${b}×${x}=${a+b*x}。`],'先用兩組數據求固定部分與變動部分。');}}
 ]);
 G('polynomial-gcd',[
- r=>{let a=r.int(2,8),b=a+r.int(1,5);return N(`x^${a} 與 x^${b} 的首一最大公因式是 x^k，求 k。`,a,[`共有因式 x 的次數取較小值。`,`k=${a}。`],'公因式須同時整除兩式。');},
- r=>{let a=r.int(2,7),b=r.int(2,7);return N(`P=(x−1)^${a}(x+1)，Q=(x−1)(x+1)^${b}。求首一最小公倍式的次數。`,a+b,[`每個因式取最高次冪，LCM=(x−1)^${a}(x+1)^${b}。`,`次數=${a}+${b}=${a+b}。`],'最小公倍式需包含每式所有因式。');},
- r=>{let a=r.int(1,8),b=r.int(1,8),c=r.int(1,8);return N(`P=(x−1)^${a+b}，Q=(x−1)^${a}(x+2)^${c}。求首一最大公因式的次數。`,a,[`兩式共有 (x−1)，最低次冪為 ${a}。`,`故最大公因式為 (x−1)^${a}，次數=${a}。`],'不共有的因式不取。');},
- r=>{let p=r.int(4,10),q=r.int(4,10),g=r.int(1,3);return N(`非零多項式 P、Q 次數分別為 ${p}、${q}，其最大公因式次數為 ${g}。求最小公倍式次數。`,p+q-g,[`首一化後，GCD×LCM 等於兩式乘積的首一版本。`,`比較次數：deg LCM=${p}+${q}−${g}=${p+q-g}。`],'用乘積的因式次數關係。');}
+ {level:1,family:'polynomial-gcd-v1',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=a+r.int(1,5);return N(`x^${a} 與 x^${b} 的首一最大公因式是 x^k，求 k。`,a,[`共有因式 x 的次數取較小值。`,`k=${a}。`],'公因式須同時整除兩式。');}},
+ {level:2,family:'polynomial-gcd-v2',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(2,7),b=r.int(2,7);return N(`P=(x−1)^${a}(x+1)，Q=(x−1)(x+1)^${b}。求首一最小公倍式的次數。`,a+b,[`每個因式取最高次冪，LCM=(x−1)^${a}(x+1)^${b}。`,`次數=${a}+${b}=${a+b}。`],'最小公倍式需包含每式所有因式。');}},
+ {level:2,family:'polynomial-gcd-v3',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(1,8),b=r.int(1,8),c=r.int(1,8);return N(`P=(x−1)^${a+b}，Q=(x−1)^${a}(x+2)^${c}。求首一最大公因式的次數。`,a,[`兩式共有 (x−1)，最低次冪為 ${a}。`,`故最大公因式為 (x−1)^${a}，次數=${a}。`],'不共有的因式不取。');}},
+ {level:3,family:'polynomial-gcd-v4',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let p=r.int(4,10),q=r.int(4,10),g=r.int(1,3);return N(`非零多項式 P、Q 次數分別為 ${p}、${q}，其最大公因式次數為 ${g}。求最小公倍式次數。`,p+q-g,[`首一化後，GCD×LCM 等於兩式乘積的首一版本。`,`比較次數：deg LCM=${p}+${q}−${g}=${p+q-g}。`],'用乘積的因式次數關係。');}}
 ]);
 G('partial-fractions',[
- r=>{let a=r.int(2,25);return N(`1/[x(x+${a})]=A/x+B/(x+${a})，求 A。`,1/a,[`清分母：1=A(x+${a})+Bx。`,`在多項式恆等式代 x=0，A=1/${a}。`],'清分母後再代特殊值。');},
- r=>{let a=r.int(2,9),b=r.int(1,9);return N(`${b}/[x(x+${a})]=A/x+B/(x+${a})，求 A+B。`,0,[`清分母：${b}=(A+B)x+${a}A。`,`左邊 x 項係數為 0，因此 A+B=0。`],'比較 x 項係數。');},
- r=>{let a=r.int(1,8),b=a+r.int(2,8);return N(`1/[(x−${a})(x−${b})]=A/(x−${a})+B/(x−${b})，求 B。`,1/(b-a),[`清分母：1=A(x−${b})+B(x−${a})。`,`代 x=${b} 得 B=1/${b-a}。`],'在恆等式代入其中一個根。');},
- r=>{let a=r.int(1,8),b=r.int(1,8),c=r.int(1,8);return N(`(${a}x+${b})/(x−${c})²=A/(x−${c})+B/(x−${c})²，求 B。`,a*c+b,[`清分母：${a}x+${b}=A(x−${c})+B。`,`代 x=${c}，B=${a*c+b}。`],'重複因式分解須包括一次和二次分母。');}
+ {level:1,family:'partial-fractions-v1',concept:'partial-fractions',misconceptions:[],support:null,make:r=>{let a=r.int(2,25);return N(`1/[x(x+${a})]=A/x+B/(x+${a})，求 A。`,1/a,[`清分母：1=A(x+${a})+Bx。`,`在多項式恆等式代 x=0，A=1/${a}。`],'清分母後再代特殊值。');}},
+ {level:2,family:'partial-fractions-v2',concept:'partial-fractions',misconceptions:[],support:null,make:r=>{let a=r.int(2,9),b=r.int(1,9);return N(`${b}/[x(x+${a})]=A/x+B/(x+${a})，求 A+B。`,0,[`清分母：${b}=(A+B)x+${a}A。`,`左邊 x 項係數為 0，因此 A+B=0。`],'比較 x 項係數。');}},
+ {level:2,family:'partial-fractions-v3',concept:'partial-fractions',misconceptions:[],support:null,make:r=>{let a=r.int(1,8),b=a+r.int(2,8);return N(`1/[(x−${a})(x−${b})]=A/(x−${a})+B/(x−${b})，求 B。`,1/(b-a),[`清分母：1=A(x−${b})+B(x−${a})。`,`代 x=${b} 得 B=1/${b-a}。`],'在恆等式代入其中一個根。');}},
+ {level:3,family:'partial-fractions-v4',concept:'partial-fractions',misconceptions:[],support:null,make:r=>{let a=r.int(1,8),b=r.int(1,8),c=r.int(1,8);return N(`(${a}x+${b})/(x−${c})²=A/(x−${c})+B/(x−${c})²，求 B。`,a*c+b,[`清分母：${a}x+${b}=A(x−${c})+B。`,`代 x=${c}，B=${a*c+b}。`],'重複因式分解須包括一次和二次分母。');}}
 ]);
 G('space-relations',[
- r=>{let a=r.int(2,30);return N(`正方體 ABCD–A′B′C′D′ 的棱長為 ${a}，求頂點 A 到平面 BCC′B′ 的距離。`,a,[`AB 同時垂直平面內相交的 BC 與 BB′，因此 AB 垂直該平面。`,`垂線段 AB 的長度為 ${a}，就是所求距離。`],'點到平面距離是垂線段的長度。');},
- r=>{let k=r.int(1,8);return N(`長方體 AB=${3*k}、BC=${4*k}、AA′=${12*k}，求體對角線 AC′ 長。`,13*k,[`底面對角線 AC=√(${3*k}²+${4*k}²)=${5*k}。`,`AC′=√(${5*k}²+${12*k}²)=${13*k}。`],'先在底面用勾股，再與垂直高度組成直角三角形。');},
- r=>{let a=r.int(2,12);return C(`棱長 ${a} 的正方體 ABCD–A′B′C′D′ 中，AB 與 CC′ 的位置關係是？`,['異面','平行','相交','重合'],['AB 在底面，CC′ 是不經 A、B 的豎直棱。','兩線既不相交又不平行，因此異面。'],'判定是否共面，不能只看兩線不相交。');},
- r=>{let a=r.int(2,30);return N(`正方體棱長 ${a}。從頂點 A 到與 A 不相鄰且平行於 AB 的棱 C′D′，最短距離的平方是多少？`,2*a*a,[`取 A=(0,0,0)，AB 沿 x 軸，C′D′ 上點為 (t,${a},${a})。`,`距離平方=t²+2×${a}²，當 t=0（點 D′）最小。`,`最小平方=${2*a*a}。`],'把最短距離轉成垂線段，或用坐標。');}
+ {level:1,family:'space-relations-v1',concept:'space-relations',misconceptions:[],support:null,make:r=>{let a=r.int(2,30);return N(`正方體 ABCD–A′B′C′D′ 的棱長為 ${a}，求頂點 A 到平面 BCC′B′ 的距離。`,a,[`AB 同時垂直平面內相交的 BC 與 BB′，因此 AB 垂直該平面。`,`垂線段 AB 的長度為 ${a}，就是所求距離。`],'點到平面距離是垂線段的長度。');}},
+ {level:2,family:'space-relations-v2',concept:'space-relations',misconceptions:[],support:null,make:r=>{let k=r.int(1,8);return N(`長方體 AB=${3*k}、BC=${4*k}、AA′=${12*k}，求體對角線 AC′ 長。`,13*k,[`底面對角線 AC=√(${3*k}²+${4*k}²)=${5*k}。`,`AC′=√(${5*k}²+${12*k}²)=${13*k}。`],'先在底面用勾股，再與垂直高度組成直角三角形。');}},
+ {level:2,family:'space-relations-v3',concept:'space-relations',misconceptions:[],support:null,make:r=>{let a=r.int(2,12);return C(`棱長 ${a} 的正方體 ABCD–A′B′C′D′ 中，AB 與 CC′ 的位置關係是？`,['異面','平行','相交','重合'],['AB 在底面，CC′ 是不經 A、B 的豎直棱。','兩線既不相交又不平行，因此異面。'],'判定是否共面，不能只看兩線不相交。');}},
+ {level:3,family:'space-relations-v4',concept:'space-relations',misconceptions:[],support:null,make:r=>{let a=r.int(2,30);return N(`正方體棱長 ${a}。從頂點 A 到與 A 不相鄰且平行於 AB 的棱 C′D′，最短距離的平方是多少？`,2*a*a,[`取 A=(0,0,0)，AB 沿 x 軸，C′D′ 上點為 (t,${a},${a})。`,`距離平方=t²+2×${a}²，當 t=0（點 D′）最小。`,`最小平方=${2*a*a}。`],'把最短距離轉成垂線段，或用坐標。');}}
 ]);
 /* Conceptual diagnosis and open reasoning, independently authored. */
 D('rational',[
- C('已知 a<0，以下哪個結論必定成立？',['|a|=−a','|a|=a','−a<0','a>|a|'],['負數的絕對值是它的相反數，所以 |a|=−a>0。'],'用 a=−2 試驗，再回到定義。'),
- W('兩個固定點 A、B 在數軸上，坐標為 −3、5。點 P 可任意選。小明說：「只有中點才能令 PA+PB 最小。」判斷並完整說明最小值何時取得。',['A、B 間距為 8。','P 在 [−3,5] 上時，PA+PB=(x+3)+(5−x)=8。','P 在區間外時，距離和為 8 加上到較近端點距離的兩倍，故大於 8。','所有位於線段 AB 上的 P 都可取最小值，不只有中點。'],['指出最小值為 8','給出整個區間（含端點）','解釋區間外為何更大'],'把數軸分成三段討論。')
+ {level:2,family:'rational-d1',concept:'rational',misconceptions:[],support:null,...C('已知 a<0，以下哪個結論必定成立？',['|a|=−a','|a|=a','−a<0','a>|a|'],['負數的絕對值是它的相反數，所以 |a|=−a>0。'],'用 a=−2 試驗，再回到定義。')},
+ {level:3,family:'rational-d2',concept:'rational',misconceptions:[],support:null,...W('兩個固定點 A、B 在數軸上，坐標為 −3、5。點 P 可任意選。小明說：「只有中點才能令 PA+PB 最小。」判斷並完整說明最小值何時取得。',['A、B 間距為 8。','P 在 [−3,5] 上時，PA+PB=(x+3)+(5−x)=8。','P 在區間外時，距離和為 8 加上到較近端點距離的兩倍，故大於 8。','所有位於線段 AB 上的 P 都可取最小值，不只有中點。'],['指出最小值為 8','給出整個區間（含端點）','解釋區間外為何更大'],'把數軸分成三段討論。')}
 ]);
 D('operations',[
- C('甲說 −4²=16；乙說 (−4)²=16。誰的計算正確？',['只有乙','只有甲','兩人都正確','兩人都不正確'],['−4²=−(4×4)=−16；(−4)²=(−4)(−4)=16。'],'辨認乘方的底數。'),
- W('某商店三天的收支淨額依次為 −120、+200、−50 元。小組認為「合共增加 30 元，所以每天都賺錢」。請檢查運算及結論，並提出一個更準確的描述。',['淨變動=−120+200−50=30 元。','第一、三天為負淨額；總和為正不代表每項都為正。','可說三天合計淨增加 30 元，其中兩天淨減少。'],['算出有符號的總和','區分總量與每日數據','以具體數據修正說法'],'正的總和能決定每一項的符號嗎？')
+ {level:2,family:'operations-d1',concept:'operations',misconceptions:[],support:null,...C('甲說 −4²=16；乙說 (−4)²=16。誰的計算正確？',['只有乙','只有甲','兩人都正確','兩人都不正確'],['−4²=−(4×4)=−16；(−4)²=(−4)(−4)=16。'],'辨認乘方的底數。')},
+ {level:3,family:'operations-d2',concept:'operations',misconceptions:[],support:null,...W('某商店三天的收支淨額依次為 −120、+200、−50 元。小組認為「合共增加 30 元，所以每天都賺錢」。請檢查運算及結論，並提出一個更準確的描述。',['淨變動=−120+200−50=30 元。','第一、三天為負淨額；總和為正不代表每項都為正。','可說三天合計淨增加 30 元，其中兩天淨減少。'],['算出有符號的總和','區分總量與每日數據','以具體數據修正說法'],'正的總和能決定每一項的符號嗎？')}
 ]);
 D('expressions',[
- C('甲買 x 本每本 6 元的筆記本，再用一張全單減 5 元券。應付金額（x≥1）是？',['6x−5','6(x−5)','(6−5)x','6x+5'],['減 5 元只發生一次，故總額是 6x−5。'],'區分「每本減」與「全單減」。'),
- W('校慶租桌，甲方案每張 12 元；乙方案固定運送費 40 元，每張 8 元。請列出兩個模型，給出一個乙較便宜的整數張數例子，並說明為何不能只比較每張單價。',['設張數 n 為正整數，甲 A=12n，乙 B=40+8n。','乙較便宜須 40+8n<12n，即 n>10。','例如 11 張：甲132元，乙128元；少量租用時固定費影響選擇。'],['清楚定義張數與費用','兩式保留固定費','用具體數據支持建議'],'先用 1 張與 20 張測試想法。')
+ {level:2,family:'expressions-d1',concept:'expressions',misconceptions:[],support:null,...C('甲買 x 本每本 6 元的筆記本，再用一張全單減 5 元券。應付金額（x≥1）是？',['6x−5','6(x−5)','(6−5)x','6x+5'],['減 5 元只發生一次，故總額是 6x−5。'],'區分「每本減」與「全單減」。')},
+ {level:3,family:'expressions-d2',concept:'expressions',misconceptions:[],support:null,...W('校慶租桌，甲方案每張 12 元；乙方案固定運送費 40 元，每張 8 元。請列出兩個模型，給出一個乙較便宜的整數張數例子，並說明為何不能只比較每張單價。',['設張數 n 為正整數，甲 A=12n，乙 B=40+8n。','乙較便宜須 40+8n<12n，即 n>10。','例如 11 張：甲132元，乙128元；少量租用時固定費影響選擇。'],['清楚定義張數與費用','兩式保留固定費','用具體數據支持建議'],'先用 1 張與 20 張測試想法。')}
 ]);
 D('polynomial-add',[
- C('若 3x²y 與 axʳyˢ 是非零同類項，必須有？',['r=2，s=1','a=3','r+s=3 就足夠','a=−3'],['同類項要求相同字母的指數逐一相等，係數不必相等。'],'同類項比較的不是係數。'),
- W('有人把 2x−(3x−4) 化簡為 −x−4。指出錯誤，寫出正確化簡，並用一個數值代入檢查。',['括號前的負號乘到兩項：2x−3x+4=−x+4。','例如 x=0，原式=4，正確化簡=4，錯誤式=−4。','代一個值可推翻錯式；一般等式由去括號法則保證。'],['負號分配到每一項','寫出 −x+4','以代入作檢查並分清檢查與證明'],'把減去整個括號改成加其相反式。')
+ {level:2,family:'polynomial-add-d1',concept:'polynomial-add',misconceptions:[],support:null,...C('若 3x²y 與 axʳyˢ 是非零同類項，必須有？',['r=2，s=1','a=3','r+s=3 就足夠','a=−3'],['同類項要求相同字母的指數逐一相等，係數不必相等。'],'同類項比較的不是係數。')},
+ {level:3,family:'polynomial-add-d2',concept:'polynomial-add',misconceptions:[],support:null,...W('有人把 2x−(3x−4) 化簡為 −x−4。指出錯誤，寫出正確化簡，並用一個數值代入檢查。',['括號前的負號乘到兩項：2x−3x+4=−x+4。','例如 x=0，原式=4，正確化簡=4，錯誤式=−4。','代一個值可推翻錯式；一般等式由去括號法則保證。'],['負號分配到每一項','寫出 −x+4','以代入作檢查並分清檢查與證明'],'把減去整個括號改成加其相反式。')}
 ]);
 D('linear-equation',[
- C('解 2(x−3)=2x+1 時得到 −6=1，表示？',['方程無解','x=0','任意實數皆為解','x=7'],['消去 x 後得到矛盾，沒有任何 x 可成立。'],'若未知數消失，要判斷餘下等式真偽。'),
- W('一件商品標價 250 元，打八折後仍比成本高 25%。學生把成本算成 200×75%=150 元。請糾正，並解釋兩個百分率的基準。',['售價=250×80%=200 元，折扣以標價為基準。','設成本 x，200=1.25x，故 x=160 元。','利潤率 25% 以成本為基準，不能把售價直接減去25%。'],['計出售價200','列式並求成本160','分清標價與成本兩個基準'],'「比成本高25%」應先寫成等量關係。')
+ {level:2,family:'linear-equation-d1',concept:'linear-equation',misconceptions:[],support:null,...C('解 2(x−3)=2x+1 時得到 −6=1，表示？',['方程無解','x=0','任意實數皆為解','x=7'],['消去 x 後得到矛盾，沒有任何 x 可成立。'],'若未知數消失，要判斷餘下等式真偽。')},
+ {level:3,family:'linear-equation-d2',concept:'linear-equation',misconceptions:[],support:null,...W('一件商品標價 250 元，打八折後仍比成本高 25%。學生把成本算成 200×75%=150 元。請糾正，並解釋兩個百分率的基準。',['售價=250×80%=200 元，折扣以標價為基準。','設成本 x，200=1.25x，故 x=160 元。','利潤率 25% 以成本為基準，不能把售價直接減去25%。'],['計出售價200','列式並求成本160','分清標價與成本兩個基準'],'「比成本高25%」應先寫成等量關係。')}
 ]);
 D('geometry',[
- C('兩條不同射線有同一端點，形成的角為 40°。其角平分線把它分成？',['兩個20°角','兩個40°角','一個10°及一個30°角','兩條互相垂直的射線'],['角平分線使兩部分角相等，且總和仍是40°。'],'同時檢查「相等」與「總和」。'),
- W('A、B、C 共線，AB=4、BC=6，沒有給出三點順序。能否斷定 AC=10？列出全部可能並說明。',['若 B 在 A、C 之間，AC=4+6=10。','若 A 在 B、C 之間，AC=6−4=2。','C 不可能在 A、B 之間，因為 BC>BA。','故 AC 可為10或2，缺少順序條件不能唯一決定。'],['討論點的順序','列出10與2','排除不可能的位置'],'先畫不同順序的數軸。')
+ {level:2,family:'geometry-d1',concept:'geometry',misconceptions:[],support:null,...C('兩條不同射線有同一端點，形成的角為 40°。其角平分線把它分成？',['兩個20°角','兩個40°角','一個10°及一個30°角','兩條互相垂直的射線'],['角平分線使兩部分角相等，且總和仍是40°。'],'同時檢查「相等」與「總和」。')},
+ {level:3,family:'geometry-d2',concept:'geometry',misconceptions:[],support:null,...W('A、B、C 共線，AB=4、BC=6，沒有給出三點順序。能否斷定 AC=10？列出全部可能並說明。',['若 B 在 A、C 之間，AC=4+6=10。','若 A 在 B、C 之間，AC=6−4=2。','C 不可能在 A、B 之間，因為 BC>BA。','故 AC 可為10或2，缺少順序條件不能唯一決定。'],['討論點的順序','列出10與2','排除不可能的位置'],'先畫不同順序的數軸。')}
 ]);
 D('parallel',[
- C('兩直線被第三條直線所截，一對內錯角相等，可推出？',['兩直線平行','兩直線垂直','兩角必為90°','任意兩角都相等'],['內錯角相等是判定兩直線平行的充分條件。'],'區分平行線的判定與性質。'),
- W('兩直線被截線所截，一對同旁內角分別為 72° 和 108°。先判斷是否平行，再說明若第二角改成 110°，判斷會有何改變。',['72°+108°=180°，同旁內角互補，故平行。','改為110°時，角和182°，不互補。','若仍平行則同旁內角必互補，產生矛盾，因此不平行。'],['辨認指定的角對','用互補判定平行','能以平行的必要性解釋改動後結論'],'角對的位置與角度都要確認。')
+ {level:2,family:'parallel-d1',concept:'parallel',misconceptions:[],support:null,...C('兩直線被第三條直線所截，一對內錯角相等，可推出？',['兩直線平行','兩直線垂直','兩角必為90°','任意兩角都相等'],['內錯角相等是判定兩直線平行的充分條件。'],'區分平行線的判定與性質。')},
+ {level:3,family:'parallel-d2',concept:'parallel',misconceptions:[],support:null,...W('兩直線被截線所截，一對同旁內角分別為 72° 和 108°。先判斷是否平行，再說明若第二角改成 110°，判斷會有何改變。',['72°+108°=180°，同旁內角互補，故平行。','改為110°時，角和182°，不互補。','若仍平行則同旁內角必互補，產生矛盾，因此不平行。'],['辨認指定的角對','用互補判定平行','能以平行的必要性解釋改動後結論'],'角對的位置與角度都要確認。')}
 ]);
 D('real',[
- C('對任何實數 a，√(a²) 等於？',['|a|','a','−a','±a'],['算術平方根非負，故是 |a|；a<0 時不等於 a。'],'用 a=−3 檢查。'),
- W('同學說：「√2≈1.414，所以 √2=1.414。」說明錯在哪裡，並只用平方比較證明 1.41<√2<1.42。',['近似值不等於精確值，1.414²=1.999396≠2。','1.41²=1.9881<2；1.42²=2.0164>2。','正數上平方保持大小關係，故1.41<√2<1.42。'],['區分等號與約等號','算出兩端平方','解釋正數範圍內比較有效'],'用相鄰正數的平方夾住2。')
+ {level:2,family:'real-d1',concept:'real',misconceptions:[],support:null,...C('對任何實數 a，√(a²) 等於？',['|a|','a','−a','±a'],['算術平方根非負，故是 |a|；a<0 時不等於 a。'],'用 a=−3 檢查。')},
+ {level:3,family:'real-d2',concept:'real',misconceptions:[],support:null,...W('同學說：「√2≈1.414，所以 √2=1.414。」說明錯在哪裡，並只用平方比較證明 1.41<√2<1.42。',['近似值不等於精確值，1.414²=1.999396≠2。','1.41²=1.9881<2；1.42²=2.0164>2。','正數上平方保持大小關係，故1.41<√2<1.42。'],['區分等號與約等號','算出兩端平方','解釋正數範圍內比較有效'],'用相鄰正數的平方夾住2。')}
 ]);
 D('coordinates',[
- C('點 P 到 x 軸距離是3，到 y 軸距離是2，且在第二象限。P 是？',['(−2,3)','(−3,2)','(2,−3)','(3,−2)'],['到x軸距離=|y|，到y軸距離=|x|；第二象限x<0、y>0。'],'距離與坐標值的符號分開考慮。'),
- W('矩形的三個頂點 A(−2,1)、B(4,1)、C(4,5) 按相鄰順序排列。求第四頂點 D 及面積，並解釋平移整個矩形後面積為何不變。',['AB水平長6，BC垂直長4，D=(−2,5)。','面積=6×4=24。','每個點加相同位移，坐標差不變，因此邊長與面積不變。'],['求D及兩邊長','算出面積24','用坐標差說明平移不改面積'],'平移改坐標，但兩點之間的差怎樣變？')
+ {level:2,family:'coordinates-d1',concept:'coordinates',misconceptions:[],support:null,...C('點 P 到 x 軸距離是3，到 y 軸距離是2，且在第二象限。P 是？',['(−2,3)','(−3,2)','(2,−3)','(3,−2)'],['到x軸距離=|y|，到y軸距離=|x|；第二象限x<0、y>0。'],'距離與坐標值的符號分開考慮。')},
+ {level:3,family:'coordinates-d2',concept:'coordinates',misconceptions:[],support:null,...W('矩形的三個頂點 A(−2,1)、B(4,1)、C(4,5) 按相鄰順序排列。求第四頂點 D 及面積，並解釋平移整個矩形後面積為何不變。',['AB水平長6，BC垂直長4，D=(−2,5)。','面積=6×4=24。','每個點加相同位移，坐標差不變，因此邊長與面積不變。'],['求D及兩邊長','算出面積24','用坐標差說明平移不改面積'],'平移改坐標，但兩點之間的差怎樣變？')}
 ]);
 D('systems',[
- C('方程組 x+y=4、2x+2y=8 的解有多少組？',['無限多組','恰一組','恰兩組','沒有'],['第二式是第一式的兩倍，沒有增加新限制。'],'兩個方程是否提供獨立條件？'),
- W('雞兔共12隻、共34隻腳。請用方程組及「假設全是雞」兩種方法求解，並解釋兩方法的共同想法。',['設雞x、兔y：x+y=12，2x+4y=34；消去x得2y=10，y=5、x=7。','若全是雞則24腳，比34少10腳；每改一隻為兔多2腳，因此5隻兔。','兩法都先扣除每隻2腳的共同部分，再找多出的腳。'],['列兩個獨立等量關係','兩法都得雞7兔5','連結消元與假設法'],'把第二式減去第一式的兩倍。')
+ {level:2,family:'systems-d1',concept:'systems',misconceptions:[],support:null,...C('方程組 x+y=4、2x+2y=8 的解有多少組？',['無限多組','恰一組','恰兩組','沒有'],['第二式是第一式的兩倍，沒有增加新限制。'],'兩個方程是否提供獨立條件？')},
+ {level:3,family:'systems-d2',concept:'systems',misconceptions:[],support:null,...W('雞兔共12隻、共34隻腳。請用方程組及「假設全是雞」兩種方法求解，並解釋兩方法的共同想法。',['設雞x、兔y：x+y=12，2x+4y=34；消去x得2y=10，y=5、x=7。','若全是雞則24腳，比34少10腳；每改一隻為兔多2腳，因此5隻兔。','兩法都先扣除每隻2腳的共同部分，再找多出的腳。'],['列兩個獨立等量關係','兩法都得雞7兔5','連結消元與假設法'],'把第二式減去第一式的兩倍。')}
 ]);
 D('inequality',[
- C('若 a<b，以下必定成立的是？',['−2a>−2b','a²<b²','1/a>1/b','|a|<|b|'],['乘負數使不等號反向；其餘需要額外條件（倒數還須非零）。'],'先檢查運算是否會改變大小方向。'),
- W('租巴士每輛40座，老師2人，學生人數n不超過118。有人說「總是要3輛」。請寫出需要剛好3輛（以最少車數為準）的學生整數人數範圍。',['剛好3輛表示2輛不夠而3輛足夠：80<n+2≤120。','故78<n≤118，整數n為79至118。','例如n=50時只需2輛，故原說法太廣。'],['同時表達不足與足夠','含正確開閉端點','轉為學生整數範圍79–118'],'「最多3輛」與「剛好3輛」有何不同？')
+ {level:2,family:'inequality-d1',concept:'inequality',misconceptions:[],support:null,...C('若 a<b，以下必定成立的是？',['−2a>−2b','a²<b²','1/a>1/b','|a|<|b|'],['乘負數使不等號反向；其餘需要額外條件（倒數還須非零）。'],'先檢查運算是否會改變大小方向。')},
+ {level:3,family:'inequality-d2',concept:'inequality',misconceptions:[],support:null,...W('租巴士每輛40座，老師2人，學生人數n不超過118。有人說「總是要3輛」。請寫出需要剛好3輛（以最少車數為準）的學生整數人數範圍。',['剛好3輛表示2輛不夠而3輛足夠：80<n+2≤120。','故78<n≤118，整數n為79至118。','例如n=50時只需2輛，故原說法太廣。'],['同時表達不足與足夠','含正確開閉端點','轉為學生整數範圍79–118'],'「最多3輛」與「剛好3輛」有何不同？')}
 ]);
 D('data-collection',[
- C('想估計全校學生每日閱讀時間，哪個抽樣方案較合適？',['從各年級名冊按比例隨機抽人','只問圖書館內的學生','只問讀書會成員','只問最早到校的人'],['按年級涵蓋總體並隨機抽樣，較能減少明顯選取偏差。'],'樣本是否涵蓋想了解的總體？'),
- W('校刊在籃球隊訪問20人，有18人喜歡籃球，便刊登「全校90%學生喜歡籃球」。請檢查比例和推論，提出一個可行的改良調查。',['18/20=90%，樣本比例計算正確。','籃球隊成員不是全校的代表性樣本，不能直接推廣。','可從各年級名冊按比例隨機抽樣，統一問題，記錄未回覆情況，再將結果標作估計。'],['分清計算正確與推論可靠','指出選取偏差','提出明確可行的改良方法'],'只增加籃球隊受訪人數能解決偏差嗎？')
+ {level:2,family:'data-collection-d1',concept:'data-collection',misconceptions:[],support:null,...C('想估計全校學生每日閱讀時間，哪個抽樣方案較合適？',['從各年級名冊按比例隨機抽人','只問圖書館內的學生','只問讀書會成員','只問最早到校的人'],['按年級涵蓋總體並隨機抽樣，較能減少明顯選取偏差。'],'樣本是否涵蓋想了解的總體？')},
+ {level:3,family:'data-collection-d2',concept:'data-collection',misconceptions:[],support:null,...W('校刊在籃球隊訪問20人，有18人喜歡籃球，便刊登「全校90%學生喜歡籃球」。請檢查比例和推論，提出一個可行的改良調查。',['18/20=90%，樣本比例計算正確。','籃球隊成員不是全校的代表性樣本，不能直接推廣。','可從各年級名冊按比例隨機抽樣，統一問題，記錄未回覆情況，再將結果標作估計。'],['分清計算正確與推論可靠','指出選取偏差','提出明確可行的改良方法'],'只增加籃球隊受訪人數能解決偏差嗎？')}
 ]);
 D('triangles',[
- C('兩邊長為4、7，第三邊為x。正確限制是？',['3<x<11','3≤x≤11','0<x<11','x>3'],['三角形任意兩邊和大於第三邊，整理為兩邊差<x<兩邊和。'],'等號會令三點共線。'),
- W('用長度3、4、7的木條能否圍成三角形？若只可把7的木條剪短成正整數長度，列出所有可行長度並說明邊界。',['3+4=7，原來只能共線，不能圍成三角形。','剪短後長度c須 |4−3|<c<4+3，即1<c<7。','正整數c為2、3、4、5、6；1和7都是退化邊界。'],['判斷原組不成立','寫出嚴格不等式','列出全部五個整數長度'],'不只檢查上限，還要檢查兩邊之差。')
+ {level:2,family:'triangles-d1',concept:'triangles',misconceptions:[],support:null,...C('兩邊長為4、7，第三邊為x。正確限制是？',['3<x<11','3≤x≤11','0<x<11','x>3'],['三角形任意兩邊和大於第三邊，整理為兩邊差<x<兩邊和。'],'等號會令三點共線。')},
+ {level:3,family:'triangles-d2',concept:'triangles',misconceptions:[],support:null,...W('用長度3、4、7的木條能否圍成三角形？若只可把7的木條剪短成正整數長度，列出所有可行長度並說明邊界。',['3+4=7，原來只能共線，不能圍成三角形。','剪短後長度c須 |4−3|<c<4+3，即1<c<7。','正整數c為2、3、4、5、6；1和7都是退化邊界。'],['判斷原組不成立','寫出嚴格不等式','列出全部五個整數長度'],'不只檢查上限，還要檢查兩邊之差。')}
 ]);
 D('congruence',[
- C('以下哪組資料足以判定兩個三角形全等？',['兩邊及其夾角分別相等','三個角分別相等','兩邊及其中一邊對角分別相等','面積相等'],['SAS要求角是已知兩邊的夾角；AAA只保證相似，SSA一般不夠。'],'角的位置是關鍵。'),
- W('AB=AC，D是BC中點。證明AD⊥BC，並指出證明中哪一步利用D是中點。',['AB=AC、BD=CD（D是中點）、AD公共，故△ABD≅△ACD（SSS）。','對應角∠ADB=∠ADC。','B、D、C共線，兩角和180°，故各90°，AD⊥BC。'],['列完整SSS條件','由全等得對應角相等','配合平角推出垂直'],'等角還須配合甚麼條件才能各是90°？')
+ {level:2,family:'congruence-d1',concept:'congruence',misconceptions:[],support:null,...C('以下哪組資料足以判定兩個三角形全等？',['兩邊及其夾角分別相等','三個角分別相等','兩邊及其中一邊對角分別相等','面積相等'],['SAS要求角是已知兩邊的夾角；AAA只保證相似，SSA一般不夠。'],'角的位置是關鍵。')},
+ {level:3,family:'congruence-d2',concept:'congruence',misconceptions:[],support:null,...W('AB=AC，D是BC中點。證明AD⊥BC，並指出證明中哪一步利用D是中點。',['AB=AC、BD=CD（D是中點）、AD公共，故△ABD≅△ACD（SSS）。','對應角∠ADB=∠ADC。','B、D、C共線，兩角和180°，故各90°，AD⊥BC。'],['列完整SSS條件','由全等得對應角相等','配合平角推出垂直'],'等角還須配合甚麼條件才能各是90°？')}
 ]);
 D('symmetry',[
- C('線段AB的垂直平分線上的任意點P，都滿足？',['PA=PB','P是AB的中點','PA⊥PB','PA+PB=AB'],['垂直平分線上各點到兩端點等距，但不一定在線段上。'],'性質描述的是距離。'),
- W('A(2,3)、B(6,3)，P在x軸。設計從A經P到B的最短路徑，求P及最短長，並解釋反射為何有效。',['把B反射為B′(6,−3)，對x軸上P有PB=PB′。','AP+PB=AP+PB′≥AB′；線段AB′與x軸交於P(4,0)。','最短長=√(4²+6²)=√52=2√13。'],['反射並說明等距','用兩點之間線段最短','求P及精確最短長'],'反射後把折線拉直。')
+ {level:2,family:'symmetry-d1',concept:'symmetry',misconceptions:[],support:null,...C('線段AB的垂直平分線上的任意點P，都滿足？',['PA=PB','P是AB的中點','PA⊥PB','PA+PB=AB'],['垂直平分線上各點到兩端點等距，但不一定在線段上。'],'性質描述的是距離。')},
+ {level:3,family:'symmetry-d2',concept:'symmetry',misconceptions:[],support:null,...W('A(2,3)、B(6,3)，P在x軸。設計從A經P到B的最短路徑，求P及最短長，並解釋反射為何有效。',['把B反射為B′(6,−3)，對x軸上P有PB=PB′。','AP+PB=AP+PB′≥AB′；線段AB′與x軸交於P(4,0)。','最短長=√(4²+6²)=√52=2√13。'],['反射並說明等距','用兩點之間線段最短','求P及精確最短長'],'反射後把折線拉直。')}
 ]);
 D('multiply',[
- C('由 (a+b)²=a²+2ab+b² 可知 (a+b)²=a²+b² 何時成立？',['ab=0','a=b','a+b=0','所有a、b'],['兩邊之差為2ab，須等於0，故a或b為0。'],'比較缺少的交叉項。'),
- W('同學說「邊長增加2，正方形面積只增加4」。以原邊長x>0畫想像中的分割，列式並解釋新增面積的每一部分。',['新面積(x+2)²，舊面積x²，差為4x+4。','增加兩個x×2的長方形及一個2×2小正方形。','因此一般增加4x+4，並非只有角落的4。'],['正確展開與相減','兩個長方形加一個正方形','把各面積連到代數項'],'沿原正方形兩側加寬。')
+ {level:2,family:'multiply-d1',concept:'multiply',misconceptions:[],support:null,...C('由 (a+b)²=a²+2ab+b² 可知 (a+b)²=a²+b² 何時成立？',['ab=0','a=b','a+b=0','所有a、b'],['兩邊之差為2ab，須等於0，故a或b為0。'],'比較缺少的交叉項。')},
+ {level:3,family:'multiply-d2',concept:'multiply',misconceptions:[],support:null,...W('同學說「邊長增加2，正方形面積只增加4」。以原邊長x>0畫想像中的分割，列式並解釋新增面積的每一部分。',['新面積(x+2)²，舊面積x²，差為4x+4。','增加兩個x×2的長方形及一個2×2小正方形。','因此一般增加4x+4，並非只有角落的4。'],['正確展開與相減','兩個長方形加一個正方形','把各面積連到代數項'],'沿原正方形兩側加寬。')}
 ]);
 D('factor',[
- C('把 3x²−12 完整因式分解，結果是？',['3(x−2)(x+2)','(3x−6)(x+2)','3(x−4)(x+4)','3x(x−4)'],['先提3，再把x²−4用平方差分解。'],'完整分解要逐層檢查。'),
- W('解釋為甚麼對每個整數n，(n+1)²−(n−1)²都能被4整除。能否由只測試n=1、2、3就當作證明？',['平方差分解為[(n+1)−(n−1)][(n+1)+(n−1)]=2×2n=4n。','n為整數，所以結果是4的整數倍。','有限例子只能支持猜想，恆等分解才涵蓋每個整數。'],['以恆等式得4n','使用整數條件','區分例證與一般證明'],'用平方差，比逐項展開更短。')
+ {level:2,family:'factor-d1',concept:'factor',misconceptions:[],support:null,...C('把 3x²−12 完整因式分解，結果是？',['3(x−2)(x+2)','(3x−6)(x+2)','3(x−4)(x+4)','3x(x−4)'],['先提3，再把x²−4用平方差分解。'],'完整分解要逐層檢查。')},
+ {level:3,family:'factor-d2',concept:'factor',misconceptions:[],support:null,...W('解釋為甚麼對每個整數n，(n+1)²−(n−1)²都能被4整除。能否由只測試n=1、2、3就當作證明？',['平方差分解為[(n+1)−(n−1)][(n+1)+(n−1)]=2×2n=4n。','n為整數，所以結果是4的整數倍。','有限例子只能支持猜想，恆等分解才涵蓋每個整數。'],['以恆等式得4n','使用整數條件','區分例證與一般證明'],'用平方差，比逐項展開更短。')}
 ]);
 D('fractions',[
- C('把 (x²−1)/(x−1) 約分後，正確敘述是？',['等於x+1，但須x≠1','等於x+1且x可任意','等於x−1且x≠1','原式在x=1時等於2'],['約掉因式不會使原式的禁值重新可用。'],'化簡前先記分母限制。'),
- W('解方程 (x+1)/(x−2)=3/(x−2)。有人去分母得x=2便作答案。請完成檢驗，說明是否有解。',['先要求x≠2。','去分母得x+1=3，候選根x=2。','它使原分母為0，必須捨去，所以原方程無解。'],['先列定義限制','求候選根','代回原限制排除增根'],'等價變形要保留原定義域。')
+ {level:2,family:'fractions-d1',concept:'fractions',misconceptions:[],support:null,...C('把 (x²−1)/(x−1) 約分後，正確敘述是？',['等於x+1，但須x≠1','等於x+1且x可任意','等於x−1且x≠1','原式在x=1時等於2'],['約掉因式不會使原式的禁值重新可用。'],'化簡前先記分母限制。')},
+ {level:3,family:'fractions-d2',concept:'fractions',misconceptions:[],support:null,...W('解方程 (x+1)/(x−2)=3/(x−2)。有人去分母得x=2便作答案。請完成檢驗，說明是否有解。',['先要求x≠2。','去分母得x+1=3，候選根x=2。','它使原分母為0，必須捨去，所以原方程無解。'],['先列定義限制','求候選根','代回原限制排除增根'],'等價變形要保留原定義域。')}
 ]);
 D('radicals',[
- C('對 a<0，√(9a²) 等於？',['−3a','3a','±3a','9a'],['√(9a²)=3|a|，而a<0，所以=−3a。'],'根式的結果必須非負。'),
- W('當1<x<4，化簡√((x−1)²)+√((x−4)²)。再說明x移到4右方後，結果是否仍為同一常數。',['在(1,4)內，|x−1|+|x−4|=(x−1)+(4−x)=3。','若x>4，兩項均為正，結果=(x−1)+(x−4)=2x−5>3。','化簡要根據每個被取絕對值式子的符號。'],['先轉絕對值','區間內得3','區間外得2x−5並比較'],'開平方不能直接刪去平方符號。')
+ {level:2,family:'radicals-d1',concept:'radicals',misconceptions:[],support:null,...C('對 a<0，√(9a²) 等於？',['−3a','3a','±3a','9a'],['√(9a²)=3|a|，而a<0，所以=−3a。'],'根式的結果必須非負。')},
+ {level:3,family:'radicals-d2',concept:'radicals',misconceptions:[],support:null,...W('當1<x<4，化簡√((x−1)²)+√((x−4)²)。再說明x移到4右方後，結果是否仍為同一常數。',['在(1,4)內，|x−1|+|x−4|=(x−1)+(4−x)=3。','若x>4，兩項均為正，結果=(x−1)+(x−4)=2x−5>3。','化簡要根據每個被取絕對值式子的符號。'],['先轉絕對值','區間內得3','區間外得2x−5並比較'],'開平方不能直接刪去平方符號。')}
 ]);
 D('pythagoras',[
- C('三邊長6、8、10的三角形，哪項是判斷它為直角三角形的正確理由？',['6²+8²=10²，最大邊是10','6+8>10','10−8=2','6²+10²>8²'],['最大邊平方等於另兩邊平方和，使用勾股定理逆定理。'],'辨認斜邊候選者。'),
- W('一張長方形海報長80 cm、寬60 cm，要沿對角線加一條支撐條。小明以80+60=140 cm作長度。求正確長度，並說明若長寬都增大50%，支撐條變成多少。',['支撐條是直角三角形斜邊，長√(80²+60²)=100 cm。','長寬同乘1.5，對角線也同乘1.5，變成150 cm。','沿兩條邊走140 cm是折線，並非對角線。'],['使用勾股而非邊長相加','算出100 cm','以相似或平方和說明150 cm'],'比較直路與沿邊折路。')
+ {level:2,family:'pythagoras-d1',concept:'pythagoras',misconceptions:[],support:null,...C('三邊長6、8、10的三角形，哪項是判斷它為直角三角形的正確理由？',['6²+8²=10²，最大邊是10','6+8>10','10−8=2','6²+10²>8²'],['最大邊平方等於另兩邊平方和，使用勾股定理逆定理。'],'辨認斜邊候選者。')},
+ {level:3,family:'pythagoras-d2',concept:'pythagoras',misconceptions:[],support:null,...W('一張長方形海報長80 cm、寬60 cm，要沿對角線加一條支撐條。小明以80+60=140 cm作長度。求正確長度，並說明若長寬都增大50%，支撐條變成多少。',['支撐條是直角三角形斜邊，長√(80²+60²)=100 cm。','長寬同乘1.5，對角線也同乘1.5，變成150 cm。','沿兩條邊走140 cm是折線，並非對角線。'],['使用勾股而非邊長相加','算出100 cm','以相似或平方和說明150 cm'],'比較直路與沿邊折路。')}
 ]);
 D('quadrilaterals',[
- C('平行四邊形再加上哪個條件，一定是矩形？',['一個內角是90°','一組鄰邊相等','對角線互相垂直','一組對邊相等'],['鄰角互補、對角相等，因此一個直角使四角皆直角。'],'矩形要求的是角。'),
- W('某四邊形對角線互相平分且垂直。能否必定判定它是正方形？說明至少能判定的形狀，並給一個反例。',['互相平分先得到平行四邊形，對角線再垂直可得菱形。','但沒有保證內角90°或兩對角線等長。','例如對角線長6與8、互相垂直平分所成菱形，四邊長5，但不是正方形。'],['先判平行四邊形再到菱形','指出缺少的正方形條件','給出可實現的反例'],'畫一個對角線不等長的菱形。')
+ {level:2,family:'quadrilaterals-d1',concept:'quadrilaterals',misconceptions:[],support:null,...C('平行四邊形再加上哪個條件，一定是矩形？',['一個內角是90°','一組鄰邊相等','對角線互相垂直','一組對邊相等'],['鄰角互補、對角相等，因此一個直角使四角皆直角。'],'矩形要求的是角。')},
+ {level:3,family:'quadrilaterals-d2',concept:'quadrilaterals',misconceptions:[],support:null,...W('某四邊形對角線互相平分且垂直。能否必定判定它是正方形？說明至少能判定的形狀，並給一個反例。',['互相平分先得到平行四邊形，對角線再垂直可得菱形。','但沒有保證內角90°或兩對角線等長。','例如對角線長6與8、互相垂直平分所成菱形，四邊長5，但不是正方形。'],['先判平行四邊形再到菱形','指出缺少的正方形條件','給出可實現的反例'],'畫一個對角線不等長的菱形。')}
 ]);
 D('function-intro',[
- C('哪個對應關係以x為自變量時一定定義一個函數？',['每個x對應唯一的y','每個x都對應兩個不同y','只要圖像是連續曲線','每個y只對應一個x'],['函數要求每個允許輸入有唯一輸出；不同輸入可有相同輸出。'],'重點是由輸入決定輸出。'),
- W('水箱初有20 L水，每分鐘放出2 L。列出水量模型及合理的時間範圍。有人代入t=15得到−10 L，應怎樣解釋？',['放水期間V=20−2t。','物理限制V≥0且t≥0，故0≤t≤10（分鐘）。','t=15超出模型適用範圍；水量不會是負數。若放空後保持空箱，須另用V=0描述。'],['寫出模型及單位','給出0至10的定義域','解釋超出範圍及可能的分段模型'],'代數式有值不等於情境中合理。')
+ {level:2,family:'function-intro-d1',concept:'function-intro',misconceptions:[],support:null,...C('哪個對應關係以x為自變量時一定定義一個函數？',['每個x對應唯一的y','每個x都對應兩個不同y','只要圖像是連續曲線','每個y只對應一個x'],['函數要求每個允許輸入有唯一輸出；不同輸入可有相同輸出。'],'重點是由輸入決定輸出。')},
+ {level:3,family:'function-intro-d2',concept:'function-intro',misconceptions:[],support:null,...W('水箱初有20 L水，每分鐘放出2 L。列出水量模型及合理的時間範圍。有人代入t=15得到−10 L，應怎樣解釋？',['放水期間V=20−2t。','物理限制V≥0且t≥0，故0≤t≤10（分鐘）。','t=15超出模型適用範圍；水量不會是負數。若放空後保持空箱，須另用V=0描述。'],['寫出模型及單位','給出0至10的定義域','解釋超出範圍及可能的分段模型'],'代數式有值不等於情境中合理。')}
 ]);
 D('linear-function',[
- C('一次函數 y=−2x+5，x增加3時，y會？',['減少6','增加3','增加5','減少1'],['Δy=kΔx=−2×3=−6；截距不影響增量。'],'用變化量理解斜率。'),
- W('印刷方案A每張2元；B先付30元，再每張1.5元。班長預計印40至100張。請寫一份選擇建議，包含臨界張數、兩側比較及模型假設。',['A=2n，B=30+1.5n，相等時n=60。','40≤n<60時A便宜；n=60相同；60<n≤100時B便宜。','假設品質相同、沒有額外費用、張數為整數、單價固定。'],['正確建立兩個模型','解釋臨界值及兩側','列至少一個適用假設'],'不要只比較固定費或單價。')
+ {level:2,family:'linear-function-d1',concept:'linear-function',misconceptions:[],support:null,...C('一次函數 y=−2x+5，x增加3時，y會？',['減少6','增加3','增加5','減少1'],['Δy=kΔx=−2×3=−6；截距不影響增量。'],'用變化量理解斜率。')},
+ {level:3,family:'linear-function-d2',concept:'linear-function',misconceptions:[],support:null,...W('印刷方案A每張2元；B先付30元，再每張1.5元。班長預計印40至100張。請寫一份選擇建議，包含臨界張數、兩側比較及模型假設。',['A=2n，B=30+1.5n，相等時n=60。','40≤n<60時A便宜；n=60相同；60<n≤100時B便宜。','假設品質相同、沒有額外費用、張數為整數、單價固定。'],['正確建立兩個模型','解釋臨界值及兩側','列至少一個適用假設'],'不要只比較固定費或單價。')}
 ]);
 D('statistics',[
- C('數據2、3、4、5、100，哪個量較能代表大部分數據的典型位置？',['中位數4','平均數22.8','最大值100','極差98'],['大部分集中在2至5；100拉高平均數，中位數受其影響較小。'],'先看數據的分布與極端值。'),
- W('甲組成績60、70、80；乙組69、70、71。比較平均數和方差（以n作分母），為需要穩定表現的任務提出選組建議，並說明限制。',['兩組平均數都是70。','甲方差=(100+0+100)/3=200/3；乙方差=(1+0+1)/3=2/3。','以這三次表現的穩定性看，乙較穩定；樣本很少，不能保證日後每次表現。'],['指出相同平均數','計算兩個方差','建議連結穩定性並承認小樣本限制'],'平均相同，離平均的距離相同嗎？')
+ {level:2,family:'statistics-d1',concept:'statistics',misconceptions:[],support:null,...C('數據2、3、4、5、100，哪個量較能代表大部分數據的典型位置？',['中位數4','平均數22.8','最大值100','極差98'],['大部分集中在2至5；100拉高平均數，中位數受其影響較小。'],'先看數據的分布與極端值。')},
+ {level:3,family:'statistics-d2',concept:'statistics',misconceptions:[],support:null,...W('甲組成績60、70、80；乙組69、70、71。比較平均數和方差（以n作分母），為需要穩定表現的任務提出選組建議，並說明限制。',['兩組平均數都是70。','甲方差=(100+0+100)/3=200/3；乙方差=(1+0+1)/3=2/3。','以這三次表現的穩定性看，乙較穩定；樣本很少，不能保證日後每次表現。'],['指出相同平均數','計算兩個方差','建議連結穩定性並承認小樣本限制'],'平均相同，離平均的距離相同嗎？')}
 ]);
 D('sets',[
- C('A={1,{2}}，以下哪項正確？',['{2}∈A','2∈A','{2}⊆A','A有3個元素'],['A的兩個元素是數1與集合{2}；數2不是A的元素。'],'區分元素與子集，留意大括號。'),
- W('30名學生中，18人參加數學組、16人參加科學組、7人兩組皆參加。這組數據可能嗎？若不可能，兩組皆參加至少要多少人？',['容斥：至少一組人數=18+16−7=27≤30，故可能。','目前3人兩組都不參加。','一般須18+16−交集≤30，故交集至少4人；現有7人符合。'],['先檢查而非直接假設矛盾','算出並集27及外部3','推導交集下限4'],'全集限制的是並集人數。')
+ {level:2,family:'sets-d1',concept:'sets',misconceptions:[],support:null,...C('A={1,{2}}，以下哪項正確？',['{2}∈A','2∈A','{2}⊆A','A有3個元素'],['A的兩個元素是數1與集合{2}；數2不是A的元素。'],'區分元素與子集，留意大括號。')},
+ {level:3,family:'sets-d2',concept:'sets',misconceptions:[],support:null,...W('30名學生中，18人參加數學組、16人參加科學組、7人兩組皆參加。這組數據可能嗎？若不可能，兩組皆參加至少要多少人？',['容斥：至少一組人數=18+16−7=27≤30，故可能。','目前3人兩組都不參加。','一般須18+16−交集≤30，故交集至少4人；現有7人符合。'],['先檢查而非直接假設矛盾','算出並集27及外部3','推導交集下限4'],'全集限制的是並集人數。')}
 ]);
 D('logic',[
- C('「存在實數x使x²<0」的否定是？',['對所有實數x，x²≥0','存在實數x使x²≥0','對所有實數x，x²>0','不存在實數x'],['存在量詞否定為全稱量詞，<的否定是≥。'],'同時改變量詞及判斷條件。'),
- W('在實數範圍，p：x>2，q：x²>4。判斷p是q的甚麼條件，並用推理及反例分別檢查兩個方向。',['p⇒q：x>2時x²>4，正向成立。','q不能推出p：x=−3時x²=9>4，但x不大於2。','故p是q的充分但不必要條件。'],['證明正向成立','給反向反例','正確命名充分不必要'],'不要只驗證一個方向。')
+ {level:2,family:'logic-d1',concept:'logic',misconceptions:[],support:null,...C('「存在實數x使x²<0」的否定是？',['對所有實數x，x²≥0','存在實數x使x²≥0','對所有實數x，x²>0','不存在實數x'],['存在量詞否定為全稱量詞，<的否定是≥。'],'同時改變量詞及判斷條件。')},
+ {level:3,family:'logic-d2',concept:'logic',misconceptions:[],support:null,...W('在實數範圍，p：x>2，q：x²>4。判斷p是q的甚麼條件，並用推理及反例分別檢查兩個方向。',['p⇒q：x>2時x²>4，正向成立。','q不能推出p：x=−3時x²=9>4，但x不大於2。','故p是q的充分但不必要條件。'],['證明正向成立','給反向反例','正確命名充分不必要'],'不要只驗證一個方向。')}
 ]);
 D('quadratic-inequality',[
- C('不等式 (x−2)²<0 的解集為？',['空集','x<2','x>2','x≠2'],['實數平方非負，沒有小於0的情況。'],'先看表達式的結構。'),
- W('解不等式 −(x−1)(x−4)≥0，並以數軸或符號表解釋。有人得到x≤1或x≥4，找出他可能漏掉的步驟。',['兩邊乘−1，得(x−1)(x−4)≤0。','根為1及4，中間乘積非正，因此1≤x≤4。','錯誤解集通常因乘負數未反向；代x=2原式為2≥0也可反駁。'],['處理負號時反向','正確閉區間','用符號或代點解釋錯誤'],'先讓首項係數為正。')
+ {level:2,family:'quadratic-inequality-d1',concept:'quadratic-inequality',misconceptions:[],support:null,...C('不等式 (x−2)²<0 的解集為？',['空集','x<2','x>2','x≠2'],['實數平方非負，沒有小於0的情況。'],'先看表達式的結構。')},
+ {level:3,family:'quadratic-inequality-d2',concept:'quadratic-inequality',misconceptions:[],support:null,...W('解不等式 −(x−1)(x−4)≥0，並以數軸或符號表解釋。有人得到x≤1或x≥4，找出他可能漏掉的步驟。',['兩邊乘−1，得(x−1)(x−4)≤0。','根為1及4，中間乘積非正，因此1≤x≤4。','錯誤解集通常因乘負數未反向；代x=2原式為2≥0也可反駁。'],['處理負號時反向','正確閉區間','用符號或代點解釋錯誤'],'先讓首項係數為正。')}
 ]);
 D('polynomial-division',[
- C('f(x)除以二次多項式後的非零餘式，其次數必須？',['小於2','等於2','大於2','等於被除式次數'],['除法分解要求餘式次數低於除式，否則還可繼續除。'],'回想長除法何時停止。'),
- W('已知f(1)=3、f(2)=5。求f(x)除以(x−1)(x−2)的餘式，並解釋為何這兩個值就足夠。',['設餘式ax+b，因其次數小於2。','代x=1、2得到a+b=3、2a+b=5，解得a=2、b=1。','餘式2x+1；兩個不同點能唯一決定一次或常數多項式。'],['設一次餘式','利用除式為零的兩點','求2x+1並說明唯一性'],'代入除式的根會消掉商乘除式。')
+ {level:2,family:'polynomial-division-d1',concept:'polynomial-division',misconceptions:[],support:null,...C('f(x)除以二次多項式後的非零餘式，其次數必須？',['小於2','等於2','大於2','等於被除式次數'],['除法分解要求餘式次數低於除式，否則還可繼續除。'],'回想長除法何時停止。')},
+ {level:3,family:'polynomial-division-d2',concept:'polynomial-division',misconceptions:[],support:null,...W('已知f(1)=3、f(2)=5。求f(x)除以(x−1)(x−2)的餘式，並解釋為何這兩個值就足夠。',['設餘式ax+b，因其次數小於2。','代x=1、2得到a+b=3、2a+b=5，解得a=2、b=1。','餘式2x+1；兩個不同點能唯一決定一次或常數多項式。'],['設一次餘式','利用除式為零的兩點','求2x+1並說明唯一性'],'代入除式的根會消掉商乘除式。')}
 ]);
 D('function-properties',[
- C('函數f(x)=x²在整個實數域上是？',['偶函數，但不在整個實數域單調','奇函數且遞增','偶函數且處處遞增','非奇非偶'],['f(−x)=f(x)；在負半軸遞減、正半軸遞增。'],'奇偶性與單調性是不同性質。'),
- W('有人說「f(x)=1/x是奇函數，所以f(0)=0」。指出問題，並說明「奇函數且0在定義域」才可推出f(0)=0的理由。',['1/x的定義域排除0，雖然關於原點對稱且f(−x)=−f(x)，f(0)仍不存在。','若0在奇函數定義域，f(0)=−f(0)，所以2f(0)=0，得f(0)=0。'],['先檢查定義域','承認1/x是奇函數','加上0存在的條件再推導'],'性質不能替函數補上未定義的點。')
+ {level:2,family:'function-properties-d1',concept:'function-properties',misconceptions:[],support:null,...C('函數f(x)=x²在整個實數域上是？',['偶函數，但不在整個實數域單調','奇函數且遞增','偶函數且處處遞增','非奇非偶'],['f(−x)=f(x)；在負半軸遞減、正半軸遞增。'],'奇偶性與單調性是不同性質。')},
+ {level:3,family:'function-properties-d2',concept:'function-properties',misconceptions:[],support:null,...W('有人說「f(x)=1/x是奇函數，所以f(0)=0」。指出問題，並說明「奇函數且0在定義域」才可推出f(0)=0的理由。',['1/x的定義域排除0，雖然關於原點對稱且f(−x)=−f(x)，f(0)仍不存在。','若0在奇函數定義域，f(0)=−f(0)，所以2f(0)=0，得f(0)=0。'],['先檢查定義域','承認1/x是奇函數','加上0存在的條件再推導'],'性質不能替函數補上未定義的點。')}
 ]);
 D('exponential',[
- C('若0<a<1，aᵘ<aᵛ能推出？',['u>v','u<v','u=v','u、v必為負數'],['底數介於0和1時指數函數遞減，函數值越小，指數越大。'],'先判斷函數增減方向。'),
- W('甲方案第一期收入100元，其後每期增加20元；乙方案第一期80元，其後每期乘1.5。比較前四期，並說明用直線模型描述乙方案為何不合理。',['甲依次100、120、140、160；乙80、120、180、270。','第二期相同，第三期起在這四期中乙較高。','甲固定差，乙固定比；乙相鄰差40、60、90並不相同，所以不是一次函數。'],['列出四期的兩組數據','正確比較','以固定差與固定比辨別模型'],'先說清楚第一期的起點。')
+ {level:2,family:'exponential-d1',concept:'exponential',misconceptions:[],support:null,...C('若0<a<1，aᵘ<aᵛ能推出？',['u>v','u<v','u=v','u、v必為負數'],['底數介於0和1時指數函數遞減，函數值越小，指數越大。'],'先判斷函數增減方向。')},
+ {level:3,family:'exponential-d2',concept:'exponential',misconceptions:[],support:null,...W('甲方案第一期收入100元，其後每期增加20元；乙方案第一期80元，其後每期乘1.5。比較前四期，並說明用直線模型描述乙方案為何不合理。',['甲依次100、120、140、160；乙80、120、180、270。','第二期相同，第三期起在這四期中乙較高。','甲固定差，乙固定比；乙相鄰差40、60、90並不相同，所以不是一次函數。'],['列出四期的兩組數據','正確比較','以固定差與固定比辨別模型'],'先說清楚第一期的起點。')}
 ]);
 D('trigonometry',[
- C('θ在第二象限且sinθ=3/5，cosθ是？',['−4/5','4/5','−3/5','3/5'],['cos²θ=1−9/25=16/25，第二象限cosθ<0，所以−4/5。'],'平方關係決定大小，象限決定正負。'),
- W('摩天輪半徑10m、中心離地12m。令最低點為t=0，每圈60秒。用h(t)=12−10cos(πt/30)描述座艙高度，檢查t=0、15、30秒，並解釋振幅、週期與最低高度。',['h(0)=2，h(15)=12，h(30)=22（m）。','振幅10對應半徑，週期2π/(π/30)=60秒。','最低12−10=2m；最高22m。模型假設等速旋轉且地面水平。'],['計算三個時刻','連結參數與情境','說明範圍及至少一個假設'],'角度在公式中用弧度。')
+ {level:2,family:'trigonometry-d1',concept:'trigonometry',misconceptions:[],support:null,...C('θ在第二象限且sinθ=3/5，cosθ是？',['−4/5','4/5','−3/5','3/5'],['cos²θ=1−9/25=16/25，第二象限cosθ<0，所以−4/5。'],'平方關係決定大小，象限決定正負。')},
+ {level:3,family:'trigonometry-d2',concept:'trigonometry',misconceptions:[],support:null,...W('摩天輪半徑10m、中心離地12m。令最低點為t=0，每圈60秒。用h(t)=12−10cos(πt/30)描述座艙高度，檢查t=0、15、30秒，並解釋振幅、週期與最低高度。',['h(0)=2，h(15)=12，h(30)=22（m）。','振幅10對應半徑，週期2π/(π/30)=60秒。','最低12−10=2m；最高22m。模型假設等速旋轉且地面水平。'],['計算三個時刻','連結參數與情境','說明範圍及至少一個假設'],'角度在公式中用弧度。')}
 ]);
 D('vectors',[
- C('非零向量u、v滿足u·v=0，可推出？',['u與v垂直','u與v平行','u=−v','|u|=|v|'],['u·v=|u||v|cosθ，兩模非零故cosθ=0。'],'非零條件為何必要？'),
- W('u=(1,2)，v=(2,−1)。證明|u+v|²=|u|²+|v|²，並解釋為何這不是任意兩向量都有的等式。',['u·v=2−2=0，兩向量垂直。','u+v=(3,1)，模平方10；兩模平方各5，合計10。','一般|u+v|²=|u|²+2u·v+|v|²，只有交叉項為0時成立。'],['計算並比較','辨認垂直','寫一般內積展開式'],'向量版的交叉項是甚麼？')
+ {level:2,family:'vectors-d1',concept:'vectors',misconceptions:[],support:null,...C('非零向量u、v滿足u·v=0，可推出？',['u與v垂直','u與v平行','u=−v','|u|=|v|'],['u·v=|u||v|cosθ，兩模非零故cosθ=0。'],'非零條件為何必要？')},
+ {level:3,family:'vectors-d2',concept:'vectors',misconceptions:[],support:null,...W('u=(1,2)，v=(2,−1)。證明|u+v|²=|u|²+|v|²，並解釋為何這不是任意兩向量都有的等式。',['u·v=2−2=0，兩向量垂直。','u+v=(3,1)，模平方10；兩模平方各5，合計10。','一般|u+v|²=|u|²+2u·v+|v|²，只有交叉項為0時成立。'],['計算並比較','辨認垂直','寫一般內積展開式'],'向量版的交叉項是甚麼？')}
 ]);
 D('solve-triangles',[
- C('已知三角形兩邊a、b及其夾角C，直接求第三邊c應用？',['餘弦定理','只用三角形內角和','直接把a、b相加','必須先假設直角'],['c²=a²+b²−2ab cosC，不要求三角形是直角。'],'選擇與已知資料相配的定理。'),
- W('已知△ABC中A=30°、a=5、b=8（小寫為對邊）。利用正弦定理判斷B可能有多少個值，並檢查是否都能組成三角形。',['sinB=b sinA/a=8×0.5/5=0.8。','0°<B<180°內可有B≈53.13°或126.87°。','A+B分別約83.13°及156.87°，都小於180°，所以兩種三角形均可。'],['算出sinB=0.8','討論互補的兩角','檢查角和而非只取反正弦主值'],'SSA資料可能有兩解。')
+ {level:2,family:'solve-triangles-d1',concept:'solve-triangles',misconceptions:[],support:null,...C('已知三角形兩邊a、b及其夾角C，直接求第三邊c應用？',['餘弦定理','只用三角形內角和','直接把a、b相加','必須先假設直角'],['c²=a²+b²−2ab cosC，不要求三角形是直角。'],'選擇與已知資料相配的定理。')},
+ {level:3,family:'solve-triangles-d2',concept:'solve-triangles',misconceptions:[],support:null,...W('已知△ABC中A=30°、a=5、b=8（小寫為對邊）。利用正弦定理判斷B可能有多少個值，並檢查是否都能組成三角形。',['sinB=b sinA/a=8×0.5/5=0.8。','0°<B<180°內可有B≈53.13°或126.87°。','A+B分別約83.13°及156.87°，都小於180°，所以兩種三角形均可。'],['算出sinB=0.8','討論互補的兩角','檢查角和而非只取反正弦主值'],'SSA資料可能有兩解。')}
 ]);
 D('solid',[
- C('圓錐體積公式中h代表？',['頂點到底面的垂直距離','母線長','底面直徑','任一側棱長'],['體積V=πr²h/3使用垂直高度，母線用於側面積。'],'先區分母線與高。'),
- W('兩個相似容器長度比2:3。小容器體積80 cm³，問大容器體積。有人用80×3/2，解釋錯誤並求正解。',['體積比為2³:3³=8:27。','大容器=80×27/8=270 cm³。','三個方向都按3/2放大，所以體積乘(3/2)³，而非一次方。'],['區分長度比與體積比','計算270','以三維縮放解釋立方'],'想像長、寬、高各自放大。')
+ {level:2,family:'solid-d1',concept:'solid',misconceptions:[],support:null,...C('圓錐體積公式中h代表？',['頂點到底面的垂直距離','母線長','底面直徑','任一側棱長'],['體積V=πr²h/3使用垂直高度，母線用於側面積。'],'先區分母線與高。')},
+ {level:3,family:'solid-d2',concept:'solid',misconceptions:[],support:null,...W('兩個相似容器長度比2:3。小容器體積80 cm³，問大容器體積。有人用80×3/2，解釋錯誤並求正解。',['體積比為2³:3³=8:27。','大容器=80×27/8=270 cm³。','三個方向都按3/2放大，所以體積乘(3/2)³，而非一次方。'],['區分長度比與體積比','計算270','以三維縮放解釋立方'],'想像長、寬、高各自放大。')}
 ]);
 D('variation',[
- C('y=3x+2描述的關係是？',['部分變化，並非y與x成正變','y與x成正變','y與x成反變','y與x²成正變'],['正變要求y=kx；非零固定部分2使y/x不固定。'],'正比圖像必經原點。'),
- W('固定工作量下，n人完成工程需t天，假設每人效率相同且互不干擾。6人需10天，求15人所需天數，並提出兩個現實中可能令模型失效的因素。',['總人日nt=60，t=60/n。','15人需4天。','溝通成本、工作無法分割、器材限制、效率差異等都可能破壞反比假設。'],['建立反變模型','計算4天','提出兩項與假設相關的限制'],'人數加倍就一定能把所有工作並行處理嗎？')
+ {level:2,family:'variation-d1',concept:'variation',misconceptions:[],support:null,...C('y=3x+2描述的關係是？',['部分變化，並非y與x成正變','y與x成正變','y與x成反變','y與x²成正變'],['正變要求y=kx；非零固定部分2使y/x不固定。'],'正比圖像必經原點。')},
+ {level:3,family:'variation-d2',concept:'variation',misconceptions:[],support:null,...W('固定工作量下，n人完成工程需t天，假設每人效率相同且互不干擾。6人需10天，求15人所需天數，並提出兩個現實中可能令模型失效的因素。',['總人日nt=60，t=60/n。','15人需4天。','溝通成本、工作無法分割、器材限制、效率差異等都可能破壞反比假設。'],['建立反變模型','計算4天','提出兩項與假設相關的限制'],'人數加倍就一定能把所有工作並行處理嗎？')}
 ]);
 D('polynomial-gcd',[
- C('P=(x−1)²(x+2)，Q=(x−1)(x+2)³，其首一最大公因式是？',['(x−1)(x+2)','(x−1)²(x+2)³','x−1','1'],['共同因式各取較小次數：x−1取1次，x+2取1次。'],'最大公因式用最小指數。'),
- W('P=(x−2)²(x+1)，Q=(x−2)(x+1)²。求首一GCD及LCM，並用次數關係檢查結果。',['GCD=(x−2)(x+1)。','LCM=(x−2)²(x+1)²。','次數2+4=3+3；首一多項式滿足GCD×LCM=P×Q。'],['各因式取較小與較大指數','寫出兩式','以次數或乘積核對'],'分別列兩個因式在P、Q出現的次數。')
+ {level:2,family:'polynomial-gcd-d1',concept:'polynomial-gcd',misconceptions:[],support:null,...C('P=(x−1)²(x+2)，Q=(x−1)(x+2)³，其首一最大公因式是？',['(x−1)(x+2)','(x−1)²(x+2)³','x−1','1'],['共同因式各取較小次數：x−1取1次，x+2取1次。'],'最大公因式用最小指數。')},
+ {level:3,family:'polynomial-gcd-d2',concept:'polynomial-gcd',misconceptions:[],support:null,...W('P=(x−2)²(x+1)，Q=(x−2)(x+1)²。求首一GCD及LCM，並用次數關係檢查結果。',['GCD=(x−2)(x+1)。','LCM=(x−2)²(x+1)²。','次數2+4=3+3；首一多項式滿足GCD×LCM=P×Q。'],['各因式取較小與較大指數','寫出兩式','以次數或乘積核對'],'分別列兩個因式在P、Q出現的次數。')}
 ]);
 D('partial-fractions',[
- C('分母為x(x−1)²的真分式，其一般部分分式形式需要？',['A/x+B/(x−1)+C/(x−1)²','A/x+B/(x−1)²','A/x²+B/(x−1)','A+B/x'],['重複一次因式需保留從一次至最高重數的各次方分母。'],'重根的各層不能漏。'),
- W('把1/[x(x+1)]拆成部分分式，再用它求Σ從k=1到n的1/[k(k+1)]。說明n的範圍。',['清分母後1=A(x+1)+Bx，得A=1、B=−1。','所以1/[x(x+1)]=1/x−1/(x+1)，x≠0,−1。','對正整數n連加，中間項相消，和=1−1/(n+1)=n/(n+1)。'],['求出係數及禁值','寫出相消過程','給正整數n及結果'],'把代數恆等式遷移到有限求和。')
+ {level:2,family:'partial-fractions-d1',concept:'partial-fractions',misconceptions:[],support:null,...C('分母為x(x−1)²的真分式，其一般部分分式形式需要？',['A/x+B/(x−1)+C/(x−1)²','A/x+B/(x−1)²','A/x²+B/(x−1)','A+B/x'],['重複一次因式需保留從一次至最高重數的各次方分母。'],'重根的各層不能漏。')},
+ {level:3,family:'partial-fractions-d2',concept:'partial-fractions',misconceptions:[],support:null,...W('把1/[x(x+1)]拆成部分分式，再用它求Σ從k=1到n的1/[k(k+1)]。說明n的範圍。',['清分母後1=A(x+1)+Bx，得A=1、B=−1。','所以1/[x(x+1)]=1/x−1/(x+1)，x≠0,−1。','對正整數n連加，中間項相消，和=1−1/(n+1)=n/(n+1)。'],['求出係數及禁值','寫出相消過程','給正整數n及結果'],'把代數恆等式遷移到有限求和。')}
 ]);
 D('space-relations',[
- C('空間中兩條直線不相交，就一定平行嗎？',['不一定，也可能異面','一定平行','一定垂直','一定重合'],['空間有不共面的異面直線，不能沿用平面中的二選一判斷。'],'先問是否共面。'),
- W('有人說「直線l垂直平面內的一條直線m，所以l垂直此平面」。指出缺少的條件，並以正方體中的棱給反例。',['判定線面垂直通常需l垂直於平面內兩條相交直線。','正方體底面ABCD內，AB⊥BC，但AB本身在底面內，並不垂直底面。','只有一條垂線不足以限制直線在空間中的方向。'],['補上兩條相交直線的條件','給具體可實現的反例','說明反例符合已知卻違反結論'],'使用底面中的兩條鄰邊。')
+ {level:2,family:'space-relations-d1',concept:'space-relations',misconceptions:[],support:null,...C('空間中兩條直線不相交，就一定平行嗎？',['不一定，也可能異面','一定平行','一定垂直','一定重合'],['空間有不共面的異面直線，不能沿用平面中的二選一判斷。'],'先問是否共面。')},
+ {level:3,family:'space-relations-d2',concept:'space-relations',misconceptions:[],support:null,...W('有人說「直線l垂直平面內的一條直線m，所以l垂直此平面」。指出缺少的條件，並以正方體中的棱給反例。',['判定線面垂直通常需l垂直於平面內兩條相交直線。','正方體底面ABCD內，AB⊥BC，但AB本身在底面內，並不垂直底面。','只有一條垂線不足以限制直線在空間中的方向。'],['補上兩條相交直線的條件','給具體可實現的反例','說明反例符合已知卻違反結論'],'使用底面中的兩條鄰邊。')}
 ]);
 const cache=new Map();
 function fingerprint(q){return q.prompt.normalize('NFKC').replace(/\s+/g,'').replaceAll('−','-');}
@@ -397,22 +397,39 @@ function pool(id){
  const unique=new Map();
  const add=q=>{const key=fingerprint(q);if(!unique.has(key))unique.set(key,{...q,key,lessonId:id,grade:lesson.grade});};
  lesson.questions.forEach((q,i)=>add({...q,type:'choice',steps:[q.explanation],hint:'回到本章概念與定義，逐一檢查選項。',level:1,family:id+'-b'+i}));
- for(const gen of generators[id]||[])for(let seed=1;seed<=128;seed++)add({...gen.make(seedRandom(seed*7919+177)),level:gen.level,family:gen.family});
- for(const q of deep[id]||[])add(q);
+ const enhanced=ChallengeBank.registry[id];
+ const definitions=[...(generators[id]||[]).filter(g=>!enhanced||g.level!==3),...(enhanced||[])];
+ for(const gen of definitions)for(let seed=1;seed<=128;seed++){const {make,...meta}=gen;add({...make(seedRandom(seed*7919+177)),...meta,seed});}
+ for(const q of deep[id]||[])if(!enhanced||q.level!==3)add(q);
  const list=[...unique.values()];cache.set(id,list);return list;
 }
 function candidates({grade,lesson='all',level='mix'}){const ids=lesson==='all'?lessons.filter(l=>l.grade===grade).map(l=>l.id):[lesson];return [...new Map(ids.flatMap(pool).filter(q=>q.grade===grade&&(level==='mix'||q.level===Number(level))).map(q=>[q.key,q])).values()];}
 function shuffle(list,rng=Math.random){const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function shuffledChoices(q,rng){if(q.type!=='choice')return {...q};const choices=shuffle(q.options.map((text,i)=>({text,correct:i===q.answer})),rng);return {...q,options:choices.map(c=>c.text),answer:choices.findIndex(c=>c.correct)};}
 function select(config,history={},rng=Math.random){
- const all=candidates(config),unique=[...new Map(all.map(q=>[q.key,q])).values()];
- const fresh=shuffle(unique.filter(q=>!history[q.key]),rng),old=shuffle(unique.filter(q=>history[q.key]),rng).sort((a,b)=>history[a.key]-history[b.key]);
+ const unique=candidates(config),unseen=unique.filter(q=>!history[q.key]).length;
  const chosen=[],families=new Map();let repeats=0;
- for(const list of [fresh,old]){
-  while(list.length&&chosen.length<config.count){let best=0;if(list===fresh)for(let i=1;i<list.length;i++)if((families.get(list[i].family)||0)<(families.get(list[best].family)||0)){best=i;if(!families.has(list[i].family))break;}
+ const diverse=Number(config.level)===3&&!config.allowFamilyRepeats,cap=diverse?Math.ceil(config.count/5):Infinity;
+ if(Number(config.level)===3){
+  const groups=new Map();for(const q of shuffle(unique,rng)){if(!groups.has(q.family))groups.set(q.family,[]);groups.get(q.family).push(q);}
+  for(const list of groups.values())list.sort((a,b)=>(history[a.key]||0)-(history[b.key]||0));
+  while(chosen.length<config.count){
+   const eligible=shuffle([...groups.keys()].filter(k=>groups.get(k).length&&(families.get(k)||0)<cap),rng);
+   if(!eligible.length)break;
+   eligible.sort((a,b)=>(families.get(a)||0)-(families.get(b)||0));
+   const family=eligible[0],q=groups.get(family).shift();chosen.push(q);families.set(family,(families.get(family)||0)+1);if(history[q.key])repeats++;
+  }
+ }else{
+  const fresh=shuffle(unique.filter(q=>!history[q.key]),rng),old=shuffle(unique.filter(q=>history[q.key]),rng).sort((a,b)=>history[a.key]-history[b.key]);
+  for(const list of [fresh,old])while(list.length&&chosen.length<config.count){let best=0;if(list===fresh)for(let i=1;i<list.length;i++)if((families.get(list[i].family)||0)<(families.get(list[best].family)||0))best=i;
    const q=list.splice(best,1)[0];families.set(q.family,(families.get(q.family)||0)+1);chosen.push(q);if(history[q.key])repeats++;
   }
  }
- return {questions:shuffle(chosen,rng).map(q=>{if(q.type!=='choice')return {...q};const choices=shuffle(q.options.map((text,i)=>({text,correct:i===q.answer})),rng);return {...q,options:choices.map(c=>c.text),answer:choices.findIndex(c=>c.correct)};}),available:unique.length,unseen:fresh.length+chosen.length-repeats,repeats};
+ return {questions:shuffle(chosen,rng).map(q=>shuffledChoices(q,rng)),available:unique.length,availableFamilies:new Set(unique.map(q=>q.family)).size,coverage:families.size,unseen,repeats,diverse,familyCap:diverse?cap:null,shortage:chosen.length<config.count?(diverse?'family-cap':'pool-exhausted'):null};
+}
+function supplement(config,current,history={},rng=Math.random){
+ const keys=new Set(current.map(q=>q.key)),all=shuffle(candidates(config).filter(q=>!keys.has(q.key)),rng).sort((a,b)=>(history[a.key]||0)-(history[b.key]||0));
+ return all.slice(0,Math.max(0,config.count-current.length)).map(q=>shuffledChoices(q,rng));
 }
 function parseNumber(value){
  const v=String(value).trim().replaceAll('−','-').replaceAll('＋','+').replaceAll('／','/').replaceAll('．','.').replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)).replace(/\s+/g,'');
@@ -420,6 +437,6 @@ function parseNumber(value){
  const parts=v.split('/').map(Number);if(parts.length===2&&parts[1]===0)return null;const n=parts.length===1?parts[0]:parts[0]/parts[1];return Number.isFinite(n)?n:null;
 }
 function gradeNumeric(q,value){const n=parseNumber(value);return n===null?{valid:false,correct:false}:{valid:true,correct:Math.abs(n-q.answer)<=(q.tolerance||1e-6)};}
-function stats(){return {chapters:lessons.length,families:lessons.reduce((n,l)=>n+l.questions.length+(generators[l.id]?.length||0)+(deep[l.id]?.length||0),0),questions:new Set(lessons.flatMap(l=>pool(l.id).map(q=>q.key))).size,written:lessons.reduce((n,l)=>n+pool(l.id).filter(q=>q.type==='written').length,0)};}
-return {pool,candidates,select,parseNumber,gradeNumeric,stats,fingerprint};
+function stats(){const all=lessons.flatMap(l=>pool(l.id));return {chapters:lessons.length,families:new Set(all.map(q=>q.family)).size,questions:new Set(all.map(q=>q.key)).size,written:all.filter(q=>q.type==='written').length};}
+return {pool,candidates,select,supplement,parseNumber,gradeNumeric,stats,fingerprint};
 })();
