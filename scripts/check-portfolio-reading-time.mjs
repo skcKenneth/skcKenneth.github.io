@@ -24,6 +24,7 @@ const researchArticleSlugs = [
   "when-taking-turns-makes-a-system-unstable",
   "can-aggregate-observations-bound-an-epidemic",
   "did-the-hotspot-move-or-did-it-grow",
+  "what-must-a-traffic-model-remember",
 ];
 const checkedSlugs = [...portfolioSlugs, ...researchArticleSlugs];
 const requestedSlugIndex = process.argv.indexOf("--slug");

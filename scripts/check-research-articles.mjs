@@ -11,6 +11,7 @@ export const researchArticles = {
   "when-taking-turns-makes-a-system-unstable": 8,
   "can-aggregate-observations-bound-an-epidemic": 8,
   "did-the-hotspot-move-or-did-it-grow": 8,
+  "what-must-a-traffic-model-remember": 10,
 };
 
 export function checkResearchArticles(slugs = Object.keys(researchArticles)) {

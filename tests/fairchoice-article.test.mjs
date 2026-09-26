@@ -63,7 +63,7 @@ test("personal synthetic study retains its limits and reciprocal navigation",()=
 });
 
 if(process.argv.includes("--built")){
-  test("six production routes expose the article, project and updated homepages",()=>{
+  test("production articles, projects, persistent lists and sitemap expose the study",()=>{
     for(const prefix of ["","zh/"]){
       const article=read(`dist/${prefix}writing/${slug}/index.html`);
       assert.equal((article.match(/<figcaption>/g)||[]).length,8);
@@ -71,7 +71,8 @@ if(process.argv.includes("--built")){
       assert.doesNotMatch(article,/katex-error|Draft preview|草稿預覽/);
       const project=read(`dist/${prefix}projects/${slug}/index.html`);
       assert.match(project,/data-status="Reproducible study"/);
-      for(const path of ["index.html","writing/index.html","projects/index.html"])
+      // Homepage membership changes with publication dates and is checked dynamically.
+      for(const path of ["writing/index.html","projects/index.html"])
         assert.ok(read(`dist/${prefix}${path}`).includes(slug),`${prefix}${path}`);
     }
     const sitemap=read("dist/sitemap-0.xml");

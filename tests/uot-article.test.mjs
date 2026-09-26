@@ -64,7 +64,7 @@ test("personal study links projects without private reproduction instructions",(
     assert.doesNotMatch(text,/[a-f0-9]{40,}|\.venv|ScienceProject|PowerShell|Technical record|Exact reproduction boundary|Claims that remain blocked|The evidence boundary at a glance|\x60{3}/i);
 });
 
-if(process.argv.includes("--built"))test("six built routes, latest recommendations and sitemap expose the study",()=>{
+if(process.argv.includes("--built"))test("built articles, projects, persistent lists and sitemap expose the study",()=>{
   for(const prefix of ["","zh/"]){
     const article=read("dist/"+prefix+"writing/"+slug+"/index.html");
     assert.equal((article.match(/<figcaption>/g)||[]).length,8);
@@ -72,11 +72,9 @@ if(process.argv.includes("--built"))test("six built routes, latest recommendatio
     assert.doesNotMatch(article,/katex-error|Draft preview|草稿預覽/);
     const project=read("dist/"+prefix+"projects/"+slug+"/index.html");
     assert.match(project,/data-status="Reproducible study"/);
-    for(const path of ["index.html","writing/index.html","projects/index.html"])
+    // Homepage membership changes with publication dates and is checked dynamically.
+    for(const path of ["writing/index.html","projects/index.html"])
       assert.ok(read("dist/"+prefix+path).includes(slug),prefix+path);
-    const home=read("dist/"+prefix+"index.html");
-    for(const section of [/id="latest-writing"[\s\S]*?<\/section>/,/class="home-dossier"[\s\S]*?<\/aside>/])
-      assert.ok(home.match(section)?.[0].includes(slug));
   }
   const sitemap=read("dist/sitemap-0.xml");
   for(const prefix of ["","zh/"])for(const type of ["writing","projects"])
