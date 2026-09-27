@@ -8,12 +8,14 @@ const title = project.data?.title || project.title;
 const summary = project.data?.summary || project.summary;
 const status = project.data?.status || project.status;
 const topics = project.data?.topics || project.topics || [];
+const isCutAudit = slug === "cut-audit-er";
 ---
 <article class:list={["card", { wide }]} data-project-card data-topic={topics.join("|")} data-status={status} data-method={(project.data?.methods || project.methods || []).join("|")} data-year={project.data?.year || project.year} data-code={String(project.data?.codeAvailable ?? project.code_available)} data-data={String(project.data?.dataAvailable ?? project.data_available)} data-student={String(project.data?.studentSuitable ?? project.student_suitable)}>
-  {image && <figure><img src={image} alt={isZh ? `${title}的研究圖像` : `Research figure for ${title}`} width="800" height="500" loading="lazy" /></figure>}
+  {image && <figure><img src={image} alt={isCutAudit ? (isZh ? "構造四節點例子：最高代理分數與最高預期收益選中不同連線。" : "Constructed four-node example: the highest proxy score and highest expected gain select different edges.") : isZh ? `${title}的研究圖像` : `Research figure for ${title}`} width="800" height="500" style={isCutAudit ? "height: auto" : undefined} loading="lazy" /></figure>}
   <div class="meta-line"><StatusBadge status={status} locale={locale} /><span>{project.data?.year || project.year}</span></div>
   <h3><a class="title-link" href={`${hrefPrefix}${slug}/`}>{title}</a></h3>
   <p>{summary}</p>
+  {isCutAudit && <p class="small" data-evidence-scope>{isZh ? "結構分析・構造控制・自然資料診斷" : "Structural analysis · Constructed controls · Natural-data diagnostics"}</p>}
   {project.catalog_only && <p class="small">{isZh ? "私人技術工作區目錄：" : "Inventory from "}<code>{project.project_root}</code></p>}
   <div class="tag-list">{topics.slice(0,2).map((topic:string) => <span class="tag">{topic}</span>)}</div>
 </article>

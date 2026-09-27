@@ -1,0 +1,16 @@
+---
+const { src, locale = "en" } = Astro.props as { src: string; locale?: "en" | "zh-Hant" };
+const zh = locale === "zh-Hant";
+---
+<figure class="cut-audit-figure">
+  <img src={src}
+    alt={zh ? "已知機率律的四節點路徑：藍色實線標出代理分數最高的端點連線，橙色虛線標出預期修復收益最高的中央連線。" : "Four-node path under a known probability law: a solid blue end edge maximizes the proxy score, while a dashed orange middle edge maximizes expected repair gain."}
+    loading="lazy" decoding="async" />
+  <figcaption>{zh
+    ? "構造控制例子，不是真實資料樣本。四個節點依序相連，各連線獨立被切斷，機率依序為 0.35、0.30、0.35；切斷後的連通分量定義真實實體。兩端連線的代理分數同為 0.524475，圖中只標示其中一條，其每次付費驗證的預期收益為 1.05；中央連線的分數較低（0.476550），預期收益卻較高（1.20）。標示代表驗證選擇，並非預先知道連線錯誤；只有驗證為負的連線才會刪除。"
+    : "Constructed control, not a natural-data sample. Independent cuts on the four-node path have probabilities 0.35, 0.30 and 0.35; the resulting components define the true entities. Both end edges tie at proxy score 0.524475; one is highlighted, with expected gain 1.05 per paid query. The middle edge scores lower (0.476550) but has higher expected gain (1.20). Highlights indicate query choices, not known errors: an edge is deleted only after a negative verification."}
+  </figcaption>
+</figure>
+<style>
+  .cut-audit-figure img { display:block; width:100%; max-width:480px; height:auto; margin-inline:auto; border:0; background:#fff; }
+</style>

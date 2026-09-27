@@ -3,6 +3,11 @@ import {lessons} from '../data/workshop-lessons';
 const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
 const zh=locale==='zh-Hant', base=zh?'/zh':'';
 const catalog=[{
+  url:`${base}/projects/cut-audit-er/`,
+  title:zh?'CUT-AUDIT-ER：最高分，未必是最好的修復':'CUT-AUDIT-ER: When the Highest Score Is Not the Best Repair',
+  aliases:['CUT-AUDIT-ER','CUT AUDIT ER','cut-audit-er','最高分，未必是最好的修復','最高分未必是最好的修復','最高分，為甚麼未必是最好的修復','When the Highest Score Is Not the Best Repair','Certified Proxy Search'],
+  excerpt:zh?'論文撰寫中的實體群組修復研究：分清搜尋認證、代理分數、修復收益與完整成本。':'An entity-cluster repair manuscript in preparation: separating search certification, proxy scores, repair value and complete cost.'
+},{
   url:`${base}/teaching/#math-inquiry-lab`,
   title:zh?'數學探究室 · Math Inquiry Lab':'Math Inquiry Lab',
   aliases:['數學探究室','Math Inquiry Lab','math-inquiry-lab'],

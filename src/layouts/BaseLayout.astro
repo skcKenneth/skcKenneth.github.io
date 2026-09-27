@@ -9,6 +9,7 @@ interface Props {
   type?: string;
   locale?: "en" | "zh-Hant";
   alternatePath?: string;
+  publicResearchRecord?: boolean;
 }
 
 const {
@@ -18,7 +19,8 @@ const {
   noindex = false,
   type,
   locale = "en",
-  alternatePath
+  alternatePath,
+  publicResearchRecord = false
 } = Astro.props;
 
 const isZh = locale === "zh-Hant";
@@ -100,7 +102,9 @@ const updated = isZh ? "2026 年 8 月 20 日" : "20 August 2026";
         <div>
           <strong>{isZh ? "網站來源" : "Source"}</strong>
           <p><a href="https://github.com/skcKenneth/skcKenneth.github.io">{isZh ? "網站原始碼庫" : "Site repository"}</a></p>
-          <p class="small">{isZh ? "技術研究紀錄存放於私人工作區。" : "Technical research records are maintained privately."}<br/>{isZh ? "更新：" : "Updated "}{updated}</p>
+          {publicResearchRecord
+            ? <p class="small">{isZh ? "公開研究程式與證據已於上方連結；部分研究輸入仍受公開範圍限制。" : "Public research code and evidence are linked above; some research inputs remain restricted."}</p>
+            : <p class="small">{isZh ? "技術研究紀錄存放於私人工作區。" : "Technical research records are maintained privately."}<br/>{isZh ? "更新：" : "Updated "}{updated}</p>}
         </div>
       </div>
     </footer>
