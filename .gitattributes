@@ -1,5 +1,7 @@
 *.pdf binary
 *.zip binary
+patches/*.patch text eol=lf
+public/images/deflated-continuation-folding/*.svg -text whitespace=cr-at-eol
 public/resources/mathematical-modeling-lecture-materials/** binary
 public/images/fairchoice-dynamics/*.svg -text whitespace=cr-at-eol
 public/resources/modeling-workshop/** -text whitespace=cr-at-eol

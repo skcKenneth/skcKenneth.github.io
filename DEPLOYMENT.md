@@ -48,6 +48,23 @@ state after the dependency graph refresh. A clean registry audit is not evidence
 that inaccessible GitHub alerts were dismissed or closed. Preserve unrelated
 worktree changes and do not silently expand a patch into a major-version migration.
 
+### Pinned Astro remote-image dependency mitigation
+
+Astro 7.2.8 is patched through native pnpm `patchedDependencies`, with its
+`http-cache-semantics` dependency edge removed rather than ignored by the audit.
+The small remote-image patch preserves image bodies, conditional validators,
+redirect validation and existing error contracts. Newly written or revalidated
+image entries expire immediately, so subsequent builds revalidate them instead
+of relying on that unpatched cache-policy dependency.
+
+This does not disable disk caching, enforce `Cache-Control: no-store`, expire
+older still-fresh entries, or remove Astro's existing stale-cache fallback after
+failed revalidation. It can increase remote-image requests. The current folding
+figures use local SVGs and do not rely on this remote cache. Regression tests bind
+the installed source, patch hash, lockfile and removed dependency; the unignored
+registry audit and full build remain required. Reassess this patch when changing
+the pinned Astro version, and use a verified upstream fix when one is available.
+
 ## ScienceProject CI
 
 `publication-metadata.yml` validates the technical manifest and rejects local

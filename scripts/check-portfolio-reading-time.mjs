@@ -18,6 +18,7 @@ const portfolioSlugs = [
   "when-a-traffic-solver-invents-a-jam",
 ];
 const researchArticleSlugs = [
+  "how-many-equilibria-did-the-optimizer-miss",
   "when-early-warnings-cannot-tell-the-difference",
   "when-starting-over-finds-the-target-faster",
   "when-solar-power-changes-fast",

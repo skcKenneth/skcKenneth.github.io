@@ -8,11 +8,12 @@ import {pathToFileURL} from 'node:url';
 const root=new URL('../',import.meta.url);
 const astroRequire=createRequire(import.meta.resolve('astro/package.json'));
 const dependency=async name=>import(pathToFileURL(astroRequire.resolve(name)).href);
-const minima={astro:'7.2.8',sharp:'0.35.4','js-yaml':'4.3.2',svgo:'4.1.0','smol-toml':'1.7.1',devalue:'5.9.2'};
+const minima={astro:'7.2.8',sharp:'0.35.4','js-yaml':'4.3.2',svgo:'4.1.0','smol-toml':'1.7.1',devalue:'5.9.4','fast-uri':'3.1.8'};
 const atLeast=(version,min)=>{const a=version.split('.').map(Number),b=min.split('.').map(Number);for(let i=0;i<3;i++){if(a[i]!==b[i])return a[i]>b[i];}return true;};
 
 test('every locked copy meets the verified advisory patch floor',()=>{
-  const lock=readFileSync(new URL('pnpm-lock.yaml',root),'utf8').split('\nsnapshots:')[0];
+  const lock=readFileSync(new URL('pnpm-lock.yaml',root),'utf8').split('\npackages:')[1]?.split('\nsnapshots:')[0];
+  assert.ok(lock,'locked package declarations are required');
   for(const [name,min] of Object.entries(minima)){
     const versions=[...lock.matchAll(new RegExp('^  '+name+'@([^:]+):','gm'))].map(m=>m[1]);
     assert.ok(versions.length,name+' missing from lock');
@@ -83,6 +84,8 @@ test('publication gate audits every dependency scope and fails closed',()=>{
   assert.match(pkg.scripts['check:security'],/pnpm audit --audit-level low$/);
   assert.doesNotMatch(pkg.scripts['check:security'],/--prod|--ignore|\|\|/);
   const ci=readFileSync(new URL('.github/workflows/pages.yml',root),'utf8');
+  assert.ok(ci.indexOf('pnpm run check:security')>=0,'CI must include the security gate');
+  assert.ok(ci.indexOf('Build, index, and validate')>=0,'CI must include the full build gate');
   assert.ok(ci.indexOf('pnpm run check:security')<ci.indexOf('Build, index, and validate'));
   assert.doesNotMatch(ci,/continue-on-error/);
 });
