@@ -3,6 +3,11 @@ import {lessons} from '../data/workshop-lessons';
 const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
 const zh=locale==='zh-Hant', base=zh?'/zh':'';
 const catalog=[{
+  url:`${base}/teaching/jae-math/`,
+  title:zh?'澳門四校聯考數學研習室':'Macao JAE Mathematics Studio',
+  aliases:['澳門四校聯考數學研習室','澳門四校聯考數學','四校聯考','JAE','JAE Mathematics','Macao JAE Mathematics Studio','JM01','jae-math'],
+  excerpt:zh?'二次函數及三角函數雙語教學單元，提供授課簡報、圖像探究、自習練習與官方舊卷索引。':'Bilingual quadratic and trigonometric units with classroom presentation, graph investigations, self-study exercises and official past papers.'
+},{
   url:`${base}/projects/cut-audit-er/`,
   title:zh?'CUT-AUDIT-ER：最高分，未必是最好的修復':'CUT-AUDIT-ER: When the Highest Score Is Not the Best Repair',
   aliases:['CUT-AUDIT-ER','CUT AUDIT ER','cut-audit-er','最高分，未必是最好的修復','最高分未必是最好的修復','最高分，為甚麼未必是最好的修復','When the Highest Score Is Not the Best Repair','Certified Proxy Search'],
