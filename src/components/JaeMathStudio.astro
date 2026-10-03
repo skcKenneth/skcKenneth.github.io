@@ -1,27 +1,30 @@
 ---
 import MathExpression from './MathExpression.astro';
-import { jaeTopics, jaePapers, jaeSyllabus } from '../data/jae-math.mjs';
+import SeniorMathInquiry from './SeniorMathInquiry.astro';
+import { jaeTopics, jaeSyllabus } from '../data/jae-math.mjs';
+import { examPapers } from '../data/senior-math/papers.mjs';
 import '../styles/jae-math.css';
 
-interface Props { locale?: 'en' | 'zh-Hant' }
-const { locale = 'en' } = Astro.props;
+interface Props { locale?: 'en' | 'zh-Hant'; lessonTopics?: any[]; standalone?: boolean }
+const { locale = 'en', lessonTopics, standalone = false } = Astro.props;
 const zh = locale === 'zh-Hant';
 const t = (en: string, ch: string) => zh ? ch : en;
 const label = (value: any) => value?.[zh ? 'zh' : 'en'] || '';
-const topics = jaeTopics as any[];
-const papers = jaePapers as any[];
+const topics = (lessonTopics || jaeTopics) as any[];
+const papers = examPapers as any[];
 const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), standard: t('Standard', '鞏固'), transfer: t('Transfer', '遷移') };
 ---
 
 <div class="jae-studio" data-jae-studio data-locale={locale} data-mode="study" data-print="student">
-  <header class="jae-hero">
+  <script is:inline type="application/json" data-jae-data set:html={JSON.stringify(topics).replace(/</g, '\\u003c')} />
+  {!standalone && <header class="jae-hero">
     <div class="container jae-hero-grid">
       <div>
         <a class="jae-back" href={zh ? '/zh/teaching/' : '/teaching/'}>← {t('Teaching resources', '教學資源')}</a>
         <p class="jae-eyebrow">MACAU · JOINT ADMISSION EXAMINATION</p>
         <h1>{t('Understand the move.\nThen solve the problem.', '先看懂關鍵，\n再解好每一題。')}</h1>
         <p class="jae-lead">{t('A mathematics studio for Macau JAE: explore a graph, explain a method, and make your next attempt more deliberate.', '澳門四校聯考數學研習室：從圖像理解關係，用提示整理思路，再透過練習與訂正掌握方法。')}</p>
-        <div class="jae-hero-links"><a href="#jae-topics">{t('Explore the two topics', '開始兩個專題')} <span aria-hidden="true">↗</span></a><a href="#past-papers">{t('2021–2025 paper index', '2021–2025 舊卷索引')} <span aria-hidden="true">↗</span></a></div>
+        <div class="jae-hero-links"><a href="#jae-topics">{t('Explore the two topics', '開始兩個專題')} <span aria-hidden="true">↗</span></a><a href={zh?'/zh/teaching/senior-math/':'/teaching/senior-math/'}>{t('Full senior curriculum', '完整高中課程')} ↗</a><a href={zh?'/zh/teaching/senior-math/papers/':'/teaching/senior-math/papers/'}>{t('2021–2026 JM01 / JM02 explanations', '2021–2026 正卷／附加卷詳解')} ↗</a></div>
       </div>
       <aside class="jae-hero-note" aria-label={t('Learning sequence', '學習次序')}>
         <span class="jae-note-mark" aria-hidden="true">ƒ</span>
@@ -30,7 +33,7 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
         <p>{t('No sign-in. Your work stays in this browser.', '免登入。學習紀錄只保存在此瀏覽器。')}</p>
       </aside>
     </div>
-  </header>
+  </header>}
 
   <div class="jae-commandbar" data-jae-controls hidden>
     <div class="container jae-command-inner">
@@ -47,7 +50,7 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
   </div>
 
   <div class="container jae-main" id="jae-topics">
-    <div class="jae-section-heading"><div><p class="jae-eyebrow">{t('TWO COMPLETE STARTING POINTS', '先把兩個專題學紮實')}</p><h2>{t('A route from ideas to answers.', '由概念，走到解題。')}</h2></div><p>{t('Original teaching examples with layered hints. The paper index below links you to official sources.', '原創例題配合分層提示；頁末提供官方歷屆試卷連結，方便銜接真題練習。')}</p></div>
+    {!standalone && <div class="jae-section-heading"><div><p class="jae-eyebrow">{t('TWO COMPLETE STARTING POINTS', '先把兩個專題學紮實')}</p><h2>{t('A route from ideas to answers.', '由概念，走到解題。')}</h2></div><p>{t('Original teaching examples with layered hints. The paper index below links you to official sources.', '原創例題配合分層提示；頁末提供官方歷屆試卷連結，方便銜接真題練習。')}</p></div>}
     <nav class="jae-topic-nav" aria-label={t('Topics', '專題')}>
       {topics.map((topic: any, index: number) => <a href={`#${topic.id}`} data-topic-link={topic.id}><span>0{index + 1}</span><strong>{label(topic.title)}</strong><small>{label(topic.summary)}</small><b aria-hidden="true">↗</b></a>)}
     </nav>
@@ -60,13 +63,14 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
 
     {topics.map((topic: any, topicIndex: number) => <section class="jae-topic" id={topic.id} data-topic={topic.id}>
       <header class="jae-topic-heading"><p class="jae-eyebrow">{t('TOPIC', '專題')} 0{topicIndex + 1}</p><h2>{label(topic.title)}</h2><p>{label(topic.summary)}</p></header>
-      <div class="jae-topic-reading">
+      {(topic.objectives.length>0||topic.concepts.length>0||topic.misconceptions.length>0) && <div class="jae-topic-reading">
         <div class="jae-objectives"><h3>{t('What you will be able to explain', '學完之後，你能解釋')}</h3><ul>{topic.objectives.map((objective: any) => <li>{label(objective)}</li>)}</ul></div>
         <div class="jae-concepts">{topic.concepts.map((concept: any) => <article><h3>{label(concept.title)}</h3><p>{label(concept.body)}</p>{concept.formula && <MathExpression expression={concept.formula} display />}</article>)}</div>
         <aside class="jae-misconceptions"><h3>{t('Pause at these common mistakes', '這些地方，值得停一停')}</h3><ul>{topic.misconceptions.map((item: any) => <li>{label(item)}</li>)}</ul></aside>
-      </div>
+      </div>}
 
-      <section class="jae-graph-lab" data-graph-section data-graph={topic.id} aria-label={t('Interactive graph', '互動圖像')}>
+      {topic.inquiry && <SeniorMathInquiry inquiry={topic.inquiry} locale={locale} lessonId={topic.id} />}
+      {['quadratics', 'trigonometry'].includes(topic.id) && <section class="jae-graph-lab" data-graph-section data-graph={topic.id} aria-label={t('Interactive graph', '互動圖像')}>
         <div class="jae-lab-head"><p class="jae-eyebrow">{t('PREDICT → MOVE → EXPLAIN', '預測 → 操作 → 解釋')}</p><h3>{topic.id === 'quadratics' ? t('What does each coefficient change?', '每個係數，改變了甚麼？') : t('See amplitude, period and phase together.', '把振幅、週期與相位一起看清。')}</h3><p>{topic.id === 'quadratics' ? t('Before moving a slider, predict the opening, vertex and intercepts. Then compare the graph with your prediction.', '移動滑桿前，先預測開口、頂點與截距會怎樣改變，再用圖像檢查。') : t('Predict the number of cycles and the horizontal shift. Switch angle units without changing the curve.', '先預測完整波形的個數與左右平移方向，再切換角度單位比較同一條曲線。')}</p></div>
         <div class="jae-lab-layout"><div class="jae-plot"><svg viewBox="0 0 640 360" role="img" aria-label={topic.id === 'quadratics' ? t('Quadratic graph; interactive controls below', '二次函數圖像；下方設有互動控制') : t('Trigonometric graph; interactive controls below', '三角函數圖像；下方設有互動控制')} data-plot><title>{t('Enable JavaScript to explore the graph.', '啟用 JavaScript 後可探索圖像。')}</title><rect width="640" height="360" fill="#fbfcf7"/><path d="M 40 180 H 620 M 320 20 V 335" stroke="#a8b8ae"/><text x="320" y="160" text-anchor="middle" fill="#596c62" font-size="16">{t('Interactive graph loads here', '互動圖像會在此顯示')}</text></svg><p class="jae-graph-description" data-graph-description aria-live="polite"></p></div>
         <div class="jae-graph-controls" data-interactive-only hidden>
@@ -74,35 +78,43 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
           <button type="button" data-reset-graph>{t('Reset graph', '重設圖像')}</button>
         </div></div>
         <noscript><p>{t('The lessons and worked solutions remain available below. Graph controls require JavaScript.', '下方課文及完整解答仍可閱讀；圖像操作需要 JavaScript。')}</p></noscript>
-      </section>
+      </section>}
 
       <div class="jae-exercise-heading"><h3>{t('Try it. Leave your reasoning visible.', '試一試，把思路寫下來。')}</h3><p>{t('Use one hint at a time. A correction explains what changed, not just the final answer.', '每次只看一個提示。訂正時記錄想法如何改變，不只抄下答案。')}</p></div>
       <div class="jae-questions">{topic.questions.map((question: any, index: number) => <article class="jae-question" id={question.id} data-question={question.id} data-question-topic={topic.id}>
         <div class="jae-question-stage"><div class="jae-question-left">
-          <div class="jae-question-meta"><span>{String(index + 1).padStart(2, '0')} / {levels[question.level] || ''}</span><a href={`#${question.id}`} aria-label={t('Link to this question', '此題連結')}>#</a><span>{question.kind === 'example' ? t('Worked example', '示範例題') : t('Your turn', '獨立練習')}</span></div>
+          <div class="jae-question-meta"><span>{String(index + 1).padStart(2, '0')} / {levels[question.level] || ''}</span><a href={question.permalink || `#${question.id}`} aria-label={t('Link to this question', '此題連結')}>#</a><span>{question.kind === 'example' ? t('Worked example', '示範例題') : t('Your turn', '獨立練習')}</span></div>
           <h4>{label(question.prompt)}</h4>{question.expression && <MathExpression expression={question.expression} display />}
+          {question.promptSvg && <div class="senior-prompt-svg" set:html={question.promptSvg} />}
+          {question.sourceDiscrepancy && <aside class="senior-discrepancy">{label(question.sourceDiscrepancy)}</aside>}
+          {question.conditions?.length > 0 && <ul class="jae-conditions">{question.conditions.map((condition: any) => <li>{label(condition)}</li>)}</ul>}
+          {question.source?.type === 'official' && <p class="senior-question-source">{t('Official paper', '官方試卷')} · {question.source.paperId} · {question.source.question} · PDF {question.source.pdfPage}</p>}
+          {question.officialUrl && <p><a href={question.officialUrl} target="_blank" rel="noopener noreferrer">{t('Official original and suggested answers','官方原卷及參考答案')} ↗</a> · {t('Suggested answer PDF page','參考答案 PDF 頁')} {question.source.answerPdfPage}</p>}
+          {question.relatedLessons?.length>0 && <details class="senior-question-skills"><summary>{t('Skills and prerequisite lessons','考點與先備課節')}</summary><nav>{question.relatedLessons.map((lesson:any)=><a class="senior-chip" href={lesson.url}>{label(lesson.title)}</a>)}</nav></details>}
           {question.kind === 'choice' && <div class="jae-static-options"><ol type="A">{question.choices?.map((choice: any) => <li>{label(choice.label)}{choice.expression && <MathExpression expression={choice.expression} />}</li>)}</ol></div>}
           {question.kind !== 'example' && <form class="jae-answer-form" data-answer-form data-interactive-only hidden>
-            {question.kind === 'choice' ? <fieldset><legend>{t('Choose an answer', '選擇答案')}</legend><div class="jae-options">{question.choices?.map((choice: any) => <label><input type="radio" name={`answer-${question.id}`} value={choice.id} /><span><b>{choice.id}</b> {label(choice.label)}{choice.expression && <MathExpression expression={choice.expression} />}</span></label>)}</div></fieldset> : <label class="jae-answer-label" for={`answer-${question.id}`}>{t('Your answer (decimal or fraction, e.g. 3/2)', '你的答案（小數或分數，例如 3/2）')}<input id={`answer-${question.id}`} type="text" inputmode="text" autocomplete="off" data-number-answer placeholder={t('Enter a number', '輸入數值')} /></label>}
-            <button class="jae-button" type="submit">{t('Check answer', '核對答案')}</button><p class="jae-answer-feedback" data-answer-feedback role="status"></p>
+            {question.kind === 'choice' ? <fieldset><legend>{t('Choose an answer', '選擇答案')}</legend><div class="jae-options">{question.choices?.map((choice: any) => <label><input type="radio" name={`answer-${question.id}`} value={choice.id} /><span><b>{choice.id}</b> {label(choice.label)}{choice.expression && <MathExpression expression={choice.expression} />}</span></label>)}</div></fieldset> : question.kind !== 'written' && <label class="jae-answer-label" for={`answer-${question.id}`}>{t('Your answer (decimal or fraction, e.g. 3/2)', '你的答案（小數或分數，例如 3/2）')}<input id={`answer-${question.id}`} type="text" inputmode="text" autocomplete="off" data-number-answer placeholder={t('Enter a number', '輸入數值')} /></label>}
+            {question.kind === 'written' && <label>{t('Written reasoning for self-assessment', '書面推理與自評')}<textarea data-written-answer maxlength="6000" rows="4"></textarea></label>}
+            <button class="jae-button" type="submit">{question.kind === 'written' ? t('Record my work', '記錄我的作答') : t('Check answer', '核對答案')}</button><p class="jae-answer-feedback" data-answer-feedback role="status"></p>
           </form>}
           <div class="jae-study-record" data-interactive-only hidden><label for={`notes-${question.id}`}>{t('My reasoning / first attempt', '我的思路／初次嘗試')}<textarea id={`notes-${question.id}`} data-record="notes" rows="3" maxlength="6000" placeholder={t('What did you notice? Which method did you try?', '你留意到甚麼？嘗試用了哪個方法？')}></textarea></label><label for={`correction-${question.id}`}>{t('My correction', '我的訂正')}<textarea id={`correction-${question.id}`} data-record="correction" rows="2" maxlength="6000" placeholder={t('What changed, and why?', '哪一步要修改？原因是甚麼？')}></textarea></label><label class="jae-completion"><input type="checkbox" data-completed />{t('I can explain this solution', '我能解釋這題的解法')}</label></div>
           <div class="jae-print-working"><p>{t('Working and explanation', '計算過程與解釋')}</p><div></div></div>
         </div><div class="jae-question-right">
           <p class="jae-reasoning-label">{t('BUILD THE REASONING', '逐步建立思路')}</p>
-          {question.hints.map((hint: any, hintIndex: number) => <details class="jae-reveal jae-hint" data-reveal={hintIndex + 1}><summary>{t('Hint', '提示')} {hintIndex + 1}<span aria-hidden="true">+</span></summary><div>{label(hint)}</div></details>)}
-          <details class="jae-reveal jae-solution" data-reveal="3"><summary>{t('Worked solution', '完整解答')}<span aria-hidden="true">+</span></summary><div><ol>{question.steps.map((step: any) => <li><p>{label(step.body)}</p>{step.math && <MathExpression expression={step.math} display />}</li>)}</ol><p class="jae-result">{label(question.result)}</p><p>{label(question.explanation)}</p></div></details>
+          {question.hints.map((hint: any, hintIndex: number) => <details class="jae-reveal jae-hint" data-reveal={hintIndex + 1}><summary>{t('Hint', '提示')} {hintIndex + 1}<span aria-hidden="true">+</span></summary><div>{label(hint)}{hint.math && <MathExpression expression={hint.math} display />}</div></details>)}
+          <details class="jae-reveal jae-solution" data-reveal="3"><summary>{t('Worked solution', '完整解答')}<span aria-hidden="true">+</span></summary><div><ol>{question.steps.map((step: any) => <li><p>{label(step.body)}</p>{step.math && <MathExpression expression={step.math} display />}</li>)}</ol>{question.solutionSvg && <div class="senior-solution-svg" set:html={question.solutionSvg} />}<p class="jae-result">{label(question.result)}</p>{question.resultMath&&<MathExpression expression={question.resultMath} display/>}<p><strong>{t('Checks and common pitfalls: ','檢查與易錯點：')}</strong>{label(question.explanation)}</p></div></details>
+          {question.rubric?.length > 0 && <details class="jae-rubric"><summary>{t('Reasoning checklist · self / teacher assessment', '推理清單・自評／教師評核')}</summary><ul>{question.rubric.map((item: any) => <li>{label(item)}{item.math&&<MathExpression expression={item.math} display/>}</li>)}</ul></details>}
           <p class="jae-classroom-wait">{t('Think first. Reveal a hint when the class is ready.', '先思考，待同學準備好再展開提示。')}</p>
         </div><canvas class="jae-ink" aria-hidden="true" data-ink></canvas></div>
       </article>)}</div>
     </section>)}
 
-    <section id="past-papers" class="jae-paper-section">
-      <div class="jae-section-heading"><div><p class="jae-eyebrow">2021–2025 · {t('OFFICIAL SOURCES', '官方來源')}</p><h2>{t('Take the next step\nwith a past paper.', '再用一份舊卷，\n檢查自己的理解。')}</h2></div><p>{t('Open the official source, attempt the questions independently, and return to your notes to identify the next skill to practise.', '開啟官方來源，先獨立作答，再回看學習紀錄，找出下一步要鞏固的知識。')}</p></div>
-      <div class="jae-paper-grid">{papers.map((paper: any) => <a class="jae-paper-card" href={paper.url} target="_blank" rel="noopener noreferrer"><strong>{paper.year}</strong><span>{label(paper.source)}</span><small>{t('Open official source ↗', '開啟官方來源 ↗')}</small><small>{t('Source checked', '來源核對')} {paper.verified}</small></a>)}</div>
+    {!standalone && <section id="past-papers" class="jae-paper-section">
+      <div class="jae-section-heading"><div><p class="jae-eyebrow">2021–2026 · JM01 / JM02 · {t('OFFICIAL SOURCES', '官方來源')}</p><h2>{t('Take the next step\nwith a past paper.', '再用一份舊卷，\n檢查自己的理解。')}</h2></div><p>{t('Open the official source, attempt the questions independently, and return to your notes to identify the next skill to practise.', '開啟官方來源，先獨立作答，再回看學習紀錄，找出下一步要鞏固的知識。')}</p></div>
+      <div class="jae-paper-grid">{papers.map((paper: any) => <a class="jae-paper-card" href={paper.url} target="_blank" rel="noopener noreferrer"><strong>{paper.year} · {paper.code}</strong><span>{label(paper.source)}</span><small>{t('Open official source ↗', '開啟官方來源 ↗')}</small><small>{t('Source checked', '來源核對')} {paper.verified}</small></a>)}</div>
       <p class="jae-syllabus"><a href={jaeSyllabus.url} target="_blank" rel="noopener noreferrer">{jaeSyllabus.year} {t('official mathematics syllabus', '官方數學考試大綱')} ↗</a><span>{t('Check the syllabus for the year in which you sit the examination.', '應考時，請以該年度正式大綱為準。')}</span></p>
-      <aside class="jae-source-note"><h3>{t('About this teaching resource', '關於這份教學資源')}</h3><p>{t('An independent, unofficial teaching resource by Kenneth Cheng. Lessons and exercises are original; official examination papers remain on their original sites. This pilot contains two complete topics and does not claim to cover the entire examination syllabus.', '這是 Kenneth Cheng 編寫的獨立、非官方教學資源。課文與練習為原創；官方試卷保留於原網站。本試行版包含兩個完整專題，並非涵蓋全部考試範圍。')}</p><p>{t('Saved answers are local to this browser; there is no teacher dashboard or cross-device sync. Export your record before clearing browser data.', '答案與訂正只保存在此瀏覽器，沒有教師後台或跨裝置同步。清除瀏覽器資料前，請先匯出紀錄。')}</p></aside>
-    </section>
+      <aside class="jae-source-note"><h3>{t('About this teaching resource', '關於這份教學資源')}</h3><p>{t('An independent, unofficial teaching resource by Kenneth Cheng. Lessons and exercises are original; official examination papers remain on their original sites. This page contains two starting topics; the Senior Mathematics Studio provides the wider curriculum and paper explanations.', '這是 Kenneth Cheng 編寫的獨立、非官方教學資源。課文與練習為原創；官方試卷保留於原網站。本頁提供兩個入門專題；高中數學研習室提供完整課程入口與舊卷詳解。')}</p><p>{t('Saved answers are local to this browser; there is no teacher dashboard or cross-device sync. Export your record before clearing browser data.', '答案與訂正只保存在此瀏覽器，沒有教師後台或跨裝置同步。清除瀏覽器資料前，請先匯出紀錄。')}</p></aside>
+    </section>}
   </div>
   <dialog class="jae-zoom-dialog" data-zoom-dialog aria-label={t('Enlarged question', '放大題目')}><div class="jae-zoom-header"><p>{t('Focus on one question', '專注一道題目')}</p><button type="button" data-zoom-close>{t('Close · Esc', '關閉 · Esc')}</button></div><div data-zoom-content></div></dialog>
   <noscript><div class="container jae-noscript">{t('You can read all lessons, questions and expandable solutions without JavaScript. Answer checking, local saving and classroom tools require JavaScript.', '不用 JavaScript 亦可閱讀全部課文、題目及展開解答。答案核對、本機保存及課堂工具需要 JavaScript。')}</div></noscript>

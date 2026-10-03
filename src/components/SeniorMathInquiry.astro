@@ -1,0 +1,14 @@
+---
+import { inquiryControls, inquiryScene, normalizeInquiryType } from '../lib/senior-math-inquiry.mjs';
+interface Props { inquiry:any; locale?:'en'|'zh-Hant'; lessonId:string }
+const {inquiry,locale='en',lessonId}=Astro.props;
+const zh=locale==='zh-Hant',label=(pair:any)=>pair?.[zh?'zh':'en']||'';
+const type=normalizeInquiryType(inquiry.type,lessonId),controls=inquiryControls(type,lessonId);
+const scene=inquiryScene(type,Number(controls[0].value),Number(controls[1].value),lessonId);
+---
+<section class="jae-graph-lab senior-inquiry" data-graph-section data-senior-lab={type} data-lesson-id={lessonId}>
+  <div class="jae-lab-head"><p class="jae-eyebrow">{zh?'預測 → 操作 → 解釋 → 遷移':'PREDICT → EXPLORE → EXPLAIN → TRANSFER'}</p><h3>{zh?'先留下預測，再探索關係。':'Make a prediction, then explore the relationship.'}</h3><p>{zh?'課節思考：':'Lesson question: '}{label(inquiry.prediction)}</p><p>{zh?'模型實驗：先預測調整下列參數會改變哪個結果，再以顯示的數值檢查，並與課節問題比較。':'Model exploration: predict which displayed result changes with the parameters, check the values, and compare the observation with the lesson question.'}</p></div>
+  <div class="jae-lab-layout"><div class="jae-plot"><svg viewBox="0 0 640 360" role="img" aria-label={zh?'數學探究示意圖':'Mathematical inquiry diagram'} data-inquiry-plot><title>{label(scene.summary)}</title>{scene.paths.map((p:any)=><path d={p.d} fill="none" stroke={p.color} stroke-width={p.width||2.5}/>)}{scene.circles.map((p:any)=><circle cx={p.x} cy={p.y} r={p.r} fill="none" stroke={p.color} stroke-width="2"/>)}{scene.labels.map((p:any)=><text x={p.x} y={p.y} font-size="19" fill="#314937">{p.text}</text>)}</svg><p data-inquiry-summary aria-live="polite">{label(scene.summary)}</p></div>
+  <div class="jae-graph-controls" data-interactive-only hidden>{controls.map((control:any)=><label>{label(control.label)}<output data-inquiry-value={control.key}>{control.value}</output><input type="range" data-inquiry-param={control.key} min={control.min} max={control.max} step={control.step} value={control.value}/></label>)}<button type="button" data-inquiry-reset>{zh?'重設操作':'Reset exploration'}</button></div></div>
+  <div class="senior-inquiry-reasoning">{type==='probability'&&<div data-interactive-only hidden><button type="button" data-inquiry-simulate>{zh?'模擬 200 次':'Simulate 200 trials'}</button><p data-inquiry-simulation role="status">{zh?'比較有限次模擬與上方精確概率；模擬頻率可能有偏差。':'Compare a finite simulation with the exact probabilities above; simulated frequencies can differ.'}</p></div>}<p><strong>{zh?'解釋：':'Explain: '}</strong>{label(inquiry.explanation)}</p><p><strong>{zh?'遷移：':'Transfer: '}</strong>{label(inquiry.transfer)}</p><label data-interactive-only hidden>{zh?'我的預測、操作與理由':'My prediction, exploration and explanation'}<textarea rows="3" maxlength="6000" data-inquiry-note></textarea></label></div>
+</section>

@@ -35,6 +35,7 @@ export function parseNumeric(input) {
 export function checkAnswer(question, input) {
   const text = String(input ?? '').trim();
   if (!text) return { status: 'empty' };
+  if (question.kind === 'written') return { status: 'reviewed' };
   if (question.kind === 'choice') {
     const value = text.toUpperCase();
     if (!question.choices?.some(choice => choice.id === value)) return { status: 'invalid' };
@@ -53,20 +54,21 @@ export function normalizeProgress(value) {
   if (!value || typeof value !== 'object' || value.version !== 1) return progress;
   if (value.answers && typeof value.answers === 'object' && !Array.isArray(value.answers)) {
     for (const [id, record] of Object.entries(value.answers)) {
-      if (!/^(quadratics|trigonometry)-(example|practice|choice|number)-[1-9]\d*$/.test(id) || !record || typeof record !== 'object') continue;
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)+$/.test(id) || id.length > 160 || !record || typeof record !== 'object') continue;
       progress.answers[id] = {
-        input: typeof record.input === 'string' ? record.input.slice(0, 500) : '',
+        input: typeof record.input === 'string' ? record.input.slice(0, 6000) : '',
         notes: typeof record.notes === 'string' ? record.notes.slice(0, 10000) : '',
         correction: typeof record.correction === 'string' ? record.correction.slice(0, 10000) : '',
         completed: record.completed === true,
         attempts: Number.isSafeInteger(record.attempts) && record.attempts >= 0 ? record.attempts : 0,
-        lastResult: ['correct', 'incorrect', 'empty', 'invalid'].includes(record.lastResult) ? record.lastResult : null,
+        lastResult: ['correct', 'incorrect', 'empty', 'invalid', 'reviewed'].includes(record.lastResult) ? record.lastResult : null,
+        ...(typeof record.checkedInput === 'string' ? { checkedInput: record.checkedInput.slice(0, 6000) } : {}),
       };
     }
   }
   if (value.last && typeof value.last === 'object') {
     progress.last.mode = value.last.mode === 'classroom' ? 'classroom' : 'study';
-    progress.last.topic = value.last.topic === 'trigonometry' ? 'trigonometry' : 'quadratics';
+    progress.last.topic = typeof value.last.topic === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.last.topic) ? value.last.topic.slice(0, 160) : 'quadratics';
     progress.last.question = typeof value.last.question === 'string' ? value.last.question.slice(0, 100) : '';
   }
   progress.updatedAt = typeof value.updatedAt === 'string' ? value.updatedAt : null;
@@ -83,10 +85,18 @@ export function loadProgress(storage) {
     } catch { return { progress: initialProgress(), available: true, issue: 'corrupt' }; }
   } catch { return { progress: initialProgress(), available: false, issue: 'unavailable' }; }
 }
-export function saveProgress(storage, progress) {
+export function saveProgress(storage, progress, changedIds) {
   try {
     const safe = normalizeProgress(progress); safe.updatedAt = new Date().toISOString();
+    if (changedIds) {
+      const latest = loadProgress(storage);
+      if (!latest.available || latest.issue === 'corrupt') return false;
+      const merged = { ...latest.progress.answers };
+      for (const id of changedIds) if (safe.answers[id]) merged[id] = safe.answers[id];
+      safe.answers = merged;
+    }
     storage.setItem(STORAGE_KEY, JSON.stringify(safe)); progress.updatedAt = safe.updatedAt;
+    if (changedIds) progress.answers = safe.answers;
     return true;
   } catch { return false; }
 }

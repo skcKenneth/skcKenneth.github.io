@@ -3,6 +3,11 @@ import {lessons} from '../data/workshop-lessons';
 const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
 const zh=locale==='zh-Hant', base=zh?'/zh':'';
 const catalog=[{
+  url:`${base}/teaching/senior-math/`,
+  title:zh?'高中數學研習室':'Senior Mathematics Studio',
+  aliases:['高中數學研習室','高中數學','高一','高二','高三','文組','理組','Senior Mathematics Studio','senior-math','JM02'],
+  excerpt:zh?'五冊教材、六條校本路徑、雙語分層練習與 2021–2026 聯考詳解。':'Five textbooks, six school learning routes, bilingual graded exercises and 2021–2026 JAE explanations.'
+},{
   url:`${base}/teaching/jae-math/`,
   title:zh?'澳門四校聯考數學研習室':'Macao JAE Mathematics Studio',
   aliases:['澳門四校聯考數學研習室','澳門四校聯考數學','四校聯考','JAE','JAE Mathematics','Macao JAE Mathematics Studio','JM01','jae-math'],

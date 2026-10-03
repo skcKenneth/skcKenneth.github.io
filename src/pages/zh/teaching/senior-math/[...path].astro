@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SeniorMathPage from '../../../../components/SeniorMathPage.astro';
+import { seniorPages } from '../../../../lib/senior-math-pages.mjs';
+import { pageTitle } from '../../../../lib/senior-math-title.mjs';
+export function getStaticPaths(){return seniorPages.map(page=>({params:{path:page.path},props:{page}}));}
+const {page}=Astro.props;
+---
+<BaseLayout title={pageTitle(page,'zh-Hant')} description="高中數學雙語課程：概念講解、原創分層練習、文理組校本路徑及四校聯考逐題詳解。" type="Teaching" locale="zh-Hant" alternatePath={'/teaching/senior-math/'+(page.path?page.path+'/':'')}>
+  <SeniorMathPage page={page} locale="zh-Hant" />
+</BaseLayout>

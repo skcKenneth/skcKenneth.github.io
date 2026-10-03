@@ -18,7 +18,7 @@ test('Both lessons provide complete bilingual text and valid mathematical render
   assert.equal(jaeTopics.length,2); inspect(jaeTopics);
   for(const topic of jaeTopics){
     assert.equal(topic.questions.filter(q=>q.kind==='example').length,3);
-    assert.equal(topic.questions.filter(q=>q.kind!=='example').length,6);
+    assert.equal(topic.questions.filter(q=>q.kind!=='example').length,10);
     for(const q of topic.questions){
       assert.ok(!ids.has(q.id)); ids.add(q.id); assert.equal(q.hints.length,2); assert.ok(q.steps.length>=2);
       if(q.kind==='choice') { assert.equal(q.choices.filter(choice=>choice.id===q.answer).length,1); assert.equal(new Set(q.choices.map(choice=>choice.id)).size,q.choices.length); }

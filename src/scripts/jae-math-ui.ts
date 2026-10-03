@@ -1,5 +1,6 @@
-import { jaeTopics } from '../data/jae-math.mjs';
 import { quadraticSummary, quadraticValue, trigValue, trigSummary, checkAnswer, loadProgress, saveProgress, initialProgress } from '../lib/jae-math-model.mjs';
+import { initializeSeniorInquiries } from './senior-math-inquiry-ui';
+import { progressForExport, readableProgress } from '../lib/jae-math-export.mjs';
 
 type Point = { x: number; y: number };
 type Stroke = { color: string; points: Point[] };
@@ -9,10 +10,9 @@ export function initializeJaeMath(root: HTMLElement) {
   root.dataset.ready = 'true';
   const zh = root.dataset.locale === 'zh-Hant';
   const t = (en: string, ch: string) => zh ? ch : en;
-  const label = (pair: any) => pair?.[zh ? 'zh' : 'en'] || '';
   const q = <T extends Element = HTMLElement>(selector: string, within: ParentNode = root) => within.querySelector<T>(selector)!;
   const qa = <T extends Element = HTMLElement>(selector: string, within: ParentNode = root) => Array.from(within.querySelectorAll<T>(selector));
-  const topics: any[] = jaeTopics;
+  const topics: any[] = JSON.parse(root.querySelector('[data-jae-data]')?.textContent || '[]');
   const questions: any[] = topics.flatMap(topic => topic.questions.map((question: any) => ({ ...question, topic: topic.id })));
   const cards = new Map(qa<HTMLElement>('[data-question]').map(card => [card.dataset.question!, card]));
   let storage: Storage | undefined;
@@ -22,13 +22,15 @@ export function initializeJaeMath(root: HTMLElement) {
   let persistent = loaded.available;
   // Leave unreadable stored work intact. New work can still be exported.
   if (loaded.issue === 'corrupt') { storage = undefined; persistent = false; }
-  const record = (id: string) => progress.answers[id] ??= { input: '', notes: '', correction: '', completed: false, attempts: 0, lastResult: null };
+  const changedIds = new Set<string>();
+  const record = (id: string) => { changedIds.add(id); return progress.answers[id] ??= { input: '', notes: '', correction: '', completed: false, attempts: 0, lastResult: null }; };
   const saveStatus = () => { q('[data-save-status]').textContent = loaded.issue === 'corrupt'
     ? t('Earlier local data could not be read; it is preserved. Export this session.', '未能讀取舊紀錄，原資料已保留；請匯出本次紀錄。')
     : persistent ? t('Saved in this browser · no sign-in', '已保存在此瀏覽器 · 免登入') : t('Session only · saving unavailable; please export', '僅本次瀏覽 · 未能本機保存，請匯出紀錄'); };
-  const save = () => { persistent = storage ? saveProgress(storage, progress) : false; saveStatus(); };
+  const save = () => { persistent = storage ? saveProgress(storage, progress, changedIds) : false; if (persistent) changedIds.clear(); saveStatus(); root.dispatchEvent(new CustomEvent('jae-progress',{bubbles:true,detail:progress})); };
   qa<HTMLElement>('[data-interactive-only], [data-jae-controls]').forEach(element => { element.hidden = false; });
   saveStatus();
+  initializeSeniorInquiries(root, record, save, id=>progress.answers[id]);
 
   const feedback = (card: HTMLElement, status: string | null) => {
     const element = card.querySelector<HTMLElement>('[data-answer-feedback]');
@@ -38,6 +40,7 @@ export function initializeJaeMath(root: HTMLElement) {
       incorrect: t('Not yet. Recheck the condition or open one hint, then try again.', '暫時未正確。再檢查題目條件，或先看一個提示後重試。'),
       empty: t('Choose or enter an answer first.', '請先選擇或輸入答案。'),
       invalid: t('Enter a finite decimal or a simple fraction such as 3/2. Do not enter symbols or a zero denominator.', '請輸入有限小數或簡單分數（如 3/2），不要輸入符號，分母不可為零。'),
+      reviewed: t('Work recorded for self-assessment. Compare every step with the rubric; this is not automatic grading.', '已記錄作答供自評。請按清單逐步對照；這並非自動評分。'),
     };
     element.textContent = status ? messages[status] || '' : '';
     if (status) element.dataset.status = status; else delete element.dataset.status;
@@ -46,16 +49,16 @@ export function initializeJaeMath(root: HTMLElement) {
     const card = cards.get(question.id)!;
     const saved = progress.answers[question.id];
     if (saved) {
-      const number = card.querySelector<HTMLInputElement>('[data-number-answer]');
+      const number = card.querySelector<HTMLInputElement | HTMLTextAreaElement>('[data-number-answer], [data-written-answer]');
       if (number) number.value = saved.input;
       qa<HTMLInputElement>('input[type=radio]', card).forEach(input => { input.checked = input.value === saved.input; });
       qa<HTMLTextAreaElement>('[data-record]', card).forEach(input => { input.value = saved[input.dataset.record!] || ''; });
       q<HTMLInputElement>('[data-completed]', card).checked = saved.completed;
-      feedback(card, saved.lastResult);
+      feedback(card, saved.checkedInput !== undefined && saved.input !== saved.checkedInput ? null : saved.lastResult);
     }
-    qa<HTMLInputElement>('input[type=radio], [data-number-answer]', card).forEach(input => input.addEventListener('input', () => {
+    qa<HTMLInputElement | HTMLTextAreaElement>('input[type=radio], [data-number-answer], [data-written-answer]', card).forEach(input => input.addEventListener('input', () => {
+      if (record(question.id).lastResult && record(question.id).checkedInput === undefined) record(question.id).checkedInput = record(question.id).input;
       record(question.id).input = input.value;
-      record(question.id).lastResult = null;
       feedback(card, null);
       save();
     }));
@@ -63,11 +66,12 @@ export function initializeJaeMath(root: HTMLElement) {
     q<HTMLInputElement>('[data-completed]', card).addEventListener('change', event => { record(question.id).completed = (event.target as HTMLInputElement).checked; save(); });
     card.querySelector('form')?.addEventListener('submit', event => {
       event.preventDefault();
-      const answer = question.kind === 'choice' ? card.querySelector<HTMLInputElement>('input[type=radio]:checked')?.value || '' : q<HTMLInputElement>('[data-number-answer]', card).value;
+      const answer = question.kind === 'choice' ? card.querySelector<HTMLInputElement>('input[type=radio]:checked')?.value || '' : q<HTMLInputElement | HTMLTextAreaElement>('[data-number-answer], [data-written-answer]', card).value;
       const result = checkAnswer(question, answer);
       const entry = record(question.id);
       entry.input = answer;
       entry.lastResult = result.status;
+      entry.checkedInput = answer;
       if (result.status === 'correct' || result.status === 'incorrect') entry.attempts += 1;
       feedback(card, result.status);
       save();
@@ -308,6 +312,7 @@ export function initializeJaeMath(root: HTMLElement) {
   q('[data-reveal-next]').addEventListener('click', () => reveal(revealStage + 1));
   q('[data-reveal-reset]').addEventListener('click', () => reveal(0));
   q('[data-toggle-graph]').addEventListener('click', event => { const shown = root.classList.toggle('jae-show-graph'); (event.currentTarget as HTMLElement).setAttribute('aria-pressed', String(shown)); });
+  q<HTMLButtonElement>('[data-toggle-graph]').disabled = !root.querySelector('[data-graph-section]');
   qa<HTMLButtonElement>('[data-draw-tool]').forEach(button => button.addEventListener('click', () => {
     drawTool = button.dataset.drawTool!; root.dataset.drawTool = drawTool;
     qa('[data-draw-tool]').forEach(item => item.setAttribute('aria-pressed', String((item as HTMLElement).dataset.drawTool === drawTool)));
@@ -339,6 +344,7 @@ export function initializeJaeMath(root: HTMLElement) {
     if (question >= 0) selectQuestion(question, false);
     else if (topics.some(topic => topic.id === hash)) selectQuestion(questions.findIndex(item => item.topic === hash), false);
     else if (hash === 'past-papers' || hash === 'jae-topics') { mode = 'study'; renderMode(); }
+    else if (hash === 'teacher') { mode = 'study'; renderMode(); const preparation=root.closest('.senior-math')?.querySelector<HTMLDetailsElement>('#teacher'); if(preparation)preparation.open=true; updateUrl('teacher'); }
     syncLanguage();
   };
   window.addEventListener('hashchange', useHash);
@@ -346,21 +352,19 @@ export function initializeJaeMath(root: HTMLElement) {
   if (queryMode === 'classroom' || queryMode === 'study') mode = queryMode;
   renderMode(); useHash(); syncLanguage();
 
-  const download = (filename: string, body: string, type: string) => { const url = URL.createObjectURL(new Blob([body], { type })); const anchor = document.createElement('a'); anchor.href = url; anchor.download = filename; anchor.click(); window.setTimeout(() => URL.revokeObjectURL(url), 10000); };
+  const download = (filename: string, body: string, type: string) => { const url = URL.createObjectURL(new Blob([body], { type })); const anchor = document.createElement('a'); anchor.href = url; anchor.download = filename; anchor.hidden = true; document.body.append(anchor); anchor.click(); anchor.remove(); window.setTimeout(() => URL.revokeObjectURL(url), 10000); };
   qa<HTMLButtonElement>('[data-export]').forEach(button => button.addEventListener('click', () => {
-    if (button.dataset.export === 'json') download('jae-math-learning-record.json', JSON.stringify(progress, null, 2), 'application/json;charset=utf-8');
-    else {
-      const lines = [t('Macau JAE mathematics · My learning record', '澳門四校聯考數學 · 我的學習紀錄'), new Date().toISOString(), t('Local self-study record; not a teacher assessment.', '本機自學紀錄，並非教師評核。')];
-      for (const question of questions) { const entry = progress.answers[question.id]; if (!entry) continue; lines.push('', `[${question.id}] ${label(question.prompt)}`, `${t('Answer', '答案')}: ${entry.input || '—'}`, `${t('Reasoning', '思路')}: ${entry.notes || '—'}`, `${t('Correction', '訂正')}: ${entry.correction || '—'}`, `${t('Checked attempts', '已核對次數')}: ${entry.attempts}`, `${t('Can explain', '能解釋')}: ${entry.completed ? t('Yes', '是') : t('Not marked', '未標記')}`); }
-      download('jae-math-learning-record.txt', '\uFEFF' + lines.join('\n\n'), 'text/plain;charset=utf-8');
-    }
+    const snapshot=progressForExport(storage,progress,changedIds);
+    if (button.dataset.export === 'json') download('jae-math-learning-record.json', JSON.stringify(snapshot, null, 2), 'application/json;charset=utf-8');
+    else download('jae-math-learning-record.txt',readableProgress(snapshot,questions,zh?'zh-Hant':'en'),'text/plain;charset=utf-8');
   }));
   let printState: { details: [HTMLDetailsElement, boolean][]; hidden: [HTMLElement, boolean][] } | null = null;
   const restorePrint = () => { if (!printState) return; printState.details.forEach(([element, open]) => { element.open = open; }); printState.hidden.forEach(([element, hidden]) => { element.hidden = hidden; }); printState = null; root.dataset.print = 'student'; requestAnimationFrame(() => redraw(activeQuestion().id)); };
   const preparePrint = (edition: string) => {
     closeZoom();
     if (printState) return;
-    printState = { details: qa<HTMLDetailsElement>('.jae-question details').map(element => [element, element.open]), hidden: qa<HTMLElement>('[data-topic], [data-question]').map(element => [element, element.hidden]) };
+    const teacherDetails=Array.from(root.closest('.senior-math')?.querySelectorAll<HTMLDetailsElement>('.senior-teacher')||[]);
+    printState = { details: [...qa<HTMLDetailsElement>('.jae-question details'),...teacherDetails].map(element => [element, element.open]), hidden: qa<HTMLElement>('[data-topic], [data-question]').map(element => [element, element.hidden]) };
     printState.hidden.forEach(([element]) => { element.hidden = false; });
     printState.details.forEach(([element]) => { element.open = edition === 'teacher'; });
     root.dataset.print = edition;

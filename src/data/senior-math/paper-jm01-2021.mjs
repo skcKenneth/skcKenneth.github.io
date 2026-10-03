@@ -1,0 +1,128 @@
+import {L,S,paperQuestions,none} from './paper-authoring.mjs';
+const {C,W}=paperQuestions('jm01-2021');
+const b=text=>{const i=text.indexOf('｜');return L(text.slice(0,i),text.slice(i+1));};
+const t=text=>text?.replaceAll('§',String.fromCharCode(92));
+const s=(body,math)=>{const p=b(body);return S(p.en,p.zh,t(math));};
+const mc=(part,page,prompt,expression,options,key,h1,h2,steps,result,error,skills,extra={})=>C(part,page,5,b(prompt),t(expression),options.map(x=>typeof x==='string'?(x.includes('｜')?b(x):t(x)):x),key,[b(h1),b(h2)],steps,b(result),b(error),skills,extra);
+const wr=(part,answerPage,prompt,expression,h1,h2,steps,result,error,skills,extra={})=>W(part,4,answerPage,b(prompt),t(expression),[b(h1),b(h2)],steps,b(result),b(error),skills,extra);
+
+// Original diagrams, independently drawn from the mathematical conditions.
+const overlapArea=d=>8*Math.acos(d/4)-d*Math.sqrt(16-d*d)/2;
+let lo=0,hi=4;
+for(let i=0;i<60;i++){const m=(lo+hi)/2;if(overlapArea(m)>3)lo=m;else hi=m;}
+const d=(lo+hi)/2,cx1=10+50*(3.5-d/2),cx2=10+50*(3.5+d/2);
+const disksSvg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 270" role="img"><title>Overlapping disks in a 7 cm by 4 cm rectangle / 長方形內兩個相交圓</title><rect x="10" y="35" width="350" height="200" fill="#d1d5db" stroke="#263c30" stroke-width="2"/><circle cx="${cx1}" cy="135" r="100" fill="white"/><circle cx="${cx2}" cy="135" r="100" fill="white"/><circle cx="${cx1}" cy="135" r="100" fill="none" stroke="#295ca6" stroke-width="2"/><circle cx="${cx2}" cy="135" r="100" fill="none" stroke="#217448" stroke-width="2"/><g font-size="18" fill="#1c3026"><text x="165" y="23">7 cm</text><text x="365" y="140">4 cm</text><text x="165" y="141">3 cm²</text></g></svg>`;
+const curvePoints=Array.from({length:181},(_,i)=>{const x=i*Math.PI*1.05/180;return`${50+300*x/Math.PI},${235-38*(3+2*Math.cos(2*x))}`;}).join(' ');
+const graphSvg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 280" role="img"><title>2021 JM01 I.11 graph / 第 11 題圖像</title><rect width="410" height="280" fill="white"/><path d="M35 235H385M50 250V25" fill="none" stroke="#263c30" stroke-width="2"/><path d="M50 197H200V235" fill="none" stroke="#64748b" stroke-dasharray="6 5"/><polyline points="${curvePoints}" fill="none" stroke="#b44132" stroke-width="3"/><g font-size="17" fill="#263c30"><text x="31" y="254">0</text><text x="29" y="202">1</text><text x="29" y="126">3</text><text x="29" y="50">5</text><text x="188" y="258">π/2</text><text x="345" y="258">π</text><text x="387" y="240">x</text><text x="37" y="20">y</text></g></svg>`;
+const tangentSvg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 340" role="img"><title>Two distinct tangents from the origin / 從原點作兩條不同切線</title><rect width="390" height="340" fill="white"/><path d="M40 310H370M50 320V15M50 310L194 22M50 310L362 154" stroke="#263c30" fill="none" stroke-width="2"/><circle cx="210" cy="150" r="${40*4/Math.sqrt(5)}" fill="#f0f6ee" stroke="#295ca6" stroke-width="2"/><circle cx="210" cy="150" r="3" fill="#b44132"/><g font-size="16" fill="#263c30"><text x="28" y="330">O</text><text x="367" y="330">x</text><text x="32" y="16">y</text><text x="216" y="148">M (4,4)</text><text x="130" y="114">P</text><text x="248" y="225">Q</text><text x="85" y="40">L₁: y=2x</text><text x="275" y="150">L₂: y=mx</text></g></svg>`;
+const ellipse='x,y>0,§quad0<m<1,§quad y^2-2mxy+x^2=a^2';
+const triangle='A+B+C=§pi,§quad§sin(C-A)=1,§quad§cos B=2§sqrt2/3';
+
+export const jm01_2021=[
+mc('I.1',2,'Find the number of elements in P∩Q.｜求 P∩Q 的元素個數。','P=§{1,2,3,5,7,11§},§quad Q=§{x:x^2-15x+36<0§}',['2','3','4','5','1'],'B',
+ 'Factor the quadratic defining Q.｜分解定義 Q 的二次式。','Keep only listed elements strictly between the roots.｜只保留列出且嚴格在兩根之間的元素。',
+ [s('The upward-opening quadratic is negative between its roots.｜開口向上的二次式在兩根之間為負。','(x-3)(x-12)<0§Rightarrow Q=(3,12)'),s('Intersect with the finite set.｜與有限集合取交集。','P§cap Q=§{5,7,11§};§quad|P§cap Q|=3')],
+ 'B: 3 elements.｜B：3 個元素。','The endpoint 3 is excluded by the strict inequality.｜嚴格不等式排除端點 3。','sets-inequalities'),
+mc('I.2',2,'Two workers take 4 and 3 hours separately for one job. At constant additive rates, how long do they take together for five identical jobs?｜兩人單獨完成一件工作分別需 4、3 小時。假設速率固定且可相加，合作完成五件相同工作需多少小時？','',['32/5','35/4','35/2','20/3','60/7'],'E',
+ 'Add jobs-per-hour rates, not completion times.｜相加每小時工作量，不相加完成時間。','Divide the total five jobs by the combined rate.｜用五件工作除以合作速率。',
+ [s('Express the two individual rates.｜寫出兩人各自速率。','r=1/4+1/3=7/12'),s('Use time=amount/rate.｜使用時間等於工作量除以速率。','T=5/(7/12)=60/7')],
+ 'E: 60/7 hours.｜E：60/7 小時。','Averaging 4 and 3 would not give a joint work rate.｜4 與 3 的平均不能給出合作速率。','work-rates'),
+mc('I.3',2,'An arithmetic sequence has partial sum Sₙ=n². Find its tenth term.｜等差數列部分和為 Sₙ=n²，求第十項。','S_n=n^2',['19','21','28','31','40'],'A',
+ 'A term is the difference of consecutive partial sums.｜一項等於相鄰部分和之差。','Subtract S₉ from S₁₀.｜用 S₁₀ 減 S₉。',
+ [s('Recover the general term.｜求通項。','a_n=S_n-S_{n-1}=n^2-(n-1)^2=2n-1'),s('Evaluate at n=10.｜代入 n=10。','a_{10}=20-1=19')],
+ 'A: 19.｜A：19。','S₁₀ is a sum of ten terms, not the tenth term itself.｜S₁₀ 是十項總和，不是第十項。','arithmetic-sequences'),
+mc('I.4',2,'Find every m for which the expression is strictly positive for all real x.｜求使式子對所有實數 x 均嚴格為正的 m。','mx^2+6x+3m',['0<m<§sqrt3','m>§sqrt3','-§sqrt3<m<§sqrt3','-§sqrt3<m<0',none],'B',
+ 'Check the leading coefficient, including its zero case.｜檢查首項係數，包括零的情況。','An upward quadratic must have negative discriminant to stay strictly positive.｜開口向上的二次式須判別式為負，才能恆正。',
+ [s('For m<0 the tails are negative; for m=0 the expression 6x changes sign. Thus m>0 is necessary.｜m<0 時兩端為負；m=0 時 6x 變號，因此必須 m>0。'),s('Exclude real roots and tangency to zero.｜排除實根及與零相切。','§Delta=36-12m^2<0§iff m^2>3'),s('Combine the two restrictions.｜合併兩項限制。','m>§sqrt3')],
+ 'B: m>√3.｜B：m>√3。','A zero discriminant permits the value zero, so it cannot give strict positivity.｜判別式為零可令函數值零，因此不符合嚴格恆正。','quadratic-optimization'),
+mc('I.5',2,'The roots of the given polynomial are α,β. Choose an equation whose roots are their reciprocals.｜已知多項式的根為 α、β，選出以其倒數為根的方程。','-2x^2+3x-7=0',['x^2-3x+7=0','7x^2-3x+2=0','7x^2+3x+2=0','2x^2-3x-7=0',none],'B',
+ 'Use Vieta’s sum and product; the roots are nonzero.｜用韋達根和與根積；兩根均非零。','The reciprocal sum is the original sum divided by the original product.｜倒數根和等於原根和除以原根積。',
+ [s('Read the original root relations.｜讀出原根關係。','§alpha+§beta=3/2,§quad§alpha§beta=7/2'),s('Transform the root relations.｜變換根的關係。','1/§alpha+1/§beta=3/7,§quad1/(§alpha§beta)=2/7'),s('Construct the polynomial and clear its denominator.｜建立多項式並清分母。','x^2-(3/7)x+2/7=0§iff7x^2-3x+2=0')],
+ 'B: 7x²−3x+2=0.｜B：7x²−3x+2=0。','The original roots need not be real for Vieta’s identities to hold.｜韋達關係不要求原根必為實數。','polynomial-roots'),
+mc('I.6',2,'Two equal disks inside a 7 cm by 4 cm rectangle touch its top and bottom sides. Their overlap has area 3 cm². Find the shaded area outside both disks.｜7 cm×4 cm 長方形內兩個等圓與上下邊相切，重疊面積為 3 cm²。求兩圓以外的陰影面積。','',['31-8§pi','27-8§pi','27-4§pi','21-4§pi',none],'A',
+ 'The rectangle height is a circle diameter.｜長方形高度為圓的直徑。','Subtract the union of the two disks, counting the overlap once.｜扣去兩圓聯集，重疊只計一次。',
+ [s('Each radius is 2 cm, so each disk area is 4π.｜每圓半徑為 2 cm，面積為 4π。','r=4/2=2,§quad|D_1|=|D_2|=4§pi'),s('Use inclusion–exclusion before subtracting from the rectangle.｜先用容斥，再從長方形扣除。','|D_1§cup D_2|=8§pi-3;§quad S=28-(8§pi-3)=31-8§pi')],
+ 'A: 31−8π cm².｜A：31−8π cm²。','The disks overlap; no external tangency between the disks is assumed.｜兩圓有重疊，並沒有假設兩圓外切。','circle-area',{promptSvg:disksSvg,promptSvgAlt:b('Shaded rectangle outside two overlapping equal disks; the overlap is labelled 3 cm².｜陰影為長方形內兩相交等圓以外的部分，重疊標示 3 cm²。')}),
+mc('I.7',2,'The equation has a real solution. Choose the official best answer describing the attainable range of k.｜方程有實數解。按官方最佳答案要求，選出 k 可取得的範圍。','9^{-x^2}-4§cdot3^{-x^2}=k',['k>0','-4§le k§le1','-3§le k<0','0<k§le3',none],'C',
+ 'Set u=3^(−x²) and find its exact range.｜設 u=3^(−x²)，先求其確切範圍。','On 0<u≤1, the expression u²−4u decreases.｜在 0<u≤1，u²−4u 遞減。',
+ [s('The exponent is nonpositive, and a positive exponential never reaches zero.｜指數非正，而正的指數值不會達零。','u=3^{-x^2}§in(0,1]'),s('Compare endpoints and the unattained limiting value.｜比較端點及不能取得的極限值。','k=u^2-4u=(u-2)^2-4§in[-3,0)'),s('Every u in (0,1] is attainable by a real x.｜每個 (0,1] 內的 u 均對應實數 x。','x=§pm§sqrt{-§log_3u}')],
+ 'C: −3≤k<0 is the exact range.｜C：−3≤k<0 為確切範圍。','Do not include k=0: it is a limiting value, not an attained one.｜不可包括 k=0；它只為極限值，不能取得。','exponential-range',{sourceDiscrepancy:b('The printed stem says “which must hold”. Option B is also a weaker necessary condition, while C is the exact attainable range and the official best answer. This wording ambiguity is retained explicitly.｜原題問「哪個一定成立」。B 亦為較弱的必要條件；C 則是確切可取得範圍及官方最佳答案。此處明示這項措辭歧義。')}),
+mc('I.8',2,'Find m so that the polynomial is divisible by 2x+1.｜求 m，使多項式可被 2x+1 整除。','f(x)=-16x^3-mx-m',['-1','1','2','4','6'],'D',
+ 'A factor 2x+1 gives a zero at x=−1/2.｜因式 2x+1 給出零點 x=−1/2。','Set f(−1/2)=0.｜令 f(−1/2)=0。',
+ [s('Apply the factor theorem at the root of the linear factor.｜在一次因式的根使用因式定理。','0=f(-1/2)=2+m/2-m=2-m/2'),s('Solve the linear equation.｜解一次方程。','m=4')],
+ 'D: 4.｜D：4。','The relevant input is −1/2, not −1.｜所代輸入為 −1/2，不是 −1。','polynomial-division'),
+mc('I.9',2,'Find the tens digit of the integer.｜求此整數的十位數字。','103^{10}',['2','3','4','7',none],'C',
+ 'Only the residue modulo 100 determines the last two digits.｜最後兩位只取決於模 100 的餘數。','Replace 103 by 3 modulo 100.｜在模 100 下把 103 換成 3。',
+ [s('Reduce the base before exponentiating.｜乘方前先化簡底數。','103^{10}§equiv3^{10}§pmod{100}'),s('Read the last two digits of the small power.｜讀出較小冪的最後兩位。','3^{10}=59049§equiv49§pmod{100}')],
+ 'C: the tens digit is 4.｜C：十位數字為 4。','The units digit 9 is not the requested tens digit.｜個位數字 9 並非所求十位數字。','modular-arithmetic'),
+mc('I.10',3,'Solve for all positive x satisfying both equations.｜求同時滿足兩方程的所有正 x。','§log_4x=y-3,§quad2(§log_4x)^2=4-y',['1/4§text{ or }2','1/2§text{ or }4','7/2§text{ or }2','1/4§text{ or }7/2','2§text{ or }4'],'A',
+ 'Use u=log₄x and eliminate y.｜設 u=log₄x 並消去 y。','Factor the resulting quadratic in u.｜分解所得 u 的二次式。',
+ [s('The first equation gives y=u+3.｜第一式給出 y=u+3。','2u^2=1-u§iff(2u-1)(u+1)=0'),s('Convert both logarithm values back to x.｜把兩個對數值轉回 x。','u=1/2,-1§Rightarrow x=4^{1/2}=2,§ 4^{-1}=1/4')],
+ 'A: x=1/4 or 2.｜A：x=1/4 或 2。','Both resulting x values are positive and satisfy the logarithm domain.｜兩個 x 均為正，符合對數定義域。','logarithmic-equations'),
+mc('I.11',3,'Choose the function matching the displayed graph.｜選出與所示圖像相符的函數。','',['y=3+2§cos(x/2)','y=3+2§cos2x','y=3+2§cos x','y=1+2§cos(x/2)','y=1+2§cos2x'],'B',
+ 'Read the maximum and minimum to find the midline and amplitude.｜讀最大最小值，求中線及振幅。','Measure the distance between consecutive peaks.｜量相鄰頂峰的橫向距離。',
+ [s('The graph ranges from 1 to 5, so its midline is 3 and amplitude is 2.｜圖像由 1 至 5，因此中線為 3、振幅為 2。','c=(5+1)/2=3,§quad A=(5-1)/2=2'),s('Peaks at zero and π give period π and frequency 2.｜零與 π 的頂峰給出週期 π、頻率 2。','T=§pi§Rightarrow§omega=2§pi/T=2'),s('The graph begins at a maximum, agreeing with positive cosine.｜圖像由最大值開始，符合正的餘弦形式。','y=3+2§cos2x')],
+ 'B: y=3+2cos 2x.｜B：y=3+2cos 2x。','Frequency is obtained from a full cycle, not the peak-to-trough half-cycle.｜頻率須由完整週期求得，不能把峰谷距離當完整週期。','trigonometric-graphs',{promptSvg:graphSvg,promptSvgAlt:b('A cosine-shaped curve has maxima 5 at x=0 and π, and minimum 1 at x=π/2.｜餘弦形曲線在 x=0、π 取得最大值 5，在 x=π/2 取得最小值 1。')}),
+mc('I.12',3,'Choose the perpendicular bisector of PQ.｜選出 PQ 的垂直平分線。','P=(-1,-3),§quad Q=(5,-1)',['x+3y-4=0','x-3y+4=0','x+3y+4=0','3x-y-4=0','3x+y-4=0'],'E',
+ 'Find the midpoint and the slope of PQ.｜求中點及 PQ 斜率。','Use the negative reciprocal slope through the midpoint.｜以負倒數斜率通過中點。',
+ [s('Compute midpoint and segment slope.｜計算中點及線段斜率。','M=(2,-2),§quad m_{PQ}=2/6=1/3'),s('Write the perpendicular line.｜寫出垂直直線。','y+2=-3(x-2)§iff3x+y-4=0')],
+ 'E: 3x+y−4=0.｜E：3x+y−4=0。','A perpendicular line through an endpoint need not bisect the segment.｜經端點的垂線不一定平分線段。','coordinate-lines'),
+mc('I.13',3,'A dataset has mean 1 and variance 0.01. Find the mean and variance after every value is multiplied by 10.｜數據平均數為 1、方差為 0.01。每項乘 10 後，求平均數及方差。','',[b('1 and 0.01｜1 及 0.01'),b('10 and 0.1｜10 及 0.1'),b('1 and 1｜1 及 1'),b('10 and 1｜10 及 1'),b('100 and 1｜100 及 1')],'D',
+ 'The mean scales linearly.｜平均數按一次倍數變化。','Squared deviations scale by the square of the multiplier.｜離均差平方按倍數平方變化。',
+ [s('Transform the mean.｜變換平均數。','§overline{10x}=10§bar x=10'),s('Transform the variance.｜變換方差。','§operatorname{Var}(10X)=10^2§operatorname{Var}(X)=100(0.01)=1')],
+ 'D: mean 10, variance 1.｜D：平均數 10，方差 1。','Standard deviation scales by 10, but variance scales by 100.｜標準差乘 10，方差則乘 100。','statistics'),
+mc('I.14',3,'Simplify the radical expression exactly.｜精確化簡根式。','§frac{§sqrt{140}-§sqrt{132}}{§sqrt{35}+§sqrt{33}}',['68-2§sqrt{1155}','68-§sqrt{1155}','(34-§sqrt{1155})/2','34-§sqrt{1155}','68+2§sqrt{1155}'],'A',
+ 'Factor 4 from each radicand in the numerator.｜從分子兩個被開方數提出 4。','Rationalize with √35−√33.｜以 √35−√33 有理化。',
+ [s('Simplify the numerator before rationalizing.｜有理化前先化簡分子。','§frac{2(§sqrt{35}-§sqrt{33})}{§sqrt{35}+§sqrt{33}}'),s('The conjugate denominator is 35−33=2.｜共軛後分母為 35−33=2。','§frac{2(§sqrt{35}-§sqrt{33})^2}{35-33}=68-2§sqrt{1155}')],
+ 'A: 68−2√1155.｜A：68−2√1155。','Keep the cross term −2√(35·33) when squaring.｜平方時保留交叉項 −2√(35·33)。','radicals'),
+mc('I.15',3,'Find the minimum of ab under the positive-variable condition.｜在正數條件下求 ab 的最小值。','5/a+4/b=3,§quad a,b>0',['20/9','20/3','80/9','80/3','§sqrt{20}/3'],'C',
+ 'Let u=5/a and v=4/b; their sum is fixed.｜設 u=5/a、v=4/b，則兩者和固定。','Maximize uv to minimize ab=20/(uv).｜最大化 uv 可使 ab=20/(uv) 最小。',
+ [s('Apply AM–GM to the two positive new variables.｜對兩個新正變數用基本不等式。','u+v=3§Rightarrow uv§le(3/2)^2=9/4'),s('Invert the positive bound and verify equality.｜反轉正的界限並核對等號。','ab=20/(uv)§ge80/9;§quad a=10/3,§ b=8/3')],
+ 'C: 80/9.｜C：80/9。','Equality requires 5/a=4/b, not a=b.｜等號要求 5/a=4/b，不是 a=b。','am-gm'),
+
+wr('II.1(a)',6,'Nine distinct books consist of four Chinese, two English and three mathematics books. Three are chosen uniformly without replacement. Find the probability of one of each kind.｜九本不同書包括中文四本、英文兩本、數學三本。等可能不放回抽三本，求三類各一本的概率。','',
+ 'Count unordered three-book samples.｜計算無序三本樣本。','Choose one book independently from each category for the favourable count.｜有利情況從每類各選一本。',
+ [s('The total and favourable counts are combination counts.｜總數及有利數均按組合計數。','N=§binom93=84,§quad F=4§cdot2§cdot3=24'),s('Reduce the fraction.｜約成最簡分數。','P=24/84=2/7')],
+ '2/7.｜2/7。','The categories have unequal sizes; treating the three categories as equally likely draws would be wrong.｜三類書數量不同，不可把每次抽取的三類當成等可能。','combinatorial-probability'),
+wr('II.1(b)',6,'Arrange the same nine distinct books uniformly at random. Find the probability that books of each category occur together in one block.｜把上述九本不同書等可能排列，求每類書各自連成一段的概率。','',
+ 'Treat each category as a block.｜把每類書視作一段。','Count both block order and order inside each block.｜計算段的次序及各段內部次序。',
+ [s('There are 3! block orders, and internal orders 4!,2!,3!.｜有 3! 種段次序，各段內部有 4!、2!、3! 種次序。','F=3!§,4!§,2!§,3!'),s('Divide by all permutations of the distinct books.｜除以九本不同書的全部排列。','P=§frac{3!4!2!3!}{9!}=1/210')],
+ '1/210.｜1/210。','The books remain distinct even within the same category.｜同類書仍各自不同。','permutations'),
+wr('II.2(a)',6,'A circle centred at M(4,4) is tangent to y=2x. Find its equation.｜圓心 M(4,4) 的圓與 y=2x 相切，求圓方程。','M=(4,4),§quad L_1:2x-y=0',
+ 'The radius is the perpendicular centre-to-line distance.｜半徑為圓心到直線的垂直距離。','Square that distance in the circle equation.｜在圓方程使用該距離平方。',
+ [s('Use the point-line distance formula.｜使用點線距離公式。','r=§frac{|2(4)-4|}{§sqrt{2^2+(-1)^2}}=4/§sqrt5'),s('Insert the centre and radius.｜代入圓心及半徑。','(x-4)^2+(y-4)^2=16/5§iff5x^2+5y^2-40x-40y+144=0')],
+ '(x−4)²+(y−4)²=16/5.｜(x−4)²+(y−4)²=16/5。','The oblique distance from the origin to M is not the circle radius.｜原點至 M 的斜距不是半徑。','circle-tangency',{promptSvg:tangentSvg}),
+wr('II.2(b)',6,'The second distinct tangent from the origin to the circle is y=mx. Find m.｜由原點作此圓的另一條不同切線 y=mx，求 m。','(x-4)^2+(y-4)^2=16/5,§quad L_2:y=mx',
+ 'Its perpendicular distance from M is also 4/√5.｜它到 M 的垂直距離亦為 4/√5。','Reject the slope corresponding to the already given tangent.｜刪去已知切線所對應斜率。',
+ [s('Equate the squared centre-to-line distances.｜令圓心到直線的距離平方相等。','§frac{(4m-4)^2}{m^2+1}=16/5'),s('Solve and distinguish the two tangents.｜求解並區分兩條切線。','5(m-1)^2=m^2+1§iff(2m-1)(m-2)=0'),s('The root m=2 is L₁; the distinct second line has the other root.｜m=2 為 L₁，另一條不同直線取其餘根。','m=1/2')],
+ 'm=1/2.｜m=1/2。','Both algebraic roots are tangent slopes, but only one is the requested second line.｜兩個代數根均為切線斜率，但只有一個是所求另一條線。','circle-tangency',{promptSvg:tangentSvg}),
+wr('II.3(a)',7,'Derive the completed-square identity from the stated relation.｜由所列關係導出配方恆等式。',ellipse,
+ 'Complete the square in x, keeping y as a parameter.｜把 x 配方，暫把 y 視為參數。','The cross term must remain −2mxy.｜交叉項須保持 −2mxy。',
+ [s('Split the y² coefficient after completing the x square.｜配成 x 的平方後分拆 y² 係數。','x^2-2mxy+y^2=(x-my)^2+(1-m^2)y^2'),s('Use the original equality and rearrange.｜使用原等式並移項。','(1-m^2)y^2=a^2-(x-my)^2')],
+ '(1−m²)y²=a²−(x−my)².｜(1−m²)y²=a²−(x−my)²。','The square is x−my, not y−mx in this particular rearrangement.｜此處配方的是 x−my，不是 y−mx。','completing-the-square'),
+wr('II.3(b)',7,'Show that y reaches its largest feasible value when y=x/m.｜證明當 y=x/m 時，y 取得最大可行值。',ellipse,
+ 'Divide the identity in part (a) by the positive number 1−m².｜把 (a) 恆等式除以正數 1−m²。','The subtractive square vanishes precisely when x=my.｜被扣的平方恰在 x=my 時為零。',
+ [s('Obtain a sharp upper bound for positive y.｜求正 y 的最佳上界。','y^2=§frac{a^2}{1-m^2}-§frac{(x-my)^2}{1-m^2}§le§frac{a^2}{1-m^2}'),s('Equality is attained at positive coordinates because 0<m<1 and feasibility forces a≠0.｜0<m<1，且可行性使 a≠0，因此等號可在正坐標取得。','y=§frac{|a|}{§sqrt{1-m^2}},§quad x=my>0'),s('Since m is nonzero, the equality relation is equivalent to the printed form.｜m 非零，因此等號關係等價於題目形式。','x=my§iff y=x/m')],
+ 'The maximum occurs when x=my, equivalently y=x/m.｜最大值在 x=my，即 y=x/m 時取得。','The fraction x/m must not be misread as the product mx.｜不可把分數 x/m 誤讀成乘積 mx。','quadratic-optimization'),
+wr('II.3(c)',7,'Find the x-coordinate, in terms of a and m, where y is maximal.｜以 a、m 表示使 y 最大的 x。',ellipse,
+ 'Use the equality condition from part (b).｜使用 (b) 的等號條件。','Take the positive square root for y.｜y 須取正平方根。',
+ [s('Positive y and the squared bound give its maximum.｜由 y 為正及平方界限求最大值。','y_{§max}=§sqrt{a^2/(1-m^2)}=|a|/§sqrt{1-m^2}'),s('Multiply by m using x=my.｜按 x=my 乘以 m。','x_0=§frac{m|a|}{§sqrt{1-m^2}}')],
+ 'x=m|a|/√(1−m²).｜x=m|a|/√(1−m²)。','The sign of a is unspecified, so √(a²)=|a|.｜a 的正負未指定，因此 √(a²)=|a|。','quadratic-optimization'),
+wr('II.4(a)',7,'An arithmetic sequence satisfies a₂=3 and a₂₀=39. Find its general term.｜等差數列滿足 a₂=3、a₂₀=39，求通項。','a_2=3,§quad a_{20}=39',
+ 'There are eighteen common differences between the two given terms.｜兩個已知項之間相隔十八個公差。','Recover the first term after finding the common difference.｜求公差後再求首項。',
+ [s('Compute the common difference.｜求公差。','d=(39-3)/(20-2)=2'),s('Find the first and general terms.｜求首項及通項。','a_1=3-2=1;§quad a_n=1+2(n-1)=2n-1')],
+ 'aₙ=2n−1.｜aₙ=2n−1。','The index difference is 18, not 19 or 20.｜項號差為 18，不是 19 或 20。','arithmetic-sequences'),
+wr('II.4(b)',7,'For the same arithmetic sequence, Sₙ is the sum of 1/(aₖaₖ₊₁) from k=1 to n. Find n when Sₙ=10/21.｜同一等差數列，Sₙ 為 1/(aₖaₖ₊₁) 從 k=1 至 n 的和；Sₙ=10/21 時求 n。','a_k=2k-1,§quad S_n=§sum_{k=1}^n§frac1{a_ka_{k+1}}',
+ 'Split each denominator into two simple fractions.｜把每個分母拆成兩個簡單分式。','Consecutive terms then cancel.｜相鄰項會互相抵消。',
+ [s('Use the difference between consecutive odd reciprocals.｜使用相鄰奇數倒數之差。','§frac1{(2k-1)(2k+1)}=§frac12§left(§frac1{2k-1}-§frac1{2k+1}§right)'),s('Telescope the sum and solve the rational equation.｜裂項相消並解分式方程。','S_n=§frac12§left(1-§frac1{2n+1}§right)=§frac n{2n+1}'),s('The resulting n is a positive integer.｜所得 n 為正整數。','n/(2n+1)=10/21§Rightarrow21n=20n+10§Rightarrow n=10')],
+ 'n=10.｜n=10。','Retain the factor 1/2 in the partial-fraction identity.｜裂項恆等式中須保留 1/2。','telescoping-series'),
+wr('II.5(a)',7,'For triangle ABC with the stated conditions, find sin²C.｜三角形 ABC 滿足所列條件，求 sin²C。',triangle,
+ 'The triangle-angle ranges make C−A=π/2.｜由三角形角的範圍，C−A=π/2。','Use the angle sum to express 2C in terms of B.｜用內角和把 2C 以 B 表示。',
+ [s('The cosine determines positive sine of the interior angle B.｜餘弦決定內角 B 的正正弦值。','§sin B=§sqrt{1-8/9}=1/3'),s('Combine C−A=π/2 with A+B+C=π.｜合併 C−A=π/2 及 A+B+C=π。','2C=3§pi/2-B§Rightarrow§cos2C=-§sin B=-1/3'),s('Use the power-reduction identity.｜使用降冪恆等式。','§sin^2C=(1-§cos2C)/2=(1+1/3)/2=2/3')],
+ 'sin²C=2/3.｜sin²C=2/3。','The requested expression is sine squared, not sine of twice the angle.｜所求是正弦平方，不是倍角正弦。','trigonometric-identities'),
+wr('II.5(b)',7,'Under the same angle conditions, AC=5. Find the triangle area.｜在相同角條件下 AC=5，求三角形面積。',triangle+',§quad AC=5',
+ 'C is obtuse because C=A+π/2.｜C=A+π/2，因此 C 為鈍角。','Use the sine rule to find BC, then the two-side area formula.｜用正弦定理求 BC，再用兩邊夾角面積公式。',
+ [s('Choose the correct cosine sign for the obtuse angle.｜為鈍角選正確餘弦符號。','§sin C=§sqrt{2/3},§quad§cos C=-1/§sqrt3,§quad§sin A=§sin(C-§pi/2)=1/§sqrt3'),s('Match opposite sides in the sine rule.｜在正弦定理中配對對邊。','BC=AC§frac{§sin A}{§sin B}=5§frac{1/§sqrt3}{1/3}=5§sqrt3'),s('The included angle between AC and BC is C.｜AC、BC 的夾角為 C。','S=§frac12(5)(5§sqrt3)§sqrt{2/3}=§frac{25§sqrt2}2')],
+ 'Area =25√2/2.｜面積為 25√2/2。','Taking cos C positive would contradict the obtuse-angle condition.｜把 cos C 取正會違反 C 為鈍角的條件。','triangle-area'),
+];
+export const jm01_2021_inventory={choice:15,writtenTopLevel:5,writtenLeafParts:11,totalLeafItems:26,optionCounts:Array(15).fill(5),questionPdfPages:[2,3,4],answerPdfPages:[5,6,7],parts:jm01_2021.map(q=>q.source.question)};

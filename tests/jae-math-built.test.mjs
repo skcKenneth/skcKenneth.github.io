@@ -6,8 +6,9 @@ const pages=[['en','teaching/jae-math/index.html'],['zh-Hant','zh/teaching/jae-m
 for(const [locale,path] of pages) test(`Built ${locale} lesson is complete, paired and searchable`,()=>{
   const html=readFileSync(new URL('../dist/'+path,import.meta.url),'utf8');
   assert.ok(html.includes(`lang="${locale}"`));
-  assert.equal((html.match(/data-question="/g)||[]).length,18);
-  assert.equal((html.match(/data-reveal="/g)||[]).length,54);
+  const questionCount=jaeTopics.reduce((sum,topic)=>sum+topic.questions.length,0);
+  assert.equal((html.match(/data-question="/g)||[]).length,questionCount);
+  assert.equal((html.match(/data-reveal="/g)||[]).length,questionCount*3);
   assert.equal((html.match(/<main\b/g)||[]).length,1);
   assert.ok(html.includes('data-print="student"'));
   assert.ok(html.includes('data-graph="quadratics"')&&html.includes('data-graph="trigonometry"'));

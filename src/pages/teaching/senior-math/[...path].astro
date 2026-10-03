@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SeniorMathPage from '../../../components/SeniorMathPage.astro';
+import { seniorPages } from '../../../lib/senior-math-pages.mjs';
+import { pageTitle } from '../../../lib/senior-math-title.mjs';
+export function getStaticPaths(){return seniorPages.map(page=>({params:{path:page.path},props:{page}}));}
+const {page}=Astro.props;
+---
+<BaseLayout title={pageTitle(page,'en')} description="Senior mathematics: bilingual lessons, original graded exercises, school learning paths and complete JAE paper explanations." type="Teaching" alternatePath={'/zh/teaching/senior-math/'+(page.path?page.path+'/':'')}>
+  <SeniorMathPage page={page} locale="en" />
+</BaseLayout>
