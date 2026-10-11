@@ -7,7 +7,8 @@ function payload(spec) {
   if (spec.kind === 'png') return { contentType: 'image/png', bytes: Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]) };
   if (spec.kind === 'svg') return { contentType: 'image/svg+xml', bytes: Buffer.from('<svg viewBox="0 0 1 1"></svg>') };
   if (spec.kind === 'rss') return { contentType: 'application/rss+xml', bytes: Buffer.from(`<rss version="2.0"><channel><language>${spec.locale}</language><item>One article</item></channel></rss>`) };
-  const markers = { home: 'reader-home-hero id="latest-writing" id="start-here"', writing: 'data-writing-index reader-pagination', topics: 'reader-topics-grid mathematical-thinking teaching-research-practice', teaching: 'data-teaching-directory data-teaching-filters id="math-inquiry-lab"', search: 'data-site-search data-search-pagination name="technical"' };
+  if (spec.kind === 'alias') return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}" data-pagefind-ignore="all"><meta name="robots" content="noindex,follow"><noscript><meta http-equiv="refresh" content="0; url=${spec.destination}"></noscript><main data-compatibility-redirect data-destination="${spec.destination}"></main></html>`) };
+  const markers = { home: 'reader-home-hero id="latest-writing" id="start-here"', writing: 'data-writing-index reader-pagination', topics: 'reader-topics-grid mathematical-thinking teaching-research-practice id="research-programmes"', teaching: 'data-teaching-directory data-teaching-filters id="math-inquiry-lab"', search: 'data-site-search data-search-pagination name="technical"', studio: 'id="jae-topics" id="quadratics" id="trigonometry" id="past-papers"', models: 'id="model-index" data-catalog-kind="model" data-model-library' };
   return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/>${markers[spec.kind]}</html>`) };
 }
 test('live route validation rejects old markup, wrong language, invalid formats and changed asset hashes', () => {
@@ -36,6 +37,6 @@ test('CDN retry checks only failed routes and verifies both asset hashes within 
     return { status: spec.path === '/zh/topics/' && count === 1 ? 404 : 200, headers: { get: () => body.contentType }, arrayBuffer: async () => body.bytes };
   };
   const result = await verifyLiveSite('https://skckenneth.github.io/', { fetcher, expectedHashes, retryDelayMs: 1, timeoutMs: 2000 });
-  assert.equal(result.length, 14); assert(result.every(item => item.ok)); assert.equal(calls.get('/zh/topics/'), 2); assert.equal(calls.get('/'), 1);
+  assert.equal(result.length, LIVE_ROUTES.length); assert(result.every(item => item.ok)); assert.equal(calls.get('/zh/topics/'), 2); assert.equal(calls.get('/'), 1);
   await assert.rejects(verifyLiveSite('https://unrelated.example/', { fetcher }), /configured/);
 });

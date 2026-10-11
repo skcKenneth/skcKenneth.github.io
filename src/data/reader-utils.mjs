@@ -16,7 +16,7 @@ export function readArticleQuery(search = '', defaults = {}) {
 export function writeArticleQuery(state) {
   const query = new URLSearchParams();
   for (const key of ['q', 'topic', 'type', 'year']) if (state[key]) query.set(key, state[key]);
-  // Explicit zero preserves the user's selection on the archive route.
+  // Explicit zero preserves a reader's opt-out when an old archive link supplies defaults.
   query.set('archive', state.archive ? '1' : '0');
   if (state.page > 1) query.set('page', String(state.page));
   return query.toString();

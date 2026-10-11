@@ -77,8 +77,9 @@ export function classifySearchUrl(url) {
 export function createSearchCatalog(collections,locale,{getTopicIds=()=>[],extras=[]}={}) {
   const zh=locale==='zh-Hant',base=zh?'/zh':'',entries=[];
   for(const [collection,route,kind] of [['writing','writing','writing'],['projects','projects','project'],['teaching','teaching','teaching'],['research','research','research']]) {
-    const originals=(collections[collection]||[]).filter(entry=>!entry.data.draft);
-    const translated=(collections[`${collection}Zh`]||[]).filter(entry=>!entry.data.draft);
+    const published=entry=>!entry.data.draft && (collection!=='writing'||(entry.data.sourceSlug||entry.data.slug)!=='legacy-archive');
+    const originals=(collections[collection]||[]).filter(published);
+    const translated=(collections[`${collection}Zh`]||[]).filter(published);
     const selected=zh?translated:originals;
     for(const entry of selected) {
       const data=entry.data,id=data.sourceSlug||data.slug;

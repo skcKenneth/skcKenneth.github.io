@@ -8,8 +8,14 @@ const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/zh/topics', '/teaching', '/zh/teaching', '/search', '/zh/search'].map(prefix => ({ path: `${prefix}/`, locale: prefix.startsWith('/zh') ? 'zh-Hant' : 'en', kind: prefix.endsWith('writing') ? 'writing' : prefix.endsWith('topics') ? 'topics' : prefix.endsWith('teaching') ? 'teaching' : prefix.endsWith('search') ? 'search' : 'home' })).concat([
   { path: '/rss.xml', locale: 'en', kind: 'rss' }, { path: '/zh/rss.xml', locale: 'zh-Hant', kind: 'rss' },
   { path: '/images/og-reader.png', kind: 'png' }, { path: '/images/kenneth-woven-knot.svg', kind: 'svg' },
-]);
-const MARKERS = { home: ['reader-home-hero', 'id="latest-writing"', 'id="start-here"'], writing: ['data-writing-index', 'reader-pagination'], topics: ['reader-topics-grid', 'mathematical-thinking', 'teaching-research-practice'], teaching: ['data-teaching-directory', 'data-teaching-filters', 'id="math-inquiry-lab"'], search: ['data-site-search', 'data-search-pagination', 'name="technical"'] };
+], ['', '/zh'].flatMap(base => [
+  { path: `${base}/writing/archive/`, locale: base ? 'zh-Hant' : 'en', kind: 'alias', destination: `${base}/writing/?archive=1` },
+  { path: `${base}/research/`, locale: base ? 'zh-Hant' : 'en', kind: 'alias', destination: `${base}/topics/#research-programmes` },
+  { path: `${base}/teaching/jae-math/`, locale: base ? 'zh-Hant' : 'en', kind: 'alias', destination: `${base}/teaching/senior-math/studios/jae/` },
+  { path: `${base}/teaching/senior-math/studios/jae/`, locale: base ? 'zh-Hant' : 'en', kind: 'studio' },
+  { path: `${base}/teaching/model-laboratory/`, locale: base ? 'zh-Hant' : 'en', kind: 'models' },
+]));
+const MARKERS = { home: ['reader-home-hero', 'id="latest-writing"', 'id="start-here"'], writing: ['data-writing-index', 'reader-pagination'], topics: ['reader-topics-grid', 'mathematical-thinking', 'teaching-research-practice', 'id="research-programmes"'], teaching: ['data-teaching-directory', 'data-teaching-filters', 'id="math-inquiry-lab"'], search: ['data-site-search', 'data-search-pagination', 'name="technical"'], studio: ['id="jae-topics"', 'id="quadratics"', 'id="trigonometry"', 'id="past-papers"'], models: ['id="model-index"', 'data-catalog-kind="model"', 'data-model-library'] };
 export function validateLivePayload(spec, { status, contentType = '', bytes }, expectedHash) {
   const errors = [];
   if (status !== 200) return [`HTTP ${status}`];
@@ -19,6 +25,10 @@ export function validateLivePayload(spec, { status, contentType = '', bytes }, e
     if (!new RegExp(`<html\\b[^>]*lang=["']${spec.locale}["']`).test(body)) errors.push(`Missing ${spec.locale} page language`);
     for (const marker of MARKERS[spec.kind]) if (!body.includes(marker)) errors.push(`Missing marker ${marker}`);
     if (!body.includes('/images/kenneth-woven-knot.svg')) errors.push('Missing woven site icon');
+  } else if (spec.kind === 'alias') {
+    if (!contentType.includes('text/html')) errors.push('Expected HTML content type');
+    if (!new RegExp(`<html\\b[^>]*lang=["']${spec.locale}["']`).test(body)) errors.push(`Missing ${spec.locale} alias language`);
+    for (const marker of ['noindex,follow', 'data-pagefind-ignore="all"', 'data-compatibility-redirect', '<noscript>', `data-destination="${spec.destination}"`]) if (!body.includes(marker)) errors.push(`Missing alias marker ${marker}`);
   } else if (spec.kind === 'rss') {
     if (!/xml/.test(contentType)) errors.push('Expected XML content type');
     if (!body.includes('<rss version="2.0"') || !body.includes('<channel>') || !body.includes('<item>')) errors.push('RSS feed is missing channel or items');

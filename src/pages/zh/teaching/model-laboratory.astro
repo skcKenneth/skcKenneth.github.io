@@ -1,23 +1,7 @@
 ---
 import WorkshopCallout from "../../../components/WorkshopCallout.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-
-const models = [
-  ["Logistic 生長", "承載量如何令指數增長逐步減慢？", "/teaching/model-laboratory/#logistic-growth"],
-  ["SIR 介入", "介入時機與強度如何改變感染曲線？", "/teaching/model-laboratory/#sir-intervention"],
-  ["煞車距離", "為何風險增長得比速度更快？", "/teaching/model-laboratory/#stopping-distance"],
-  ["臨界轉變", "逐步壓力何時會引發突然且有路徑依賴的改變？", "/zh/teaching/frontier-model-studio/#critical-transitions"],
-  ["方程發現", "能否從帶雜訊觀測重建控制方程？", "/zh/teaching/frontier-model-studio/#equation-discovery"],
-  ["集體運動", "沒有領袖時，局部對齊如何形成全域秩序？", "/zh/teaching/frontier-model-studio/#collective-motion"],
-  ["高階傳播", "當群組而非只有成對關係傳遞影響時，動力學有何改變？", "/zh/teaching/frontier-model-studio/#higher-order-contagion"],
-  ["算子學習", "可重用模型需要學會甚麼，才能把一個函數映射到另一個函數？", "/zh/teaching/frontier-model-studio/#operator-learning"],
-  ["持續同調", "哪些形狀特徵能跨越觀測尺度而保留下來？", "/zh/teaching/frontier-model-studio/#persistent-homology"],
-  ["融池拓撲觀測", "模糊、像素大小或分割邊界位移會否製造 latent 場並不存在的橫跨臨界點？", "/zh/teaching/melt-pond-topology-lab/"],
-  ["量子中繼排程", "老化糾纏應該繼續保留，還是丟棄並重新生成？", "/zh/teaching/quantum-repeater-lab/"],
-  ["參數可識別性", "數據能否分辨產生它們的參數？", "/zh/teaching/research-inquiry-studio/#identifiability"],
-  ["網絡干擾", "當一個單位的處理會改變另一個單位時，處理效應如何定義？", "/zh/teaching/research-inquiry-studio/#network-interference"],
-  ["穩健決策", "哪個決策能承受合理的概率分佈偏移？", "/zh/teaching/research-inquiry-studio/#robust-decisions"],
-];
+import ModelDirectory from "../../../components/ModelDirectory.astro";
 ---
 
 <BaseLayout
@@ -34,23 +18,6 @@ const models = [
       <p class="lead">先按研究問題選擇模型，再調整參數、比較結果並記錄限制。互動工作台保留英文數學介面，以免符號、圖例與課堂筆記不一致；本頁提供完整中文導覽。</p>
     </div>
   </header>
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <div><p class="eyebrow">模型索引</p><h2>由問題開始，而非由公式開始。</h2></div>
-        <p>每個入口會直接開啟相應互動實驗及錨點。</p>
-      </div>
-      <div class="model-library">
-        {models.map(([title, question, href], index) => (
-          <article>
-            <div class="meta-line"><span>{String(index + 1).padStart(2, "0")}</span><span>互動模型</span></div>
-            <h3><a href={href}>{title}</a></h3>
-            <p>{question}</p>
-            <a href={href}>開始實驗 →</a>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ModelDirectory locale="zh-Hant"/>
 <WorkshopCallout locale="zh-Hant"/>
 </BaseLayout>

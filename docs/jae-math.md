@@ -1,6 +1,8 @@
 # JAE Mathematics Studio
 
-The bilingual pilot is available at `/teaching/jae-math/` and `/zh/teaching/jae-math/`. It contains two complete foundational lessons aligned with selected parts of the 2027 JM01 syllabus: quadratic equations/functions and trigonometric ratios/function graphs. Each lesson has three original worked examples and six original exercises, with two layered hints, worked reasoning and misconception notes. Five official 2021–2025 JM01 papers and suggested-answer PDFs remain linked on their official hosts.
+The bilingual studio is part of Senior Mathematics Studio at `/teaching/senior-math/studios/jae/` and `/zh/teaching/senior-math/studios/jae/`. It contains two complete foundational lessons aligned with selected parts of the 2027 JM01 syllabus: quadratic equations/functions and trigonometric ratios/function graphs. Each lesson has three original worked examples and ten original exercises (26 items in total), with two layered hints, worked reasoning and misconception notes. Its past-paper entrance leads to the shared 2021–2026 JM01/JM02 library; each of the 12 paper pages retains the official original, suggested answers and source-check date.
+
+The former `/teaching/jae-math/` and `/zh/teaching/jae-math/` routes remain compatibility entrances. They retain the `mode` query and every fragment, including the two topic IDs, all 26 question IDs, field IDs and `#past-papers`. The same full studio component and `jae-math-v1` record format are used at the canonical routes; no storage migration is required.
 
 ## Learning and classroom flows
 
@@ -18,7 +20,7 @@ JSON and plain-text exports allow students to retain their work. Student print v
 
 ## Verification and maintenance
 
-`pnpm run test:jae-math` checks the mathematical model, numeric input grammar, persistence of actual question IDs, bilingual content, KaTeX expressions and the five-year source catalogue. The independent answer ledger and official-source checks are in [jae-math-sources.md](./jae-math-sources.md). UI/runtime and release evidence are recorded separately; passing unit tests does not establish deployment.
+`pnpm run test:jae-math` checks the mathematical model, numeric input grammar, persistence of actual question IDs, bilingual content, KaTeX expressions and the historical five-year source catalogue. `tests/reader-teaching-consolidation.test.mjs` checks canonical routing, all legacy fragments, query retention, unchanged record fields and consolidated directory entries. After building, `pnpm run test:jae-math:built` checks both canonical studios, old compatibility entrances and the shared 12-paper source links. The independent answer ledger and official-source checks are in [jae-math-sources.md](./jae-math-sources.md). UI/runtime and release evidence are recorded separately; passing unit tests does not establish deployment.
 
 For release, run the repository security gate and full build, then test both language routes in a real browser at desktop and 390px mobile width. Cover staged answer hiding, graph controls and degenerate cases, answer checking, reload/cross-language persistence, denied storage, annotations, zoom/fullscreen, export, print, keyboard navigation, entry links and exact-title search. Verify the deployed commit's Actions result, public routes and changed assets before claiming publication.
 

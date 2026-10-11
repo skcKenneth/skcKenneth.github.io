@@ -1,7 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ProjectCard from "../../components/ProjectCard.astro";
+import ProjectDirectory from "../../components/ProjectDirectory.astro";
+import { projectFilterOptions } from '../../lib/catalog-filters.mjs';
 import scienceProjects from "../../data/generated/science-projects.json";
 
 const curated = await getCollection("projects", ({ data }) => !data.draft);
@@ -14,10 +15,9 @@ const projects: any[] = [...curated, ...catalogue].sort((a: any, b: any) => {
   const bFeatured = b.data?.featured ?? b.featured;
   return Number(bFeatured) - Number(aFeatured) || bYear - aYear;
 });
-const unique = (values: string[]) => [...new Set(values)].sort();
-const topics = unique(projects.flatMap((project: any) => project.data?.topics ?? project.topics ?? []));
-const statuses = unique(projects.map((project: any) => project.data?.status ?? project.status));
-const methods = unique(projects.flatMap((project: any) => project.data?.methods ?? project.methods ?? []));
+const translated = await getCollection('projectsZh', ({ data }) => !data.draft);
+const translatedSlugs = new Set(translated.map(project => project.data.sourceSlug));
+const alternateOptions = projectFilterOptions([...translated, ...scienceProjects.filter(project => !translatedSlugs.has(project.slug))]);
 ---
 <BaseLayout title="Projects" description="Curated research catalogue with separate editorial and inventory-level evidence labels." type="Projects" alternatePath="/zh/projects/">
   <header class="page-head"><div class="container">
@@ -27,19 +27,6 @@ const methods = unique(projects.flatMap((project: any) => project.data?.methods 
   </div></header>
   <section class="section"><div class="container">
     <div class="notice"><strong>Two evidence levels.</strong> Editorial projects explain reviewed outputs, methods, and limitations. Catalogue entries record what exists in the private technical workspace but make no claim that the work has been scientifically validated.</div>
-    <form class="filter-bar" id="filters" aria-label="Project filters">
-      <label>Topic<select name="topic"><option value="">All topics</option>{topics.map((value) => <option>{value}</option>)}</select></label>
-      <label>Status<select name="status"><option value="">All statuses</option>{statuses.map((value) => <option>{value}</option>)}</select></label>
-      <label>Method<select name="method"><option value="">All methods</option>{methods.map((value) => <option>{value}</option>)}</select></label>
-      <label>Availability<select name="availability"><option value="">Any</option><option value="code">Code available</option><option value="data">Data listed</option><option value="student">Student-suitable</option></select></label>
-    </form>
-    <p class="small" aria-live="polite" id="result-count">{projects.length} projects</p>
-    <div class="grid" id="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div>
-    <p class="empty" id="empty" hidden>No projects match all selected filters.</p>
+    <ProjectDirectory projects={projects} alternateOptions={alternateOptions}/>
   </div></section>
-  <script is:inline>
-    const form=document.querySelector('#filters');const cards=[...document.querySelectorAll('[data-project-card]')];const count=document.querySelector('#result-count');const empty=document.querySelector('#empty');
-    const apply=()=>{const values=Object.fromEntries(new FormData(form).entries());let visible=0;cards.forEach(card=>{const ok=(!values.topic||card.dataset.topic.includes(values.topic))&&(!values.status||card.dataset.status===values.status)&&(!values.method||card.dataset.method.includes(values.method))&&(!values.availability||card.dataset[values.availability]==='true');card.hidden=!ok;if(ok)visible++;});count.textContent=`${visible} project${visible===1?'':'s'}`;empty.hidden=visible!==0;const query=new URLSearchParams(Object.entries(values).filter(([,value])=>value));history.replaceState(null,'',`${location.pathname}${query.size?'?'+query:''}`)};
-    const params=new URLSearchParams(location.search);for(const element of form.elements){if(element.name&&params.has(element.name))element.value=params.get(element.name)}form.addEventListener('change',apply);apply();
-  </script>
 </BaseLayout>

@@ -28,6 +28,7 @@ const label = (items: any[], id: string) => items.find(item => item.id === id)?.
     </form>
     <p data-teaching-result-count role="status" class="small">{TEACHING_RESOURCES.length} {t('resources', '份資源')}</p>
     <div class="teaching-resource-grid">{TEACHING_RESOURCES.map(resource => <article class="teaching-resource-card" id={resource.id} data-teaching-resource data-audiences={resource.audiences.join(' ')} data-formats={resource.formats.join(' ')} data-search={`${resource.title[locale]} ${resource.purpose[locale]}`.toLocaleLowerCase()}>
+      {resource.anchorAliases.map((id: string) => <span id={id} class="teaching-anchor" aria-hidden="true"></span>)}
       <p class="eyebrow">{resource.audiences.map((id: string) => label(TEACHING_AUDIENCES, id)).join(' · ')}</p>
       <h3>{resource.title[locale]}</h3><p>{resource.purpose[locale]}</p>
       <p class="teaching-resource-meta">{resource.formats.map((id: string) => label(TEACHING_FORMATS, id)).join(' · ')}<br/>{resource.duration[locale]}</p>

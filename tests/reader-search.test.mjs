@@ -28,7 +28,7 @@ test('Default search excludes archive, questions and technical catalogue with of
 test('Deep teaching units are opt-in lessons while studio entrances remain in default search',()=>{
   for(const base of ['','/zh']){
     for(const path of ['/teaching/senior-math/lessons/foundation-01/','/teaching/senior-math/chapters/algebra/','/teaching/senior-math/books/core/','/teaching/jae-math/lessons/quadratics/','/teaching/modeling-workshop/mixing-tank/','/teaching/mathematical-modeling-lecture-programme/lecture-01/'])assert.equal(classifySearchUrl(base+path),'lesson',path);
-    for(const path of ['/teaching/senior-math/','/teaching/jae-math/','/teaching/modeling-workshop/','/teaching/mathematical-modeling-lecture-programme/'])assert.equal(classifySearchUrl(base+path),'teaching',path);
+    for(const path of ['/teaching/senior-math/','/teaching/senior-math/studios/jae/','/teaching/jae-math/','/teaching/modeling-workshop/','/teaching/mathematical-modeling-lecture-programme/'])assert.equal(classifySearchUrl(base+path),'teaching',path);
     assert.equal(classifySearchUrl(base+'/teaching/senior-math/questions/question-01/'),'question');
     assert.equal(classifySearchUrl(base+'/teaching/senior-math/papers/jm01-2026/'),'question');
     assert.equal(classifySearchUrl(base+'/teaching/modeling-workshop/sources/'),'catalogue');

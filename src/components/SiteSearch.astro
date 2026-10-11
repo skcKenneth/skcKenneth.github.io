@@ -19,7 +19,7 @@ const entrances=[
   ['quantum-repeater-lab','Quantum repeater scheduling lab','量子中繼排程實驗室','Experiment with quantum networks and scheduling.','實驗量子網絡與排程。',[]],
   ['melt-pond-topology-lab','Melt-pond topology observation lab','融池拓撲觀測實驗室','Examine how observation changes topological evidence.','檢查觀測方法如何改變拓撲證據。',[]]
 ] as [string,string,string,string,string,string[]][];
-const extras=[...entrances.map(([slug,en,ch,excerptEn,excerptZh,aliases])=>({url:`${base}/teaching/${slug}/`,title:zh?ch:en,excerpt:zh?excerptZh:excerptEn,
+const extras=[...entrances.map(([slug,en,ch,excerptEn,excerptZh,aliases])=>({url:`${base}/teaching/${slug==='jae-math'?'senior-math/studios/jae':slug}/`,title:zh?ch:en,excerpt:zh?excerptZh:excerptEn,
   aliases:[en,ch,slug,...aliases],kind:'teaching',archived:false,topicIds:['teaching-research-practice']})),
   {url:`${base}/teaching/#math-inquiry-lab`,title:zh?'數學探究室 · Math Inquiry Lab':'Math Inquiry Lab',aliases:['數學探究室','Math Inquiry Lab','math-inquiry-lab'],excerpt:zh?'二次函數、概率與迴歸互動活動。':'Interactive activities on quadratics, probability and regression.',kind:'teaching',archived:false,topicIds:['mathematical-thinking','teaching-research-practice']},
   ...lessons.map(lesson=>({url:`${base}/teaching/modeling-workshop/${lesson.slug}/`,title:lesson.title[locale],aliases:Object.values(lesson.title),excerpt:lesson.summary[locale],kind:'lesson',archived:false,topicIds:['teaching-research-practice','computation-code']}))];

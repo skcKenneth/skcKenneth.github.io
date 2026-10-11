@@ -3,7 +3,6 @@ import MathExpression from './MathExpression.astro';
 import TeachingToolbar from './TeachingToolbar.astro';
 import SeniorMathInquiry from './SeniorMathInquiry.astro';
 import { jaeTopics, jaeSyllabus } from '../data/jae-math.mjs';
-import { examPapers } from '../data/senior-math/papers.mjs';
 import '../styles/jae-math.css';
 
 interface Props { locale?: 'en' | 'zh-Hant'; lessonTopics?: any[]; standalone?: boolean }
@@ -12,7 +11,6 @@ const zh = locale === 'zh-Hant';
 const t = (en: string, ch: string) => zh ? ch : en;
 const label = (value: any) => value?.[zh ? 'zh' : 'en'] || '';
 const topics = (lessonTopics || jaeTopics) as any[];
-const papers = examPapers as any[];
 const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), standard: t('Standard', '鞏固'), transfer: t('Transfer', '遷移') };
 ---
 
@@ -22,7 +20,7 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
   {!standalone && <header class="jae-hero">
     <div class="container jae-hero-grid">
       <div>
-        <a class="jae-back" href={zh ? '/zh/teaching/' : '/teaching/'}>← {t('Teaching resources', '教學資源')}</a>
+        <a class="jae-back" href={zh ? '/zh/teaching/senior-math/' : '/teaching/senior-math/'}>← {t('Senior Mathematics Studio', '高中數學研習室')}</a>
         <p class="jae-eyebrow">MACAU · JOINT ADMISSION EXAMINATION</p>
         <h1>{t('Understand the move.\nThen solve the problem.', '先看懂關鍵，\n再解好每一題。')}</h1>
         <p class="jae-lead">{t('A mathematics studio for Macau JAE: explore a graph, explain a method, and make your next attempt more deliberate.', '澳門四校聯考數學研習室：從圖像理解關係，用提示整理思路，再透過練習與訂正掌握方法。')}</p>
@@ -52,7 +50,7 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
   </div>
 
   <div class="container jae-main" id="jae-topics">
-    {!standalone && <div class="jae-section-heading"><div><p class="jae-eyebrow">{t('TWO COMPLETE STARTING POINTS', '先把兩個專題學紮實')}</p><h2>{t('A route from ideas to answers.', '由概念，走到解題。')}</h2></div><p>{t('Original teaching examples with layered hints. The paper index below links you to official sources.', '原創例題配合分層提示；頁末提供官方歷屆試卷連結，方便銜接真題練習。')}</p></div>}
+    {!standalone && <div class="jae-section-heading"><div><p class="jae-eyebrow">{t('TWO COMPLETE STARTING POINTS', '先把兩個專題學紮實')}</p><h2>{t('A route from ideas to answers.', '由概念，走到解題。')}</h2></div><p>{t('Original teaching examples with layered hints. Continue to the shared paper library below for official sources and explanations.', '原創例題配合分層提示；頁末可進入舊卷資源庫，銜接官方原卷及詳解。')}</p></div>}
     <nav class="jae-topic-nav" aria-label={t('Topics', '專題')}>
       {topics.map((topic: any, index: number) => <a href={`#${topic.id}`} data-topic-link={topic.id}><span>0{index + 1}</span><strong>{label(topic.title)}</strong><small>{label(topic.summary)}</small><b aria-hidden="true">↗</b></a>)}
     </nav>
@@ -113,7 +111,8 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
 
     {!standalone && <section id="past-papers" class="jae-paper-section">
       <div class="jae-section-heading"><div><p class="jae-eyebrow">2021–2026 · JM01 / JM02 · {t('OFFICIAL SOURCES', '官方來源')}</p><h2>{t('Take the next step\nwith a past paper.', '再用一份舊卷，\n檢查自己的理解。')}</h2></div><p>{t('Open the official source, attempt the questions independently, and return to your notes to identify the next skill to practise.', '開啟官方來源，先獨立作答，再回看學習紀錄，找出下一步要鞏固的知識。')}</p></div>
-      <div class="jae-paper-grid">{papers.map((paper: any) => <a class="jae-paper-card" href={paper.url} target="_blank" rel="noopener noreferrer"><strong>{paper.year} · {paper.code}</strong><span>{label(paper.source)}</span><small>{t('Open official source ↗', '開啟官方來源 ↗')}</small><small>{t('Source checked', '來源核對')} {paper.verified}</small></a>)}</div>
+      <a class="button" href={zh ? '/zh/teaching/senior-math/papers/' : '/teaching/senior-math/papers/'}>{t('Browse all 12 papers and explanations', '瀏覽全部 12 份舊卷及詳解')} ↗</a>
+      <p class="jae-syllabus">{t('Each paper page links to the official original and suggested answers, with its source verification date.', '每份試卷頁均提供官方原卷、參考答案連結及來源核對日期。')}</p>
       <p class="jae-syllabus"><a href={jaeSyllabus.url} target="_blank" rel="noopener noreferrer">{jaeSyllabus.year} {t('official mathematics syllabus', '官方數學考試大綱')} ↗</a><span>{t('Check the syllabus for the year in which you sit the examination.', '應考時，請以該年度正式大綱為準。')}</span></p>
       <aside class="jae-source-note"><h3>{t('About this teaching resource', '關於這份教學資源')}</h3><p>{t('An independent, unofficial teaching resource by Kenneth Cheng. Lessons and exercises are original; official examination papers remain on their original sites. This page contains two starting topics; the Senior Mathematics Studio provides the wider curriculum and paper explanations.', '這是 Kenneth Cheng 編寫的獨立、非官方教學資源。課文與練習為原創；官方試卷保留於原網站。本頁提供兩個入門專題；高中數學研習室提供完整課程入口與舊卷詳解。')}</p><p>{t('Saved answers are local to this browser; there is no teacher dashboard or cross-device sync. Export your record before clearing browser data.', '答案與訂正只保存在此瀏覽器，沒有教師後台或跨裝置同步。清除瀏覽器資料前，請先匯出紀錄。')}</p></aside>
     </section>}

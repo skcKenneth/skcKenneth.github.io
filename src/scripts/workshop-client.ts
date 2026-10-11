@@ -1,6 +1,7 @@
 import {lessons} from "../data/workshop-lessons";
 import type {LearnerProgress,WorkshopLesson,WorkshopLocale,WorkshopResult} from "../types/workshop";
 import {ProgressStore,freshProgress,validateProgress,validateParams,validateResult,isRunStale,exportProgress,parseImport,pythonExport,notebookExport,reportExport,MAX_IMPORT_BYTES} from "../lib/workshop-state.mjs";
+import {workshopIndexSummary} from '../lib/workshop-index-summary.mjs';
 
 const metricZh:Record<string,string>={
  "Your Euler max error (g/L)":"你的 Euler 最大誤差（g/L）","Your half-step max error (g/L)":"你的半步長最大誤差（g/L）",
@@ -16,6 +17,7 @@ const download=(name:string,body:string|Blob,type="text/plain;charset=utf-8")=>{
 };
 const getText=async(url:string)=>{const r=await fetch(url);if(!r.ok)throw new Error(`Download failed (${r.status}) / 下載失敗`);return r.text();};
 export async function initializeWorkshopIndex(root:HTMLElement){
+ if(root.dataset.indexReady)return;root.dataset.indexReady='true';
  const locale=root.dataset.locale as WorkshopLocale,zh=locale==="zh-Hant",base=`${zh?"/zh":""}/teaching/modeling-workshop`;
  const store=new ProgressStore();const available=await store.open();const records:LearnerProgress[]=[];
  for(const l of lessons){try{const raw=await store.get(l.id);if(raw){const p=validateProgress(raw,l) as LearnerProgress;records.push(p);const label=root.querySelector(`[data-progress-for="${l.id}"]`);if(label)label.textContent=`${p.completed.length}/8 ${zh?"步驟已自行標記完成":"steps self-marked complete"}`;}}catch{/* Keep other lessons usable if one saved record is corrupt. */}}
@@ -24,7 +26,7 @@ export async function initializeWorkshopIndex(root:HTMLElement){
  const toolbarStatus=toolbar?.querySelector<HTMLElement>('[data-teaching-save-status]');
  if(toolbarStatus)toolbarStatus.textContent=available&&store.persistent?(records.length?(zh?`已讀取 ${records.length} 份本機草稿`:`${records.length} local drafts loaded`):(zh?'尚未有可讀取的本機草稿':'No readable local drafts yet')):(zh?'未能讀取本機保存；課文仍可使用':'Local saving unavailable; lessons remain readable');
  if(recent&&toolbar){const l=lessons.find(l=>l.id===recent.lessonId)!;const resume=toolbar.querySelector<HTMLAnchorElement>('[data-teaching-continue]');if(resume)resume.href=`${base}/${l.slug}/`;const exportButton=toolbar.querySelector<HTMLButtonElement>('[data-teaching-export]');if(exportButton){exportButton.hidden=false;exportButton.textContent=zh?'匯出最近草稿':'Export latest draft';exportButton.addEventListener('click',()=>download(`${l.slug}-draft.json`,exportProgress(recent),'application/json'));}}
- if(recent){const l=lessons.find(l=>l.id===recent.lessonId)!;const a=document.createElement("a");a.href=`${base}/${l.slug}/`;a.textContent=(zh?"繼續學習：":"Continue learning: ")+l.title[locale];root.querySelector("[data-resume]")?.append(a);}
+ const summary=root.querySelector<HTMLElement>('[data-workshop-summary]');if(summary)summary.textContent=workshopIndexSummary(records,lessons,locale,available&&store.persistent);
  const notes=JSON.parse(root.querySelector("#workshop-index-notes")?.textContent||"[]") as {id:string;title:Record<string,string>}[];
  const update=()=>{const target=root.querySelector("[data-diagnostic-results]")!;target.replaceChildren();root.querySelectorAll<HTMLInputElement>("[data-refresh]:checked").forEach(input=>{const note=notes.find(n=>n.id===input.dataset.refresh);const a=document.createElement("a");a.style.display="block";a.href=note?`${zh?"/zh":""}/teaching/mathematical-modeling-lecture-programme/${note.id}/`:`${zh?"/zh":""}/teaching/python-labs/`;a.textContent=note?note.title[locale]:(zh?"Python 實驗室與入門指引":"Python laboratory & orientation");target.append(a);});};root.querySelectorAll("[data-refresh]").forEach(input=>input.addEventListener("change",update));
 }

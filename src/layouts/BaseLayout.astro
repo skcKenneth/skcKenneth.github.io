@@ -4,15 +4,18 @@ import '../styles/site-refresh.css';
 import { getCollection } from 'astro:content';
 import { getTopicIds, localeBase, SITE_URL } from '../data/site-reader.mjs';
 import { classifySearchUrl } from '../lib/search-catalog.mjs';
+import { resolveContentRoute } from '../lib/content-routes.mjs';
 interface Props { title:string; description?:string; image?:string; noindex?:boolean; type?:string; locale?:'en'|'zh-Hant'; alternatePath?:string; publicResearchRecord?:boolean; articleData?:any; topicIds?:string[]; }
 const {title,description='Mathematics, computation and teaching — ideas to explore with Kenneth Cheng.',noindex=false,type,locale='en',alternatePath,publicResearchRecord=false,articleData,topicIds}=Astro.props;
 const zh=locale==='zh-Hant',base=localeBase(locale),current=Astro.url.pathname;
-const canonical=new URL(current,Astro.site),alternate=alternatePath?new URL(alternatePath,Astro.site):undefined;
+const canonical=new URL(current,Astro.site);
 const collectionNames=['writing','writingZh','projects','projectsZh','research','researchZh','teaching','teachingZh'] as const;
 const collections=await Promise.all(collectionNames.map(name=>getCollection(name,({data})=>!data.draft)));
 const entries=collections.flat();
-const localEntries=entries.filter(e=>zh?('sourceSlug' in e.data):!('sourceSlug' in e.data));
-const currentEntry=localEntries.find(e=>current.endsWith('/'+e.data.slug+'/'));
+const contentCollections=Object.fromEntries(collectionNames.map((name,index)=>[name,collections[index]]));
+const {entry:currentEntry,alternatePath:contentAlternatePath}=resolveContentRoute(current,contentCollections);
+const pairedAlternatePath=currentEntry?contentAlternatePath:alternatePath;
+const alternate=pairedAlternatePath?new URL(pairedAlternatePath,Astro.site):undefined;
 const data=articleData||currentEntry?.data;
 const dates=entries.map(e=>(e.data.lastUpdated||e.data.date)?.valueOf()).filter((x):x is number=>typeof x==='number'&&Number.isFinite(x));
 const updated=new Date(Math.max(...dates)).toLocaleDateString(zh?'zh-Hant-TW':'en-GB',{dateStyle:'long',timeZone:'UTC'});
@@ -26,6 +29,7 @@ const shareImage=new URL('/images/og-reader.png',Astro.site).href;
 const jsonLd=articleData?{'@context':'https://schema.org','@type':'BlogPosting',headline:title,description,url:canonical.href,image:shareImage,inLanguage:locale,author:{'@type':'Person',name:'Kenneth Cheng',url:SITE_URL+base+'/about/'},datePublished:articleData.date?.toISOString(),dateModified:articleData.lastUpdated?.toISOString(),mainEntityOfPage:canonical.href}:{'@context':'https://schema.org','@type':'WebSite',name:'Kenneth Cheng',url:SITE_URL,inLanguage:locale};
 const section=nav.find(([,href])=>selected(href));
 const breadcrumb=path.split('/').filter(Boolean).length>1&&!articleData&&!path.startsWith('/topics/')&&section;
+const studioBreadcrumb=/^\/teaching\/senior-math\/studios\/[^/]+\/$/.test(path);
 ---
 <!doctype html>
 <html lang={locale}>
@@ -66,13 +70,13 @@ const breadcrumb=path.split('/').filter(Boolean).length>1&&!articleData&&!path.s
   <nav class="primary-navigation" aria-label={zh?'主要導覽':'Primary'}><ul class="nav-list" id="primary-nav">{nav.map(([label,href])=><li><a href={href} aria-current={selected(href)?'page':undefined}>{label}</a></li>)}</ul></nav>
   <div class="header-tools">
     <a class="tool-link" href={base+'/search/'} aria-label={zh?'搜尋網站':'Search the site'}><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m15 15 6 6" stroke="currentColor" stroke-width="1.8"/></svg><span class="tool-label">{zh?'搜尋':'Search'}</span></a>
-    <a class="tool-link language-switch" data-language-switch href={alternatePath||(zh?'/':'/zh/')} lang={zh?'en':'zh-Hant'} aria-label={zh?'Read in English':'閱讀繁體中文版'}>{zh?'EN':'中文'}</a>
+    <a class="tool-link language-switch" data-language-switch href={pairedAlternatePath||(zh?'/':'/zh/')} lang={zh?'en':'zh-Hant'} aria-label={zh?'Read in English':'閱讀繁體中文版'}>{zh?'EN':'中文'}</a>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">{zh?'選單':'Menu'}</button>
   </div>
 </div>
 </header>
 <main id="main" data-pagefind-body>
-{breadcrumb&&<nav class="breadcrumbs container" aria-label={zh?'所在位置':'Breadcrumb'} data-pagefind-ignore><a href={base+'/'}>{zh?'首頁':'Home'}</a><span aria-hidden="true">/</span><a href={section[1]}>{section[0]}</a><span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav>}
+{studioBreadcrumb?<nav class="breadcrumbs container" aria-label={zh?'所在位置':'Breadcrumb'} data-pagefind-ignore><a href={base+'/'}>{zh?'首頁':'Home'}</a><span aria-hidden="true">/</span><a href={base+'/teaching/'}>{zh?'教學':'Teaching'}</a><span aria-hidden="true">/</span><a href={base+'/teaching/senior-math/'}>{zh?'高中數學':'Senior Mathematics'}</a><span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav>:breadcrumb&&<nav class="breadcrumbs container" aria-label={zh?'所在位置':'Breadcrumb'} data-pagefind-ignore><a href={base+'/'}>{zh?'首頁':'Home'}</a><span aria-hidden="true">/</span><a href={section[1]}>{section[0]}</a><span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav>}
 <slot/>
 </main>
 <footer class="site-footer" data-pagefind-ignore><div class="container footer-grid">
@@ -92,7 +96,7 @@ document.addEventListener('click',e=>{if(e.target instanceof Node&&!document.que
 nav?.addEventListener('click',e=>{if((e.target as Element).closest('a'))setOpen(false);});
 const language=document.querySelector<HTMLAnchorElement>('[data-language-switch]');
 if(language&&/\/(search|writing|topics|teaching)\//.test(location.pathname)){
-  const syncLanguage=()=>{const next=new URL(language.href);next.search=location.search;language.href=next.href;};
+  const syncLanguage=()=>{if(language.dataset.catalogLanguageManaged==='true')return;const next=new URL(language.href);next.search=location.search;if(/\/(topics|writing)\/$/.test(location.pathname)||/\/teaching\//.test(location.pathname))next.hash=location.hash;language.href=next.href;};
   syncLanguage();language.addEventListener('click',syncLanguage);language.addEventListener('focus',syncLanguage);
 }
 </script>

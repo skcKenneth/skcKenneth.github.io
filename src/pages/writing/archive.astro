@@ -1,7 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import WritingIndex from '../../components/WritingIndex.astro';
-const entries = await getCollection('writing', ({ data }) => !data.draft && data.slug !== 'legacy-archive');
+import CompatibilityRedirect from '../../components/CompatibilityRedirect.astro';
 ---
-<BaseLayout title="Writing archive" description="The complete writing archive, with dates, reading times and preserved context." type="Writing" alternatePath="/zh/writing/archive/"><WritingIndex entries={entries} includeArchive /></BaseLayout>
+<CompatibilityRedirect destination="/writing/?archive=1" locale="en" />

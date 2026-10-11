@@ -1,8 +1,8 @@
 ---
 import { getTopicIds, localeBase, TOPICS } from '../data/site-reader.mjs';
 import '../styles/reader.css';
-interface Props { entries: any[]; locale?: 'en' | 'zh-Hant' }
-const { entries, locale = 'en' } = Astro.props;
+interface Props { entries: any[]; research: any[]; locale?: 'en' | 'zh-Hant' }
+const { entries, research, locale = 'en' } = Astro.props;
 const isZh = locale === 'zh-Hant';
 const base = localeBase(locale);
 ---
@@ -10,4 +10,10 @@ const base = localeBase(locale);
 <section class="reader-section"><div class="container"><div class="reader-topics-grid">{TOPICS.map((topic, index) => {
   const count = entries.filter(entry => !entry.data.archived && getTopicIds(entry.data).includes(topic.id)).length;
   return <article class="reader-topic-card"><span class="reader-topic-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h2><a href={`${base}/topics/${topic.id}/`}>{topic.label[locale]}</a></h2><p>{topic.description[locale]}</p><span class="small">{isZh ? `${count} 篇文章` : `${count} articles`}</span></article>;
-})}</div><div class="reader-topic-secondary"><p>{isZh ? '想睇研究全貌？' : 'Looking for the wider research picture?'}</p><a href={`${base}/research/`}>{isZh ? '研究方向' : 'Research programmes'}</a><a href={`${base}/projects/`}>{isZh ? '完整專案目錄' : 'Complete project catalogue'}</a></div></div></section>
+})}</div><div class="reader-topic-secondary"><p>{isZh ? '想睇研究全貌？' : 'Looking for the wider research picture?'}</p><a href="#research-programmes">{isZh ? '研究方向' : 'Research programmes'}</a><a href={`${base}/projects/`}>{isZh ? '完整專案目錄' : 'Complete project catalogue'}</a></div></div></section>
+<section class="reader-section reader-topic-research" id="research-programmes" aria-labelledby="programmes-heading"><div class="container">
+  <div class="reader-section-heading"><div><p class="eyebrow">{isZh ? '研究方向' : 'Research programmes'}</p><h2 id="programmes-heading">{isZh ? '跨越專案的研究問題。' : 'Questions that connect projects.'}</h2></div></div>
+  <p>{isZh ? '由長期研究問題深入了解模型、方法、證據與尚未解決的限制。' : 'Explore longer-term questions through models, methods, evidence and open limitations.'}</p>
+  <div class="reader-overview-grid">{research.map(entry => <article><p class="eyebrow">{entry.data.programme}</p><h3><a href={`${base}/research/${entry.data.slug}/`}>{entry.data.title}</a></h3><p>{entry.data.summary}</p><div class="tag-list">{entry.data.methods.map((method: string) => <span class="tag">{method}</span>)}</div></article>)}</div>
+  <p class="reader-topic-secondary"><a href={`${base}/projects/`}>{isZh ? '瀏覽完整技術專案目錄' : 'Browse the complete technical catalogue'} →</a></p>
+</div></section>

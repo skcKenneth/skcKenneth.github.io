@@ -1,7 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import WritingIndex from '../../../components/WritingIndex.astro';
-const entries = await getCollection('writingZh', ({ data }) => !data.draft && data.slug !== 'legacy-archive');
+import CompatibilityRedirect from '../../../components/CompatibilityRedirect.astro';
 ---
-<BaseLayout title="文章典藏" description="完整文章典藏，標明日期、閱讀時間與過往內容狀態。" type="文章" locale="zh-Hant" alternatePath="/writing/archive/"><WritingIndex entries={entries} locale="zh-Hant" includeArchive /></BaseLayout>
+<CompatibilityRedirect destination="/zh/writing/?archive=1" locale="zh" />

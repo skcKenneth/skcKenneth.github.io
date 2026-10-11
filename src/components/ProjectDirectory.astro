@@ -1,0 +1,26 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import '../styles/catalog-filters.css';
+const { projects, alternateOptions, locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant';
+const unique = (values: string[]) => [...new Set(values)].sort((a, b) => a.localeCompare(b, locale));
+const topics = unique(projects.flatMap((project: any) => project.data?.topics ?? project.topics ?? []));
+const statuses = unique(projects.map((project: any) => project.data?.status ?? project.status));
+const methods = unique(projects.flatMap((project: any) => project.data?.methods ?? project.methods ?? []));
+---
+<div data-catalog-kind="project" data-locale={locale} data-alternate-options={JSON.stringify(alternateOptions)}>
+  <form class="filter-bar" id="filters" data-catalog-filters aria-label={zh ? '專案篩選' : 'Project filters'}>
+    <label>{zh ? '主題' : 'Topic'}<select name="topic"><option value="">{zh ? '所有主題' : 'All topics'}</option>{topics.map(value => <option>{value}</option>)}</select></label>
+    <label>{zh ? '狀態' : 'Status'}<select name="status"><option value="">{zh ? '所有狀態' : 'All statuses'}</option>{statuses.map(value => <option>{value}</option>)}</select></label>
+    <label>{zh ? '方法' : 'Method'}<select name="method"><option value="">{zh ? '所有方法' : 'All methods'}</option>{methods.map(value => <option>{value}</option>)}</select></label>
+    <label>{zh ? '可用性' : 'Availability'}<select name="availability"><option value="">{zh ? '不限' : 'Any'}</option><option value="code">{zh ? '有程式紀錄' : 'Code available'}</option><option value="data">{zh ? '有資料紀錄' : 'Data listed'}</option><option value="student">{zh ? '適合學生' : 'Student-suitable'}</option></select></label>
+    <button class="button secondary" type="reset">{zh ? '重設篩選' : 'Reset filters'}</button>
+  </form>
+  <p class="small" role="status" aria-live="polite" id="result-count" data-catalog-count>{zh ? `顯示 ${projects.length} / ${projects.length} 個專案` : `Showing ${projects.length} of ${projects.length} projects.`}</p>
+  <div class="grid" id="project-grid">{projects.map((project: any) => <ProjectCard project={project} locale={locale} hrefPrefix={zh ? '/zh/projects/' : '/projects/'} />)}</div>
+  <p class="empty" id="empty" data-catalog-empty hidden>{zh ? '沒有專案符合所有篩選條件。請重設篩選，再選擇其他條件。' : 'No projects match all selected filters. Reset the filters to try another combination.'}</p>
+</div>
+<script>
+  import { initializeCatalogFilters } from '../scripts/catalog-filter-controller';
+  document.querySelectorAll<HTMLElement>('[data-catalog-kind="project"]').forEach(initializeCatalogFilters);
+</script>

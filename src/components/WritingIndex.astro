@@ -1,15 +1,14 @@
 ---
 import ReaderCard from './ReaderCard.astro';
-import ArchiveNotice from './ArchiveNotice.astro';
 import { articleType, localeBase, TOPICS } from '../data/site-reader.mjs';
 import '../styles/reader.css';
-interface Props { entries: any[]; locale?: 'en' | 'zh-Hant'; includeArchive?: boolean }
-const { entries, locale = 'en', includeArchive = false } = Astro.props;
+interface Props { entries: any[]; locale?: 'en' | 'zh-Hant' }
+const { entries, locale = 'en' } = Astro.props;
 const isZh = locale === 'zh-Hant';
 const base = localeBase(locale);
 const items = [...entries].sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
-const visible = items.filter(entry => includeArchive || !entry.data.archived).slice(0, 12);
-const initialCount = items.filter(entry => includeArchive || !entry.data.archived).length;
+const visible = items.filter(entry => !entry.data.archived).slice(0, 12);
+const initialCount = items.filter(entry => !entry.data.archived).length;
 const types = [...new Set(items.map(entry => articleType(entry.data.type, 'en')))];
 const years = [...new Set(items.map(entry => entry.data.date?.getFullYear()).filter(Boolean))].sort((a, b) => b - a);
 ---
@@ -19,21 +18,21 @@ const years = [...new Set(items.map(entry => entry.data.date?.getFullYear()).fil
   <p class="lead">{isZh ? '由主題、文章類型或年份開始，探索數學思考、計算實驗與教學。' : 'Explore mathematical thinking, computational experiments and teaching by topic, article type or year.'}</p>
   <div class="reader-inline-links"><a href={`${base}/topics/`}>{isZh ? '瀏覽主題' : 'Explore topics'}</a><a href={`${base}/rss.xml`}>RSS</a><a href={`${base}/reading-list/`}>{isZh ? '稍後閱讀' : 'Reading list'}</a></div>
 </div></header>
-<section class="reader-section"><div class="container" data-writing-index data-locale={locale} data-default-archive={String(includeArchive)}>
-  {includeArchive && <ArchiveNotice locale={locale} />}
+<section class="reader-section"><div class="container" data-writing-index data-locale={locale} data-default-archive="false">
   <form class="reader-filters" aria-label={isZh ? '篩選文章' : 'Filter articles'}>
     <label class="reader-query">{isZh ? '關鍵字' : 'Keyword'}<input type="search" name="q" placeholder={isZh ? '標題、摘要或標籤' : 'Title, summary or tag'} /></label>
     <label>{isZh ? '主題' : 'Topic'}<select name="topic"><option value="">{isZh ? '所有主題' : 'All topics'}</option>{TOPICS.map(topic => <option value={topic.id}>{topic.label[locale]}</option>)}</select></label>
     <label>{isZh ? '文章類型' : 'Article type'}<select name="type"><option value="">{isZh ? '所有類型' : 'All types'}</option>{types.map(type => <option value={type}>{articleType(type, locale)}</option>)}</select></label>
     <label>{isZh ? '年份' : 'Year'}<select name="year"><option value="">{isZh ? '所有年份' : 'All years'}</option>{years.map(year => <option value={year}>{year}</option>)}</select></label>
-    <div class="reader-filter-actions"><label class="reader-checkbox"><input type="checkbox" name="archive" checked={includeArchive} />{isZh ? '包含典藏文章' : 'Include archived articles'}</label><button class="button" type="submit">{isZh ? '套用篩選' : 'Apply filters'}</button><button class="button secondary" type="reset">{isZh ? '重設' : 'Reset'}</button></div>
+    <div class="reader-filter-actions"><label class="reader-checkbox"><input type="checkbox" name="archive" aria-describedby="archive-help" />{isZh ? '包含典藏文章' : 'Include archived articles'}</label><button class="button" type="submit">{isZh ? '套用篩選' : 'Apply filters'}</button><button class="button secondary" type="reset">{isZh ? '重設' : 'Reset'}</button></div>
   </form>
+  <p class="small" id="archive-help">{isZh ? '現行與典藏文章都在這裡。勾選上方選項，即可一併搜尋舊文章。' : 'Current and archived writing share this list. Select the archive option to include older articles.'}</p>
+  <aside class="notice" data-archive-notice hidden role="note">{isZh ? '典藏文章保留作參考，現時不再主動維護；部分方法、連結或結論可能已被後續工作取代。' : 'Archived articles are preserved for reference and are no longer actively maintained. Some methods, links or conclusions may have been superseded.'}</aside>
   <p class="small reader-result-count" role="status" aria-live="polite" aria-atomic="true">{isZh ? `${initialCount} 篇文章` : `${initialCount} articles`}</p>
   <div class="reader-card-grid">{items.map(entry => <ReaderCard entry={entry} locale={locale} filterCard hidden={!visible.includes(entry)} />)}</div>
   <div class="reader-empty" hidden><h2>{isZh ? '暫時搵唔到符合條件嘅文章。' : 'No articles match these filters.'}</h2><p>{isZh ? '試下減少關鍵字、重設篩選，或者由主題頁開始。' : 'Try fewer keywords, reset the filters or explore a topic.'}</p><a href={`${base}/topics/`}>{isZh ? '瀏覽所有主題' : 'Explore all topics'}</a></div>
   <nav class="reader-pagination" aria-label={isZh ? '文章分頁' : 'Article pages'} hidden></nav>
   <noscript><p>{isZh ? '啟用 JavaScript 可使用篩選及分頁；以下列出所有文章。' : 'Enable JavaScript to filter and paginate. All articles are listed below.'}</p><style is:inline>.reader-card[hidden]{display:block!important}.reader-filters{display:none}</style></noscript>
-  {!includeArchive && <p class="reader-archive-link"><a href={`${base}/writing/archive/`}>{isZh ? '查看完整文章典藏' : 'Open the complete writing archive'}</a></p>}
 </div></section>
 <script>
   import { filterArticles, paginateArticles, readArticleQuery, writeArticleQuery } from '../data/reader-utils.mjs';
@@ -45,8 +44,9 @@ const years = [...new Set(items.map(entry => entry.data.date?.getFullYear()).fil
     const count = root.querySelector<HTMLElement>('.reader-result-count')!;
     const empty = root.querySelector<HTMLElement>('.reader-empty')!;
     const pager = root.querySelector<HTMLElement>('.reader-pagination')!;
+    const archiveNotice = root.querySelector<HTMLElement>('[data-archive-notice]')!;
     const isZh = root.dataset.locale === 'zh-Hant';
-    let state = readArticleQuery(location.search, { archive: root.dataset.defaultArchive === 'true' });
+    let state = readArticleQuery(location.search);
     function syncForm() {
       for (const key of ['q', 'topic', 'type', 'year'] as const) {
         const input = form.elements.namedItem(key) as HTMLInputElement | HTMLSelectElement;
@@ -62,11 +62,12 @@ const years = [...new Set(items.map(entry => entry.data.date?.getFullYear()).fil
       cards.forEach((card, index) => { card.hidden = !shown.has(index); });
       count.textContent = isZh ? `${result.total} 篇文章 · 第 ${result.page} / ${result.pageCount} 頁` : `${result.total} articles · Page ${result.page} of ${result.pageCount}`;
       empty.hidden = result.total !== 0;
+      archiveNotice.hidden = !state.archive;
       pager.replaceChildren();
       pager.hidden = result.pageCount <= 1;
       const makeLink = (label: string, page: number, current = false) => {
         const link = document.createElement('a');
-        link.href = `${location.pathname}?${writeArticleQuery({ ...state, page })}`;
+        link.href = `${location.pathname}?${writeArticleQuery({ ...state, page })}${location.hash}`;
         link.textContent = label;
         if (current) link.setAttribute('aria-current', 'page');
         link.addEventListener('click', event => {
@@ -84,8 +85,8 @@ const years = [...new Set(items.map(entry => entry.data.date?.getFullYear()).fil
         pager.append(makeLink(String(page), page, page === result.page)); previousPage = page;
       }
       if (result.page < result.pageCount) pager.append(makeLink(isZh ? '下一頁' : 'Next', result.page + 1));
-      const nextUrl = `${location.pathname}?${writeArticleQuery(state)}`;
-      if (historyMode === 'push' && nextUrl !== `${location.pathname}${location.search}`) history.pushState(null, '', nextUrl);
+      const nextUrl = `${location.pathname}?${writeArticleQuery(state)}${location.hash}`;
+      if (historyMode === 'push' && nextUrl !== `${location.pathname}${location.search}${location.hash}`) history.pushState(null, '', nextUrl);
       else if (historyMode === 'replace') history.replaceState(null, '', nextUrl);
     }
     function fromForm() {
@@ -96,7 +97,7 @@ const years = [...new Set(items.map(entry => entry.data.date?.getFullYear()).fil
     form.addEventListener('submit', event => { event.preventDefault(); fromForm(); });
     form.addEventListener('change', event => { if ((event.target as HTMLInputElement).name !== 'q') fromForm(); });
     form.addEventListener('reset', event => { event.preventDefault(); state = readArticleQuery('', { archive: false }); syncForm(); apply('push'); });
-    window.addEventListener('popstate', () => { state = readArticleQuery(location.search, { archive: root.dataset.defaultArchive === 'true' }); syncForm(); apply(); });
+    window.addEventListener('popstate', () => { state = readArticleQuery(location.search); syncForm(); apply(); });
     syncForm(); apply();
   }
 </script>

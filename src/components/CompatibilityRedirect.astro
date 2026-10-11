@@ -1,0 +1,52 @@
+---
+import { compatibilityDestination, READER_QUERY_KEYS } from '../lib/compatibility-redirect.mjs';
+interface Props {
+  destination: string;
+  locale?: 'en' | 'zh';
+  queryKeys?: string[];
+  preserveHash?: boolean;
+  hashMap?: Record<string, string>;
+}
+const { destination, locale = 'en', queryKeys = READER_QUERY_KEYS, preserveHash = true, hashMap = {} } = Astro.props;
+const fallback = compatibilityDestination(destination);
+const canonical = new URL(fallback, Astro.site);
+const zh = locale === 'zh';
+---
+<!doctype html>
+<html lang={zh ? 'zh-Hant' : 'en'} data-pagefind-ignore="all">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex,follow" />
+    <meta data-pagefind-ignore />
+    <link rel="canonical" href={canonical} />
+    <title>{zh ? '入口已整合' : 'Page moved'} — Kenneth Cheng</title>
+    <noscript><meta http-equiv="refresh" content={`0; url=${fallback}`} /></noscript>
+  </head>
+  <body>
+    <main data-compatibility-redirect data-destination={fallback} data-query-keys={JSON.stringify(queryKeys)} data-preserve-hash={String(preserveHash)} data-hash-map={JSON.stringify(hashMap)}>
+      <h1>{zh ? '入口已整合' : 'This page has moved'}</h1>
+      <p>{zh ? '正在前往整合後的頁面。你亦可以使用以下連結：' : 'Opening the consolidated page. You can also follow this link:'}</p>
+      <a data-redirect-link href={fallback}>{zh ? '前往頁面' : 'Continue to the page'}</a>
+    </main>
+  </body>
+</html>
+<script>
+  import { compatibilityDestination } from '../lib/compatibility-redirect.mjs';
+  const redirect = document.querySelector<HTMLElement>('[data-compatibility-redirect]');
+  if (redirect) {
+    const target = compatibilityDestination(redirect.dataset.destination!, location.search, location.hash, {
+      queryKeys: JSON.parse(redirect.dataset.queryKeys!),
+      preserveHash: redirect.dataset.preserveHash !== 'false',
+      hashMap: JSON.parse(redirect.dataset.hashMap!),
+    });
+    document.querySelector<HTMLAnchorElement>('[data-redirect-link]')!.href = target;
+    location.replace(target);
+  }
+</script>
+<style>
+  :global(body) { margin: 0; padding: 2rem; color: #173d32; background: #f5f3ed; font: 1.1rem/1.8 system-ui, sans-serif; }
+  main { max-width: 40rem; margin: 10vh auto; }
+  a { color: #1f6652; text-underline-offset: .2em; }
+  a:focus-visible { outline: 3px solid #1f6652; outline-offset: 5px; }
+</style>

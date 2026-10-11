@@ -1,0 +1,10 @@
+[data-catalog-kind] [hidden] { display:none !important; }
+[data-catalog-filters] button[type="reset"] { align-self:end; justify-self:start; min-height:2.75rem; }
+[data-catalog-count] { margin-block:.75rem 1.25rem; }
+/* A twelve-track grid's eleven rem-based gaps exceed a narrow viewport at 200% text size. */
+[data-catalog-kind="project"] #project-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr)); min-width:0; }
+[data-catalog-kind="project"] #project-grid > [data-project-card] { grid-column:auto; min-width:0; overflow-wrap:anywhere; }
+/* Long English words must reflow when text is enlarged on a narrow screen. */
+:where(.model-lab-head,.model-lab-section,[data-catalog-kind="model"]),
+:where(.model-intro,.model-workbench) > * { min-width:0; }
+:where(.model-lab-head,.model-lab-section,[data-catalog-kind="model"]) :is(h1,h2,h3,p,li,a,label,output,dt,dd) { min-width:0; overflow-wrap:anywhere; }

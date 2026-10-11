@@ -12,7 +12,7 @@ const studios = [
 ---
 
 <BaseLayout title="前沿模型工作室" description="六個研究前沿數學模型的中文導覽與互動入口。" type="教學" locale="zh-Hant" alternatePath="/teaching/frontier-model-studio/">
-  <header class="page-head"><div class="container"><p class="eyebrow">研究前沿</p><h1>把新方法拆成可以操作的問題。</h1><p class="lead">這些實驗不把前沿方法包裝成結論；讀者需要改變參數、檢查失效條件，再判斷哪些觀察值得進一步研究。</p></div></header>
+  <header class="page-head"><div class="container"><p class="eyebrow">研究前沿</p><h1>把新方法拆成可以操作的問題。</h1><p class="lead">這些實驗不把前沿方法包裝成結論；讀者需要改變參數、檢查失效條件，再判斷哪些觀察值得進一步研究。</p><div class="actions"><a class="button secondary" href="/zh/teaching/model-laboratory/#model-index">返回全部模型實驗</a></div></div></header>
   <section class="section"><div class="container"><div class="model-library">
     {studios.map(([title, summary, anchor]) => <article><div class="meta-line"><span>研究導向</span><span>互動</span></div><h3>{title}</h3><p>{summary}</p><a href={`/teaching/frontier-model-studio/#${anchor}`}>開啟互動工作台 →</a></article>)}
   </div></div></section>

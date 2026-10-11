@@ -177,7 +177,7 @@ export function initializeJaeMath(root: HTMLElement) {
   const restoreZoom = () => { if (zoomCard && zoomPlaceholder) zoomPlaceholder.replaceWith(zoomCard); zoomCard = null; zoomPlaceholder = null; };
   const closeZoom = () => { restoreZoom(); if (dialog.open) dialog.close(); };
   const syncLanguage = () => {
-    const link = document.querySelector<HTMLAnchorElement>('.language-switch a');
+    const link = document.querySelector<HTMLAnchorElement>('[data-language-switch]');
     if (!link) return;
     const url = new URL(link.href); url.search = location.search; url.hash = location.hash; link.href = url.href;
   };

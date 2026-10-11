@@ -3,5 +3,6 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TopicsIndex from '../../components/TopicsIndex.astro';
 const entries = await getCollection('writing', ({ data }) => !data.draft && data.slug !== 'legacy-archive');
+const research = await getCollection('research', ({ data }) => !data.draft);
 ---
-<BaseLayout title="Topics" description="Eight starting points for mathematical thinking, computation, research and teaching." type="Topics" alternatePath="/zh/topics/"><TopicsIndex entries={entries} /></BaseLayout>
+<BaseLayout title="Topics" description="Eight starting points for mathematical thinking, computation, research and teaching." type="Topics" alternatePath="/zh/topics/"><TopicsIndex entries={entries} research={research} /></BaseLayout>

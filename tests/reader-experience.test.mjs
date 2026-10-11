@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import { readFileSync, readdirSync } from 'node:fs';
 import { filterArticles, paginateArticles, readArticleQuery, writeArticleQuery, selectRelatedArticles, createWritingFeed } from '../src/data/reader-utils.mjs';
 import { getTopicIds, TOPIC_IDS } from '../src/data/site-reader.mjs';
+import { collections } from './helpers/reader-content.mjs';
 const root = new URL('../', import.meta.url);
 const fixture = (slug, topicIds, extra = {}) => ({ data: { slug, title: slug, summary: 'A readable summary & evidence.', topicIds, date: new Date('2026-10-01'), ...extra } });
 test('writing filters combine normalized keyword, topic, type, year and explicit archive choice', () => {
@@ -54,14 +55,49 @@ test('article reader preserves semantic figures and offers keyboard native figur
 
 if (process.argv.includes('--built')) {
   const read = path => readFileSync(new URL(`dist/${path}`, root), 'utf8');
-  test('built writing lists expose URL-compatible filter controls and both archive modes', () => {
+  test('built writing lists expose one URL-compatible archive switch and old archive URLs are aliases', () => {
     for (const prefix of ['', 'zh/']) {
       const html = read(`${prefix}writing/index.html`);
       for (const field of ['q', 'topic', 'type', 'year', 'archive']) assert.ok(html.includes(`name="${field}"`), field);
       assert.match(html, /data-default-archive="false"/);
-      assert.match(read(`${prefix}writing/archive/index.html`), /data-default-archive="true"/);
+      assert.match(html, /data-archive-notice/);
+      assert.doesNotMatch(html, /href="\/(?:zh\/)?writing\/archive\//);
+      const alias = read(`${prefix}writing/archive/index.html`);
+      assert.ok(alias.includes(`data-destination="/${prefix}writing/?archive=1"`));
+      assert.match(alias, /name="robots" content="noindex,follow"/);
+      assert.doesNotMatch(alias, /data-article-card/);
       assert.ok((html.match(/data-article-card/g) || []).length > 20);
       assert.ok(html.includes(`href="/${prefix}rss.xml"`));
+    }
+  });
+  test('topics contain every real research programme and former research indexes point to the shared section', () => {
+    for (const [prefix, name] of [['', 'research'], ['zh/', 'researchZh']]) {
+      const html = read(`${prefix}topics/index.html`);
+      assert.match(html, /id="research-programmes"/);
+      for (const entry of collections[name].filter(entry => !entry.data.draft)) {
+        assert.ok(html.includes(`href="/${prefix}research/${entry.data.slug}/"`), entry.data.slug);
+        assert.ok(read(`${prefix}research/${entry.data.slug}/index.html`).includes(entry.data.title));
+      }
+      assert.ok(html.indexOf('reader-topics-grid') < html.indexOf('id="research-programmes"'));
+      const alias = read(`${prefix}research/index.html`);
+      assert.ok(alias.includes(`data-destination="/${prefix}topics/#research-programmes"`));
+      assert.match(alias, /name="robots" content="noindex,follow"/);
+    }
+  });
+  test('built search catalogs use the canonical JAE studio and omit the nonexistent archive landing', () => {
+    for (const prefix of ['', 'zh/']) {
+      const html = read(`${prefix}search/index.html`);
+      const encoded = html.match(/data-catalog="([^"]+)"/)[1];
+      const catalog = JSON.parse(encoded.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&'));
+      assert.equal(catalog.some(entry => entry.id === 'legacy-archive'), false);
+      const studio = catalog.find(entry => entry.url === `/${prefix}teaching/senior-math/studios/jae/`);
+      assert.ok(studio);
+      for (const alias of ['jae-math', 'Macao JAE Mathematics Studio', '澳門四校聯考數學研習室']) assert.ok(studio.aliases.includes(alias));
+      assert.equal(catalog.some(entry => entry.url === `/${prefix}teaching/jae-math/`), false);
+      const studioHtml = read(`${prefix}teaching/senior-math/studios/jae/index.html`);
+      const breadcrumbs = studioHtml.match(/<nav class="breadcrumbs container"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+      assert.ok(breadcrumbs);
+      assert.deepEqual([...breadcrumbs.matchAll(/href="([^"]+)"/g)].map(match => match[1]), [`/${prefix}`, `/${prefix}teaching/`, `/${prefix}teaching/senior-math/`]);
     }
   });
   test('all eight topics have bilingual article-first landing pages and valid detail links', () => {

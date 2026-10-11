@@ -1,6 +1,7 @@
 import { books,chapters,lessons,reviews,papers,questions,schoolRoutes } from '../data/senior-math/catalog.mjs';
 export const seniorPages=[
   {path:undefined,type:'home'}, {path:'question-bank',type:'bank'}, {path:'papers',type:'papers'},
+  {path:'studios/jae',type:'studio',id:'jae'},
   {path:'paths/remedial',type:'remedial'}, {path:'paths/exam',type:'exam'},
   {path:'paths/diagnostic',type:'diagnostic'}, {path:'teacher',type:'teacher'}, {path:'sources',type:'sources'},
   ...books.map(book=>({path:`books/${book.id}`,type:'book',id:book.id})),

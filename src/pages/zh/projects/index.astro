@@ -1,7 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import ProjectCard from "../../../components/ProjectCard.astro";
+import ProjectDirectory from "../../../components/ProjectDirectory.astro";
+import { projectFilterOptions } from '../../../lib/catalog-filters.mjs';
 import scienceProjects from "../../../data/generated/science-projects.json";
 
 const curated = await getCollection("projectsZh", ({ data }) => !data.draft);
@@ -14,10 +15,9 @@ const projects: any[] = [...curated, ...catalogue].sort((a: any, b: any) => {
   const bFeatured = b.data?.featured ?? b.featured;
   return Number(bFeatured) - Number(aFeatured) || bYear - aYear;
 });
-const unique = (values: string[]) => [...new Set(values)].sort((a, b) => a.localeCompare(b, "zh-Hant"));
-const topics = unique(projects.flatMap((project: any) => project.data?.topics ?? project.topics ?? []));
-const statuses = unique(projects.map((project: any) => project.data?.status ?? project.status));
-const methods = unique(projects.flatMap((project: any) => project.data?.methods ?? project.methods ?? []));
+const english = await getCollection('projects', ({ data }) => !data.draft);
+const englishSlugs = new Set(english.map(project => project.data.slug));
+const alternateOptions = projectFilterOptions([...english, ...scienceProjects.filter(project => !englishSlugs.has(project.slug))]);
 ---
 <BaseLayout
   title="專案"
@@ -33,20 +33,7 @@ const methods = unique(projects.flatMap((project: any) => project.data?.methods 
   </div></header>
   <section class="section"><div class="container">
     <div class="notice"><strong>兩個證據層級。</strong> 編輯專案解釋已審閱輸出、方法與限制；目錄紀錄只表示私人技術工作區存在相關材料，不代表已完成科學驗證。</div>
-    <form class="filter-bar" id="filters" aria-label="專案篩選">
-      <label>主題<select name="topic"><option value="">所有主題</option>{topics.map((value) => <option>{value}</option>)}</select></label>
-      <label>狀態<select name="status"><option value="">所有狀態</option>{statuses.map((value) => <option>{value}</option>)}</select></label>
-      <label>方法<select name="method"><option value="">所有方法</option>{methods.map((value) => <option>{value}</option>)}</select></label>
-      <label>可用性<select name="availability"><option value="">不限</option><option value="code">有程式紀錄</option><option value="data">有資料紀錄</option><option value="student">適合學生</option></select></label>
-    </form>
-    <p class="small" aria-live="polite" id="result-count">{projects.length} 個專案</p>
-    <div class="grid" id="project-grid">{projects.map((project) => <ProjectCard project={project} locale="zh-Hant" hrefPrefix="/zh/projects/" />)}</div>
-    <p class="empty" id="empty" hidden>沒有專案符合所有篩選條件。</p>
+    <ProjectDirectory projects={projects} alternateOptions={alternateOptions} locale="zh-Hant"/>
   </div></section>
-  <script is:inline>
-    const form=document.querySelector('#filters');const cards=[...document.querySelectorAll('[data-project-card]')];const count=document.querySelector('#result-count');const empty=document.querySelector('#empty');
-    const apply=()=>{const values=Object.fromEntries(new FormData(form).entries());let visible=0;cards.forEach(card=>{const ok=(!values.topic||card.dataset.topic.includes(values.topic))&&(!values.status||card.dataset.status===values.status)&&(!values.method||card.dataset.method.includes(values.method))&&(!values.availability||card.dataset[values.availability]==='true');card.hidden=!ok;if(ok)visible++;});count.textContent=`${visible} 個專案`;empty.hidden=visible!==0;const query=new URLSearchParams(Object.entries(values).filter(([,value])=>value));history.replaceState(null,'',`${location.pathname}${query.size?'?'+query:''}`)};
-    const params=new URLSearchParams(location.search);for(const element of form.elements){if(element.name&&params.has(element.name))element.value=params.get(element.name)}form.addEventListener('change',apply);apply();
-  </script>
 </BaseLayout>
 

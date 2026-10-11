@@ -2,6 +2,8 @@
 
 Checked on 2026-10-03. This record accompanies the original bilingual content in src/data/jae-math.mjs.
 
+This is the historical 18-item pilot audit. The current 26-item studio and its canonical routes are described in [jae-math.md](./jae-math.md); later Senior Mathematics question and paper audits remain separate. Moving the studio into the Senior Mathematics route does not expand this historical audit's coverage.
+
 ## Provenance and coverage
 
 The 18 teaching items were newly written for this pilot. They are not transcriptions of official papers or the reference teaching website. Their explanations and distractors were derived from the mathematics below. The official papers remain external links; no paper or answer PDF is rehosted. The site's worked solutions are learning material, not an official marking scheme.
