@@ -50,7 +50,7 @@ test("homepage shows latest writing once, with separate editorial starting point
   const home = read("src/components/HomePage.astro");
   assert.match(home, /const writing = selectLatestWriting\(writingCollection\)/);
   assert.doesNotMatch(home, /writingCollection\.filter\([^;]*featured/s);
-  assert.equal((home.match(/writing\.map\(/g) || []).length, 1);
+  assert.equal((home.match(/\{writing\.map\(/g) || []).length, 1);
   assert.match(home, /START_HERE/);
 });
 
@@ -111,7 +111,12 @@ if (process.argv.includes("--built")) {
       const actual = [...latest.matchAll(/<h3\b[^>]*>\s*<a\b[^>]*href="([^"]+)"/g)].map(m => m[1]);
       assert.deepEqual(actual, urls);
       assert.doesNotMatch(home, /class="home-dossier"/);
-      assert.equal((latest.match(/class="writing-feature-image"/g) || []).length, expected.length);
+      assert.equal((latest.match(/editorial-card--feature/g) || []).length, 1);
+      assert.equal((latest.match(/editorial-card--compact/g) || []).length, 2);
+      const start = home.match(/<section\b[^>]*id="start-here"[^>]*>([\s\S]*?)<\/section>/)[1];
+      for (const url of urls) assert.ok(!start.includes(`href="${url}"`), 'Latest articles must not repeat in the starting points');
+      assert.equal((home.match(/<section\b/g) || []).length, 5);
+      assert.equal((home.match(/class="reader-topic-tile"/g) || []).length, 8);
       assert.doesNotMatch(latest, /src="undefined"/);
       orders.push(slugs(expected));
     }

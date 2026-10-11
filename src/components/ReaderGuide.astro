@@ -1,0 +1,31 @@
+---
+import '../styles/reader-guide.css';
+interface Props {
+  articleId: string;
+  locale?: 'en' | 'zh-Hant';
+  guide: { question: string; takeaways: string[]; audience: string; prerequisite: string; evidence: string };
+}
+const { articleId, locale = 'en', guide } = Astro.props;
+const zh = locale === 'zh-Hant';
+const questionId = `reader-guide-${articleId}`;
+---
+<section class="reader-guide" data-reader-guide={articleId} aria-labelledby={questionId}>
+  <p class="reader-guide-kicker">{zh ? '帶着這個問題閱讀' : 'Read with this question'}</p>
+  <p class="reader-guide-question" id={questionId} data-reader-guide-question data-pagefind-meta="description">{guide.question}</p>
+  <details class="reader-guide-details" data-reader-guide-details open>
+    <summary>{zh ? '閱讀看點、對象與證據界線' : 'Reading pointers, audience and evidence'}</summary>
+    <div class="reader-guide-detail">
+      <div class="reader-guide-pointers"><h2>{zh ? '留意這幾點' : 'What to look for'}</h2><ul>{guide.takeaways.map(takeaway => <li>{takeaway}</li>)}</ul></div>
+      <dl class="reader-guide-context"><div><dt>{zh ? '適合對象' : 'Who it is for'}</dt><dd>{guide.audience}</dd></div><div><dt>{zh ? '先備知識' : 'Useful starting points'}</dt><dd>{guide.prerequisite}</dd></div></dl>
+      <p class="reader-guide-evidence"><strong>{zh ? '證據與界線' : 'Evidence and limits'}</strong><span>{guide.evidence}</span></p>
+    </div>
+  </details>
+</section>
+<script>
+  const desktop = window.matchMedia('(min-width: 768px)');
+  document.querySelectorAll<HTMLDetailsElement>('[data-reader-guide-details]').forEach(details => {
+    // Without JavaScript the native disclosure remains open and readable.
+    details.open = desktop.matches;
+    desktop.addEventListener('change', event => { details.open = event.matches; });
+  });
+</script>

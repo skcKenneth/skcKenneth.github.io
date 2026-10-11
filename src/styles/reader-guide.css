@@ -1,0 +1,17 @@
+.reader-guide{max-width:58rem;margin:1.3rem 0 1.5rem;padding:1.2rem 1.4rem;border:1px solid #c6d4c8;border-left:3px solid var(--accent);border-radius:.3rem .8rem .8rem .3rem;background:#edf1e8;min-width:0;overflow-wrap:anywhere}
+.reader-guide-kicker{margin:0 0 .35rem;color:var(--accent-dark);font-size:.76rem;font-weight:700;letter-spacing:.035em}
+.reader-guide-question{margin:0;font-family:var(--serif);font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.55;max-width:60ch;color:var(--ink);text-wrap:pretty}
+.reader-guide-details{margin-top:.75rem;min-width:0}
+.reader-guide-details>summary{width:fit-content;max-width:100%;padding:.35rem .15rem;min-height:2.75rem;color:var(--accent-dark);font-size:.82rem;font-weight:650;cursor:pointer;line-height:1.6}
+.reader-guide-details>summary:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:.2rem}
+.reader-guide-detail{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:2rem;row-gap:1rem;padding-top:.7rem}
+.reader-guide-pointers,.reader-guide-context{min-width:0}
+.reader-guide-pointers h2,.reader-guide-context dt{margin:0 0 .35rem;font:700 .83rem/1.6 var(--sans);letter-spacing:0;color:var(--ink)}
+.reader-guide-pointers ul{margin:0;padding-left:1.15rem;font-size:.88rem;line-height:1.75}
+.reader-guide-pointers li+li{margin-top:.3rem}
+.reader-guide-context{margin:0;display:grid;gap:.8rem;align-content:start}
+.reader-guide-context dd{margin:0;font-size:.86rem;line-height:1.75;color:#4e5f54}
+.reader-guide-evidence{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:.3rem .8rem;margin:0;padding-top:.9rem;border-top:1px solid #c6d4c8;font-size:.82rem;line-height:1.75;color:#43554a}
+.reader-guide-evidence strong{font-weight:700;color:var(--ink)}
+@media(max-width:767px){.reader-guide{padding:1rem;margin:1rem 0 1.2rem}.reader-guide-question{font-size:1.15rem;line-height:1.65}.reader-guide-detail{grid-template-columns:minmax(0,1fr);gap:1rem}.reader-guide-evidence{grid-template-columns:minmax(0,1fr)}.reader-guide-details>summary{font-size:.8rem}}
+@media print{.reader-guide{background:none;border-color:#aaa;break-inside:avoid}.reader-guide-details>summary{color:#111}}

@@ -65,7 +65,7 @@
     "check:publish": "node scripts/check-publish.mjs",
     "generate:reader-media": "node scripts/generate-reader-media.mjs",
     "test:reader": "node scripts/check-redirects.mjs && node --test tests/reader-*.test.mjs tests/reading-list.test.mjs tests/search-index-filters.test.mjs tests/publish-summary.test.mjs",
-    "test:reader:built": "node tests/reader-experience.test.mjs --built && node tests/reader-metadata.test.mjs --built && node tests/reader-release.test.mjs --built",
+    "test:reader:built": "node tests/reader-experience.test.mjs --built && node tests/reader-metadata.test.mjs --built && node tests/reader-release.test.mjs --built && node tests/reader-editorial.test.mjs --built && node tests/reader-guides.test.mjs --built",
     "test:reader-authoring": "node --test tests/reader-authoring.test.mjs tests/publish-summary.test.mjs"
   },
   "dependencies": {

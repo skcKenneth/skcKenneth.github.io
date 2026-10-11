@@ -2,7 +2,8 @@
 import '../styles/global.css';
 import '../styles/site-refresh.css';
 import { getCollection } from 'astro:content';
-import { getTopicIds, localeBase, SITE_URL } from '../data/site-reader.mjs';
+import { canonicalId, getTopicIds, localeBase, SITE_URL } from '../data/site-reader.mjs';
+import { getReaderMedia } from '../data/reader-media.mjs';
 import { classifySearchUrl } from '../lib/search-catalog.mjs';
 import { resolveContentRoute } from '../lib/content-routes.mjs';
 interface Props { title:string; description?:string; image?:string; noindex?:boolean; type?:string; locale?:'en'|'zh-Hant'; alternatePath?:string; publicResearchRecord?:boolean; articleData?:any; topicIds?:string[]; }
@@ -25,7 +26,10 @@ const kind=routeKind==='question'?'question':routeKind==='lesson'?'lesson':route
 const ids:string[]=topicIds||getTopicIds(data||{title});
 const nav=[[zh?'文章':'Writing',base+'/writing/'],[zh?'主題':'Topics',base+'/topics/'],[zh?'教學':'Teaching',base+'/teaching/'],[zh?'關於':'About',base+'/about/']];
 const selected=(href:string)=>current.startsWith(href)||(href.endsWith('/topics/')&&/\/(research|projects)\//.test(current));
-const shareImage=new URL('/images/og-reader.png',Astro.site).href;
+// Editorial sharing artwork is separate from the scientific figure in heroImage.
+const editorialShare=articleData?getReaderMedia(canonicalId(articleData),locale)?.share:undefined;
+const shareImage=new URL(editorialShare?.src||'/images/og-reader.png',Astro.site).href;
+const shareAlt=editorialShare?.alt||'Kenneth Cheng — Mathematics, models, and ideas';
 const jsonLd=articleData?{'@context':'https://schema.org','@type':'BlogPosting',headline:title,description,url:canonical.href,image:shareImage,inLanguage:locale,author:{'@type':'Person',name:'Kenneth Cheng',url:SITE_URL+base+'/about/'},datePublished:articleData.date?.toISOString(),dateModified:articleData.lastUpdated?.toISOString(),mainEntityOfPage:canonical.href}:{'@context':'https://schema.org','@type':'WebSite',name:'Kenneth Cheng',url:SITE_URL,inLanguage:locale};
 const section=nav.find(([,href])=>selected(href));
 const breadcrumb=path.split('/').filter(Boolean).length>1&&!articleData&&!path.startsWith('/topics/')&&section;
@@ -50,12 +54,12 @@ const studioBreadcrumb=/^\/teaching\/senior-math\/studios\/[^/]+\/$/.test(path);
   {alternate&&<link rel="alternate" hreflang={zh?'en':'zh-Hant'} href={alternate}/>}
   <meta property="og:title" content={title+' — Kenneth Cheng'}/><meta property="og:description" content={description}/>
   <meta property="og:image" content={shareImage}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Kenneth Cheng — Mathematics, models, and ideas"/>
+  <meta property="og:image:alt" content={shareAlt}/>
   <meta property="og:type" content={articleData?'article':'website'}/><meta property="og:url" content={canonical}/><meta property="og:site_name" content="Kenneth Cheng"/>
   <meta property="og:locale" content={zh?'zh_TW':'en_GB'}/>
   {articleData?.date&&<meta property="article:published_time" content={articleData.date.toISOString()}/>}
   {articleData?.lastUpdated&&<meta property="article:modified_time" content={articleData.lastUpdated.toISOString()}/>}
-  <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={shareImage}/>
+  <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={shareImage}/><meta name="twitter:image:alt" content={shareAlt}/>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g,'\\u003c')}/>
   <title>{title} — Kenneth Cheng</title>
 </head>

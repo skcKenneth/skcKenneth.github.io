@@ -14,6 +14,11 @@ test('release route checks cover distinct bilingual canonical and compatibility 
     }
     assert.ok(LIVE_ROUTES.some(route => route.path === prefix + '/teaching/senior-math/studios/jae/'));
   }
+  const guides = LIVE_ROUTES.filter(route => route.kind === 'article');
+  assert.equal(guides.length, 12);
+  for (const route of guides) {
+    assert.ok(LIVE_ROUTES.some(asset => asset.kind === 'png' && asset.path === route.sharePath));
+  }
 });
 
 if (process.argv.includes('--built')) {

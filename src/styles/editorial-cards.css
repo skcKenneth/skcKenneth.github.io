@@ -1,0 +1,31 @@
+.reader-card-content { display:flex; flex-direction:column; flex:1; min-width:0; }
+.reader-card.editorial-card { padding:0; }
+.editorial-card .reader-card-content { padding:1.4rem; }
+.editorial-card .editorial-card-title { margin:.65rem 0 .85rem; font:500 clamp(1.35rem,2.15vw,1.75rem)/1.35 var(--serif); letter-spacing:-.02em; overflow-wrap:anywhere; }
+.editorial-card .editorial-card-title a { color:var(--ink); text-decoration:none; }
+.editorial-card .editorial-card-title a:hover { color:var(--accent); text-decoration:underline; text-underline-offset:.16em; }
+.editorial-card .reader-card-summary { font-size:.96rem; line-height:1.75; }
+.editorial-card--feature .editorial-card-title { font-size:clamp(1.65rem,2.6vw,2.15rem); }
+.editorial-card--feature .reader-card-content { order:-1; }
+.editorial-card-media { aspect-ratio:8/5; overflow:hidden; border-radius:0 0 9px 9px; border-top:1px solid var(--line); background:#e5ece1; }
+.editorial-card-media img { display:block; width:100%; height:100%; object-fit:contain; }
+.editorial-card-media--fallback { display:grid; place-items:center; background:radial-gradient(ellipse at 20% 15%,#f5f3ed 0,transparent 65%),#dde8da; }
+.editorial-card-media--fallback img { width:6rem; height:6rem; max-width:45%; }
+.editorial-card--compact .reader-card-content { padding:1.35rem 1.4rem; }
+.editorial-card--compact .reader-card-summary { margin-bottom:1rem; }
+.editorial-topic-icon { display:block; flex:none; max-width:100%; height:auto; }
+.editorial-topic-identity { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+.editorial-topic-identity .reader-topic-number { margin:0; }
+.editorial-topic-heading { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; gap:1rem 2rem; }
+.editorial-topic-heading > div { min-width:0; }
+.editorial-topic-heading h1 { overflow-wrap:anywhere; }
+.editorial-topic-hero-icon { margin-top:.25rem; }
+.reader-card-grid.editorial-topic-lead { grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr)); align-items:start; }
+.editorial-topic-companions { display:grid; grid-template-columns:minmax(0,1fr); align-content:start; min-width:0; gap:1.25rem; }
+.editorial-topic-followups { margin-top:1.25rem; }
+@media(max-width:40rem) {
+  .editorial-card .reader-card-content { padding:1.2rem; }
+  .editorial-topic-heading { gap:1rem; }
+  .editorial-topic-hero-icon { width:4rem; }
+}
+@media(prefers-reduced-motion:reduce) { .editorial-card a { transition:none; } }

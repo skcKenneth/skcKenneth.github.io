@@ -1,5 +1,6 @@
 ---
 import { getTopicIds, localeBase, TOPICS } from '../data/site-reader.mjs';
+import TopicIcon from './TopicIcon.astro';
 import '../styles/reader.css';
 interface Props { entries: any[]; research: any[]; locale?: 'en' | 'zh-Hant' }
 const { entries, research, locale = 'en' } = Astro.props;
@@ -9,7 +10,7 @@ const base = localeBase(locale);
 <header class="page-head reader-page-head"><div class="container"><p class="eyebrow">{isZh ? '主題' : 'Topics'}</p><h1>{isZh ? '由一個問題，讀到另一個世界。' : 'One question opens another world.'}</h1><p class="lead">{isZh ? '八個入口，串連文章、研究方向與專案。先揀一個你想了解嘅問題。' : 'Eight starting points connect writing, research programmes and projects. Start with something you want to understand.'}</p></div></header>
 <section class="reader-section"><div class="container"><div class="reader-topics-grid">{TOPICS.map((topic, index) => {
   const count = entries.filter(entry => !entry.data.archived && getTopicIds(entry.data).includes(topic.id)).length;
-  return <article class="reader-topic-card"><span class="reader-topic-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h2><a href={`${base}/topics/${topic.id}/`}>{topic.label[locale]}</a></h2><p>{topic.description[locale]}</p><span class="small">{isZh ? `${count} 篇文章` : `${count} articles`}</span></article>;
+  return <article class="reader-topic-card"><div class="editorial-topic-identity"><span class="reader-topic-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><TopicIcon topicId={topic.id} /></div><h2><a href={`${base}/topics/${topic.id}/`}>{topic.label[locale]}</a></h2><p>{topic.description[locale]}</p><span class="small">{isZh ? `${count} 篇文章` : `${count} articles`}</span></article>;
 })}</div><div class="reader-topic-secondary"><p>{isZh ? '想睇研究全貌？' : 'Looking for the wider research picture?'}</p><a href="#research-programmes">{isZh ? '研究方向' : 'Research programmes'}</a><a href={`${base}/projects/`}>{isZh ? '完整專案目錄' : 'Complete project catalogue'}</a></div></div></section>
 <section class="reader-section reader-topic-research" id="research-programmes" aria-labelledby="programmes-heading"><div class="container">
   <div class="reader-section-heading"><div><p class="eyebrow">{isZh ? '研究方向' : 'Research programmes'}</p><h2 id="programmes-heading">{isZh ? '跨越專案的研究問題。' : 'Questions that connect projects.'}</h2></div></div>

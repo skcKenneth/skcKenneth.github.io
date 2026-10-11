@@ -1,0 +1,39 @@
+.editorial-home{--editorial-sand:#eee7d8;--editorial-sage:#e8eee7}
+.editorial-home :is(.reader-hero-copy,.reader-hero-art,.reader-topic-tile,.reader-section-heading>div){min-width:0;overflow-wrap:anywhere}
+.editorial-home .reader-home-hero{background:var(--paper);padding:clamp(1.5rem,2.4vw,2rem) 0;border-bottom:1px solid var(--line)}
+.editorial-home .reader-hero-grid{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,4rem)}
+.editorial-home .reader-home-hero h1{font-size:clamp(2.35rem,3.8vw,3rem);line-height:1.15;letter-spacing:-.035em;margin:.6rem 0 .9rem}
+.editorial-home .reader-home-lead{font-size:1.05rem;line-height:1.8;max-width:37rem;margin:.7rem 0 1rem}
+.editorial-home .reader-hero-copy .actions{margin:1rem 0 .7rem;gap:.6rem}
+.reader-hero-about{display:inline-flex;align-items:center;min-height:44px;font-size:.85rem;text-decoration:none}
+.reader-hero-art{justify-self:center;max-width:22.5rem}
+.reader-hero-art svg{width:100%;height:auto}
+.reader-hero-art p{font:italic .9rem/1.6 var(--serif);text-align:center;color:var(--accent-dark);margin:0}
+.editorial-home .reader-home-section{padding:clamp(2rem,4.3vw,3.5rem) 0}
+.editorial-home .reader-section-heading{gap:1rem;margin-bottom:1.5rem}
+.editorial-home .reader-section-heading h2{font-size:clamp(1.65rem,2.8vw,2.35rem);line-height:1.3}
+.editorial-latest-grid{display:grid;gap:1rem;align-items:start;min-width:0}
+.editorial-home .reader-start-list h3{font-size:clamp(1.15rem,2vw,1.4rem);line-height:1.45;margin:.35rem 0}
+.editorial-home .reader-start-list p{font-size:.92rem;line-height:1.75}
+.editorial-home .reader-start-list li{padding:1.2rem 0}
+.reader-path-shortcut{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:44px;margin-top:1rem;padding:1.2rem 1.4rem;border:1px solid #bbcdbf;border-radius:var(--radius);background:var(--editorial-sage);text-decoration:none;color:var(--accent-dark);overflow-wrap:anywhere}
+.reader-path-shortcut>span:first-child{min-width:0}
+.reader-path-shortcut strong,.reader-path-shortcut span span{display:block}
+.reader-path-shortcut strong{font:500 1.25rem/1.5 var(--serif)}
+.reader-path-shortcut span span{font-size:.9rem;line-height:1.75;margin-top:.3rem}
+.reader-path-shortcut>span:last-child{flex:none;font-size:1.5rem}
+.reader-path-shortcut:hover{border-color:var(--accent);background:#dce8dc;color:var(--accent-dark)}
+.editorial-home .reader-topic-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:1rem}
+.editorial-home .reader-topic-tile{padding:1.25rem;box-shadow:none}
+.editorial-home .reader-topic-tile h3{font-size:1.15rem;line-height:1.4;margin:.6rem 0 .2rem}
+.editorial-home .reader-topic-tile img{width:3.5rem;height:3.5rem}
+.editorial-home .reader-topic-tile p{font-size:.88rem;line-height:1.75}
+.editorial-home .reader-teaching-promo{background:var(--editorial-sage)}
+.reader-teaching-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.reader-teaching-inner>div{min-width:0;overflow-wrap:anywhere}
+.editorial-home .reader-teaching-promo h2{font-size:clamp(1.65rem,2.8vw,2.35rem);line-height:1.35;margin-bottom:.6rem}
+.reader-teaching-inner p:not(.eyebrow){margin:.6rem 0;color:var(--muted)}
+.reader-teaching-inner .actions{flex:none;flex-direction:column;align-items:stretch;max-width:100%}
+@media(min-width:1000px){.editorial-latest-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}.editorial-latest-grid>.editorial-card--feature{grid-row:span 2}}
+@media(max-width:700px){.editorial-home .reader-hero-grid{grid-template-columns:minmax(0,1fr)}.reader-hero-art{display:none}.reader-teaching-inner{display:block}.reader-teaching-inner .actions{flex-direction:row;flex-wrap:wrap;margin-top:1.2rem}.editorial-home .reader-section-heading>.text-link{white-space:normal;flex-shrink:0;max-width:35%;overflow-wrap:anywhere}.editorial-home .reader-start-list li{grid-template-columns:1.4rem minmax(0,1fr) 32px;gap:.5rem}.reader-path-shortcut{padding:1rem}.editorial-home .reader-topic-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr))}}
+@media(prefers-reduced-motion:reduce){.editorial-home *{scroll-behavior:auto!important;transition:none!important}}

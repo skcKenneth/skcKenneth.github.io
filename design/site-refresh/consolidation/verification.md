@@ -24,4 +24,8 @@
 
 ## 發布
 
-本機驗收已完成。提交、GitHub Actions、正式網站與瀏覽器核對的實際結果於發布完成後補記；不得以先前發布結果代替。
+提交 `8858cb9e4931debaa190db9ba31098b52f8d9749` 已發布。[GitHub Actions 38116710352](https://github.com/skcKenneth/skcKenneth.github.io/actions/runs/38116710352) 的 build、deploy 及發布後驗證均成功，詳見 `actions.json`。另從本機再驗證 24 個正式入口及品牌資產 SHA-256，全部通過。
+
+正式瀏覽器確認：`/zh/research/` 轉往主題頁研究方向區（四張卡）；舊 JAE 網址保留 `mode=classroom#quadratics-example-1` 並顯示 26 題；正式 Pagefind 搜尋 `model&page=3` 顯示 52 項、第 3／5 頁。實際畫面見 `topics-live.png`。
+
+本批統整完成後，才開始第二輪第一批實作。

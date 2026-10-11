@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { EDITORIAL_ARTICLE_IDS, getReaderMedia } from '../src/data/reader-media.mjs';
 
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/zh/topics', '/teaching', '/zh/teaching', '/search', '/zh/search'].map(prefix => ({ path: `${prefix}/`, locale: prefix.startsWith('/zh') ? 'zh-Hant' : 'en', kind: prefix.endsWith('writing') ? 'writing' : prefix.endsWith('topics') ? 'topics' : prefix.endsWith('teaching') ? 'teaching' : prefix.endsWith('search') ? 'search' : 'home' })).concat([
@@ -14,8 +15,15 @@ export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/z
   { path: `${base}/teaching/jae-math/`, locale: base ? 'zh-Hant' : 'en', kind: 'alias', destination: `${base}/teaching/senior-math/studios/jae/` },
   { path: `${base}/teaching/senior-math/studios/jae/`, locale: base ? 'zh-Hant' : 'en', kind: 'studio' },
   { path: `${base}/teaching/model-laboratory/`, locale: base ? 'zh-Hant' : 'en', kind: 'models' },
-]));
-const MARKERS = { home: ['reader-home-hero', 'id="latest-writing"', 'id="start-here"'], writing: ['data-writing-index', 'reader-pagination'], topics: ['reader-topics-grid', 'mathematical-thinking', 'teaching-research-practice', 'id="research-programmes"'], teaching: ['data-teaching-directory', 'data-teaching-filters', 'id="math-inquiry-lab"'], search: ['data-site-search', 'data-search-pagination', 'name="technical"'], studio: ['id="jae-topics"', 'id="quadratics"', 'id="trigonometry"', 'id="past-papers"'], models: ['id="model-index"', 'data-catalog-kind="model"', 'data-model-library'] };
+]), EDITORIAL_ARTICLE_IDS.flatMap(articleId => ['en', 'zh-Hant'].flatMap(locale => {
+  const media = getReaderMedia(articleId, locale);
+  if (!media) throw new Error(`Missing reviewed editorial media: ${articleId}/${locale}`);
+  return [
+    { path: `${locale === 'zh-Hant' ? '/zh' : ''}/writing/${articleId}/`, locale, kind: 'article', articleId, sharePath: media.share.src },
+    { path: media.share.src, kind: 'png' },
+  ];
+})));
+const MARKERS = { home: ['reader-home-hero', 'id="latest-writing"', 'id="start-here"'], writing: ['data-writing-index', 'reader-pagination'], topics: ['reader-topics-grid', 'mathematical-thinking', 'teaching-research-practice', 'id="research-programmes"'], teaching: ['data-teaching-directory', 'data-teaching-filters', 'id="math-inquiry-lab"'], search: ['data-site-search', 'data-search-pagination', 'name="technical"'], studio: ['id="jae-topics"', 'id="quadratics"', 'id="trigonometry"', 'id="past-papers"'], models: ['id="model-index"', 'data-catalog-kind="model"', 'data-model-library'], article: ['data-reader-guide=', 'data-reader-guide-question', 'data-article-reader'] };
 export function validateLivePayload(spec, { status, contentType = '', bytes }, expectedHash) {
   const errors = [];
   if (status !== 200) return [`HTTP ${status}`];
@@ -25,6 +33,10 @@ export function validateLivePayload(spec, { status, contentType = '', bytes }, e
     if (!new RegExp(`<html\\b[^>]*lang=["']${spec.locale}["']`).test(body)) errors.push(`Missing ${spec.locale} page language`);
     for (const marker of MARKERS[spec.kind]) if (!body.includes(marker)) errors.push(`Missing marker ${marker}`);
     if (!body.includes('/images/kenneth-woven-knot.svg')) errors.push('Missing woven site icon');
+    if (spec.kind === 'article') {
+      if (!body.includes(`data-reader-guide="${spec.articleId}"`)) errors.push('Missing paired reading guide');
+      if (!body.includes(`property="og:image" content="https://skckenneth.github.io${spec.sharePath}"`)) errors.push('Missing article sharing image');
+    }
   } else if (spec.kind === 'alias') {
     if (!contentType.includes('text/html')) errors.push('Expected HTML content type');
     if (!new RegExp(`<html\\b[^>]*lang=["']${spec.locale}["']`).test(body)) errors.push(`Missing ${spec.locale} alias language`);
@@ -95,7 +107,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
     const files = (base ? git(['diff', '--name-only', base, sha]) : git(['diff-tree', '--no-commit-id', '--name-only', '--root', '-r', sha])).split(/\r?\n/).filter(Boolean);
     const siteUrl = process.env.PUBLISH_SITE_URL || 'https://skckenneth.github.io/';
     const expectedHashes = {};
-    for (const path of ['/images/og-reader.png', '/images/kenneth-woven-knot.svg']) {
+    for (const path of LIVE_ROUTES.filter(route => ['png', 'svg'].includes(route.kind)).map(route => route.path)) {
       // Compare immutable commit bytes, unaffected by a local autocrlf checkout.
       const asset = spawnSync('git', ['show', `${sha}:public${path}`], { maxBuffer: 5 * 1024 * 1024 });
       if (asset.status !== 0) throw new Error(`Cannot read committed asset ${path}`);

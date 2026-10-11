@@ -3,9 +3,11 @@ import ArchiveNotice from './ArchiveNotice.astro';
 import ReadingNav from './ReadingNav.astro';
 import ReaderCard from './ReaderCard.astro';
 import SaveArticle from './SaveArticle.astro';
+import ReaderGuide from './ReaderGuide.astro';
 import { publicRepositoryUrl } from '../config/repository-policy';
 import { articleType, canonicalId, getTopicIds, localeBase, readingMinutes, SITE_URL, TOPICS } from '../data/site-reader.mjs';
 import { selectRelatedArticles } from '../data/reader-utils.mjs';
+import { getReaderGuide } from '../data/reader-guides.mjs';
 import '../styles/reader.css';
 interface Props {
   entry: any; entries: any[]; headings?: { depth: number; slug: string; text: string }[];
@@ -14,6 +16,7 @@ interface Props {
 const { entry, entries, headings = [], previous, next, locale = 'en' } = Astro.props;
 const isZh = locale === 'zh-Hant';
 const base = localeBase(locale);
+const guide = getReaderGuide(entry.data, locale);
 const href = `${base}/writing/${entry.data.slug}/`;
 const topics = TOPICS.filter(topic => getTopicIds(entry.data).includes(topic.id));
 const toc = headings.filter(heading => heading.depth === 2 || heading.depth === 3);
@@ -33,7 +36,7 @@ const links = [
   <p class="eyebrow">{articleType(entry.data.type, locale)}</p>
   {entry.data.draft && <p class="small">{isZh ? '草稿預覽 · 尚未刊登' : 'Draft preview · Not published'}</p>}
   <h1 data-pagefind-meta="title">{entry.data.title}</h1>
-  <p class="lead" data-pagefind-meta="description">{entry.data.summary}</p>
+  {guide ? <ReaderGuide guide={guide} articleId={canonicalId(entry.data)} locale={locale} /> : <p class="lead" data-pagefind-meta="description">{entry.data.summary}</p>}
   <p class="reader-article-dates">
     {entry.data.date && <span>{isZh ? '發布：' : 'Published '}<time datetime={entry.data.date.toISOString()}>{dateLabel(entry.data.date)}</time></span>}
     {changed && <span>{isZh ? '更新：' : 'Updated '}<time datetime={entry.data.lastUpdated.toISOString()}>{dateLabel(entry.data.lastUpdated)}</time></span>}
@@ -45,7 +48,7 @@ const links = [
   <aside class="reader-aside" data-pagefind-ignore>
     {toc.length > 0 && <nav class="reader-desktop-toc" aria-label={isZh ? '文章目錄' : 'On this page'}><p class="reader-toc-title">{isZh ? '文章目錄' : 'On this page'}</p><ol>{toc.map(heading => <li class:list={{ 'reader-toc-nested': heading.depth === 3 }}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></nav>}
     <div class="reader-aside-meta"><p class="reader-toc-title">{isZh ? '主題' : 'Topics'}</p><div class="reader-topic-links">{topics.map(topic => <a href={`${base}/topics/${topic.id}/`}>{topic.label[locale]}</a>)}</div>
-      {entry.data.scienceProject && <p class="small">{isZh ? '證據紀錄' : 'Evidence record'}<br/><strong>{entry.data.scienceProject}</strong><br/>{isZh ? '技術材料存放於私人工作區。' : 'Technical materials are maintained privately.'}</p>}
+      {entry.data.scienceProject && !guide && <p class="small">{isZh ? '證據紀錄' : 'Evidence record'}<br/><strong>{entry.data.scienceProject}</strong><br/>{isZh ? '技術材料存放於私人工作區。' : 'Technical materials are maintained privately.'}</p>}
       {entry.data.legacySource && <p class="small">{isZh ? '原始 Markdown' : 'Original Markdown'}<br/><code>{entry.data.legacySource}</code></p>}
       {links.length > 0 && <div class="reader-source-links">{links.map(([label, url]) => <a href={url}>{label}</a>)}</div>}
     </div>
@@ -59,7 +62,7 @@ const links = [
     <footer class="reader-article-footer" data-pagefind-ignore>
       <div class="reader-mobile-sources">
         <div class="reader-topic-links">{topics.map(topic => <a href={`${base}/topics/${topic.id}/`}>{topic.label[locale]}</a>)}</div>
-        {entry.data.scienceProject && <p class="small">{isZh ? '證據紀錄：' : 'Evidence record: '}<strong>{entry.data.scienceProject}</strong> · {isZh ? '技術材料存放於私人工作區。' : 'Technical materials are maintained privately.'}</p>}
+        {entry.data.scienceProject && !guide && <p class="small">{isZh ? '證據紀錄：' : 'Evidence record: '}<strong>{entry.data.scienceProject}</strong> · {isZh ? '技術材料存放於私人工作區。' : 'Technical materials are maintained privately.'}</p>}
         {entry.data.legacySource && <p class="small">{isZh ? '原始 Markdown：' : 'Original Markdown: '}<code>{entry.data.legacySource}</code></p>}
         {links.length > 0 && <div class="reader-inline-links">{links.map(([label, url]) => <a href={url}>{label}</a>)}</div>}
       </div>
@@ -75,6 +78,22 @@ const links = [
   const reader = document.querySelector<HTMLElement>('[data-article-reader]');
   if (reader) {
     const isZh = reader.dataset.locale === 'zh-Hant';
+    const inlineMath = reader.querySelectorAll<HTMLElement>('.reader-prose p > .katex, .reader-prose li > .katex');
+    const updateMathScroll = () => inlineMath.forEach(math => {
+      // Ignore tiny glyph overhangs; only long formulas need a tab stop.
+      if (math.scrollWidth > math.clientWidth + 8) {
+        math.tabIndex = 0;
+        math.setAttribute('role', 'region');
+        math.setAttribute('aria-label', isZh ? '公式，可左右捲動' : 'Formula, scroll horizontally');
+      } else {
+        math.removeAttribute('tabindex');
+        math.removeAttribute('role');
+        math.removeAttribute('aria-label');
+      }
+    });
+    updateMathScroll();
+    window.addEventListener('resize', updateMathScroll);
+    document.fonts?.ready.then(updateMathScroll);
     const dialog = reader.querySelector<HTMLDialogElement>('.reader-image-dialog')!;
     const close = dialog.querySelector<HTMLButtonElement>('[data-close-figure]')!;
     const enlarged = dialog.querySelector<HTMLImageElement>('img')!;

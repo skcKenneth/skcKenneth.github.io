@@ -1,0 +1,8 @@
+---
+import { TOPIC_IDS } from '../data/site-reader.mjs';
+import '../styles/editorial-cards.css';
+interface Props { topicId: string; size?: number; class?: string }
+const { topicId, size = 64, class: className } = Astro.props;
+const src = TOPIC_IDS.includes(topicId) ? `/images/topics/${topicId}.svg` : '/images/kenneth-woven-knot.svg';
+---
+<img class:list={['editorial-topic-icon', className]} src={src} width={size} height={size} alt="" aria-hidden="true" loading="lazy" decoding="async" />
