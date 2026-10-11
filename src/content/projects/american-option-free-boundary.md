@@ -1,6 +1,7 @@
 ---
 title: American Put Free-Boundary Audit
 slug: american-option-free-boundary
+topicIds: [computation-code, risk-decisions]
 summary: A reproducible obstacle-PDE study resolves the American put exercise boundary and audits price, Greeks, convergence, and complementarity across three numerical methods.
 year: 2026
 lastUpdated: 2026-08-02

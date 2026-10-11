@@ -1,6 +1,7 @@
 ---
 title: 同化你真正觀察得到的量
 slug: assimilating-what-you-can-observe
+topicIds: [data-ai, risk-decisions, life-environment]
 sourceSlug: assimilating-what-you-can-observe
 summary: 一個固定六區 EnKF benchmark 顯示，正確 aggregate-and-delay observation operator 改善合成狀態與峰值預測，但 latent-state coverage 不及門檻，因此結論只能是 PARTIAL。
 year: 2026

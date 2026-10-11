@@ -1,6 +1,7 @@
 ---
 title: Graph-Calibrated Battery Thermal Early Warning
 slug: battery-pack-thermal-early-warning
+topicIds: [risk-decisions]
 summary: A calibrated graph-CUSUM benchmark for warning of local battery-pack thermal faults when a temperature sensor drifts or becomes unavailable.
 year: 2026
 lastUpdated: 2026-07-13

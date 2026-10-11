@@ -1,6 +1,7 @@
 ---
 title: Dimensionally Constrained Equation Discovery
 slug: dimensional-equation-discovery
+topicIds: [risk-decisions, teaching-research-practice]
 summary: Known physical laws form a controlled benchmark for unit-aware monomial symbolic regression.
 year: 2026
 lastUpdated: 2026-07-28

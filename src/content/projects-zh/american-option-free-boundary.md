@@ -1,6 +1,7 @@
 ---
 title: 美式賣權自由邊界核證
 slug: american-option-free-boundary
+topicIds: [computation-code, risk-decisions]
 sourceSlug: american-option-free-boundary
 summary: 一項可重現障礙 PDE 研究，求解美式賣權履約邊界，並以三種數值方法核證價格、Greeks、收斂與互補條件。
 year: 2026

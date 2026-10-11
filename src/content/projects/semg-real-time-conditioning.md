@@ -1,6 +1,7 @@
 ---
 title: Real-Time sEMG Conditioning with Tracked Harmonic Cancellation
 slug: semg-real-time-conditioning
+topicIds: [data-ai]
 summary: A reproducible synthetic implementation separates causal sample processing from gated mains-frequency tracking for harmonic cancellation and envelope extraction.
 year: 2026
 lastUpdated: 2026-07-30

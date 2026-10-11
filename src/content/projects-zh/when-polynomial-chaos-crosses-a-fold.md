@@ -1,6 +1,7 @@
 ---
 title: 當多項式混沌跨過折疊點
 slug: when-polynomial-chaos-crosses-a-fold
+topicIds: [dynamics-networks, risk-decisions]
 sourceSlug: when-polynomial-chaos-crosses-a-fold
 summary: 這項可重現的第一階段 CSTR 研究，在同為 16 次 forward-evaluation fit budget 下，比較全域 Legendre surrogate 與 analytic-oracle fold-aligned surrogate。
 year: 2026

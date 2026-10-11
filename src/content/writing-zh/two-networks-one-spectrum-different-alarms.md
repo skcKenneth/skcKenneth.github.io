@@ -1,6 +1,7 @@
 ---
 title: 兩個網絡，同一組特徵值，不同警報
 slug: two-networks-one-spectrum-different-alarms
+topicIds: [dynamics-networks, risk-decisions]
 sourceSlug: two-networks-one-spectrum-different-alarms
 summary: 兩個正值運輸網絡，可以有完全相同的特徵值、損失完全相同的總物質，卻對同一個有限時間感測警報給出相反答案。這個受控研究分清頻譜、路徑、精確響應與決策界限，並檢查有效界限何時仍然沒有用。
 date: 2026-10-11T10:00:00+08:00

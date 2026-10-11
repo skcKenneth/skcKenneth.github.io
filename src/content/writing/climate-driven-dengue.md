@@ -1,6 +1,7 @@
 ---
 title: Reading a Spatial Dengue Experiment Carefully
 slug: climate-driven-dengue
+topicIds: [life-environment, risk-decisions]
 summary: A guide to what a synthetic reaction–diffusion experiment can—and cannot—show about climate-sensitive transmission.
 date: 2025-12-26
 lastUpdated: 2026-07-13

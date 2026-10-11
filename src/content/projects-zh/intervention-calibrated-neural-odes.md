@@ -1,6 +1,7 @@
 ---
 title: 介入校準 Neural ODE
 slug: intervention-calibrated-neural-odes
+topicIds: [data-ai, risk-decisions]
 sourceSlug: intervention-calibrated-neural-odes
 summary: 在合成 toggle switch 的強留出介入中，比較符號結構受限與不受限的神經向量場。
 year: 2026

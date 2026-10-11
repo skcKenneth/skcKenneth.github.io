@@ -41,6 +41,7 @@ jobs:
   deploy:
     if: github.event_name != 'pull_request'
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
@@ -52,3 +53,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify live routes and summarize publication
+        run: node scripts/publish-summary.mjs --live
+        env:
+          PUBLISH_BASE_SHA: ${{ github.event.before }}
+          PUBLISH_SITE_URL: ${{ steps.deployment.outputs.page_url }}
+          PUBLISH_BUILD_RESULT: ${{ needs.build.result }}
+          PUBLISH_DEPLOY_RESULT: ${{ steps.deployment.outcome }}

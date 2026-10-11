@@ -1,6 +1,7 @@
 ---
 title: 當量子糾纏過期
 slug: risk-sensitive-quantum-repeater-scheduling
+topicIds: [risk-decisions, dynamics-networks]
 sourceSlug: risk-sensitive-quantum-repeater-scheduling
 summary: 一項可重現的合成研究，分析四鏈路量子中繼鏈中的記憶衰減、截斷排程、尾部延遲，以及以證據為本的拒絕選擇。
 year: 2026

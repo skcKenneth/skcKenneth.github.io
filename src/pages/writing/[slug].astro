@@ -1,53 +1,22 @@
 ---
-import {getCollection,render} from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArchiveNotice from "../../components/ArchiveNotice.astro";
-import ReadingNav from "../../components/ReadingNav.astro";
-import {publicRepositoryUrl} from "../../config/repository-policy";
-import readingTime from "reading-time";
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleReader from '../../components/ArticleReader.astro';
+import { getTopicIds } from '../../data/site-reader.mjs';
 
-export async function getStaticPaths(){
-  const items=(await getCollection("writing",({data})=>!data.draft || import.meta.env.DEV))
-    .filter(x=>x.data.slug!=="legacy-archive")
-    .sort((a,b)=>(a.data.date?.valueOf()||0)-(b.data.date?.valueOf()||0));
-  const translations=await getCollection("writingZh",({data})=>!data.draft || import.meta.env.DEV);
-  const translated=new Set(translations.map(x=>x.data.sourceSlug));
-  return items.map((entry,i)=>({
-    params:{slug:entry.data.slug},
-    props:{entry,previous:items[i-1],next:items[i+1],hasTranslation:translated.has(entry.data.slug)}
-  }));
+export async function getStaticPaths() {
+  const entries = (await getCollection('writing', ({ data }) => !data.draft || import.meta.env.DEV))
+    .filter(entry => entry.data.slug !== 'legacy-archive')
+    .sort((a, b) => (a.data.date?.valueOf() || 0) - (b.data.date?.valueOf() || 0));
+  const translations = await getCollection('writingZh', ({ data }) => !data.draft || import.meta.env.DEV);
+  return entries.map((entry, index) => ({ params: { slug: entry.data.slug }, props: {
+    entry, entries, previous: entries[index - 1], next: entries[index + 1],
+    alternatePath: translations.find(translated => translated.data.sourceSlug === entry.data.slug)?.data.slug
+  } }));
 }
-
-const {entry,previous,next,hasTranslation}=Astro.props;
-const {Content}=await render(entry);
-const stats=readingTime(entry.body||"");
-const readingMinutes=entry.data.readingMinutes??Math.max(1,Math.round(stats.minutes));
-const links=[
-  ["View calculations",publicRepositoryUrl(entry.data.technicalRepository),"button"],
-  ["View notebooks",publicRepositoryUrl(entry.data.notebookUrl),"button secondary"],
-  ["View source code",publicRepositoryUrl(entry.data.codeUrl),"button secondary"],
-  ["Reproduce this study",publicRepositoryUrl(entry.data.reproductionUrl),"button secondary"]
-].filter(([,href])=>href);
+const { entry, entries, previous, next, alternatePath } = Astro.props;
+const { Content, headings } = await render(entry);
 ---
-<BaseLayout title={entry.data.title} description={entry.data.summary} image={entry.data.heroImage} type="Writing" locale="en" alternatePath={hasTranslation ? `/zh/writing/${entry.data.slug}/` : undefined}>
-  <header class="page-head"><div class="container">
-    <p class="eyebrow">{entry.data.type}</p>
-    {entry.data.draft && <p class="small">Draft preview · Not published</p>}
-    <h1>{entry.data.title}</h1>
-    <p class="lead">{entry.data.summary}</p>
-    <p class="small">{entry.data.date?.toLocaleDateString("en-GB",{dateStyle:"long"})} · {readingMinutes} min read</p>
-  </div></header>
-  <div class="container content-shell">
-    <aside>
-      <div class="tag-list">{entry.data.topics.map(t=><span class="tag">{t}</span>)}</div>
-      {entry.data.scienceProject&&<p class="small">Evidence record<br/><strong>{entry.data.scienceProject}</strong><br/>Technical materials are maintained privately.</p>}
-      {entry.data.legacySource&&<p class="small">Original Markdown<br/><code>{entry.data.legacySource}</code></p>}
-      {links.length>0&&<div class="actions">{links.map(([label,href,className])=><a class={className} href={href}>{label}</a>)}</div>}
-    </aside>
-    <article class="prose">
-      {entry.data.archived&&<ArchiveNotice/>}
-      <Content/>
-      <ReadingNav previous={previous&&{href:`/writing/${previous.data.slug}/`,title:previous.data.title}} next={next&&{href:`/writing/${next.data.slug}/`,title:next.data.title}}/>
-    </article>
-  </div>
+<BaseLayout title={entry.data.title} description={entry.data.summary} image={entry.data.heroImage} type="Writing" locale="en" alternatePath={alternatePath ? `/zh/writing/${alternatePath}/` : undefined} articleData={entry.data} topicIds={getTopicIds(entry.data)}>
+  <ArticleReader entry={entry} entries={entries} headings={headings} previous={previous} next={next}><Content /></ArticleReader>
 </BaseLayout>

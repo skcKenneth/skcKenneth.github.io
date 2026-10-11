@@ -1,6 +1,7 @@
 ---
 title: 感知佔用情況的課室通風
 slug: occupancy-aware-classroom-ventilation
+topicIds: [life-environment, cities-engineering, teaching-research-practice]
 sourceSlug: occupancy-aware-classroom-ventilation
 summary: 當實際房間使用偏離時間表時，以共用容量預測控制比較課室 CO₂ 暴露。
 year: 2026

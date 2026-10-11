@@ -27,9 +27,9 @@ const { Content } = await render(entry);
   <div class="container content-shell">
     <aside>
       <h2>研究問題</h2>
-      <ul>{entry.data.questions.map((question) => <li>{question}</li>)}</ul>
+      <ul>{entry.data.questions.map((question: string) => <li>{question}</li>)}</ul>
       <h3>方法</h3>
-      <div class="tag-list">{entry.data.methods.map((method) => <span class="tag">{method}</span>)}</div>
+      <div class="tag-list">{entry.data.methods.map((method: string) => <span class="tag">{method}</span>)}</div>
     </aside>
     <article class="prose">
       <Content />

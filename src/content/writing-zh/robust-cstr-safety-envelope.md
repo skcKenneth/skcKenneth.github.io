@@ -1,6 +1,7 @@
 ---
 title: 在穩健 CSTR 安全包絡內生產
 slug: robust-cstr-safety-envelope
+topicIds: [risk-decisions]
 sourceSlug: robust-cstr-safety-envelope
 summary: 一個合成放熱反應器研究，量化在動力學與傳熱不確定下，為保持低於熱風險準則需要放棄多少名義產量。
 date: 2026-07-26

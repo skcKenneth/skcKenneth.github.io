@@ -1,6 +1,7 @@
 ---
 title: Sequential Nonlinear Model Discrimination
 slug: sequential-nonlinear-model-discrimination
+topicIds: [risk-decisions, dynamics-networks]
 summary: Adaptive forcing experiments distinguish Van der Pol, Rayleigh, and Duffing oscillator families under a six-round budget.
 year: 2026
 lastUpdated: 2026-07-28

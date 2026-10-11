@@ -1,6 +1,7 @@
 ---
 title: Two Networks, One Spectrum, Different Alarms
 slug: two-networks-one-spectrum-different-alarms
+topicIds: [dynamics-networks, risk-decisions]
 summary: Two positive transport networks can lose exactly the same total mass, share every eigenvalue, and still disagree about a finite-time sensor alarm. A controlled study asks what a spectrum misses, what a rigorous margin can certify, and when that margin becomes uninformative.
 date: 2026-10-11T10:00:00+08:00
 lastUpdated: 2026-10-11T10:00:00+08:00

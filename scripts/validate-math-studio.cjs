@@ -67,12 +67,16 @@ const publicRoot=path.join(root,'public','math-studio');
 const html=fs.readFileSync(path.join(publicRoot,'index.html'),'utf8');
 for(const m of html.matchAll(/(?:src|href)="([^"]+)"/g)){
  const url=m[1];if(url.startsWith('#')||/^(?:https?:|data:)/.test(url))continue;
+ // This navigation returns to Astro's teaching route; it is not a bundled asset.
+ if(url==='../zh/teaching/')continue;
  assert(!url.startsWith('/'),'assets must work under /math-studio/');
  assert(fs.existsSync(path.join(publicRoot,url.split('?')[0])),url);
 }
 assert(!/chatgpt\.site|\/signin-with-chatgpt/.test(html));
 assert(html.includes('https://skckenneth.github.io/math-studio/'));
-for(const page of ['src/pages/teaching/index.astro','src/pages/zh/teaching/index.astro'])assert(fs.readFileSync(path.join(root,page),'utf8').includes('/math-studio/'));
+for(const page of ['src/pages/teaching/index.astro','src/pages/zh/teaching/index.astro'])assert(fs.readFileSync(path.join(root,page),'utf8').includes('TeachingDirectory'));
+assert(fs.readFileSync(path.join(root,'src/data/teaching-directory.mjs'),'utf8').includes("'/math-studio/'"));
+assert(html.includes('href="../zh/teaching/"')&&html.includes('繁體中文資源'));
 console.log('GitHub Pages relative assets, canonical URL and bilingual teaching links passed.');
 
 // New support handlers keep comparison work separate from scored practice and escape drafts.

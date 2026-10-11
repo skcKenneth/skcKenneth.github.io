@@ -1,6 +1,7 @@
 ---
 title: Two Networks, One Spectrum, Different Alarms
 slug: two-networks-one-spectrum-different-alarms
+topicIds: [dynamics-networks, risk-decisions]
 summary: A controlled positive-network benchmark separates asymptotic stability from finite-horizon sensor alarms, comparing exact transfer, classical phase-type calculations and rigorous decision margins.
 year: 2026
 date: 2026-10-11T10:00:00+08:00

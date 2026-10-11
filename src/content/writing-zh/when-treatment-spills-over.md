@@ -1,6 +1,7 @@
 ---
 title: 當處理效應向外溢出
 slug: when-treatment-spills-over
+topicIds: [data-ai, dynamics-networks]
 sourceSlug: when-treatment-spills-over
 summary: 網絡干擾改變了「處理效應」的意思；暴露映射把實驗設計、估計目標與可辯護的因果結論連接起來。
 date: 2026-07-16

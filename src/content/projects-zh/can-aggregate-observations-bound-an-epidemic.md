@@ -1,6 +1,7 @@
 ---
 title: 從延遲總數框住隱藏疫情
 slug: can-aggregate-observations-bound-an-epidemic
+topicIds: [data-ai, risk-decisions, life-environment]
 sourceSlug: can-aggregate-observations-bound-an-epidemic
 summary: 以六區 SIR 合成基準比較中央 ensemble 區間與經驗證的受約束箱形外包絡，分清條件式包含與有用精度，並檢查停止接收觀測後還能預測甚麼。
 year: 2026

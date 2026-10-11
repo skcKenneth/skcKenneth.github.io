@@ -1,6 +1,7 @@
 ---
 title: "How Rare Is a Flip?"
 slug: how-rare-is-a-flip
+topicIds: [risk-decisions, life-environment, dynamics-networks]
 summary: A bounded finite-state calculation and seeded direct simulation agree on one synthetic low-copy genetic-toggle event—but that Phase-1 agreement is a starting point, not a rare-event victory.
 date: 2026-08-29
 lastUpdated: 2026-08-29

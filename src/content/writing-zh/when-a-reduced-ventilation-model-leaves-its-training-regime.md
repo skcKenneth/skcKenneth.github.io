@@ -1,6 +1,7 @@
 ---
 title: 當降階通風模型離開訓練範圍
 slug: when-a-reduced-ventilation-model-leaves-its-training-regime
+topicIds: [cities-engineering, computation-code, risk-decisions]
 sourceSlug: when-a-reduced-ventilation-model-leaves-its-training-regime
 summary: 一項凍結的 synthetic POD 與 POD-DEIM audit 先驗證 full-order reference，然後因兩個 reduced models 在 nominal holdout 已失敗而停止。
 date: 2026-08-30

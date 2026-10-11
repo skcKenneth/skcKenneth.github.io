@@ -1,6 +1,7 @@
 ---
 title: 如何謹慎解讀一項空間登革熱實驗
 slug: climate-driven-dengue
+topicIds: [life-environment, risk-decisions]
 sourceSlug: climate-driven-dengue
 summary: 說明一個合成反應—擴散實驗，對氣候敏感傳播機制可以告訴我們甚麼，以及不能支持哪些結論。
 date: 2025-12-26

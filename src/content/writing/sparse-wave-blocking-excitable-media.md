@@ -1,6 +1,7 @@
 ---
 title: Can One Local Pulse Stop a Travelling Excitation Wave?
 slug: sparse-wave-blocking-excitable-media
+topicIds: [risk-decisions, life-environment]
 summary: A FitzHugh–Nagumo benchmark freezes an event-triggered local intervention and tests whether it blocks travelling waves under unseen conduction speeds and sensor delays.
 date: 2026-07-20
 lastUpdated: 2026-07-28

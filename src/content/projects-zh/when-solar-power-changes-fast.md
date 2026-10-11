@@ -1,6 +1,7 @@
 ---
 title: 當太陽能發電急升急跌
 slug: when-solar-power-changes-fast
+topicIds: [cities-engineering, risk-decisions, teaching-research-practice]
 sourceSlug: when-solar-power-changes-fast
 summary: 獲 ADMA 2026 接納的短論文，研究太陽能預測區間的條件可靠性。五站比較分開一致的校準改善，以及困難事件下仍未達到的絕對可靠性。
 year: 2026

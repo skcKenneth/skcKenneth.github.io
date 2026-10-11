@@ -1,5 +1,6 @@
 ---
 import {lessons,pathways,bi} from "../data/workshop-lessons";
+import TeachingToolbar from './TeachingToolbar.astro';
 import rawNotes from "../data/generated/teaching-lecture-catalogue.json";
 import type {WorkshopLocale} from "../types/workshop";
 import "../styles/workshop.css";
@@ -7,6 +8,7 @@ const {locale="en"}=Astro.props as {locale?:WorkshopLocale};const zh=locale==="z
 const needs=[{question:bi("Can you explain a derivative's units?","你能解釋導數的單位嗎？"),note:"supplementary-05"},{question:bi("Can you solve a small linear system?","你能解小型線性系統嗎？"),note:"supplementary-09"},{question:bi("Can you distinguish mean and uncertainty?","你能分辨平均值與不確定性嗎？"),note:"supplementary-08"},{question:bi("Can you write a Python function over an array?","你能編寫處理陣列的 Python 函式嗎？"),note:"python"}];
 ---
 <div class="workshop ws-index" data-workshop-index data-locale={locale}>
+<TeachingToolbar locale={locale} kind="workshop" continueHref="#learning-map" />
 <header class="ws-hero container"><div><p class="eyebrow">{zh?"數學建模學習工坊 / 大學與研究入門":"MATHEMATICAL MODELING WORKSHOP / UNIVERSITY & RESEARCH"}</p><h1>{zh?<>由一個問題，<br/>走到可重現的研究。</>:<>From a question<br/>to reproducible research.</>}</h1><p class="lead">{zh?"每一條方程，都有假設。每一次運算，都需要證據。親手完成六個模型，學會解釋它們何時值得相信。":"Every equation makes assumptions. Every computation needs evidence. Build six models and learn to explain when they deserve your trust."}</p><div class="actions"><a class="button" href={`${base}/${lessons[0].slug}/`}>{zh?"從混合槽開始":"Start with a mixing tank"} →</a><a class="button secondary" href="#learning-map">{zh?"查看學習地圖":"Explore the learning map"}</a></div><p class="ws-meta">{zh?"6 個完整單元 · 每課約 2–3 小時 · 繁中 / EN · 免登入":"6 complete units · 2–3 hours each · 繁中 / EN · No sign-in"}</p><p data-resume aria-live="polite"></p></div>
 <div class="ws-hero-diagram" aria-label={zh?"建模與驗證循環":"Modeling and validation cycle"}>
  <div class="ws-orbit"><span>{zh?"現象":"Phenomenon"}</span><span>{zh?"假設":"Assumptions"}</span><span>{zh?"模型":"Model"}</span><span>Python</span><span>{zh?"證據":"Evidence"}</span><span>{zh?"修訂":"Revision"}</span></div><div class="ws-hero-center"><span>01 — 06</span><strong>{zh?"不只求解。\n也要問為甚麼。":"Solve it.\nThen question it."}</strong><small>{zh?"你的問題，貫穿整個過程。":"Your question connects every step."}</small></div>

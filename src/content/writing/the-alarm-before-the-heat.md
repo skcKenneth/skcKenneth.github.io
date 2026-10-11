@@ -1,6 +1,7 @@
 ---
 title: The Alarm Before the Heat
 slug: the-alarm-before-the-heat
+topicIds: [risk-decisions, data-ai]
 summary: Building and stress-testing a graph-aware battery thermal warning model without confusing a synthetic result for a safety claim.
 date: 2026-07-13
 lastUpdated: 2026-07-13

@@ -1,6 +1,7 @@
 ---
 title: "網格能保留事件嗎？"
 slug: can-a-mesh-preserve-the-event
+topicIds: [computation-code, life-environment]
 sourceSlug: can-a-mesh-preserve-the-event
 summary: 在相同 production work 下，比較 uniform、residual 與 goal-oriented finite-element meshes 能否保留 growing-domain modal-transition time；今次 smoke experiment 反而由 uniform mesh 勝出。
 date: 2026-08-30

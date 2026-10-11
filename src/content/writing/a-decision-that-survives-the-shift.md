@@ -1,6 +1,7 @@
 ---
 title: "A Decision That Survives the Shift"
 slug: a-decision-that-survives-the-shift
+topicIds: [risk-decisions]
 summary: Distributionally robust optimization asks which decision performs acceptably when the probability model is only approximately known.
 date: 2026-07-16
 lastUpdated: 2026-07-16

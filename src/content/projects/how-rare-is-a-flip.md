@@ -1,6 +1,7 @@
 ---
 title: How Rare Is a Flip?
 slug: how-rare-is-a-flip
+topicIds: [risk-decisions, life-environment, dynamics-networks]
 summary: A reproducible Phase-1 study checks a synthetic low-copy exclusive genetic toggle with an error-bounded finite-state reference and seeded direct SSA.
 year: 2026
 lastUpdated: 2026-08-29

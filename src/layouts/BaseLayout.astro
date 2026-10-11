@@ -1,121 +1,99 @@
 ---
-import "../styles/global.css";
-
-interface Props {
-  title: string;
-  description?: string;
-  image?: string;
-  noindex?: boolean;
-  type?: string;
-  locale?: "en" | "zh-Hant";
-  alternatePath?: string;
-  publicResearchRecord?: boolean;
-}
-
-const {
-  title,
-  description = "Research, education, and computational experiments in mathematical modeling.",
-  image = "/images/og-image.svg",
-  noindex = false,
-  type,
-  locale = "en",
-  alternatePath,
-  publicResearchRecord = false
-} = Astro.props;
-
-const isZh = locale === "zh-Hant";
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const alternate = alternatePath ? new URL(alternatePath, Astro.site) : undefined;
-const nav = isZh
-  ? [
-      ["研究", "/zh/research/"],
-      ["教學", "/zh/teaching/"],
-      ["文章", "/zh/writing/"],
-      ["專案", "/zh/projects/"],
-      ["關於", "/zh/about/"],
-      ["搜尋", "/zh/search/"]
-    ]
-  : [
-      ["Research", "/research/"],
-      ["Teaching", "/teaching/"],
-      ["Writing", "/writing/"],
-      ["Projects", "/projects/"],
-      ["About", "/about/"],
-      ["Search", "/search/"]
-    ];
-const current = Astro.url.pathname;
-const updated = isZh ? "2026 年 8 月 20 日" : "20 August 2026";
+import '../styles/global.css';
+import '../styles/site-refresh.css';
+import { getCollection } from 'astro:content';
+import { getTopicIds, localeBase, SITE_URL } from '../data/site-reader.mjs';
+import { classifySearchUrl } from '../lib/search-catalog.mjs';
+interface Props { title:string; description?:string; image?:string; noindex?:boolean; type?:string; locale?:'en'|'zh-Hant'; alternatePath?:string; publicResearchRecord?:boolean; articleData?:any; topicIds?:string[]; }
+const {title,description='Mathematics, computation and teaching — ideas to explore with Kenneth Cheng.',noindex=false,type,locale='en',alternatePath,publicResearchRecord=false,articleData,topicIds}=Astro.props;
+const zh=locale==='zh-Hant',base=localeBase(locale),current=Astro.url.pathname;
+const canonical=new URL(current,Astro.site),alternate=alternatePath?new URL(alternatePath,Astro.site):undefined;
+const collectionNames=['writing','writingZh','projects','projectsZh','research','researchZh','teaching','teachingZh'] as const;
+const collections=await Promise.all(collectionNames.map(name=>getCollection(name,({data})=>!data.draft)));
+const entries=collections.flat();
+const localEntries=entries.filter(e=>zh?('sourceSlug' in e.data):!('sourceSlug' in e.data));
+const currentEntry=localEntries.find(e=>current.endsWith('/'+e.data.slug+'/'));
+const data=articleData||currentEntry?.data;
+const dates=entries.map(e=>(e.data.lastUpdated||e.data.date)?.valueOf()).filter((x):x is number=>typeof x==='number'&&Number.isFinite(x));
+const updated=new Date(Math.max(...dates)).toLocaleDateString(zh?'zh-Hant-TW':'en-GB',{dateStyle:'long',timeZone:'UTC'});
+const path=current.replace(/^\/zh(?=\/)/,'');
+const routeKind=classifySearchUrl(path);
+const kind=routeKind==='question'?'question':routeKind==='lesson'?'lesson':routeKind==='catalogue'||data?.status==='Catalogue entry'?'catalogue':path.startsWith('/writing/')&&currentEntry?'writing':path.startsWith('/projects/')&&path!=='/projects/'?(currentEntry?'project':'catalogue'):path.startsWith('/research/')?'research':path.startsWith('/teaching/')?'teaching':'other';
+const ids:string[]=topicIds||getTopicIds(data||{title});
+const nav=[[zh?'文章':'Writing',base+'/writing/'],[zh?'主題':'Topics',base+'/topics/'],[zh?'教學':'Teaching',base+'/teaching/'],[zh?'關於':'About',base+'/about/']];
+const selected=(href:string)=>current.startsWith(href)||(href.endsWith('/topics/')&&/\/(research|projects)\//.test(current));
+const shareImage=new URL('/images/og-reader.png',Astro.site).href;
+const jsonLd=articleData?{'@context':'https://schema.org','@type':'BlogPosting',headline:title,description,url:canonical.href,image:shareImage,inLanguage:locale,author:{'@type':'Person',name:'Kenneth Cheng',url:SITE_URL+base+'/about/'},datePublished:articleData.date?.toISOString(),dateModified:articleData.lastUpdated?.toISOString(),mainEntityOfPage:canonical.href}:{'@context':'https://schema.org','@type':'WebSite',name:'Kenneth Cheng',url:SITE_URL,inLanguage:locale};
+const section=nav.find(([,href])=>selected(href));
+const breadcrumb=path.split('/').filter(Boolean).length>1&&!articleData&&!path.startsWith('/topics/')&&section;
 ---
 <!doctype html>
 <html lang={locale}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <meta name="theme-color" content="#f5f3ed" />
-    <link rel="icon" href="/favicon.ico?v=woven-c2" sizes="16x16 32x32 48x48 64x64" />
-    <link rel="icon" href="/favicon-32x32.png?v=woven-c2" sizes="32x32" type="image/png" />
-    <link rel="icon" href="/favicon.svg?v=woven-c2" type="image/svg+xml" sizes="any" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=woven-c2" sizes="180x180" />
-    {noindex && <meta name="robots" content="noindex,follow" />}
-    {type && <meta name="pagefind:filter" content={`type:${type}`} />}
-    <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang={locale} href={canonical} />
-    {alternate && <link rel="alternate" hreflang={isZh ? "en" : "zh-Hant"} href={alternate} />}
-    <meta property="og:title" content={`${title} — Kenneth Cheng`} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.site)} />
-    <meta property="og:locale" content={isZh ? "zh_TW" : "en_GB"} />
-    <title>{title} — Kenneth Cheng</title>
-  </head>
-  <body>
-    <a class="skip-link" href="#main">{isZh ? "跳至主要內容" : "Skip to content"}</a>
-    <header class="site-header">
-      <div class="container nav-wrap">
-        <a class="brand" href={isZh ? "/zh/" : "/"}>
-          <img class="brand-icon" src="/images/kenneth-woven-knot.svg" alt="" width="44" height="44" aria-hidden="true" />
-          <span class="brand-copy">
-            <strong>Kenneth Cheng</strong>
-            <span>{isZh ? "數學建模" : "Mathematical modeling"}</span>
-          </span>
-        </a>
-        <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">{isZh ? "選單" : "Menu"}</button>
-        <nav aria-label={isZh ? "主要導覽" : "Primary"}>
-          <ul class="nav-list" id="primary-nav">
-            {nav.map(([label, href]) => <li><a href={href} aria-current={current.startsWith(href) ? "page" : undefined}>{label}</a></li>)}
-            <li class="language-switch"><a href={alternatePath || (isZh ? "/" : "/zh/")} lang={isZh ? "en" : "zh-Hant"}>{isZh ? "EN" : "中文"}</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main id="main" data-pagefind-body><slot /></main>
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <strong>Kenneth Cheng</strong>
-          <p>{isZh ? "澳門數學教育工作者，研究數學建模、計算實驗、教學設計與學生研究培育。" : "Mathematics educator in Macau working across mathematical modeling, computational experiments, teaching, and student research pathways."}</p>
-        </div>
-        <div>
-          <strong>{isZh ? "其他連結" : "Elsewhere"}</strong>
-          <p><a href="https://github.com/skcKenneth">GitHub</a><br/><a href="mailto:sokkincheng@gmail.com">{isZh ? "電郵" : "Email"}</a><br/><a href={isZh ? "/zh/about/#cv" : "/about/#cv"}>CV</a></p>
-        </div>
-        <div>
-          <strong>{isZh ? "網站來源" : "Source"}</strong>
-          <p><a href="https://github.com/skcKenneth/skcKenneth.github.io">{isZh ? "網站原始碼庫" : "Site repository"}</a></p>
-          {publicResearchRecord
-            ? <p class="small">{isZh ? "公開研究程式與證據已於上方連結；部分研究輸入仍受公開範圍限制。" : "Public research code and evidence are linked above; some research inputs remain restricted."}</p>
-            : <p class="small">{isZh ? "技術研究紀錄存放於私人工作區。" : "Technical research records are maintained privately."}<br/>{isZh ? "更新：" : "Updated "}{updated}</p>}
-        </div>
-      </div>
-    </footer>
-    <script is:inline>
-      const button = document.querySelector(".menu-button");
-      const nav = document.querySelector("#primary-nav");
-      button?.addEventListener("click", () => {
-        const open = button.getAttribute("aria-expanded") !== "true";
-        button.setAttribute("aria-expanded", String(open));
-        nav?.setAttribute("data-open", String(open));
-      });
-    </script>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content={description}/><meta name="theme-color" content="#f5f3ed"/>
+  <link rel="icon" href="/favicon.ico?v=woven-c2" sizes="16x16 32x32 48x48 64x64"/>
+  <link rel="icon" href="/favicon-32x32.png?v=woven-c2" sizes="32x32" type="image/png"/>
+  <link rel="icon" href="/favicon.svg?v=woven-c2" type="image/svg+xml" sizes="any"/>
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=woven-c2" sizes="180x180"/>
+  <link rel="alternate" type="application/rss+xml" title={zh?'Kenneth Cheng 繁體中文文章':'Kenneth Cheng — English writing'} href={base+'/rss.xml'}/>
+  {noindex&&<meta name="robots" content="noindex,follow"/>}
+  {type&&<meta data-pagefind-filter="type[content]" content={type}/>}
+  <meta data-pagefind-filter="search-kind[content]" content={kind}/>
+  <meta data-pagefind-filter="archived[content]" content={String(Boolean(data?.archived))}/>
+  {ids.map(id=><meta data-pagefind-filter="topic[content]" content={id}/>)}
+  <link rel="canonical" href={canonical}/><link rel="alternate" hreflang={locale} href={canonical}/>
+  {alternate&&<link rel="alternate" hreflang={zh?'en':'zh-Hant'} href={alternate}/>}
+  <meta property="og:title" content={title+' — Kenneth Cheng'}/><meta property="og:description" content={description}/>
+  <meta property="og:image" content={shareImage}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="Kenneth Cheng — Mathematics, models, and ideas"/>
+  <meta property="og:type" content={articleData?'article':'website'}/><meta property="og:url" content={canonical}/><meta property="og:site_name" content="Kenneth Cheng"/>
+  <meta property="og:locale" content={zh?'zh_TW':'en_GB'}/>
+  {articleData?.date&&<meta property="article:published_time" content={articleData.date.toISOString()}/>}
+  {articleData?.lastUpdated&&<meta property="article:modified_time" content={articleData.lastUpdated.toISOString()}/>}
+  <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={shareImage}/>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g,'\\u003c')}/>
+  <title>{title} — Kenneth Cheng</title>
+</head>
+<body data-site-refresh="reader-20261011">
+<a class="skip-link" href="#main">{zh?'跳至主要內容':'Skip to content'}</a>
+<header class="site-header" data-pagefind-ignore>
+<div class="container nav-wrap">
+  <a class="brand" href={base+'/'} aria-label={zh?'Kenneth Cheng 首頁':'Kenneth Cheng home'}>
+    <img class="brand-icon" src="/images/kenneth-woven-knot.svg" alt="" width="44" height="44" aria-hidden="true"/>
+    <span class="brand-copy"><strong>Kenneth Cheng</strong><span>{zh?'數學・模型・思考':'Mathematics · models · ideas'}</span></span>
+  </a>
+  <nav class="primary-navigation" aria-label={zh?'主要導覽':'Primary'}><ul class="nav-list" id="primary-nav">{nav.map(([label,href])=><li><a href={href} aria-current={selected(href)?'page':undefined}>{label}</a></li>)}</ul></nav>
+  <div class="header-tools">
+    <a class="tool-link" href={base+'/search/'} aria-label={zh?'搜尋網站':'Search the site'}><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m15 15 6 6" stroke="currentColor" stroke-width="1.8"/></svg><span class="tool-label">{zh?'搜尋':'Search'}</span></a>
+    <a class="tool-link language-switch" data-language-switch href={alternatePath||(zh?'/':'/zh/')} lang={zh?'en':'zh-Hant'} aria-label={zh?'Read in English':'閱讀繁體中文版'}>{zh?'EN':'中文'}</a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">{zh?'選單':'Menu'}</button>
+  </div>
+</div>
+</header>
+<main id="main" data-pagefind-body>
+{breadcrumb&&<nav class="breadcrumbs container" aria-label={zh?'所在位置':'Breadcrumb'} data-pagefind-ignore><a href={base+'/'}>{zh?'首頁':'Home'}</a><span aria-hidden="true">/</span><a href={section[1]}>{section[0]}</a><span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav>}
+<slot/>
+</main>
+<footer class="site-footer" data-pagefind-ignore><div class="container footer-grid">
+  <div><strong>Kenneth Cheng</strong><p>{zh?'在澳門教數學，記錄模型、計算、課堂與研究之間的思考。':'Teaching mathematics in Macau; exploring the connections between models, computation, classrooms and research.'}</p><p class="small">{zh?'內容最近更新：':'Latest content update: '}{updated}</p></div>
+  <div><strong>{zh?'繼續探索':'Keep exploring'}</strong><p><a href={base+'/reading-list/'}>{zh?'稍後閱讀':'Reading list'}</a><br/><a href={base+'/rss.xml'}>RSS {zh?'訂閱':'feed'}</a><br/><a href={base+'/about/#cv'}>CV</a></p></div>
+  <div><strong>{zh?'保持聯絡':'Elsewhere'}</strong><p><a href="mailto:sokkincheng@gmail.com">{zh?'電郵':'Email'}</a><br/><a href="https://github.com/skcKenneth">GitHub</a><br/><a href="https://github.com/skcKenneth/skcKenneth.github.io">{zh?'網站原始碼':'Site source'}</a></p><p class="small">{publicResearchRecord?(zh?'公開研究紀錄見頁內連結。':'Public research records are linked on this page.'):(zh?'文字與圖件來源見各頁說明。':'Source notes accompany the writing and figures.')}</p></div>
+</div></footer>
+<script>
+const header=document.querySelector<HTMLElement>('.site-header');
+if(header){const updateOffset=()=>document.documentElement.style.setProperty('--reader-header-offset',(header.getBoundingClientRect().height+16)+'px');updateOffset();new ResizeObserver(updateOffset).observe(header);}
+const button=document.querySelector<HTMLButtonElement>('.menu-button');
+const nav=document.querySelector<HTMLElement>('#primary-nav');
+const setOpen=(open:boolean,focus=false)=>{button?.setAttribute('aria-expanded',String(open));nav?.setAttribute('data-open',String(open));if(focus)button?.focus();};
+button?.addEventListener('click',()=>setOpen(button.getAttribute('aria-expanded')!=='true'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&button?.getAttribute('aria-expanded')==='true')setOpen(false,true);});
+document.addEventListener('click',e=>{if(e.target instanceof Node&&!document.querySelector('.site-header')?.contains(e.target))setOpen(false);});
+nav?.addEventListener('click',e=>{if((e.target as Element).closest('a'))setOpen(false);});
+const language=document.querySelector<HTMLAnchorElement>('[data-language-switch]');
+if(language&&/\/(search|writing|topics|teaching)\//.test(location.pathname)){
+  const syncLanguage=()=>{const next=new URL(language.href);next.search=location.search;language.href=next.href;};
+  syncLanguage();language.addEventListener('click',syncLanguage);language.addEventListener('focus',syncLanguage);
+}
+</script>
+</body></html>

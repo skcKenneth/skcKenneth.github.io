@@ -1,6 +1,7 @@
 ---
 title: Did the Hotspot Move, or Did It Grow?
 slug: did-the-hotspot-move-or-did-it-grow
+topicIds: [data-ai, risk-decisions, cities-engineering]
 summary: Two spatial maps can share a convincing least-cost explanation without revealing the history that produced them. A controlled unbalanced optimal transport study separates endpoint fit, numerical convergence and evidence for movement versus local growth.
 date: 2026-09-19
 lastUpdated: 2026-09-19

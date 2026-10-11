@@ -1,6 +1,7 @@
 ---
 title: 建模者的 Python 實驗室
 slug: python-labs
+topicIds: [computation-code]
 sourceSlug: python-labs
 summary: 用於模擬、數值方法、最佳化及圖像生成的可重現實驗課。
 lastUpdated: 2026-07-28

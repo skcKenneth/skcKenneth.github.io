@@ -1,6 +1,7 @@
 ---
 title: 當交通求解器製造出一場塞車
 slug: when-a-traffic-solver-invents-a-jam
+topicIds: [computation-code, cities-engineering]
 sourceSlug: when-a-traffic-solver-invents-a-jam
 summary: 一個保留失敗結果的 LWR benchmark 顯示，final shock-grid alignment 可令 cell-average norm 看似近乎精確，但門檻到達時間與 queue accounting 仍然有偏差。
 year: 2026

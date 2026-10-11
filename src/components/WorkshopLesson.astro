@@ -1,6 +1,7 @@
 ---
 import {modelCardFields,rubric} from "../data/workshop-lessons";
 import MathExpression from "./MathExpression.astro";
+import TeachingToolbar from './TeachingToolbar.astro';
 import type {WorkshopLesson,WorkshopLocale} from "../types/workshop";
 import rawNotes from "../data/generated/teaching-lecture-catalogue.json";
 import "../styles/workshop.css";
@@ -9,9 +10,10 @@ const zh=locale==="zh-Hant";const base=`${zh?"/zh":""}/teaching/modeling-worksho
 const notes=[...lesson.notes,"writing-01","writing-02","writing-03","writing-04","writing-05"].map(id=>rawNotes.units.find(u=>u.id===id)!);
 ---
 <div class="workshop ws-lesson" data-workshop-lesson data-locale={locale} data-lesson={JSON.stringify(lesson)}>
+<TeachingToolbar locale={locale} kind="workshop" continueHref="#ws-workbench" />
 <header class="container ws-lesson-head"><a class="ws-small" href={`${base}/`}>← {zh?"學習地圖":"Learning map"}</a><p class="eyebrow">{zh?"數學建模學習工坊":"MATHEMATICAL MODELING WORKSHOP"} / {lesson.number}</p><h1>{lesson.title[locale]}</h1><p class="lead">{lesson.question[locale]}</p><div class="ws-meta-row"><span>{zh?"約 150 分鐘":"About 150 minutes"}</span><span>{zh?"合成教學實驗":"Synthetic teaching experiment"}</span><span>v{lesson.version}</span><span data-save-status role="status">{zh?"正在讀取本機草稿…":"Reading local draft…"}</span></div><details class="ws-orientation"><summary>{zh?"學習目標與先備條件":"Learning objectives & prerequisites"}</summary><p>{lesson.prerequisites[locale]}</p><ul>{lesson.objectives.map(o=><li>{o[locale]}</li>)}</ul></details></header>
 <nav class="ws-mobile-tabs" aria-label={zh?"工作台面板":"Workbench panels"}><button type="button" data-tab-button="task" aria-pressed="true">{zh?"任務":"Task"}</button><button type="button" data-tab-button="code" aria-pressed="false">Python</button><button type="button" data-tab-button="results" aria-pressed="false">{zh?"結果與紀錄":"Results & record"}</button></nav>
-<div class="container ws-workbench">
+<div class="container ws-workbench" id="ws-workbench">
 <aside class="ws-step-nav"><p class="eyebrow">{zh?"你的建模過程":"YOUR MODELING PROCESS"}</p><ol>{lesson.steps.map((s,i)=><li><button type="button" data-step-button={i} aria-current={i===0?"step":undefined}><span>{String(i+1).padStart(2,"0")}</span>{s.title[locale]}<small data-step-mark={s.id}></small></button></li>)}</ol><progress max={8} value={0} data-completion aria-label={zh?"自行標記的完成進度":"Self-marked completion progress"}></progress><p class="ws-small" data-completion-label>{zh?"0 / 8 步驟":"0 / 8 steps"}</p><p class="ws-small">{zh?"可自由返回修訂，完成標記不代表評分。":"Return and revise freely. Completion marks are not grades."}</p></aside>
 <section class="ws-task-panel" aria-label={zh?"當前學習任務":"Current learning task"}>
 {lesson.steps.map((s,i)=><section class="ws-step" data-step={i}><p class="eyebrow">{String(i+1).padStart(2,"0")} / 08 · {s.minutes} {zh?"分鐘":"MIN"}</p><h2 tabindex="-1">{s.title[locale]}</h2><p class="ws-explanation">{s.body[locale]}</p>{i===3&&<div class="ws-equation"><MathExpression expression={lesson.equation} display/></div>}<div class="ws-task-prompt"><span class="ws-badge">{zh?"輪到你":"YOUR TURN"}</span><p>{s.task[locale]}</p></div><label class="ws-field"><span>{zh?"你的推理與回答":"Your reasoning & response"}</span><textarea rows="5" data-answer={s.id} placeholder={zh?"保留推理過程，即使之後需要修訂。":"Keep your reasoning, even if you revise it later."}></textarea></label><div class="ws-step-actions"><button type="button" class="button secondary" data-complete={s.id}>{zh?"標記本步完成":"Mark step complete"}</button>{i<7&&<button type="button" class="button" data-next={i+1}>{zh?"下一步":"Next step"} →</button>}</div></section>)}

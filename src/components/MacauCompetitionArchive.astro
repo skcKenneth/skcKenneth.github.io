@@ -1,5 +1,6 @@
 ---
 import MathExpression from "./MathExpression.astro";
+import DownloadMetadata from './DownloadMetadata.astro';
 
 export interface Props {
   locale?: "en" | "zh-Hant";
@@ -95,6 +96,7 @@ const topics = zh ? [
         <a class="mc-button" href={`${resourceRoot}/solution-companion.pdf`}>{copy.download}</a>
         <a class="mc-button mc-button--quiet" href={officialArchive} rel="noreferrer">{copy.official}</a>
       </div>
+      <DownloadMetadata url={`${resourceRoot}/solution-companion.pdf`} locale={locale} />
     </div>
   </div>
 

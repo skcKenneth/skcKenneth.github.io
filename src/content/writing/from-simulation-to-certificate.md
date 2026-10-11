@@ -1,6 +1,7 @@
 ---
 title: "From Simulation to Certificate"
 slug: from-simulation-to-certificate
+topicIds: [computation-code, risk-decisions]
 summary: A frozen two-compartment positive-system benchmark separates finite spectral checks from verified all-parameter decay bounds and shows a benchmark-specific cost of restricting the quadratic certificate to be diagonal.
 date: 2026-08-30
 lastUpdated: 2026-08-30

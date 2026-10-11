@@ -1,6 +1,7 @@
 ---
 title: 當時間表對通風系統說謊
 slug: when-the-timetable-lies
+topicIds: [cities-engineering, risk-decisions]
 sourceSlug: when-the-timetable-lies
 summary: 一項可重現的課室實驗，研究預測式通風、未通報的轉房、共用風機限制，以及佔用人數緩衝的代價。
 date: 2026-07-15

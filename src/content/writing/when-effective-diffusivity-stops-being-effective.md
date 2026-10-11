@@ -1,6 +1,7 @@
 ---
 title: "When Effective Diffusivity Stops Being Effective"
 slug: when-effective-diffusivity-stops-being-effective
+topicIds: [computation-code, cities-engineering]
 summary: A verified 24-case synthetic slab benchmark maps where a harmonic effective diffusivity preserves release curves and where finite-cell transients make it miss t50 and t90.
 date: 2026-08-29
 lastUpdated: 2026-08-29

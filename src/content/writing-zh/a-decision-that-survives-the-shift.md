@@ -1,6 +1,7 @@
 ---
 title: 經得起分佈轉移的決策
 slug: a-decision-that-survives-the-shift
+topicIds: [risk-decisions]
 sourceSlug: a-decision-that-survives-the-shift
 summary: 分佈穩健最佳化追問：當機率模型只屬近似已知時，哪一個決策仍能維持可接受的表現？
 date: 2026-07-16

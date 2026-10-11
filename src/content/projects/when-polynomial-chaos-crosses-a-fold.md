@@ -1,6 +1,7 @@
 ---
 title: When Polynomial Chaos Crosses a Fold
 slug: when-polynomial-chaos-crosses-a-fold
+topicIds: [dynamics-networks, risk-decisions]
 summary: A reproducible Phase-1 CSTR study compares global and analytic-oracle fold-aligned Legendre surrogates at a matched 16-forward-evaluation fit budget.
 year: 2026
 lastUpdated: 2026-08-29

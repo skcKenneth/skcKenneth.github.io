@@ -1,6 +1,7 @@
 ---
 title: 可激發介質中的稀疏阻波
 slug: sparse-wave-blocking-excitable-media
+topicIds: [risk-decisions, life-environment]
 sourceSlug: sparse-wave-blocking-excitable-media
 summary: 在未見過的傳導速度、恢復時間與延遲組合中，測試事件觸發局部脈衝能否阻止行進波。
 year: 2026

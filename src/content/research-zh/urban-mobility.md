@@ -1,6 +1,7 @@
 ---
 title: 城市與出行系統
 slug: urban-mobility
+topicIds: [cities-engineering]
 sourceSlug: urban-mobility
 summary: 研究路線規劃、可達性、交通穩定、車隊營運與基建取捨的數學模型。
 lastUpdated: 2026-07-28

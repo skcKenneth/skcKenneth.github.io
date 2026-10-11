@@ -1,6 +1,7 @@
 ---
 title: Coastal Defence Under Rising Tides
 slug: coastal-defence-optimization
+topicIds: [life-environment, teaching-research-practice, risk-decisions]
 summary: A teaching case combines sea-level scenarios, extreme-value storm surges, and cost optimization over a 50-year horizon.
 year: 2026
 lastUpdated: 2026-01-19

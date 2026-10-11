@@ -1,0 +1,41 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { LIVE_ROUTES, validateLivePayload, groupChanges, createPublishSummary, verifyLiveSite } from '../scripts/publish-summary.mjs';
+const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
+function payload(spec) {
+  if (spec.kind === 'png') return { contentType: 'image/png', bytes: Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]) };
+  if (spec.kind === 'svg') return { contentType: 'image/svg+xml', bytes: Buffer.from('<svg viewBox="0 0 1 1"></svg>') };
+  if (spec.kind === 'rss') return { contentType: 'application/rss+xml', bytes: Buffer.from(`<rss version="2.0"><channel><language>${spec.locale}</language><item>One article</item></channel></rss>`) };
+  const markers = { home: 'reader-home-hero id="latest-writing" id="start-here"', writing: 'data-writing-index reader-pagination', topics: 'reader-topics-grid mathematical-thinking teaching-research-practice', teaching: 'data-teaching-directory data-teaching-filters id="math-inquiry-lab"', search: 'data-site-search data-search-pagination name="technical"' };
+  return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/>${markers[spec.kind]}</html>`) };
+}
+test('live route validation rejects old markup, wrong language, invalid formats and changed asset hashes', () => {
+  for (const spec of LIVE_ROUTES) assert.deepEqual(validateLivePayload(spec, { status: 200, ...payload(spec) }), []);
+  const enHome = LIVE_ROUTES.find(spec => spec.path === '/');
+  assert(validateLivePayload(enHome, { status: 200, contentType: 'text/html', bytes: Buffer.from('<html lang="zh-Hant">old home</html>') }).length > 1);
+  assert.deepEqual(validateLivePayload(enHome, { status: 404, ...payload(enHome) }), ['HTTP 404']);
+  const png = LIVE_ROUTES.find(spec => spec.kind === 'png');
+  assert(validateLivePayload(png, { status: 200, contentType: 'text/html', bytes: Buffer.from('404 page') }, 'abc').some(error => error.includes('SHA-256')));
+  assert(validateLivePayload(png, { status: 200, ...payload(png) }, sha256(payload(png).bytes)).length === 0);
+});
+test('publication report uses actual diff groups and does not invent deployment or manual verification', () => {
+  const files = ['src/components/TeachingDirectory.astro', 'src/components/HomePage.astro', 'scripts/content-new.mjs', 'src/pages/rss.xml.ts'];
+  assert.equal(groupChanges(files).reduce((total, group) => total + group.files.length, 0), files.length);
+  const draft = createPublishSummary({ sha: 'abc123', files, workflowVerified: false });
+  assert(draft.includes('實際變更 4 個檔案')); assert(draft.includes('不聲稱已完成發布')); assert(draft.includes('沒有執行線上驗證')); assert(draft.includes('沒有代替實際瀏覽器操作'));
+  const released = createPublishSummary({ sha: 'abc123', base: 'previous', files, workflowVerified: true, live: [{ path: '/', ok: true }, { path: '/rss.xml', ok: false, errors: ['HTTP 404'] }] });
+  assert(released.includes('已完成本次建置及 Pages 部署')); assert(released.includes('✗ `/rss.xml`：HTTP 404')); assert(released.includes('src/components/HomePage.astro'));
+});
+test('CDN retry checks only failed routes and verifies both asset hashes within a bounded attempt count', async () => {
+  const calls = new Map(), expectedHashes = {};
+  for (const spec of LIVE_ROUTES.filter(spec => ['png', 'svg'].includes(spec.kind))) expectedHashes[spec.path] = sha256(payload(spec).bytes);
+  const fetcher = async url => {
+    const spec = LIVE_ROUTES.find(route => route.path === url.pathname); const count = (calls.get(spec.path) || 0) + 1; calls.set(spec.path, count);
+    const body = payload(spec);
+    return { status: spec.path === '/zh/topics/' && count === 1 ? 404 : 200, headers: { get: () => body.contentType }, arrayBuffer: async () => body.bytes };
+  };
+  const result = await verifyLiveSite('https://skckenneth.github.io/', { fetcher, expectedHashes, retryDelayMs: 1, timeoutMs: 2000 });
+  assert.equal(result.length, 14); assert(result.every(item => item.ok)); assert.equal(calls.get('/zh/topics/'), 2); assert.equal(calls.get('/'), 1);
+  await assert.rejects(verifyLiveSite('https://unrelated.example/', { fetcher }), /configured/);
+});

@@ -1,6 +1,7 @@
 ---
 title: "同一個積分器跨越快慢尺度邊界"
 slug: one-integrator-across-the-fast-slow-boundary
+topicIds: [computation-code]
 sourceSlug: one-integrator-across-the-fast-slow-boundary
 summary: 一項凍結 Michaelis-Menten audit 把 exact conservation、positivity 與 fixed-step asymptotic limit，同 accuracy、stiffness failure 及 solver-superiority claim 分開驗證。
 date: 2026-08-30

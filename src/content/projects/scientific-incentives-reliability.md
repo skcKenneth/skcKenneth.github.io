@@ -1,6 +1,7 @@
 ---
 title: Scientific Incentives and Reliability
 slug: scientific-incentives-reliability
+topicIds: [risk-decisions]
 summary: An evolutionary agent-based model maps how novelty, rigour, and replication credit change discovery and record reliability.
 year: 2026
 lastUpdated: 2026-07-28

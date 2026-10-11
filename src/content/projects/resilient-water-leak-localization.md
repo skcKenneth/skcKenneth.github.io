@@ -1,6 +1,7 @@
 ---
 title: Resilient Water-Network Leak Localisation
 slug: resilient-water-leak-localization
+topicIds: [risk-decisions, dynamics-networks]
 summary: A dropout-aware pressure-sensor placement study for distinguishing leak zones when measurements are noisy and one sensor may be unavailable.
 year: 2026
 lastUpdated: 2026-07-13

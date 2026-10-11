@@ -1,6 +1,7 @@
 ---
 title: "Case Clinic: Ventilation Under a Wrong Timetable"
 slug: ventilation-case-clinic
+topicIds: [risk-decisions, cities-engineering]
 summary: A worked teaching case for mass balance, predictive control, competing metrics, and the difference between a study target and a health claim.
 lastUpdated: 2026-07-15
 featured: true

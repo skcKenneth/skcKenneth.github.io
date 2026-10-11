@@ -1,6 +1,7 @@
 ---
 title: When a Numerical Method Creates Negative Matter
 slug: positive-conservative-time-stepping
+topicIds: [risk-decisions, teaching-research-practice]
 summary: A stiff transfer-network benchmark compares standard explicit integrators with a linearly implicit update that preserves non-negativity and total mass.
 date: 2026-07-25
 lastUpdated: 2026-07-28

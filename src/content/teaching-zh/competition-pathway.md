@@ -1,6 +1,7 @@
 ---
 title: 建模競賽工作室
 slug: competition-pathway
+topicIds: [mathematical-thinking]
 sourceSlug: competition-pathway
 summary: 有結構地練習問題定義、團隊流程、快速計算、驗證與報告設計。
 lastUpdated: 2026-07-28

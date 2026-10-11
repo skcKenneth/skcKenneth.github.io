@@ -1,6 +1,7 @@
 ---
 title: "One Integrator Across the Fast-Slow Boundary"
 slug: one-integrator-across-the-fast-slow-boundary
+topicIds: [computation-code]
 summary: A frozen Michaelis-Menten audit separates exact conservation, positivity, and a fixed-step asymptotic limit from accuracy, stiffness failures, and solver-superiority claims.
 date: 2026-08-30
 lastUpdated: 2026-08-30

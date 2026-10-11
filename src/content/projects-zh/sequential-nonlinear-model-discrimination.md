@@ -1,6 +1,7 @@
 ---
 title: 非線性模型的序列分辨
 slug: sequential-nonlinear-model-discrimination
+topicIds: [risk-decisions, dynamics-networks]
 sourceSlug: sequential-nonlinear-model-discrimination
 summary: 在六輪實驗預算下，以自適應外力實驗分辨 Van der Pol、Rayleigh 與 Duffing 振盪器族。
 year: 2026

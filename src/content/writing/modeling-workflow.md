@@ -1,6 +1,7 @@
 ---
 title: From Open Question to Reproducible Model
 slug: modeling-workflow
+topicIds: [teaching-research-practice]
 summary: A compact workflow for assumptions, model choice, computation, validation, limitations, and communication.
 date: 2026-07-13
 lastUpdated: 2026-07-13

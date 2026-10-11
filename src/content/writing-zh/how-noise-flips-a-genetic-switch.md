@@ -1,6 +1,7 @@
 ---
 title: "噪聲如何翻轉一個基因開關"
 slug: how-noise-flips-a-genetic-switch
+topicIds: [life-environment, computation-code, dynamics-networks]
 sourceSlug: how-noise-flips-a-genetic-switch
 summary: 確定性雙穩態建立兩個記憶狀態，但有限分子數決定隨機基因開關能在每個狀態停留多久。
 date: 2026-07-30

@@ -1,6 +1,7 @@
 ---
 title: "當發表數量開始選擇研究方法"
 slug: when-publication-count-selects-the-method
+topicIds: [mathematical-thinking]
 sourceSlug: when-publication-count-selects-the-method
 summary: 一個文化演化模型顯示，發表偏差與可見產出如何選擇低投入方法，以及具後果的重複驗證抽查何時會改變這股選擇壓力。
 date: 2026-07-30

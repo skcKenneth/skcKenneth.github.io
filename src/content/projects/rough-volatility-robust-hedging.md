@@ -1,6 +1,7 @@
 ---
 title: Robust Hedging under Rough Volatility
 slug: rough-volatility-robust-hedging
+topicIds: [risk-decisions]
 summary: A frozen no-trade band is evaluated across unseen roughness, volatility-of-volatility, and cost regimes.
 year: 2026
 lastUpdated: 2026-07-28

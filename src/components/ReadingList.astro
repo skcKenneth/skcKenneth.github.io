@@ -1,0 +1,31 @@
+---
+import {getCollection} from 'astro:content';
+import {createSearchCatalog} from '../lib/search-catalog.mjs';
+const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
+const zh=locale==='zh-Hant';
+const [writing,writingZh]=await Promise.all([getCollection('writing'),getCollection('writingZh')]);
+const entries=createSearchCatalog({writing,writingZh},locale);
+// Missing translations fall back to the existing paired English route.
+const other=createSearchCatalog({writing,writingZh},zh?'en':'zh-Hant');
+const ids=new Set(entries.map(item=>item.id));
+const articles=[...entries,...other.filter(item=>!ids.has(item.id))].map(({id,title,url,alternateUrl})=>({id,title,url,alternateUrl}));
+---
+<section class="section" data-reading-list data-locale={locale} data-articles={JSON.stringify(articles)} data-pagefind-ignore>
+  <div class="container measure">
+    <p class="reading-notice">{zh?'清單只保存在這個瀏覽器，不需要帳戶，亦不會自動同步到其他裝置。你可以匯出 JSON，再到另一個瀏覽器匯入。':'Your list stays in this browser. No account is needed and it does not automatically sync across devices. Export JSON to move it to another browser.'}</p>
+    <div class="reading-toolbar">
+      <p data-reading-count aria-live="polite">{zh?'正在載入清單…':'Loading your list…'}</p>
+      <button class="button secondary" type="button" data-reading-export disabled>{zh?'匯出 JSON':'Export JSON'}</button>
+      <label class="button secondary reading-import">{zh?'匯入 JSON':'Import JSON'}<input data-reading-import type="file" accept=".json,application/json" aria-label={zh?'匯入閱讀清單 JSON':'Import reading-list JSON'}/></label>
+    </div>
+    <p class="small" data-reading-storage-status role="status" aria-live="polite"></p>
+    <p class="small" data-reading-status role="status" aria-live="polite"></p>
+    <div data-reading-items></div>
+    <noscript><p>{zh?'閱讀清單需要 JavaScript。':'Your reading list requires JavaScript.'}</p></noscript>
+    <p><a href={zh?'/zh/writing/':'/writing/'}>{zh?'探索文章 →':'Explore articles →'}</a></p>
+  </div>
+</section>
+<script>import '../scripts/reading-list-client';</script>
+<style>
+.reading-notice{background:var(--soft,#eceee5);padding:1.25rem;border-left:3px solid var(--green,#1f6652);border-radius:0 .5rem .5rem 0}.reading-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;margin:1.5rem 0}.reading-toolbar p{margin:0 auto 0 0}.reading-import{position:relative;overflow:hidden;cursor:pointer}.reading-import input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}.reading-import:focus-within{outline:3px solid #a47123;outline-offset:3px}.reading-toolbar button{font:inherit}.reading-item{padding:1.5rem 0;border-bottom:1px solid var(--line,#d5dacf)}.reading-item h2{font-size:1.35rem;margin:0 0 .5rem}.reading-item button{padding:.5rem .85rem;font:inherit}.reading-empty{padding:2rem 0;color:var(--muted,#58655d)}
+</style>

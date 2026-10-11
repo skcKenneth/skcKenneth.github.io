@@ -1,6 +1,7 @@
 ---
 title: "當永續採收變成陷阱"
 slug: when-sustainable-harvesting-becomes-a-trap
+topicIds: [dynamics-networks, computation-code, risk-decisions]
 sourceSlug: when-sustainable-harvesting-becomes-a-trap
 summary: 具有強 Allee 效應的隨機模型說明：平均永續產量如何掩蓋崩潰門檻，以及帶保護線的回饋政策如何改變有限期風險—產量前沿。
 date: 2026-07-24

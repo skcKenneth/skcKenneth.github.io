@@ -1,71 +1,55 @@
 ---
+import {getCollection} from 'astro:content';
 import {lessons} from '../data/workshop-lessons';
+import {TOPICS,getTopicIds} from '../data/site-reader.mjs';
+import {createSearchCatalog} from '../lib/search-catalog.mjs';
+import '../styles/site-search.css';
 const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
-const zh=locale==='zh-Hant', base=zh?'/zh':'';
-const catalog=[{
-  url:`${base}/teaching/senior-math/`,
-  title:zh?'高中數學研習室':'Senior Mathematics Studio',
-  aliases:['高中數學研習室','高中數學','高一','高二','高三','文組','理組','Senior Mathematics Studio','senior-math','JM02'],
-  excerpt:zh?'五冊教材、六條校本路徑、雙語分層練習與 2021–2026 聯考詳解。':'Five textbooks, six school learning routes, bilingual graded exercises and 2021–2026 JAE explanations.'
-},{
-  url:`${base}/teaching/jae-math/`,
-  title:zh?'澳門四校聯考數學研習室':'Macao JAE Mathematics Studio',
-  aliases:['澳門四校聯考數學研習室','澳門四校聯考數學','四校聯考','JAE','JAE Mathematics','Macao JAE Mathematics Studio','JM01','jae-math'],
-  excerpt:zh?'二次函數及三角函數雙語教學單元，提供授課簡報、圖像探究、自習練習與官方舊卷索引。':'Bilingual quadratic and trigonometric units with classroom presentation, graph investigations, self-study exercises and official past papers.'
-},{
-  url:`${base}/projects/cut-audit-er/`,
-  title:zh?'CUT-AUDIT-ER：最高分，未必是最好的修復':'CUT-AUDIT-ER: When the Highest Score Is Not the Best Repair',
-  aliases:['CUT-AUDIT-ER','CUT AUDIT ER','cut-audit-er','最高分，未必是最好的修復','最高分未必是最好的修復','最高分，為甚麼未必是最好的修復','When the Highest Score Is Not the Best Repair','Certified Proxy Search'],
-  excerpt:zh?'論文撰寫中的實體群組修復研究：分清搜尋認證、代理分數、修復收益與完整成本。':'An entity-cluster repair manuscript in preparation: separating search certification, proxy scores, repair value and complete cost.'
-},{
-  url:`${base}/teaching/#math-inquiry-lab`,
-  title:zh?'數學探究室 · Math Inquiry Lab':'Math Inquiry Lab',
-  aliases:['數學探究室','Math Inquiry Lab','math-inquiry-lab'],
-  excerpt:zh?'二次函數、概率及迴歸三個互動活動，結合分層探究任務與教師手冊。':'Three interactive activities on quadratic functions, probability and regression, with layered inquiry tasks and a teacher guide.'
-},{
-  url:`${base}/teaching/modeling-workshop/`,
-  title:zh?'數學建模學習工坊':'Mathematical Modeling Workshop',
-  aliases:['數學建模學習工坊','Mathematical Modeling Workshop','Math Modeling Workshop'],
-  excerpt:zh?'六個完整雙語單元：建立模型、執行 Python、驗證假設及匯出研究成果。':'Six bilingual units: build models, run Python, verify assumptions and export your research.'
-},...lessons.map(lesson=>({url:`${base}/teaching/modeling-workshop/${lesson.slug}/`,title:lesson.title[locale],aliases:Object.values(lesson.title),excerpt:lesson.summary[locale]}))];
+const zh=locale==='zh-Hant',base=zh?'/zh':'';
+const [writing,writingZh,projects,projectsZh,teaching,teachingZh,research,researchZh]=await Promise.all([
+  getCollection('writing'),getCollection('writingZh'),getCollection('projects'),getCollection('projectsZh'),
+  getCollection('teaching'),getCollection('teachingZh'),getCollection('research'),getCollection('researchZh')]);
+const entrances=[
+  ['senior-math','Senior Mathematics Studio','高中數學研習室','Five textbooks, school learning routes and bilingual exercises.','五冊教材、校本路徑與雙語分層練習。',['高中數學','高一','高二','高三','文組','理組','JM02']],
+  ['jae-math','Macao JAE Mathematics Studio','澳門四校聯考數學研習室','Interactive lessons and official past papers.','圖像探究、教學單元與官方舊卷。',['四校聯考','JAE Mathematics','JM01']],
+  ['modeling-workshop','Mathematical Modeling Workshop','數學建模學習工坊','Six bilingual units: build, compute, validate and communicate.','六個雙語單元：建模、計算、驗證與溝通。',['Math Modeling Workshop']],
+  ['model-laboratory','Interactive model laboratory','互動模型實驗室','Explore models through questions and controlled experiments.','從研究問題與受控實驗探索模型。',[]],
+  ['frontier-model-studio','Frontier model studio','前沿模型研習室','Investigate dynamics, learning and connected systems.','探索動態、學習與互相連接的系統。',[]],
+  ['research-inquiry-studio','Research inquiry studio','研究探究室','Test assumptions, inference and claim boundaries.','檢查假設、推論與主張的界限。',[]],
+  ['quantum-repeater-lab','Quantum repeater scheduling lab','量子中繼排程實驗室','Experiment with quantum networks and scheduling.','實驗量子網絡與排程。',[]],
+  ['melt-pond-topology-lab','Melt-pond topology observation lab','融池拓撲觀測實驗室','Examine how observation changes topological evidence.','檢查觀測方法如何改變拓撲證據。',[]]
+] as [string,string,string,string,string,string[]][];
+const extras=[...entrances.map(([slug,en,ch,excerptEn,excerptZh,aliases])=>({url:`${base}/teaching/${slug}/`,title:zh?ch:en,excerpt:zh?excerptZh:excerptEn,
+  aliases:[en,ch,slug,...aliases],kind:'teaching',archived:false,topicIds:['teaching-research-practice']})),
+  {url:`${base}/teaching/#math-inquiry-lab`,title:zh?'數學探究室 · Math Inquiry Lab':'Math Inquiry Lab',aliases:['數學探究室','Math Inquiry Lab','math-inquiry-lab'],excerpt:zh?'二次函數、概率與迴歸互動活動。':'Interactive activities on quadratics, probability and regression.',kind:'teaching',archived:false,topicIds:['mathematical-thinking','teaching-research-practice']},
+  ...lessons.map(lesson=>({url:`${base}/teaching/modeling-workshop/${lesson.slug}/`,title:lesson.title[locale],aliases:Object.values(lesson.title),excerpt:lesson.summary[locale],kind:'lesson',archived:false,topicIds:['teaching-research-practice','computation-code']}))];
+const catalog=createSearchCatalog({writing,writingZh,projects,projectsZh,teaching,teachingZh,research,researchZh},locale,{getTopicIds,extras});
+// Retain explicit public aliases for /projects/cut-audit-er/ before a Writing article exists.
+const cutAliases=['CUT-AUDIT-ER','CUT AUDIT ER','最高分，未必是最好的修復','最高分未必是最好的修復','最高分，為甚麼未必是最好的修復','When the Highest Score Is Not the Best Repair','Certified Proxy Search'];
+for(const entry of catalog)if(entry.url.endsWith('/projects/cut-audit-er/'))entry.aliases.push(...cutAliases);
 ---
-<section class="section" data-site-search data-locale={locale} data-catalog={JSON.stringify(catalog)}><div class="container measure">
-  <label for="search-input"><strong>{zh?'搜尋網站':'Search the site'}</strong></label>
-  <input id="search-input" type="search" placeholder={zh?'例如：數學建模學習工坊、登革熱、敏感度':'Try “modeling workshop”, “dengue”, or “sensitivity”'} style="display:block;width:100%;padding:.8rem;margin:.5rem 0 1rem;font:inherit;border:1px solid #8b9690"/>
-  <p class="small" data-search-status aria-live="polite">{zh?'請輸入至少兩個字元。':'Type at least two characters.'}</p>
-  <div data-search-results></div>
-  <noscript><p>{zh?'搜尋需要 JavaScript。亦可瀏覽':'Search requires JavaScript. Browse the '}<a href={`${base}/projects/`}>{zh?'專案':'projects'}</a>{zh?'或':' or '}<a href={`${base}/writing/`}>{zh?'文章索引':'writing index'}</a>。</p></noscript>
-</div></section>
-<script>
-import {matchCatalog,mergeSearchResults} from '../lib/search-catalog.mjs';
-type Entry={url:string;title:string;excerpt:string;aliases?:string[]};
-type Pagefind={search:(query:string)=>Promise<{results:{data:()=>Promise<{url:string;meta:{title:string};plain_excerpt:string}>}[]}>};
-for(const root of document.querySelectorAll<HTMLElement>('[data-site-search]')){
-  const input=root.querySelector<HTMLInputElement>('input')!,status=root.querySelector<HTMLElement>('[data-search-status]')!,results=root.querySelector('[data-search-results]')!;
-  const catalog=JSON.parse(root.dataset.catalog!),zh=root.dataset.locale==='zh-Hant';
-  let pagefind:Pagefind|undefined,request=0;
-  const t=(en:string,ch:string)=>zh?ch:en;
-  const render=(entries:Entry[])=>{results.replaceChildren();for(const entry of entries.slice(0,20)){
-    const article=document.createElement('article'),type=document.createElement('p'),heading=document.createElement('h2'),link=document.createElement('a'),excerpt=document.createElement('p');
-    article.className='card';article.style.borderTopWidth='1px';type.className='eyebrow';heading.style.fontSize='1.5rem';
-    const path=new URL(entry.url,location.origin).pathname.replace(/^\/zh\//,'/');type.textContent=path.startsWith('/teaching/')?t('Teaching','教學'):path.startsWith('/projects/')?t('Project','專案'):path.startsWith('/research/')?t('Research','研究'):t('Writing','文章');
-    link.href=entry.url;link.textContent=entry.title;excerpt.textContent=entry.excerpt;heading.append(link);article.append(type,heading,excerpt);results.append(article);
-  }if(!entries.length){const p=document.createElement('p');p.textContent=t('No matching pages.','沒有相符頁面。');results.append(p);}};
-  input.addEventListener('input',async()=>{
-    const id=++request,query=input.value.trim();
-    if(query.length<2){results.replaceChildren();status.textContent=t('Type at least two characters.','請輸入至少兩個字元。');return;}
-    const named=matchCatalog(query,catalog);status.textContent=t('Searching…','搜尋中…');
-    try{
-      const moduleUrl='/pagefind/pagefind.js';pagefind??=await import(/* @vite-ignore */ moduleUrl);
-      const search=await pagefind!.search(query);
-      const indexed=await Promise.all(search.results.slice(0,20).map(async item=>{const result=await item.data();return {url:result.url,title:result.meta.title,excerpt:result.plain_excerpt};}));
-      if(id!==request)return;
-      const merged=mergeSearchResults(named,indexed,location.origin);render(merged);
-      const total=search.results.length+merged.length-indexed.length;
-      status.textContent=zh?`找到 ${total} 個結果`:`${total} result${total===1?'':'s'}`;
-    }catch{
-      if(id!==request)return;render(named);status.textContent=t('Full-text search could not load. Matching course titles are shown when available.','全文搜尋暫時無法載入；如有相符課程名稱，仍會列出。');
-    }
-  });
-}
-</script>
+<section class="section" data-site-search data-locale={locale} data-catalog={JSON.stringify(catalog)}>
+  <div class="container search-shell">
+    <form class="search-form" role="search" data-search-form>
+      <label for="search-input"><strong>{zh?'搜尋網站':'Search the site'}</strong></label>
+      <div class="search-input-row"><input id="search-input" name="q" type="search" autocomplete="off" maxlength="300" placeholder={zh?'例如：登革熱、數學建模、敏感度':'Try “dengue”, “modeling”, or “sensitivity”'}/><button class="button" type="submit">{zh?'搜尋':'Search'}</button></div>
+      <div class="search-filter-grid">
+        <label>{zh?'內容類型':'Content type'}<select name="type"><option value="">{zh?'所有選定類型':'All selected types'}</option><option value="writing">{zh?'文章':'Articles'}</option><option value="project">{zh?'專案概覽':'Project overviews'}</option><option value="teaching">{zh?'教學入口':'Teaching entrances'}</option><option value="research">{zh?'研究方向':'Research'}</option><option value="question">{zh?'練習題與舊卷':'Questions & papers'}</option><option value="lesson">{zh?'教學單元':'Lessons'}</option><option value="catalogue">{zh?'技術目錄':'Technical catalogue'}</option></select></label>
+        <label>{zh?'主題':'Topic'}<select name="topic"><option value="">{zh?'所有主題':'All topics'}</option>{TOPICS.map(topic=><option value={topic.id}>{topic.label[locale]}</option>)}</select></label>
+      </div>
+      <fieldset class="search-inclusions"><legend>{zh?'擴闊搜尋範圍':'Include more content'}</legend>
+        <label><input type="checkbox" name="archive"/>{zh?'典藏文章':'Archived articles'}</label>
+        <label><input type="checkbox" name="questions"/>{zh?'練習題、舊卷與教學單元':'Questions, papers & lessons'}</label>
+        <label><input type="checkbox" name="technical"/>{zh?'研究方向及技術目錄':'Research & technical catalogue'}</label>
+      </fieldset>
+      <div class="search-form-end"><p class="small">{zh?'預設搜尋現行文章、專案概覽與教學入口。':'Search current articles, project overviews and teaching entrances by default.'}</p><button type="reset" class="search-clear">{zh?'清除條件':'Clear filters'}</button></div>
+    </form>
+    <div class="search-suggestions" data-search-suggestions><span>{zh?'不妨試試：':'Try:'}</span>{(zh?['數學建模','登革熱','風險','高中數學']:['modeling','dengue','risk','senior mathematics']).map(term=><button type="button" data-search-suggestion={term}>{term}</button>)}</div>
+    <p class="search-status" data-search-status role="status" aria-live="polite">{zh?'請輸入至少兩個字元，或選擇主題。':'Type at least two characters, or choose a topic.'}</p>
+    <div class="search-results" data-search-results aria-busy="false"></div>
+    <nav class="search-pagination" data-search-pagination aria-label={zh?'搜尋結果分頁':'Search result pages'}></nav>
+    <p class="small search-exits">{zh?'亦可直接瀏覽':'You can also browse '}<a href={`${base}/topics/`}>{zh?'主題':'topics'}</a>{zh?'、':' or '}<a href={`${base}/writing/`}>{zh?'文章':'articles'}</a>。</p>
+    <noscript><p>{zh?'搜尋需要 JavaScript；請使用上面的主題與文章入口。':'Search needs JavaScript; use the topic and article links above.'}</p></noscript>
+  </div>
+</section>
+<script>import '../scripts/site-search';</script>

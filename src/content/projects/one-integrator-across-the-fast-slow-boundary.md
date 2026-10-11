@@ -1,6 +1,7 @@
 ---
 title: One Integrator Across the Fast-Slow Boundary
 slug: one-integrator-across-the-fast-slow-boundary
+topicIds: [computation-code]
 summary: A frozen Michaelis-Menten property audit verifies conservation, non-negativity and the fixed-step slow limit while preserving the null result that its AP update does not beat backward Euler on error.
 year: 2026
 lastUpdated: 2026-08-30

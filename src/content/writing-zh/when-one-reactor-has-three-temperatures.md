@@ -1,6 +1,7 @@
 ---
 title: "當同一個反應器有三個溫度"
 slug: when-one-reactor-has-three-temperatures
+topicIds: [dynamics-networks, cities-engineering]
 sourceSlug: when-one-reactor-has-three-temperatures
 summary: 非等溫連續攪拌反應器可以記住操作路徑，在冷、熱狀態之間跳轉，並在熱失穩折點前愈來愈慢地恢復。
 date: 2026-07-30

@@ -1,6 +1,7 @@
 ---
 title: Interpretable EV Dispatch and Replenishment
 slug: intelligent-ev-dispatch
+topicIds: [risk-decisions, cities-engineering]
 summary: A white-box pipeline links energy prediction, fairness-aware scheduling, and disruption-triggered replanning.
 year: 2026
 lastUpdated: 2026-04-30

@@ -1,6 +1,7 @@
 ---
 title: "Michaelis-Menten 何時不再有效"
 slug: when-michaelis-menten-stops-being-valid
+topicIds: [mathematical-thinking]
 sourceSlug: when-michaelis-menten-stops-being-valid
 summary: 一個 243 組參數圖譜把 Michaelis-Menten 動力學視為可檢驗的模型降階，標示軌跡或事件時間誤差何時變得重要。
 date: 2026-07-30

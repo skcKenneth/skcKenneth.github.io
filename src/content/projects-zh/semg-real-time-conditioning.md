@@ -1,6 +1,7 @@
 ---
 title: 追蹤式諧波消除的即時 sEMG 處理
 slug: semg-real-time-conditioning
+topicIds: [data-ai]
 sourceSlug: semg-real-time-conditioning
 summary: 一項可重現的合成實作，把因果逐樣本處理與帶閘門的市電頻率追蹤分開，用於諧波消除與包絡抽取。
 year: 2026

@@ -1,6 +1,7 @@
 ---
 title: 一個局部脈衝能否阻止行進中的激發波？
 slug: sparse-wave-blocking-excitable-media
+topicIds: [risk-decisions, life-environment]
 sourceSlug: sparse-wave-blocking-excitable-media
 summary: 一個 FitzHugh–Nagumo 基準凍結事件觸發局部介入，再測試它能否在未見傳導速度與感測延遲下阻擋行進波。
 date: 2026-07-20

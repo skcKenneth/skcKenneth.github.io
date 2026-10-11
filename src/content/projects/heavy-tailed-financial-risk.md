@@ -1,6 +1,7 @@
 ---
 title: Heavy-Tailed Financial Risk Stress Test
 slug: heavy-tailed-financial-risk
+topicIds: [risk-decisions]
 summary: A reproducible VaR and expected-shortfall comparison under volatility clustering, leverage, Student-t innovations, and rare negative jumps.
 year: 2026
 lastUpdated: 2026-08-02

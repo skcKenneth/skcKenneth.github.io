@@ -1,6 +1,7 @@
 ---
 title: 用微弱力學異質性引導摺疊
 slug: heterogeneous-morphoelastic-folding
+topicIds: [life-environment, risk-decisions]
 sourceSlug: heterogeneous-morphoelastic-folding
 summary: 一個簡化形態彈性樑實驗，測試細小的剛度與生長負載空間變化能否引導摺疊數量和位置，而不增加峰值曲率。
 date: 2026-07-27

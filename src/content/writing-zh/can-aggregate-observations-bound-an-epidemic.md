@@ -1,6 +1,7 @@
 ---
 title: 只見總數，能否框住看不見的疫情？
 slug: can-aggregate-observations-bound-an-epidemic
+topicIds: [data-ai, risk-decisions, life-environment]
 sourceSlug: can-aggregate-observations-bound-an-epidemic
 summary: 延遲的地區總數可以支持看似精確的估計，卻未必緊緊限制隱藏狀態。透過六區 SIR 合成基準，比較 ensemble 區間與經驗證集合界限，保留界限闊得幾乎失去作用的結果。
 date: 2026-09-12

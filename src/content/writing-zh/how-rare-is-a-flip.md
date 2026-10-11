@@ -1,6 +1,7 @@
 ---
 title: "一次翻轉究竟有多罕見？"
 slug: how-rare-is-a-flip
+topicIds: [risk-decisions, life-environment, dynamics-networks]
 sourceSlug: how-rare-is-a-flip
 summary: 帶誤差界的有限狀態計算與固定種子的直接模擬，在一個合成低 copy 數基因開關事件上互相吻合；但這項第一階段結果只是起點，並非 rare-event 方法的勝利。
 date: 2026-08-29

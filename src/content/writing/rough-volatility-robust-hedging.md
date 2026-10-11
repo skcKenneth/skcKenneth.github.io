@@ -1,6 +1,7 @@
 ---
 title: A No-Trade Band for Rough Volatility and Transaction Costs
 slug: rough-volatility-robust-hedging
+topicIds: [risk-decisions]
 summary: A synthetic hedging experiment freezes one uncertainty-aware no-trade band and tests whether it reduces tail loss and turnover across unseen rough-volatility and cost regimes.
 date: 2026-07-23
 lastUpdated: 2026-07-28

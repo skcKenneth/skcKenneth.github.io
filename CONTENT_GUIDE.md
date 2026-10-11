@@ -126,10 +126,12 @@ part of the production build.
 ## Homepage publication requirement
 
 Every new bilingual article publication must update and verify both `/` and
-`/zh/`, not only Writing, Projects, or mentoring pages. The homepage dossier
-and Latest writing cards automatically show the three newest non-draft,
+`/zh/`, not only Writing, Projects, or mentoring pages. Latest writing cards
+automatically show the three newest non-draft,
 non-archived articles by publication date. `featured: false` must not exclude
-a newly published article from those positions. Equal dates use the shared
+a newly published article from that section. Show each latest article only once;
+the separate Start here selection is centrally curated in `src/data/site-reader.mjs`.
+Equal dates use the shared
 source slug for deterministic bilingual order; this does not imply an order
 of publication within that day. Keep accurate dates and paired metadata.
 
@@ -139,6 +141,80 @@ local production build and again after the matching Pages deployment succeeds.
 both run in the complete build. An accepted student-research outcome should
 also be reflected in both About pages when requested, using verified mentoring
 roles and milestones without inferring presentation or proceedings publication.
+
+## Paired drafts and reader-facing metadata
+
+Create a safe bilingual draft pair without overwriting existing work:
+
+```sh
+pnpm content:new --kind writing --slug a-focused-question --topic data-ai
+pnpm content:new --kind teaching --slug a-new-learning-unit --topic teaching-research-practice
+```
+
+Optional flags are `--title-en`, `--title-zh`, `--date YYYY-MM-DD` and `--dry-run`.
+Templates live in `templates/content/`. Both editions start with `draft: true`.
+The English `slug` and Chinese `sourceSlug` are the shared identity; language
+switching and saved articles use it. A draft template is preparation material,
+not evidence of completed research or teaching results.
+
+Declare `topicIds` using one primary category followed by up to two related
+categories. Use the eight stable IDs in `src/data/site-reader.mjs`; their order
+must agree across editions. Keep detailed `topics` as editorial tags. Optional
+`relatedSlugs` names published article source IDs and can override automatic
+related-article selection. Generated legacy bodies stay untouched and obtain
+their stable classifications from the central registry.
+
+Publication dates must agree across editions. `lastUpdated` records a substantive
+change to that edition and may differ when a translation is revised later.
+Do not advance it for a routine build or formatting change. Dates may use
+YYYY-MM-DD or an ISO timestamp with a timezone. Future content remains a draft.
+
+## Teaching directory and download information
+
+Manage resource entrances in `src/data/teaching-directory.mjs`: audiences are
+junior, senior, modeling and teacher; formats are interactive, practice,
+past-papers, notes and slides. Each card needs paired names, purpose, truthful
+duration guidance and one main action. Mark Traditional-Chinese-only tools
+explicitly. Preserve existing anchors, especially `#math-inquiry-lab` and
+`#curriculum`, when reorganising the directory.
+
+Download information is derived at build time from local file sizes and existing
+release manifests. Do not invent a licence, language, version or official status
+when the release does not specify one. Lecture Notes and slides retain their
+CC BY-NC-SA 4.0 declaration; the competition companion retains its independent,
+unofficial boundary and links to the official questions. Adding download metadata
+does not grant redistribution rights. Learning toolbars delegate to existing
+exports and storage; they must not rewrite a learner's saved records.
+
+## Check, publish and verify
+
+1. Create the paired draft and write both editions with reviewed references.
+2. Update the central topic, teaching-resource or homepage selections as needed.
+3. Preview a local production build, including both languages and a narrow screen.
+4. Run `pnpm check:publish`; `--checks-only` runs the new metadata gate on its own.
+   The default also runs existing bilingual, reading-time, publication, figure
+   and teaching-release checks. After a build, use `pnpm check:publish --built`
+   to include output and internal-link validation.
+5. Publish only after the complete build succeeds, wait for the matching Pages
+   deployment and verify the actual live routes, assets, navigation and search.
+6. Report the changes that were actually published and the checks actually run.
+
+The Pages deploy job runs `scripts/publish-summary.mjs --live` after deployment.
+It compares the actual pushed Git range, checks English and Chinese home,
+Writing, Topics, Teaching, Search and RSS routes, and compares the live share PNG
+and brand SVG against the checked-out commit hashes. CDN retries are bounded to
+60 seconds. Results and the changed-file list appear in the Actions job summary.
+This automated summary does not claim manual browser or full accessibility QA.
+
+Reader thumbnails and the sharing PNG are generated by `pnpm generate:reader-media`.
+Commit their `public/images/reader-media-manifest.json` receipt together with the
+images. Unchanged inputs reuse reviewed image bytes across operating systems;
+when an input changes, inspect the regenerated output before publishing.
+
+Maintain event status, date, review-after date and source together in
+`src/data/site-editorial.mjs`. The publication gate reports overdue reviews
+without changing event status. A programme listing or an elapsed date never
+proves that a presentation occurred or proceedings were published.
 
 ## Research and teaching
 

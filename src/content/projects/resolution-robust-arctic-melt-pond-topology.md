@@ -1,6 +1,7 @@
 ---
 title: Topology at the Edge of Resolution
 slug: resolution-robust-arctic-melt-pond-topology
+topicIds: [data-ai, risk-decisions, life-environment]
 summary: A controlled false-threshold audit of melt-pond connectivity under blur, downsampling, segmentation error, finite windows, and morphology shift.
 year: 2026
 lastUpdated: 2026-08-24

@@ -1,6 +1,7 @@
 ---
 title: "當多項式混沌跨過折疊點"
 slug: when-polynomial-chaos-crosses-a-fold
+topicIds: [dynamics-networks, risk-decisions]
 sourceSlug: when-polynomial-chaos-crosses-a-fold
 summary: 在一個合成 CSTR benchmark 中，全域多項式與 oracle fold-aligned surrogate 各使用 16 次模型評估；局部表示明顯較準，但比較不包括折疊點的發現成本。
 date: 2026-08-29

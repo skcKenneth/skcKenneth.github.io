@@ -1,6 +1,7 @@
 ---
 title: "簡單藥物釋放定律何時不再足夠？"
 slug: when-simple-drug-release-laws-stop-being-enough
+topicIds: [data-ai, cities-engineering]
 sourceSlug: when-simple-drug-release-laws-stop-being-enough
 summary: 由經驗定律到機理模型的層級研究，揭示熟悉的釋放曲線何時遮蔽有限 sink 傳輸、參數權衡與轉變中的機制。
 date: 2026-08-02

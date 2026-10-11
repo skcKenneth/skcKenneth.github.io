@@ -1,6 +1,7 @@
 ---
 title: "When Solar Power Changes Fast: Why Better Intervals Are Still Not Reliable Enough"
 slug: when-solar-power-changes-fast
+topicIds: [cities-engineering, risk-decisions, teaching-research-practice]
 summary: A five-station study asks whether solar prediction intervals remain trustworthy during rapid power changes and missing sensor inputs. Better calibration improves every station, yet the hardest groups still fall far below the intended coverage.
 date: 2026-09-09
 lastUpdated: 2026-09-09

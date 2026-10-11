@@ -1,0 +1,7 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TopicsIndex from '../../components/TopicsIndex.astro';
+const entries = await getCollection('writing', ({ data }) => !data.draft && data.slug !== 'legacy-archive');
+---
+<BaseLayout title="Topics" description="Eight starting points for mathematical thinking, computation, research and teaching." type="Topics" alternatePath="/zh/topics/"><TopicsIndex entries={entries} /></BaseLayout>

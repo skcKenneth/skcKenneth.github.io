@@ -1,6 +1,7 @@
 ---
 title: "Assimilating What You Can Observe"
 slug: assimilating-what-you-can-observe
+topicIds: [data-ai, risk-decisions, life-environment]
 summary: A frozen six-patch EnKF benchmark shows that an explicit aggregate-and-delay observation operator improves synthetic state and peak forecasts, yet undercovers the latent state and therefore earns only a PARTIAL conclusion.
 date: 2026-08-30
 lastUpdated: 2026-08-30

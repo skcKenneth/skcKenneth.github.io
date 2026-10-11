@@ -1,6 +1,7 @@
 ---
 title: FairChoice Dynamics — When Taking Turns Makes a System Unstable
 slug: when-taking-turns-makes-a-system-unstable
+topicIds: [dynamics-networks]
 summary: A delayed two-choice model separates equal update counts from stable feedback. Exact interval certification, exhaustive finite searches and synthetic experiments explain why one extra slot of scheduling freedom can matter.
 year: 2026
 date: 2026-09-10

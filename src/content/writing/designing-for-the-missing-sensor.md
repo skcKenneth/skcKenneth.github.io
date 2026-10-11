@@ -1,6 +1,7 @@
 ---
 title: Designing Leak Localisation for the Missing Sensor
 slug: designing-for-the-missing-sensor
+topicIds: [risk-decisions, cities-engineering, dynamics-networks]
 summary: An editorial account of a synthetic water-network study that places pressure sensors for useful evidence even after one measurement disappears.
 date: 2026-07-13
 lastUpdated: 2026-07-13

@@ -1,6 +1,7 @@
 ---
 title: "CUT-AUDIT-ER: When the Highest Score Is Not the Best Repair"
 slug: cut-audit-er
+topicIds: [risk-decisions, data-ai]
 summary: A study of verification-only entity repair separates finding the highest score from choosing a useful repair, and fewer complete evaluations from lower total cost.
 year: 2026
 date: 2026-09-27

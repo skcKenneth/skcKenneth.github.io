@@ -1,6 +1,7 @@
 ---
 title: 網格能否保留這個事件？
 slug: can-a-mesh-preserve-the-event
+topicIds: [computation-code, life-environment]
 sourceSlug: can-a-mesh-preserve-the-event
 summary: 這個 matched-work Phase-1 experiment 比較 uniform、residual 與 DWR meshes；在 36 elements 下，uniform 反而最能保留 growing-domain modal-transition time。
 year: 2026

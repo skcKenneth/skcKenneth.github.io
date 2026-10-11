@@ -1,6 +1,7 @@
 ---
 title: When a Turing Pattern Has to Grow with Its Domain
 slug: growing-domain-turing-topology
+topicIds: [risk-decisions, life-environment, dynamics-networks]
 summary: A verified reaction–diffusion experiment asks when tissue growth preserves a spatial pattern and when it forces peaks to split, merge, or disappear.
 date: 2026-07-28
 lastUpdated: 2026-07-28

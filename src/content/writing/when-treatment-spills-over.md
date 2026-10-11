@@ -1,6 +1,7 @@
 ---
 title: "When Treatment Spills Over"
 slug: when-treatment-spills-over
+topicIds: [data-ai, dynamics-networks]
 summary: Network interference changes the meaning of a treatment effect. Exposure mappings connect experimental design, estimands, and defensible causal claims.
 date: 2026-07-16
 lastUpdated: 2026-07-16

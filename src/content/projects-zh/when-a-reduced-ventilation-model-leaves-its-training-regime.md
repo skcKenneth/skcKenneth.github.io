@@ -1,6 +1,7 @@
 ---
 title: 當降階通風模型離開訓練範圍
 slug: when-a-reduced-ventilation-model-leaves-its-training-regime
+topicIds: [cities-engineering, computation-code, risk-decisions]
 sourceSlug: when-a-reduced-ventilation-model-leaves-its-training-regime
 summary: 這項可重現的合成 POD 與 POD-DEIM 審計在 nominal inadmissibility 停止，因此不能對 schedule、source-location 或 ventilation shift 作可靠性歸因。
 year: 2026

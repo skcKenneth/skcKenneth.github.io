@@ -1,6 +1,7 @@
 ---
 title: "From Pixels to Patrols: Why Calibration Changes a Synthetic Patrol Plan"
 slug: from-pixels-to-patrols
+topicIds: [mathematical-thinking]
 summary: A technical reading of an AI4Nature@AVSS 2026 camera-trap study, tracing how probability calibration reaches a synthetic patrol allocator while keeping programme, evidence, and publication status separate.
 date: 2026-08-29
 lastUpdated: 2026-08-30

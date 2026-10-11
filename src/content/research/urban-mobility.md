@@ -1,6 +1,7 @@
 ---
 title: Urban and Mobility Systems
 slug: urban-mobility
+topicIds: [cities-engineering]
 summary: Models of routing, accessibility, traffic stability, fleet operations, and infrastructure trade-offs.
 lastUpdated: 2026-07-13
 featured: true

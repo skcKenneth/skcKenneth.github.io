@@ -1,6 +1,7 @@
 ---
 title: "隨機壓力測試不是最壞情況證書"
 slug: random-stress-tests-are-not-certificates
+topicIds: [risk-decisions, computation-code]
 sourceSlug: random-stress-tests-are-not-certificates
 summary: 一個 deterministic interval benchmark 說明 worst-case certificate 必須同時有 feasible lower bound 與 valid set-wise upper bound，而固定抽樣與 local search 只能交出 incumbents。
 date: 2026-08-30

@@ -1,6 +1,7 @@
 ---
 title: "單靠黏附力能把細胞整理成組織嗎？"
 slug: can-adhesion-alone-sort-cells-into-tissues
+topicIds: [life-environment, computation-code]
 sourceSlug: can-adhesion-alone-sort-cells-into-tissues
 summary: 以細胞 Potts 模型檢驗差異黏附何時導致分選、包覆、停滯混合，以及外表相似但機制不同的終態。
 date: 2026-08-02

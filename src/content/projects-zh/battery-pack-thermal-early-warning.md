@@ -1,6 +1,7 @@
 ---
 title: 圖結構校準的電池組熱故障預警
 slug: battery-pack-thermal-early-warning
+topicIds: [risk-decisions]
 sourceSlug: battery-pack-thermal-early-warning
 summary: 在溫度感測器漂移或失去訊號時，以校準的 graph-CUSUM 基準研究局部電池組熱故障預警。
 year: 2026

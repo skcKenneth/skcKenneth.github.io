@@ -1,6 +1,7 @@
 ---
 title: Michaelis-Menten QSSA 有效性圖譜
 slug: michaelis-menten-qssa-validity
+topicIds: [mathematical-thinking]
 sourceSlug: michaelis-menten-qssa-validity
 summary: 一個包含 243 組參數的圖譜，量度 Michaelis-Menten 準穩態近似何時能取代完整質量作用模型，以及何時軌跡或反應時間誤差變得重要。
 year: 2026

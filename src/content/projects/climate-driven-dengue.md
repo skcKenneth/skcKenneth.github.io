@@ -1,6 +1,7 @@
 ---
 title: Climate-Driven Dengue on a Spatial Grid
 slug: climate-driven-dengue
+topicIds: [life-environment, risk-decisions]
 summary: A reaction–diffusion experiment combines temperature-dependent mosquito ecology, long-range dispersal, vaccination allocation, and numerical checks.
 year: 2025
 lastUpdated: 2026-01-30

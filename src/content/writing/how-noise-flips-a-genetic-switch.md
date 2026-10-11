@@ -1,6 +1,7 @@
 ---
 title: "How Noise Flips a Genetic Switch"
 slug: how-noise-flips-a-genetic-switch
+topicIds: [life-environment, computation-code, dynamics-networks]
 summary: Deterministic bistability creates two memory states, but finite molecular copy number determines how long a stochastic genetic toggle remains in either one.
 date: 2026-07-30
 lastUpdated: 2026-07-30

@@ -1,6 +1,7 @@
 ---
 title: 同一個積分器跨越快慢尺度邊界
 slug: one-integrator-across-the-fast-slow-boundary
+topicIds: [computation-code]
 sourceSlug: one-integrator-across-the-fast-slow-boundary
 summary: 一項凍結 Michaelis-Menten property audit 驗證 conservation、non-negativity 與 fixed-step slow limit，同時保留 AP update 在 error 上未能勝過 backward Euler 的 null result。
 year: 2026

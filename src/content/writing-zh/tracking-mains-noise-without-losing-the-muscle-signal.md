@@ -1,6 +1,7 @@
 ---
 title: "追蹤市電噪聲，同時保留肌電訊號"
 slug: tracking-mains-noise-without-losing-the-muscle-signal
+topicIds: [data-ai]
 sourceSlug: tracking-mains-noise-without-losing-the-muscle-signal
 summary: 一項可重現的合成實作研究，把因果 sEMG 快速路徑與帶閘門的頻率追蹤器分開，測試諧波消除、包絡保真度與主機 Python 計時，而不冒充參與者或嵌入式裝置驗證。
 date: 2026-07-30

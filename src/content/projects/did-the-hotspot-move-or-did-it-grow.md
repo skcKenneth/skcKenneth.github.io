@@ -1,6 +1,7 @@
 ---
 title: Movement or Growth? An Unbalanced Transport Interpretation Study
 slug: did-the-hotspot-move-or-did-it-grow
+topicIds: [data-ai, risk-decisions, cities-engineering]
 summary: A controlled periodic-field study tests whether an entropic unbalanced transport cost allocation can be read as the mechanism that generated two maps, using known histories, explicit ambiguity and independent numerical checks.
 year: 2026
 date: 2026-09-19

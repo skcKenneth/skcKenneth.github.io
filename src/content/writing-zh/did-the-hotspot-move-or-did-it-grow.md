@@ -1,6 +1,7 @@
 ---
 title: 熱點移動了，還是在原地長大？
 slug: did-the-hotspot-move-or-did-it-grow
+topicIds: [data-ai, risk-decisions, cities-engineering]
 sourceSlug: did-the-hotspot-move-or-did-it-grow
 summary: 兩張空間分布圖可以得到漂亮而精確的最低成本解釋，卻仍然無法辨認真正的生成歷史。這個非平衡最優傳輸合成研究，分開檢查端點擬合、數值收斂，以及搬移與局部生長的機制解讀。
 date: 2026-09-19

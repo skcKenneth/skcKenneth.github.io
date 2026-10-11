@@ -1,6 +1,7 @@
 ---
 title: 當擬合不等於模型本身
 slug: when-the-fit-is-not-the-model
+topicIds: [data-ai, dynamics-networks]
 sourceSlug: when-the-fit-is-not-the-model
 summary: 曲線可以非常貼近資料，但參數證據仍然薄弱；可識別性分析說明何時新增量度比再換一個最佳化器更重要。
 date: 2026-07-16

@@ -1,6 +1,7 @@
 ---
 title: "當隨機性戰勝自然選擇"
 slug: when-randomness-defeats-natural-selection
+topicIds: [life-environment]
 sourceSlug: when-randomness-defeats-natural-selection
 summary: Wright–Fisher 計算實驗說明：有利等位基因由單一拷貝開始時為何仍多數消失、遷移如何抵消局部適應，以及短暫瓶頸為何會留下長期遺傳缺口。
 date: 2026-07-20

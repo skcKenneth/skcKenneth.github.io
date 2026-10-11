@@ -1,6 +1,7 @@
 ---
 title: Mathematical Modeling Lecture Library
 slug: mathematical-modeling-lecture-programme
+topicIds: [mathematical-thinking]
 summary: A bilingual 27-unit library connecting mathematical foundations, model construction, computation, decision-making, validation, and technical writing.
 lastUpdated: 2026-08-20
 featured: true

@@ -1,6 +1,7 @@
 ---
 title: 隨機基因開關的狀態切換
 slug: stochastic-genetic-toggle-switching
+topicIds: [life-environment, dynamics-networks]
 sourceSlug: stochastic-genetic-toggle-switching
 summary: 一項結合確定性與隨機模型的研究，把基因 toggle 的雙穩態連結到有限分子數下的切換、首達時間記憶、穩態分佈與脈衝控制。
 year: 2026

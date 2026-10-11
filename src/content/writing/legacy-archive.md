@@ -1,6 +1,7 @@
 ---
 title: Legacy Writing Archive
 slug: legacy-archive
+topicIds: [mathematical-thinking]
 summary: An index for material published on the earlier AcademicPages site.
 date: 2024-07-21
 lastUpdated: 2026-07-13

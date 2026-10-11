@@ -1,6 +1,7 @@
 ---
 title: 科學誘因與可靠性
 slug: scientific-incentives-reliability
+topicIds: [risk-decisions]
 sourceSlug: scientific-incentives-reliability
 summary: 以演化代理模型探索新穎性、嚴謹度與重複研究獎勵如何改變發現速度及研究紀錄可靠性。
 year: 2026

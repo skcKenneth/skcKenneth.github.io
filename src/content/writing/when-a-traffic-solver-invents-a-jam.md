@@ -1,6 +1,7 @@
 ---
 title: "When a Traffic Solver Invents a Jam"
 slug: when-a-traffic-solver-invents-a-jam
+topicIds: [computation-code, cities-engineering]
 summary: A failure-preserving LWR benchmark shows how final shock-grid alignment can make a cell-average norm look exact while threshold arrival and queue accounting remain biased.
 date: 2026-08-30
 lastUpdated: 2026-08-30

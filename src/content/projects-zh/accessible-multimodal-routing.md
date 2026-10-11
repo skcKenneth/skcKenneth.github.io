@@ -1,6 +1,7 @@
 ---
 title: 拱北口岸無障礙多模式路線規劃
 slug: accessible-multimodal-routing
+topicIds: [risk-decisions, cities-engineering]
 sourceSlug: accessible-multimodal-routing
 summary: 以人群差異為核心，研究斜坡、樓梯、轉乘、擠迫及升降機缺失如何改變口岸樞紐內的路線。
 year: 2026

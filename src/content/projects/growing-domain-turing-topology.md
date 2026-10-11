@@ -1,6 +1,7 @@
 ---
 title: Growing-Domain Turing Topology
 slug: growing-domain-turing-topology
+topicIds: [risk-decisions, life-environment, dynamics-networks]
 summary: A verified Schnakenberg reaction–diffusion study tracks peak birth and loss as a one-dimensional domain grows.
 year: 2026
 lastUpdated: 2026-07-28

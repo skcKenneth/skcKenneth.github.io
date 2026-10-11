@@ -1,6 +1,7 @@
 ---
 title: "When Michaelis-Menten Stops Being Valid"
 slug: when-michaelis-menten-stops-being-valid
+topicIds: [mathematical-thinking]
 summary: A 243-case atlas treats Michaelis-Menten kinetics as a testable model reduction and maps where trajectory or event-time errors become important.
 date: 2026-07-30
 lastUpdated: 2026-07-30

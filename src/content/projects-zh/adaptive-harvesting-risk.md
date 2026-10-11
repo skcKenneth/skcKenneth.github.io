@@ -1,6 +1,7 @@
 ---
 title: Allee 風險下的自適應採收
 slug: adaptive-harvesting-risk
+topicIds: [risk-decisions, life-environment]
 sourceSlug: adaptive-harvesting-risk
 summary: 一項已驗證的隨機族群研究，比較固定、比例與保護線採收在非線性崩潰門檻附近的表現。
 year: 2026

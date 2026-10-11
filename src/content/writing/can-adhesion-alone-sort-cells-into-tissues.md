@@ -1,6 +1,7 @@
 ---
 title: "Can Adhesion Alone Sort Cells into Tissues?"
 slug: can-adhesion-alone-sort-cells-into-tissues
+topicIds: [life-environment, computation-code]
 summary: A cellular Potts study tests when differential adhesion produces sorting, engulfment, arrested mixtures, or misleadingly similar end states.
 date: 2026-08-02
 lastUpdated: 2026-08-02

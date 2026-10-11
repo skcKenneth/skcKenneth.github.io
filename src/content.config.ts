@@ -1,6 +1,7 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
+import { TOPIC_IDS } from "./data/site-reader.mjs";
 
 const loader = (base: string) => glob({ pattern: "**/*.{md,mdx}", base });
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
@@ -25,6 +26,8 @@ const base = {
   lastUpdated: z.coerce.date(),
   featured: z.boolean().default(false),
   topics: z.array(z.string()).default([]),
+  topicIds: z.array(z.string().refine((value:string) => TOPIC_IDS.includes(value), "Unknown reader topic ID")).min(1).max(3).optional(),
+  relatedSlugs: z.array(slug).max(3).optional(),
   heroImage: z.string().optional(),
   draft: z.boolean().default(false)
 };

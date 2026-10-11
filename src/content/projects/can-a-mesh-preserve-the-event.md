@@ -1,6 +1,7 @@
 ---
 title: Can a Mesh Preserve the Event?
 slug: can-a-mesh-preserve-the-event
+topicIds: [computation-code, life-environment]
 summary: A matched-work Phase-1 experiment finds that a uniform mesh preserves a growing-domain modal-transition time better than one-shot residual and DWR meshes at 36 elements.
 year: 2026
 lastUpdated: 2026-09-05

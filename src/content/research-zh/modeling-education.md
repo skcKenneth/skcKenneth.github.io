@@ -1,6 +1,7 @@
 ---
 title: 數學建模教育
 slug: modeling-education
+topicIds: [teaching-research-practice]
 sourceSlug: modeling-education
 summary: 建立由開放問題走向假設、計算、批判與溝通的完整學習路徑。
 lastUpdated: 2026-07-28

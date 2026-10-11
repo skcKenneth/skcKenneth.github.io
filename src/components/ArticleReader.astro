@@ -1,0 +1,101 @@
+---
+import ArchiveNotice from './ArchiveNotice.astro';
+import ReadingNav from './ReadingNav.astro';
+import ReaderCard from './ReaderCard.astro';
+import SaveArticle from './SaveArticle.astro';
+import { publicRepositoryUrl } from '../config/repository-policy';
+import { articleType, canonicalId, getTopicIds, localeBase, readingMinutes, SITE_URL, TOPICS } from '../data/site-reader.mjs';
+import { selectRelatedArticles } from '../data/reader-utils.mjs';
+import '../styles/reader.css';
+interface Props {
+  entry: any; entries: any[]; headings?: { depth: number; slug: string; text: string }[];
+  previous?: any; next?: any; locale?: 'en' | 'zh-Hant';
+}
+const { entry, entries, headings = [], previous, next, locale = 'en' } = Astro.props;
+const isZh = locale === 'zh-Hant';
+const base = localeBase(locale);
+const href = `${base}/writing/${entry.data.slug}/`;
+const topics = TOPICS.filter(topic => getTopicIds(entry.data).includes(topic.id));
+const toc = headings.filter(heading => heading.depth === 2 || heading.depth === 3);
+const related: any[] = selectRelatedArticles(entry, entries);
+const dateLabel = (date: Date | undefined) => date?.toLocaleDateString(isZh ? 'zh-Hant-TW' : 'en-GB', { dateStyle: 'long' });
+const changed = entry.data.date && entry.data.lastUpdated && entry.data.lastUpdated.toISOString().slice(0, 10) > entry.data.date.toISOString().slice(0, 10);
+const feedback = `mailto:sokkincheng@gmail.com?subject=${encodeURIComponent(`${isZh ? '文章回饋' : 'Article feedback'}: ${entry.data.title}`)}&body=${encodeURIComponent(`${entry.data.title}\n${SITE_URL}${href}\n\n${isZh ? '問題或建議：' : 'Question or suggestion:'}\n`)}`;
+const links = [
+  [isZh ? '查看計算' : 'View calculations', publicRepositoryUrl(entry.data.technicalRepository)],
+  [isZh ? '查看筆記本' : 'View notebooks', publicRepositoryUrl(entry.data.notebookUrl)],
+  [isZh ? '查看程式碼' : 'View source code', publicRepositoryUrl(entry.data.codeUrl)],
+  [isZh ? '重現本研究' : 'Reproduce this study', publicRepositoryUrl(entry.data.reproductionUrl)]
+].filter(([, url]) => url);
+---
+<header class="page-head reader-article-head"><div class="container">
+  <nav class="reader-breadcrumbs" aria-label={isZh ? '所在位置' : 'Breadcrumb'} data-pagefind-ignore><ol><li><a href={`${base}/`}>{isZh ? '首頁' : 'Home'}</a></li><li><a href={`${base}/writing/`}>{isZh ? '文章' : 'Writing'}</a></li><li aria-current="page">{entry.data.title}</li></ol></nav>
+  <p class="eyebrow">{articleType(entry.data.type, locale)}</p>
+  {entry.data.draft && <p class="small">{isZh ? '草稿預覽 · 尚未刊登' : 'Draft preview · Not published'}</p>}
+  <h1 data-pagefind-meta="title">{entry.data.title}</h1>
+  <p class="lead" data-pagefind-meta="description">{entry.data.summary}</p>
+  <p class="reader-article-dates">
+    {entry.data.date && <span>{isZh ? '發布：' : 'Published '}<time datetime={entry.data.date.toISOString()}>{dateLabel(entry.data.date)}</time></span>}
+    {changed && <span>{isZh ? '更新：' : 'Updated '}<time datetime={entry.data.lastUpdated.toISOString()}>{dateLabel(entry.data.lastUpdated)}</time></span>}
+    <span>{isZh ? `約 ${readingMinutes(entry, locale)} 分鐘閱讀` : `${readingMinutes(entry, locale)} min read`}</span>
+  </p>
+  <div class="reader-article-tools" data-pagefind-ignore><SaveArticle articleId={canonicalId(entry.data)} title={entry.data.title} href={href} locale={locale} /><a href={feedback}>{isZh ? '回報錯誤／提出問題' : 'Report an error / ask a question'}</a></div>
+</div></header>
+<div class="container reader-layout" data-article-reader data-locale={locale}>
+  <aside class="reader-aside" data-pagefind-ignore>
+    {toc.length > 0 && <nav class="reader-desktop-toc" aria-label={isZh ? '文章目錄' : 'On this page'}><p class="reader-toc-title">{isZh ? '文章目錄' : 'On this page'}</p><ol>{toc.map(heading => <li class:list={{ 'reader-toc-nested': heading.depth === 3 }}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></nav>}
+    <div class="reader-aside-meta"><p class="reader-toc-title">{isZh ? '主題' : 'Topics'}</p><div class="reader-topic-links">{topics.map(topic => <a href={`${base}/topics/${topic.id}/`}>{topic.label[locale]}</a>)}</div>
+      {entry.data.scienceProject && <p class="small">{isZh ? '證據紀錄' : 'Evidence record'}<br/><strong>{entry.data.scienceProject}</strong><br/>{isZh ? '技術材料存放於私人工作區。' : 'Technical materials are maintained privately.'}</p>}
+      {entry.data.legacySource && <p class="small">{isZh ? '原始 Markdown' : 'Original Markdown'}<br/><code>{entry.data.legacySource}</code></p>}
+      {links.length > 0 && <div class="reader-source-links">{links.map(([label, url]) => <a href={url}>{label}</a>)}</div>}
+    </div>
+  </aside>
+  <div class="reader-main">
+    {toc.length > 0 && <details class="reader-mobile-toc" data-pagefind-ignore><summary>{isZh ? '文章目錄' : 'On this page'} <span>{isZh ? `${toc.filter(h => h.depth === 2).length} 個章節` : `${toc.filter(h => h.depth === 2).length} sections`}</span></summary><nav aria-label={isZh ? '文章章節' : 'Article sections'}><ol>{toc.map(heading => <li class:list={{ 'reader-toc-nested': heading.depth === 3 }}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></nav></details>}
+    <article class="prose reader-prose" lang={locale}>
+      {entry.data.archived && <ArchiveNotice locale={locale} />}
+      <slot />
+    </article>
+    <footer class="reader-article-footer" data-pagefind-ignore>
+      <div class="reader-mobile-sources">
+        <div class="reader-topic-links">{topics.map(topic => <a href={`${base}/topics/${topic.id}/`}>{topic.label[locale]}</a>)}</div>
+        {entry.data.scienceProject && <p class="small">{isZh ? '證據紀錄：' : 'Evidence record: '}<strong>{entry.data.scienceProject}</strong> · {isZh ? '技術材料存放於私人工作區。' : 'Technical materials are maintained privately.'}</p>}
+        {entry.data.legacySource && <p class="small">{isZh ? '原始 Markdown：' : 'Original Markdown: '}<code>{entry.data.legacySource}</code></p>}
+        {links.length > 0 && <div class="reader-inline-links">{links.map(([label, url]) => <a href={url}>{label}</a>)}</div>}
+      </div>
+      {entry.data.topics?.length > 0 && <div><p class="reader-toc-title">{isZh ? '延伸標籤' : 'Explore these tags'}</p><div class="tag-list">{entry.data.topics.map((topic: string) => <a class="tag" href={`${base}/writing/?q=${encodeURIComponent(topic)}`}>{topic}</a>)}</div></div>}
+      <div class="reader-inline-links"><a href={`${base}/writing/`}>← {isZh ? '返回文章清單' : 'Back to all writing'}</a><a href={feedback}>{isZh ? '回報錯誤／提出問題' : 'Report an error / ask a question'}</a></div>
+      {related.length > 0 && <section class="reader-related" aria-labelledby="reader-related-title"><h2 id="reader-related-title">{isZh ? '接住讀' : 'Read next'}</h2><div class="reader-card-grid">{related.map(item => <ReaderCard entry={item} locale={locale} />)}</div></section>}
+      <ReadingNav previous={previous && { href: `${base}/writing/${previous.data.slug}/`, title: previous.data.title }} next={next && { href: `${base}/writing/${next.data.slug}/`, title: next.data.title }} locale={locale} />
+    </footer>
+  </div>
+  <dialog class="reader-image-dialog" aria-label={isZh ? '放大圖像' : 'Enlarged figure'} data-pagefind-ignore><div class="reader-image-dialog-inner"><button class="button secondary" type="button" data-close-figure>{isZh ? '關閉圖像' : 'Close figure'} <span aria-hidden="true">×</span></button><img alt="" /><p class="reader-image-caption"></p><p class="small">{isZh ? '按 Escape 關閉。' : 'Press Escape to close.'}</p></div></dialog>
+</div>
+<script>
+  const reader = document.querySelector<HTMLElement>('[data-article-reader]');
+  if (reader) {
+    const isZh = reader.dataset.locale === 'zh-Hant';
+    const dialog = reader.querySelector<HTMLDialogElement>('.reader-image-dialog')!;
+    const close = dialog.querySelector<HTMLButtonElement>('[data-close-figure]')!;
+    const enlarged = dialog.querySelector<HTMLImageElement>('img')!;
+    const caption = dialog.querySelector<HTMLElement>('.reader-image-caption')!;
+    let trigger: HTMLButtonElement | undefined;
+    for (const img of reader.querySelectorAll<HTMLImageElement>('.reader-prose img')) {
+      if (img.closest('a, button') || img.getAttribute('aria-hidden') === 'true') continue;
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'reader-image-button';
+      button.setAttribute('aria-label', `${isZh ? '放大圖像' : 'Enlarge figure'}${img.alt ? `: ${img.alt}` : ''}`);
+      button.title = isZh ? '按一下放大圖像' : 'Click to enlarge figure';
+      img.before(button); button.append(img);
+      button.addEventListener('click', () => {
+        trigger = button; enlarged.src = img.currentSrc || img.src; enlarged.alt = img.alt;
+        caption.textContent = img.closest('figure')?.querySelector('figcaption')?.textContent || img.alt;
+        dialog.showModal(); close.focus();
+      });
+    }
+    close.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => { enlarged.removeAttribute('src'); trigger?.focus({ preventScroll: true }); });
+    for (const link of reader.querySelectorAll<HTMLAnchorElement>('.reader-mobile-toc a')) link.addEventListener('click', () => { reader.querySelector<HTMLDetailsElement>('.reader-mobile-toc')!.open = false; });
+  }
+</script>

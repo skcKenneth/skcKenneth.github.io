@@ -1,6 +1,7 @@
 ---
 title: 熱升高之前的警報
 slug: the-alarm-before-the-heat
+topicIds: [risk-decisions, data-ai]
 sourceSlug: the-alarm-before-the-heat
 summary: 建立並壓力測試一個圖結構感知的電池熱預警模型，同時避免把合成結果誤當成安全主張。
 date: 2026-07-13

@@ -1,6 +1,7 @@
 ---
 title: Non-isothermal CSTR Hysteresis
 slug: nonisothermal-cstr-hysteresis
+topicIds: [cities-engineering, dynamics-networks]
 summary: A nonlinear reactor study maps multiplicity, ignition and extinction hysteresis, basin dependence, and critical slowing near a thermal fold.
 year: 2026
 lastUpdated: 2026-07-30

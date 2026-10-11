@@ -1,6 +1,7 @@
 ---
 title: 一次翻轉究竟有多罕見？
 slug: how-rare-is-a-flip
+topicIds: [risk-decisions, life-environment, dynamics-networks]
 sourceSlug: how-rare-is-a-flip
 summary: 這項可重現的第一階段研究，以帶誤差界的有限狀態參考與固定種子的直接 SSA，核對一個合成低 copy 數 exclusive genetic toggle。
 year: 2026

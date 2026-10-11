@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReadingList from '../components/ReadingList.astro';
+---
+<BaseLayout title="Reading list" description="Keep articles to read later, privately in your browser." alternatePath="/zh/reading-list/" noindex>
+  <header class="page-head"><div class="container"><p class="eyebrow">Your own shelf</p><h1>Come back to a good idea.</h1><p class="lead">Articles you have saved for a quieter moment.</p></div></header>
+  <ReadingList locale="en"/>
+</BaseLayout>

@@ -1,6 +1,7 @@
 ---
 title: 科學領域能否獎勵新穎性而不失去可靠性？
 slug: scientific-incentives-reliability
+topicIds: [risk-decisions]
 sourceSlug: scientific-incentives-reliability
 summary: 一個演化個體為本模型，把新穎性、嚴謹度與重複研究信用視為競爭的制度誘因，並繪出發現—可靠性前沿。
 date: 2026-07-24

@@ -1,6 +1,7 @@
 ---
 title: "When Should an American Put Be Exercised?"
 slug: when-an-american-put-should-be-exercised
+topicIds: [computation-code, risk-decisions]
 summary: A free-boundary study turns early exercise into an obstacle problem, then audits price, Greeks, convergence, and complementarity across three numerical methods.
 date: 2026-08-02
 lastUpdated: 2026-08-02

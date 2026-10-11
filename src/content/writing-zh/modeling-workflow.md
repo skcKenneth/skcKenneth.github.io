@@ -1,6 +1,7 @@
 ---
 title: 從開放問題走到可重現模型
 slug: modeling-workflow
+topicIds: [teaching-research-practice]
 sourceSlug: modeling-workflow
 summary: 一套精簡流程，把假設、模型選擇、計算、驗證、限制與溝通串連起來。
 date: 2026-07-13

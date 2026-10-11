@@ -1,6 +1,7 @@
 ---
 title: Can a Scientific Field Reward Novelty Without Losing Reliability?
 slug: scientific-incentives-reliability
+topicIds: [risk-decisions]
 summary: An evolutionary agent-based model treats novelty, rigour, and replication credit as competing institutional incentives and maps their discovery–reliability frontier.
 date: 2026-07-24
 lastUpdated: 2026-07-28

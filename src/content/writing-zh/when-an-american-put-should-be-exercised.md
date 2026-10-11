@@ -1,6 +1,7 @@
 ---
 title: "美式認沽期權應在何時行使？"
 slug: when-an-american-put-should-be-exercised
+topicIds: [computation-code, risk-decisions]
 sourceSlug: when-an-american-put-should-be-exercised
 summary: 將提早行使寫成自由邊界障礙問題，並以三種數值方法審核價格、希臘字母、收斂與互補條件。
 date: 2026-08-02

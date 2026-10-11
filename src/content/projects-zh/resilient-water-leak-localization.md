@@ -1,6 +1,7 @@
 ---
 title: 具韌性的供水網漏水定位
 slug: resilient-water-leak-localization
+topicIds: [risk-decisions, dynamics-networks]
 sourceSlug: resilient-water-leak-localization
 summary: 在量測含噪聲且一個感測器可能失效時，研究可區分漏水區域的抗缺失壓力感測器配置。
 year: 2026

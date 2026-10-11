@@ -1,6 +1,7 @@
 ---
 title: Heterogeneous Morphoelastic Folding
 slug: heterogeneous-morphoelastic-folding
+topicIds: [life-environment, risk-decisions]
 summary: A reduced beam-energy model tests whether weak stiffness and growth-load heterogeneity can steer fold count and location.
 year: 2026
 lastUpdated: 2026-07-28

@@ -24,7 +24,7 @@ const items = await getCollection("researchZh", ({ data }) => !data.draft);
         <p class="eyebrow">{item.data.programme}</p>
         <h2><a class="title-link" href={`/zh/research/${item.data.slug}/`}>{item.data.title}</a></h2>
         <p>{item.data.summary}</p>
-        <div class="tag-list">{item.data.methods.map((method) => <span class="tag">{method}</span>)}</div>
+        <div class="tag-list">{item.data.methods.map((method: string) => <span class="tag">{method}</span>)}</div>
       </article>)}
     </div>
   </section>

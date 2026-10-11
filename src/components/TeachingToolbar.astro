@@ -1,0 +1,17 @@
+---
+const { locale = 'en', kind = 'jae', continueHref = '#jae-topics', exportHref, questionIds = [] } = Astro.props as { locale?: 'en' | 'zh-Hant'; kind?: string; continueHref?: string; exportHref?: string; questionIds?: string[] };
+const zh = locale === 'zh-Hant';
+---
+<nav class="teaching-toolbar container" aria-label={zh ? '學習工具' : 'Learning tools'} data-teaching-toolbar data-kind={kind} data-locale={locale} data-question-ids={questionIds.join(' ')}>
+  <a href={zh ? '/zh/teaching/' : '/teaching/'}>← {zh ? '返回教學總覽' : 'Teaching overview'}</a>
+  <a href={continueHref} data-teaching-continue>{zh ? '繼續學習' : 'Continue learning'}</a>
+  <span data-teaching-save-status role="status">{zh ? '紀錄只限此瀏覽器' : 'Records stay in this browser'}</span>
+  {exportHref ? <a href={exportHref}>{zh ? '開啟匯出工具' : 'Open export tools'}</a> : <button type="button" data-teaching-export hidden>{zh ? '匯出紀錄' : 'Export record'}</button>}
+</nav>
+<style>
+  .teaching-toolbar{display:flex;flex-wrap:wrap;gap:.65rem 1.15rem;align-items:center;padding-block:1rem;border-bottom:1px solid var(--line);font-size:.85rem;min-width:0}.teaching-toolbar a{color:var(--accent-dark);font-weight:600}.teaching-toolbar span{color:var(--muted);margin-left:auto;overflow-wrap:anywhere}.teaching-toolbar button{font:inherit;font-weight:600;background:transparent;color:var(--accent-dark);border:1px solid var(--line);border-radius:.35rem;padding:.45rem .7rem;cursor:pointer}.teaching-toolbar :focus-visible{outline:3px solid var(--accent);outline-offset:3px}@media(max-width:600px){.teaching-toolbar{gap:.65rem 1rem}.teaching-toolbar span{margin-left:0;order:4;flex-basis:100%}}@media print{.teaching-toolbar{display:none}}
+</style>
+<script>
+  import { initializeTeachingToolbar } from '../scripts/teaching-toolbar';
+  document.querySelectorAll<HTMLElement>('[data-teaching-toolbar]').forEach(initializeTeachingToolbar);
+</script>

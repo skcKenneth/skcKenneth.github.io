@@ -1,6 +1,7 @@
 ---
 title: A Neural ODE Can Be Physically Plausible and Still Miscalibrated
 slug: intervention-calibrated-neural-odes
+topicIds: [data-ai, risk-decisions]
 summary: A synthetic gene-circuit benchmark compares an unconstrained neural vector field with a sign-structured model under unseen interventions, and finds that feasibility does not guarantee honest uncertainty.
 date: 2026-07-22
 lastUpdated: 2026-07-28

@@ -1,6 +1,7 @@
 ---
 title: 教師資源與評核
 slug: instructor-resources
+topicIds: [mathematical-thinking]
 sourceSlug: instructor-resources
 summary: 關於案例選擇、形成性評議、評分準則與可重現性審閱的教學設計筆記。
 lastUpdated: 2026-07-28

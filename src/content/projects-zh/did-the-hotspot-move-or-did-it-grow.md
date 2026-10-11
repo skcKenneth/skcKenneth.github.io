@@ -1,6 +1,7 @@
 ---
 title: 搬移還是生長？非平衡傳輸的機制解讀研究
 slug: did-the-hotspot-move-or-did-it-grow
+topicIds: [data-ai, risk-decisions, cities-engineering]
 sourceSlug: did-the-hotspot-move-or-did-it-grow
 summary: 以已知生成歷史、明確歧義反例及獨立數值核對，檢查帶熵非平衡傳輸的成本分配，是否足以解釋兩張週期密度圖之間真正發生的機制。
 year: 2026

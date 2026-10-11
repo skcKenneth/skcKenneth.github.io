@@ -1,6 +1,7 @@
 ---
 title: Bounding a Hidden Epidemic from Delayed Aggregates
 slug: can-aggregate-observations-bound-an-epidemic
+topicIds: [data-ai, risk-decisions, life-environment]
 summary: A synthetic six-region SIR benchmark compares central ensemble intervals with validated constrained-box enclosures, separating conditional containment from useful precision and testing what remains predictable after observations stop.
 year: 2026
 date: 2026-09-12

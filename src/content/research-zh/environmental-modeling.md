@@ -1,6 +1,7 @@
 ---
 title: 環境建模
 slug: environmental-modeling
+topicIds: [life-environment]
 sourceSlug: environmental-modeling
 summary: 研究空間疾病傳播、生態系統、沿岸風險、氣候驅動及能源與環境之間的相互作用。
 lastUpdated: 2026-07-28

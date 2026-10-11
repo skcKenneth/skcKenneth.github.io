@@ -1,6 +1,7 @@
 ---
 title: 幽靈交通擠塞的穩定性
 slug: phantom-traffic-stability
+topicIds: [cities-engineering]
 sourceSlug: phantom-traffic-stability
 summary: 以微觀交通實驗研究細小擾動在甚麼條件下會增長成持續走停波。
 year: 2026

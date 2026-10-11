@@ -1,6 +1,7 @@
 ---
 title: 舊站文章庫
 slug: legacy-archive
+topicIds: [mathematical-thinking]
 sourceSlug: legacy-archive
 summary: 收錄早期 AcademicPages 網站文章的索引。
 date: 2024-07-21

@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import { selectLatestWriting } from "../src/lib/latest-writing.mjs";
+import { MILESTONES } from "../src/data/site-editorial.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const read = path => readFileSync(join(root, path), "utf8");
@@ -45,11 +46,12 @@ test("missing dates cannot outrank dated articles; editing an old article does n
     ["new", "old-edited", "undated"]);
 });
 
-test("homepage uses automatic selection for both recommendation placements", () => {
+test("homepage shows latest writing once, with separate editorial starting points", () => {
   const home = read("src/components/HomePage.astro");
   assert.match(home, /const writing = selectLatestWriting\(writingCollection\)/);
   assert.doesNotMatch(home, /writingCollection\.filter\([^;]*featured/s);
-  assert.equal((home.match(/writing\.map\(/g) || []).length, 2);
+  assert.equal((home.match(/writing\.map\(/g) || []).length, 1);
+  assert.match(home, /START_HERE/);
 });
 
 const names = ["Hong U Lo", "Zibo Gao", "Peng Chi Lam", "Sok Kin Cheng"];
@@ -59,13 +61,31 @@ test("About records the ADMA mentoring role, author order and accepted-paper mil
     const positions = names.map(name => about.indexOf(name));
     assert.ok(positions.every(position => position >= 0));
     assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
-    for (const text of ["ADMA 2026", "Research Track", "Short Paper", "camera-ready", "AI4Nature@AVSS 2026"]) {
+    for (const text of ["ADMA 2026", "AI4Nature@AVSS 2026"]) {
       assert.ok(about.includes(text), text);
     }
+    assert.match(about, /<EditorialMilestones/);
+    assert.ok(about.indexOf('<EditorialMilestones') < about.indexOf('id="cv"'));
     assert.ok(about.includes(prefix ? "研究指導老師及通訊作者" : "research mentor and corresponding author"));
     for (const section of ["writing", "projects"]) assert.ok(about.includes(`/${prefix}${section}/when-solar-power-changes-fast/`));
     assert.doesNotMatch(about, /Full Paper|award-winning|已正式出版/);
   }
+  const adma = MILESTONES.find(milestone => milestone.id === 'adma-2026');
+  assert.equal(adma.status, 'accepted-camera-ready-submitted');
+  assert.equal(adma.acceptedOn, '2026-09-03');
+  assert.equal(adma.cameraReadySubmittedOn, '2026-09-09');
+  assert.equal(adma.date, '2026-11-13');
+  assert.equal(adma.endDate, '2026-11-15');
+  for (const locale of ['en', 'zh-Hant']) {
+    assert.match(adma.description[locale], /Research Track/);
+    assert.match(adma.description[locale], /Short Paper/);
+    assert.match(adma.description[locale], /camera-ready/);
+    assert.doesNotMatch(adma.description[locale], /Full Paper|award-winning|已正式出版/);
+  }
+  const nature = MILESTONES.find(milestone => milestone.id === 'ai4nature-2026');
+  assert.equal(nature.status, 'programme-listed');
+  assert.equal(nature.date, '2026-08-31');
+  assert.equal(nature.source, 'https://www.ai4nature.tech/program.html');
 });
 
 function inventory(directory) {
@@ -90,10 +110,9 @@ if (process.argv.includes("--built")) {
       const latest = home.match(/<section\b[^>]*id="latest-writing"[^>]*>([\s\S]*?)<\/section>/)[1];
       const actual = [...latest.matchAll(/<h3\b[^>]*>\s*<a\b[^>]*href="([^"]+)"/g)].map(m => m[1]);
       assert.deepEqual(actual, urls);
-      const dossier = home.match(/<aside\b[^>]*class="home-dossier"[^>]*>([\s\S]*?)<\/aside>/)[1];
-      assert.deepEqual([...dossier.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(m => m[1]), urls);
+      assert.doesNotMatch(home, /class="home-dossier"/);
       assert.equal((latest.match(/class="writing-feature-image"/g) || []).length, expected.length);
-      assert.doesNotMatch(latest + dossier, /src="undefined"/);
+      assert.doesNotMatch(latest, /src="undefined"/);
       orders.push(slugs(expected));
     }
     assert.deepEqual(orders[0], orders[1]);
@@ -104,6 +123,13 @@ if (process.argv.includes("--built")) {
       for (const text of ["ADMA 2026", "Short Paper", "camera-ready", ...names]) assert.ok(about.includes(text));
       assert.ok(about.includes(`/${prefix}writing/when-solar-power-changes-fast/`));
       assert.ok(about.includes(`/${prefix}projects/when-solar-power-changes-fast/`));
+      for (const milestone of MILESTONES) {
+        assert.ok(about.includes(`data-milestone="${milestone.id}"`));
+        assert.ok(about.includes(`data-status="${milestone.status}"`));
+        assert.ok(about.includes(`datetime="${milestone.date}"`));
+        assert.ok(about.includes(`href="${milestone.source}"`));
+        assert.ok(about.includes(milestone.description[prefix ? 'zh-Hant' : 'en']));
+      }
     }
   });
 }

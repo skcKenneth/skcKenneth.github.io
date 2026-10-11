@@ -1,6 +1,7 @@
 ---
 title: "When Randomness Defeats Natural Selection"
 slug: when-randomness-defeats-natural-selection
+topicIds: [life-environment]
 summary: A Wright–Fisher experiment shows why a beneficial allele is usually lost when it begins as one copy, how migration can oppose local adaptation, and why a brief bottleneck leaves a lasting genetic deficit.
 date: 2026-07-20
 lastUpdated: 2026-07-30

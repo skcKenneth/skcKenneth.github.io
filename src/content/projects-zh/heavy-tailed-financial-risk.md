@@ -1,6 +1,7 @@
 ---
 title: 厚尾金融風險壓力測試
 slug: heavy-tailed-financial-risk
+topicIds: [risk-decisions]
 sourceSlug: heavy-tailed-financial-risk
 summary: 在波動聚集、槓桿效應、Student-t 創新與罕見負跳躍下，可重現比較 VaR 及預期損失。
 year: 2026

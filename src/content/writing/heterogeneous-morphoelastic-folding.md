@@ -1,6 +1,7 @@
 ---
 title: Steering Folds with Weak Mechanical Heterogeneity
 slug: heterogeneous-morphoelastic-folding
+topicIds: [life-environment, risk-decisions]
 summary: A reduced morphoelastic beam experiment tests whether small spatial changes in stiffness and growth load can steer fold number and location without increasing peak curvature.
 date: 2026-07-27
 lastUpdated: 2026-07-28

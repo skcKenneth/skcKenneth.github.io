@@ -1,0 +1,13 @@
+---
+import { downloadMetadata, formatBytes } from '../lib/download-metadata.mjs';
+interface Props { url: string; locale?: 'en' | 'zh-Hant'; declared?: {format?:string;locale?:string} }
+const { url, locale = 'en', declared = {} } = Astro.props;
+const zh = locale === 'zh-Hant';
+const info = downloadMetadata(url, declared);
+const language = info.locale === 'zh-Hant' ? (zh ? '繁體中文' : 'Traditional Chinese') : info.locale === 'en' ? (zh ? '英文' : 'English') : (zh ? '語言未列於版本清單' : 'Language not specified in release');
+---
+<div class="download-metadata">
+  <p>{[language, info.format, formatBytes(info.bytes, locale), info.version ? `${zh ? '版本' : 'Version'} ${info.version}` : undefined].filter(Boolean).join(' · ')}</p>
+  <p>{info.license ? <>{zh ? '授權：' : 'Licence: '}{info.licenseUrl ? <a href={info.licenseUrl}>{info.license}</a> : info.license}</> : (zh ? '未列出另行轉載授權；使用前請查閱來源。' : 'No redistribution licence stated; check the source before reuse.')}{info.sourceUrl && <> · <a href={info.sourceUrl}>{zh ? '版本與來源清單' : 'Release and source record'}</a></>}{info.officialSource && <> · <a href={info.officialSource}>{zh ? '官方原題來源' : 'Official question source'}</a></>}</p>
+</div>
+<style>.download-metadata{font-size:.78rem;line-height:1.65;color:inherit;opacity:.9;overflow-wrap:anywhere;flex-basis:100%;min-width:0}.download-metadata p{margin:.35rem 0!important}.download-metadata a{color:inherit;text-underline-offset:.2em}</style>

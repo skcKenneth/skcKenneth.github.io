@@ -1,6 +1,7 @@
 ---
 title: Random Stress Tests Are Not Certificates
 slug: random-stress-tests-are-not-certificates
+topicIds: [risk-decisions, computation-code]
 summary: A deterministic interval benchmark certifies one synthetic worst-case objective while fixed IID, Latin-hypercube and local-search designs remain feasible incumbents without global upper bounds.
 year: 2026
 lastUpdated: 2026-08-30

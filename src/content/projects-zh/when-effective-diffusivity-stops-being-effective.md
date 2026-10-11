@@ -1,6 +1,7 @@
 ---
 title: 當有效擴散係數不再足夠有效
 slug: when-effective-diffusivity-stops-being-effective
+topicIds: [computation-code, cities-engineering]
 sourceSlug: when-effective-diffusivity-stops-being-effective
 summary: 這項可重現的第一階段基準，標出單一調和係數何時能保留固定一維週期薄板的合成釋放，以及 finite-cell transient 何時跨過凍結誤差門檻。
 year: 2026

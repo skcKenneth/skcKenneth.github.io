@@ -1,6 +1,7 @@
 ---
 title: 優化器漏掉了多少個平衡態？
 slug: how-many-equilibria-did-the-optimizer-miss
+topicIds: [dynamics-networks, computation-code, risk-decisions]
 sourceSlug: how-many-equilibria-did-the-optimizer-miss
 summary: 以獨立兩模態控制與分支延續，分清找到最低已知能量、回收所有穩定家族，以及描述不穩定平衡結構之間的差別。
 year: 2026

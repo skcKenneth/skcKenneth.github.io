@@ -1,6 +1,7 @@
 ---
 title: 輪流更新，為甚麼反而令系統不穩定？
 slug: when-taking-turns-makes-a-system-unstable
+topicIds: [dynamics-networks]
 sourceSlug: when-taking-turns-makes-a-system-unstable
 summary: 相同的更新次數，不一定帶來穩定的回饋。透過一個具有資訊延遲的雙選項模型，理解為甚麼容許兩次更新相隔多一個時段，可以穩定系統，以及最小的公平限制放寬為甚麼不等於最快的排程。
 date: 2026-09-10

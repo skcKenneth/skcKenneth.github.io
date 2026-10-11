@@ -1,6 +1,7 @@
 ---
 title: "When Early Warnings Cannot Tell the Difference"
 slug: when-early-warnings-cannot-tell-the-difference
+topicIds: [data-ai, life-environment, dynamics-networks]
 summary: A system that recovers slowly and an environment that persists can leave the same statistical signature. An exactly sampled stochastic experiment shows what passive monitoring can identify, and which extra observations change the question.
 date: 2026-09-09
 lastUpdated: 2026-09-09

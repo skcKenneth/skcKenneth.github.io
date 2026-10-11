@@ -1,6 +1,7 @@
 ---
 title: 海平面上升下的沿岸防護
 slug: coastal-defence-optimization
+topicIds: [life-environment, teaching-research-practice, risk-decisions]
 sourceSlug: coastal-defence-optimization
 summary: 一個結合海平面情境、極值風暴潮與五十年成本最佳化的教學案例。
 year: 2026

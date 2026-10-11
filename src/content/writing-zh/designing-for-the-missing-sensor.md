@@ -1,6 +1,7 @@
 ---
 title: 為缺失的感測器設計漏水定位
 slug: designing-for-the-missing-sensor
+topicIds: [risk-decisions, cities-engineering, dynamics-networks]
 sourceSlug: designing-for-the-missing-sensor
 summary: 一項合成水網研究的編輯解讀：即使一項量度消失，仍把壓力感測器放在能提供有用證據的位置。
 date: 2026-07-13

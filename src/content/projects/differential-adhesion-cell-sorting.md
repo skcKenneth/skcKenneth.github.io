@@ -1,6 +1,7 @@
 ---
 title: Differential Adhesion Cell-Sorting Audit
 slug: differential-adhesion-cell-sorting
+topicIds: [life-environment, computation-code, risk-decisions]
 summary: A reproducible cellular Potts study separates neighbour sorting from engulfment and tests adhesion, motility, initial conditions, energetics, and cell-shape plausibility.
 year: 2026
 lastUpdated: 2026-08-02

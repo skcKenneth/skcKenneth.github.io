@@ -1,0 +1,7 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TopicsIndex from '../../../components/TopicsIndex.astro';
+const entries = await getCollection('writingZh', ({ data }) => !data.draft && data.slug !== 'legacy-archive');
+---
+<BaseLayout title="主題" description="八個入口，探索數學思考、計算、研究與教學文章。" type="主題" locale="zh-Hant" alternatePath="/topics/"><TopicsIndex entries={entries} locale="zh-Hant" /></BaseLayout>

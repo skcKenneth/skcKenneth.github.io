@@ -1,6 +1,7 @@
 ---
 title: "Can a Mesh Preserve the Event?"
 slug: can-a-mesh-preserve-the-event
+topicIds: [computation-code, life-environment]
 summary: A matched-work experiment asks whether uniform, residual, or goal-oriented finite-element meshes best preserve a growing-domain modal-transition time. In this first smoke test, uniform wins.
 date: 2026-08-30
 lastUpdated: 2026-09-05

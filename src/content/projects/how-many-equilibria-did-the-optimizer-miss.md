@@ -1,6 +1,7 @@
 ---
 title: How Many Equilibria Did the Optimizer Miss?
 slug: how-many-equilibria-did-the-optimizer-miss
+topicIds: [dynamics-networks, computation-code, risk-decisions]
 summary: A controlled folding-energy study audits the difference between finding the lowest known energy, recovering every stable family, and tracing unstable equilibrium branches.
 year: 2026
 date: 2026-10-03T16:20:00+08:00

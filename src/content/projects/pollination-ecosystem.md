@@ -1,6 +1,7 @@
 ---
 title: Pollination Ecosystem Trade-offs
 slug: pollination-ecosystem
+topicIds: [life-environment]
 summary: An agent-based C++ simulation compares pollinator populations, agricultural yield, and management assumptions.
 year: 2025
 lastUpdated: 2025-11-01

@@ -1,6 +1,7 @@
 ---
 title: "為甚麼重新開始，反而更快找到目標？"
 slug: when-starting-over-finds-the-target-faster
+topicIds: [risk-decisions, dynamics-networks]
 sourceSlug: when-starting-over-finds-the-target-faster
 summary: 重新開始看似浪費進度，卻可能消除隨機搜尋中最漫長的等待。透過精確首次到達實驗，本文分辨平均速度、尾端風險、重啟成本，以及繼續前進反而更好的情況。
 date: 2026-09-09

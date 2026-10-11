@@ -1,6 +1,7 @@
 ---
 title: 異質形態彈性摺疊
 slug: heterogeneous-morphoelastic-folding
+topicIds: [life-environment, risk-decisions]
 sourceSlug: heterogeneous-morphoelastic-folding
 summary: 以約化樑能量模型檢驗微弱剛度與生長載荷異質性，能否控制摺疊數量與位置。
 year: 2026

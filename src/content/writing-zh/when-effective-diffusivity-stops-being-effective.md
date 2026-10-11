@@ -1,6 +1,7 @@
 ---
 title: "當有效擴散係數不再足夠有效"
 slug: when-effective-diffusivity-stops-being-effective
+topicIds: [computation-code, cities-engineering]
 sourceSlug: when-effective-diffusivity-stops-being-effective
 summary: 一個經驗證的 24 案例合成週期薄板基準，標出調和有效擴散係數何時能保留釋放曲線，以及有限單元瞬態何時令 t50 與 t90 超出預先鎖定的誤差門檻。
 date: 2026-08-29

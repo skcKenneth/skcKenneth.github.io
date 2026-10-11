@@ -1,6 +1,7 @@
 ---
 title: Genetic Drift, Selection, and Migration
 slug: genetic-drift-selection-migration
+topicIds: [life-environment]
 summary: A verified Wright–Fisher study separates fixation odds, migration-selection balance, and diversity loss during a temporary bottleneck.
 year: 2026
 lastUpdated: 2026-07-30

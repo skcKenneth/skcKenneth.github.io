@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import DownloadMetadata from './DownloadMetadata.astro';
 import type { LectureLocale, LectureUnit, LocalizedList, LocalizedText } from "../types/lecture-library";
 
 const { unit, locale = "en" } = Astro.props as { unit: LectureUnit; locale?: LectureLocale };
@@ -48,6 +49,7 @@ const furtherReading = unit.further_reading ?? [];
         {documents.map((document) => <div data-document-actions={document.key} hidden={document.key !== initialKey}>
           <a class="button" href={document.asset.public_url} target="_blank" rel="noopener">{isZh ? "在新分頁開啟" : "Open in a new tab"}</a>
           <a class="button secondary" href={document.asset.public_url} download>{isZh ? "下載 PDF" : "Download PDF"}</a>
+          <DownloadMetadata url={document.asset.public_url} locale={locale} declared={{locale:document.asset.locale}} />
         </div>)}
       </div>
       <noscript><div class="lecture-noscript"><p>{isZh ? "瀏覽器未啟用 JavaScript；你仍可直接開啟或下載：" : "JavaScript is unavailable; open or download each document directly:"}</p><ul>{documents.map((document) => <li><a href={document.asset.public_url}>{document.label} ({document.asset.pages} {isZh ? "頁" : "pages"})</a></li>)}</ul></div></noscript>

@@ -1,6 +1,7 @@
 ---
 title: Phantom Traffic-Jam Stability
 slug: phantom-traffic-stability
+topicIds: [cities-engineering]
 summary: Microscopic traffic experiments examine when small disturbances grow into persistent stop-and-go waves.
 year: 2026
 lastUpdated: 2026-01-10

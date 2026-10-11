@@ -1,0 +1,31 @@
+---
+import { MILESTONES, MILESTONE_STATUS_LABELS } from '../data/site-editorial.mjs';
+interface Props { locale?: 'en' | 'zh-Hant' }
+const { locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant';
+const milestones = [...MILESTONES].sort((a, b) => b.date.localeCompare(a.date));
+const formatDate = (date: string) => new Date(`${date}T00:00:00Z`).toLocaleDateString(zh ? 'zh-Hant-TW' : 'en-GB', { dateStyle:'long', timeZone:'UTC' });
+---
+<section class="editorial-milestones" aria-labelledby="milestones">
+  <h2 id="milestones">{zh ? '研究里程碑' : 'Research milestones'}</h2>
+  <ol>
+    {milestones.map(milestone => <li id={`milestone-${milestone.id}`} data-milestone={milestone.id} data-status={milestone.status}>
+      <p class="milestone-date"><time datetime={milestone.date}>{formatDate(milestone.date)}</time>{'endDate' in milestone && milestone.endDate && <> – <time datetime={milestone.endDate}>{formatDate(milestone.endDate)}</time></>}</p>
+      <h3>{milestone.title[locale]}</h3>
+      <p class="milestone-status">{MILESTONE_STATUS_LABELS[milestone.status as keyof typeof MILESTONE_STATUS_LABELS][locale]}</p>
+      <p>{milestone.description[locale]}</p>
+      <a href={milestone.source}>{zh ? '查看活動官方來源' : 'View the official event source'} →</a>
+    </li>)}
+  </ol>
+</section>
+<style>
+  .editorial-milestones{margin:3rem 0;scroll-margin-top:6rem}
+  .editorial-milestones>h2{font-size:2rem}
+  .editorial-milestones ol{list-style:none;padding:0;margin:1.5rem 0 0;display:grid;gap:1rem}
+  .editorial-milestones li{padding:1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:8px;scroll-margin-top:6rem}
+  .editorial-milestones h3{margin:.5rem 0 .75rem;font-size:1.35rem;line-height:1.4}
+  .editorial-milestones .milestone-date{font-size:.78rem;color:var(--muted);margin:0}
+  .editorial-milestones .milestone-status{font-size:.8rem;font-weight:700;color:var(--accent-dark);margin:0}
+  .editorial-milestones li>p:not(.milestone-date):not(.milestone-status){font-size:.95rem;line-height:1.75;margin:.8rem 0}
+  .editorial-milestones li>a{font-size:.85rem;display:inline-flex;min-height:2.75rem;align-items:center}
+</style>

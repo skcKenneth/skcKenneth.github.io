@@ -1,6 +1,7 @@
 ---
 title: When a Reduced Ventilation Model Leaves Its Training Regime
 slug: when-a-reduced-ventilation-model-leaves-its-training-regime
+topicIds: [cities-engineering, computation-code, risk-decisions]
 summary: A reproducible synthetic POD and POD-DEIM audit stops at nominal inadmissibility before any schedule, source-location, or ventilation-shift reliability claim can be made.
 year: 2026
 lastUpdated: 2026-08-30

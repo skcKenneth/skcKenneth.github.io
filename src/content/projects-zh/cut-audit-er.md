@@ -1,6 +1,7 @@
 ---
 title: "CUT-AUDIT-ER：最高分，未必是最好的修復"
 slug: cut-audit-er
+topicIds: [risk-decisions, data-ai]
 sourceSlug: cut-audit-er
 summary: 研究有限查核預算下的實體修復，區分找到最高代理分數、選到有用的修復，以及減少完整評分是否真的降低整體運算成本。
 year: 2026

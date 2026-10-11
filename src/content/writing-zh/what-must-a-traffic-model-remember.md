@@ -1,6 +1,7 @@
 ---
 title: 交通模型要記住甚麼？少看一些狀態，會否判錯穩定性？
 slug: what-must-a-traffic-model-remember
+topicIds: [cities-engineering]
 sourceSlug: what-must-a-traffic-model-remember
 summary: 在可精確核對的環形道路上，分清被刪去的速度、駕駛員差異與觀測雜訊，如何令過去的資料變得有用。有限歷史可以改善預測，卻不一定代表模型辨認了物理記憶，也不一定仍是有效的降維。
 date: 2026-09-26

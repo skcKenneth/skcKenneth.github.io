@@ -1,6 +1,7 @@
 ---
 title: 優化器漏掉了多少個平衡態？
 slug: how-many-equilibria-did-the-optimizer-miss
+topicIds: [dynamics-networks, computation-code, risk-decisions]
 sourceSlug: how-many-equilibria-did-the-optimizer-miss
 summary: 一幅漂亮的最低能量形狀圖，是否已經交代所有重要平衡？以可獨立枚舉的兩模態控制，分清極小值、鞍點、亞穩定態與分支追蹤，再檢查載荷相位、初值及數值細化如何改變解讀。
 date: 2026-10-03T16:20:00+08:00

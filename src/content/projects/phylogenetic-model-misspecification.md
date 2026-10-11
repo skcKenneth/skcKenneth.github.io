@@ -1,6 +1,7 @@
 ---
 title: Phylogenetic Model Misspecification
 slug: phylogenetic-model-misspecification
+topicIds: [life-environment, risk-decisions]
 summary: A verified quartet experiment demonstrates how more sequence data can stabilise a wrong tree when the distance model cannot represent compositional heterogeneity.
 year: 2026
 lastUpdated: 2026-07-30

@@ -1,6 +1,7 @@
 ---
 title: 生長區域中的 Turing 圖樣拓撲
 slug: growing-domain-turing-topology
+topicIds: [risk-decisions, life-environment, dynamics-networks]
 sourceSlug: growing-domain-turing-topology
 summary: 以經驗證的 Schnakenberg 反應—擴散模型，追蹤一維區域生長時圖樣峰值的誕生、分裂與消失。
 year: 2026

@@ -124,10 +124,9 @@ test("the stage-one project does not publish or displace a Writing article", () 
   assert.equal(latest[0].length, 3);
   const home = read("src/components/HomePage.astro");
   assert.match(home, /const writing = selectLatestWriting\(writingCollection\)/);
+  assert.match(home, /TOPICS\.map/);
   assert.doesNotMatch(home, /cut-audit-er|when-the-highest-score-is-not-the-best-repair/,
     "CUT participates through ordinary collection metadata, not a hard-coded homepage slot");
-  assert.match(home, /data\.featured && !data\.draft/);
-  assert.match(home, /b\.data\.lastUpdated\.valueOf\(\) - a\.data\.lastUpdated\.valueOf\(\)/);
 });
 
 if (process.argv.includes("--built")) {
@@ -167,17 +166,10 @@ if (process.argv.includes("--built")) {
       assert.match(projectCard, /data-evidence-scope/);
       assert.match(projectCard, /<img\b[^>]*style="height:\s*auto"/,
         "CUT cover height must scale with its card instead of retaining the 500px attribute");
-      const selected = section(home, "class", "home-selected");
-      const expected = selectedProjects(isZh ? "projects-zh" : "projects")
-        .map(({ data }) => `/${prefix}projects/${data.slug}/`);
-      const actual = [...selected.matchAll(/<h3\b[^>]*>\s*<a\b[^>]*href="([^"]+)"/g)].map(match => match[1]);
-      assert.deepEqual(actual, expected);
-      if (expected.includes(href)) {
-        const selectedCard = cardFor(selected, href);
-        assert.ok(selectedCard.includes(`src="${hero}"`));
-        assert.ok(selectedCard.includes(statusLabel));
-        assert.match(selectedCard, /<img\b[^>]*style="height:\s*auto"/);
-      }
+      assert.ok(home.includes('/'+prefix+'topics/'), 'homepage leads readers to topic-based project discovery');
+      const topicPages = readdirSync(join(root, 'dist', prefix, 'topics'), {withFileTypes:true})
+        .filter(item=>item.isDirectory()).map(item=>read('dist/'+prefix+'topics/'+item.name+'/index.html')).join('');
+      assert.ok(topicPages.includes(href), 'reviewed project remains discoverable through its topics');
 
       const latest = section(home, "id", "latest-writing");
       const expectedWriting = selectLatestWriting(inventory(isZh ? "writing-zh" : "writing"))

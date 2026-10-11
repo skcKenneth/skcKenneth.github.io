@@ -1,6 +1,7 @@
 ---
 title: When Entanglement Expires
 slug: risk-sensitive-quantum-repeater-scheduling
+topicIds: [risk-decisions, dynamics-networks]
 summary: A reproducible synthetic study of memory decay, cutoff scheduling, tail latency, and evidence-aware abstention in a four-link quantum repeater chain.
 year: 2026
 lastUpdated: 2026-08-09

@@ -1,6 +1,7 @@
 ---
 title: 系統發育模型錯置
 slug: phylogenetic-model-misspecification
+topicIds: [life-environment, risk-decisions]
 sourceSlug: phylogenetic-model-misspecification
 summary: 一項已驗證的四物種實驗，顯示距離模型無法表示組成異質性時，更多序列資料可以令錯誤演化樹更穩定。
 year: 2026

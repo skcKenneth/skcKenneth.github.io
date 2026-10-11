@@ -1,6 +1,7 @@
 ---
 title: Publish-or-Perish and Method Selection
 slug: publish-or-perish-method-selection
+topicIds: [mathematical-thinking]
 summary: An agent-based mechanism experiment asks how publication rewards, publication bias, replication audits, and failed-replication penalties select methodological effort.
 year: 2026
 lastUpdated: 2026-07-30

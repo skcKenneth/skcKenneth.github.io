@@ -1,6 +1,7 @@
 ---
 title: "When One Reactor Has Three Temperatures"
 slug: when-one-reactor-has-three-temperatures
+topicIds: [dynamics-networks, cities-engineering]
 summary: A non-isothermal CSTR can remember its operating path, jump between cold and hot states, and recover ever more slowly before a thermal fold.
 date: 2026-07-30
 lastUpdated: 2026-07-30

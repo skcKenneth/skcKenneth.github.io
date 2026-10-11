@@ -1,6 +1,7 @@
 ---
 title: 向振盪器提出最能分開模型的實驗
 slug: sequential-nonlinear-model-discrimination
+topicIds: [risk-decisions, dynamics-networks]
 sourceSlug: sequential-nonlinear-model-discrimination
 summary: 一個 Bayesian sequential-design 基準在六次實驗預算下，選擇能分辨 Van der Pol、Rayleigh 與 Duffing 機制的外力。
 date: 2026-07-19

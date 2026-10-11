@@ -1,6 +1,7 @@
 ---
 title: 非等溫連續攪拌反應器的滯後
 slug: nonisothermal-cstr-hysteresis
+topicIds: [cities-engineering, dynamics-networks]
 sourceSlug: nonisothermal-cstr-hysteresis
 summary: 一項非線性反應器研究，分析多重穩態、點火與熄火滯後、吸引域，以及接近熱失穩折點時的臨界減速。
 year: 2026

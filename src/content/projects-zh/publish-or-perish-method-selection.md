@@ -1,6 +1,7 @@
 ---
 title: 發表壓力與方法選擇
 slug: publish-or-perish-method-selection
+topicIds: [mathematical-thinking]
 sourceSlug: publish-or-perish-method-selection
 summary: 一項 agent-based 機制實驗，研究論文數量、發表偏差、重複驗證抽查與失敗懲罰如何選擇研究方法的投入程度。
 year: 2026

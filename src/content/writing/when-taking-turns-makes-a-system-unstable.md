@@ -1,6 +1,7 @@
 ---
 title: When Taking Turns Makes a System Unstable
 slug: when-taking-turns-makes-a-system-unstable
+topicIds: [dynamics-networks]
 summary: Equal update counts do not guarantee stable feedback. A delayed two-choice model shows why allowing one extra slot between updates can stabilize a system, and why its smallest fairness relaxation is not its fastest schedule.
 date: 2026-09-10
 lastUpdated: 2026-09-10

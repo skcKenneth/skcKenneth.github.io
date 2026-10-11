@@ -1,6 +1,7 @@
 ---
 title: FairChoice Dynamics——輪流更新，為甚麼反而令系統不穩定？
 slug: when-taking-turns-makes-a-system-unstable
+topicIds: [dynamics-networks]
 sourceSlug: when-taking-turns-makes-a-system-unstable
 summary: 一個延遲雙選擇模型，將相同更新次數與穩定回饋分開研究。精確區間認證、完整有限枚舉及合成實驗，說明多容許一個時段的排程彈性，為何可能改變穩定性。
 year: 2026

@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TopicPage from '../../../components/TopicPage.astro';
+import { TOPICS } from '../../../data/site-reader.mjs';
+export async function getStaticPaths() {
+  const [entries, research, projects] = await Promise.all([
+    getCollection('writingZh', ({ data }) => !data.draft && data.slug !== 'legacy-archive'),
+    getCollection('researchZh', ({ data }) => !data.draft), getCollection('projectsZh', ({ data }) => !data.draft)
+  ]);
+  return TOPICS.map(topic => ({ params: { topic: topic.id }, props: { topic, entries, research, projects } }));
+}
+const { topic, entries, research, projects } = Astro.props;
+---
+<BaseLayout title={topic.label['zh-Hant']} description={topic.description['zh-Hant']} type="主題" locale="zh-Hant" topicIds={[topic.id]} alternatePath={`/topics/${topic.id}/`}><TopicPage topic={topic} entries={entries} research={research} projects={projects} locale="zh-Hant" /></BaseLayout>

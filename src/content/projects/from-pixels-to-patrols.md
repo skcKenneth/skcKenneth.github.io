@@ -1,6 +1,7 @@
 ---
 title: From Pixels to Patrols
 slug: from-pixels-to-patrols
+topicIds: [mathematical-thinking]
 summary: An evidence-bounded editorial record of a calibration-aware synthetic camera-trap pipeline that connects class probabilities to cell-level uncertainty and constrained patrol allocation.
 year: 2026
 lastUpdated: 2026-08-30

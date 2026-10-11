@@ -1,0 +1,102 @@
+---
+import ReaderCard from './ReaderCard.astro';
+import ArchiveNotice from './ArchiveNotice.astro';
+import { articleType, localeBase, TOPICS } from '../data/site-reader.mjs';
+import '../styles/reader.css';
+interface Props { entries: any[]; locale?: 'en' | 'zh-Hant'; includeArchive?: boolean }
+const { entries, locale = 'en', includeArchive = false } = Astro.props;
+const isZh = locale === 'zh-Hant';
+const base = localeBase(locale);
+const items = [...entries].sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
+const visible = items.filter(entry => includeArchive || !entry.data.archived).slice(0, 12);
+const initialCount = items.filter(entry => includeArchive || !entry.data.archived).length;
+const types = [...new Set(items.map(entry => articleType(entry.data.type, 'en')))];
+const years = [...new Set(items.map(entry => entry.data.date?.getFullYear()).filter(Boolean))].sort((a, b) => b - a);
+---
+<header class="page-head reader-page-head"><div class="container">
+  <p class="eyebrow">{isZh ? '文章' : 'Writing'}</p>
+  <h1>{isZh ? '跟住好奇心，搵下一篇。' : 'Follow your curiosity.'}</h1>
+  <p class="lead">{isZh ? '由主題、文章類型或年份開始，探索數學思考、計算實驗與教學。' : 'Explore mathematical thinking, computational experiments and teaching by topic, article type or year.'}</p>
+  <div class="reader-inline-links"><a href={`${base}/topics/`}>{isZh ? '瀏覽主題' : 'Explore topics'}</a><a href={`${base}/rss.xml`}>RSS</a><a href={`${base}/reading-list/`}>{isZh ? '稍後閱讀' : 'Reading list'}</a></div>
+</div></header>
+<section class="reader-section"><div class="container" data-writing-index data-locale={locale} data-default-archive={String(includeArchive)}>
+  {includeArchive && <ArchiveNotice locale={locale} />}
+  <form class="reader-filters" aria-label={isZh ? '篩選文章' : 'Filter articles'}>
+    <label class="reader-query">{isZh ? '關鍵字' : 'Keyword'}<input type="search" name="q" placeholder={isZh ? '標題、摘要或標籤' : 'Title, summary or tag'} /></label>
+    <label>{isZh ? '主題' : 'Topic'}<select name="topic"><option value="">{isZh ? '所有主題' : 'All topics'}</option>{TOPICS.map(topic => <option value={topic.id}>{topic.label[locale]}</option>)}</select></label>
+    <label>{isZh ? '文章類型' : 'Article type'}<select name="type"><option value="">{isZh ? '所有類型' : 'All types'}</option>{types.map(type => <option value={type}>{articleType(type, locale)}</option>)}</select></label>
+    <label>{isZh ? '年份' : 'Year'}<select name="year"><option value="">{isZh ? '所有年份' : 'All years'}</option>{years.map(year => <option value={year}>{year}</option>)}</select></label>
+    <div class="reader-filter-actions"><label class="reader-checkbox"><input type="checkbox" name="archive" checked={includeArchive} />{isZh ? '包含典藏文章' : 'Include archived articles'}</label><button class="button" type="submit">{isZh ? '套用篩選' : 'Apply filters'}</button><button class="button secondary" type="reset">{isZh ? '重設' : 'Reset'}</button></div>
+  </form>
+  <p class="small reader-result-count" role="status" aria-live="polite" aria-atomic="true">{isZh ? `${initialCount} 篇文章` : `${initialCount} articles`}</p>
+  <div class="reader-card-grid">{items.map(entry => <ReaderCard entry={entry} locale={locale} filterCard hidden={!visible.includes(entry)} />)}</div>
+  <div class="reader-empty" hidden><h2>{isZh ? '暫時搵唔到符合條件嘅文章。' : 'No articles match these filters.'}</h2><p>{isZh ? '試下減少關鍵字、重設篩選，或者由主題頁開始。' : 'Try fewer keywords, reset the filters or explore a topic.'}</p><a href={`${base}/topics/`}>{isZh ? '瀏覽所有主題' : 'Explore all topics'}</a></div>
+  <nav class="reader-pagination" aria-label={isZh ? '文章分頁' : 'Article pages'} hidden></nav>
+  <noscript><p>{isZh ? '啟用 JavaScript 可使用篩選及分頁；以下列出所有文章。' : 'Enable JavaScript to filter and paginate. All articles are listed below.'}</p><style is:inline>.reader-card[hidden]{display:block!important}.reader-filters{display:none}</style></noscript>
+  {!includeArchive && <p class="reader-archive-link"><a href={`${base}/writing/archive/`}>{isZh ? '查看完整文章典藏' : 'Open the complete writing archive'}</a></p>}
+</div></section>
+<script>
+  import { filterArticles, paginateArticles, readArticleQuery, writeArticleQuery } from '../data/reader-utils.mjs';
+  const root = document.querySelector<HTMLElement>('[data-writing-index]');
+  if (root) {
+    const form = root.querySelector<HTMLFormElement>('form')!;
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-article-card]'));
+    const items = cards.map((card, index) => ({ index, topicIds: card.dataset.topicIds!.split(' '), type: card.dataset.type!, year: card.dataset.year!, archived: card.dataset.archived === 'true', search: card.dataset.search! }));
+    const count = root.querySelector<HTMLElement>('.reader-result-count')!;
+    const empty = root.querySelector<HTMLElement>('.reader-empty')!;
+    const pager = root.querySelector<HTMLElement>('.reader-pagination')!;
+    const isZh = root.dataset.locale === 'zh-Hant';
+    let state = readArticleQuery(location.search, { archive: root.dataset.defaultArchive === 'true' });
+    function syncForm() {
+      for (const key of ['q', 'topic', 'type', 'year'] as const) {
+        const input = form.elements.namedItem(key) as HTMLInputElement | HTMLSelectElement;
+        input.value = state[key];
+        if (input.value !== state[key]) state[key] = '';
+      }
+      (form.elements.namedItem('archive') as HTMLInputElement).checked = state.archive;
+    }
+    function apply(historyMode = '') {
+      const result = paginateArticles(filterArticles(items, state), state.page);
+      state.page = result.page;
+      const shown = new Set(result.items.map((item: { index: number }) => item.index));
+      cards.forEach((card, index) => { card.hidden = !shown.has(index); });
+      count.textContent = isZh ? `${result.total} 篇文章 · 第 ${result.page} / ${result.pageCount} 頁` : `${result.total} articles · Page ${result.page} of ${result.pageCount}`;
+      empty.hidden = result.total !== 0;
+      pager.replaceChildren();
+      pager.hidden = result.pageCount <= 1;
+      const makeLink = (label: string, page: number, current = false) => {
+        const link = document.createElement('a');
+        link.href = `${location.pathname}?${writeArticleQuery({ ...state, page })}`;
+        link.textContent = label;
+        if (current) link.setAttribute('aria-current', 'page');
+        link.addEventListener('click', event => {
+          if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+          event.preventDefault(); state.page = page; apply('push');
+          count.setAttribute('tabindex', '-1'); count.focus({ preventScroll: true }); count.scrollIntoView({ block: 'start', behavior: 'instant' });
+        });
+        return link;
+      };
+      if (result.page > 1) pager.append(makeLink(isZh ? '上一頁' : 'Previous', result.page - 1));
+      const pages = new Set([1, result.pageCount, result.page - 1, result.page, result.page + 1].filter(page => page >= 1 && page <= result.pageCount));
+      let previousPage = 0;
+      for (const page of [...pages].sort((a, b) => a - b)) {
+        if (previousPage && page - previousPage > 1) { const gap = document.createElement('span'); gap.textContent = '…'; pager.append(gap); }
+        pager.append(makeLink(String(page), page, page === result.page)); previousPage = page;
+      }
+      if (result.page < result.pageCount) pager.append(makeLink(isZh ? '下一頁' : 'Next', result.page + 1));
+      const nextUrl = `${location.pathname}?${writeArticleQuery(state)}`;
+      if (historyMode === 'push' && nextUrl !== `${location.pathname}${location.search}`) history.pushState(null, '', nextUrl);
+      else if (historyMode === 'replace') history.replaceState(null, '', nextUrl);
+    }
+    function fromForm() {
+      const data = new FormData(form);
+      state = { q: String(data.get('q') || '').trim(), topic: String(data.get('topic') || ''), type: String(data.get('type') || ''), year: String(data.get('year') || ''), archive: data.has('archive'), page: 1 };
+      apply('push');
+    }
+    form.addEventListener('submit', event => { event.preventDefault(); fromForm(); });
+    form.addEventListener('change', event => { if ((event.target as HTMLInputElement).name !== 'q') fromForm(); });
+    form.addEventListener('reset', event => { event.preventDefault(); state = readArticleQuery('', { archive: false }); syncForm(); apply('push'); });
+    window.addEventListener('popstate', () => { state = readArticleQuery(location.search, { archive: root.dataset.defaultArchive === 'true' }); syncForm(); apply(); });
+    syncForm(); apply();
+  }
+</script>

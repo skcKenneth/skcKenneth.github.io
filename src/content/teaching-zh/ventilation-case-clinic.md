@@ -1,6 +1,7 @@
 ---
 title: 案例診所：錯誤時間表下的課室通風
 slug: ventilation-case-clinic
+topicIds: [risk-decisions, cities-engineering]
 sourceSlug: ventilation-case-clinic
 summary: 一個涵蓋質量平衡、預測控制、衝突指標，以及研究目標與健康聲稱差別的完整教學案例。
 lastUpdated: 2026-07-28

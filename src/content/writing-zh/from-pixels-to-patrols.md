@@ -1,6 +1,7 @@
 ---
 title: "從像素到巡邏：校準如何改變合成巡邏規劃"
 slug: from-pixels-to-patrols
+topicIds: [mathematical-thinking]
 sourceSlug: from-pixels-to-patrols
 summary: 以技術角度閱讀一項 AI4Nature@AVSS 2026 camera-trap 研究，追蹤機率校準如何進入合成巡邏配置，同時分開議程、證據與出版狀態。
 date: 2026-08-29

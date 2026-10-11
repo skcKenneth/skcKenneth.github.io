@@ -1,6 +1,7 @@
 ---
 title: "When Sustainable Harvesting Becomes a Trap"
 slug: when-sustainable-harvesting-becomes-a-trap
+topicIds: [dynamics-networks, computation-code, risk-decisions]
 summary: A stochastic strong-Allee model shows why average sustainable yield can conceal a collapse threshold and why a feedback refuge changes the finite-horizon risk–yield frontier.
 date: 2026-07-24
 lastUpdated: 2026-07-30

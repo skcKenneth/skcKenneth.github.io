@@ -1,6 +1,7 @@
 ---
 title: "Random Stress Tests Are Not Certificates"
 slug: random-stress-tests-are-not-certificates
+topicIds: [risk-decisions, computation-code]
 summary: A deterministic interval benchmark shows exactly what a worst-case certificate contains, and why fixed random, Latin-hypercube, and local-search results remain incumbents.
 date: 2026-08-30
 lastUpdated: 2026-08-30

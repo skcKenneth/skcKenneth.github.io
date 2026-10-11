@@ -1,6 +1,7 @@
 ---
 title: "當太陽能發電急升急跌：預測區間改善了，為甚麼仍不夠可靠？"
 slug: when-solar-power-changes-fast
+topicIds: [cities-engineering, risk-decisions, teaching-research-practice]
 sourceSlug: when-solar-power-changes-fast
 summary: 以五個太陽能站點的公開數據，檢查快速功率變化與感測輸入缺失時的預測區間。校準令每個站點都改善，但最困難群組的覆蓋率仍遠低於原來的目標。
 date: 2026-09-09

@@ -1,6 +1,7 @@
 ---
 title: 隨機壓力測試不是最壞情況證書
 slug: random-stress-tests-are-not-certificates
+topicIds: [risk-decisions, computation-code]
 sourceSlug: random-stress-tests-are-not-certificates
 summary: 一個 deterministic interval benchmark 為單一合成 worst-case objective 提供可驗證上界，而固定 IID、Latin-hypercube 及 local-search designs 仍只是沒有 global upper bound 的 feasible incumbents。
 year: 2026

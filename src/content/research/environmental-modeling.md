@@ -1,6 +1,7 @@
 ---
 title: Environmental Modeling
 slug: environmental-modeling
+topicIds: [life-environment]
 summary: Spatial disease, ecosystems, coastal risk, climate forcing, and energy-environment interactions.
 lastUpdated: 2026-07-13
 featured: true

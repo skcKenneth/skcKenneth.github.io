@@ -1,6 +1,7 @@
 ---
 title: 授粉生態系統的取捨
 slug: pollination-ecosystem
+topicIds: [life-environment]
 sourceSlug: pollination-ecosystem
 summary: 以 C++ 個體為本模擬比較授粉者族群、農業產量與不同管理假設。
 year: 2025

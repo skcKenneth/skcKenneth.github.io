@@ -1,6 +1,7 @@
 ---
 title: Competition Modeling Studio
 slug: competition-pathway
+topicIds: [mathematical-thinking]
 summary: Structured practice in problem framing, team workflow, rapid computation, validation, and report design.
 lastUpdated: 2026-07-15
 featured: true

@@ -1,6 +1,7 @@
 ---
 title: "When Polynomial Chaos Crosses a Fold"
 slug: when-polynomial-chaos-crosses-a-fold
+topicIds: [dynamics-networks, risk-decisions]
 summary: A global polynomial and an oracle fold-aligned surrogate receive the same 16 model evaluations on one synthetic CSTR benchmark; the local construction is far more faithful, but the oracle cost is outside the comparison.
 date: 2026-08-29
 lastUpdated: 2026-08-29

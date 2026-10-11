@@ -1,6 +1,7 @@
 ---
 title: Student Research Studio
 slug: student-research-studio
+topicIds: [teaching-research-practice]
 summary: A supervised pathway from reproducing one result to formulating, testing, and communicating an independent mathematical-modeling question.
 lastUpdated: 2026-09-09
 featured: true

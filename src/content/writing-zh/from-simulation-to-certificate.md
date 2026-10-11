@@ -1,6 +1,7 @@
 ---
 title: "由模擬走向證書"
 slug: from-simulation-to-certificate
+topicIds: [computation-code, risk-decisions]
 sourceSlug: from-simulation-to-certificate
 summary: 一項凍結的合成雙艙正系統 audit，把有限 parameter sampling、共同 Lyapunov inequality、diagonal restriction 與可容許的 robust-decay claim 逐層分開。
 date: 2026-08-30

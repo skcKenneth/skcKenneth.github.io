@@ -1,6 +1,7 @@
 ---
 title: 遺傳漂變、選擇與遷移
 slug: genetic-drift-selection-migration
+topicIds: [life-environment]
 sourceSlug: genetic-drift-selection-migration
 summary: 一項已驗證的 Wright–Fisher 研究，把固定勝算、遷移—選擇平衡與短暫瓶頸造成的多樣性損失分開。
 year: 2026

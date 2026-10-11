@@ -1,6 +1,7 @@
 ---
 title: 面對粗糙波動與交易成本的無交易帶
 slug: rough-volatility-robust-hedging
+topicIds: [risk-decisions]
 sourceSlug: rough-volatility-robust-hedging
 summary: 一個合成對沖實驗先凍結不確定性感知的無交易帶，再測試它能否在未見粗糙波動及成本情境降低尾部損失與換手。
 date: 2026-07-23

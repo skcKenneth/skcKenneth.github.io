@@ -1,6 +1,7 @@
 ---
 title: Python Laboratories for Modelers
 slug: python-labs
+topicIds: [computation-code]
 summary: Reproducible laboratories for simulation, numerical methods, optimization, and figure generation.
 lastUpdated: 2026-07-15
 featured: true

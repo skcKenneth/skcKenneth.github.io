@@ -1,6 +1,7 @@
 ---
 title: Drug Dissolution Model Hierarchy
 slug: drug-dissolution-model-hierarchy
+topicIds: [cities-engineering]
 summary: A reproducible comparison of empirical release laws, finite-sink spherical diffusion, and moving-front dynamics with model-selection and identifiability audits.
 year: 2026
 lastUpdated: 2026-08-02

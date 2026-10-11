@@ -1,6 +1,7 @@
 ---
 title: "How Much Tail Risk Does a Gaussian Model Hide?"
 slug: how-much-tail-risk-a-gaussian-model-hides
+topicIds: [risk-decisions]
 summary: A controlled stress test compares Gaussian, Student-t, historical, and extreme-value risk forecasts under volatility clustering, leverage, heavy tails, and jumps.
 date: 2026-08-02
 lastUpdated: 2026-08-02

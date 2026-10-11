@@ -1,6 +1,7 @@
 ---
 title: 可靠性與不確定性
 slug: reliability-uncertainty
+topicIds: [risk-decisions]
 sourceSlug: reliability-uncertainty
 summary: 當模型輸入或運作條件不確定時，研究敏感度、校準、穩健性與決策。
 lastUpdated: 2026-07-28

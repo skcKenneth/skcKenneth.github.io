@@ -1,6 +1,7 @@
 ---
 title: Michaelis-Menten QSSA Validity Atlas
 slug: michaelis-menten-qssa-validity
+topicIds: [mathematical-thinking]
 summary: A 243-case parameter atlas measures where the Michaelis-Menten quasi-steady-state reduction agrees with full mass-action kinetics and where timing or trajectory error becomes material.
 year: 2026
 lastUpdated: 2026-07-30

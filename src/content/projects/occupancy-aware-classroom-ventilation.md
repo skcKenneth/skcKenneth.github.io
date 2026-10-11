@@ -1,6 +1,7 @@
 ---
 title: Occupancy-Aware Classroom Ventilation
 slug: occupancy-aware-classroom-ventilation
+topicIds: [life-environment, cities-engineering, teaching-research-practice]
 summary: A shared-capacity predictive-control benchmark for classroom CO₂ exposure when actual room use departs from the timetable.
 year: 2026
 lastUpdated: 2026-07-15

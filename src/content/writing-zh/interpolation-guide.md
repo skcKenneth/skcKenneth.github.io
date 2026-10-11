@@ -1,6 +1,7 @@
 ---
 title: 插值時，不要遺失問題原來的形狀
 slug: interpolation-guide
+topicIds: [computation-code]
 sourceSlug: interpolation-guide
 summary: 把多項式插值、Chebyshev 節點與 Gibbs 現象連接起來的主題導讀。
 date: 2024-07-21

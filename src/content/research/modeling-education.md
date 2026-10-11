@@ -1,6 +1,7 @@
 ---
 title: Mathematical Modeling Education
 slug: modeling-education
+topicIds: [teaching-research-practice]
 summary: Pathways from an open-ended question to assumptions, computation, critique, and communication.
 lastUpdated: 2026-07-13
 featured: true

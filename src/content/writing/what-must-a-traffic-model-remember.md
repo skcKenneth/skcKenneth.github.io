@@ -1,6 +1,7 @@
 ---
 title: What Must a Traffic Model Remember?
 slug: what-must-a-traffic-model-remember
+topicIds: [cities-engineering]
 summary: A controlled ring-road study separates hidden velocity, projection-induced memory, noisy observation, and numerical sensitivity, asking when a better traffic forecast also gives a better stability diagnosis.
 date: 2026-09-26
 lastUpdated: 2026-09-26

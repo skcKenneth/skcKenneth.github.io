@@ -1,6 +1,7 @@
 ---
 title: "當預警訊號分不清：生態系統變脆弱，還是環境擾動變持久？"
 slug: when-early-warnings-cannot-tell-the-difference
+topicIds: [data-ai, life-environment, dynamics-networks]
 sourceSlug: when-early-warnings-cannot-tell-the-difference
 summary: 系統恢復變慢，與環境擾動變持久，可以留下相同的統計痕跡。透過精確取樣的隨機模型，本文追問被動監測能識別甚麼，以及哪一種額外量度才能分辨背後機制。
 date: 2026-09-09

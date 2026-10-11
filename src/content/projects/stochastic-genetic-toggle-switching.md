@@ -1,6 +1,7 @@
 ---
 title: Stochastic Genetic-Toggle Switching
 slug: stochastic-genetic-toggle-switching
+topicIds: [life-environment, dynamics-networks]
 summary: A deterministic-and-stochastic study connects toggle-circuit bistability to finite-copy-number switching, first-passage memory, stationary probability, and pulse control.
 year: 2026
 lastUpdated: 2026-07-30

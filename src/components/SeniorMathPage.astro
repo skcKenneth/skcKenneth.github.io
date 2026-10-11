@@ -1,5 +1,6 @@
 ---
 import JaeMathStudio from './JaeMathStudio.astro';
+import TeachingToolbar from './TeachingToolbar.astro';
 import MathExpression from './MathExpression.astro';
 import SeniorMathExamMap from './SeniorMathExamMap.astro';
 import {books,chapters,coreLessons,lessons,papers,questions,schoolRoutes,lessonById,questionById,label,base,lessonUrl,questionUrl,paperUrl,questionTopic,syllabusSources,sourceById,relatedLessonIds,examinationCodesForQuestion,schoolPathIds} from '../data/senior-math/catalog.mjs';
@@ -23,6 +24,7 @@ const bankSchools=(q:any)=>[...new Set(questionLessons(q).flatMap(schoolPathIds)
 const brief=t('Read the idea, work independently, then explain what changed.','先理解概念，獨立嘗試，再解釋想法如何改變。');
 ---
 <div class="senior-math" data-senior-page={page.type}>
+  <TeachingToolbar locale={locale} continueHref={topic ? `#${topic.questions[0]?.id}` : root+'question-bank/'} questionIds={topic ? topic.questions.map((q:any)=>q.id) : ['home','bank'].includes(page.type) ? questions.map((q:any)=>q.id) : []} />
   <header class="senior-hero container"><a class="senior-back" href={page.type==='home'?(zh?'/zh/teaching/':'/teaching/'):root}>← {page.type==='home'?t('Teaching resources','教學資源'):t('Senior Mathematics Studio','高中數學研習室')}</a><p class="eyebrow">{t('LEARN · EXPLAIN · REVISE','學習・解釋・訂正')}</p><h1>{pageTitle(page,locale)}</h1><p class="senior-lead">{brief}</p><nav class="senior-nav" aria-label={t('Mathematics resources','數學資源')}><a href={root}>{t('Course overview','課程總覽')}</a><a href={root+'question-bank/'}>{t('Question bank','題庫')}</a><a href={root+'papers/'}>{t('Past papers','舊卷')}</a><a href={root+'paths/remedial/'}>{t('Foundations','補底')}</a><a href={root+'paths/exam/'}>{t('Exam skills','備試')}</a><a href={root+'teacher/'}>{t('Teacher resources','教師資源')}</a></nav></header>
 
   {page.type==='home' && <div class="container senior-content">

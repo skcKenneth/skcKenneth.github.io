@@ -1,6 +1,7 @@
 ---
 title: What Must a Traffic Model Remember?
 slug: what-must-a-traffic-model-remember
+topicIds: [cities-engineering]
 summary: A synthetic ring-road study uses exact linear controls and held-out forecasts to distinguish omitted-state memory, projection effects, observation noise, and numerical sensitivity.
 year: 2026
 date: 2026-09-26

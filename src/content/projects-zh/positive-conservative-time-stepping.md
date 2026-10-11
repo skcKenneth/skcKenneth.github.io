@@ -1,6 +1,7 @@
 ---
 title: 保持正值與守恆的時間步進
 slug: positive-conservative-time-stepping
+topicIds: [risk-decisions, teaching-research-practice]
 sourceSlug: positive-conservative-time-stepping
 summary: 以剛性轉移網絡基準，比較顯式方法與保持正值、質量守恆的線性隱式更新。
 year: 2026

@@ -1,6 +1,7 @@
 ---
 title: Adaptive Harvesting under Allee-Effect Risk
 slug: adaptive-harvesting-risk
+topicIds: [risk-decisions, life-environment]
 summary: A verified stochastic population study compares fixed, proportional, and refuge-based harvesting near a nonlinear collapse threshold.
 year: 2026
 lastUpdated: 2026-07-30

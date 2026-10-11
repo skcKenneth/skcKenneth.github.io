@@ -1,6 +1,7 @@
 ---
 title: Production Inside a Robust CSTR Safety Envelope
 slug: robust-cstr-safety-envelope
+topicIds: [risk-decisions]
 summary: A synthetic exothermic-reactor study quantifies how much nominal production is surrendered when a decision must remain below a thermal-risk criterion under uncertain kinetics and heat transfer.
 date: 2026-07-26
 lastUpdated: 2026-07-28

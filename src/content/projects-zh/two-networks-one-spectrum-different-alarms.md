@@ -1,6 +1,7 @@
 ---
 title: 兩個網絡，同一組特徵值，不同警報
 slug: two-networks-one-spectrum-different-alarms
+topicIds: [dynamics-networks, risk-decisions]
 sourceSlug: two-networks-one-spectrum-different-alarms
 summary: 以受控正值網絡分清長期穩定與有限時間感測警報，比較精確轉移、經典 phase-type 計算及嚴格決策 margin，並保留無法認證與警報不變的結果。
 year: 2026

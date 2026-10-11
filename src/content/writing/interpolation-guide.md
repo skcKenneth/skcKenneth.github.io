@@ -1,6 +1,7 @@
 ---
 title: Interpolation Without Losing the Shape of the Problem
 slug: interpolation-guide
+topicIds: [computation-code]
 summary: A topic guide connecting polynomial interpolation, Chebyshev nodes, and the Gibbs phenomenon.
 date: 2024-07-21
 lastUpdated: 2026-07-13

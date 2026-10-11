@@ -1,6 +1,7 @@
 ---
 title: If You Only Observe Aggregates, Can You Still Bound the Hidden Epidemic?
 slug: can-aggregate-observations-bound-an-epidemic
+topicIds: [data-ai, risk-decisions, life-environment]
 summary: Delayed regional totals can support a precise-looking estimate without tightly constraining the hidden state. A six-region synthetic SIR benchmark compares ensemble intervals with validated set bounds, including the cost of bounds that become almost useless.
 date: 2026-09-12
 lastUpdated: 2026-09-12

@@ -1,6 +1,7 @@
 ---
 title: 學生研究工作室
 slug: student-research-studio
+topicIds: [teaching-research-practice]
 sourceSlug: student-research-studio
 summary: 由重現一項結果開始，逐步走到提出、測試及傳達獨立數學建模問題的指導路徑。
 lastUpdated: 2026-09-09

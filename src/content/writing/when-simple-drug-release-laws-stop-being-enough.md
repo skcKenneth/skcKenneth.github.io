@@ -1,6 +1,7 @@
 ---
 title: "When Do Simple Drug-Release Laws Stop Being Enough?"
 slug: when-simple-drug-release-laws-stop-being-enough
+topicIds: [data-ai, cities-engineering]
 summary: A hierarchy of empirical and mechanistic dissolution models reveals when a familiar release curve conceals finite-sink transport, parameter trade-offs, and changing regimes.
 date: 2026-08-02
 lastUpdated: 2026-08-02

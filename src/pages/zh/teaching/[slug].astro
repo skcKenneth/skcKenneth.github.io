@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import LectureLibrary from "../../../components/LectureLibrary.astro";
+import DownloadMetadata from '../../../components/DownloadMetadata.astro';
 
 const levelLabels: Record<string, string> = { Beginner: "初階", Competition: "競賽", Advanced: "進階", Instructor: "教師" };
 const typeLabels: Record<string, string> = {
@@ -28,10 +29,10 @@ const isLectureLibrary = entry.data.slug === "mathematical-modeling-lecture-prog
           <div><dt>更新</dt><dd>{entry.data.lastUpdated.toLocaleDateString("zh-Hant-TW", { dateStyle: "long" })}</dd></div>
         </dl>
         <p class="small"><strong>共同證據循環</strong><br/>問題 → 假設 → 基線 → 計算 → 驗證 → 表達。</p>
-        <div class="tag-list">{entry.data.topics.map((topic) => <span class="tag">{topic}</span>)}</div>
+        <div class="tag-list">{entry.data.topics.map((topic: string) => <span class="tag">{topic}</span>)}</div>
         <div class="actions">
-          {entry.data.downloadUrl && <a class="button" href={entry.data.downloadUrl}>下載教學資源</a>}
-          {entry.data.downloads?.map((download) => <a class="button" href={download.url}>{download.label}</a>)}
+          {entry.data.downloadUrl && <div><a class="button" href={entry.data.downloadUrl}>下載教學資源</a><DownloadMetadata url={entry.data.downloadUrl} locale="zh-Hant" /></div>}
+          {entry.data.downloads?.map((download: {url:string;label:string;format?:string;locale?:'en'|'zh-Hant'}) => <div><a class="button" href={download.url}>{download.label}</a><DownloadMetadata url={download.url} locale="zh-Hant" declared={download} /></div>)}
           <a class="button secondary" href="/zh/teaching/">返回教學總覽</a>
         </div>
       </aside>

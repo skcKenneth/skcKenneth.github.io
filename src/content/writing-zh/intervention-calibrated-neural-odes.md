@@ -1,6 +1,7 @@
 ---
 title: Neural ODE 可以符合物理，卻仍然沒有校準
 slug: intervention-calibrated-neural-odes
+topicIds: [data-ai, risk-decisions]
 sourceSlug: intervention-calibrated-neural-odes
 summary: 一個合成基因迴路基準在未見介入下比較無約束與符號結構向量場，發現可行性不等於誠實不確定性。
 date: 2026-07-22

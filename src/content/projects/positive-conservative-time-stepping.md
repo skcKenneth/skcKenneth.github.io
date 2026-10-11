@@ -1,6 +1,7 @@
 ---
 title: Positive and Conservative Time Stepping
 slug: positive-conservative-time-stepping
+topicIds: [risk-decisions, teaching-research-practice]
 summary: A stiff transfer-network benchmark compares explicit methods with a positivity- and mass-preserving linearly implicit update.
 year: 2026
 lastUpdated: 2026-07-28

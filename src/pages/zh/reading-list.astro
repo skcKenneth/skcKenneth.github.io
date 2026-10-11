@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReadingList from '../../components/ReadingList.astro';
+---
+<BaseLayout title="稍後閱讀" description="將文章收藏到瀏覽器，方便日後繼續閱讀。" locale="zh-Hant" alternatePath="/reading-list/" noindex>
+  <header class="page-head"><div class="container"><p class="eyebrow">自己的小書架</p><h1>留一點時間，再讀一個好概念。</h1><p class="lead">你收藏的文章，在這裡等你繼續閱讀。</p></div></header>
+  <ReadingList locale="zh-Hant"/>
+</BaseLayout>

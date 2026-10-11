@@ -1,6 +1,7 @@
 ---
 title: 量綱約束方程發現
 slug: dimensional-equation-discovery
+topicIds: [risk-decisions, teaching-research-practice]
 sourceSlug: dimensional-equation-discovery
 summary: 以已知物理定律建立受控基準，測試具單位感知的單項式符號回歸。
 year: 2026

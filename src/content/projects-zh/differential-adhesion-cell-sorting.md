@@ -1,6 +1,7 @@
 ---
 title: 差異黏附細胞分選審核
 slug: differential-adhesion-cell-sorting
+topicIds: [life-environment, computation-code, risk-decisions]
 sourceSlug: differential-adhesion-cell-sorting
 summary: 以可重現細胞 Potts 研究區分鄰接分選與空間包覆，並檢驗黏附、運動性、初態、能量及細胞形狀合理性。
 year: 2026

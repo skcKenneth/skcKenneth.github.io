@@ -1,6 +1,7 @@
 ---
 title: Instructor Resources and Assessment
 slug: instructor-resources
+topicIds: [mathematical-thinking]
 summary: Planning notes for case selection, formative critique, assessment rubrics, and reproducibility review.
 lastUpdated: 2026-07-15
 featured: true

@@ -1,6 +1,7 @@
 ---
 title: When Effective Diffusivity Stops Being Effective
 slug: when-effective-diffusivity-stops-being-effective
+topicIds: [computation-code, cities-engineering]
 summary: A reproducible Phase-1 benchmark maps where one harmonic coefficient preserves synthetic release from a fixed one-dimensional periodic slab and where finite-cell transients cross frozen error gates.
 year: 2026
 lastUpdated: 2026-08-29

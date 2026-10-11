@@ -1,6 +1,7 @@
 ---
 title: "When Publication Count Selects the Method"
 slug: when-publication-count-selects-the-method
+topicIds: [mathematical-thinking]
 summary: A cultural-evolution model shows how publication bias and visible output can select low-effort methods, and when replication audits change that selection pressure.
 date: 2026-07-30
 lastUpdated: 2026-07-30

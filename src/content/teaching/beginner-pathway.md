@@ -1,6 +1,7 @@
 ---
 title: Foundations of Mathematical Modeling
 slug: beginner-pathway
+topicIds: [mathematical-thinking]
 summary: A beginner pathway from a real question to variables, assumptions, a baseline model, and a defensible conclusion.
 lastUpdated: 2026-07-15
 featured: true

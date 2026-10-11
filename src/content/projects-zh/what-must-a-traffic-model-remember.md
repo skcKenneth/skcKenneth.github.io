@@ -1,6 +1,7 @@
 ---
 title: 交通模型要記住甚麼？少看一些狀態，會否判錯穩定性？
 slug: what-must-a-traffic-model-remember
+topicIds: [cities-engineering]
 sourceSlug: what-must-a-traffic-model-remember
 summary: 以環形最佳速度模型、精確線性消元與受控觀測雜訊，區分歷史資料何時補足隱藏狀態、何時改善估計，以及何時令模型變得過大或對數值誤差敏感。
 year: 2026

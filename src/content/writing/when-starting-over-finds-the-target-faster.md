@@ -1,6 +1,7 @@
 ---
 title: "When Starting Over Finds the Target Faster"
 slug: when-starting-over-finds-the-target-faster
+topicIds: [risk-decisions, dynamics-networks]
 summary: Starting over discards progress, yet it can remove the longest waits in a random search. An exact first-passage experiment separates mean speed, tail risk, restart costs, and the situations where continuing is better.
 date: 2026-09-09
 lastUpdated: 2026-09-09

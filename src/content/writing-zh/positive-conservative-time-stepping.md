@@ -1,6 +1,7 @@
 ---
 title: 當數值方法創造出負物質
 slug: positive-conservative-time-stepping
+topicIds: [risk-decisions, teaching-research-practice]
 sourceSlug: positive-conservative-time-stepping
 summary: 一個剛性轉移網絡基準，比較標準顯式積分器與保持非負性及總質量的線性隱式更新。
 date: 2026-07-25

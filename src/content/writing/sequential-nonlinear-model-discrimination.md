@@ -1,6 +1,7 @@
 ---
 title: Ask the Oscillator the Experiment That Separates Its Models
 slug: sequential-nonlinear-model-discrimination
+topicIds: [risk-decisions, dynamics-networks]
 summary: A Bayesian sequential-design benchmark chooses forcing experiments that distinguish Van der Pol, Rayleigh, and Duffing mechanisms under a six-experiment budget.
 date: 2026-07-19
 lastUpdated: 2026-07-28

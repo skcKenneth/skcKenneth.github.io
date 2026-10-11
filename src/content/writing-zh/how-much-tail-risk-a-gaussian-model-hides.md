@@ -1,6 +1,7 @@
 ---
 title: "高斯模型隱藏了多少尾部風險？"
 slug: how-much-tail-risk-a-gaussian-model-hides
+topicIds: [risk-decisions]
 sourceSlug: how-much-tail-risk-a-gaussian-model-hides
 summary: 在波動聚集、槓桿效應、厚尾與跳躍下，以受控壓力測試比較高斯、Student-t、歷史及極值風險預測。
 date: 2026-08-02

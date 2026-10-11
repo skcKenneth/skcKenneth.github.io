@@ -1,6 +1,7 @@
 ---
 title: 藥物溶出模型層級
 slug: drug-dissolution-model-hierarchy
+topicIds: [cities-engineering]
 sourceSlug: drug-dissolution-model-hierarchy
 summary: 可重現比較經驗釋放定律、有限 sink 球形擴散與移動前沿動力學，並審核模型選擇及參數可辨識性。
 year: 2026

@@ -1,6 +1,7 @@
 ---
 title: 當 Turing 圖樣必須跟隨區域一起生長
 slug: growing-domain-turing-topology
+topicIds: [risk-decisions, life-environment, dynamics-networks]
 sourceSlug: growing-domain-turing-topology
 summary: 一個經數值核實的反應—擴散實驗，研究組織生長何時保留空間圖樣，何時迫使峰值分裂、合併或消失。
 date: 2026-07-28

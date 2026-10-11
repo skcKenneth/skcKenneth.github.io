@@ -1,6 +1,7 @@
 ---
 title: 解析度邊緣的拓撲
 slug: resolution-robust-arctic-melt-pond-topology
+topicIds: [data-ai, risk-decisions, life-environment]
 sourceSlug: resolution-robust-arctic-melt-pond-topology
 summary: 一項受控的融池虛假臨界點審核，研究模糊、降採樣、分割誤差、有限視窗及形態轉移對連通判定的影響。
 year: 2026

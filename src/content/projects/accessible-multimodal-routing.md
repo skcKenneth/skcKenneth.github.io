@@ -1,6 +1,7 @@
 ---
 title: Accessible Multimodal Routing at Gongbei
 slug: accessible-multimodal-routing
+topicIds: [risk-decisions, cities-engineering]
 summary: A cohort-aware model of how slopes, stairs, transfers, crowding, and missing elevators change routes through a border hub.
 year: 2026
 lastUpdated: 2026-04-30

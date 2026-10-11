@@ -1,6 +1,7 @@
 ---
 title: 從像素到巡邏
 slug: from-pixels-to-patrols
+topicIds: [mathematical-thinking]
 sourceSlug: from-pixels-to-patrols
 summary: 一份遵守證據界線的編輯紀錄，介紹 calibration-aware 合成 camera-trap pipeline 如何把類別機率連到網格不確定性與受約束巡邏配置。
 year: 2026

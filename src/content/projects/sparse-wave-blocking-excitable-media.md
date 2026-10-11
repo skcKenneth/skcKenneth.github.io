@@ -1,6 +1,7 @@
 ---
 title: Sparse Wave Blocking in Excitable Media
 slug: sparse-wave-blocking-excitable-media
+topicIds: [risk-decisions, life-environment]
 summary: An event-triggered local pulse is tested against unseen conduction speed, recovery, and delay combinations.
 year: 2026
 lastUpdated: 2026-07-28

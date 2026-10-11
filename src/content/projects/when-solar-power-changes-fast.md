@@ -1,6 +1,7 @@
 ---
 title: When Solar Power Changes Fast
 slug: when-solar-power-changes-fast
+topicIds: [cities-engineering, risk-decisions, teaching-research-practice]
 summary: An accepted ADMA 2026 short paper on conditional solar prediction-interval reliability. Five-station comparisons distinguish consistent calibration improvement from the absolute reliability that difficult events still lack.
 year: 2026
 date: 2026-09-09

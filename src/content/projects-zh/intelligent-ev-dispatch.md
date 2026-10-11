@@ -1,6 +1,7 @@
 ---
 title: 可解釋的電動車調度與補能
 slug: intelligent-ev-dispatch
+topicIds: [risk-decisions, cities-engineering]
 sourceSlug: intelligent-ev-dispatch
 summary: 一條白箱流程，把能源預測、公平調度與由中斷觸發的重新規劃連在一起。
 year: 2026

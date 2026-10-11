@@ -1,6 +1,7 @@
 ---
 title: When the Timetable Lies to the Ventilation System
 slug: when-the-timetable-lies
+topicIds: [cities-engineering, risk-decisions]
 summary: A reproducible classroom experiment on predictive ventilation, unannounced room changes, shared fan limits, and the price of an occupancy buffer.
 date: 2026-07-15
 lastUpdated: 2026-07-15

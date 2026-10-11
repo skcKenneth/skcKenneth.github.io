@@ -1,0 +1,45 @@
+---
+import { TEACHING_AUDIENCES, TEACHING_FORMATS, TEACHING_RESOURCES, teachingHref } from '../data/teaching-directory.mjs';
+import '../styles/teaching-directory.css';
+interface Props { locale?: 'en' | 'zh-Hant' }
+const { locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant';
+const t = (en: string, ch: string) => zh ? ch : en;
+const label = (items: any[], id: string) => items.find(item => item.id === id)?.label[locale] || id;
+---
+<div data-teaching-directory data-locale={locale}>
+  <header class="page-head teaching-directory-head"><div class="container">
+    <p class="eyebrow">{t('Learn · practise · explore', '學習・練習・探索')}</p>
+    <h1>{t('Find your next learning step.', '找到適合你的下一步。')}</h1>
+    <p class="lead">{t('Choose who you are learning with, then choose a format. Each resource explains its purpose and how to begin.', '先選學習對象，再選資源形式。每個入口都說明用途，讓你容易開始。')}</p>
+  </div></header>
+  <section class="container teaching-directory-section" aria-labelledby="teaching-audience-heading">
+    <h2 id="teaching-audience-heading">{t('Who is learning?', '按學習對象開始')}</h2>
+    <div class="teaching-audience-grid">{TEACHING_AUDIENCES.map(audience => <a href={`?audience=${audience.id}#teaching-resources`} data-audience-link={audience.id}><strong>{audience.label[locale]}</strong><span>{audience.description[locale]}</span><b aria-hidden="true">→</b></a>)}</div>
+  </section>
+  <section class="container teaching-directory-section" id="teaching-resources" aria-labelledby="teaching-resource-heading">
+    <span id="curriculum" class="teaching-anchor" aria-hidden="true"></span>
+    <div class="section-head"><div><p class="eyebrow">{t('Teaching resources', '教學資源')}</p><h2 id="teaching-resource-heading">{t('Choose a resource.', '選擇一份資源。')}</h2></div><p>{t('Local learning records stay in your browser. Export important work before changing device or clearing website data.', '學習紀錄只保存在你的瀏覽器。轉換裝置或清除網站資料前，請先匯出重要紀錄。')}</p></div>
+    <form class="teaching-directory-filters" data-teaching-filters method="get">
+      <label>{t('Audience', '學習對象')}<select name="audience"><option value="">{t('Everyone', '全部')}</option>{TEACHING_AUDIENCES.map(item => <option value={item.id}>{item.label[locale]}</option>)}</select></label>
+      <label>{t('Format', '資源形式')}<select name="format"><option value="">{t('All formats', '全部形式')}</option>{TEACHING_FORMATS.map(item => <option value={item.id}>{item.label[locale]}</option>)}</select></label>
+      <label>{t('Find a resource', '搜尋資源')}<input type="search" name="q" placeholder={t('Topic or resource name', '主題或資源名稱')} /></label>
+      <button class="button secondary" type="reset">{t('Reset', '重設')}</button>
+    </form>
+    <p data-teaching-result-count role="status" class="small">{TEACHING_RESOURCES.length} {t('resources', '份資源')}</p>
+    <div class="teaching-resource-grid">{TEACHING_RESOURCES.map(resource => <article class="teaching-resource-card" id={resource.id} data-teaching-resource data-audiences={resource.audiences.join(' ')} data-formats={resource.formats.join(' ')} data-search={`${resource.title[locale]} ${resource.purpose[locale]}`.toLocaleLowerCase()}>
+      <p class="eyebrow">{resource.audiences.map((id: string) => label(TEACHING_AUDIENCES, id)).join(' · ')}</p>
+      <h3>{resource.title[locale]}</h3><p>{resource.purpose[locale]}</p>
+      <p class="teaching-resource-meta">{resource.formats.map((id: string) => label(TEACHING_FORMATS, id)).join(' · ')}<br/>{resource.duration[locale]}</p>
+      <p class="teaching-resource-language">{resource.chineseOnly ? t('Traditional Chinese resource', '繁體中文資源') : t('English / Traditional Chinese', '英文／繁體中文')}</p>
+      <a class="button secondary" href={teachingHref(resource, locale)}>{t('Open resource', '開啟資源')} <span aria-hidden="true">→</span></a>
+    </article>)}</div>
+    <p data-teaching-empty hidden>{t('No resources match. Reset the filters or try a broader phrase.', '暫時沒有符合的資源。可重設篩選，或用較簡短的關鍵字。')}</p>
+    <noscript><p class="small">{t('All resources are shown. Enable JavaScript to filter this list.', '目前顯示全部資源；啟用 JavaScript 後可篩選清單。')}</p></noscript>
+  </section>
+  <aside class="container teaching-directory-contact"><p>{t('Questions about curriculum design or student research mentoring?', '想討論課程設計或學生研究指導？')} <a href="mailto:sokkincheng@gmail.com?subject=Teaching%20and%20modeling">{t('Contact Kenneth', '聯絡 Kenneth')}</a></p></aside>
+</div>
+<script>
+  import { initializeTeachingDirectory } from '../scripts/teaching-directory';
+  document.querySelectorAll<HTMLElement>('[data-teaching-directory]').forEach(initializeTeachingDirectory);
+</script>

@@ -1,6 +1,7 @@
 ---
 title: Robust CSTR Safety Envelope
 slug: robust-cstr-safety-envelope
+topicIds: [risk-decisions]
 summary: A synthetic exothermic-reactor study quantifies the yield cost of a scenario-robust thermal criterion.
 year: 2026
 lastUpdated: 2026-07-28

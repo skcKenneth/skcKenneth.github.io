@@ -1,6 +1,7 @@
 ---
 title: Equation Discovery That Survives a Change of Units
 slug: dimensional-equation-discovery
+topicIds: [risk-decisions, teaching-research-practice]
 summary: A controlled symbolic-regression benchmark asks whether dimensional constraints improve exact equation recovery, shrink the search space, and prevent unit-fragile formulas.
 date: 2026-07-21
 lastUpdated: 2026-07-28

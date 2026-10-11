@@ -1,6 +1,7 @@
 ---
 title: 數學建模基礎
 slug: beginner-pathway
+topicIds: [mathematical-thinking]
 sourceSlug: beginner-pathway
 summary: 由真實問題出發，逐步建立變數、假設、基準模型與可辯護結論的入門路徑。
 lastUpdated: 2026-07-28

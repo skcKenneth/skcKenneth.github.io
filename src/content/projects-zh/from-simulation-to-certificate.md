@@ -1,6 +1,7 @@
 ---
 title: 由模擬走向證書
 slug: from-simulation-to-certificate
+topicIds: [computation-code, risk-decisions]
 sourceSlug: from-simulation-to-certificate
 summary: 一項凍結的合成雙艙 positive-network benchmark，把有限 spectral checks 與涵蓋整段不確定性的 verified decay certificates 分開，並審核只限此 family 的 diagonal restriction gap。
 year: 2026

@@ -1,6 +1,7 @@
 ---
 title: "當更多 DNA 令錯誤的演化樹更確定"
 slug: when-more-dna-makes-the-wrong-tree-more-certain
+topicIds: [life-environment]
 sourceSlug: when-more-dna-makes-the-wrong-tree-more-certain
 summary: 四物種合成實驗把抽樣誤差與模型誤差分開，顯示一條很長的序列比對仍可對錯誤演化樹產生百分之百 bootstrap 支持度。
 date: 2026-07-22

@@ -1,6 +1,7 @@
 ---
 title: 空間網格上的氣候驅動登革熱
 slug: climate-driven-dengue
+topicIds: [life-environment, risk-decisions]
 sourceSlug: climate-driven-dengue
 summary: 以反應—擴散實驗結合溫度依賴蚊媒生態、長程移動、疫苗分配與數值檢查。
 year: 2025

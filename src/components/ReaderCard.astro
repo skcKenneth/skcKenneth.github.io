@@ -1,0 +1,24 @@
+---
+import { articleType, getTopicIds, localeBase, readingMinutes, TOPICS } from '../data/site-reader.mjs';
+interface Props { entry: any; locale?: 'en' | 'zh-Hant'; hidden?: boolean; filterCard?: boolean }
+const { entry, locale = 'en', hidden = false, filterCard = false } = Astro.props;
+const isZh = locale === 'zh-Hant';
+const base = localeBase(locale);
+const topicIds: string[] = getTopicIds(entry.data);
+const search = [entry.data.title, entry.data.summary, ...(entry.data.topics || []), ...topicIds].join(' ');
+---
+<article class="reader-card" hidden={hidden} data-article-card={filterCard || undefined}
+  data-topic-ids={filterCard ? topicIds.join(' ') : undefined}
+  data-type={filterCard ? articleType(entry.data.type, 'en') : undefined}
+  data-year={filterCard ? entry.data.date?.getFullYear() || '' : undefined}
+  data-archived={filterCard ? String(entry.data.archived) : undefined}
+  data-search={filterCard ? search : undefined}>
+  <p class="reader-card-meta"><span>{articleType(entry.data.type, locale)}</span>{entry.data.archived && <span class="reader-archive-badge">{isZh ? '典藏' : 'Archived'}</span>}</p>
+  <h2><a href={`${base}/writing/${entry.data.slug}/`}>{entry.data.title}</a></h2>
+  <p class="reader-card-summary">{entry.data.summary}</p>
+  <p class="reader-card-meta">
+    {entry.data.date && <time datetime={entry.data.date.toISOString().slice(0, 10)}>{entry.data.date.toLocaleDateString(isZh ? 'zh-Hant-TW' : 'en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>}
+    <span>{isZh ? `約 ${readingMinutes(entry, locale)} 分鐘` : `${readingMinutes(entry, locale)} min read`}</span>
+  </p>
+  <div class="reader-topic-links">{topicIds.slice(0, 2).map(id => <a href={`${base}/topics/${id}/`}>{TOPICS.find(topic => topic.id === id)?.label[locale]}</a>)}</div>
+</article>

@@ -1,6 +1,7 @@
 ---
 title: Intervention-Calibrated Neural ODEs
 slug: intervention-calibrated-neural-odes
+topicIds: [data-ai, risk-decisions]
 summary: Sign-structured and unconstrained neural vector fields are tested on strong held-out interventions in a synthetic toggle switch.
 year: 2026
 lastUpdated: 2026-07-28

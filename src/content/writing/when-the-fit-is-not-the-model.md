@@ -1,6 +1,7 @@
 ---
 title: "When the Fit Is Not the Model"
 slug: when-the-fit-is-not-the-model
+topicIds: [data-ai, dynamics-networks]
 summary: A close fit can coexist with weak parameter evidence. Identifiability analysis shows when new measurements matter more than another optimizer.
 date: 2026-07-16
 lastUpdated: 2026-07-16

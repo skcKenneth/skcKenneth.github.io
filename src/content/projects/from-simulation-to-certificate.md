@@ -1,6 +1,7 @@
 ---
 title: From Simulation to Certificate
 slug: from-simulation-to-certificate
+topicIds: [computation-code, risk-decisions]
 summary: A frozen synthetic two-compartment benchmark separates finite spectral checks from verified all-parameter decay certificates and measures a benchmark-specific diagonal restriction gap.
 year: 2026
 lastUpdated: 2026-08-30

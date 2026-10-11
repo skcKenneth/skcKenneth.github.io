@@ -1,6 +1,7 @@
 ---
 title: Reliability and Uncertainty
 slug: reliability-uncertainty
+topicIds: [risk-decisions]
 summary: Sensitivity, calibration, robustness, and decision-making when model inputs or operating conditions are uncertain.
 lastUpdated: 2026-07-13
 featured: true

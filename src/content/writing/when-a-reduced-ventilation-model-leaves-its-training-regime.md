@@ -1,6 +1,7 @@
 ---
 title: "When a Reduced Ventilation Model Leaves Its Training Regime"
 slug: when-a-reduced-ventilation-model-leaves-its-training-regime
+topicIds: [cities-engineering, computation-code, risk-decisions]
 summary: A frozen synthetic POD and POD-DEIM audit verifies its full-order reference, then stops because both reduced models fail before any declared ventilation shift is applied.
 date: 2026-08-30
 lastUpdated: 2026-08-30

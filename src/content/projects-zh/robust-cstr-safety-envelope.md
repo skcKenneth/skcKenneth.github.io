@@ -1,6 +1,7 @@
 ---
 title: 穩健 CSTR 安全包絡
 slug: robust-cstr-safety-envelope
+topicIds: [risk-decisions]
 sourceSlug: robust-cstr-safety-envelope
 summary: 以合成放熱反應器情境，量化滿足穩健熱風險準則所付出的產率代價。
 year: 2026

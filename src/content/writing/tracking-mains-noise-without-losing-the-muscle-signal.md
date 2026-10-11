@@ -1,6 +1,7 @@
 ---
 title: "Tracking Mains Noise without Losing the Muscle Signal"
 slug: tracking-mains-noise-without-losing-the-muscle-signal
+topicIds: [data-ai]
 summary: A reproducible synthetic implementation separates a causal sEMG fast path from a gated frequency tracker, then tests harmonic cancellation, envelope fidelity, and host-Python timing without claiming participant or embedded-device validation.
 date: 2026-07-30
 lastUpdated: 2026-07-30

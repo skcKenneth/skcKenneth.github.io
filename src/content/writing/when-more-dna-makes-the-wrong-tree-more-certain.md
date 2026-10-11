@@ -1,6 +1,7 @@
 ---
 title: "When More DNA Makes the Wrong Tree More Certain"
 slug: when-more-dna-makes-the-wrong-tree-more-certain
+topicIds: [life-environment]
 summary: A synthetic quartet experiment separates sampling error from model error and shows how a long alignment can give complete bootstrap support to the wrong phylogenetic tree.
 date: 2026-07-22
 lastUpdated: 2026-07-30

@@ -1,6 +1,7 @@
 ---
 title: 經得起單位改變的方程發現
 slug: dimensional-equation-discovery
+topicIds: [risk-decisions, teaching-research-practice]
 sourceSlug: dimensional-equation-discovery
 summary: 一個受控 symbolic-regression 基準，研究量綱約束能否改善精確方程恢復、縮小搜尋空間及防止單位脆弱公式。
 date: 2026-07-21

@@ -1,6 +1,7 @@
 ---
 title: 粗糙波動下的穩健對沖
 slug: rough-volatility-robust-hedging
+topicIds: [risk-decisions]
 sourceSlug: rough-volatility-robust-hedging
 summary: 在未見過的粗糙度、波動率的波動與交易成本情境中，評估固定無交易帶策略。
 year: 2026
