@@ -4,7 +4,7 @@ import { test } from "node:test";
 import { checkResearchArticles } from "../scripts/check-research-articles.mjs";
 const root=new URL("../",import.meta.url);
 const slug="can-aggregate-observations-bound-an-epidemic";
-const read=p=>readFileSync(new URL(p,root),"utf8");
+const read=p=>readFileSync(new URL(p,root),"utf8").replace(/\r\n?/g,"\n");
 const editions=["writing","writing-zh"].map(c=>read(`src/content/${c}/${slug}.md`));
 const projects=["projects","projects-zh"].map(c=>read(`src/content/${c}/${slug}.md`));
 const equations=t=>[...t.matchAll(/\$\$\s*([\s\S]*?)\s*\$\$/g)].map(m=>m[1].replace(/\s+/g,""));

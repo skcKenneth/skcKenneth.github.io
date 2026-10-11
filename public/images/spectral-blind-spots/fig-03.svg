@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns2="http://creativecommons.org/ns#" xmlns:ns4="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="252pt" height="387.36pt" viewBox="0 0 252 387.36" version="1.1" role="img" aria-labelledby="fig-03-title fig-03-desc">
+ <title id="fig-03-title">Routing becomes a distribution over path lengths</title><desc id="fig-03-desc">Exact terminal hitting laws. Upper-panel blue circles denote direct routing and vermillion squares the chain. Lower-panel lines join discrete path probabilities for the first predeclared realization of each ten-node family; they are not fitted probability densities.</desc><title>Routing becomes a distribution over path lengths</title>
+ <metadata>
+  <rdf:RDF>
+   <ns2:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title>Routing becomes a distribution over path lengths</dc:title>
+    <dc:description>Exact terminal hitting laws. Upper-panel blue circles denote direct routing and vermillion squares the chain. Lower-panel lines join discrete path probabilities for the first predeclared realization of each ten-node family; they are not fitted probability densities.</dc:description>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <ns2:Agent>
+      <dc:title>Saved-evidence plotting source</dc:title>
+     </ns2:Agent>
+    </dc:creator>
+   </ns2:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 387.36  L 252 387.36  L 252 0  L 0 0  z " style="fill: #ffffff" />
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 57.96 156.296978  L 241.92 156.296978  L 241.92 47.52  L 57.96 47.52  z " style="fill: #ffffff" />
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m69e3590b28" d="M 0 0  L 0 3  " style="stroke: #000000; stroke-width: 0.65" />
+      </defs>
+      <g>
+       <use ns4:href="#m69e3590b28" x="69.537902" y="156.296978" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="69.537902" y="168.849225" transform="rotate(-0 69.537902 168.849225)" fill="#000000">1</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use ns4:href="#m69e3590b28" x="109.738951" y="156.296978" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="109.738951" y="168.849225" transform="rotate(-0 109.738951 168.849225)" fill="#000000">2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use ns4:href="#m69e3590b28" x="149.94" y="156.296978" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="149.94" y="168.849225" transform="rotate(-0 149.94 168.849225)" fill="#000000">3</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use ns4:href="#m69e3590b28" x="190.141049" y="156.296978" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="190.141049" y="168.849225" transform="rotate(-0 190.141049 168.849225)" fill="#000000">4</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use ns4:href="#m69e3590b28" x="230.342098" y="156.296978" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="230.342098" y="168.849225" transform="rotate(-0 230.342098 168.849225)" fill="#000000">5</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="149.94" y="181.295514" transform="rotate(-0 149.94 181.295514)" fill="#000000">Number of jumps</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_6">
+      <path d="M 57.96 153.35706  L 241.92 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #000000; stroke-opacity: 0.18; stroke-width: 0.45; stroke-linecap: square" />
+     </g>
+     <g id="line2d_7">
+      <defs>
+       <path id="m42872b2df7" d="M 0 0  L -3 0  " style="stroke: #000000; stroke-width: 0.65" />
+      </defs>
+      <g>
+       <use ns4:href="#m42872b2df7" x="57.96" y="153.35706" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="51.96" y="156.633183" transform="rotate(-0 51.96 156.633183)" fill="#000000">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_8">
+      <path d="M 57.96 123.957877  L 241.92 123.957877  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #000000; stroke-opacity: 0.18; stroke-width: 0.45; stroke-linecap: square" />
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use ns4:href="#m42872b2df7" x="57.96" y="123.957877" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="51.96" y="127.234" transform="rotate(-0 51.96 127.234)" fill="#000000">0.3</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <path d="M 57.96 94.558693  L 241.92 94.558693  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #000000; stroke-opacity: 0.18; stroke-width: 0.45; stroke-linecap: square" />
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use ns4:href="#m42872b2df7" x="57.96" y="94.558693" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="51.96" y="97.834816" transform="rotate(-0 51.96 97.834816)" fill="#000000">0.6</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_12">
+      <path d="M 57.96 65.15951  L 241.92 65.15951  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #000000; stroke-opacity: 0.18; stroke-width: 0.45; stroke-linecap: square" />
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use ns4:href="#m42872b2df7" x="57.96" y="65.15951" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="51.96" y="68.435633" transform="rotate(-0 51.96 68.435633)" fill="#000000">0.9</text>
+     </g>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="33.555781" y="101.908489" transform="rotate(-90 33.555781 101.908489)" fill="#000000">Path probability</text>
+    </g>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="m7c51e2ad15" d="M 0 2.12132  C 0.562581 2.12132 1.102195 1.897805 1.5 1.5  C 1.897805 1.102195 2.12132 0.562581 2.12132 0  C 2.12132 -0.562581 1.897805 -1.102195 1.5 -1.5  C 1.102195 -1.897805 0.562581 -2.12132 0 -2.12132  C -0.562581 -2.12132 -1.102195 -1.897805 -1.5 -1.5  C -1.897805 -1.102195 -2.12132 -0.562581 -2.12132 0  C -2.12132 0.562581 -1.897805 1.102195 -1.5 1.5  C -1.102195 1.897805 -0.562581 2.12132 0 2.12132  z " style="stroke: #0072b2" />
+    </defs>
+    <g clip-path="url(#pe05f244f42)">
+     <use ns4:href="#m7c51e2ad15" x="66.321818" y="55.359782" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#m7c51e2ad15" x="106.522867" y="153.35706" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#m7c51e2ad15" x="146.723916" y="153.35706" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#m7c51e2ad15" x="186.924965" y="153.35706" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#m7c51e2ad15" x="227.126014" y="153.35706" style="fill: #0072b2; stroke: #0072b2" />
+    </g>
+   </g>
+   <g id="PathCollection_2">
+    <defs>
+     <path id="m9cdeda6628" d="M -2.12132 2.12132  L 2.12132 2.12132  L 2.12132 -2.12132  L -2.12132 -2.12132  z " style="stroke: #d55e00" />
+    </defs>
+    <g clip-path="url(#pe05f244f42)">
+     <use ns4:href="#m9cdeda6628" x="72.753986" y="153.35706" style="fill: #d55e00; stroke: #d55e00" />
+     <use ns4:href="#m9cdeda6628" x="112.955035" y="153.35706" style="fill: #d55e00; stroke: #d55e00" />
+     <use ns4:href="#m9cdeda6628" x="153.156084" y="153.35706" style="fill: #d55e00; stroke: #d55e00" />
+     <use ns4:href="#m9cdeda6628" x="193.357133" y="153.35706" style="fill: #d55e00; stroke: #d55e00" />
+     <use ns4:href="#m9cdeda6628" x="233.558182" y="55.359782" style="fill: #d55e00; stroke: #d55e00" />
+    </g>
+   </g>
+   <g id="LineCollection_1">
+    <path d="M 66.321818 153.35706  L 66.321818 55.359782  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #0072b2; stroke-width: 1.2" />
+    <path d="M 106.522867 153.35706  L 106.522867 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #0072b2; stroke-width: 1.2" />
+    <path d="M 146.723916 153.35706  L 146.723916 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #0072b2; stroke-width: 1.2" />
+    <path d="M 186.924965 153.35706  L 186.924965 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #0072b2; stroke-width: 1.2" />
+    <path d="M 227.126014 153.35706  L 227.126014 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke: #0072b2; stroke-width: 1.2" />
+   </g>
+   <g id="LineCollection_2">
+    <path d="M 72.753986 153.35706  L 72.753986 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #d55e00; stroke-width: 1.2" />
+    <path d="M 112.955035 153.35706  L 112.955035 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #d55e00; stroke-width: 1.2" />
+    <path d="M 153.156084 153.35706  L 153.156084 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #d55e00; stroke-width: 1.2" />
+    <path d="M 193.357133 153.35706  L 193.357133 153.35706  " clip-path="url(#pe05f244f42)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #d55e00; stroke-width: 1.2" />
+    <path d="M 233.558182 153.35706  L 233.558182 55.359782  " clip-path="url(#pe05f244f42)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #d55e00; stroke-width: 1.2" />
+   </g>
+   <g id="patch_3">
+    <path d="M 57.96 156.296978  L 57.96 47.52  " style="fill: none; stroke: #000000; stroke-width: 0.65; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_4">
+    <path d="M 57.96 156.296978  L 241.92 156.296978  " style="fill: none; stroke: #000000; stroke-width: 0.65; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: start; fill: #000000" x="74.362028" y="72.019319" transform="rotate(-0 74.362028 72.019319)" fill="#000000">Direct</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="225.517972" y="72.019319" transform="rotate(-0 225.517972 72.019319)" fill="#000000">Chain</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial', sans-serif; text-anchor: start; fill: #000000" x="57.96" y="39.52" transform="rotate(-0 57.96 39.52)" fill="#000000">(a) One jump or five jumps</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 57.96 349.92  L 241.92 349.92  L 241.92 241.143022  L 57.96 241.143022  z " style="fill: #ffffff" />
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_14">
+      <g>
+       <use ns4:href="#m69e3590b28" x="66.321818" y="349.92" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="66.321818" y="362.472246" transform="rotate(-0 66.321818 362.472246)" fill="#000000">1</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_15">
+      <g>
+       <use ns4:href="#m69e3590b28" x="108.130909" y="349.92" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="108.130909" y="362.472246" transform="rotate(-0 108.130909 362.472246)" fill="#000000">3</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_16">
+      <g>
+       <use ns4:href="#m69e3590b28" x="149.94" y="349.92" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="149.94" y="362.472246" transform="rotate(-0 149.94 362.472246)" fill="#000000">5</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_17">
+      <g>
+       <use ns4:href="#m69e3590b28" x="191.749091" y="349.92" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="191.749091" y="362.472246" transform="rotate(-0 191.749091 362.472246)" fill="#000000">7</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_18">
+      <g>
+       <use ns4:href="#m69e3590b28" x="233.558182" y="349.92" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="233.558182" y="362.472246" transform="rotate(-0 233.558182 362.472246)" fill="#000000">9</text>
+     </g>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="149.94" y="374.918535" transform="rotate(-0 149.94 374.918535)" fill="#000000">Number of jumps</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_5">
+     <g id="line2d_19">
+      <path d="M 57.96 347.828135  L 241.92 347.828135  " clip-path="url(#p3a0aa7cd3b)" style="fill: none; stroke: #000000; stroke-opacity: 0.18; stroke-width: 0.45; stroke-linecap: square" />
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use ns4:href="#m42872b2df7" x="57.96" y="347.828135" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="51.96" y="351.104258" transform="rotate(-0 51.96 351.104258)" fill="#000000">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_21">
+      <path d="M 57.96 316.45016  L 241.92 316.45016  " clip-path="url(#p3a0aa7cd3b)" style="fill: none; stroke: #000000; stroke-opacity: 0.18; stroke-width: 0.45; stroke-linecap: square" />
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use ns4:href="#m42872b2df7" x="57.96" y="316.45016" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="51.96" y="319.726284" transform="rotate(-0 51.96 319.726284)" fill="#000000">0.3</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_23">
+      <path d="M 57.96 285.072186  L 241.92 285.072186  " clip-path="url(#p3a0aa7cd3b)" style="fill: none; stroke: #000000; stroke-opacity: 0.18; stroke-width: 0.45; stroke-linecap: square" />
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use ns4:href="#m42872b2df7" x="57.96" y="285.072186" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="51.96" y="288.348309" transform="rotate(-0 51.96 288.348309)" fill="#000000">0.6</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_25">
+      <path d="M 57.96 253.694211  L 241.92 253.694211  " clip-path="url(#p3a0aa7cd3b)" style="fill: none; stroke: #000000; stroke-opacity: 0.18; stroke-width: 0.45; stroke-linecap: square" />
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use ns4:href="#m42872b2df7" x="57.96" y="253.694211" style="stroke: #000000; stroke-width: 0.65" />
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: end; fill: #000000" x="51.96" y="256.970334" transform="rotate(-0 51.96 256.970334)" fill="#000000">0.9</text>
+     </g>
+    </g>
+    <g id="text_25">
+     <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: middle; fill: #000000" x="33.555781" y="295.531511" transform="rotate(-90 33.555781 295.531511)" fill="#000000">Path probability</text>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <path d="M 66.321818 337.760711  L 87.226364 319.608459  L 108.130909 303.734946  L 129.035455 329.391475  L 149.94 344.604692  L 170.844545 347.318753  L 191.749091 347.785898  L 212.653636 347.826906  L 233.558182 347.828126  " clip-path="url(#p3a0aa7cd3b)" style="fill: none; stroke: #0072b2; stroke-width: 1.15; stroke-linecap: square" />
+    <defs>
+     <path id="meee7f7692d" d="M 0 2  C 0.530406 2 1.03916 1.789267 1.414214 1.414214  C 1.789267 1.03916 2 0.530406 2 0  C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214  C 1.03916 -1.789267 0.530406 -2 0 -2  C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214  C -1.789267 -1.03916 -2 -0.530406 -2 0  C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214  C -1.03916 1.789267 -0.530406 2 0 2  z " style="stroke: #0072b2" />
+    </defs>
+    <g clip-path="url(#p3a0aa7cd3b)">
+     <use ns4:href="#meee7f7692d" x="66.321818" y="337.760711" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#meee7f7692d" x="87.226364" y="319.608459" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#meee7f7692d" x="108.130909" y="303.734946" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#meee7f7692d" x="129.035455" y="329.391475" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#meee7f7692d" x="149.94" y="344.604692" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#meee7f7692d" x="170.844545" y="347.318753" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#meee7f7692d" x="191.749091" y="347.785898" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#meee7f7692d" x="212.653636" y="347.826906" style="fill: #0072b2; stroke: #0072b2" />
+     <use ns4:href="#meee7f7692d" x="233.558182" y="347.828126" style="fill: #0072b2; stroke: #0072b2" />
+    </g>
+   </g>
+   <g id="line2d_28">
+    <path d="M 66.321818 347.828135  L 87.226364 347.828135  L 108.130909 341.183719  L 129.035455 339.456973  L 149.94 326.433733  L 170.844545 294.233056  L 191.749091 334.762339  L 212.653636 346.498218  L 233.558182 347.635659  " clip-path="url(#p3a0aa7cd3b)" style="fill: none; stroke-dasharray: 4.255,1.84; stroke-dashoffset: 0; stroke: #d55e00; stroke-width: 1.15" />
+    <defs>
+     <path id="m5ae356b157" d="M -2 2  L 2 2  L 2 -2  L -2 -2  z " style="stroke: #d55e00; stroke-linejoin: miter" />
+    </defs>
+    <g clip-path="url(#p3a0aa7cd3b)">
+     <use ns4:href="#m5ae356b157" x="66.321818" y="347.828135" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+     <use ns4:href="#m5ae356b157" x="87.226364" y="347.828135" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+     <use ns4:href="#m5ae356b157" x="108.130909" y="341.183719" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+     <use ns4:href="#m5ae356b157" x="129.035455" y="339.456973" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+     <use ns4:href="#m5ae356b157" x="149.94" y="326.433733" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+     <use ns4:href="#m5ae356b157" x="170.844545" y="294.233056" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+     <use ns4:href="#m5ae356b157" x="191.749091" y="334.762339" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+     <use ns4:href="#m5ae356b157" x="212.653636" y="346.498218" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+     <use ns4:href="#m5ae356b157" x="233.558182" y="347.635659" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+    </g>
+   </g>
+   <g id="line2d_29">
+    <path d="M 66.321818 335.456198  L 87.226364 335.763238  L 108.130909 341.917054  L 129.035455 273.582801  L 149.94 347.828135  L 170.844545 347.828135  L 191.749091 347.828135  L 212.653636 347.828135  L 233.558182 347.828135  " clip-path="url(#p3a0aa7cd3b)" style="fill: none; stroke-dasharray: 1.15,1.8975; stroke-dashoffset: 0; stroke: #009e73; stroke-width: 1.15" />
+    <defs>
+     <path id="mf4442c9df2" d="M 0 -2  L -2 2  L 2 2  z " style="stroke: #009e73; stroke-linejoin: miter" />
+    </defs>
+    <g clip-path="url(#p3a0aa7cd3b)">
+     <use ns4:href="#mf4442c9df2" x="66.321818" y="335.456198" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+     <use ns4:href="#mf4442c9df2" x="87.226364" y="335.763238" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+     <use ns4:href="#mf4442c9df2" x="108.130909" y="341.917054" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+     <use ns4:href="#mf4442c9df2" x="129.035455" y="273.582801" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+     <use ns4:href="#mf4442c9df2" x="149.94" y="347.828135" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+     <use ns4:href="#mf4442c9df2" x="170.844545" y="347.828135" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+     <use ns4:href="#mf4442c9df2" x="191.749091" y="347.828135" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+     <use ns4:href="#mf4442c9df2" x="212.653636" y="347.828135" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+     <use ns4:href="#mf4442c9df2" x="233.558182" y="347.828135" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 57.96 349.92  L 57.96 241.143022  " style="fill: none; stroke: #000000; stroke-width: 0.65; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_7">
+    <path d="M 57.96 349.92  L 241.92 349.92  " style="fill: none; stroke: #000000; stroke-width: 0.65; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial', sans-serif; text-anchor: start; fill: #000000" x="57.96" y="233.143022" transform="rotate(-0 57.96 233.143022)" fill="#000000">(b) Held-out routes, n = 10</text>
+   </g>
+  </g>
+  <g id="legend_1">
+   <g id="line2d_30">
+    <path d="M 47.340703 8.939046  L 54.090703 8.939046  L 60.840703 8.939046  " style="fill: none; stroke: #0072b2; stroke-width: 1.15; stroke-linecap: square" />
+    <g>
+     <use ns4:href="#meee7f7692d" x="54.090703" y="8.939046" style="fill: #0072b2; stroke: #0072b2" />
+    </g>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: start; fill: #000000" x="64.890703" y="12.089046" transform="rotate(-0 64.890703 12.089046)" fill="#000000">Lower: Dense</text>
+   </g>
+   <g id="line2d_31">
+    <path d="M 47.340703 21.885335  L 54.090703 21.885335  L 60.840703 21.885335  " style="fill: none; stroke-dasharray: 4.255,1.84; stroke-dashoffset: 0; stroke: #d55e00; stroke-width: 1.15" />
+    <g>
+     <use ns4:href="#m5ae356b157" x="54.090703" y="21.885335" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+    </g>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: start; fill: #000000" x="64.890703" y="25.035335" transform="rotate(-0 64.890703 25.035335)" fill="#000000">Lower: Sparse</text>
+   </g>
+   <g id="line2d_32">
+    <path d="M 130.116797 8.939046  L 136.866797 8.939046  L 143.616797 8.939046  " style="fill: none; stroke-dasharray: 1.15,1.8975; stroke-dashoffset: 0; stroke: #009e73; stroke-width: 1.15" />
+    <g>
+     <use ns4:href="#mf4442c9df2" x="136.866797" y="8.939046" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+    </g>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 9px; font-family: 'Arial', sans-serif; text-anchor: start; fill: #000000" x="147.666797" y="12.089046" transform="rotate(-0 147.666797 12.089046)" fill="#000000">Lower: Layered</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe05f244f42">
+   <rect x="57.96" y="47.52" width="183.96" height="108.776978" />
+  </clipPath>
+  <clipPath id="p3a0aa7cd3b">
+   <rect x="57.96" y="241.143022" width="183.96" height="108.776978" />
+  </clipPath>
+ </defs>
+</svg>

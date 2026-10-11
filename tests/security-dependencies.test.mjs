@@ -8,7 +8,7 @@ import {pathToFileURL} from 'node:url';
 const root=new URL('../',import.meta.url);
 const astroRequire=createRequire(import.meta.resolve('astro/package.json'));
 const dependency=async name=>import(pathToFileURL(astroRequire.resolve(name)).href);
-const minima={astro:'7.2.8',sharp:'0.35.4','js-yaml':'4.3.2',svgo:'4.1.0','smol-toml':'1.7.1',devalue:'5.9.4','fast-uri':'3.1.8'};
+const minima={astro:'7.2.8',sharp:'0.35.5','js-yaml':'4.3.2',svgo:'4.1.0','smol-toml':'1.9.0',devalue:'5.9.4','fast-uri':'3.1.8',katex:'0.18.2','source-map-js':'1.2.2'};
 const atLeast=(version,min)=>{const a=version.split('.').map(Number),b=min.split('.').map(Number);for(let i=0;i<3;i++){if(a[i]!==b[i])return a[i]>b[i];}return true;};
 
 test('every locked copy meets the verified advisory patch floor',()=>{
@@ -42,6 +42,36 @@ test('devalue rejects out-of-range references and round-trips valid state',async
   for(const input of ['[{"x":999999999}]','[[999999999]]'])assert.throws(()=>parse(input));
   const control={title:'Math',values:[1,2,3],missing:null};
   assert.deepEqual(parse(stringify(control)),control);
+});
+
+test('KaTeX ignores inherited trust but preserves ordinary math',()=>{
+  const katex=createRequire(import.meta.url)('katex');
+  const options=Object.create({trust:true});
+  options.throwOnError=false;
+  const expression=String.raw`\href{https://example.org/}{x}`;
+  const html=katex.renderToString(expression,options);
+  assert.doesNotMatch(html,/<a\s/);
+  assert.match(katex.renderToString(expression,{trust:true}),/<a\s/);
+  assert.match(katex.renderToString('x^2+1'),/katex/);
+});
+
+test('flat valid TOML and table arrays finish in bounded subprocess time',()=>{
+  const moduleUrl=pathToFileURL(astroRequire.resolve('smol-toml')).href;
+  const code=`import {parse} from ${JSON.stringify(moduleUrl)};const s=Array.from({length:32000},(_,i)=>'k'+i+' = 1').join('\\n');if(Object.keys(parse(s)).length!==32000)throw Error('flat keys lost');if(parse('[[a]]\\nx=1\\n[[a]]\\nx=2').a.length!==2)throw Error('tables broken');`;
+  const result=spawnSync(process.execPath,['--input-type=module','-e',code],{timeout:5000,encoding:'utf8',windowsHide:true});
+  assert.equal(result.error,undefined,result.error?.message);assert.equal(result.status,0,result.stderr);
+});
+
+test('indexed source maps reject amplified and invalid offsets, retaining ordinary maps',()=>{
+  const {SourceMapConsumer}=astroRequire('source-map-js');
+  const flat={version:3,sources:['input.js'],names:[],mappings:'AAAA'};
+  const indexed=(line,column=0)=>({version:3,sections:[{offset:{line,column},map:flat}]});
+  for(const line of [10000001,Infinity,NaN,-1,.5])assert.throws(()=>new SourceMapConsumer(indexed(line)),/offset/i);
+  for(const column of [Infinity,NaN,-1,.5])assert.throws(()=>new SourceMapConsumer(indexed(0,column)),/offset/i);
+  const nested={version:3,sections:[{offset:{line:6000000,column:0},map:indexed(6000000)}]};
+  assert.throws(()=>new SourceMapConsumer(nested),/offset/i);
+  const map=new SourceMapConsumer(indexed(2));
+  assert.equal(map.originalPositionFor({line:3,column:1}).line,1);
 });
 
 test('SVGO opt-in script removal covers namespaces and obfuscated schemes',async()=>{

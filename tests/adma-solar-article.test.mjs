@@ -5,7 +5,7 @@ import { checkResearchArticles } from "../scripts/check-research-articles.mjs";
 
 const root = new URL("../", import.meta.url);
 const slug = "when-solar-power-changes-fast";
-const read = path => readFileSync(new URL(path, root), "utf8");
+const read = path => readFileSync(new URL(path, root), "utf8").replace(/\r\n?/g, "\n");
 const editions = ["writing", "writing-zh"].map(c => read(`src/content/${c}/${slug}.md`));
 const projects = ["projects", "projects-zh"].map(c => read(`src/content/${c}/${slug}.md`));
 const teaching = ["teaching", "teaching-zh"].map(c => read(`src/content/${c}/student-research-studio.md`));

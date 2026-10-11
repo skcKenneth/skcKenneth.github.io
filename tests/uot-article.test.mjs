@@ -4,11 +4,21 @@ import { test } from "node:test";
 import { checkResearchArticles } from "../scripts/check-research-articles.mjs";
 const root=new URL("../",import.meta.url);
 const slug="did-the-hotspot-move-or-did-it-grow";
-const read=p=>readFileSync(new URL(p,root),"utf8");
+// Git checkouts may use CRLF on Windows; Markdown semantics are unchanged.
+const normalizeNewlines=t=>t.replace(/\r\n?/g,"\n");
+const read=p=>normalizeNewlines(readFileSync(new URL(p,root),"utf8"));
 const editions=["writing","writing-zh"].map(c=>read("src/content/"+c+"/"+slug+".md"));
 const projects=["projects","projects-zh"].map(c=>read("src/content/"+c+"/"+slug+".md"));
 const equations=t=>[...t.matchAll(/\$\$\s*([\s\S]*?)\s*\$\$/g)].map(m=>m[1].replace(/\s+/g,""));
 const links=t=>[...new Set([...t.matchAll(/\]\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))].sort();
+
+test("reference-section checks preserve LF and Windows CRLF content",()=>{
+  const lf="before\n## References\n1. A verified source.\n";
+  for(const source of [lf,lf.replace(/\n/g,"\r\n")]){
+    const refs=normalizeNewlines(source).split(/\n## (?:References|參考文獻)\n/)[1];
+    assert.equal(refs,"1. A verified source.\n");
+  }
+});
 
 test("UOT editions share eight accessible safe vector figures",()=>{
   assert.deepEqual(checkResearchArticles([slug]),[]);
