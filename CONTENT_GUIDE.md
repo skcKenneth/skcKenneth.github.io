@@ -186,6 +186,61 @@ unofficial boundary and links to the official questions. Adding download metadat
 does not grant redistribution rights. Learning toolbars delegate to existing
 exports and storage; they must not rewrite a learner's saved records.
 
+### One-class activity packs
+
+Maintain paired classroom content in `src/data/classroom-packs.mjs`. The registry
+owns stable pack IDs, bilingual tasks and teacher reasoning, timings, source
+boundaries, original-tool links and comparison presets. The current packs are
+`sampling-bias` (45 minutes) and `mixing-tank` (50 minutes). These timings are
+editorial lesson plans, not measured learning outcomes; the tank pack is an
+introduction to the longer workshop, not completion of its eight stages.
+
+Student pages live at `/teaching/classroom-packs/<id>/`, with matching `/zh/`
+editions. Teacher references use the separate `<id>/teacher/` route. These are
+public references, not access-controlled answers. Keep teacher reasoning and
+reference answers out of student tasks and student printouts. The teaching
+overview uses one compact pack card per activity; do not duplicate the underlying
+Math Studio or workshop engine in the resource directory.
+
+Share links target only the student pack page. Permit only a declared `preset`
+and an integer `seed` within that activity's existing bounds. Never include names,
+responses, code, progress, stored records or a teacher-mode flag. Settings must be
+applied manually in the original tool; the link does not preload or reset it.
+Keep the visible copying status and bounded manual-copy fallback. Projection
+changes only the page display and must retain a clear exit and Escape support.
+
+Do not change either engine's storage schema or import/export format when editing
+a pack. The pack page must not read or write the original learning records.
+Math Studio's interactive tool remains Traditional-Chinese-only; the workshop is
+bilingual and downloads its Python runtime only when requested. A precomputed
+reference, paper comparison or failed runtime load must never be labelled as the
+student's successful execution. Keep synthetic-data and physical-validation
+limits visible in both editions.
+
+Run `node --test tests/classroom-packs.test.mjs` for the source, sharing and
+record-isolation checks. After a fresh complete build, run
+`node tests/classroom-packs.test.mjs --built`. Serve that production output locally
+and render the eight student/teacher × English/Traditional-Chinese documents:
+
+```sh
+node scripts/render-classroom-pdfs.mjs http://127.0.0.1:8767/
+```
+
+The renderer uses fresh isolated headless Edge profiles and writes PDFs plus a
+source/HTML/PDF hash manifest under
+`design/site-refresh/classroom-previews/print/`. Inspect the actual A4 output:
+formulas and mathematical glyphs, line breaks, writing space, current preset and
+seed, source URLs, and the separation of student tasks from teacher answers.
+Use `MathExpression.astro` for TeX formulas; semantic rendering must not move a
+teacher formula into a student task. Also manually check keyboard, projection,
+copy fallback, both languages and manual tool navigation. Passing source tests or
+generating PDFs does not itself establish visual, accessibility or learning QA.
+
+When an activity, source asset or linked explanation changes, use the local
+content review queue below to inspect the pack's current source dependencies and
+both editions. Record a receipt only after that audit; a changed fingerprint or
+newly rendered PDF is not approval and must not alter scientific claims or dates.
+
 ## Check, publish and verify
 
 1. Create the paired draft and write both editions with reviewed references.
@@ -236,6 +291,36 @@ shared article ID. Cross-language sections are explicit pairs in
 Removed headings and unmapped translations return a visible status. Clearing a
 position must retain saved articles and all teaching records. Print QA checks
 actual A4 output, including formulas, captions, tables and code, in both languages.
+
+## Local content review queue
+
+Run `pnpm review:content` to print the local public-source review queue without
+changing files. Use `pnpm review:content --out design/site-refresh/content-review`
+to save only `report.json` and `report.md`. The JSON records current fingerprints;
+observing those versions does not mark them reviewed. Unknown legacy material is
+informational. Changed reviewed items, unreviewed registered pilots and overdue
+milestone facts are actionable; structural dependency errors block publication.
+
+`src/data/content-review-registry.mjs` declares directional translation links,
+article-to-guide/path/concept/note dependencies and managed teaching manifests.
+Keys include the content domain, shared source ID and locale. Fingerprints normalize
+BOM/line endings, retain metadata dates and keep manifest versions, sizes, hashes,
+licences and inspection scope. Only absolute machine source-root provenance is
+ignored. The queue reads repository public sources; it does not open private files.
+
+After actually auditing the indicated public versions, prepare a JSON receipt with
+`key`, `fingerprint`, the full `dependencies` map from the current report,
+`reviewedAt`, `reviewedBy`, a concrete `scope`, `conclusion` (`consistent`,
+`needs-update` or `pending`), `reason` and public/workspace `references`. Record it
+explicitly with `pnpm review:content record --receipt design/path/to/receipt.json`.
+This appends only the registry receipt block and refuses stale target/dependency
+hashes. `Codex source audit` identifies a source audit, not human approval or an
+independent research reproduction. Keep unconfirmed facts pending, including
+AI4Nature presentation/publication outcomes; elapsed dates never resolve them.
+
+Never create receipts merely to clear warnings or accept a new snapshot. Report
+generation and receipt recording must not rewrite article publication/update dates,
+teaching manifests, scientific evidence, stored learning records or event status.
 
 ## Research and teaching
 

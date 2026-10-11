@@ -27,3 +27,7 @@
 `reading-previews/print/` 保存八份實際 A4 PDF、HTML／PDF 雜湊、選定頁面及檢查腳本。內容涵蓋交通、太陽能、證書的公式／圖說／表格，以及中英文程式碼文章；長數值區間的表格欄寬問題已加入回歸與最終 PDF 抽查。
 
 `performance/reading-candidate/` 是凍結 dist 的離線資源體積報告。試點文章初始外部 JS 圖由 6,717 增至 15,903 bytes，首頁仍為 0；此數值不代表網絡耗時或 Web Vitals。正式發布結果另以相同提交的 Actions 及線上驗證記錄。
+
+## 正式發布
+
+提交 `9446e5330f594f021677490ba2675c7c28c706ac` 已發布；[Actions 38120541699](https://github.com/skcKenneth/skcKenneth.github.io/actions/runs/38120541699) 的建置、部署及線上驗證均成功。獨立執行的 72 項路由／資產核對亦全部通過，詳見 `reading-previews/actions.json` 及 `live-verification.md`。正式瀏覽器確認模型可信度路線、文章概念展開、列印按鈕及敏感度英文別名搜尋；`path-live.png` 為實際正式頁面。

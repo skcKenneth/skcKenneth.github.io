@@ -1,0 +1,1447 @@
+{
+  "capturedAt": "2026-10-11T07:51:17.409Z",
+  "sourceBaseCommit": "9446e5330f594f021677490ba2675c7c28c706ac",
+  "method": "Actual in-app browser at 360/390/768/1280 px; 200% uses local root-font fixture, not browser zoom. About retested after final wrap/grid fixes. Other 128 cases share unchanged layout sources; clipboard/print-only changes separately verified.",
+  "cases": [
+    {
+      "route": "/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "Mathematics,with curiosity.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 350,
+      "h1": "Mathematics,with curiosity.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "Mathematics,with curiosity.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "Mathematics,with curiosity.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "用數學，看清問題。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "用數學，看清問題。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "用數學，看清問題。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "用數學，看清問題。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "Find your next learning step.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "Find your next learning step.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "Find your next learning step.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "Find your next learning step.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "找到適合你的下一步。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "找到適合你的下一步。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "找到適合你的下一步。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "找到適合你的下一步。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "A clear starting point for one class.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "A clear starting point for one class.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "A clear starting point for one class.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "A clear starting point for one class.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "一節課，可以由這裏開始。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "一節課，可以由這裏開始。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "一節課，可以由這裏開始。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "一節課，可以由這裏開始。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "Sampling: does more mean better?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "Sampling: does more mean better?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "Sampling: does more mean better?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "Sampling: does more mean better?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "抽樣：問得更多就更準？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "抽樣：問得更多就更準？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "抽樣：問得更多就更準？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "抽樣：問得更多就更準？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "Sampling: does more mean better? — Teacher reference",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "Sampling: does more mean better? — Teacher reference",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "Sampling: does more mean better? — Teacher reference",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "Sampling: does more mean better? — Teacher reference",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "抽樣：問得更多就更準？｜教師參考",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "抽樣：問得更多就更準？｜教師參考",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "抽樣：問得更多就更準？｜教師參考",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "抽樣：問得更多就更準？｜教師參考",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "Mixing tank: can a smooth curve be trusted?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "Mixing tank: can a smooth curve be trusted?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "Mixing tank: can a smooth curve be trusted?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "Mixing tank: can a smooth curve be trusted?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "混合槽：平滑曲線就可信？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "混合槽：平滑曲線就可信？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "混合槽：平滑曲線就可信？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "混合槽：平滑曲線就可信？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "Mixing tank: can a smooth curve be trusted? — Teacher reference",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "Mixing tank: can a smooth curve be trusted? — Teacher reference",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "Mixing tank: can a smooth curve be trusted? — Teacher reference",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "Mixing tank: can a smooth curve be trusted? — Teacher reference",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "混合槽：平滑曲線就可信？｜教師參考",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "混合槽：平滑曲線就可信？｜教師參考",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "混合槽：平滑曲線就可信？｜教師參考",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "混合槽：平滑曲線就可信？｜教師參考",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/writing/after-a-good-fit-what-to-measure/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "After a Good Fit, What Should We Measure?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/writing/after-a-good-fit-what-to-measure/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "After a Good Fit, What Should We Measure?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/writing/after-a-good-fit-what-to-measure/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "After a Good Fit, What Should We Measure?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/writing/after-a-good-fit-what-to-measure/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "After a Good Fit, What Should We Measure?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "width": 360,
+      "textScale": 100,
+      "documentWidth": 345,
+      "h1": "擬合得好之後，下一個量度甚麼？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "width": 360,
+      "textScale": 200,
+      "documentWidth": 345,
+      "h1": "擬合得好之後，下一個量度甚麼？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 360
+    },
+    {
+      "route": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "width": 390,
+      "textScale": 100,
+      "documentWidth": 375,
+      "h1": "擬合得好之後，下一個量度甚麼？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 390
+    },
+    {
+      "route": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "width": 390,
+      "textScale": 200,
+      "documentWidth": 375,
+      "h1": "擬合得好之後，下一個量度甚麼？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 390
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "Mathematics,with curiosity.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "Mathematics,with curiosity.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "Mathematics,with curiosity.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "Mathematics,with curiosity.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "用數學，看清問題。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "用數學，看清問題。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "用數學，看清問題。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "用數學，看清問題。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "Find your next learning step.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "Find your next learning step.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "Find your next learning step.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "Find your next learning step.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "找到適合你的下一步。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "找到適合你的下一步。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "找到適合你的下一步。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "找到適合你的下一步。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "A clear starting point for one class.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "A clear starting point for one class.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "A clear starting point for one class.",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "A clear starting point for one class.",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "一節課，可以由這裏開始。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "一節課，可以由這裏開始。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "一節課，可以由這裏開始。",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "一節課，可以由這裏開始。",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "Sampling: does more mean better?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "Sampling: does more mean better?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "Sampling: does more mean better?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "Sampling: does more mean better?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "抽樣：問得更多就更準？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "抽樣：問得更多就更準？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "抽樣：問得更多就更準？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "抽樣：問得更多就更準？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "Sampling: does more mean better? — Teacher reference",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "Sampling: does more mean better? — Teacher reference",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "Sampling: does more mean better? — Teacher reference",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "Sampling: does more mean better? — Teacher reference",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "抽樣：問得更多就更準？｜教師參考",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "抽樣：問得更多就更準？｜教師參考",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "抽樣：問得更多就更準？｜教師參考",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "抽樣：問得更多就更準？｜教師參考",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "Mixing tank: can a smooth curve be trusted?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "Mixing tank: can a smooth curve be trusted?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "Mixing tank: can a smooth curve be trusted?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "Mixing tank: can a smooth curve be trusted?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "混合槽：平滑曲線就可信？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "混合槽：平滑曲線就可信？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "混合槽：平滑曲線就可信？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "混合槽：平滑曲線就可信？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "Mixing tank: can a smooth curve be trusted? — Teacher reference",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "Mixing tank: can a smooth curve be trusted? — Teacher reference",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "Mixing tank: can a smooth curve be trusted? — Teacher reference",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "Mixing tank: can a smooth curve be trusted? — Teacher reference",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "混合槽：平滑曲線就可信？｜教師參考",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "混合槽：平滑曲線就可信？｜教師參考",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "混合槽：平滑曲線就可信？｜教師參考",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "混合槽：平滑曲線就可信？｜教師參考",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/writing/after-a-good-fit-what-to-measure/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "After a Good Fit, What Should We Measure?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/writing/after-a-good-fit-what-to-measure/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "After a Good Fit, What Should We Measure?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/writing/after-a-good-fit-what-to-measure/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "After a Good Fit, What Should We Measure?",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/writing/after-a-good-fit-what-to-measure/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "After a Good Fit, What Should We Measure?",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "width": 768,
+      "textScale": 100,
+      "documentWidth": 753,
+      "h1": "擬合得好之後，下一個量度甚麼？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "width": 768,
+      "textScale": 200,
+      "documentWidth": 753,
+      "h1": "擬合得好之後，下一個量度甚麼？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 768
+    },
+    {
+      "route": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "width": 1280,
+      "textScale": 100,
+      "documentWidth": 1265,
+      "h1": "擬合得好之後，下一個量度甚麼？",
+      "overflow": false,
+      "rootFont": "16px",
+      "viewport": 1280
+    },
+    {
+      "route": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "width": 1280,
+      "textScale": 200,
+      "documentWidth": 1265,
+      "h1": "擬合得好之後，下一個量度甚麼？",
+      "overflow": false,
+      "rootFont": "32px",
+      "viewport": 1280
+    },
+    {
+      "documentWidth": 345,
+      "h1": "Mathematics as a way to investigate.",
+      "overflow": false,
+      "rootFont": "16px",
+      "route": "/about/",
+      "textScale": 100,
+      "viewport": 360,
+      "width": 360
+    },
+    {
+      "documentWidth": 345,
+      "h1": "Mathematics as a way to investigate.",
+      "overflow": false,
+      "rootFont": "32px",
+      "route": "/about/",
+      "textScale": 200,
+      "viewport": 360,
+      "width": 360
+    },
+    {
+      "documentWidth": 375,
+      "h1": "Mathematics as a way to investigate.",
+      "overflow": false,
+      "rootFont": "16px",
+      "route": "/about/",
+      "textScale": 100,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "documentWidth": 375,
+      "h1": "Mathematics as a way to investigate.",
+      "overflow": false,
+      "rootFont": "32px",
+      "route": "/about/",
+      "textScale": 200,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "documentWidth": 753,
+      "h1": "Mathematics as a way to investigate.",
+      "overflow": false,
+      "rootFont": "16px",
+      "route": "/about/",
+      "textScale": 100,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "documentWidth": 753,
+      "h1": "Mathematics as a way to investigate.",
+      "overflow": false,
+      "rootFont": "32px",
+      "route": "/about/",
+      "textScale": 200,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "documentWidth": 1265,
+      "h1": "Mathematics as a way to investigate.",
+      "overflow": false,
+      "rootFont": "16px",
+      "route": "/about/",
+      "textScale": 100,
+      "viewport": 1280,
+      "width": 1280
+    },
+    {
+      "documentWidth": 1265,
+      "h1": "Mathematics as a way to investigate.",
+      "overflow": false,
+      "rootFont": "32px",
+      "route": "/about/",
+      "textScale": 200,
+      "viewport": 1280,
+      "width": 1280
+    },
+    {
+      "documentWidth": 345,
+      "h1": "把數學用作探究的方法。",
+      "overflow": false,
+      "rootFont": "16px",
+      "route": "/zh/about/",
+      "textScale": 100,
+      "viewport": 360,
+      "width": 360
+    },
+    {
+      "documentWidth": 345,
+      "h1": "把數學用作探究的方法。",
+      "overflow": false,
+      "rootFont": "32px",
+      "route": "/zh/about/",
+      "textScale": 200,
+      "viewport": 360,
+      "width": 360
+    },
+    {
+      "documentWidth": 375,
+      "h1": "把數學用作探究的方法。",
+      "overflow": false,
+      "rootFont": "16px",
+      "route": "/zh/about/",
+      "textScale": 100,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "documentWidth": 375,
+      "h1": "把數學用作探究的方法。",
+      "overflow": false,
+      "rootFont": "32px",
+      "route": "/zh/about/",
+      "textScale": 200,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "documentWidth": 753,
+      "h1": "把數學用作探究的方法。",
+      "overflow": false,
+      "rootFont": "16px",
+      "route": "/zh/about/",
+      "textScale": 100,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "documentWidth": 753,
+      "h1": "把數學用作探究的方法。",
+      "overflow": false,
+      "rootFont": "32px",
+      "route": "/zh/about/",
+      "textScale": 200,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "documentWidth": 1265,
+      "h1": "把數學用作探究的方法。",
+      "overflow": false,
+      "rootFont": "16px",
+      "route": "/zh/about/",
+      "textScale": 100,
+      "viewport": 1280,
+      "width": 1280
+    },
+    {
+      "documentWidth": 1265,
+      "h1": "把數學用作探究的方法。",
+      "overflow": false,
+      "rootFont": "32px",
+      "route": "/zh/about/",
+      "textScale": 200,
+      "viewport": 1280,
+      "width": 1280
+    }
+  ]
+}

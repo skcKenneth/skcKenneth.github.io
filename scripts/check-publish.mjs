@@ -6,6 +6,7 @@ import { pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { TOPIC_IDS, getTopicIds, canonicalId } from '../src/data/site-reader.mjs';
 import { MILESTONES } from '../src/data/site-editorial.mjs';
+import { checkContentReview } from './content-review.mjs';
 const require = createRequire(import.meta.resolve('astro/package.json'));
 const yaml = require('js-yaml');
 async function files(directory) { const result = []; for (const entry of await readdir(directory, { withFileTypes: true })) { const full = resolve(directory, entry.name); if (entry.isDirectory()) result.push(...await files(full)); else if (/\.(?:md|mdx)$/.test(entry.name)) result.push(full); } return result; }
@@ -59,6 +60,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   if (options.some(option => !allowed.has(option))) { console.error('Usage: node scripts/check-publish.mjs [--checks-only] [--built]'); process.exitCode = 1; }
   else {
     const report = await checkPublication(process.cwd()); report.warnings.forEach(warning => console.warn(`Review: ${warning}`));
+    const reviews = await checkContentReview(process.cwd());
+    report.errors.push(...reviews.errors);
+    console.log(`Content review queue: ${reviews.checked} observed; ${reviews.report.summary.reviewed} scoped reviews; ${reviews.report.summary.actionable} pending actions. Run pnpm review:content for source fingerprints and reasons. Unknown legacy reviews remain informational.`);
     if (report.errors.length) { console.error(`Publication checks failed (${report.errors.length}):\n${report.errors.map(error => `- ${error}`).join('\n')}`); process.exitCode = 1; }
     else {
       console.log(`Publication metadata, bilingual topics, dates and local references checked in ${report.checked} published entries.`);

@@ -64,9 +64,10 @@
     "content:new": "node scripts/content-new.mjs",
     "check:publish": "node scripts/check-publish.mjs",
     "generate:reader-media": "node scripts/generate-reader-media.mjs",
-    "test:reader": "node scripts/check-redirects.mjs && node --test tests/reader-*.test.mjs tests/reading-list.test.mjs tests/search-index-filters.test.mjs tests/publish-summary.test.mjs",
-    "test:reader:built": "node tests/reader-experience.test.mjs --built && node tests/reader-metadata.test.mjs --built && node tests/reader-release.test.mjs --built && node tests/reader-editorial.test.mjs --built && node tests/reader-guides.test.mjs --built && node tests/reader-paths.test.mjs --built && node tests/reader-concepts.test.mjs --built && node tests/reader-position.test.mjs --built",
-    "test:reader-authoring": "node --test tests/reader-authoring.test.mjs tests/publish-summary.test.mjs"
+    "test:reader": "node scripts/check-redirects.mjs && node --test tests/reader-*.test.mjs tests/reading-list.test.mjs tests/search-index-filters.test.mjs tests/publish-summary.test.mjs tests/classroom-packs.test.mjs",
+    "test:reader:built": "node tests/reader-experience.test.mjs --built && node tests/reader-metadata.test.mjs --built && node tests/reader-release.test.mjs --built && node tests/reader-editorial.test.mjs --built && node tests/reader-guides.test.mjs --built && node tests/reader-paths.test.mjs --built && node tests/reader-concepts.test.mjs --built && node tests/reader-position.test.mjs --built && node tests/reader-notes.test.mjs --built && node tests/classroom-packs.test.mjs --built",
+    "test:reader-authoring": "node --test tests/reader-authoring.test.mjs tests/publish-summary.test.mjs",
+    "review:content": "node scripts/content-review.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "7.2.4",

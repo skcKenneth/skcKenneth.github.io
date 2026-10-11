@@ -1,0 +1,186 @@
+## 網站發布摘要
+
+提交：`9446e5330f594f021677490ba2675c7c28c706ac`
+比較起點：`42a68fcb9e4eaa357a0e5a9661ed5add52fb007a`
+
+實際變更 90 個檔案：
+- 其他實際變更：64 個檔案
+- 發布流程、內容模板與檢查：12 個檔案
+- 導覽、首頁與閱讀介面：3 個檔案
+- 搜尋與結果篩選：5 個檔案
+- 主題、內容分類與雙語資料：6 個檔案
+
+### 驗證紀錄
+
+- 未從已成功的 GitHub Actions 建置及部署上下文確認發布；此摘要不聲稱已完成發布。
+- ✓ `/`：HTTP、語言與內容標記通過
+- ✓ `/zh/`：HTTP、語言與內容標記通過
+- ✓ `/writing/`：HTTP、語言與內容標記通過
+- ✓ `/zh/writing/`：HTTP、語言與內容標記通過
+- ✓ `/topics/`：HTTP、語言與內容標記通過
+- ✓ `/zh/topics/`：HTTP、語言與內容標記通過
+- ✓ `/teaching/`：HTTP、語言與內容標記通過
+- ✓ `/zh/teaching/`：HTTP、語言與內容標記通過
+- ✓ `/search/`：HTTP、語言與內容標記通過
+- ✓ `/zh/search/`：HTTP、語言與內容標記通過
+- ✓ `/rss.xml`：HTTP、語言與內容標記通過
+- ✓ `/zh/rss.xml`：HTTP、語言與內容標記通過
+- ✓ `/images/og-reader.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/images/kenneth-woven-knot.svg`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/writing/archive/`：HTTP、語言與內容標記通過
+- ✓ `/research/`：HTTP、語言與內容標記通過
+- ✓ `/teaching/jae-math/`：HTTP、語言與內容標記通過
+- ✓ `/teaching/senior-math/studios/jae/`：HTTP、語言與內容標記通過
+- ✓ `/teaching/model-laboratory/`：HTTP、語言與內容標記通過
+- ✓ `/zh/writing/archive/`：HTTP、語言與內容標記通過
+- ✓ `/zh/research/`：HTTP、語言與內容標記通過
+- ✓ `/zh/teaching/jae-math/`：HTTP、語言與內容標記通過
+- ✓ `/zh/teaching/senior-math/studios/jae/`：HTTP、語言與內容標記通過
+- ✓ `/zh/teaching/model-laboratory/`：HTTP、語言與內容標記通過
+- ✓ `/writing/two-networks-one-spectrum-different-alarms/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/two-networks-one-spectrum-different-alarms-en.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/zh/writing/two-networks-one-spectrum-different-alarms/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/two-networks-one-spectrum-different-alarms-zh-Hant.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/writing/how-many-equilibria-did-the-optimizer-miss/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/how-many-equilibria-did-the-optimizer-miss-en.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/zh/writing/how-many-equilibria-did-the-optimizer-miss/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/how-many-equilibria-did-the-optimizer-miss-zh-Hant.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/writing/what-must-a-traffic-model-remember/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/what-must-a-traffic-model-remember-en.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/zh/writing/what-must-a-traffic-model-remember/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/what-must-a-traffic-model-remember-zh-Hant.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/writing/when-the-fit-is-not-the-model/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/when-the-fit-is-not-the-model-en.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/zh/writing/when-the-fit-is-not-the-model/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/when-the-fit-is-not-the-model-zh-Hant.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/writing/random-stress-tests-are-not-certificates/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/random-stress-tests-are-not-certificates-en.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/zh/writing/random-stress-tests-are-not-certificates/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/random-stress-tests-are-not-certificates-zh-Hant.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/writing/when-solar-power-changes-fast/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/when-solar-power-changes-fast-en.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/zh/writing/when-solar-power-changes-fast/`：HTTP、語言與內容標記通過
+- ✓ `/images/reader-shares/when-solar-power-changes-fast-zh-Hant.png`：HTTP、格式與提交資產 SHA-256 通過
+- ✓ `/concepts/`：HTTP、語言與內容標記通過
+- ✓ `/topics/routes/`：HTTP、語言與內容標記通過
+- ✓ `/concepts/baseline/`：HTTP、語言與內容標記通過
+- ✓ `/concepts/assumption/`：HTTP、語言與內容標記通過
+- ✓ `/concepts/sensitivity/`：HTTP、語言與內容標記通過
+- ✓ `/concepts/identifiability/`：HTTP、語言與內容標記通過
+- ✓ `/concepts/calibration/`：HTTP、語言與內容標記通過
+- ✓ `/concepts/validation/`：HTTP、語言與內容標記通過
+- ✓ `/concepts/robustness/`：HTTP、語言與內容標記通過
+- ✓ `/concepts/uncertainty/`：HTTP、語言與內容標記通過
+- ✓ `/topics/routes/model-trust/`：HTTP、語言與內容標記通過
+- ✓ `/topics/routes/city-models/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/`：HTTP、語言與內容標記通過
+- ✓ `/zh/topics/routes/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/baseline/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/assumption/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/sensitivity/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/identifiability/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/calibration/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/validation/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/robustness/`：HTTP、語言與內容標記通過
+- ✓ `/zh/concepts/uncertainty/`：HTTP、語言與內容標記通過
+- ✓ `/zh/topics/routes/model-trust/`：HTTP、語言與內容標記通過
+- ✓ `/zh/topics/routes/city-models/`：HTTP、語言與內容標記通過
+
+上述自動檢查沒有代替實際瀏覽器操作、鍵盤測試或完整 WCAG 審核。
+
+[查看網站](https://skckenneth.github.io/)
+
+<details><summary>實際變更檔案</summary>
+
+- `.gitignore`
+- `CONTENT_GUIDE.md`
+- `astro.config.mjs`
+- `design/site-refresh/editorial-batch.md`
+- `design/site-refresh/editorial-previews/actions.json`
+- `design/site-refresh/editorial-previews/home-live.png`
+- `design/site-refresh/editorial-previews/live-verification.md`
+- `design/site-refresh/performance/reading-candidate/README.md`
+- `design/site-refresh/performance/reading-candidate/assets.json`
+- `design/site-refresh/reading-batch.md`
+- `design/site-refresh/reading-previews/README.md`
+- `design/site-refresh/reading-previews/calibration-mobile.png`
+- `design/site-refresh/reading-previews/concept-200.png`
+- `design/site-refresh/reading-previews/concept-mobile.png`
+- `design/site-refresh/reading-previews/path-desktop.png`
+- `design/site-refresh/reading-previews/path-mobile.png`
+- `design/site-refresh/reading-previews/print/README.md`
+- `design/site-refresh/reading-previews/print/certificate-en-page-1.png`
+- `design/site-refresh/reading-previews/print/certificate-en-page-3.png`
+- `design/site-refresh/reading-previews/print/certificate-en.pdf`
+- `design/site-refresh/reading-previews/print/certificate-zh-Hant-page-1.png`
+- `design/site-refresh/reading-previews/print/certificate-zh-Hant-page-3.png`
+- `design/site-refresh/reading-previews/print/certificate-zh-Hant.pdf`
+- `design/site-refresh/reading-previews/print/code-en-page-1.png`
+- `design/site-refresh/reading-previews/print/code-en.pdf`
+- `design/site-refresh/reading-previews/print/code-zh-Hant-page-1.png`
+- `design/site-refresh/reading-previews/print/code-zh-Hant.pdf`
+- `design/site-refresh/reading-previews/print/inspect-pdf.py`
+- `design/site-refresh/reading-previews/print/pdf-inspection.json`
+- `design/site-refresh/reading-previews/print/render-manifest.json`
+- `design/site-refresh/reading-previews/print/render.mjs`
+- `design/site-refresh/reading-previews/print/solar-en-page-1.png`
+- `design/site-refresh/reading-previews/print/solar-en-page-15.png`
+- `design/site-refresh/reading-previews/print/solar-en.pdf`
+- `design/site-refresh/reading-previews/print/solar-zh-Hant-page-1.png`
+- `design/site-refresh/reading-previews/print/solar-zh-Hant-page-14.png`
+- `design/site-refresh/reading-previews/print/solar-zh-Hant-page-15.png`
+- `design/site-refresh/reading-previews/print/solar-zh-Hant.pdf`
+- `design/site-refresh/reading-previews/print/traffic-en-page-1.png`
+- `design/site-refresh/reading-previews/print/traffic-en-page-2.png`
+- `design/site-refresh/reading-previews/print/traffic-en.pdf`
+- `design/site-refresh/reading-previews/print/traffic-zh-Hant-page-1.png`
+- `design/site-refresh/reading-previews/print/traffic-zh-Hant-page-2.png`
+- `design/site-refresh/reading-previews/print/traffic-zh-Hant.pdf`
+- `design/site-refresh/reading-previews/responsive-checks.json`
+- `package.json`
+- `scripts/publish-summary.mjs`
+- `scripts/rehype-reader-concepts.mjs`
+- `src/components/ArticlePathLinks.astro`
+- `src/components/ArticleReader.astro`
+- `src/components/ConceptIndex.astro`
+- `src/components/ConceptPage.astro`
+- `src/components/HomePage.astro`
+- `src/components/ReaderPrint.astro`
+- `src/components/ReadingPathPage.astro`
+- `src/components/ReadingPathsIndex.astro`
+- `src/components/ReadingPosition.astro`
+- `src/components/SiteSearch.astro`
+- `src/components/TopicPage.astro`
+- `src/components/TopicsIndex.astro`
+- `src/data/reader-concepts.mjs`
+- `src/data/reader-sections.mjs`
+- `src/data/reading-paths.mjs`
+- `src/layouts/BaseLayout.astro`
+- `src/lib/reader-guide-catalog.mjs`
+- `src/lib/reading-position.mjs`
+- `src/lib/search-catalog.mjs`
+- `src/pages/concepts/[concept].astro`
+- `src/pages/concepts/index.astro`
+- `src/pages/topics/routes/[route].astro`
+- `src/pages/topics/routes/index.astro`
+- `src/pages/zh/concepts/[concept].astro`
+- `src/pages/zh/concepts/index.astro`
+- `src/pages/zh/topics/routes/[route].astro`
+- `src/pages/zh/topics/routes/index.astro`
+- `src/scripts/reader-print-client.ts`
+- `src/scripts/reading-position-client.ts`
+- `src/scripts/site-search.ts`
+- `src/styles/reader-concepts.css`
+- `src/styles/reader-paths.css`
+- `src/styles/reader-print.css`
+- `src/styles/reading-position.css`
+- `tests/publish-summary.test.mjs`
+- `tests/reader-concepts.test.mjs`
+- `tests/reader-guide-discovery.test.mjs`
+- `tests/reader-paths.test.mjs`
+- `tests/reader-position-client.test.mjs`
+- `tests/reader-position.test.mjs`
+- `tests/reader-search.test.mjs`
+- `tests/search-index-filters.test.mjs`
+
+</details>

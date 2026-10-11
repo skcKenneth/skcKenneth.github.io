@@ -1,0 +1,96 @@
+{
+  "renderedAt": "2026-10-11T07:52:21.211Z",
+  "base": "http://127.0.0.1:8767/",
+  "sourceBaseCommit": "9446e5330f594f021677490ba2675c7c28c706ac",
+  "sourceState": "working-tree",
+  "sourceHashes": {
+    "src/data/classroom-packs.mjs": "c7a8b60e3d04ee2f4543463a8f604d6f592fa6de6ae1b0bfc894f538a3963550",
+    "src/components/ClassroomPackPage.astro": "28ead14581f4fdf6811b5cace8ecc3bc7168bb268f91a863a2103d4b7239f0a0",
+    "src/styles/classroom-packs.css": "64da8da2daffd58305463f4f427752af29257189eafbe37e69644e1245fce3c7",
+    "src/scripts/classroom-packs.ts": "a1f1557f06186b1bb7afbc4aff5451731b57627adcd399c9b80e35a560e5fa1a"
+  },
+  "renderer": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
+  "method": "Fresh isolated headless document render; no user browser control; local preview only",
+  "documents": [
+    {
+      "packId": "sampling-bias",
+      "role": "student",
+      "locale": "en",
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "filename": "sampling-bias-student-en.pdf",
+      "bytes": 140594,
+      "sha256": "f7fafa58859324dcebb2ef6913be80aba3f228cbbe8d840cef5be851e44be177",
+      "builtHtmlSha256": "cb0419f90ec0b925995d089dda9907db6272f4bc9b69a1e6cac24f82bbd2b3a8"
+    },
+    {
+      "packId": "sampling-bias",
+      "role": "teacher",
+      "locale": "en",
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "filename": "sampling-bias-teacher-en.pdf",
+      "bytes": 133000,
+      "sha256": "1c6f89ddab7e080eec6e348057959363d3ff859766f0dc9ec93dcd5fa0a2abdb",
+      "builtHtmlSha256": "dde134d4bafe4b3624a0ed2827022b08f4a662f0fced5483e01855a39be09584"
+    },
+    {
+      "packId": "sampling-bias",
+      "role": "student",
+      "locale": "zh-Hant",
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "filename": "sampling-bias-student-zh-Hant.pdf",
+      "bytes": 709545,
+      "sha256": "5541e3cac5b750c689539c2ad31e39e8efa77f1c26fd86b5ec557928e7013a6f",
+      "builtHtmlSha256": "ecde729eeb2ff5f5b784042d2969b2a7c50a870d0baa7abe2f679af7018541b4"
+    },
+    {
+      "packId": "sampling-bias",
+      "role": "teacher",
+      "locale": "zh-Hant",
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "filename": "sampling-bias-teacher-zh-Hant.pdf",
+      "bytes": 701090,
+      "sha256": "5e26a5cc640938f48b7c9734797c632bd141b1570476771be732b7176335d513",
+      "builtHtmlSha256": "85530a9df683cb86a71296ff93adf06bb23e6d04664710647a4787c7c000df8a"
+    },
+    {
+      "packId": "mixing-tank",
+      "role": "student",
+      "locale": "en",
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "filename": "mixing-tank-student-en.pdf",
+      "bytes": 143979,
+      "sha256": "cb46a0045e7f290366647d8aa4c62ea66fbc4fb6b847daaa457cb7aa98232cb4",
+      "builtHtmlSha256": "e1913925871372b6fc013289bb62a1002641d20db534f0d38f61a71ab912ebdc"
+    },
+    {
+      "packId": "mixing-tank",
+      "role": "teacher",
+      "locale": "en",
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "filename": "mixing-tank-teacher-en.pdf",
+      "bytes": 144531,
+      "sha256": "19e1c04ab8a593ca103317571d58a8bcc5b780c7c080e859cf52fc7d456c9b35",
+      "builtHtmlSha256": "3afb3d1d089d34ace8aca44fa3b0476fd50e5e9ece8607c9664fe7d75b9df0b8"
+    },
+    {
+      "packId": "mixing-tank",
+      "role": "student",
+      "locale": "zh-Hant",
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "filename": "mixing-tank-student-zh-Hant.pdf",
+      "bytes": 776814,
+      "sha256": "2deb364bc6a5c22108807c470f29bfc8d58381bb420aac0fe79c151e9c5d6aec",
+      "builtHtmlSha256": "ac5da41839dc1c18c8ec1e39dc1960c980dc6209eaeab805ccaecedddca10b93"
+    },
+    {
+      "packId": "mixing-tank",
+      "role": "teacher",
+      "locale": "zh-Hant",
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "filename": "mixing-tank-teacher-zh-Hant.pdf",
+      "bytes": 816510,
+      "sha256": "11fb30007ffc9ef0e52f4c0fc64fcac4dd497767ba1f25ae98aad57894c3c9f4",
+      "builtHtmlSha256": "a0c921c37a245666a8d8c29edd3db6f2f92ba4d4ec333fc1b2400441179a4753"
+    }
+  ]
+}

@@ -1,15 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { LIVE_ROUTES, validateLivePayload, groupChanges, createPublishSummary, verifyLiveSite } from '../scripts/publish-summary.mjs';
+import { LIVE_ROUTES, READER_NOTE_IDS, validateLivePayload, groupChanges, createPublishSummary, verifyLiveSite } from '../scripts/publish-summary.mjs';
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 function payload(spec) {
   if (spec.kind === 'png') return { contentType: 'image/png', bytes: Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]) };
   if (spec.kind === 'svg') return { contentType: 'image/svg+xml', bytes: Buffer.from('<svg viewBox="0 0 1 1"></svg>') };
-  if (spec.kind === 'rss') return { contentType: 'application/rss+xml', bytes: Buffer.from(`<rss version="2.0"><channel><language>${spec.locale}</language><item>One article</item></channel></rss>`) };
+  if (spec.kind === 'rss') return { contentType: 'application/rss+xml', bytes: Buffer.from(`<rss version="2.0"><channel><language>${spec.locale}</language>${READER_NOTE_IDS.map(id=>`<item>/${spec.locale==='en'?'':'zh/'}writing/${id}/</item>`).join('')}</channel></rss>`) };
   if (spec.kind === 'alias') return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}" data-pagefind-ignore="all"><meta name="robots" content="noindex,follow"><noscript><meta http-equiv="refresh" content="0; url=${spec.destination}"></noscript><main data-compatibility-redirect data-destination="${spec.destination}"></main></html>`) };
   if (spec.kind === 'article') return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/><meta property="og:image" content="https://skckenneth.github.io${spec.sharePath}"/><section data-reader-guide="${spec.articleId}"><p data-reader-guide-question>Question</p></section><article data-article-reader></article><section data-reading-position></section><button data-reader-print></button></html>`) };
   if (spec.kind === 'guide') return {contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/><meta data-pagefind-filter="search-kind[content]" content="guide"/><link rel="canonical" href="https://skckenneth.github.io${spec.path}"/><link rel="alternate" hreflang="${spec.locale === 'en' ? 'zh-Hant' : 'en'}" href="https://skckenneth.github.io${spec.alternatePath}"/><h1>Guide</h1></html>`)};
+  if (['note','about','classroomIndex','classroomStudent','classroomTeacher'].includes(spec.kind)) {
+    const kind=spec.kind==='note'?'writing':spec.kind==='classroomTeacher'?'lesson':spec.kind.startsWith('classroom')?'teaching':'other';
+    const markers={note:`data-article-reader data-reading-position data-reader-print data-article-id="${spec.articleId}"`,about:'data-about-editorial id="writing-approach"',classroomIndex:'data-classroom-index',classroomStudent:`data-classroom-pack="${spec.packId}"`,classroomTeacher:`data-classroom-teacher="${spec.packId}"`};
+    return {contentType:'text/html',bytes:Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/><meta data-pagefind-filter="search-kind[content]" content="${kind}"/><link rel="canonical" href="https://skckenneth.github.io${spec.path}"/><link rel="alternate" hreflang="${spec.locale==='en'?'zh-Hant':'en'}" href="https://skckenneth.github.io${spec.alternatePath}"/><main ${markers[spec.kind]}></main></html>`)};
+  }
   const markers = { home: 'reader-home-hero id="latest-writing" id="start-here"', writing: 'data-writing-index reader-pagination', topics: 'reader-topics-grid mathematical-thinking teaching-research-practice id="research-programmes"', teaching: 'data-teaching-directory data-teaching-filters id="math-inquiry-lab"', search: 'data-site-search data-search-pagination name="technical"', studio: 'id="jae-topics" id="quadratics" id="trigonometry" id="past-papers"', models: 'id="model-index" data-catalog-kind="model" data-model-library' };
   return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/>${markers[spec.kind]}</html>`) };
 }
@@ -42,6 +47,22 @@ test('publication checks all 24 new paired guide routes and rejects incorrect co
     assert(validateLivePayload(spec, {status:200,...fixture,bytes:wrongPair}).includes('Incorrect guide language counterpart'));
   }
 });
+test('release requires paired notes, about updates, distinct classroom audiences and RSS discovery', () => {
+  const additions=LIVE_ROUTES.filter(spec=>['note','about','classroomIndex','classroomStudent','classroomTeacher'].includes(spec.kind));
+  assert.equal(additions.length,18);
+  assert.equal(LIVE_ROUTES.length,90);
+  for(const spec of additions){
+    const fixture=payload(spec);
+    const wrongPair=Buffer.from(fixture.bytes.toString().replace(`href="https://skckenneth.github.io${spec.alternatePath}"`,'href="https://skckenneth.github.io/wrong/"'));
+    assert(validateLivePayload(spec,{status:200,...fixture,bytes:wrongPair}).includes('Incorrect content language counterpart'));
+  }
+  const teacher=additions.find(spec=>spec.kind==='classroomTeacher'),fixture=payload(teacher);
+  const wrongKind=Buffer.from(fixture.bytes.toString().replace('content="lesson"','content="teaching"'));
+  assert(validateLivePayload(teacher,{status:200,...fixture,bytes:wrongKind}).includes('Incorrect content search classification'));
+  const rss=LIVE_ROUTES.find(spec=>spec.kind==='rss'),feed=payload(rss);
+  assert(validateLivePayload(rss,{status:200,...feed,bytes:Buffer.from(feed.bytes.toString().replace(READER_NOTE_IDS[0],'missing'))}).some(error=>error.includes('Missing new note')));
+});
+
 test('publication report uses actual diff groups and does not invent deployment or manual verification', () => {
   const files = ['src/components/TeachingDirectory.astro', 'src/components/HomePage.astro', 'scripts/content-new.mjs', 'src/pages/rss.xml.ts'];
   assert.equal(groupChanges(files).reduce((total, group) => total + group.files.length, 0), files.length);

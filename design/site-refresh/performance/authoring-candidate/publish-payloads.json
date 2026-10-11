@@ -1,0 +1,863 @@
+{
+  "version": 1,
+  "label": "Local built working-tree payload audit — authoring candidate",
+  "capturedAt": "2026-10-11T07:52:33.818Z",
+  "sourceCommit": "9446e5330f594f021677490ba2675c7c28c706ac",
+  "sourceState": "working-tree",
+  "workingTreeStatusSha256": "d930f8c7aa1b9bf2240f4517a6c0962fed70d5acf14b0a15598702d7f8b8e5be",
+  "publisherSourceSha256": "f3216a3585349ebf2c1405feee6171f20e9c4cdb43c6ea8c7cbb7b130036cb11",
+  "method": "Offline reads of frozen built dist; publisher marker/language/canonical/counterpart/search-kind/RSS/format validation. MIME type is supplied from the file extension and successful local reads use the validator status200 input. No HTTP requests, live status/header checks, deployment claims or browser/accessibility assertions. PNG/SVG bytes are also compared with immutable source HEAD public assets.",
+  "counts": {
+    "routes": 90,
+    "passed": 89,
+    "failed": 1,
+    "committedAssetHashChecks": 14,
+    "contentFormatMarkerLanguageChecksPassed": 90,
+    "rawCommittedAssetHashesMatched": 13
+  },
+  "checks": [
+    {
+      "path": "/",
+      "kind": "home",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 18648,
+      "sha256": "ffd5755be17b844424c8e7d1b179d616ec41bf34794bf1b3790c07fb5597887a"
+    },
+    {
+      "path": "/zh/",
+      "kind": "home",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 18555,
+      "sha256": "794baa8aea4aae046cfe54e304cf896114b7b462c7489668b7940b3aff15f45c"
+    },
+    {
+      "path": "/writing/",
+      "kind": "writing",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 158904,
+      "sha256": "34ad7bd67377f29fe0d8b266545c18c1a629f3c99ca1d628115517d5c3e5f00b"
+    },
+    {
+      "path": "/zh/writing/",
+      "kind": "writing",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 143148,
+      "sha256": "55bb08e373ce3e633a4c5784a82cfbb7b6f2f8aefc2736d347a5d1ac21f09548"
+    },
+    {
+      "path": "/topics/",
+      "kind": "topics",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 17070,
+      "sha256": "c4a408c6b3cd61c2eebf242b6c3f5dc86c3d177904b0237cf6c760b5d0b04002"
+    },
+    {
+      "path": "/zh/topics/",
+      "kind": "topics",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 16691,
+      "sha256": "8b1c9d8c4965d8cc48294136dfe0ecd24aa50ebc18a1dc8af94a74e3eb885d3a"
+    },
+    {
+      "path": "/teaching/",
+      "kind": "teaching",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 27487,
+      "sha256": "9a88c5022d4b69bed0636f77c6e4125fb096646bc724242c0dbddee0e6bfd5a4"
+    },
+    {
+      "path": "/zh/teaching/",
+      "kind": "teaching",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 26316,
+      "sha256": "4e5be3d6b3cb3d6757adcda971edb96ebbe1684cf5ea5954cc9490e1917fcab1"
+    },
+    {
+      "path": "/search/",
+      "kind": "search",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 196560,
+      "sha256": "3211239e6d98a025ad67e5fb8e9f12f7074d01d18b0ab88a38b2d46931fd1124"
+    },
+    {
+      "path": "/zh/search/",
+      "kind": "search",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 188107,
+      "sha256": "691ee073f8129405be6bc9608d264472a33d55222074b84a939d510b88389bc2"
+    },
+    {
+      "path": "/rss.xml",
+      "kind": "rss",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 33518,
+      "sha256": "8376cb22284126036fba64546c3ab907d73f77166015e8c335d17eec9568be5d"
+    },
+    {
+      "path": "/zh/rss.xml",
+      "kind": "rss",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 33008,
+      "sha256": "7b20aabe1386c3357fa8fae20c3e3d6c1cc30c83d5c7a65b7cd0afa32e373dc3"
+    },
+    {
+      "path": "/images/og-reader.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 44643,
+      "sha256": "530f6685e4e1e2069ebe3c32843fac9324038fda969fd50ef4a21c1b202a0e94",
+      "expectedCommittedAssetSha256": "530f6685e4e1e2069ebe3c32843fac9324038fda969fd50ef4a21c1b202a0e94"
+    },
+    {
+      "path": "/images/kenneth-woven-knot.svg",
+      "kind": "svg",
+      "locale": null,
+      "ok": false,
+      "errors": [
+        "Asset SHA-256 differs from the deployed commit"
+      ],
+      "bytes": 8348,
+      "sha256": "7d201f7e86aa536fef62bd6f13c6833d6010aa693f1078055ae0c3e9f0d17f76",
+      "expectedCommittedAssetSha256": "d034a060535b649ea72a1a7aa62ecc6d5c24bbec75e10301185a3577ef07f9c0"
+    },
+    {
+      "path": "/writing/archive/",
+      "kind": "alias",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 2418,
+      "sha256": "ee59ca89590aa43a98c33af7a2934854813ce2b49595d7a567ed00735088d11c"
+    },
+    {
+      "path": "/research/",
+      "kind": "alias",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 2454,
+      "sha256": "88748a2bdce7e82dcaf8adfad1a9d5b8089d0f4bde84ad74a329beadf276c228"
+    },
+    {
+      "path": "/teaching/jae-math/",
+      "kind": "alias",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 2392,
+      "sha256": "f32166d8112f77d1971415557008f63423e3fbde7c915052b315d8f2be7c52f8"
+    },
+    {
+      "path": "/teaching/senior-math/studios/jae/",
+      "kind": "studio",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 459968,
+      "sha256": "79e9687492967227c9db3e30cfb6c7b8fad41e43ad47f8c49facb58a5d7afc61"
+    },
+    {
+      "path": "/teaching/model-laboratory/",
+      "kind": "models",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 54481,
+      "sha256": "df6a7436fed91dc341e5771e40be5f27b696203d6d623075b88eaccbd7eaf39e"
+    },
+    {
+      "path": "/zh/writing/archive/",
+      "kind": "alias",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 2433,
+      "sha256": "68213d19f5e7858f7f77c16f306833a021938996e87c132a03d127e8bf6542b9"
+    },
+    {
+      "path": "/zh/research/",
+      "kind": "alias",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 2469,
+      "sha256": "caec1bb7f9658f0dc0a852a402318f72a53f7d36e4093ba364fda2e3ec066298"
+    },
+    {
+      "path": "/zh/teaching/jae-math/",
+      "kind": "alias",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 2407,
+      "sha256": "775d2ad4a134f31ed733f627b30fbfd091060cb12c479c6f6a85e95b56c25291"
+    },
+    {
+      "path": "/zh/teaching/senior-math/studios/jae/",
+      "kind": "studio",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 457351,
+      "sha256": "d0be184bbd255563bd09b17d356521bc740ed3c798ae2ec93efb36f6691960ac"
+    },
+    {
+      "path": "/zh/teaching/model-laboratory/",
+      "kind": "models",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 15861,
+      "sha256": "7afdd1ee41371b2ff618b393f536c5340341b6dcae6f37b7022e3e23324afe51"
+    },
+    {
+      "path": "/writing/two-networks-one-spectrum-different-alarms/",
+      "kind": "article",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 198142,
+      "sha256": "13170e603b2f0edd2e1012a427f2f236562fe8aad24d856ea92c4359807b52ab"
+    },
+    {
+      "path": "/images/reader-shares/two-networks-one-spectrum-different-alarms-en.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 37041,
+      "sha256": "8a53ad45e407829f5b776eb1f4a7a01d39dd1cc1f5f8616700661f57c601fb32",
+      "expectedCommittedAssetSha256": "8a53ad45e407829f5b776eb1f4a7a01d39dd1cc1f5f8616700661f57c601fb32"
+    },
+    {
+      "path": "/zh/writing/two-networks-one-spectrum-different-alarms/",
+      "kind": "article",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 199451,
+      "sha256": "4492dbebd3070203844b34018a2a62d02e5f1a4bc5655ed599aefa50a8cdfea5"
+    },
+    {
+      "path": "/images/reader-shares/two-networks-one-spectrum-different-alarms-zh-Hant.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 39459,
+      "sha256": "447bbb7028b094db080306ae79c30cb18496cfdde47ad8c984ef2776a4bf89ee",
+      "expectedCommittedAssetSha256": "447bbb7028b094db080306ae79c30cb18496cfdde47ad8c984ef2776a4bf89ee"
+    },
+    {
+      "path": "/writing/how-many-equilibria-did-the-optimizer-miss/",
+      "kind": "article",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 221143,
+      "sha256": "9cfbf2088fec46047c8096d8c0c3a95f8a5fb24d819ec6cd47832873a946f3fa"
+    },
+    {
+      "path": "/images/reader-shares/how-many-equilibria-did-the-optimizer-miss-en.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 39204,
+      "sha256": "befc981a308e3b1ae203a4a674984defa0bf127196655237ea213900ef82bd1c",
+      "expectedCommittedAssetSha256": "befc981a308e3b1ae203a4a674984defa0bf127196655237ea213900ef82bd1c"
+    },
+    {
+      "path": "/zh/writing/how-many-equilibria-did-the-optimizer-miss/",
+      "kind": "article",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 221746,
+      "sha256": "d11681464bf7ffaed46ec5f9241d5ace1bf6793a461f20e9559b65bf67327829"
+    },
+    {
+      "path": "/images/reader-shares/how-many-equilibria-did-the-optimizer-miss-zh-Hant.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 40147,
+      "sha256": "5715cd40f327cbc502b03962203d4db4aebf14b2b5112d1ea8af07e0c39fa019",
+      "expectedCommittedAssetSha256": "5715cd40f327cbc502b03962203d4db4aebf14b2b5112d1ea8af07e0c39fa019"
+    },
+    {
+      "path": "/writing/what-must-a-traffic-model-remember/",
+      "kind": "article",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 231308,
+      "sha256": "94d87dbf33b4f2e73f1346ccc2b9c34d53ef13186da5c85c30bca0bdcc881d81"
+    },
+    {
+      "path": "/images/reader-shares/what-must-a-traffic-model-remember-en.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 36610,
+      "sha256": "eaf6fcd716cf2aecf42c4463646bd448d0856259593d6de5d540a9851d16eb51",
+      "expectedCommittedAssetSha256": "eaf6fcd716cf2aecf42c4463646bd448d0856259593d6de5d540a9851d16eb51"
+    },
+    {
+      "path": "/zh/writing/what-must-a-traffic-model-remember/",
+      "kind": "article",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 236178,
+      "sha256": "372368e3cec302ec3b44aafb461f49c150feb1562e692066d895646bdeca25b4"
+    },
+    {
+      "path": "/images/reader-shares/what-must-a-traffic-model-remember-zh-Hant.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 49354,
+      "sha256": "d223d68659b481f8f988cc429c1b68f18ee3d02092a6624c203fbccd0b452387",
+      "expectedCommittedAssetSha256": "d223d68659b481f8f988cc429c1b68f18ee3d02092a6624c203fbccd0b452387"
+    },
+    {
+      "path": "/writing/when-the-fit-is-not-the-model/",
+      "kind": "article",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 60255,
+      "sha256": "7c425a344e349d1ce809915893f0b7a54227833150a0a8257b8d553448afdb76"
+    },
+    {
+      "path": "/images/reader-shares/when-the-fit-is-not-the-model-en.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 32950,
+      "sha256": "27b80a8d3b2f0813b24fd762bc0ea6717fdbb1a31c7a9b727c8e0a7f9b15a8ae",
+      "expectedCommittedAssetSha256": "27b80a8d3b2f0813b24fd762bc0ea6717fdbb1a31c7a9b727c8e0a7f9b15a8ae"
+    },
+    {
+      "path": "/zh/writing/when-the-fit-is-not-the-model/",
+      "kind": "article",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 58124,
+      "sha256": "0ca3ecd40bc2db7f3ea83e50d506ebebb5657efcbbde497e361bb2925a20499e"
+    },
+    {
+      "path": "/images/reader-shares/when-the-fit-is-not-the-model-zh-Hant.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 37069,
+      "sha256": "a19df4d6b6c0042227cb37b02dad2abe3f679a24f17fec1482de12093af48d63",
+      "expectedCommittedAssetSha256": "a19df4d6b6c0042227cb37b02dad2abe3f679a24f17fec1482de12093af48d63"
+    },
+    {
+      "path": "/writing/random-stress-tests-are-not-certificates/",
+      "kind": "article",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 169758,
+      "sha256": "0271593a7233b01ca05fa7ae68f0456317cd4eecf18940f8705bfa4dbf6f171e"
+    },
+    {
+      "path": "/images/reader-shares/random-stress-tests-are-not-certificates-en.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 38306,
+      "sha256": "9d51d3c4fa07e48b235100b0da941627d9e87402f070de85de17293838978f94",
+      "expectedCommittedAssetSha256": "9d51d3c4fa07e48b235100b0da941627d9e87402f070de85de17293838978f94"
+    },
+    {
+      "path": "/zh/writing/random-stress-tests-are-not-certificates/",
+      "kind": "article",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 190900,
+      "sha256": "90403cacc651b938abff206bb9aadac623ec5eea76ac0f7c3879c55849976ee1"
+    },
+    {
+      "path": "/images/reader-shares/random-stress-tests-are-not-certificates-zh-Hant.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 43245,
+      "sha256": "2754dd28efea525e94882e63b181c4f3261fad835bb0704b44ba3a59856530b9",
+      "expectedCommittedAssetSha256": "2754dd28efea525e94882e63b181c4f3261fad835bb0704b44ba3a59856530b9"
+    },
+    {
+      "path": "/writing/when-solar-power-changes-fast/",
+      "kind": "article",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 159529,
+      "sha256": "ba91fcc9d7451d628e1d512ba766d016b392faa8c39b59fa6336cfc55291b70a"
+    },
+    {
+      "path": "/images/reader-shares/when-solar-power-changes-fast-en.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 48009,
+      "sha256": "30f6ab0b2fc816e5e6819f0e1257ec5d2cf5568249c64047e62dd4233eab5640",
+      "expectedCommittedAssetSha256": "30f6ab0b2fc816e5e6819f0e1257ec5d2cf5568249c64047e62dd4233eab5640"
+    },
+    {
+      "path": "/zh/writing/when-solar-power-changes-fast/",
+      "kind": "article",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 160063,
+      "sha256": "aab1d131a768bdf798d6bb8700d4c1f38a30fc0c11bcd867cea267acc96d157c"
+    },
+    {
+      "path": "/images/reader-shares/when-solar-power-changes-fast-zh-Hant.png",
+      "kind": "png",
+      "locale": null,
+      "ok": true,
+      "errors": [],
+      "bytes": 50263,
+      "sha256": "534dd8915b54c3b4e7b742d0d66677619b911396ddae5faf5b6aedd467b35bce",
+      "expectedCommittedAssetSha256": "534dd8915b54c3b4e7b742d0d66677619b911396ddae5faf5b6aedd467b35bce"
+    },
+    {
+      "path": "/concepts/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 14591,
+      "sha256": "43e373b804afa17bbe8bbfd5dadb11d684768f35c7162b51f6b909625aa4a113"
+    },
+    {
+      "path": "/topics/routes/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 9114,
+      "sha256": "b84a617457c61b73cd3a7806d104006420c28dd39b82cc7f39f82416a66ef202"
+    },
+    {
+      "path": "/concepts/baseline/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 13616,
+      "sha256": "671fbb398fa7eb6a22af992bccce1c85261ebe8fe6ae58144efa4907fc03c1bc"
+    },
+    {
+      "path": "/concepts/assumption/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 13273,
+      "sha256": "370e143887313a74c7050ac80c07ddf901d30f9958898504049cf21e11c6b49b"
+    },
+    {
+      "path": "/concepts/sensitivity/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 13842,
+      "sha256": "f90a27ef23ca060eeb6768a4872376fafde506a0b887591f3563a2d3f3269152"
+    },
+    {
+      "path": "/concepts/identifiability/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 13742,
+      "sha256": "1770e7f600b08400059171a94fe6a649267ad4d07fc4e4320223be220cb68551"
+    },
+    {
+      "path": "/concepts/calibration/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 13322,
+      "sha256": "5c502b9ae289cfb239cfd7db58379dd1fe47310bca6ab35079f2e4c2f189aa55"
+    },
+    {
+      "path": "/concepts/validation/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 13961,
+      "sha256": "92a58c3eeabc673daa04756708f6c1e0cd0a97bd7b1c65d1e01062bd93d0f532"
+    },
+    {
+      "path": "/concepts/robustness/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 13619,
+      "sha256": "23316cffa93bb08092164e15eb6a3614735c3f3c2ea413631e3c172eb72e5362"
+    },
+    {
+      "path": "/concepts/uncertainty/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 13931,
+      "sha256": "5af4e84b75decabecdee2c2053bfbdbd0e60c05741f3a883efa71426da90d3a1"
+    },
+    {
+      "path": "/topics/routes/model-trust/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 12321,
+      "sha256": "b61015847e4cfc5c2338ecdbaee4a2ff7b74f9b938344a003583c456e54a3421"
+    },
+    {
+      "path": "/topics/routes/city-models/",
+      "kind": "guide",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 12455,
+      "sha256": "50c498fe24cd377dd06d383165c67486133a9d186ebaccf53e1236d5586dad9f"
+    },
+    {
+      "path": "/zh/concepts/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 14209,
+      "sha256": "0d287809fa7cebfe5deb4545efbade14da60356c465ad5c98396c25392595a51"
+    },
+    {
+      "path": "/zh/topics/routes/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 8952,
+      "sha256": "1930c1df0112346289c2cbe1a16252dd2e1172cdd662de1f972328de4be25457"
+    },
+    {
+      "path": "/zh/concepts/baseline/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13461,
+      "sha256": "db83ef3c92debd26d5fa525e190f9bc61f6c6d471a0d75c78da34dc0acd440a7"
+    },
+    {
+      "path": "/zh/concepts/assumption/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13038,
+      "sha256": "4bebbcc1b5ef22e4ee08e88a39d3cf5e5139e47213a0fcdd801bce99b77dbed0"
+    },
+    {
+      "path": "/zh/concepts/sensitivity/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13726,
+      "sha256": "844b9757cf726f96e0430329a1b351f3a349faf6cd80a0f6c69c2873ff3c8571"
+    },
+    {
+      "path": "/zh/concepts/identifiability/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13348,
+      "sha256": "8ed1a79e46275810508eb9b76d20964efc1d30ff86e049e872d5d5f26c3d9f5d"
+    },
+    {
+      "path": "/zh/concepts/calibration/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13025,
+      "sha256": "e9834283669c47c4ad798e20fd8279865dac096deca459e93ccee801e9000c43"
+    },
+    {
+      "path": "/zh/concepts/validation/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13715,
+      "sha256": "e790d90e05b194dbf5caf221e5b4ed6fb812cd74936363db974647e6750c16bf"
+    },
+    {
+      "path": "/zh/concepts/robustness/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13540,
+      "sha256": "34bfce3578d077d47fa0a64ff85aa2c622c36525cfc78e6bd6e3b322dbad4977"
+    },
+    {
+      "path": "/zh/concepts/uncertainty/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13568,
+      "sha256": "21b9a41031ca40c6f33f9338d455cde3c7de33bd9d76b65e43f3cea4ffee66fb"
+    },
+    {
+      "path": "/zh/topics/routes/model-trust/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 11840,
+      "sha256": "8a48201f0a8f0e0ef4749940ebcc0c5e6f9539e7eecbe09c8693a1cd31fd6cdd"
+    },
+    {
+      "path": "/zh/topics/routes/city-models/",
+      "kind": "guide",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 12027,
+      "sha256": "012939848aa667df7dad04e97d9b8f927eb0536aebd98971531f70fc29b23e86"
+    },
+    {
+      "path": "/writing/after-a-good-fit-what-to-measure/",
+      "kind": "note",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 28367,
+      "sha256": "d1e6ae5387f7c48c3d111a2b889a01c3d98acc40a2f6f53b47e076437aff289b"
+    },
+    {
+      "path": "/writing/keep-the-result-that-changes-the-question/",
+      "kind": "note",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 29112,
+      "sha256": "80b7d43893e0da4d976ab22b314a4d8732de87079782e2cb2696477208066509"
+    },
+    {
+      "path": "/writing/choose-the-question-before-the-score/",
+      "kind": "note",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 28923,
+      "sha256": "4dcbf009d017267b53ad55b7713b84c4b0f8017bf45512c640a88e6adc84e01b"
+    },
+    {
+      "path": "/about/",
+      "kind": "about",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 14200,
+      "sha256": "98a5eb6d45b04214ac52ae9b1c07c52d141cde9803f1c4be1f7a06074c4603b2"
+    },
+    {
+      "path": "/teaching/classroom-packs/",
+      "kind": "classroomIndex",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 8721,
+      "sha256": "516ef65998cc5406c3c65dd860d4145391cd16ff922a7a7b51c5d67372f7f961"
+    },
+    {
+      "path": "/teaching/classroom-packs/sampling-bias/",
+      "kind": "classroomStudent",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 17322,
+      "sha256": "cb0419f90ec0b925995d089dda9907db6272f4bc9b69a1e6cac24f82bbd2b3a8"
+    },
+    {
+      "path": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "kind": "classroomTeacher",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 16766,
+      "sha256": "dde134d4bafe4b3624a0ed2827022b08f4a662f0fced5483e01855a39be09584"
+    },
+    {
+      "path": "/teaching/classroom-packs/mixing-tank/",
+      "kind": "classroomStudent",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 26074,
+      "sha256": "e1913925871372b6fc013289bb62a1002641d20db534f0d38f61a71ab912ebdc"
+    },
+    {
+      "path": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "kind": "classroomTeacher",
+      "locale": "en",
+      "ok": true,
+      "errors": [],
+      "bytes": 33241,
+      "sha256": "3afb3d1d089d34ace8aca44fa3b0476fd50e5e9ece8607c9664fe7d75b9df0b8"
+    },
+    {
+      "path": "/zh/writing/after-a-good-fit-what-to-measure/",
+      "kind": "note",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 28372,
+      "sha256": "ab1347d63a604c9bf81e28bc75f51780c8d96660c8a01e74087adf9ae4c65a85"
+    },
+    {
+      "path": "/zh/writing/keep-the-result-that-changes-the-question/",
+      "kind": "note",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 28761,
+      "sha256": "94c63f2850b7405c0ffd0f7f6bc3c62334205569a6df8c3d9768a434b91b4fd0"
+    },
+    {
+      "path": "/zh/writing/choose-the-question-before-the-score/",
+      "kind": "note",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 28739,
+      "sha256": "d23324efa63a43ecab9f9058637651ff461293dc2ca6cfe3bd9ffdb12a179eca"
+    },
+    {
+      "path": "/zh/about/",
+      "kind": "about",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 13371,
+      "sha256": "410e610efa4f5df1611b6d783649fffa826ee6e0e5dfacfd282ac68ee3e768f0"
+    },
+    {
+      "path": "/zh/teaching/classroom-packs/",
+      "kind": "classroomIndex",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 8474,
+      "sha256": "6f8653b39d8ddeb986fcb9c71775b68ea569faddb03c8d20ebf28a616952cea6"
+    },
+    {
+      "path": "/zh/teaching/classroom-packs/sampling-bias/",
+      "kind": "classroomStudent",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 16614,
+      "sha256": "ecde729eeb2ff5f5b784042d2969b2a7c50a870d0baa7abe2f679af7018541b4"
+    },
+    {
+      "path": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "kind": "classroomTeacher",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 15776,
+      "sha256": "85530a9df683cb86a71296ff93adf06bb23e6d04664710647a4787c7c000df8a"
+    },
+    {
+      "path": "/zh/teaching/classroom-packs/mixing-tank/",
+      "kind": "classroomStudent",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 25162,
+      "sha256": "ac5da41839dc1c18c8ec1e39dc1960c980dc6209eaeab805ccaecedddca10b93"
+    },
+    {
+      "path": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "kind": "classroomTeacher",
+      "locale": "zh-Hant",
+      "ok": true,
+      "errors": [],
+      "bytes": 31943,
+      "sha256": "a0c921c37a245666a8d8c29edd3db6f2f92ba4d4ec333fc1b2400441179a4753"
+    }
+  ],
+  "svgLineEndingDiagnosis": {
+    "asset": "/images/kenneth-woven-knot.svg",
+    "builtBytes": 8348,
+    "workingTreePublicBytes": 8348,
+    "committedBytes": 8342,
+    "builtSha256": "7d201f7e86aa536fef62bd6f13c6833d6010aa693f1078055ae0c3e9f0d17f76",
+    "workingTreePublicSha256": "7d201f7e86aa536fef62bd6f13c6833d6010aa693f1078055ae0c3e9f0d17f76",
+    "committedSha256": "d034a060535b649ea72a1a7aa62ecc6d5c24bbec75e10301185a3577ef07f9c0",
+    "builtEqualsWorkingTreePublic": true,
+    "builtCrLfCount": 6,
+    "workingTreePublicCrLfCount": 6,
+    "committedCrLfCount": 0,
+    "normalizedBuiltSha256": "d034a060535b649ea72a1a7aa62ecc6d5c24bbec75e10301185a3577ef07f9c0",
+    "normalizedBuiltEqualsCommitted": true,
+    "conclusion": "The local built SVG exactly copies the working-tree public asset; its only difference from committed bytes is CRLF versus LF. The strict raw hash discrepancy remains recorded.",
+    "publicationBoundary": "This offline equivalence diagnosis is not a production hash pass. Formal publication still requires live HTTP response bytes to match the released commit raw SHA-256."
+  }
+}

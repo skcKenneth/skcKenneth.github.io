@@ -1,0 +1,15 @@
+---
+import { CLASSROOM_PACKS, classroomPackHref } from '../data/classroom-packs.mjs';
+import '../styles/classroom-packs.css';
+interface Props { locale?: 'en'|'zh-Hant' }
+const {locale='en'} = Astro.props;
+const zh=locale==='zh-Hant';
+---
+<div class="classroom-card-grid">
+  {CLASSROOM_PACKS.map(pack=><article class="classroom-card" data-classroom-card={pack.id}>
+    <p class="eyebrow">{pack.audience[locale]}</p>
+    <h3>{pack.title[locale]}</h3><p>{pack.summary[locale]}</p>
+    <p class="classroom-card-meta">{pack.minutes} {zh?'分鐘 · 雙語指引 · 獨立教師參考':'min · bilingual guide · separate teacher reference'}</p>
+    <a class="button secondary" href={classroomPackHref(pack.id,locale)}>{zh?'開啟課堂包':'Open classroom pack'} <span aria-hidden="true">→</span></a>
+  </article>)}
+</div>

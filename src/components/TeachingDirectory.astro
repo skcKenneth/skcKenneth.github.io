@@ -1,5 +1,6 @@
 ---
 import { TEACHING_AUDIENCES, TEACHING_FORMATS, TEACHING_RESOURCES, teachingHref } from '../data/teaching-directory.mjs';
+import ClassroomPackCards from './ClassroomPackCards.astro';
 import '../styles/teaching-directory.css';
 interface Props { locale?: 'en' | 'zh-Hant' }
 const { locale = 'en' } = Astro.props;
@@ -16,6 +17,11 @@ const label = (items: any[], id: string) => items.find(item => item.id === id)?.
   <section class="container teaching-directory-section" aria-labelledby="teaching-audience-heading">
     <h2 id="teaching-audience-heading">{t('Who is learning?', '按學習對象開始')}</h2>
     <div class="teaching-audience-grid">{TEACHING_AUDIENCES.map(audience => <a href={`?audience=${audience.id}#teaching-resources`} data-audience-link={audience.id}><strong>{audience.label[locale]}</strong><span>{audience.description[locale]}</span><b aria-hidden="true">→</b></a>)}</div>
+  </section>
+  <section class="container teaching-directory-section classroom-directory" aria-labelledby="teaching-classroom-heading">
+    <div class="section-head"><div><p class="eyebrow">{t('Ready for one class','一節課就開始')}</p><h2 id="teaching-classroom-heading">{t('One-class activities','一節課活動')}</h2></div><p>{t('Student tasks, a lesson sequence and separate teacher references, using the existing tools.','學生任務、課堂次序與獨立教師參考，沿用現有工具。')}</p></div>
+    <ClassroomPackCards locale={locale}/>
+    <p><a href={`${zh?'/zh':''}/teaching/classroom-packs/`}>{t('All one-class activities','全部一節課活動')} →</a></p>
   </section>
   <section class="container teaching-directory-section" id="teaching-resources" aria-labelledby="teaching-resource-heading">
     <span id="curriculum" class="teaching-anchor" aria-hidden="true"></span>

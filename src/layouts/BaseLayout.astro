@@ -32,7 +32,7 @@ const shareImage=new URL(editorialShare?.src||'/images/og-reader.png',Astro.site
 const shareAlt=editorialShare?.alt||'Kenneth Cheng — Mathematics, models, and ideas';
 const jsonLd=articleData?{'@context':'https://schema.org','@type':'BlogPosting',headline:title,description,url:canonical.href,image:shareImage,inLanguage:locale,author:{'@type':'Person',name:'Kenneth Cheng',url:SITE_URL+base+'/about/'},datePublished:articleData.date?.toISOString(),dateModified:articleData.lastUpdated?.toISOString(),mainEntityOfPage:canonical.href}:{'@context':'https://schema.org','@type':'WebSite',name:'Kenneth Cheng',url:SITE_URL,inLanguage:locale};
 const section=nav.find(([,href])=>selected(href));
-const breadcrumb=path.split('/').filter(Boolean).length>1&&!articleData&&!path.startsWith('/topics/')&&!path.startsWith('/concepts/')&&section;
+const breadcrumb=path.split('/').filter(Boolean).length>1&&!articleData&&!path.startsWith('/topics/')&&!path.startsWith('/concepts/')&&!path.startsWith('/teaching/classroom-packs/')&&section;
 const studioBreadcrumb=/^\/teaching\/senior-math\/studios\/[^/]+\/$/.test(path);
 ---
 <!doctype html>
@@ -100,7 +100,7 @@ document.addEventListener('click',e=>{if(e.target instanceof Node&&!document.que
 nav?.addEventListener('click',e=>{if((e.target as Element).closest('a'))setOpen(false);});
 const language=document.querySelector<HTMLAnchorElement>('[data-language-switch]');
 if(language&&/\/(search|writing|topics|teaching)\//.test(location.pathname)){
-  const syncLanguage=()=>{if(language.dataset.catalogLanguageManaged==='true'||language.dataset.readingPositionLanguageManaged==='true')return;const next=new URL(language.href);next.search=location.search;if(/\/(topics|writing)\/$/.test(location.pathname)||/\/teaching\//.test(location.pathname))next.hash=location.hash;language.href=next.href;};
+  const syncLanguage=()=>{if(language.dataset.catalogLanguageManaged==='true'||language.dataset.readingPositionLanguageManaged==='true'||language.dataset.classroomSettingsLanguageManaged==='true')return;const next=new URL(language.href);next.search=location.search;if(/\/(topics|writing)\/$/.test(location.pathname)||/\/teaching\//.test(location.pathname))next.hash=location.hash;language.href=next.href;};
   syncLanguage();language.addEventListener('click',syncLanguage);language.addEventListener('focus',syncLanguage);
 }
 </script>

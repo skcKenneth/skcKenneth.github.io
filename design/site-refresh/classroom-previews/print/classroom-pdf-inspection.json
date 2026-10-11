@@ -1,0 +1,973 @@
+{
+  "method": "Actual PDFs: pdfplumber page geometry, text, font glyphs and bounds; PDFium selected-page rasterization. No browser control.",
+  "limits": "Text extraction and glyph signatures supplement selected-page visual inspection; they cannot establish screen-reader tagging or prove all pagination/layout. Text matching applies NFKC plus the PDF font's visually equivalent CJK radical ⻑ to 長 mapping. CSS-margin outliers are diagnostic; physical-page outliers fail. Private/cid glyphs require visual review.",
+  "renderedAt": "2026-10-11T07:52:21.211Z",
+  "sourceBaseCommit": "9446e5330f594f021677490ba2675c7c28c706ac",
+  "sourceHashesMatch": {
+    "src/data/classroom-packs.mjs": true,
+    "src/components/ClassroomPackPage.astro": true,
+    "src/styles/classroom-packs.css": true,
+    "src/scripts/classroom-packs.ts": true
+  },
+  "errors": [],
+  "documents": [
+    {
+      "packId": "sampling-bias",
+      "role": "student",
+      "locale": "en",
+      "route": "/teaching/classroom-packs/sampling-bias/",
+      "filename": "sampling-bias-student-en.pdf",
+      "bytes": 140594,
+      "sha256": "f7fafa58859324dcebb2ef6913be80aba3f228cbbe8d840cef5be851e44be177",
+      "builtHtmlSha256": "cb0419f90ec0b925995d089dda9907db6272f4bc9b69a1e6cac24f82bbd2b3a8",
+      "pdfHashMatches": true,
+      "builtHtmlHashMatches": true,
+      "pageCount": 4,
+      "a4": true,
+      "hasGuideUrl": true,
+      "hasOriginalEngineUrl": true,
+      "teacherContentSeparated": true,
+      "currentSettingsPrinted": true,
+      "currentSettingsRows": [
+        {
+          "key": "size",
+          "label": "Sample size",
+          "value": "20",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "method",
+          "label": "Sampling frame",
+          "value": "Whole school, random",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "baseline",
+          "label": "Chart axis starts at (%)",
+          "value": "0",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "seed",
+          "label": "Experiment seed",
+          "value": "2026",
+          "labelFound": true,
+          "valueFound": true
+        }
+      ],
+      "settingsScenario": "Default route; the renderer supplies no preset/seed query. Custom settings require separate browser/print verification.",
+      "teacherPassagesFound": 0,
+      "expectedTeacherPassages": 0,
+      "formulasExpectedForRole": true,
+      "formulaChecks": {
+        "hasKaTeXGlyphs": false,
+        "hasBalanceSignature": false,
+        "hasSteadyInfinityGlyph": false
+      },
+      "replacementCharacterCount": 0,
+      "unmappedCidSamples": [],
+      "hiddenControlTextFound": [],
+      "pages": [
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 989,
+          "outsidePageCount": 0,
+          "contentBottomPt": 748.5,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 1,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 888,
+          "outsidePageCount": 0,
+          "contentBottomPt": 737.25,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 2,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 291,
+          "outsidePageCount": 0,
+          "contentBottomPt": 630.381,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 3,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 348,
+          "outsidePageCount": 0,
+          "contentBottomPt": 150.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 4,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        }
+      ],
+      "emptyLastPageTail": {
+        "pixels": 721395,
+        "ivoryPaperPixels": 0,
+        "ivoryFraction": 0.0
+      },
+      "previews": [
+        "sampling-bias-student-en-page-1.png",
+        "sampling-bias-student-en-page-2.png",
+        "sampling-bias-student-en-page-3.png",
+        "sampling-bias-student-en-page-4.png"
+      ],
+      "contactSheet": "sampling-bias-student-en-contact.png"
+    },
+    {
+      "packId": "sampling-bias",
+      "role": "teacher",
+      "locale": "en",
+      "route": "/teaching/classroom-packs/sampling-bias/teacher/",
+      "filename": "sampling-bias-teacher-en.pdf",
+      "bytes": 133000,
+      "sha256": "1c6f89ddab7e080eec6e348057959363d3ff859766f0dc9ec93dcd5fa0a2abdb",
+      "builtHtmlSha256": "dde134d4bafe4b3624a0ed2827022b08f4a662f0fced5483e01855a39be09584",
+      "pdfHashMatches": true,
+      "builtHtmlHashMatches": true,
+      "pageCount": 4,
+      "a4": true,
+      "hasGuideUrl": true,
+      "hasOriginalEngineUrl": true,
+      "teacherContentSeparated": true,
+      "currentSettingsPrinted": true,
+      "currentSettingsRows": [],
+      "settingsScenario": "Default route; the renderer supplies no preset/seed query. Custom settings require separate browser/print verification.",
+      "teacherPassagesFound": 6,
+      "expectedTeacherPassages": 6,
+      "formulasExpectedForRole": true,
+      "formulaChecks": {
+        "hasKaTeXGlyphs": false,
+        "hasBalanceSignature": false,
+        "hasSteadyInfinityGlyph": false
+      },
+      "replacementCharacterCount": 0,
+      "unmappedCidSamples": [],
+      "hiddenControlTextFound": [],
+      "pages": [
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 1069,
+          "outsidePageCount": 0,
+          "contentBottomPt": 702.75,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 1,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 931,
+          "outsidePageCount": 0,
+          "contentBottomPt": 639.75,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 2,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 1078,
+          "outsidePageCount": 0,
+          "contentBottomPt": 723.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 3,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 356,
+          "outsidePageCount": 0,
+          "contentBottomPt": 150.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 4,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        }
+      ],
+      "emptyLastPageTail": {
+        "pixels": 721395,
+        "ivoryPaperPixels": 0,
+        "ivoryFraction": 0.0
+      },
+      "previews": [
+        "sampling-bias-teacher-en-page-1.png",
+        "sampling-bias-teacher-en-page-4.png"
+      ],
+      "contactSheet": "sampling-bias-teacher-en-contact.png"
+    },
+    {
+      "packId": "sampling-bias",
+      "role": "student",
+      "locale": "zh-Hant",
+      "route": "/zh/teaching/classroom-packs/sampling-bias/",
+      "filename": "sampling-bias-student-zh-Hant.pdf",
+      "bytes": 709545,
+      "sha256": "5541e3cac5b750c689539c2ad31e39e8efa77f1c26fd86b5ec557928e7013a6f",
+      "builtHtmlSha256": "ecde729eeb2ff5f5b784042d2969b2a7c50a870d0baa7abe2f679af7018541b4",
+      "pdfHashMatches": true,
+      "builtHtmlHashMatches": true,
+      "pageCount": 4,
+      "a4": true,
+      "hasGuideUrl": true,
+      "hasOriginalEngineUrl": true,
+      "teacherContentSeparated": true,
+      "currentSettingsPrinted": true,
+      "currentSettingsRows": [
+        {
+          "key": "size",
+          "label": "抽樣人數",
+          "value": "20",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "method",
+          "label": "訪問對象",
+          "value": "從全校隨機抽樣",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "baseline",
+          "label": "圖表縱軸起點（%）",
+          "value": "0",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "seed",
+          "label": "實驗種子",
+          "value": "2026",
+          "labelFound": true,
+          "valueFound": true
+        }
+      ],
+      "settingsScenario": "Default route; the renderer supplies no preset/seed query. Custom settings require separate browser/print verification.",
+      "teacherPassagesFound": 0,
+      "expectedTeacherPassages": 0,
+      "formulasExpectedForRole": true,
+      "formulaChecks": {
+        "hasKaTeXGlyphs": false,
+        "hasBalanceSignature": false,
+        "hasSteadyInfinityGlyph": false
+      },
+      "replacementCharacterCount": 0,
+      "unmappedCidSamples": [],
+      "hiddenControlTextFound": [],
+      "pages": [
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 335,
+          "outsidePageCount": 0,
+          "contentBottomPt": 678.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 1,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 324,
+          "outsidePageCount": 0,
+          "contentBottomPt": 684.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 2,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 106,
+          "outsidePageCount": 0,
+          "contentBottomPt": 609.75,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 3,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 181,
+          "outsidePageCount": 0,
+          "contentBottomPt": 135.75,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 4,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        }
+      ],
+      "emptyLastPageTail": {
+        "pixels": 737460,
+        "ivoryPaperPixels": 0,
+        "ivoryFraction": 0.0
+      },
+      "previews": [
+        "sampling-bias-student-zh-Hant-page-1.png",
+        "sampling-bias-student-zh-Hant-page-2.png",
+        "sampling-bias-student-zh-Hant-page-3.png",
+        "sampling-bias-student-zh-Hant-page-4.png"
+      ],
+      "contactSheet": "sampling-bias-student-zh-Hant-contact.png"
+    },
+    {
+      "packId": "sampling-bias",
+      "role": "teacher",
+      "locale": "zh-Hant",
+      "route": "/zh/teaching/classroom-packs/sampling-bias/teacher/",
+      "filename": "sampling-bias-teacher-zh-Hant.pdf",
+      "bytes": 701090,
+      "sha256": "5e26a5cc640938f48b7c9734797c632bd141b1570476771be732b7176335d513",
+      "builtHtmlSha256": "85530a9df683cb86a71296ff93adf06bb23e6d04664710647a4787c7c000df8a",
+      "pdfHashMatches": true,
+      "builtHtmlHashMatches": true,
+      "pageCount": 3,
+      "a4": true,
+      "hasGuideUrl": true,
+      "hasOriginalEngineUrl": true,
+      "teacherContentSeparated": true,
+      "currentSettingsPrinted": true,
+      "currentSettingsRows": [],
+      "settingsScenario": "Default route; the renderer supplies no preset/seed query. Custom settings require separate browser/print verification.",
+      "teacherPassagesFound": 6,
+      "expectedTeacherPassages": 6,
+      "formulasExpectedForRole": true,
+      "formulaChecks": {
+        "hasKaTeXGlyphs": false,
+        "hasBalanceSignature": false,
+        "hasSteadyInfinityGlyph": false
+      },
+      "replacementCharacterCount": 0,
+      "unmappedCidSamples": [],
+      "hiddenControlTextFound": [],
+      "pages": [
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 459,
+          "outsidePageCount": 0,
+          "contentBottomPt": 753.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 1,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 439,
+          "outsidePageCount": 0,
+          "contentBottomPt": 736.5,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 2,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 347,
+          "outsidePageCount": 0,
+          "contentBottomPt": 441.75,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 3,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        }
+      ],
+      "emptyLastPageTail": {
+        "pixels": 386325,
+        "ivoryPaperPixels": 0,
+        "ivoryFraction": 0.0
+      },
+      "previews": [
+        "sampling-bias-teacher-zh-Hant-page-1.png",
+        "sampling-bias-teacher-zh-Hant-page-3.png"
+      ],
+      "contactSheet": "sampling-bias-teacher-zh-Hant-contact.png"
+    },
+    {
+      "packId": "mixing-tank",
+      "role": "student",
+      "locale": "en",
+      "route": "/teaching/classroom-packs/mixing-tank/",
+      "filename": "mixing-tank-student-en.pdf",
+      "bytes": 143979,
+      "sha256": "cb46a0045e7f290366647d8aa4c62ea66fbc4fb6b847daaa457cb7aa98232cb4",
+      "builtHtmlSha256": "e1913925871372b6fc013289bb62a1002641d20db534f0d38f61a71ab912ebdc",
+      "pdfHashMatches": true,
+      "builtHtmlHashMatches": true,
+      "pageCount": 5,
+      "a4": true,
+      "hasGuideUrl": true,
+      "hasOriginalEngineUrl": true,
+      "teacherContentSeparated": true,
+      "currentSettingsPrinted": true,
+      "currentSettingsRows": [
+        {
+          "key": "flow",
+          "label": "Flow Q (L/min)",
+          "value": "2",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "volume",
+          "label": "Volume V (L)",
+          "value": "20",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "reaction",
+          "label": "Reaction k (1/min)",
+          "value": "0.05",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "inlet",
+          "label": "Inlet concentration (g/L)",
+          "value": "10",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "initial",
+          "label": "Initial concentration (g/L)",
+          "value": "0",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "dt",
+          "label": "Time step (min)",
+          "value": "0.5",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "seed",
+          "label": "Experiment seed",
+          "value": "2026",
+          "labelFound": true,
+          "valueFound": true
+        }
+      ],
+      "settingsScenario": "Default route; the renderer supplies no preset/seed query. Custom settings require separate browser/print verification.",
+      "teacherPassagesFound": 0,
+      "expectedTeacherPassages": 0,
+      "formulasExpectedForRole": true,
+      "formulaChecks": {
+        "hasKaTeXGlyphs": true,
+        "hasBalanceSignature": false,
+        "hasSteadyInfinityGlyph": false
+      },
+      "replacementCharacterCount": 0,
+      "unmappedCidSamples": [],
+      "hiddenControlTextFound": [],
+      "pages": [
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 754,
+          "outsidePageCount": 0,
+          "contentBottomPt": 606.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 1,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 749,
+          "outsidePageCount": 0,
+          "contentBottomPt": 556.5,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 2,
+          "mathGlyphCount": 39,
+          "mathFontNames": [
+            "FAAAAA+KaTeX_Math-Italic",
+            "GAAAAA+KaTeX_Main-Regular"
+          ]
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 818,
+          "outsidePageCount": 0,
+          "contentBottomPt": 623.25,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 3,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 311,
+          "outsidePageCount": 0,
+          "contentBottomPt": 630.381,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 4,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 404,
+          "outsidePageCount": 0,
+          "contentBottomPt": 164.25,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 5,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        }
+      ],
+      "emptyLastPageTail": {
+        "pixels": 705330,
+        "ivoryPaperPixels": 0,
+        "ivoryFraction": 0.0
+      },
+      "previews": [
+        "mixing-tank-student-en-page-1.png",
+        "mixing-tank-student-en-page-2.png",
+        "mixing-tank-student-en-page-3.png",
+        "mixing-tank-student-en-page-4.png",
+        "mixing-tank-student-en-page-5.png"
+      ],
+      "contactSheet": "mixing-tank-student-en-contact.png"
+    },
+    {
+      "packId": "mixing-tank",
+      "role": "teacher",
+      "locale": "en",
+      "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+      "filename": "mixing-tank-teacher-en.pdf",
+      "bytes": 144531,
+      "sha256": "19e1c04ab8a593ca103317571d58a8bcc5b780c7c080e859cf52fc7d456c9b35",
+      "builtHtmlSha256": "3afb3d1d089d34ace8aca44fa3b0476fd50e5e9ece8607c9664fe7d75b9df0b8",
+      "pdfHashMatches": true,
+      "builtHtmlHashMatches": true,
+      "pageCount": 4,
+      "a4": true,
+      "hasGuideUrl": true,
+      "hasOriginalEngineUrl": true,
+      "teacherContentSeparated": true,
+      "currentSettingsPrinted": true,
+      "currentSettingsRows": [],
+      "settingsScenario": "Default route; the renderer supplies no preset/seed query. Custom settings require separate browser/print verification.",
+      "teacherPassagesFound": 7,
+      "expectedTeacherPassages": 7,
+      "formulasExpectedForRole": true,
+      "formulaChecks": {
+        "hasKaTeXGlyphs": true,
+        "hasBalanceSignature": true,
+        "hasSteadyInfinityGlyph": true
+      },
+      "replacementCharacterCount": 0,
+      "unmappedCidSamples": [],
+      "hiddenControlTextFound": [],
+      "pages": [
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 1019,
+          "outsidePageCount": 0,
+          "contentBottomPt": 657.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 1,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 741,
+          "outsidePageCount": 0,
+          "contentBottomPt": 525.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 2,
+          "mathGlyphCount": 59,
+          "mathFontNames": [
+            "FAAAAA+KaTeX_Math-Italic",
+            "GAAAAA+KaTeX_Main-Regular"
+          ]
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 1256,
+          "outsidePageCount": 0,
+          "contentBottomPt": 782.757,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 3,
+          "mathGlyphCount": 19,
+          "mathFontNames": [
+            "FAAAAA+KaTeX_Math-Italic",
+            "GAAAAA+KaTeX_Main-Regular"
+          ]
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 1379,
+          "outsidePageCount": 0,
+          "contentBottomPt": 679.5,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 4,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        }
+      ],
+      "emptyLastPageTail": {
+        "pixels": 113985,
+        "ivoryPaperPixels": 0,
+        "ivoryFraction": 0.0
+      },
+      "previews": [
+        "mixing-tank-teacher-en-page-1.png",
+        "mixing-tank-teacher-en-page-2.png",
+        "mixing-tank-teacher-en-page-3.png",
+        "mixing-tank-teacher-en-page-4.png"
+      ],
+      "contactSheet": "mixing-tank-teacher-en-contact.png"
+    },
+    {
+      "packId": "mixing-tank",
+      "role": "student",
+      "locale": "zh-Hant",
+      "route": "/zh/teaching/classroom-packs/mixing-tank/",
+      "filename": "mixing-tank-student-zh-Hant.pdf",
+      "bytes": 776814,
+      "sha256": "2deb364bc6a5c22108807c470f29bfc8d58381bb420aac0fe79c151e9c5d6aec",
+      "builtHtmlSha256": "ac5da41839dc1c18c8ec1e39dc1960c980dc6209eaeab805ccaecedddca10b93",
+      "pdfHashMatches": true,
+      "builtHtmlHashMatches": true,
+      "pageCount": 5,
+      "a4": true,
+      "hasGuideUrl": true,
+      "hasOriginalEngineUrl": true,
+      "teacherContentSeparated": true,
+      "currentSettingsPrinted": true,
+      "currentSettingsRows": [
+        {
+          "key": "flow",
+          "label": "流量 Q（L/min）",
+          "value": "2",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "volume",
+          "label": "體積 V（L）",
+          "value": "20",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "reaction",
+          "label": "反應 k（1/min）",
+          "value": "0.05",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "inlet",
+          "label": "入口濃度（g/L）",
+          "value": "10",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "initial",
+          "label": "初始濃度（g/L）",
+          "value": "0",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "dt",
+          "label": "時間步（min）",
+          "value": "0.5",
+          "labelFound": true,
+          "valueFound": true
+        },
+        {
+          "key": "seed",
+          "label": "實驗種子",
+          "value": "2026",
+          "labelFound": true,
+          "valueFound": true
+        }
+      ],
+      "settingsScenario": "Default route; the renderer supplies no preset/seed query. Custom settings require separate browser/print verification.",
+      "teacherPassagesFound": 0,
+      "expectedTeacherPassages": 0,
+      "formulasExpectedForRole": true,
+      "formulaChecks": {
+        "hasKaTeXGlyphs": true,
+        "hasBalanceSignature": false,
+        "hasSteadyInfinityGlyph": false
+      },
+      "replacementCharacterCount": 0,
+      "unmappedCidSamples": [],
+      "hiddenControlTextFound": [],
+      "pages": [
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 370,
+          "outsidePageCount": 0,
+          "contentBottomPt": 700.903,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 1,
+          "mathGlyphCount": 39,
+          "mathFontNames": [
+            "GAAAAA+KaTeX_Math-Italic",
+            "HAAAAA+KaTeX_Main-Regular"
+          ]
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 367,
+          "outsidePageCount": 0,
+          "contentBottomPt": 736.5,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 2,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 108,
+          "outsidePageCount": 0,
+          "contentBottomPt": 186.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 3,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 113,
+          "outsidePageCount": 0,
+          "contentBottomPt": 609.75,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 4,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 230,
+          "outsidePageCount": 0,
+          "contentBottomPt": 150.0,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 5,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        }
+      ],
+      "emptyLastPageTail": {
+        "pixels": 721395,
+        "ivoryPaperPixels": 0,
+        "ivoryFraction": 0.0
+      },
+      "previews": [
+        "mixing-tank-student-zh-Hant-page-1.png",
+        "mixing-tank-student-zh-Hant-page-2.png",
+        "mixing-tank-student-zh-Hant-page-4.png",
+        "mixing-tank-student-zh-Hant-page-5.png"
+      ],
+      "contactSheet": "mixing-tank-student-zh-Hant-contact.png"
+    },
+    {
+      "packId": "mixing-tank",
+      "role": "teacher",
+      "locale": "zh-Hant",
+      "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+      "filename": "mixing-tank-teacher-zh-Hant.pdf",
+      "bytes": 816510,
+      "sha256": "11fb30007ffc9ef0e52f4c0fc64fcac4dd497767ba1f25ae98aad57894c3c9f4",
+      "builtHtmlSha256": "a0c921c37a245666a8d8c29edd3db6f2f92ba4d4ec333fc1b2400441179a4753",
+      "pdfHashMatches": true,
+      "builtHtmlHashMatches": true,
+      "pageCount": 4,
+      "a4": true,
+      "hasGuideUrl": true,
+      "hasOriginalEngineUrl": true,
+      "teacherContentSeparated": true,
+      "currentSettingsPrinted": true,
+      "currentSettingsRows": [],
+      "settingsScenario": "Default route; the renderer supplies no preset/seed query. Custom settings require separate browser/print verification.",
+      "teacherPassagesFound": 7,
+      "expectedTeacherPassages": 7,
+      "formulasExpectedForRole": true,
+      "formulaChecks": {
+        "hasKaTeXGlyphs": true,
+        "hasBalanceSignature": true,
+        "hasSteadyInfinityGlyph": true
+      },
+      "replacementCharacterCount": 0,
+      "unmappedCidSamples": [],
+      "hiddenControlTextFound": [],
+      "pages": [
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 358,
+          "outsidePageCount": 0,
+          "contentBottomPt": 576.75,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 1,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 509,
+          "outsidePageCount": 0,
+          "contentBottomPt": 733.5,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 2,
+          "mathGlyphCount": 78,
+          "mathFontNames": [
+            "GAAAAA+KaTeX_Math-Italic",
+            "HAAAAA+KaTeX_Main-Regular"
+          ]
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 437,
+          "outsidePageCount": 0,
+          "contentBottomPt": 732.75,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 3,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        },
+        {
+          "widthPt": 594.96,
+          "heightPt": 841.92,
+          "visibleCharacters": 322,
+          "outsidePageCount": 0,
+          "contentBottomPt": 278.25,
+          "outsidePageSamples": [],
+          "outsideCssMarginsCount": 0,
+          "outsideCssMarginsSamples": [],
+          "page": 4,
+          "mathGlyphCount": 0,
+          "mathFontNames": []
+        }
+      ],
+      "emptyLastPageTail": {
+        "pixels": 574515,
+        "ivoryPaperPixels": 0,
+        "ivoryFraction": 0.0
+      },
+      "previews": [
+        "mixing-tank-teacher-zh-Hant-page-1.png",
+        "mixing-tank-teacher-zh-Hant-page-2.png",
+        "mixing-tank-teacher-zh-Hant-page-4.png"
+      ],
+      "contactSheet": "mixing-tank-teacher-zh-Hant-contact.png"
+    }
+  ]
+}

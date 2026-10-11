@@ -9,12 +9,13 @@ import EditorialMilestones from "../../components/EditorialMilestones.astro";
   locale="zh-Hant"
   alternatePath="/about/"
 >
-  <header class="page-head"><div class="container">
+  <header class="page-head reader-about-head"><div class="container">
     <p class="eyebrow">關於</p>
     <h1>把數學用作探究的方法。</h1>
     <p class="lead">我是一名澳門中學數學教師，工作連結數學建模、計算、課堂實踐與學生研究。</p>
+    <p class="small">更新於 <time datetime="2026-10-11">2026 年 10 月 11 日</time></p>
   </div></header>
-  <div class="container content-shell">
+  <div class="container content-shell reader-about-shell">
     <aside>
       <figure class="identity-mark">
         <img src="/images/kenneth-woven-knot.svg" alt="墨綠色交織方結，四個圓角曲帶圍繞中央菱形留白" width="256" height="256" />
@@ -28,6 +29,11 @@ import EditorialMilestones from "../../components/EditorialMilestones.astro";
       <h2>專業方向</h2>
       <p>我用模型讓假設變得可討論：人如何在基建中移動、不確定性如何改變決策、空間過程如何產生圖樣，以及學生如何由開放問題建立可重現論證。</p>
       <p>公開網站只整理人工審閱的解釋與核准圖像。程式、notebooks、計算及重現筆記留在私人技術工作區，避免發布層暴露未完成研究材料。</p>
+      <section data-about-editorial aria-labelledby="writing-approach">
+      <h2 id="writing-approach">為甚麼寫，以及如何選問題</h2>
+      <p>我寫作，是想讓模型背後的推理容易檢查：它回答哪個問題、採用甚麼假設、如何核對計算，以及結論到哪裡為止。好的解釋會保留由開放問題走到可重現論證的路徑，也包括未達到原定準則的結果。</p>
+      <p>對這本網誌而言，有用的問題應有能說清楚的輸出、能解釋的基準，以及可能改變答案的證據。單位、敏感度與限制，幫助判斷解讀可以走多遠。<a href="/zh/topics/routes/model-trust/">模型可信度閱讀路線</a>串連幾項研究中的這些分別；<a href="/zh/writing/choose-the-question-before-the-score/">選分數的短札記</a>則提供較短的起點。</p>
+      </section>
       <h2>教學與指導</h2>
       <p>我的教學強調問題定義、基準模型、單位、計算檢查、敏感度分析及誠實限制。競賽案例可以很有價值，但它們是推理練習，不會自動成為發表或部署證據。</p>
       <p>近期一項<a href="/zh/teaching/student-research-studio/">學生研究指導成果</a>獲列入 <a href="#milestone-ai4nature-2026">AI4Nature@AVSS 2026 口頭報告議程，編號為 Paper ID 7</a>；本人亦列作共同作者。</p>

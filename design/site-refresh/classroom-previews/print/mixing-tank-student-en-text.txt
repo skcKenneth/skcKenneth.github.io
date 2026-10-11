@@ -1,0 +1,77 @@
+--- Page 1 ---
+STUDENT CLASSROOM GUIDE
+Mixing tank: can a smooth curve be trusted?
+What does agreement with an analytic solution check, and what does it leave
+untested?
+50 minutes · Introductory modeling · pairs
+Before you begin
+Derivatives, units, Python functions and arrays. This is a 50-minute introduction to the existing
+approximately 150-minute workshop, not its completion.
+The well-mixed tank is an invented teaching system. No measured equipment, mixing
+validation or plant-safety result is supplied.
+One-class sequence
+5 min 01. Predict the long-run level
+Sketch a 20 L tank: 2 L/min enters at 10 g/L; equal outflow, reaction 0.05/min, initial
+concentration 0. Will concentration reach 10 g/L?
+10 min 02. State assumptions and balance mass
+Write accumulation as inflow minus outflow minus reaction. Explain why volume is constant
+and outlet concentration equals tank concentration; check units.
+
+--- Page 2 ---
+10 min 03. Check two steps, then implement
+Use the initial-value problem below to calculate two Euler steps. Complete student_model
+and the Euler update in student_euler using your balance.
+y′ =−y, y(0)=1, h=0.1
+y =y +hf(t ,y )
+n+1 n n n
+15 min 04. Run, change one condition, refine
+Run the default, then set reaction to 0.2 per minute. Return to default physical parameters
+and halve the time step to 0.25 minutes. Record your actual run’s errors and checks,
+including failures. If time permits, try zero reaction.
+5 min 05. Separate two kinds of evidence
+What would an analytic-solution match tell you? Propose one tracer observation that would
+challenge the perfect-mixing assumption.
+5 min 06. Leave a short evidence record
+Write one result, one check and one limitation. Answer the exit question and export the
+original workshop’s Draft JSON or report; do not mark the full workshop complete.
+
+--- Page 3 ---
+Settings to apply manually
+This form updates this classroom page and its share link only. It never loads settings into the
+activity or changes a saved draft.
+Flow Q (L/min) Volume V (L)
+2 20
+Reaction k (1/min) Inlet concentration (g/L)
+0.05 10
+Initial concentration (g/L) Time step (min)
+0 0.5
+Experiment seed
+2026
+Keep this evidence
+A mass balance with units and three assumptions; two hand-calculated Euler values.
+An actual run or explicitly labelled reference, a refinement comparison and a limitation,
+exported from the original workshop where available.
+Use the original workshop’s Draft JSON export/import and report. Drafts stay in this
+browser; the classroom page never reads or writes them. When storage is unavailable, the
+workshop labels session-only memory and provides export. Export before changing device.
+Exit question
+Your numerical curve matches the analytic curve. Does that establish perfect mixing in a real
+tank? What further evidence is needed?
+
+--- Page 4 ---
+Printable worksheet
+Write on a printed copy or keep notes separately. This page has no answer storage. Use the original
+activity to save digital work.
+My prediction and system boundary:
+Balance / units / assumptions:
+Two Euler hand values and update rule:
+Settings / actual run or reference / error / failed checks:
+One result, one check, one limitation and exit response:
+
+--- Page 5 ---
+Activity source
+Sequence adapted from workshop-01 “A tank, a boundary, a balance”, v1.0.0, its existing exercise and reference assets.
+The 50-minute pacing is an introductory lesson plan; nondimensionalization, failure experiments and extended writing
+remain in the full workshop.
+This guide：https://skckenneth.github.io/teaching/classroom-packs/mixing-tank/
+Original activity：https://skckenneth.github.io/teaching/modeling-workshop/mixing-tank/

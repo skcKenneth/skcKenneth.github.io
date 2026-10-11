@@ -1,0 +1,18 @@
+---
+import ClassroomPackCards from './ClassroomPackCards.astro';
+import '../styles/classroom-packs.css';
+interface Props { locale?: 'en'|'zh-Hant' }
+const {locale='en'} = Astro.props;
+const zh=locale==='zh-Hant';const base=zh?'/zh':'';
+---
+<div class="classroom-page" data-classroom-index>
+  <header class="page-head"><div class="container">
+    <nav class="classroom-breadcrumbs" aria-label={zh?'所在位置':'Breadcrumb'} data-pagefind-ignore><ol><li><a href={`${base}/`}>{zh?'首頁':'Home'}</a></li><li><a href={`${base}/teaching/`}>{zh?'教學':'Teaching'}</a></li><li aria-current="page">{zh?'一節課活動':'One-class activities'}</li></ol></nav>
+    <p class="eyebrow">{zh?'預測・比較・留下證據':'Predict · compare · keep evidence'}</p>
+    <h1 data-pagefind-meta="title">{zh?'一節課，可以由這裏開始。':'A clear starting point for one class.'}</h1>
+    <p class="lead" data-pagefind-meta="description">{zh?'兩個現成活動，配上學生任務、時間安排與獨立教師參考。沿用原工具及本機學習紀錄。':'Two existing activities with student tasks, a lesson sequence and separate teacher references. Keep using the original tools and browser-local records.'}</p>
+  </div></header>
+  <section class="container classroom-index-body" aria-labelledby="classroom-choose"><h2 id="classroom-choose">{zh?'選一節課':'Choose a lesson'}</h2><ClassroomPackCards locale={locale}/></section>
+  <aside class="container classroom-notice"><p>{zh?'分享連結只列出預設情境與種子；請在原工具手動套用。它不包含學生回答，也不會同步學習紀錄。教師參考是公開資料，與學生任務分頁呈現。':'Share links carry only a preset and seed for manual application in the original tool. They contain no learner responses and do not sync records. Teacher references are public and presented on separate pages.'}</p></aside>
+  <p class="container classroom-back"><a href={`${base}/teaching/`}>← {zh?'返回教學資源':'All teaching resources'}</a></p>
+</div>

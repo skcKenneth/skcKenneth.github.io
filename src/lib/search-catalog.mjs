@@ -64,6 +64,7 @@ export function classifySearchUrl(url) {
   if(/^\/projects\/[^/]+\/$/.test(path))return 'project';
   if(path.startsWith('/research/'))return 'research';
   if(path.startsWith('/science/')||path==='/projects/')return 'catalogue';
+  if(/^\/teaching\/classroom-packs\/[^/]+\/teacher\/$/.test(path))return 'lesson';
   if(/\/(question|questions|papers|practice|exercises|question-bank)(\/|$)/.test(path)||/\/senior-math\/(bank|paper)(\/|$)/.test(path))return 'question';
   if(/^\/teaching\/(?:senior-math|jae-math|modeling-workshop)\/sources\/?$/.test(path))return 'catalogue';
   if(/^\/teaching\/(?:senior-math|jae-math)\/(?:lessons|chapters|books)\//.test(path)||/^\/teaching\/(?:modeling-workshop|mathematical-modeling-lecture-programme)\/[^/]+\/?$/.test(path))return 'lesson';

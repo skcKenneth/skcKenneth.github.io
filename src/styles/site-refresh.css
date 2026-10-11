@@ -1,4 +1,7 @@
 /* Shared reader-facing design system, layered after the existing teaching styles. */
+.reader-about-shell>*{min-width:0;overflow-wrap:anywhere}
+.reader-about-head h1{overflow-wrap:anywhere}
+@media(max-width:800px){.reader-about-shell{grid-template-columns:minmax(0,1fr)}}
 .nav-wrap{flex-wrap:wrap;padding-block:.35rem}.primary-navigation{min-width:0}.reader-home-hero,.reader-home-section,[id]{scroll-margin-top:var(--reader-header-offset,6rem)}
 @media(max-width:960px){.nav-list{top:100%!important;max-height:calc(100dvh - var(--reader-header-offset,6rem));overflow-y:auto}}
 :root{--radius:10px;--soft:#e8eee7;--shadow:0 8px 28px #18201d09}

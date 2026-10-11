@@ -6,6 +6,9 @@ import { spawnSync } from 'node:child_process';
 import { EDITORIAL_ARTICLE_IDS, getReaderMedia } from '../src/data/reader-media.mjs';
 import { CONCEPT_IDS } from '../src/data/reader-concepts.mjs';
 import { READING_PATH_IDS } from '../src/data/reading-paths.mjs';
+import { CLASSROOM_PACKS, classroomPackHref } from '../src/data/classroom-packs.mjs';
+
+export const READER_NOTE_IDS = ['after-a-good-fit-what-to-measure', 'keep-the-result-that-changes-the-question', 'choose-the-question-before-the-score'];
 
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/zh/topics', '/teaching', '/zh/teaching', '/search', '/zh/search'].map(prefix => ({ path: `${prefix}/`, locale: prefix.startsWith('/zh') ? 'zh-Hant' : 'en', kind: prefix.endsWith('writing') ? 'writing' : prefix.endsWith('topics') ? 'topics' : prefix.endsWith('teaching') ? 'teaching' : prefix.endsWith('search') ? 'search' : 'home' })).concat([
@@ -29,16 +32,29 @@ export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/z
   const alternateBase = locale === 'zh-Hant' ? '' : '/zh';
   return ['/concepts/', '/topics/routes/', ...CONCEPT_IDS.map(id => `/concepts/${id}/`), ...READING_PATH_IDS.map(id => `/topics/routes/${id}/`)]
     .map(path => ({path: `${base}${path}`, locale, kind: 'guide', alternatePath: `${alternateBase}${path}`}));
+}), ['en', 'zh-Hant'].flatMap(locale => {
+  const base = locale === 'zh-Hant' ? '/zh' : '', other = locale === 'en' ? 'zh-Hant' : 'en';
+  const alternateBase = other === 'zh-Hant' ? '/zh' : '';
+  return [
+    ...READER_NOTE_IDS.map(articleId => ({path: `${base}/writing/${articleId}/`, locale, kind: 'note', articleId, alternatePath: `${alternateBase}/writing/${articleId}/`})),
+    {path: `${base}/about/`, locale, kind: 'about', alternatePath: `${alternateBase}/about/`},
+    {path: `${base}/teaching/classroom-packs/`, locale, kind: 'classroomIndex', alternatePath: `${alternateBase}/teaching/classroom-packs/`},
+    ...CLASSROOM_PACKS.flatMap(pack => [false, true].map(teacher => ({
+      path: classroomPackHref(pack.id, locale, teacher), locale, kind: teacher ? 'classroomTeacher' : 'classroomStudent',
+      packId: pack.id, alternatePath: classroomPackHref(pack.id, other, teacher),
+    }))),
+  ];
 }));
 const MARKERS = { guide: ['data-pagefind-filter="search-kind[content]" content="guide"', '<h1'], home: ['reader-home-hero', 'id="latest-writing"', 'id="start-here"'], writing: ['data-writing-index', 'reader-pagination'], topics: ['reader-topics-grid', 'mathematical-thinking', 'teaching-research-practice', 'id="research-programmes"'], teaching: ['data-teaching-directory', 'data-teaching-filters', 'id="math-inquiry-lab"'], search: ['data-site-search', 'data-search-pagination', 'name="technical"'], studio: ['id="jae-topics"', 'id="quadratics"', 'id="trigonometry"', 'id="past-papers"'], models: ['id="model-index"', 'data-catalog-kind="model"', 'data-model-library'], article: ['data-reader-guide=', 'data-reader-guide-question', 'data-article-reader', 'data-reading-position', 'data-reader-print'] };
 export function validateLivePayload(spec, { status, contentType = '', bytes }, expectedHash) {
   const errors = [];
   if (status !== 200) return [`HTTP ${status}`];
   const body = Buffer.from(bytes).toString('utf8');
-  if (MARKERS[spec.kind]) {
+  const markers = MARKERS[spec.kind] || ({note: ['data-article-reader', 'data-reading-position', 'data-reader-print'], about: ['data-about-editorial', 'id="writing-approach"'], classroomIndex: ['data-classroom-index'], classroomStudent: [`data-classroom-pack="${spec.packId}"`], classroomTeacher: [`data-classroom-teacher="${spec.packId}"`]})[spec.kind];
+  if (markers) {
     if (!contentType.includes('text/html')) errors.push('Expected HTML content type');
     if (!new RegExp(`<html\\b[^>]*lang=["']${spec.locale}["']`).test(body)) errors.push(`Missing ${spec.locale} page language`);
-    for (const marker of MARKERS[spec.kind]) if (!body.includes(marker)) errors.push(`Missing marker ${marker}`);
+    for (const marker of markers) if (!body.includes(marker)) errors.push(`Missing marker ${marker}`);
     if (!body.includes('/images/kenneth-woven-knot.svg')) errors.push('Missing woven site icon');
     if (spec.kind === 'article') {
       if (!body.includes(`data-reader-guide="${spec.articleId}"`)) errors.push('Missing paired reading guide');
@@ -49,6 +65,14 @@ export function validateLivePayload(spec, { status, contentType = '', bytes }, e
       const other = spec.locale === 'en' ? 'zh-Hant' : 'en';
       if (!body.includes(`rel="alternate" hreflang="${other}" href="https://skckenneth.github.io${spec.alternatePath}"`)) errors.push('Incorrect guide language counterpart');
     }
+    if (['note', 'about', 'classroomIndex', 'classroomStudent', 'classroomTeacher'].includes(spec.kind)) {
+      if (!body.includes(`rel="canonical" href="https://skckenneth.github.io${spec.path}"`)) errors.push('Incorrect content canonical URL');
+      const other = spec.locale === 'en' ? 'zh-Hant' : 'en';
+      if (!body.includes(`rel="alternate" hreflang="${other}" href="https://skckenneth.github.io${spec.alternatePath}"`)) errors.push('Incorrect content language counterpart');
+      const kind = spec.kind === 'note' ? 'writing' : spec.kind === 'classroomTeacher' ? 'lesson' : spec.kind.startsWith('classroom') ? 'teaching' : 'other';
+      if (!body.includes(`data-pagefind-filter="search-kind[content]" content="${kind}"`)) errors.push('Incorrect content search classification');
+      if (spec.kind === 'note' && !body.includes(`data-article-id="${spec.articleId}"`)) errors.push('Incorrect note source ID');
+    }
   } else if (spec.kind === 'alias') {
     if (!contentType.includes('text/html')) errors.push('Expected HTML content type');
     if (!new RegExp(`<html\\b[^>]*lang=["']${spec.locale}["']`).test(body)) errors.push(`Missing ${spec.locale} alias language`);
@@ -57,6 +81,7 @@ export function validateLivePayload(spec, { status, contentType = '', bytes }, e
     if (!/xml/.test(contentType)) errors.push('Expected XML content type');
     if (!body.includes('<rss version="2.0"') || !body.includes('<channel>') || !body.includes('<item>')) errors.push('RSS feed is missing channel or items');
     if (!body.includes(`<language>${spec.locale}</language>`)) errors.push('Incorrect RSS language');
+    for (const id of READER_NOTE_IDS) if (!body.includes(`${spec.locale === 'zh-Hant' ? '/zh' : ''}/writing/${id}/`)) errors.push(`Missing new note in RSS: ${id}`);
   } else if (spec.kind === 'png') {
     if (!contentType.includes('image/png')) errors.push('Expected PNG content type');
     if (!Buffer.from(bytes).subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) errors.push('Invalid PNG signature');

@@ -1,0 +1,159 @@
+{
+  "label": "Offline local built working-tree asset counts; not page-speed measurements",
+  "sourceCommit": "9446e5330f594f021677490ba2675c7c28c706ac",
+  "sourceState": "working-tree",
+  "all34": {
+    "routes": 34,
+    "html": {
+      "min": {
+        "route": "/zh/teaching/classroom-packs/",
+        "bytes": 8474
+      },
+      "max": {
+        "route": "/zh/writing/what-must-a-traffic-model-remember/",
+        "bytes": 236178
+      }
+    },
+    "css": {
+      "min": {
+        "route": "/about/",
+        "bytes": 64468
+      },
+      "max": {
+        "route": "/zh/writing/choose-the-question-before-the-score/",
+        "bytes": 87781
+      }
+    },
+    "initialJsGraph": {
+      "min": {
+        "route": "/",
+        "bytes": 0
+      },
+      "max": {
+        "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+        "bytes": 24810
+      }
+    },
+    "declaredImages": {
+      "min": {
+        "route": "/writing/after-a-good-fit-what-to-measure/",
+        "bytes": 8348
+      },
+      "max": {
+        "route": "/zh/writing/two-networks-one-spectrum-different-alarms/",
+        "bytes": 1205434
+      }
+    }
+  },
+  "baseline16": {
+    "routes": 16,
+    "html": {
+      "min": {
+        "route": "/zh/",
+        "bytes": 18555
+      },
+      "max": {
+        "route": "/zh/writing/what-must-a-traffic-model-remember/",
+        "bytes": 236178
+      }
+    },
+    "css": {
+      "min": {
+        "route": "/",
+        "bytes": 79693
+      },
+      "max": {
+        "route": "/zh/writing/when-solar-power-changes-fast/",
+        "bytes": 87781
+      }
+    },
+    "initialJsGraph": {
+      "min": {
+        "route": "/",
+        "bytes": 0
+      },
+      "max": {
+        "route": "/zh/writing/when-solar-power-changes-fast/",
+        "bytes": 15903
+      }
+    },
+    "declaredImages": {
+      "min": {
+        "route": "/writing/when-the-fit-is-not-the-model/",
+        "bytes": 18008
+      },
+      "max": {
+        "route": "/zh/writing/two-networks-one-spectrum-different-alarms/",
+        "bytes": 1205434
+      }
+    }
+  },
+  "new18": {
+    "routes": 18,
+    "html": {
+      "min": {
+        "route": "/zh/teaching/classroom-packs/",
+        "bytes": 8474
+      },
+      "max": {
+        "route": "/teaching/classroom-packs/mixing-tank/teacher/",
+        "bytes": 33241
+      }
+    },
+    "css": {
+      "min": {
+        "route": "/about/",
+        "bytes": 64468
+      },
+      "max": {
+        "route": "/zh/writing/choose-the-question-before-the-score/",
+        "bytes": 87781
+      }
+    },
+    "initialJsGraph": {
+      "min": {
+        "route": "/teaching/classroom-packs/",
+        "bytes": 0
+      },
+      "max": {
+        "route": "/zh/teaching/classroom-packs/mixing-tank/teacher/",
+        "bytes": 24810
+      }
+    },
+    "declaredImages": {
+      "min": {
+        "route": "/writing/after-a-good-fit-what-to-measure/",
+        "bytes": 8348
+      },
+      "max": {
+        "route": "/zh/about/",
+        "bytes": 8348
+      }
+    }
+  },
+  "payloadCounts": {
+    "routes": 90,
+    "passed": 89,
+    "failed": 1,
+    "committedAssetHashChecks": 14,
+    "contentFormatMarkerLanguageChecksPassed": 90,
+    "rawCommittedAssetHashesMatched": 13
+  },
+  "svgLineEndingDiagnosis": {
+    "asset": "/images/kenneth-woven-knot.svg",
+    "builtBytes": 8348,
+    "workingTreePublicBytes": 8348,
+    "committedBytes": 8342,
+    "builtSha256": "7d201f7e86aa536fef62bd6f13c6833d6010aa693f1078055ae0c3e9f0d17f76",
+    "workingTreePublicSha256": "7d201f7e86aa536fef62bd6f13c6833d6010aa693f1078055ae0c3e9f0d17f76",
+    "committedSha256": "d034a060535b649ea72a1a7aa62ecc6d5c24bbec75e10301185a3577ef07f9c0",
+    "builtEqualsWorkingTreePublic": true,
+    "builtCrLfCount": 6,
+    "workingTreePublicCrLfCount": 6,
+    "committedCrLfCount": 0,
+    "normalizedBuiltSha256": "d034a060535b649ea72a1a7aa62ecc6d5c24bbec75e10301185a3577ef07f9c0",
+    "normalizedBuiltEqualsCommitted": true,
+    "conclusion": "The local built SVG exactly copies the working-tree public asset; its only difference from committed bytes is CRLF versus LF. The strict raw hash discrepancy remains recorded.",
+    "publicationBoundary": "This offline equivalence diagnosis is not a production hash pass. Formal publication still requires live HTTP response bytes to match the released commit raw SHA-256."
+  }
+}

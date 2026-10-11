@@ -8,12 +8,13 @@ import EditorialMilestones from "../components/EditorialMilestones.astro";
   type="About"
   alternatePath="/zh/about/"
 >
-  <header class="page-head"><div class="container">
+  <header class="page-head reader-about-head"><div class="container">
     <p class="eyebrow">About</p>
     <h1>Mathematics as a way to investigate.</h1>
     <p class="lead">I am a secondary mathematics teacher in Macau. My work connects mathematical modeling, computation, classroom practice, and student research.</p>
+    <p class="small">Updated <time datetime="2026-10-11">11 October 2026</time></p>
   </div></header>
-  <div class="container content-shell">
+  <div class="container content-shell reader-about-shell">
     <aside>
       <figure class="identity-mark">
         <img src="/images/kenneth-woven-knot.svg" alt="Forest-green woven knot with four rounded ribbon turns and a diamond-shaped opening" width="256" height="256" />
@@ -27,6 +28,11 @@ import EditorialMilestones from "../components/EditorialMilestones.astro";
       <h2>Professional narrative</h2>
       <p>I use models to make assumptions discussable: how people move through infrastructure, how uncertainty changes a decision, how spatial processes generate patterns, and how students learn to move from an open question to a reproducible argument.</p>
       <p>The public website curates manually reviewed explanations and approved figures. Code, notebooks, calculations, and reproduction notes remain in a private technical workspace so the publishing layer does not expose unfinished research material.</p>
+      <section data-about-editorial aria-labelledby="writing-approach">
+      <h2 id="writing-approach">Why I write, and how I choose questions</h2>
+      <p>I write to make the reasoning behind a model easier to inspect: what question it answers, which assumptions it uses, how the calculation is checked, and where the conclusion stops. A useful explanation keeps the route from an open question to a reproducible argument visible, including results that do not meet the intended criterion.</p>
+      <p>For this notebook, a useful question has an output we can name, a baseline we can explain, and evidence that could change our answer. Units, sensitivity and limitations help decide how far an interpretation can go. The <a href="/topics/routes/model-trust/">model trust reading path</a> follows these distinctions through several studies; the <a href="/writing/choose-the-question-before-the-score/">short note on choosing a score</a> offers a smaller starting point.</p>
+      </section>
       <h2>Teaching and mentoring</h2>
       <p>My teaching emphasizes problem formulation, baseline models, units, computational checks, sensitivity analysis, and honest limitations. Competition cases can be valuable, but they are treated as practice in reasoning rather than automatic evidence of publication or deployment.</p>
       <p>A recent <a href="/teaching/student-research-studio/">mentoring outcome</a> is a student-team paper listed as <a href="#milestone-ai4nature-2026">Paper ID 7 in the AI4Nature@AVSS 2026 oral programme</a>, where I am also listed as a co-author.</p>

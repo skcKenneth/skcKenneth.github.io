@@ -1,0 +1,97 @@
+--- Page 1 ---
+TEACHER REFERENCE · PUBLIC PAGE
+Mixing tank: can a smooth curve
+be trusted? — Teacher reference
+Prepare the lesson, inspect the reasoning and keep the evidence limits visible.
+50 minutes · Introductory modeling · pairs
+Before you begin
+Derivatives, units, Python functions and arrays. This is a 50-minute introduction to the existing
+approximately 150-minute workshop, not its completion.
+The well-mixed tank is an invented teaching system. No measured equipment, mixing
+validation or plant-safety result is supplied.
+Check Python loading before class and keep the reference CSV/notebook available. Allow
+more time or use a teacher projection if Python functions and arrays are unfamiliar.
+Ask learners to export an existing workshop draft before manually changing it. This pack does
+not create a second draft or mark any of the workshop’s eight stages complete.
+One-class sequence
+5 min 01. Predict the long-run level
+Sketch a 20 L tank: 2 L/min enters at 10 g/L; equal outflow, reaction 0.05/min, initial
+concentration 0. Will concentration reach 10 g/L?
+Teacher reasoning / look for
+The prediction is about an invented system with a positive removal reaction. Keep it
+before showing the reference curve.
+
+--- Page 2 ---
+10 min 02. State assumptions and balance mass
+Write accumulation as inflow minus outflow minus reaction. Explain why volume is constant
+and outlet concentration equals tank concentration; check units.
+dC
+V =Q(C −C)−kVC
+dt in
+Teacher reasoning / look for
+Equal flows keep volume fixed; perfect mixing sets outlet concentration to the tank
+concentration; constant temperature supports a fixed reaction rate. These are
+assumptions, not solver guarantees.
+10 min 03. Check two steps, then implement
+Use the initial-value problem below to calculate two Euler steps. Complete student_model
+and the Euler update in student_euler using your balance.
+y′ =−y, y(0)=1, h=0.1
+y =y +hf(t ,y )
+n+1 n n n
+Teacher reasoning / look for
+The hand values are 0.9 and 0.81. Divide the mass balance by volume for the rate, then
+use the Euler update below. A correct balance and a correct loop are separate checks.
+
+--- Page 3 ---
+15 min 04. Run, change one condition, refine
+Run the default, then set reaction to 0.2 per minute. Return to default physical parameters
+and halve the time step to 0.25 minutes. Record your actual run’s errors and checks,
+including failures. If time permits, try zero reaction.
+(Q/V)C
+C = in
+∞ Q/V +k
+Teacher reasoning / look for
+Use the steady-concentration relation below: default gives 20/3, stronger reaction gives
+10/3, zero reaction gives 10 g/L. Compare “Your Euler max error” with “Your half-step
+max error”; some displayed baseline checks refer to prepared reference calculations, so
+do not infer that every check validates learner code.
+5 min 05. Separate two kinds of evidence
+What would an analytic-solution match tell you? Propose one tracer observation that would
+challenge the perfect-mixing assumption.
+Teacher reasoning / look for
+Agreement checks implementation of the stated equation. It does not test the real
+tank’s mixing. A tracer experiment could compare concentration over locations or
+outlet response with the well-mixed prediction.
+5 min 06. Leave a short evidence record
+Write one result, one check and one limitation. Answer the exit question and export the
+original workshop’s Draft JSON or report; do not mark the full workshop complete.
+Teacher reasoning / look for
+Accept clearly labelled failed or unavailable runs. A precomputed reference is useful for
+discussion but must remain labelled as reference, never the learner’s execution.
+Keep this evidence
+
+--- Page 4 ---
+A mass balance with units and three assumptions; two hand-calculated Euler values.
+An actual run or explicitly labelled reference, a refinement comparison and a limitation,
+exported from the original workshop where available.
+Use the original workshop’s Draft JSON export/import and report. Drafts stay in this
+browser; the classroom page never reads or writes them. When storage is unavailable, the
+workshop labels session-only memory and provides export. Export before changing device.
+Exit question
+Your numerical curve matches the analytic curve. Does that establish perfect mixing in a real
+tank? What further evidence is needed?
+Reference reasoning
+No. It checks the chosen equation’s implementation. A physical observation, such as a
+tracer experiment testing spatial concentration or outlet response, is needed to assess
+mixing.
+Misconceptions to discuss
+A smooth or stable curve establishes a correct physical model.
+A smaller time step repairs a missing reaction term.
+A prepared reference figure is evidence that I ran my code.
+These statements are misconceptions, not conclusions. Ask for the missing condition or evidence.
+Activity source
+Sequence adapted from workshop-01 “A tank, a boundary, a balance”, v1.0.0, its existing exercise and reference assets.
+The 50-minute pacing is an introductory lesson plan; nondimensionalization, failure experiments and extended writing
+remain in the full workshop.
+This guide：https://skckenneth.github.io/teaching/classroom-packs/mixing-tank/teacher/
+Original activity：https://skckenneth.github.io/teaching/modeling-workshop/mixing-tank/
