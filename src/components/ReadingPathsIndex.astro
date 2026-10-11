@@ -1,0 +1,24 @@
+---
+import { getReadingPaths } from '../data/reading-paths.mjs';
+import { localeBase } from '../data/site-reader.mjs';
+import '../styles/reader.css';
+import '../styles/reader-paths.css';
+interface Props { entries: any[]; locale?: 'en' | 'zh-Hant' }
+const { entries, locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant', base = localeBase(locale);
+const paths = getReadingPaths(entries, locale);
+---
+<header class="page-head reader-page-head"><div class="container">
+  <nav class="reader-breadcrumbs" aria-label={zh ? '所在位置' : 'Breadcrumb'} data-pagefind-ignore><ol><li><a href={`${base}/`}>{zh ? '首頁' : 'Home'}</a></li><li><a href={`${base}/topics/`}>{zh ? '主題' : 'Topics'}</a></li><li aria-current="page">{zh ? '閱讀路線' : 'Reading paths'}</li></ol></nav>
+  <p class="eyebrow">{zh ? '閱讀路線' : 'Reading paths'}</p><h1>{zh ? '沿著問題，一篇接一篇。' : 'Follow a question, one article at a time.'}</h1>
+  <p class="lead">{zh ? '兩條人工編排路線，先讀三篇主線，再按興趣選讀進階一篇。各篇都可以獨立閱讀。' : 'Two curated paths: three core articles followed by one optional advanced reading. Every article also stands on its own.'}</p>
+</div></header>
+<section class="reader-section"><div class="container"><div class="reader-path-grid">
+  {paths.map(path => <article class="reader-path-card" data-reading-path={path.id}>
+    <p class="eyebrow">{zh ? '三篇主線＋進階選讀' : 'Three core readings + an optional extension'}</p>
+    <h2><a href={path.href}>{path.title}</a></h2><p>{path.description}</p>
+    <p class="reader-path-time">{zh ? `主線約 ${path.coreMinutes} 分鐘 · 全線約 ${path.totalMinutes} 分鐘` : `Core: about ${path.coreMinutes} min · With extension: about ${path.totalMinutes} min`}</p>
+    <p class="reader-path-first-title">{zh ? '第一篇：' : 'First article: '}{path.first.title}</p>
+    <div class="reader-path-actions"><a class="button" data-path-first href={path.first.href}>{zh ? '由第一篇開始' : 'Start with the first article'} <span aria-hidden="true">→</span></a><a href={path.href}>{zh ? '看看路線與先備知識' : 'View the path and prerequisites'}</a></div>
+  </article>)}
+</div><p class="reader-path-note">{zh ? '時間按各語言版本的正文估算。路線不記錄完成進度，也不需要登入。' : 'Times are estimated from each language version. Paths do not track completion and require no account.'}</p><div class="reader-inline-links"><a href={`${base}/topics/`}>{zh ? '按主題自由探索' : 'Explore topics freely'}</a><a href={`${base}/concepts/`}>{zh ? '常用概念導讀' : 'Concept guides'}</a></div></div></section>

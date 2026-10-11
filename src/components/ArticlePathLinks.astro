@@ -1,0 +1,17 @@
+---
+import { getArticleReadingPaths } from '../data/reading-paths.mjs';
+import '../styles/reader-paths.css';
+interface Props { entry: any; entries: any[]; locale?: 'en' | 'zh-Hant' }
+const { entry, entries, locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant';
+const paths = getArticleReadingPaths(entry.data, entries, locale);
+---
+{paths.length > 0 && <nav class="reader-article-paths" aria-label={zh ? '文章所在閱讀路線' : 'Reading paths containing this article'} data-pagefind-ignore>
+  <h2>{zh ? '沿著這條路線繼續讀' : 'Continue along this reading path'}</h2>
+  {paths.map(path => <div class="reader-article-path" data-article-path={path.id}>
+    <p class="reader-path-current">{path.current.optional ? (zh ? '你正在閱讀進階選讀' : 'You are reading the optional extension') : (zh ? `你正在閱讀主線 ${path.current.position} / ${path.coreCount}` : `You are reading core ${path.current.position} of ${path.coreCount}`)}</p>
+    <h3><a href={path.href}>{path.title}</a></h3>
+    {path.next ? <><p class="reader-path-next-label">{path.next.optional ? (zh ? '主線到這篇為止；還想深入的話：' : 'This is the final core article. For an optional deeper reading:') : (zh ? '路線下一篇：' : 'Next in this path:')}</p><a class="reader-path-next" data-path-next href={path.next.href}>{path.next.title}<span>{zh ? `約 ${path.next.minutes} 分鐘` : `About ${path.next.minutes} min`} <span aria-hidden="true">→</span></span></a></> : <p>{zh ? '你已到達這條路線的最後一篇，可以返回路線重溫其他文章。' : 'You have reached the final article in this path. Return to the path to revisit its other readings.'}</p>}
+    <a class="reader-path-read" href={path.href}>{zh ? '查看完整路線' : 'View the complete path'} <span aria-hidden="true">→</span></a>
+  </div>)}
+</nav>}

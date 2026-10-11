@@ -216,6 +216,27 @@ Maintain event status, date, review-after date and source together in
 without changing event status. A programme listing or an elapsed date never
 proves that a presentation occurred or proceedings were published.
 
+## Reading paths, concepts and reading tools
+
+Manage the two reading paths in `src/data/reading-paths.mjs`. Steps use shared
+article IDs, resolve actual translated titles and URLs, and derive reading times
+from current content. Keep the core/optional distinction, prerequisites and
+evidence boundaries with each step. Never infer a translated slug from a title.
+
+The eight sourced concept guides live in `src/data/reader-concepts.mjs`.
+`CONCEPT_PLACEMENTS` declares the exact existing section IDs for the six pilot
+articles. The Markdown plugin inserts native disclosures without rewriting
+prose, formulas, captions or heading IDs; a missing anchor fails publication.
+Each guide keeps its definition, example, misconception and scope together.
+Search indexes guides by type and topic and recognizes paired names/aliases.
+
+Reading positions use the independent `kenneth-reading-position:v1` key and
+shared article ID. Cross-language sections are explicit pairs in
+`src/data/reader-sections.mjs`; never align headings by ordinal position.
+Removed headings and unmapped translations return a visible status. Clearing a
+position must retain saved articles and all teaching records. Print QA checks
+actual A4 output, including formulas, captions, tables and code, in both languages.
+
 ## Research and teaching
 
 - Research entries describe programmes and link across projects.

@@ -1,0 +1,26 @@
+---
+import { CONCEPTS, conceptHref } from '../data/reader-concepts.mjs';
+import { localeBase } from '../data/site-reader.mjs';
+import '../styles/reader.css';
+import '../styles/reader-concepts.css';
+interface Props { locale?: 'en' | 'zh-Hant' }
+const { locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant';
+const base = localeBase(locale);
+---
+<header class="page-head reader-page-head"><div class="container">
+  <nav class="reader-breadcrumbs" aria-label={zh?'所在位置':'Breadcrumb'} data-pagefind-ignore><ol><li><a href={`${base}/`}>{zh?'首頁':'Home'}</a></li><li><a href={`${base}/topics/`}>{zh?'主題':'Topics'}</a></li><li aria-current="page">{zh?'概念導讀':'Concept guides'}</li></ol></nav>
+  <p class="eyebrow">{zh?'讀模型，也讀證據':'Reading models and evidence'}</p>
+  <h1 data-pagefind-meta="title">{zh?'八個常用概念':'Eight useful concepts'}</h1>
+  <p class="lead" data-pagefind-meta="description">{zh?'由一個例子開始，分清模型回答了甚麼，以及它仍未證明甚麼。':'Start with an example, then separate what a model answers from what it has yet to establish.'}</p>
+</div></header>
+<section class="reader-section"><div class="container" data-concept-index>
+  <p class="reader-concept-editorial">{zh?'這些是配合本站文章的簡釋，並非標準原文翻譯。每個詞條保留例子的適用範圍及參考來源。':'These are reader-facing explanations for the articles, rather than quotations of standards. Each entry keeps its example’s scope and reference sources visible.'}</p>
+  <ul class="reader-concept-grid">{CONCEPTS.map(concept=><li><article data-concept-card={concept.id}>
+    <p class="reader-concept-card-kicker">{zh?concept.label.en:'Concept guide'}</p>
+    <h2><a href={conceptHref(concept.id,locale)}>{concept.label[locale]}<span aria-hidden="true"> ↗</span></a></h2>
+    <p>{concept.copy[locale].definition}</p>
+    <p class="reader-concept-aliases">{zh?'亦見：':'Also used: '}{concept.aliases[locale].join(' · ')}</p>
+  </article></li>)}</ul>
+  <p class="reader-concept-back"><a href={`${base}/topics/`}>{zh?'返回主題，繼續探索文章':'Return to topics and explore the writing'} →</a></p>
+</div></section>

@@ -4,11 +4,16 @@ import ReadingNav from './ReadingNav.astro';
 import ReaderCard from './ReaderCard.astro';
 import SaveArticle from './SaveArticle.astro';
 import ReaderGuide from './ReaderGuide.astro';
+import ReadingPosition from './ReadingPosition.astro';
+import ReaderPrint from './ReaderPrint.astro';
+import ArticlePathLinks from './ArticlePathLinks.astro';
 import { publicRepositoryUrl } from '../config/repository-policy';
 import { articleType, canonicalId, getTopicIds, localeBase, readingMinutes, SITE_URL, TOPICS } from '../data/site-reader.mjs';
 import { selectRelatedArticles } from '../data/reader-utils.mjs';
 import { getReaderGuide } from '../data/reader-guides.mjs';
 import '../styles/reader.css';
+import '../styles/reader-print.css';
+import '../styles/reader-concepts.css';
 interface Props {
   entry: any; entries: any[]; headings?: { depth: number; slug: string; text: string }[];
   previous?: any; next?: any; locale?: 'en' | 'zh-Hant';
@@ -42,7 +47,9 @@ const links = [
     {changed && <span>{isZh ? '更新：' : 'Updated '}<time datetime={entry.data.lastUpdated.toISOString()}>{dateLabel(entry.data.lastUpdated)}</time></span>}
     <span>{isZh ? `約 ${readingMinutes(entry, locale)} 分鐘閱讀` : `${readingMinutes(entry, locale)} min read`}</span>
   </p>
-  <div class="reader-article-tools" data-pagefind-ignore><SaveArticle articleId={canonicalId(entry.data)} title={entry.data.title} href={href} locale={locale} /><a href={feedback}>{isZh ? '回報錯誤／提出問題' : 'Report an error / ask a question'}</a></div>
+  <div class="reader-article-tools" data-pagefind-ignore><SaveArticle articleId={canonicalId(entry.data)} title={entry.data.title} href={href} locale={locale} /><a href={feedback}>{isZh ? '回報錯誤／提出問題' : 'Report an error / ask a question'}</a><ReaderPrint canonicalUrl={`${SITE_URL}${href}`} locale={locale} /></div>
+  <p class="reader-print-url" data-pagefind-ignore>{isZh ? '文章網址：' : 'Article URL: '}<a href={`${SITE_URL}${href}`}>{`${SITE_URL}${href}`}</a></p>
+  <ReadingPosition articleId={canonicalId(entry.data)} headings={toc} locale={locale} />
 </div></header>
 <div class="container reader-layout" data-article-reader data-locale={locale}>
   <aside class="reader-aside" data-pagefind-ignore>
@@ -66,8 +73,9 @@ const links = [
         {entry.data.legacySource && <p class="small">{isZh ? '原始 Markdown：' : 'Original Markdown: '}<code>{entry.data.legacySource}</code></p>}
         {links.length > 0 && <div class="reader-inline-links">{links.map(([label, url]) => <a href={url}>{label}</a>)}</div>}
       </div>
-      {entry.data.topics?.length > 0 && <div><p class="reader-toc-title">{isZh ? '延伸標籤' : 'Explore these tags'}</p><div class="tag-list">{entry.data.topics.map((topic: string) => <a class="tag" href={`${base}/writing/?q=${encodeURIComponent(topic)}`}>{topic}</a>)}</div></div>}
+      {entry.data.topics?.length > 0 && <div class="reader-tags"><p class="reader-toc-title">{isZh ? '延伸標籤' : 'Explore these tags'}</p><div class="tag-list">{entry.data.topics.map((topic: string) => <a class="tag" href={`${base}/writing/?q=${encodeURIComponent(topic)}`}>{topic}</a>)}</div></div>}
       <div class="reader-inline-links"><a href={`${base}/writing/`}>← {isZh ? '返回文章清單' : 'Back to all writing'}</a><a href={feedback}>{isZh ? '回報錯誤／提出問題' : 'Report an error / ask a question'}</a></div>
+      <ArticlePathLinks entry={entry} entries={entries} locale={locale} />
       {related.length > 0 && <section class="reader-related" aria-labelledby="reader-related-title"><h2 id="reader-related-title">{isZh ? '接住讀' : 'Read next'}</h2><div class="reader-card-grid">{related.map(item => <ReaderCard entry={item} locale={locale} />)}</div></section>}
       <ReadingNav previous={previous && { href: `${base}/writing/${previous.data.slug}/`, title: previous.data.title }} next={next && { href: `${base}/writing/${next.data.slug}/`, title: next.data.title }} locale={locale} />
     </footer>
@@ -76,7 +84,8 @@ const links = [
 </div>
 <script>
   const reader = document.querySelector<HTMLElement>('[data-article-reader]');
-  if (reader) {
+  if (reader && reader.dataset.readerInitialized !== 'true') {
+    reader.dataset.readerInitialized = 'true';
     const isZh = reader.dataset.locale === 'zh-Hant';
     const inlineMath = reader.querySelectorAll<HTMLElement>('.reader-prose p > .katex, .reader-prose li > .katex');
     const updateMathScroll = () => inlineMath.forEach(math => {

@@ -1,0 +1,1434 @@
+{
+  "method": "Actual PDF geometry/text extraction with pdfplumber; selected page rasters with PDFium. Bounds checks supplement visual review, not a proof of all pagination.",
+  "documents": [
+    {
+      "filename": "traffic-en.pdf",
+      "pageCount": 29,
+      "a4": true,
+      "hasCanonicalUrl": true,
+      "hasReplacementCharacters": false,
+      "hasHiddenUiText": false,
+      "mathGlyphSizesPt": {
+        "minimum": 6.345,
+        "maximum": 14.97,
+        "note": "PDF glyph sizes include subscripts, superscripts and fraction numerators; minimum is not the base formula font."
+      },
+      "selectedLongIntervalDigitsPt": [],
+      "pages": [
+        {
+          "page": 1,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1641,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 2,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 991,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 3,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1662,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 4,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 907,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 5,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 970,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 6,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1640,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 7,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 751,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 8,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1618,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 9,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 587,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 10,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 641,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 11,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1446,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 12,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 923,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 13,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1696,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 14,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1009,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 15,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1454,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 16,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1641,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 17,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1025,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 18,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1783,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 19,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 927,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 20,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1824,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 21,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 573,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 22,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1000,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 23,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1557,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 24,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 318,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 25,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 660,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 26,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1835,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 27,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1639,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 28,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1705,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 29,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 0,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        }
+      ],
+      "previews": [
+        "traffic-en-page-1.png",
+        "traffic-en-page-2.png"
+      ]
+    },
+    {
+      "filename": "traffic-zh-Hant.pdf",
+      "pageCount": 27,
+      "a4": true,
+      "hasCanonicalUrl": true,
+      "hasReplacementCharacters": false,
+      "hasHiddenUiText": false,
+      "mathGlyphSizesPt": {
+        "minimum": 6.352,
+        "maximum": 15.802,
+        "note": "PDF glyph sizes include subscripts, superscripts and fraction numerators; minimum is not the base formula font."
+      },
+      "selectedLongIntervalDigitsPt": [],
+      "pages": [
+        {
+          "page": 1,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 768,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 2,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 394,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 3,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 589,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 4,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 857,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 5,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 816,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 6,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 553,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 7,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 840,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 8,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 849,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 9,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 518,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 10,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 796,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 11,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 503,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 12,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 602,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 13,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 574,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 14,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 670,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 15,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 622,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 16,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 863,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 17,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 381,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 18,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 575,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 19,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 492,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 20,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 551,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 21,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 695,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 22,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 723,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 23,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 624,
+          "outsideHorizontalMargins": 1,
+          "outsideSamples": [
+            {
+              "text": "」",
+              "x0": 541.75,
+              "x1": 554.81
+            }
+          ]
+        },
+        {
+          "page": 24,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 522,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 25,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 909,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 26,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1643,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 27,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 152,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        }
+      ],
+      "previews": [
+        "traffic-zh-Hant-page-1.png",
+        "traffic-zh-Hant-page-2.png"
+      ]
+    },
+    {
+      "filename": "solar-en.pdf",
+      "pageCount": 27,
+      "a4": true,
+      "hasCanonicalUrl": true,
+      "hasReplacementCharacters": false,
+      "hasHiddenUiText": false,
+      "mathGlyphSizesPt": {
+        "minimum": 7.485,
+        "maximum": 14.97,
+        "note": "PDF glyph sizes include subscripts, superscripts and fraction numerators; minimum is not the base formula font."
+      },
+      "selectedLongIntervalDigitsPt": [],
+      "pages": [
+        {
+          "page": 1,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1440,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 2,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1282,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 3,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1066,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 4,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1698,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 5,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 945,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 6,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 766,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 7,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1571,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 8,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 845,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 9,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 922,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 10,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1451,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 11,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1728,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 12,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1559,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 13,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1081,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 14,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 777,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 15,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1300,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 16,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 633,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 17,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 907,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 18,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1679,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 19,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 855,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 20,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1437,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 21,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1002,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 22,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1762,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 23,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1057,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 24,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1757,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 25,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1534,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 26,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1546,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 27,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1007,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        }
+      ],
+      "previews": [
+        "solar-en-page-1.png",
+        "solar-en-page-15.png"
+      ]
+    },
+    {
+      "filename": "solar-zh-Hant.pdf",
+      "pageCount": 26,
+      "a4": true,
+      "hasCanonicalUrl": true,
+      "hasReplacementCharacters": false,
+      "hasHiddenUiText": false,
+      "mathGlyphSizesPt": {
+        "minimum": 7.897,
+        "maximum": 15.802,
+        "note": "PDF glyph sizes include subscripts, superscripts and fraction numerators; minimum is not the base formula font."
+      },
+      "selectedLongIntervalDigitsPt": [],
+      "pages": [
+        {
+          "page": 1,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 724,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 2,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 440,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 3,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 627,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 4,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 821,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 5,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 305,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 6,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 478,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 7,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 764,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 8,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 257,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 9,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 501,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 10,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 764,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 11,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 876,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 12,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 650,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 13,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 385,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 14,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 508,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 15,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 724,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 16,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 581,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 17,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 823,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 18,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 562,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 19,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 511,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 20,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 605,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 21,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 875,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 22,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 743,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 23,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 888,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 24,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 752,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 25,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1157,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 26,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 334,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        }
+      ],
+      "previews": [
+        "solar-zh-Hant-page-1.png",
+        "solar-zh-Hant-page-14.png",
+        "solar-zh-Hant-page-15.png"
+      ]
+    },
+    {
+      "filename": "certificate-en.pdf",
+      "pageCount": 20,
+      "a4": true,
+      "hasCanonicalUrl": true,
+      "hasReplacementCharacters": false,
+      "hasHiddenUiText": false,
+      "mathGlyphSizesPt": {
+        "minimum": 5.947,
+        "maximum": 14.97,
+        "note": "PDF glyph sizes include subscripts, superscripts and fraction numerators; minimum is not the base formula font."
+      },
+      "selectedLongIntervalDigitsPt": [
+        {
+          "page": 2,
+          "minimum": 14.97,
+          "maximum": 14.97
+        },
+        {
+          "page": 3,
+          "minimum": 8.557,
+          "maximum": 8.557
+        },
+        {
+          "page": 8,
+          "minimum": 14.97,
+          "maximum": 14.97
+        }
+      ],
+      "pages": [
+        {
+          "page": 1,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1476,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 2,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1395,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 3,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1548,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 4,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1556,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 5,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1016,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 6,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1058,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 7,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1509,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 8,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 575,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 9,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1311,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 10,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1681,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 11,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1318,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 12,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1546,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 13,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1306,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 14,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1641,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 15,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1763,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 16,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1618,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 17,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1617,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 18,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1444,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 19,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1785,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 20,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 65,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        }
+      ],
+      "previews": [
+        "certificate-en-page-1.png",
+        "certificate-en-page-3.png"
+      ]
+    },
+    {
+      "filename": "certificate-zh-Hant.pdf",
+      "pageCount": 22,
+      "a4": true,
+      "hasCanonicalUrl": true,
+      "hasReplacementCharacters": false,
+      "hasHiddenUiText": false,
+      "mathGlyphSizesPt": {
+        "minimum": 5.947,
+        "maximum": 22.62,
+        "note": "PDF glyph sizes include subscripts, superscripts and fraction numerators; minimum is not the base formula font."
+      },
+      "selectedLongIntervalDigitsPt": [
+        {
+          "page": 2,
+          "minimum": 15.802,
+          "maximum": 15.802
+        },
+        {
+          "page": 3,
+          "minimum": 8.55,
+          "maximum": 8.55
+        },
+        {
+          "page": 7,
+          "minimum": 15.802,
+          "maximum": 15.802
+        }
+      ],
+      "pages": [
+        {
+          "page": 1,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 814,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 2,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1110,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 3,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1249,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 4,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1291,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 5,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 464,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 6,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 824,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 7,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 747,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 8,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1020,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 9,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1023,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 10,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 695,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 11,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 935,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 12,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1025,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 13,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1337,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 14,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1050,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 15,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1229,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 16,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1207,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 17,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1277,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 18,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1265,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 19,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1208,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 20,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1101,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 21,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1306,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 22,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1429,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        }
+      ],
+      "previews": [
+        "certificate-zh-Hant-page-1.png",
+        "certificate-zh-Hant-page-3.png"
+      ]
+    },
+    {
+      "filename": "code-en.pdf",
+      "pageCount": 2,
+      "a4": true,
+      "hasCanonicalUrl": true,
+      "hasReplacementCharacters": false,
+      "hasHiddenUiText": false,
+      "mathGlyphSizesPt": {
+        "minimum": 10.477,
+        "maximum": 14.97,
+        "note": "PDF glyph sizes include subscripts, superscripts and fraction numerators; minimum is not the base formula font."
+      },
+      "selectedLongIntervalDigitsPt": [],
+      "pages": [
+        {
+          "page": 1,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 1118,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        },
+        {
+          "page": 2,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 78,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        }
+      ],
+      "previews": [
+        "code-en-page-1.png"
+      ]
+    },
+    {
+      "filename": "code-zh-Hant.pdf",
+      "pageCount": 1,
+      "a4": true,
+      "hasCanonicalUrl": true,
+      "hasReplacementCharacters": false,
+      "hasHiddenUiText": false,
+      "mathGlyphSizesPt": {
+        "minimum": 11.062,
+        "maximum": 15.802,
+        "note": "PDF glyph sizes include subscripts, superscripts and fraction numerators; minimum is not the base formula font."
+      },
+      "selectedLongIntervalDigitsPt": [],
+      "pages": [
+        {
+          "page": 1,
+          "width": 594.96,
+          "height": 841.92,
+          "characters": 554,
+          "outsideHorizontalMargins": 0,
+          "outsideSamples": []
+        }
+      ],
+      "previews": [
+        "code-zh-Hant-page-1.png"
+      ]
+    }
+  ]
+}

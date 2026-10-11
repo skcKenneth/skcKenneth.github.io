@@ -1,0 +1,7 @@
+---
+interface Props { canonicalUrl: string; locale?: 'en' | 'zh-Hant'; }
+const { canonicalUrl, locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant';
+---
+<button class="button secondary reader-print-button" type="button" data-reader-print data-print-url={canonicalUrl} disabled>{zh ? '列印／儲存 PDF' : 'Print / save PDF'}</button>
+<script>import '../scripts/reader-print-client';</script>

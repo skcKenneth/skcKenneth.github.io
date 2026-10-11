@@ -24,4 +24,8 @@
 - 離線基準與候選見 `performance/8858cb9/`、`performance/editorial-candidate/`。首頁宣告圖片由 40,402 bytes 降至 22,425 bytes，CSS 由 64,287 增至 81,808 bytes；首頁沒有額外外部初始 JS。這些數量不能推斷實際載入時間改善。
 - 已備份並證明四個同步 manifest 只有 `source` 字段的本地 fallback 標記變動，再還原該四檔；沒有更改科學內容、既有教學資料或學習儲存格式。
 
-正式發布及 48 個線上入口／資產的結果，在下一批開始前另行記錄。
+## 正式發布
+
+提交 `42a68fcb9e4eaa357a0e5a9661ed5add52fb007a` 已部署；[GitHub Actions](https://github.com/skcKenneth/skcKenneth.github.io/actions/runs/38118606250) 的建置、部署及發布後驗證均成功。48 個線上入口／資產通過 HTTP、語言／標記及適用資產 SHA-256 檢查。
+
+正式瀏覽器核對首頁一張重點卡與兩張精簡卡、主題圖案、手機指南的初始收合與 Enter 展開、文章專屬分享圖，以及搜尋 `model&page=3` 的 52 個結果／第 3／5 頁。`editorial-previews/actions.json` 記錄 Actions 證據；`live-verification.md` 是獨立本機線上檢查，因此其執行上下文不自行聲稱 Actions 成功。

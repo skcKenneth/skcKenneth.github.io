@@ -4,6 +4,8 @@ import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { EDITORIAL_ARTICLE_IDS, getReaderMedia } from '../src/data/reader-media.mjs';
+import { CONCEPT_IDS } from '../src/data/reader-concepts.mjs';
+import { READING_PATH_IDS } from '../src/data/reading-paths.mjs';
 
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/zh/topics', '/teaching', '/zh/teaching', '/search', '/zh/search'].map(prefix => ({ path: `${prefix}/`, locale: prefix.startsWith('/zh') ? 'zh-Hant' : 'en', kind: prefix.endsWith('writing') ? 'writing' : prefix.endsWith('topics') ? 'topics' : prefix.endsWith('teaching') ? 'teaching' : prefix.endsWith('search') ? 'search' : 'home' })).concat([
@@ -22,8 +24,13 @@ export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/z
     { path: `${locale === 'zh-Hant' ? '/zh' : ''}/writing/${articleId}/`, locale, kind: 'article', articleId, sharePath: media.share.src },
     { path: media.share.src, kind: 'png' },
   ];
-})));
-const MARKERS = { home: ['reader-home-hero', 'id="latest-writing"', 'id="start-here"'], writing: ['data-writing-index', 'reader-pagination'], topics: ['reader-topics-grid', 'mathematical-thinking', 'teaching-research-practice', 'id="research-programmes"'], teaching: ['data-teaching-directory', 'data-teaching-filters', 'id="math-inquiry-lab"'], search: ['data-site-search', 'data-search-pagination', 'name="technical"'], studio: ['id="jae-topics"', 'id="quadratics"', 'id="trigonometry"', 'id="past-papers"'], models: ['id="model-index"', 'data-catalog-kind="model"', 'data-model-library'], article: ['data-reader-guide=', 'data-reader-guide-question', 'data-article-reader'] };
+})), ['en', 'zh-Hant'].flatMap(locale => {
+  const base = locale === 'zh-Hant' ? '/zh' : '';
+  const alternateBase = locale === 'zh-Hant' ? '' : '/zh';
+  return ['/concepts/', '/topics/routes/', ...CONCEPT_IDS.map(id => `/concepts/${id}/`), ...READING_PATH_IDS.map(id => `/topics/routes/${id}/`)]
+    .map(path => ({path: `${base}${path}`, locale, kind: 'guide', alternatePath: `${alternateBase}${path}`}));
+}));
+const MARKERS = { guide: ['data-pagefind-filter="search-kind[content]" content="guide"', '<h1'], home: ['reader-home-hero', 'id="latest-writing"', 'id="start-here"'], writing: ['data-writing-index', 'reader-pagination'], topics: ['reader-topics-grid', 'mathematical-thinking', 'teaching-research-practice', 'id="research-programmes"'], teaching: ['data-teaching-directory', 'data-teaching-filters', 'id="math-inquiry-lab"'], search: ['data-site-search', 'data-search-pagination', 'name="technical"'], studio: ['id="jae-topics"', 'id="quadratics"', 'id="trigonometry"', 'id="past-papers"'], models: ['id="model-index"', 'data-catalog-kind="model"', 'data-model-library'], article: ['data-reader-guide=', 'data-reader-guide-question', 'data-article-reader', 'data-reading-position', 'data-reader-print'] };
 export function validateLivePayload(spec, { status, contentType = '', bytes }, expectedHash) {
   const errors = [];
   if (status !== 200) return [`HTTP ${status}`];
@@ -36,6 +43,11 @@ export function validateLivePayload(spec, { status, contentType = '', bytes }, e
     if (spec.kind === 'article') {
       if (!body.includes(`data-reader-guide="${spec.articleId}"`)) errors.push('Missing paired reading guide');
       if (!body.includes(`property="og:image" content="https://skckenneth.github.io${spec.sharePath}"`)) errors.push('Missing article sharing image');
+    }
+    if (spec.kind === 'guide') {
+      if (!body.includes(`rel="canonical" href="https://skckenneth.github.io${spec.path}"`)) errors.push('Incorrect guide canonical URL');
+      const other = spec.locale === 'en' ? 'zh-Hant' : 'en';
+      if (!body.includes(`rel="alternate" hreflang="${other}" href="https://skckenneth.github.io${spec.alternatePath}"`)) errors.push('Incorrect guide language counterpart');
     }
   } else if (spec.kind === 'alias') {
     if (!contentType.includes('text/html')) errors.push('Expected HTML content type');

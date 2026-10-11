@@ -1,6 +1,6 @@
 /** Shared, dependency-free search rules. Pagefind remains the full-text engine. */
 export const SEARCH_PAGE_SIZE = 12;
-export const SEARCH_KINDS = ['writing','project','teaching','research','question','lesson','catalogue'];
+export const SEARCH_KINDS = ['writing','project','teaching','guide','research','question','lesson','catalogue'];
 const normalize = text => String(text || '').normalize('NFKC').toLocaleLowerCase().replace(/\s+/gu, '');
 export function matchCatalog(query, catalog) {
   const term = normalize(query);
@@ -39,7 +39,7 @@ export function searchParams(state) {
 export function allowedSearchKinds(state) {
   // Selecting an advanced type is itself an explicit opt-in.
   if(state.type)return [state.type];
-  const kinds=['writing','project','teaching'];
+  const kinds=['writing','project','teaching','guide'];
   if(state.questions)kinds.push('question','lesson');
   if(state.technical)kinds.push('research','catalogue');
   return kinds;
@@ -59,6 +59,7 @@ export function paginateSearch(entries,requestedPage=1,size=SEARCH_PAGE_SIZE) {
 }
 export function classifySearchUrl(url) {
   const path=new URL(url,'https://skckenneth.github.io').pathname.replace(/^\/zh\//,'/');
+  if(path.startsWith('/concepts/')||path.startsWith('/topics/routes/'))return 'guide';
   if(/^\/writing\/[^/]+\/$/.test(path))return 'writing';
   if(/^\/projects\/[^/]+\/$/.test(path))return 'project';
   if(path.startsWith('/research/'))return 'research';

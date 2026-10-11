@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ReadingPathsIndex from '../../../components/ReadingPathsIndex.astro';
+import { READING_PATHS } from '../../../data/reading-paths.mjs';
+const entries = await getCollection('writing', ({ data }) => !data.draft && !data.archived && data.slug !== 'legacy-archive');
+const topicIds = [...new Set(READING_PATHS.flatMap(path => path.topicIds))];
+---
+<BaseLayout title="Reading paths" description="Two guided routes through published articles, with a purpose, prerequisites and an evidence boundary for every step." type="Reading guides" topicIds={topicIds} alternatePath="/zh/topics/routes/"><ReadingPathsIndex entries={entries} /></BaseLayout>

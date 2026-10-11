@@ -1,0 +1,15 @@
+---
+import { getReaderSections } from '../data/reader-sections.mjs';
+import { headingOutline } from '../lib/reading-position.mjs';
+import '../styles/reading-position.css';
+interface Props { articleId: string; locale?: 'en' | 'zh-Hant'; headings: {depth:number;slug:string;text:string}[]; }
+const { articleId, locale = 'en', headings } = Astro.props;
+const zh = locale === 'zh-Hant';
+const sections = getReaderSections(articleId, locale, headings);
+---
+{headings.length > 0 && <section class="reading-position" data-reading-position data-article-id={articleId} data-locale={locale} data-headings={JSON.stringify(headings)} data-sections={JSON.stringify(sections)} data-outline={headingOutline(headings)} data-pagefind-ignore aria-label={zh ? '閱讀位置' : 'Reading position'}>
+  <p data-position-message>{zh ? '閱讀位置只會保存在這個瀏覽器，與「稍後閱讀」清單分開。' : 'Your reading position stays in this browser, separately from your saved reading list.'}</p>
+  <div class="reading-position-actions"><button class="button secondary" type="button" data-position-continue hidden>{zh ? '由上次章節繼續' : 'Continue from last section'}</button><button class="button secondary" type="button" data-position-clear hidden>{zh ? '清除本篇位置' : 'Clear this position'}</button></div>
+  <p class="small" data-position-storage role="status"></p><p class="small" data-position-status role="status"></p>
+</section>}
+<script>import '../scripts/reading-position-client';</script>

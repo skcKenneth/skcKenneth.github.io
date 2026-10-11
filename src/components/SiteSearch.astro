@@ -3,6 +3,7 @@ import {getCollection} from 'astro:content';
 import {lessons} from '../data/workshop-lessons';
 import {TOPICS,getTopicIds} from '../data/site-reader.mjs';
 import {createSearchCatalog} from '../lib/search-catalog.mjs';
+import {createReaderGuideCatalog} from '../lib/reader-guide-catalog.mjs';
 import '../styles/site-search.css';
 const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
 const zh=locale==='zh-Hant',base=zh?'/zh':'';
@@ -19,7 +20,7 @@ const entrances=[
   ['quantum-repeater-lab','Quantum repeater scheduling lab','量子中繼排程實驗室','Experiment with quantum networks and scheduling.','實驗量子網絡與排程。',[]],
   ['melt-pond-topology-lab','Melt-pond topology observation lab','融池拓撲觀測實驗室','Examine how observation changes topological evidence.','檢查觀測方法如何改變拓撲證據。',[]]
 ] as [string,string,string,string,string,string[]][];
-const extras=[...entrances.map(([slug,en,ch,excerptEn,excerptZh,aliases])=>({url:`${base}/teaching/${slug==='jae-math'?'senior-math/studios/jae':slug}/`,title:zh?ch:en,excerpt:zh?excerptZh:excerptEn,
+const extras=[...createReaderGuideCatalog(locale),...entrances.map(([slug,en,ch,excerptEn,excerptZh,aliases])=>({url:`${base}/teaching/${slug==='jae-math'?'senior-math/studios/jae':slug}/`,title:zh?ch:en,excerpt:zh?excerptZh:excerptEn,
   aliases:[en,ch,slug,...aliases],kind:'teaching',archived:false,topicIds:['teaching-research-practice']})),
   {url:`${base}/teaching/#math-inquiry-lab`,title:zh?'數學探究室 · Math Inquiry Lab':'Math Inquiry Lab',aliases:['數學探究室','Math Inquiry Lab','math-inquiry-lab'],excerpt:zh?'二次函數、概率與迴歸互動活動。':'Interactive activities on quadratics, probability and regression.',kind:'teaching',archived:false,topicIds:['mathematical-thinking','teaching-research-practice']},
   ...lessons.map(lesson=>({url:`${base}/teaching/modeling-workshop/${lesson.slug}/`,title:lesson.title[locale],aliases:Object.values(lesson.title),excerpt:lesson.summary[locale],kind:'lesson',archived:false,topicIds:['teaching-research-practice','computation-code']}))];
@@ -34,7 +35,7 @@ for(const entry of catalog)if(entry.url.endsWith('/projects/cut-audit-er/'))entr
       <label for="search-input"><strong>{zh?'搜尋網站':'Search the site'}</strong></label>
       <div class="search-input-row"><input id="search-input" name="q" type="search" autocomplete="off" maxlength="300" placeholder={zh?'例如：登革熱、數學建模、敏感度':'Try “dengue”, “modeling”, or “sensitivity”'}/><button class="button" type="submit">{zh?'搜尋':'Search'}</button></div>
       <div class="search-filter-grid">
-        <label>{zh?'內容類型':'Content type'}<select name="type"><option value="">{zh?'所有選定類型':'All selected types'}</option><option value="writing">{zh?'文章':'Articles'}</option><option value="project">{zh?'專案概覽':'Project overviews'}</option><option value="teaching">{zh?'教學入口':'Teaching entrances'}</option><option value="research">{zh?'研究方向':'Research'}</option><option value="question">{zh?'練習題與舊卷':'Questions & papers'}</option><option value="lesson">{zh?'教學單元':'Lessons'}</option><option value="catalogue">{zh?'技術目錄':'Technical catalogue'}</option></select></label>
+        <label>{zh?'內容類型':'Content type'}<select name="type"><option value="">{zh?'所有選定類型':'All selected types'}</option><option value="writing">{zh?'文章':'Articles'}</option><option value="project">{zh?'專案概覽':'Project overviews'}</option><option value="teaching">{zh?'教學入口':'Teaching entrances'}</option><option value="guide">{zh?'閱讀／概念導讀':'Reading / concept guides'}</option><option value="research">{zh?'研究方向':'Research'}</option><option value="question">{zh?'練習題與舊卷':'Questions & papers'}</option><option value="lesson">{zh?'教學單元':'Lessons'}</option><option value="catalogue">{zh?'技術目錄':'Technical catalogue'}</option></select></label>
         <label>{zh?'主題':'Topic'}<select name="topic"><option value="">{zh?'所有主題':'All topics'}</option>{TOPICS.map(topic=><option value={topic.id}>{topic.label[locale]}</option>)}</select></label>
       </div>
       <fieldset class="search-inclusions"><legend>{zh?'擴闊搜尋範圍':'Include more content'}</legend>
@@ -42,7 +43,7 @@ for(const entry of catalog)if(entry.url.endsWith('/projects/cut-audit-er/'))entr
         <label><input type="checkbox" name="questions"/>{zh?'練習題、舊卷與教學單元':'Questions, papers & lessons'}</label>
         <label><input type="checkbox" name="technical"/>{zh?'研究方向及技術目錄':'Research & technical catalogue'}</label>
       </fieldset>
-      <div class="search-form-end"><p class="small">{zh?'預設搜尋現行文章、專案概覽與教學入口。':'Search current articles, project overviews and teaching entrances by default.'}</p><button type="reset" class="search-clear">{zh?'清除條件':'Clear filters'}</button></div>
+      <div class="search-form-end"><p class="small">{zh?'預設搜尋現行文章、導讀、專案概覽與教學入口。':'Search current articles, guides, project overviews and teaching entrances by default.'}</p><button type="reset" class="search-clear">{zh?'清除條件':'Clear filters'}</button></div>
     </form>
     <div class="search-suggestions" data-search-suggestions><span>{zh?'不妨試試：':'Try:'}</span>{(zh?['數學建模','登革熱','風險','高中數學']:['modeling','dengue','risk','senior mathematics']).map(term=><button type="button" data-search-suggestion={term}>{term}</button>)}</div>
     <p class="search-status" data-search-status role="status" aria-live="polite">{zh?'請輸入至少兩個字元，或選擇主題。':'Type at least two characters, or choose a topic.'}</p>

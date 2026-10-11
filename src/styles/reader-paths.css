@@ -1,0 +1,44 @@
+.reader-path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:1.25rem;align-items:start}
+.reader-path-card{min-width:0;padding:1.5rem;border:1px solid #c2d2c5;border-radius:.65rem;background:#edf1e8;overflow-wrap:anywhere}
+.reader-path-card h2,.reader-path-card h3{margin:.5rem 0 .8rem;font:500 clamp(1.4rem,2.5vw,1.85rem)/1.4 var(--serif);letter-spacing:-.02em}
+.reader-path-card h2 a,.reader-path-card h3 a{color:var(--ink);text-decoration:none}
+.reader-path-card h2 a:hover,.reader-path-card h3 a:hover{text-decoration:underline;color:var(--accent)}
+.reader-path-card p{margin:.6rem 0;color:#43554a}
+.reader-path-card .eyebrow{color:var(--accent-dark);font-size:.72rem}
+.reader-path-time{font-size:.85rem;line-height:1.75;color:var(--muted)}
+.reader-path-first-title{font-size:.86rem;line-height:1.75}
+.reader-path-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem 1rem;margin-top:1rem;font-size:.85rem}
+.reader-path-actions>a{display:inline-flex;align-items:center;min-height:2.75rem;max-width:100%;white-space:normal}
+.reader-path-note{font-size:.85rem;color:var(--muted);margin-top:1.5rem}
+.reader-path-measure{max-width:56rem}
+#path-steps{scroll-margin-top:var(--reader-header-offset,6rem)}
+.reader-path-steps{list-style:none;margin:2rem 0;padding:0;display:grid;gap:1.25rem}
+.reader-path-step{min-width:0;padding:1.5rem;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:.2rem .6rem .6rem .2rem;background:var(--surface);overflow-wrap:anywhere}
+.reader-path-step--optional{border-left-color:#a56d47;background:#f1ede4}
+.reader-path-step-label{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.3rem 1rem;margin:0 0 .65rem;font-size:.8rem;font-weight:650;color:var(--accent-dark)}
+.reader-path-step-label>span{font-weight:400;color:var(--muted)}
+.reader-path-step h3{font-size:clamp(1.3rem,2.5vw,1.7rem);line-height:1.45;margin:.3rem 0 .8rem}
+.reader-path-step h3 a{color:var(--ink);text-decoration:none}
+.reader-path-step h3 a:hover{text-decoration:underline;color:var(--accent)}
+.reader-path-purpose{font-size:1rem;line-height:1.8;margin:.6rem 0 1rem}
+.reader-path-context{display:grid;gap:.8rem;margin:1rem 0;font-size:.87rem;line-height:1.8}
+.reader-path-context>div{min-width:0}
+.reader-path-context dt{font-weight:700;color:var(--accent-dark)}
+.reader-path-context dd{margin:.2rem 0 0;color:#4b5c51}
+.reader-path-read{display:inline-flex;align-items:center;gap:.45rem;min-height:2.75rem;font-size:.88rem}
+.reader-path-boundary{padding:1.25rem 1.5rem;border:1px solid #c2d2c5;border-radius:.5rem;background:#edf1e8;overflow-wrap:anywhere}
+.reader-path-boundary h2{font-size:1.25rem;line-height:1.5;margin:0 0 .6rem}
+.reader-path-boundary p{font-size:.9rem;line-height:1.8;margin:0;color:#43554a}
+.reader-topic-paths .reader-section-heading p{margin:.5rem 0 0;max-width:52rem;color:var(--muted)}
+.reader-article-paths{margin-top:2rem;border-top:1px solid var(--line);padding-top:1.5rem;overflow-wrap:anywhere;min-width:0}
+.reader-article-paths>h2{font-size:1.65rem;line-height:1.45;margin:0 0 1rem}
+.reader-article-path{padding:1.2rem 1.4rem;border:1px solid #c2d2c5;border-radius:.5rem;background:#edf1e8;min-width:0}
+.reader-article-path+.reader-article-path{margin-top:1rem}
+.reader-article-path h3{font-size:1.25rem;line-height:1.5;margin:.25rem 0 .8rem}
+.reader-article-path p{font-size:.86rem;line-height:1.8}
+.reader-path-current{color:var(--accent-dark);margin:0;font-size:.78rem!important}
+.reader-path-next-label{margin:.8rem 0 .2rem;color:#43554a}
+.reader-path-next{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.4rem 1rem;min-height:2.75rem;padding:.35rem 0;line-height:1.7;font-weight:650}
+.reader-path-next>span{font-size:.8rem;font-weight:400}
+@media(max-width:40rem){.reader-path-card,.reader-path-step,.reader-article-path,.reader-path-boundary{padding:1.15rem}.reader-path-actions{align-items:stretch;flex-direction:column}.reader-path-actions>.button{align-self:flex-start}.reader-path-next{display:block}.reader-path-next>span{display:block;margin-top:.25rem}}
+@media print{.reader-path-card,.reader-path-step,.reader-path-boundary,.reader-article-path{background:none;border-color:#aaa;break-inside:avoid}.reader-path-actions .button{background:none;color:#111;border-color:#aaa}}

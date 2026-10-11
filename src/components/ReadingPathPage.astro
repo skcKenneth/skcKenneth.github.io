@@ -1,0 +1,28 @@
+---
+import { localeBase, TOPICS } from '../data/site-reader.mjs';
+import type { resolveReadingPath } from '../data/reading-paths.mjs';
+import '../styles/reader.css';
+import '../styles/reader-paths.css';
+interface Props { path: NonNullable<ReturnType<typeof resolveReadingPath>>; locale?: 'en' | 'zh-Hant' }
+const { path, locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant', base = localeBase(locale);
+---
+<header class="page-head reader-page-head"><div class="container">
+  <nav class="reader-breadcrumbs" aria-label={zh ? '所在位置' : 'Breadcrumb'} data-pagefind-ignore><ol><li><a href={`${base}/`}>{zh ? '首頁' : 'Home'}</a></li><li><a href={`${base}/topics/`}>{zh ? '主題' : 'Topics'}</a></li><li><a href={`${base}/topics/routes/`}>{zh ? '閱讀路線' : 'Reading paths'}</a></li><li aria-current="page">{path.title}</li></ol></nav>
+  <p class="eyebrow">{zh ? '閱讀路線' : 'Reading path'}</p><h1>{path.title}</h1><p class="lead">{path.description}</p>
+  <p class="reader-path-time">{zh ? `三篇主線約 ${path.coreMinutes} 分鐘 · 加上進階選讀約 ${path.totalMinutes} 分鐘` : `Three core readings: about ${path.coreMinutes} min · With the optional extension: about ${path.totalMinutes} min`}</p>
+  <div class="reader-inline-links"><a class="button" data-path-first href={path.first.href}>{zh ? '由第一篇開始' : 'Start with the first article'} <span aria-hidden="true">→</span></a><a href="#path-steps">{zh ? '查看每一步' : 'See every step'}</a></div>
+</div></header>
+<section class="reader-section" id="path-steps" aria-labelledby="path-steps-heading"><div class="container reader-path-measure">
+  <h2 id="path-steps-heading">{zh ? '先理解問題，再深入判斷。' : 'Understand the problem, then examine the evidence.'}</h2>
+  <p>{zh ? '前三篇是主線；第四篇需要較多數學背景，可按興趣繼續。閱讀時間是估算，毋須一次讀完。' : 'The first three articles form the core. The fourth asks for more mathematical background and is optional. Reading times are estimates; there is no need to finish in one sitting.'}</p>
+  <ol class="reader-path-steps" data-reading-path={path.id}>{path.steps.map(step => <li class:list={['reader-path-step', step.optional && 'reader-path-step--optional']} data-path-step={step.articleId}>
+    <p class="reader-path-step-label">{step.optional ? (zh ? '進階選讀' : 'Optional advanced reading') : (zh ? `主線 ${step.position} / ${path.coreCount}` : `Core ${step.position} of ${path.coreCount}`)}<span>{zh ? `約 ${step.minutes} 分鐘` : `About ${step.minutes} min`}</span></p>
+    <h3><a href={step.href}>{step.title}</a></h3><p class="reader-path-purpose">{step.purpose}</p>
+    <dl class="reader-path-context"><div><dt>{zh ? '先備知識' : 'Useful starting points'}</dt><dd>{step.prerequisite}</dd></div><div><dt>{zh ? '證據與界線' : 'Evidence and limits'}</dt><dd>{step.boundary}</dd></div></dl>
+    <a class="reader-path-read" href={step.href}>{zh ? '閱讀這篇' : 'Read this article'} <span aria-hidden="true">→</span></a>
+  </li>)}</ol>
+  <aside class="reader-path-boundary"><h2>{zh ? '把研究範圍一起帶上。' : 'Keep the evidence boundaries with you.'}</h2><p>{path.boundary}</p></aside>
+  <div class="reader-topic-links">{path.topicIds.map((id: string) => <a href={`${base}/topics/${id}/`}>{TOPICS.find(topic => topic.id === id)?.label[locale]}</a>)}</div>
+  <div class="reader-inline-links"><a href={`${base}/topics/routes/`}>{zh ? '返回全部閱讀路線' : 'All reading paths'}</a><a href={`${base}/concepts/`}>{zh ? '查閱常用概念' : 'Explore the concepts'}</a></div>
+</div></section>

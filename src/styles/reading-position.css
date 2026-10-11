@@ -1,0 +1,5 @@
+.reading-position{max-width:58rem;margin-top:1rem;padding:.9rem 1rem;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-size:.82rem;line-height:1.65;overflow-wrap:anywhere}
+.reading-position p{margin:0}.reading-position-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}.reading-position-actions:not(:has(button:not([hidden]))){display:none}
+.reading-position [hidden]{display:none!important}.reading-position .button{font-size:.8rem;min-height:2.75rem;padding:.45rem .75rem}
+.reading-position .small:empty{display:none}.reading-position .small:not(:empty){margin-top:.5rem}.reader-print-url{display:none}
+@media print{.reading-position{display:none!important}}

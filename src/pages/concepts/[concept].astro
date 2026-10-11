@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ConceptPage from '../../components/ConceptPage.astro';
+import { CONCEPTS } from '../../data/reader-concepts.mjs';
+export async function getStaticPaths() {
+  const entries = await getCollection('writing',({data})=>!data.draft);
+  return CONCEPTS.map(concept=>({params:{concept:concept.id},props:{concept,entries}}));
+}
+const {concept,entries} = Astro.props;
+---
+<BaseLayout title={`${concept.label.en} — Concept guide`} description={concept.copy.en.definition} type="Concept guides" topicIds={concept.topicIds} alternatePath={`/zh/concepts/${concept.id}/`}><ConceptPage conceptId={concept.id} entries={entries} /></BaseLayout>

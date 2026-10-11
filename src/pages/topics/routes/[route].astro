@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ReadingPathPage from '../../../components/ReadingPathPage.astro';
+import { READING_PATH_IDS, resolveReadingPath } from '../../../data/reading-paths.mjs';
+export async function getStaticPaths() {
+  const entries = await getCollection('writing', ({ data }) => !data.draft && !data.archived && data.slug !== 'legacy-archive');
+  return READING_PATH_IDS.map(id => {
+    const path = resolveReadingPath(id, entries, 'en');
+    if (!path) throw new Error(`Reading path ${id} has an unavailable English source.`);
+    return { params: { route: id }, props: { path } };
+  });
+}
+const { path } = Astro.props;
+---
+<BaseLayout title={path.title} description={path.description} type="Reading guides" topicIds={path.topicIds} alternatePath={`/zh/topics/routes/${path.id}/`}><ReadingPathPage path={path} /></BaseLayout>

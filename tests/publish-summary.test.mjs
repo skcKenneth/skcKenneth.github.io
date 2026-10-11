@@ -8,7 +8,8 @@ function payload(spec) {
   if (spec.kind === 'svg') return { contentType: 'image/svg+xml', bytes: Buffer.from('<svg viewBox="0 0 1 1"></svg>') };
   if (spec.kind === 'rss') return { contentType: 'application/rss+xml', bytes: Buffer.from(`<rss version="2.0"><channel><language>${spec.locale}</language><item>One article</item></channel></rss>`) };
   if (spec.kind === 'alias') return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}" data-pagefind-ignore="all"><meta name="robots" content="noindex,follow"><noscript><meta http-equiv="refresh" content="0; url=${spec.destination}"></noscript><main data-compatibility-redirect data-destination="${spec.destination}"></main></html>`) };
-  if (spec.kind === 'article') return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/><meta property="og:image" content="https://skckenneth.github.io${spec.sharePath}"/><section data-reader-guide="${spec.articleId}"><p data-reader-guide-question>Question</p></section><article data-article-reader></article></html>`) };
+  if (spec.kind === 'article') return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/><meta property="og:image" content="https://skckenneth.github.io${spec.sharePath}"/><section data-reader-guide="${spec.articleId}"><p data-reader-guide-question>Question</p></section><article data-article-reader></article><section data-reading-position></section><button data-reader-print></button></html>`) };
+  if (spec.kind === 'guide') return {contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/><meta data-pagefind-filter="search-kind[content]" content="guide"/><link rel="canonical" href="https://skckenneth.github.io${spec.path}"/><link rel="alternate" hreflang="${spec.locale === 'en' ? 'zh-Hant' : 'en'}" href="https://skckenneth.github.io${spec.alternatePath}"/><h1>Guide</h1></html>`)};
   const markers = { home: 'reader-home-hero id="latest-writing" id="start-here"', writing: 'data-writing-index reader-pagination', topics: 'reader-topics-grid mathematical-thinking teaching-research-practice id="research-programmes"', teaching: 'data-teaching-directory data-teaching-filters id="math-inquiry-lab"', search: 'data-site-search data-search-pagination name="technical"', studio: 'id="jae-topics" id="quadratics" id="trigonometry" id="past-papers"', models: 'id="model-index" data-catalog-kind="model" data-model-library' };
   return { contentType: 'text/html', bytes: Buffer.from(`<html lang="${spec.locale}"><img src="/images/kenneth-woven-knot.svg"/>${markers[spec.kind]}</html>`) };
 }
@@ -26,6 +27,20 @@ test('live route validation rejects old markup, wrong language, invalid formats 
   assert(validateLivePayload(article, { status: 200, ...paired, bytes: wrongGuide }).includes('Missing paired reading guide'));
   const wrongShare = Buffer.from(paired.bytes.toString().replace(article.sharePath, '/images/og-reader.png'));
   assert(validateLivePayload(article, { status: 200, ...paired, bytes: wrongShare }).includes('Missing article sharing image'));
+});
+
+test('publication checks all 24 new paired guide routes and rejects incorrect counterparts', () => {
+  const guides = LIVE_ROUTES.filter(spec => spec.kind === 'guide');
+  assert.equal(guides.length, 24);
+  assert.equal(new Set(LIVE_ROUTES.map(spec => spec.path)).size, LIVE_ROUTES.length);
+  for (const spec of guides) {
+    const fixture = payload(spec);
+    const wrongCanonical = Buffer.from(fixture.bytes.toString().replace(`rel="canonical" href="https://skckenneth.github.io${spec.path}"`, 'rel="canonical" href="https://skckenneth.github.io/"'));
+    assert(validateLivePayload(spec, {status:200,...fixture,bytes:wrongCanonical}).includes('Incorrect guide canonical URL'));
+    const other = spec.locale === 'en' ? 'zh-Hant' : 'en';
+    const wrongPair = Buffer.from(fixture.bytes.toString().replace(`rel="alternate" hreflang="${other}" href="https://skckenneth.github.io${spec.alternatePath}"`, `rel="alternate" hreflang="${other}" href="https://skckenneth.github.io/wrong-guide/"`));
+    assert(validateLivePayload(spec, {status:200,...fixture,bytes:wrongPair}).includes('Incorrect guide language counterpart'));
+  }
 });
 test('publication report uses actual diff groups and does not invent deployment or manual verification', () => {
   const files = ['src/components/TeachingDirectory.astro', 'src/components/HomePage.astro', 'scripts/content-new.mjs', 'src/pages/rss.xml.ts'];

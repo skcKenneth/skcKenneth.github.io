@@ -1,0 +1,30 @@
+---
+import { getConcept, getConceptArticleLinks } from '../data/reader-concepts.mjs';
+import { localeBase } from '../data/site-reader.mjs';
+import '../styles/reader.css';
+import '../styles/reader-concepts.css';
+interface Props { conceptId: string; entries: any[]; locale?: 'en' | 'zh-Hant' }
+const { conceptId, entries, locale = 'en' } = Astro.props;
+const concept = getConcept(conceptId);
+if (!concept) throw new Error(`Unknown reader concept: ${conceptId}`);
+const zh = locale === 'zh-Hant';
+const base = localeBase(locale);
+const copy = concept.copy[locale];
+const related = getConceptArticleLinks(concept,entries,locale);
+---
+<header class="page-head reader-page-head"><div class="container reader-concept-page">
+  <nav class="reader-breadcrumbs" aria-label={zh?'所在位置':'Breadcrumb'} data-pagefind-ignore><ol><li><a href={`${base}/`}>{zh?'首頁':'Home'}</a></li><li><a href={`${base}/topics/`}>{zh?'主題':'Topics'}</a></li><li><a href={`${base}/concepts/`}>{zh?'概念導讀':'Concept guides'}</a></li><li aria-current="page">{concept.label[locale]}</li></ol></nav>
+  <p class="eyebrow">{zh?'概念導讀':'Concept guide'}</p>
+  <h1 data-pagefind-meta="title">{concept.label[locale]}</h1>
+  <p class="reader-concept-aliases">{zh?`${concept.label.en} · 亦見：`:'Also used: '}{concept.aliases[locale].join(' · ')}</p>
+  <p class="lead" data-pagefind-meta="description">{copy.definition}</p>
+</div></header>
+<div class="container reader-concept-page reader-concept-page-body" data-concept-entry={concept.id}>
+  <section class="reader-concept-example" aria-labelledby="concept-example"><h2 id="concept-example">{zh?'在文章裏看一個例子':'An example from the writing'}</h2><p>{copy.example}</p></section>
+  <section class="reader-concept-trap" aria-labelledby="concept-misconception"><h2 id="concept-misconception">{zh?'常見誤解':'A common misconception'}</h2><p>{copy.misconception}</p><p class="reader-concept-trap-caption">{zh?'上面這句推論並不成立；閱讀結果時，應一併檢查下列適用範圍。':'That inference does not follow. Read the result together with its scope below.'}</p></section>
+  <section class="reader-concept-scope" aria-labelledby="concept-scope"><h2 id="concept-scope">{zh?'適用範圍':'Scope and limits'}</h2><p>{copy.scope}</p></section>
+  {related.length>0&&<section class="reader-concept-related" aria-labelledby="concept-reading"><h2 id="concept-reading">{zh?'接到文章繼續讀':'Continue with an article'}</h2><ul>{related.map(article=><li><a href={article.href}>{article.title}</a><p>{article.summary}</p></li>)}</ul></section>}
+  {concept.resources?.length&&<section class="reader-concept-resources" aria-labelledby="concept-resources"><h2 id="concept-resources">{zh?'動手探索':'Try it yourself'}</h2><ul>{concept.resources.map(resource=><li><a href={resource.href[locale]}>{resource.label[locale]}</a></li>)}</ul></section>}
+  <section class="reader-concept-sources" aria-labelledby="concept-sources"><h2 id="concept-sources">{zh?'參考來源':'Reference sources'}</h2><p>{zh?'簡釋由本站按下列來源整理；不同領域的正式用法，應連同原文條件閱讀。':'The explanations are editorial paraphrases of the sources below. Read domain-specific terminology together with the conditions in its original source.'}</p><ul>{concept.sources.map(source=><li><a href={source.url}>{source.title}</a><span>{source.publisher}</span></li>)}</ul></section>
+  <p class="reader-concept-back"><a href={`${base}/concepts/`}>← {zh?'返回全部概念':'All concept guides'}</a></p>
+</div>

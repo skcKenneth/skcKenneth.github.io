@@ -22,17 +22,17 @@ const dates=entries.map(e=>(e.data.lastUpdated||e.data.date)?.valueOf()).filter(
 const updated=new Date(Math.max(...dates)).toLocaleDateString(zh?'zh-Hant-TW':'en-GB',{dateStyle:'long',timeZone:'UTC'});
 const path=current.replace(/^\/zh(?=\/)/,'');
 const routeKind=classifySearchUrl(path);
-const kind=routeKind==='question'?'question':routeKind==='lesson'?'lesson':routeKind==='catalogue'||data?.status==='Catalogue entry'?'catalogue':path.startsWith('/writing/')&&currentEntry?'writing':path.startsWith('/projects/')&&path!=='/projects/'?(currentEntry?'project':'catalogue'):path.startsWith('/research/')?'research':path.startsWith('/teaching/')?'teaching':'other';
+const kind=routeKind==='guide'?'guide':routeKind==='question'?'question':routeKind==='lesson'?'lesson':routeKind==='catalogue'||data?.status==='Catalogue entry'?'catalogue':path.startsWith('/writing/')&&currentEntry?'writing':path.startsWith('/projects/')&&path!=='/projects/'?(currentEntry?'project':'catalogue'):path.startsWith('/research/')?'research':path.startsWith('/teaching/')?'teaching':'other';
 const ids:string[]=topicIds||getTopicIds(data||{title});
 const nav=[[zh?'文章':'Writing',base+'/writing/'],[zh?'主題':'Topics',base+'/topics/'],[zh?'教學':'Teaching',base+'/teaching/'],[zh?'關於':'About',base+'/about/']];
-const selected=(href:string)=>current.startsWith(href)||(href.endsWith('/topics/')&&/\/(research|projects)\//.test(current));
+const selected=(href:string)=>current.startsWith(href)||(href.endsWith('/topics/')&&/\/(research|projects|concepts)\//.test(current));
 // Editorial sharing artwork is separate from the scientific figure in heroImage.
 const editorialShare=articleData?getReaderMedia(canonicalId(articleData),locale)?.share:undefined;
 const shareImage=new URL(editorialShare?.src||'/images/og-reader.png',Astro.site).href;
 const shareAlt=editorialShare?.alt||'Kenneth Cheng — Mathematics, models, and ideas';
 const jsonLd=articleData?{'@context':'https://schema.org','@type':'BlogPosting',headline:title,description,url:canonical.href,image:shareImage,inLanguage:locale,author:{'@type':'Person',name:'Kenneth Cheng',url:SITE_URL+base+'/about/'},datePublished:articleData.date?.toISOString(),dateModified:articleData.lastUpdated?.toISOString(),mainEntityOfPage:canonical.href}:{'@context':'https://schema.org','@type':'WebSite',name:'Kenneth Cheng',url:SITE_URL,inLanguage:locale};
 const section=nav.find(([,href])=>selected(href));
-const breadcrumb=path.split('/').filter(Boolean).length>1&&!articleData&&!path.startsWith('/topics/')&&section;
+const breadcrumb=path.split('/').filter(Boolean).length>1&&!articleData&&!path.startsWith('/topics/')&&!path.startsWith('/concepts/')&&section;
 const studioBreadcrumb=/^\/teaching\/senior-math\/studios\/[^/]+\/$/.test(path);
 ---
 <!doctype html>
@@ -100,7 +100,7 @@ document.addEventListener('click',e=>{if(e.target instanceof Node&&!document.que
 nav?.addEventListener('click',e=>{if((e.target as Element).closest('a'))setOpen(false);});
 const language=document.querySelector<HTMLAnchorElement>('[data-language-switch]');
 if(language&&/\/(search|writing|topics|teaching)\//.test(location.pathname)){
-  const syncLanguage=()=>{if(language.dataset.catalogLanguageManaged==='true')return;const next=new URL(language.href);next.search=location.search;if(/\/(topics|writing)\/$/.test(location.pathname)||/\/teaching\//.test(location.pathname))next.hash=location.hash;language.href=next.href;};
+  const syncLanguage=()=>{if(language.dataset.catalogLanguageManaged==='true'||language.dataset.readingPositionLanguageManaged==='true')return;const next=new URL(language.href);next.search=location.search;if(/\/(topics|writing)\/$/.test(location.pathname)||/\/teaching\//.test(location.pathname))next.hash=location.hash;language.href=next.href;};
   syncLanguage();language.addEventListener('click',syncLanguage);language.addEventListener('focus',syncLanguage);
 }
 </script>

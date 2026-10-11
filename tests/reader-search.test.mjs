@@ -11,8 +11,8 @@ test('Search URL round trips pagination, topics and explicit inclusion choices',
 });
 test('Default search excludes archive, questions and technical catalogue with official compound OR filters',()=>{
   const state=readSearchState('');
-  assert.deepEqual(allowedSearchKinds(state),['writing','project','teaching']);
-  assert.deepEqual(pagefindFilters(state),{'search-kind':{any:['writing','project','teaching']},archived:'false'});
+  assert.deepEqual(allowedSearchKinds(state),['writing','project','teaching','guide']);
+  assert.deepEqual(pagefindFilters(state),{'search-kind':{any:['writing','project','teaching','guide']},archived:'false'});
   assert.equal(entryMatchesSearch({kind:'writing',archived:true,topicIds:[]},state),false);
   assert.equal(entryMatchesSearch({kind:'question',archived:false,topicIds:[]},state),false);
   assert.equal(entryMatchesSearch({kind:'lesson',archived:false,topicIds:[]},state),false);
@@ -23,6 +23,11 @@ test('Default search excludes archive, questions and technical catalogue with of
   assert.equal(pagefindFilters(advanced).archived,undefined);
   assert.deepEqual(allowedSearchKinds(readSearchState('?type=question')),['question']);
   assert.deepEqual(allowedSearchKinds(readSearchState('?type=lesson')),['lesson']);
+  assert.deepEqual(allowedSearchKinds(readSearchState('?type=guide')),['guide']);
+  for (const path of ['/concepts/','/concepts/calibration/','/topics/routes/','/topics/routes/model-trust/']) {
+    assert.equal(classifySearchUrl(path),'guide');
+    assert.equal(classifySearchUrl('/zh'+path),'guide');
+  }
   assert.equal(readSearchState(searchParams(readSearchState('?type=lesson&page=2'))).type,'lesson');
 });
 test('Deep teaching units are opt-in lessons while studio entrances remain in default search',()=>{
