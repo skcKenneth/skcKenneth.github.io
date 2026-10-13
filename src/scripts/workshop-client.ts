@@ -38,18 +38,32 @@ export async function initializeWorkshopLesson(root:HTMLElement){
  const qa=<T extends HTMLElement=HTMLElement>(selector:string)=>Array.from(root.querySelectorAll<T>(selector));
  const store=new ProgressStore();let progress=freshProgress(lesson) as LearnerProgress;
  let displayedBaseline=structuredClone(progress);
+ const recoveryWriter=globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
+ const recoveryKey=((window as any).MathStorage?.recoveryPrefix||'math-learning-sync-v1:recovery:')+'math-workshop:'+recoveryWriter;
+ let recoveryRaw:string|null=null,recoveryFailed=false,draftNeedsRecovery=false;
+ const currentRecovery=()=>{const recovery=store.exportRecovery();return {...recovery,records:[...recovery.records.filter((record:LearnerProgress)=>record.lessonId!==lesson.id),structuredClone(progress)]};};
+ const checkpointDraft=(draft:LearnerProgress=progress):string|null=>{
+  try{const raw=JSON.stringify({version:1,namespace:'math-workshop',writer:recoveryWriter,at:new Date().toISOString(),workshopDraft:structuredClone(draft),conflicts:store.exportRecovery().conflicts,committed:false});localStorage.setItem(recoveryKey,raw);recoveryRaw=raw;recoveryFailed=false;return raw;}
+  catch{recoveryRaw=null;recoveryFailed=true;return null;}
+ };
+ const markCheckpointCommitted=(raw:string|null)=>{
+  if(!raw||raw!==recoveryRaw)return;
+  try{if(localStorage.getItem(recoveryKey)!==raw)return;const committed=JSON.stringify({...JSON.parse(raw),committed:true});localStorage.setItem(recoveryKey,committed);recoveryRaw=committed;draftNeedsRecovery=false;}
+  catch{recoveryFailed=true;}
+ };
  (window as any).MathWorkshopStore=store;
+ (window as any).MathWorkshopDraft=()=>structuredClone(progress);
  let exercise:{starter:string;reference:string}={starter:"",reference:""},core="",editor:import("@codemirror/view").EditorView|undefined;
  let worker:Worker|undefined;let ready=false;let busy=false;let request=0;let currentId=0;let timer:number|undefined;let animationTimer:number|undefined;let suppressEditor=false;let saveQueue=Promise.resolve();
- // The client submits snapshots in order; exports must wait for that queue as
- // well as the IndexedDB queue, including edits made while a lock was pending.
+ // Explicit wait-for-save operations drain both client and IndexedDB queues.
+ // Downloads use the current draft immediately, including edits waiting on a lock.
  const flushWrites=store.flush.bind(store);
  store.flush=async()=>{for(;;){const submitted=saveQueue;await submitted;await flushWrites();if(submitted===saveQueue)return;}};
  const confirmDraftChange=(message:string)=>new Promise<boolean>(resolve=>{const dialog=q<HTMLDialogElement>('[data-confirm-dialog]');q('[data-confirm-message]').textContent=message;dialog.returnValue='cancel';dialog.addEventListener('close',()=>resolve(dialog.returnValue==='confirm'),{once:true});dialog.showModal();});
  const setStatus=(message:string)=>{q("[data-runtime-status]").textContent=message;};
  const error=(e:unknown)=>{setStatus(t("Action could not finish. Your draft is retained.","未能完成操作；你的草稿仍然保留。"));q("[data-console]").textContent=String(e);};
  const resultStatus=()=>{const r=progress.lastRun;q("[data-result-status]").textContent=r?(isRunStale(progress,lesson)?t("Previous run: settings, code or version changed. Rerun to verify this draft.","上次運行：設定、程式或版本已改變，請重跑核證目前草稿。"):t("Completed run matches this draft. Checks verify specified properties, not research quality.","已完成運行與目前草稿相符。檢查只核證指定性質，不代表研究品質。")):t("Not run. The image below is a precomputed reference.","尚未執行；下方圖片是預先生成的參照結果。");};
- const save=()=>{progress.updatedAt=new Date().toISOString();const snapshot=structuredClone(progress),baseline=structuredClone(displayedBaseline);displayedBaseline=snapshot;q("[data-save-status]").textContent=t("Saving…","正在保存…");saveQueue=saveQueue.then(async()=>{const persistent=await store.put(snapshot,baseline);q("[data-save-status]").textContent=persistent?t("Saved in this browser","已保存在此瀏覽器"):store.variants.get(lesson.id)?.length?t("Conflicting edits retained — review the two versions below","衝突更改已保留，請檢視下方兩個版本"):t("Session memory only — export JSON","僅限本次工作階段，請匯出 JSON");});resultStatus();};
+ const save=()=>{progress.updatedAt=new Date().toISOString();const snapshot=structuredClone(progress),baseline=structuredClone(displayedBaseline);displayedBaseline=snapshot;draftNeedsRecovery=true;const checkpoint=checkpointDraft(snapshot);q("[data-save-status]").textContent=checkpoint?t("Saving…","正在保存…"):t("Recovery unavailable — keep this tab open and export JSON","復原副本無法保存，請保持分頁開啟並匯出 JSON");saveQueue=saveQueue.then(async()=>{const persistent=await store.put(snapshot,baseline);if(persistent)markCheckpointCommitted(checkpoint);if(recoveryFailed){q("[data-save-status]").textContent=persistent?t("Saved in this browser · recovery unavailable — export JSON","已保存在此瀏覽器；復原副本無法保存，請匯出 JSON"):t("Session memory only — recovery unavailable; export JSON before closing","僅限本次工作階段；復原副本無法保存，關閉前請匯出 JSON");}else q("[data-save-status]").textContent=persistent?t("Saved in this browser","已保存在此瀏覽器"):store.variants.get(lesson.id)?.length?t("Conflicting edits retained — review the two versions below","衝突更改已保留，請檢視下方兩個版本"):t("Session memory only — export JSON","僅限本次工作階段，請匯出 JSON");});resultStatus();};
  const updateMarks=()=>{qa("[data-step-mark]").forEach(el=>{el.textContent=progress.completed.includes(el.dataset.stepMark!)?"✓":"";});q<HTMLProgressElement>("[data-completion]").value=progress.completed.length;q("[data-completion-label]").textContent=`${progress.completed.length}/8 `+t("steps self-marked complete","步驟已自行標記完成");qa<HTMLButtonElement>("[data-complete]").forEach(el=>{el.textContent=progress.completed.includes(el.dataset.complete!)?t("Marked complete · undo","已標記完成 · 取消"):t("Mark step complete","標記本步完成");});};
  const tab=(name:string)=>{root.dataset.tab=name;qa("[data-tab-button]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.tabButton===name)));};
  const step=(index:number,focus=false)=>{progress.step=index;qa("[data-step]").forEach(el=>{el.hidden=Number(el.dataset.step)!==index;});qa("[data-step-button]").forEach(el=>{if(Number(el.dataset.stepButton)===index)el.setAttribute("aria-current","step");else el.removeAttribute("aria-current");});tab("task");if(focus)q(`[data-step="${index}"] h2`).focus({preventScroll:false});};
@@ -90,8 +104,8 @@ export async function initializeWorkshopLesson(root:HTMLElement){
    worker.postMessage({type:'run',id:currentId,slug:lesson.slug,core,...submitted});
  };
  const exportFile=async(kind:string)=>{
-   readControls();save();await saveQueue;
-   if(kind==='json')download(`${lesson.slug}-draft.json`,exportProgress(progress),'application/json');
+   readControls();save();
+   if(kind==='json')download(`${lesson.slug}-draft.json`,JSON.stringify({...progress,recovery:currentRecovery()},null,2),'application/json');
    if(kind==='python')download(`${lesson.slug}-my-model.py`,pythonExport(core,progress,lesson));
    if(kind==='notebook')download(`${lesson.slug}-my-model.ipynb`,JSON.stringify(notebookExport(core,progress,lesson,locale),null,2),'application/x-ipynb+json');
    if(kind==='report')download(`${lesson.slug}-report.md`,reportExport(progress,lesson,locale),'text/markdown;charset=utf-8');
@@ -110,18 +124,19 @@ export async function initializeWorkshopLesson(root:HTMLElement){
    displayedBaseline=structuredClone(progress);q("[data-reference-code]").textContent=exercise.reference;populate();q("[data-save-status]").textContent=available?t("Ready · saved locally as you type","已就緒 · 輸入時本機保存"):t("Session memory only — export JSON","僅限本次工作階段，請匯出 JSON");root.classList.add('is-ready');tab('task');
  }catch(e){q("[data-save-status]").textContent=t("Interactive assets unavailable; reading and reference downloads remain available.","互動資產暫不可用；仍可閱讀及下載參照檔。");error(e);return;}
  const conflictPanel=document.createElement('details'),conflictHeading=document.createElement('summary'),conflictList=document.createElement('ul');conflictPanel.hidden=true;conflictPanel.dataset.workshopConflicts='';conflictHeading.textContent=t('Two-tab conflict: both versions are retained','分頁衝突：兩個版本均已保留');conflictPanel.append(conflictHeading,conflictList);
- for(const [choice,label]of [['export',t('Download both versions','下載兩個版本')],['remote',t('Use the saved version','採用已保存版本')],['local',t('Use this tab’s version','採用本分頁版本')]]){const button=document.createElement('button');button.type='button';button.className='button secondary';button.textContent=label;button.addEventListener('click',async()=>{await store.flush();if(choice==='export')download(`${lesson.slug}-conflict-recovery.json`,JSON.stringify(store.exportRecovery(),null,2),'application/json');else{download(`${lesson.slug}-before-conflict-resolution.json`,JSON.stringify(store.exportRecovery(),null,2),'application/json');await store.resolve(lesson.id,choice);}});conflictPanel.append(button);}q('[data-save-status]').after(conflictPanel);
+ for(const [choice,label]of [['export',t('Download both versions','下載兩個版本')],['remote',t('Use the saved version','採用已保存版本')],['local',t('Use this tab’s version','採用本分頁版本')]]){const button=document.createElement('button');button.type='button';button.className='button secondary';button.textContent=label;button.addEventListener('click',async()=>{if(choice==='export'){download(`${lesson.slug}-conflict-recovery.json`,JSON.stringify(currentRecovery(),null,2),'application/json');return;}await store.flush();download(`${lesson.slug}-before-conflict-resolution.json`,JSON.stringify(currentRecovery(),null,2),'application/json');await store.resolve(lesson.id,choice);});conflictPanel.append(button);}q('[data-save-status]').after(conflictPanel);
  store.subscribe((state:any)=>{
   if(state.lessonId!==lesson.id||!state.progress)return;
   const next=mergeWorkshopDraft(state.input||displayedBaseline,progress,state.progress).localView as LearnerProgress;
   displayedBaseline=mergeWorkshopDraft(state.input||displayedBaseline,displayedBaseline,state.progress).localView as LearnerProgress;
   const runChanged=JSON.stringify(progress.lastRun)!==JSON.stringify(next.lastRun);progress=next;
+  if(state.conflicts.length){draftNeedsRecovery=true;checkpointDraft();}
   const setValue=(el:HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement,value:string)=>{if(el.value!==value)el.value=value;};
   qa<HTMLTextAreaElement>('[data-card]').forEach(el=>setValue(el,progress.modelCard[el.dataset.card!]||''));qa<HTMLTextAreaElement>('[data-answer]').forEach(el=>setValue(el,progress.answers[el.dataset.answer!]||''));setValue(q<HTMLTextAreaElement>('[data-prediction]'),progress.prediction);setValue(q<HTMLTextAreaElement>('[data-reflection]'),progress.reflection);qa<HTMLInputElement|HTMLSelectElement>('[data-param]').forEach(el=>setValue(el,String(progress.params[el.dataset.param!])));setValue(q<HTMLInputElement>('[data-seed]'),String(progress.seed));setCode(progress.code);updateMarks();resultStatus();
   if(runChanged){q('[data-results]').replaceChildren();if(progress.lastRun)renderResult(progress.lastRun.result);}
   conflictPanel.hidden=!state.conflicts.length;conflictList.replaceChildren();for(const variant of state.conflicts){const li=document.createElement('li');li.textContent=variant.path.join('.')+'\n'+t('This tab: ','本分頁：')+JSON.stringify(variant.local)+'\n'+t('Saved: ','已保存：')+JSON.stringify(variant.remote);conflictList.append(li);}
  });
- window.addEventListener('focus',()=>void store.refresh(lesson.id));window.addEventListener('pagehide',()=>void store.flush());
+ window.addEventListener('focus',()=>void store.refresh(lesson.id));window.addEventListener('pagehide',()=>{if(draftNeedsRecovery)checkpointDraft();void store.flush();});
  qa<HTMLTextAreaElement>("[data-card]").forEach(el=>el.addEventListener('input',()=>{progress.modelCard[el.dataset.card!]=el.value;save();}));
  qa<HTMLTextAreaElement>("[data-answer]").forEach(el=>el.addEventListener('input',()=>{progress.answers[el.dataset.answer!]=el.value;save();}));
  q<HTMLTextAreaElement>("[data-prediction]").addEventListener('input',e=>{progress.prediction=(e.target as HTMLTextAreaElement).value;save();});q<HTMLTextAreaElement>("[data-reflection]").addEventListener('input',e=>{progress.reflection=(e.target as HTMLTextAreaElement).value;save();});

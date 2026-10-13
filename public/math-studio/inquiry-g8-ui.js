@@ -87,7 +87,16 @@ const G8BisectorUI = (() => {
   function refreshGraphic(){const n=note(),el=document.getElementById('g8-graph');if(el)el.innerHTML=graphic(n.params,n.stage);const result=document.getElementById('g8-result');if(result)result.textContent=resultText(n);document.querySelectorAll('[data-g8-param]').forEach(el=>{const k=el.dataset.g8Param;el.value=n.params[k];if(k==='bearing'){el.min=1-n.params.theta/2;el.max=n.params.theta/2-1;el.disabled=n.params.locked;}});}
   function exportText() {
     const n=note(),lang=n.language==='en'?1:0;
-    return ['數學研習室 / Mathematics Studio — 角的平分線的性質 / Angle-bisector property',`Version: ${C.version}`,'Records from this browser / 此瀏覽器紀錄',...fields.map(f=>`${labels[f][lang]}\n${n[f]||'____________________________'}`),'實驗 / Evidence',...n.evidence.map((e,i)=>`${i+1}. ${e.settings}\n${e.result}`),'量度不代替證明 / Measurements do not replace proof','儲存狀態 / Storage state: '+statusText(),'保留的衝突版本 / Retained conflicts',JSON.stringify(store?.conflicts?.()||[],null,2),'復原資料 / Recovery data',JSON.stringify(store?.recoveries?.()||[],null,2)].join('\n\n');
+    const evidence=n.evidence.map((e,i)=>{
+      // Localize this version's authored phrases without changing saved bytes.
+      // Earlier or unknown evidence remains an explicitly labelled original.
+      const current=e.version===C.version;
+      const settings=lang&&current?e.settings.replace('偏離平分方向=','offset from bisector='):e.settings;
+      const result=lang&&current?e.result.replace('數值觀察，不是一般性證明。','Numerical observation, not a general proof.'):e.result;
+      const retained=current?'':text(['（原有紀錄，保留原文）','(earlier record, retained verbatim)'])+' ';
+      return `${i+1}. ${retained}${settings}\n${result}`;
+    });
+    return [text(['數學研習室 — 角的平分線的性質','Mathematics Studio — Angle-bisector property']),`${text(['內容版本','Version'])}: ${C.version}`,text(['此瀏覽器紀錄','Records from this browser']),...fields.map(f=>`${labels[f][lang]}\n${n[f]||'____________________________'}`),text(['實驗','Evidence']),...evidence,text(['量度不代替證明','Measurements do not replace proof']),text(['儲存狀態','Storage state'])+': '+statusText(),text(['保留的衝突版本（原始資料）','Retained conflicts (verbatim original data)']),JSON.stringify(store?.conflicts?.()||[],null,2),text(['復原資料（原始 JSON）','Recovery data (verbatim original JSON)']),JSON.stringify(store?.recoveries?.()||[],null,2)].join('\n\n');
   }
   function worksheetHTML(teacher=false) {
     const n=note();

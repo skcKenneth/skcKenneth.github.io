@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {transform} from 'esbuild';
 import {createMathCatalog} from '../src/lib/math-system-catalog.mjs';
-import {NATIVE_KEYS,SYSTEM_KEY,readNativeRecords,recordSummary,createSystemBackup,parseSystemBackup,mergeNativeBackup,previewSystemBackup} from '../src/lib/math-system-records.mjs';
+import {NATIVE_KEYS,SYSTEM_KEY,readNativeRecords,readNativeRecoveryBytes,collectDraftVariants,recordSummary,createSystemBackup,parseSystemBackup,mergeNativeBackup,previewSystemBackup} from '../src/lib/math-system-records.mjs';
 test('Learning summaries keep checks, current written self-assessments, history and exposure distinct',()=>{
  const native={'jae-math-v1':JSON.stringify({version:1,answers:{checked:{lastResult:'correct'},draft:{input:'unfinished'}}}),'senior-math-study-v2':JSON.stringify({version:2,history:{checked:[{eventId:'one'},{eventId:'two'}]},selfAssessments:{current:{pending:false},revised:{pending:true}}}),'math-studio-practice-v2':JSON.stringify({variant:20261013})};
  const summary=recordSummary(native);assert.equal(summary.answers,2);assert.equal(summary.checked,1);assert.equal(summary.writtenSelfAssessments,1);assert.equal(summary.histories,2);assert.equal(summary.exposures,1);assert.equal(summary.sharedNotes,0);
@@ -44,6 +44,25 @@ test('Native restore merges novel IDs and keeps local conflicts by default',()=>
  const merged=JSON.parse(mergeNativeBackup('jae-math-v1',current,incoming));assert.equal(merged.answers.same.notes,'local');assert.equal(merged.answers.new.notes,'new');assert.equal(merged.answers.old.notes,'old');assert.equal(merged.last.question,'old');
  assert.deepEqual(previewSystemBackup({'jae-math-v1':current},createSystemBackup({'jae-math-v1':incoming})),[{key:'jae-math-v1',state:'conflict'}]);
  assert.equal(JSON.parse(mergeNativeBackup('math-studio-practice-v2','{"x":200}','{"x":100,"y":50}')).x,200);
+});
+test('Pending and conflicting draft alternatives restore explicitly while preserving local-only unknown IDs',()=>{
+ const key='jae-math-v1',saved={version:1,answers:{same:{notes:'saved'},'future-saved-id':{notes:'unknown saved'}},last:{}},local={...copy(saved),answers:{...saved.answers,same:{notes:'pending draft'},'future-draft-id':{notes:'unknown pending'}}};
+ const envelope={...createSystemBackup({[key]:JSON.stringify(saved)}),openPageDrafts:[{namespace:'jae-math',snapshot:{[key]:local},state:{status:'conflict',pending:1,conflicts:[{key,path:['answers','same'],remote:{notes:'other tab'}}]}}]};
+ const parsed=parseSystemBackup(JSON.stringify(envelope));assert.equal(parsed.localStorage[key],JSON.stringify(saved));assert.equal(parsed.draftVariants.length,2);const chosen=parsed.draftVariants.find(v=>JSON.parse(v.raw).answers.same.notes==='pending draft');
+ const existing={...copy(saved),answers:{...saved.answers,'future-local-id':{notes:'local only'}}};const restored=JSON.parse(mergeNativeBackup(key,JSON.stringify(existing),chosen.raw,true));assert.equal(restored.answers.same.notes,'pending draft');for(const id of ['future-saved-id','future-draft-id','future-local-id'])assert.ok(restored.answers[id]);
+ assert.throws(()=>parseSystemBackup(JSON.stringify({...envelope,draftVariants:[{type:'localStorage',key:'unrelated-secret',raw:'{}'}]})));
+ const lab={schema:1,lab:'quadratic',consent:false,answers:{prediction:'session only'},records:[]};const notes=collectDraftVariants({...createSystemBackup({}),openActivities:[{id:'lab:quadratic',labDraft:lab}]});assert.equal(notes[0].requiresConsent,true);assert.equal(JSON.parse(notes[0].raw).consent,false);
+});
+test('Historical recovery bytes are retained without replaying partial snapshots or another app',()=>{
+ const prefix='math-learning-sync-v1:recovery:',math=prefix+'math-studio-g8:old',other=prefix+'other-app:old',bytes=' {"namespace":"math-studio-g8","committed":true,"snapshot":{"math-studio-inquiry-g8-v1":{"old":{"prediction":"keep"}}}} ',map=new Map([[math,bytes],[other,'{"secret":"omit"}']]),storage={length:2,key:i=>[...map.keys()][i],getItem:key=>map.get(key)};
+ const raw=readNativeRecoveryBytes(storage);assert.deepEqual(raw,{[math]:bytes});const parsed=parseSystemBackup(JSON.stringify({...createSystemBackup({}),nativeRecoveryBytes:raw}));assert.equal(parsed.nativeRecoveryBytes[math],bytes);assert.deepEqual(parsed.draftVariants,[]);
+});
+test('Closed-tab field drafts overlay canonical records without replaying counters or partial defaults',()=>{
+ const key='jae-math-v1',learning='senior-math-study-v2',saved={version:1,answers:{'future-question':{input:'5',notes:'saved',attempts:2},'local-unknown':{notes:'keep'}},last:{question:'future-question'}},study={version:2,history:{'future-question':[{eventId:'old-event',notes:'keep history'}]},classroom:{title:'Keep lesson',ids:['future-classroom-id']}};
+ const recovery={version:1,namespace:'jae-math',committed:false,snapshot:{[key]:{version:1,answers:{},last:{}},[learning]:{version:2,classroom:{title:'',ids:[]}}},pending:[{key,path:['answers','future-question','notes'],kind:'set',value:'closed draft'},{key,path:['answers','future-question','attempts'],kind:'increment',value:99}]};
+ const envelope={...createSystemBackup({[key]:JSON.stringify(saved),[learning]:JSON.stringify(study)}),nativeRecoveryBytes:{'math-learning-sync-v1:recovery:jae-math:closed':JSON.stringify(recovery)}};const variants=collectDraftVariants(envelope);assert.equal(variants.length,1);const draft=JSON.parse(variants[0].raw);assert.equal(draft.answers['future-question'].notes,'closed draft');assert.equal(draft.answers['future-question'].attempts,2);assert.equal(draft.answers['future-question'].input,'5');assert.equal(draft.answers['local-unknown'].notes,'keep');assert.equal(envelope.localStorage[learning],JSON.stringify(study));
+ const counterOnly={...recovery,pending:[recovery.pending[1]]};assert.deepEqual(collectDraftVariants({...envelope,nativeRecoveryBytes:{'math-learning-sync-v1:recovery:jae-math:closed':JSON.stringify(counterOnly)}}),[]);
+ const workshop=freshProgress(lessons[0]);workshop.prediction='closed workshop';const workshopEnvelope={...createSystemBackup({}),nativeRecoveryBytes:{'math-learning-sync-v1:recovery:math-workshop:closed':JSON.stringify({version:1,namespace:'math-workshop',committed:false,workshopDraft:workshop})}};assert.equal(collectDraftVariants(workshopEnvelope)[0].record.prediction,'closed workshop');
 });
 test('Backup parser excludes unrelated storage, malformed containers and oversized files',()=>{
  assert.throws(()=>parseSystemBackup(JSON.stringify({...createSystemBackup({}),localStorage:{'unrelated-key':'{}'}})));

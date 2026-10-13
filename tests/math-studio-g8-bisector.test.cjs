@@ -74,6 +74,14 @@ test('free movement, case records and distinct student/teacher print content',as
  assert.equal(site.evaluate('G8BisectorUI.note().evidence.length'),2);
  const student=site.evaluate('G8BisectorUI.worksheetHTML(false)'),teacher=site.evaluate('G8BisectorUI.worksheetHTML(true)');
  assert(student.includes('學生學習單'));assert(teacher.includes('教師版'));assert(!student.includes('所以 PM=PN（全等三角形'));assert(teacher.includes('所以 PM=PN（全等三角形'));assert(student.includes('我猜 PM=PN'));
+ const original=site.storage.get('math-studio-inquiry-g8-v1');
+ site.evaluate("G8BisectorUI.applyRouteLanguage('en')");
+ const exported=site.evaluate('G8BisectorUI.exportText()');
+ const authored=exported.split('Retained conflicts (verbatim original data)')[0];
+ assert(authored.includes('offset from bisector='));assert(authored.includes('Numerical observation, not a general proof.'));
+ assert(!/[\u3400-\u9fff]/.test(authored.replaceAll('我猜 PM=PN','')));
+ assert(exported.includes('Recovery data (verbatim original JSON)'));
+ assert.equal(site.storage.get('math-studio-inquiry-g8-v1'),original);
  assert(!site.evaluate('G8BisectorUI.graphic(G8BisectorCore.defaults(),0)').includes('PM ≈'));assert(site.evaluate('G8BisectorUI.graphic(G8BisectorCore.defaults(),2)').includes('PM ≈'));
 });
 test('unknown future records are preserved and denied storage still exports notes',async()=>{

@@ -1,4 +1,4 @@
-import {SYSTEM_KEY,NATIVE_KEYS,decodeNativeRecord,readNativeRecords,recordSummary,createSystemBackup,parseSystemBackup,previewSystemBackup,mergeNativeBackup,readWorkshopRecords,restoreWorkshopRecords,rollbackWorkshopRecords} from '../lib/math-system-records.mjs';
+import {SYSTEM_KEY,NATIVE_KEYS,decodeNativeRecord,readNativeRecords,readNativeRecoveryBytes,retainedRecoveryCount,collectDraftVariants,recordSummary,createSystemBackup,parseSystemBackup,previewSystemBackup,mergeNativeBackup,readWorkshopRecords,restoreWorkshopRecords,rollbackWorkshopRecords} from '../lib/math-system-records.mjs';
 import {validateProgress} from '../lib/workshop-state.mjs';
 
 type Activity={id:string;group:string;grades:string[];title:Record<string,string>;summary:Record<string,string>;topic:Record<string,string>;runtime:string;nativeId:string;sources:Record<string,string>};
@@ -37,16 +37,22 @@ export function initializeMathSystem(root:HTMLElement){
   return results.every((result:any)=>result.ok);
  }
  async function backup(){
-  await flushAll();const native=storage?readNativeRecords(storage):{records:{},issues:[]};
-  const workshop=await readWorkshopRecords(workshopFactory());
-  const result:any=createSystemBackup(native.records,workshop);
+  // A backup is a read, including drafts. Never wait behind another tab's writer
+  // lock: its original canonical bytes and the pending alternatives are separate.
+  const native=storage?readNativeRecords(storage):{records:{},issues:[]};
+  const result:any=createSystemBackup(native.records,[]);
   result.sessionRecovery=systemStore?.exportRecovery?.()||null;
   result.openPageRecovery=coordinator?.exportAllRecovery?.()||[];
   result.openPageDrafts=coordinator?.snapshotAll?.()||[];
   result.sessionNotes={version:1,activities:Object.fromEntries(sessionNotes)};
-  try{const child=frame?.contentWindow as any;result.activeActivityRecovery=child?.MathStorage?.exportAllRecovery?.()||[];result.activeActivityDrafts=child?.MathStorage?.snapshotAll?.()||[];result.activeWorkshopRecovery=child?.MathWorkshopStore?.exportRecovery?.()||null;}catch{/* Native raw stores remain backed up. */}
-  result.openActivities=[];for(const[id,item]of frames)try{const child=item.contentWindow as any;result.openActivities.push({id,recovery:child?.MathStorage?.exportAllRecovery?.()||[],drafts:child?.MathStorage?.snapshotAll?.()||[],workshop:child?.MathWorkshopStore?.exportRecovery?.()||null});}catch{}
+  result.nativeRecoveryBytes=storage?readNativeRecoveryBytes(storage):{};
+  result.openActivities=[];const openFrames=new Map<HTMLIFrameElement,string>([...frames.entries()].map(([id,item])=>[item,id]));for(const item of all<HTMLIFrameElement>('iframe'))if(!openFrames.has(item))openFrames.set(item,'native-learning');
+  for(const[item,id]of openFrames)try{const child=item.contentWindow as any;result.openActivities.push({id,recovery:child?.MathStorage?.exportAllRecovery?.()||[],drafts:child?.MathStorage?.snapshotAll?.()||[],workshop:child?.MathWorkshopStore?.exportRecovery?.()||null,workshopDraft:child?.MathWorkshopDraft?.(),labDraft:child?.MathInquiryNotebookSnapshot?.()});}catch{}
   if(!storage||!systemStore||systemStore.state().status!=='saved')result.sessionDraft={key:SYSTEM_KEY,value:system};
+  let timer:number|undefined;result.indexedDB.records=await Promise.race([readWorkshopRecords(workshopFactory()),new Promise<any[]>(resolve=>{timer=window.setTimeout(()=>{result.workshopReadStatus='timed-out: open draft alternatives remain included';resolve([]);},750);})]);if(timer)clearTimeout(timer);
+  result.draftVariants=collectDraftVariants(result);
+  if(new TextEncoder().encode(JSON.stringify(result)).length>16*1024*1024)throw Error(t('Complete backup exceeds 16 MiB. Export the original activities separately before leaving.','完整備份超過 16 MiB，離開前請分別匯出原有活動。'));
+  text('[data-system-backup-status]',result.workshopReadStatus?t('Backup includes saved browser records and open drafts. Saved Python records could not be read in time; retry the backup to include their canonical copies.','備份包括瀏覽器已保存紀錄及開啟中的草稿。未能及時讀取已保存 Python 紀錄，請重試備份以包含它們的正式副本。'):t('Backup includes original saved records and selectable open draft versions. Restore defaults to saved records.','備份包括原有已保存紀錄及可選的開啟草稿版本；還原預設採用已保存紀錄。'));
   return result;
  }
  function pushUrl(values:Record<string,string|null>,replace=false){
@@ -163,6 +169,7 @@ export function initializeMathSystem(root:HTMLElement){
   for(const[key,name]of [...labels,['workshop',t('Python workshop drafts','Python 工坊草稿')],['modelRuns',t('Saved workshop model runs','已保存的工坊模型運行')]]){const card=document.createElement('div');card.className='math-learning-stat';const number=document.createElement('strong');number.textContent=String(key==='workshop'?workshop.length:key==='modelRuns'?workshop.filter((row:{lastRun?:unknown})=>row.lastRun).length:(summary as any)[key]);card.append(number,document.createTextNode(name));cards.append(card);}
   text('[data-system-record-status]',loaded.issues.length?t(`${loaded.issues.length} store(s) could not be read normally. Their raw bytes are preserved in exports; existing bytes are not overwritten.`,`有 ${loaded.issues.length} 個紀錄庫未能正常讀取。匯出會保留原始內容，不會覆寫原有資料。`):t('Native record stores are readable. Counts describe saved records, not learning attainment.','原有紀錄庫可以讀取。數量只描述已保存紀錄，不代表學習成效。'));
   query('[data-system-record-status]').classList.toggle('math-record-issue',!!loaded.issues.length);
+  if(storage&&retainedRecoveryCount(readNativeRecoveryBytes(storage)))query('[data-system-record-status]').append(document.createTextNode(t(' Retained unsaved drafts are available in complete backup; select a version in the restore preview.',' 完整備份包含保留的未儲存草稿；可在還原預覽選擇版本。')));
   query('[data-system-raw-recovery]').hidden=!loaded.issues.some((issue:any)=>loaded.records[issue.key]);text('[data-system-raw-bytes]',loaded.issues.filter((issue:any)=>loaded.records[issue.key]).map((issue:any)=>issue.key+'\n'+loaded.records[issue.key]).join('\n\n'));
   const list=query('[data-system-saved-activities]');list.replaceChildren();
   const saved=new Set<string>(Object.entries(system.activities||{}).filter(([,note]:any)=>note?.consent).map(([id])=>id));
@@ -176,14 +183,19 @@ export function initializeMathSystem(root:HTMLElement){
   try{
    if(file.size>16*1024*1024)throw Error(t('Backup exceeds 16 MiB.','備份超過 16 MiB。'));
    incoming=parseSystemBackup(await file.text());
-   for(const record of incoming.indexedDB.records){const lesson=workshops.find(w=>w.id===record.lessonId);if(!lesson)throw Error(t('Unknown workshop in backup. Original records have not changed.','備份有未知工坊，原有紀錄未有更改。'));validateProgress(record,lesson);}
-   await flushAll();previewRaw=storage?readNativeRecords(storage).records as Record<string,string>:{};workshopPreview=await readWorkshopRecords(workshopFactory());
+   for(const record of [...incoming.indexedDB.records,...incoming.draftVariants.filter((v:any)=>v.type==='workshop').map((v:any)=>v.record)]){const lesson=workshops.find(w=>w.id===record.lessonId);if(lesson)validateProgress(record,lesson);}
+   previewRaw=storage?readNativeRecords(storage).records as Record<string,string>:{};workshopPreview=await readWorkshopRecords(workshopFactory());
    const list=query('[data-system-import-rows]');list.replaceChildren();
    for(const row of previewSystemBackup(previewRaw,incoming)){const li=document.createElement('li');
     if(incoming.corruptStores?.includes(row.key)){li.textContent=t(`${row.key}: unreadable raw bytes retained in the file; this store will be skipped.`,`${row.key}：檔案保留未能讀取的原始內容，還原時略過此紀錄庫。`);list.append(li);continue;}
     if(incoming.requiresConsent?.includes(row.key)){const label=document.createElement('label'),checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.dataset.importConsent=row.key;label.append(checkbox,document.createTextNode(t(` Save imported laboratory notes in this browser: ${row.key}`,` 在此瀏覽器保存匯入的探究室筆記：${row.key}`)));li.append(label);}
     else if(row.state==='conflict'){const label=document.createElement('label'),checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.dataset.importOverwrite=row.key;label.append(checkbox,document.createTextNode(t(` Replace local conflicts in ${row.key} (unchecked: merge new records and keep local conflicts)`,` 覆蓋 ${row.key} 的本機衝突（未勾選：合併新紀錄並保留本機衝突）`)));li.append(label);}else li.textContent=`${row.key} — ${row.state==='new'?t('new store','新紀錄庫'):t('identical','相同')}`;list.append(li);}
-   for(const record of incoming.indexedDB.records){const existing=workshopPreview.find(row=>row.lessonId===record.lessonId),li=document.createElement('li');if(existing&&JSON.stringify(existing)!==JSON.stringify(record)){const label=document.createElement('label'),checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.dataset.importWorkshop=record.lessonId;label.append(checkbox,document.createTextNode(t(` Replace workshop draft: ${record.lessonId}`,` 覆蓋工坊草稿：${record.lessonId}`)));li.append(label);}else li.textContent=t(`Workshop ${record.lessonId}: ${existing?'identical':'new'}`,`工坊 ${record.lessonId}：${existing?'相同':'新增'}`);list.append(li);}
+   for(const record of incoming.indexedDB.records){const existing=workshopPreview.find(row=>row.lessonId===record.lessonId),li=document.createElement('li');if(existing&&JSON.stringify(existing)!==JSON.stringify(record)){const label=document.createElement('label'),checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.dataset.importWorkshop=record.lessonId;label.append(checkbox,document.createTextNode(t(` Replace workshop draft: ${record.lessonId}`,` 覆蓋工坊草稿：${record.lessonId}`)));li.append(label);}else li.textContent=t(`Workshop ${record.lessonId}: ${existing?'identical':'new'}`,`工坊 ${record.lessonId}：${existing?'相同':'新增'}`);if(!workshops.some(w=>w.id===record.lessonId))li.append(document.createTextNode(t(' — unknown lesson; retained as data without running code',' — 未知課節；只保留資料，不執行程式')));list.append(li);}
+   const groups=new Map<string,any[]>();for(const variant of incoming.draftVariants){const target=variant.type+':'+(variant.key||variant.lessonId),group=groups.get(target)||[];group.push(variant);groups.set(target,group);}
+   for(const[target,variants]of groups){const li=document.createElement('li'),fieldset=document.createElement('fieldset'),legend=document.createElement('legend');legend.textContent=t('Choose one version: ','選擇一個版本：')+(variants[0].key||variants[0].lessonId);fieldset.append(legend);const canonical=document.createElement('label'),keep=document.createElement('input');keep.type='radio';keep.style.cssText='display:inline-block;width:auto;margin-right:.5rem';keep.name='draft-'+target;keep.checked=true;canonical.append(keep,document.createTextNode(t(' Use saved records; keep local conflicts by default',' 採用已保存紀錄；預設保留本機衝突')));fieldset.append(canonical);
+    for(const variant of variants){const label=document.createElement('label'),radio=document.createElement('input');radio.type='radio';radio.style.cssText=keep.style.cssText;radio.name=keep.name;radio.dataset.importDraft=variant.id;label.append(radio,document.createTextNode(t(' Restore draft: ',' 還原草稿：')+variant.source+' ('+variant.status+')'));fieldset.append(label);const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent=t('Inspect this draft','檢視此草稿');pre.textContent=(variant.raw||JSON.stringify(variant.record,null,2)).slice(0,12000);details.append(summary,pre);fieldset.append(details);}
+    if(variants.some(v=>v.requiresConsent)){const label=document.createElement('label'),checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.dataset.importConsent=variants[0].key;label.append(checkbox,document.createTextNode(t(' Save the selected session-only laboratory notes in this browser',' 在此瀏覽器保存所選的暫存探究室筆記')));fieldset.append(label);}li.append(fieldset);list.append(li);}
+   if(Object.keys(incoming.nativeRecoveryBytes||{}).length){const li=document.createElement('li');li.textContent=t('Historical recovery raw bytes are retained in this file for download and inspection. Partial snapshots and past operations are not automatically replayed.','檔案已保留歷史復原原始內容，供下載及檢視；不會自動套用局部快照或重播過往操作。');list.append(li);}
    if(incoming.sessionNotes?.activities&&Object.keys(incoming.sessionNotes.activities).length){const li=document.createElement('li');li.textContent=t('Unpersisted activity notes will be restored only in this open session. They are not automatically opted in to browser saving.','尚未保存的活動筆記只會還原到本次開啟頁面，不會自動選擇本機保存。');list.append(li);}
    query('[data-system-import-preview]').hidden=false;text('[data-system-backup-status]',t('Preview ready. Existing conflicts are kept by default.','預覽已就緒，衝突預設保留本機紀錄。'));
   }catch(error){incoming=undefined;query('[data-system-import-preview]').hidden=true;text('[data-system-backup-status]',String(error));}
@@ -195,14 +207,16 @@ export function initializeMathSystem(root:HTMLElement){
   const selected=new Set(all<HTMLInputElement>('[data-import-overwrite]').filter(x=>x.checked).map(x=>x.dataset.importOverwrite!));
   const overwriteWorkshop=new Set(all<HTMLInputElement>('[data-import-workshop]').filter(x=>x.checked).map(x=>x.dataset.importWorkshop!));
   const consent=new Set(all<HTMLInputElement>('[data-import-consent]').filter(x=>x.checked).map(x=>x.dataset.importConsent!));
+  const chosenDrafts=new Set(all<HTMLInputElement>('[data-import-draft]').filter(x=>x.checked).map(x=>x.dataset.importDraft!)),sources={...incoming.localStorage},workshopSources=new Map<string,any>(incoming.indexedDB.records.map((row:any)=>[row.lessonId,row])),draftKeys=new Set<string>();
+  for(const variant of incoming.draftVariants)if(chosenDrafts.has(variant.id)){if(variant.type==='localStorage'){if(variant.requiresConsent&&!consent.has(variant.key))continue;sources[variant.key]=variant.raw;selected.add(variant.key);draftKeys.add(variant.key);}else{workshopSources.set(variant.lessonId,variant.record);overwriteWorkshop.add(variant.lessonId);}}
   const replacements:Record<string,string>={},expected:Record<string,string|null>={};
-  for(const row of previewSystemBackup(previewRaw,incoming)){
-   if(row.state==='same'||incoming.corruptStores?.includes(row.key)||(incoming.requiresConsent?.includes(row.key)&&!consent.has(row.key)))continue;
-   try{let raw=incoming.localStorage[row.key];if(consent.has(row.key))raw=JSON.stringify({...JSON.parse(raw),consent:true});
-    const merged=selected.has(row.key)?raw:mergeNativeBackup(row.key,previewRaw[row.key],raw);if(merged!==previewRaw[row.key]){replacements[row.key]=merged;expected[row.key]=previewRaw[row.key]??null;}
-   }catch{if(selected.has(row.key)){replacements[row.key]=incoming.localStorage[row.key];expected[row.key]=previewRaw[row.key]??null;}else{text('[data-system-backup-status]',t('A local store is unreadable. Export it and explicitly select replacement before restoring.','有本機紀錄庫未能讀取。請先匯出，並明確選擇覆蓋後再還原。'));query<HTMLButtonElement>('[data-system-backup-apply]').disabled=false;return;}}
+  for(const row of previewSystemBackup(previewRaw,{localStorage:sources})){
+   if(row.state==='same'||incoming.corruptStores?.includes(row.key)&&!draftKeys.has(row.key)||(incoming.requiresConsent?.includes(row.key)&&!consent.has(row.key)))continue;
+   try{let raw=sources[row.key];if(consent.has(row.key))raw=JSON.stringify({...JSON.parse(raw),consent:true});
+    const merged=mergeNativeBackup(row.key,previewRaw[row.key],raw,selected.has(row.key));if(merged!==previewRaw[row.key]){replacements[row.key]=merged;expected[row.key]=previewRaw[row.key]??null;}
+   }catch{if(selected.has(row.key)){replacements[row.key]=sources[row.key];expected[row.key]=previewRaw[row.key]??null;}else{text('[data-system-backup-status]',t('A local store is unreadable. Export it and explicitly select replacement before restoring.','有本機紀錄庫未能讀取。請先匯出，並明確選擇覆蓋後再還原。'));query<HTMLButtonElement>('[data-system-backup-apply]').disabled=false;return;}}
   }
-  const importedWorkshop=incoming.indexedDB.records.filter((row:any)=>!workshopPreview.some(old=>old.lessonId===row.lessonId)||overwriteWorkshop.has(row.lessonId));
+  const importedWorkshop=[...workshopSources.values()].filter((row:any)=>!workshopPreview.some(old=>old.lessonId===row.lessonId)||overwriteWorkshop.has(row.lessonId));
   let idbApplied=false,rollbackFailed=false;
   try{
    const result=await coordinator.restoreRaw({storage,replacements,expected,before:async()=>{
