@@ -8,9 +8,9 @@ const read = (path) => readFile(resolve(root, path), "utf8");
 
 const corePages = [
   "src/components/MacauCompetitionArchive.astro",
-  "src/pages/teaching/model-laboratory.astro",
-  "src/pages/teaching/frontier-model-studio.astro",
-  "src/pages/teaching/research-inquiry-studio.astro",
+  "src/components/InteractiveModelLaboratory.astro",
+  "src/components/FrontierModelStudio.astro",
+  "src/components/ResearchInquiryStudio.astro",
   "src/pages/teaching/quantum-repeater-lab.astro",
   "src/pages/zh/teaching/quantum-repeater-lab.astro",
 ];
@@ -31,7 +31,7 @@ test("all audited teaching formula surfaces use the shared TeX component", async
 });
 
 test("interactive recovered equations are generated as semantic MathML rather than Unicode pseudo-math", async () => {
-  const source = await read("src/pages/teaching/frontier-model-studio.astro");
+  const source = await read("src/components/FrontierModelStudio.astro");
   assert.match(source, /document\.createElementNS\(ns, "math"\)/);
   assert.match(source, /document\.createElementNS\(ns, "msup"\)/);
   assert.match(source, /equationMetric\.replaceChildren\(recoveredMath\)/);
