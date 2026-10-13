@@ -27,13 +27,13 @@ export async function initializeSeniorBank(root:HTMLElement){
   }
   root.querySelector('[data-bank-count]')!.textContent=`${filtered.length} / ${index.length} · ${zh?'頁':'Page'} ${page} / ${pages}`;
   const url=new URL(location.href);url.pathname=base+'question-bank/';url.search='';fields.forEach((_f,name)=>{if(value(name))url.searchParams.set(name,value(name));});if(page>1)url.searchParams.set('page',String(page));history.replaceState(null,'',url);
-  const language=document.querySelector<HTMLAnchorElement>('.language-switch a');if(language){const alternate=new URL(language.href);alternate.pathname=(zh?'':'/zh')+'/teaching/senior-math/question-bank/';alternate.search=url.search;language.href=alternate.href;}
+  const language=document.querySelector<HTMLAnchorElement>('.language-switch a,[data-language-switch]');if(language){const alternate=new URL(language.href);alternate.pathname=(zh?'':'/zh')+'/teaching/senior-math/question-bank/';alternate.search=url.search;language.href=alternate.href;}
   const pager=root.querySelector('[data-bank-pagination]')!;pager.replaceChildren();
   for(const [name,delta]of [[zh?'上一頁':'Previous',-1],[zh?'下一頁':'Next',1]]as const){const button=document.createElement('button');button.type='button';button.textContent=name;button.disabled=page+delta<1||page+delta>pages;button.addEventListener('click',()=>{page+=delta;update();list.querySelector<HTMLAnchorElement>('a')?.focus();});pager.append(button);}
  };
  controls.hidden=false;controls.addEventListener('submit',e=>e.preventDefault());let timer:number;
  controls.addEventListener('input',event=>{clearTimeout(timer);timer=0;if((event.target as HTMLInputElement).type==='search')timer=window.setTimeout(()=>{timer=0;update(true);},150);else update(true);});
  controls.addEventListener('change',()=>{clearTimeout(timer);timer=0;update(true);});
- document.addEventListener('click',event=>{if(timer&&(event.target as HTMLElement).closest('.language-switch a')){clearTimeout(timer);timer=0;update(true);}},true);
+ document.addEventListener('click',event=>{if(timer&&(event.target as HTMLElement).closest('.language-switch a,[data-language-switch]')){clearTimeout(timer);timer=0;update(true);}},true);
  window.addEventListener('storage',()=>update());window.addEventListener('pageshow',()=>update());update();
 }
