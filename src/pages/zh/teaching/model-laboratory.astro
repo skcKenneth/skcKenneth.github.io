@@ -1,23 +1,4 @@
 ---
-import WorkshopCallout from "../../../components/WorkshopCallout.astro";
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import ModelDirectory from "../../../components/ModelDirectory.astro";
+import InteractiveModelLaboratory from '../../../components/InteractiveModelLaboratory.astro';
 ---
-
-<BaseLayout
-  title="互動數學模型實驗室"
-  description="十四個由基礎動力學延伸至研究前沿、融池拓撲、量子網絡與研究提問的互動數學模型。"
-  type="教學"
-  locale="zh-Hant"
-  alternatePath="/teaching/model-laboratory/"
->
-  <header class="page-head">
-    <div class="container">
-      <p class="eyebrow">互動教學例子</p>
-      <h1>改變一個假設，觀察模型如何改變答案。</h1>
-      <p class="lead">先按研究問題選擇模型，再調整參數、比較結果並記錄限制。互動工作台保留英文數學介面，以免符號、圖例與課堂筆記不一致；本頁提供完整中文導覽。</p>
-    </div>
-  </header>
-  <ModelDirectory locale="zh-Hant"/>
-<WorkshopCallout locale="zh-Hant"/>
-</BaseLayout>
+<InteractiveModelLaboratory locale="zh-Hant"/>

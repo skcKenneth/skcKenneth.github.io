@@ -39,6 +39,9 @@ test('normalization excludes degeneracy and pointer input shares the numeric dom
 });
 test('18-minute bilingual task keeps proof inputs and forward/converse distinct',()=>{
  assert.equal(T.stages.length,7);assert.equal(T.stages.reduce((s,x)=>s+x.minutes,0),18);
+ assert.deepEqual(Array.from(T.stages,s=>s.minutes),[2,2,3,3,5,0,3]);
+ assert.equal(T.stages[5].optional,true);assert.equal(T.teacherFlow.length,5);
+ assert(T.teacherFlow[0][1].startsWith('Distance, 2 min'));
  for(const s of T.stages)for(const language of [0,1])assert(s.title[language]&&s.question[language]);
  assert.equal(T.hints.length,3);
  for(const list of [T.forward,T.converse,T.hints])for(const row of list)assert(row[0]&&row[1]);

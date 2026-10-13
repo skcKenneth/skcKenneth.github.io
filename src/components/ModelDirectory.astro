@@ -10,7 +10,7 @@ const stages = [['foundation', 'Foundation', '基礎'], ['frontier', 'Research-f
   <div class="container">
     <div class="section-head">
       <div><p class="eyebrow">{zh ? '模型索引' : 'Model finder'}</p><h2>{zh ? '由問題開始，而非由公式開始。' : 'Find the experiment that matches your question.'}</h2></div>
-      <p>{zh ? '按問題類型及學習階段篩選。每個入口直接開啟相應實驗；英文工作台會清楚標示。' : 'Filter by question type and learning stage. Each result opens its own interactive workbench.'}</p>
+      <p>{zh ? '按問題類型及學習階段篩選。每個入口直接開啟相應語言的互動實驗。' : 'Filter by question type and learning stage. Each result opens its own interactive workbench.'}</p>
     </div>
     <form class="model-directory-controls" data-catalog-filters aria-label={zh ? '篩選互動模型' : 'Filter interactive models'}>
       <label for="model-purpose">{zh ? '問題類型' : 'Question type'}<select id="model-purpose" name="purpose"><option value="">{zh ? '所有問題' : 'All questions'}</option>{purposes.map(([id, en, translated]) => <option value={id}>{zh ? translated : en}</option>)}</select></label>
@@ -20,9 +20,9 @@ const stages = [['foundation', 'Foundation', '基礎'], ['frontier', 'Research-f
     <p class="small" data-catalog-count data-model-count role="status" aria-live="polite">{zh ? '顯示 14 / 14 個實驗' : 'Showing 14 of 14 experiments.'}</p>
     <div class="model-library" data-model-library>
       {modelDirectory.map((model, index) => {
-        const href = !zh && model.englishOnly ? `#${model.path.split('#')[1]}` : zh && !model.englishOnly ? `/zh${model.path}` : model.path;
+        const href = model.stage === 'foundation' ? `#${model.path.split('#')[1]}` : `${zh ? '/zh' : ''}${model.path}`;
         return <article data-purpose={model.purpose} data-stage={model.stage}>
-          <div class="meta-line"><span>{String(index + 1).padStart(2, '0')}</span><span>{stages.find(([id]) => id === model.stage)?.[zh ? 2 : 1]}</span>{zh && model.englishOnly && <span>英文工作台</span>}</div>
+          <div class="meta-line"><span>{String(index + 1).padStart(2, '0')}</span><span>{stages.find(([id]) => id === model.stage)?.[zh ? 2 : 1]}</span></div>
           <h3><a href={href}>{model.title[locale]}</a></h3><p>{model.question[locale]}</p>
           <a href={href}>{zh ? '開始實驗' : 'Start experiment'} →</a>
         </article>;

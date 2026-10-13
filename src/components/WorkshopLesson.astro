@@ -41,6 +41,7 @@ const notes=[...lesson.notes,"writing-01","writing-02","writing-03","writing-04"
 <dialog class="ws-compare-dialog" data-compare-dialog><form method="dialog"><button class="button secondary">{zh?"關閉比較":"Close comparison"}</button></form><h2>{zh?"基準與我的運行":"Baseline and my run"}</h2><p>{zh?"基準由指定合成資料生成；右方只展示你最後完成的運行。":"The baseline uses the specified synthetic data; the right column shows only your last completed run."}</p><div class="ws-compare-grid" data-comparison></div></dialog>
 <noscript><div class="container"><p>{zh?"閱讀課文及下載參照程式無需 JavaScript；互動、保存與瀏覽器 Python 需要啟用 JavaScript。":"Reading and reference downloads work without JavaScript. Interactions, saving and browser Python require JavaScript."}</p></div></noscript>
 </div>
+<script is:inline src="/math-shared/storage.js"></script>
 <script>
  import {initializeWorkshopLesson} from "../scripts/workshop-client";
  document.querySelectorAll<HTMLElement>("[data-workshop-lesson]").forEach(initializeWorkshopLesson);

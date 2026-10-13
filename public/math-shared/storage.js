@@ -29,6 +29,10 @@
       var events = Array.isArray(current) ? current.slice() : [];
       if (!events.some(function (event) { return event && event.eventId === value.eventId; })) events.push(copy(value));
       set(document, operation.path, events);
+    } else if (operation.kind === 'event-remove') {
+      // Event identities survive fresh JSON reads; object references do not.
+      // Legacy rows without an identity remain untouched and exportable.
+      set(document, operation.path, (Array.isArray(current) ? current : []).filter(function (event) { return !event || event.eventId !== value.eventId; }));
     } else if (operation.kind === 'array-add') { var added = Array.isArray(current) ? current.slice() : []; if (!added.includes(value)) added.push(value); set(document, operation.path, added); }
     else if (operation.kind === 'array-remove') set(document, operation.path, (Array.isArray(current) ? current : []).filter(function (v) { return v !== value; }));
     else if (operation.kind === 'array-move') {
@@ -116,10 +120,11 @@
     try { var initial = read(); documents = initial.documents; committed = copy(documents); if (!metadataMatches(initial.raws)) retainExternal(initial.documents); }
     catch (error) { documents = copy(options.defaults); committed = copy(documents); unreadable = true; status = 'unreadable'; lastError = String(error); }
     function edit(operation) {
-      if (!keys.includes(operation.key) || !(Array.isArray(operation.path) && !operation.path.length || safePath(operation.path)) || !['set', 'increment', 'max', 'seed', 'append', 'array-add', 'array-remove', 'array-move', 'remove-key'].includes(operation.kind || 'set')) throw Error('Invalid storage operation');
+      if (!keys.includes(operation.key) || !(Array.isArray(operation.path) && !operation.path.length || safePath(operation.path)) || !['set', 'increment', 'max', 'seed', 'append', 'event-remove', 'array-add', 'array-remove', 'array-move', 'remove-key'].includes(operation.kind || 'set')) throw Error('Invalid storage operation');
       if (operation.kind === 'increment' && (!Number.isSafeInteger(operation.value) || operation.value < 0)) throw Error('Invalid increment');
       if (operation.kind === 'max' && !Number.isFinite(operation.value)) throw Error('Invalid maximum');
       if (operation.kind === 'append' && (!operation.value || typeof operation.value.eventId !== 'string')) throw Error('An event ID is required');
+      if (operation.kind === 'event-remove' && (!safePath(operation.path) || !operation.value || typeof operation.value.eventId !== 'string' || !operation.value.eventId.length)) throw Error('A stable event ID and array path are required for removal');
       var op = copy(operation); op.kind = op.kind || 'set'; op.sequence = ++sequence; op.writer = writer;
       if (!Object.prototype.hasOwnProperty.call(operation, 'base')) op.base = copy(get(documents[op.key], op.path));
       // Coalesce only consecutive unsaved assignments, retaining their original base.

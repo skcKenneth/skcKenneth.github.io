@@ -20,6 +20,7 @@ const needs=[{question:bi("Can you explain a derivative's units?","你能解釋�
 <section class="container ws-section"><h2>{zh?"27 個 Notes，成為隨身工具箱。":"27 Notes units, one companion library."}</h2><p>{zh?"12 個主課、10 個數學補充課與5個寫作單元，均已對應到六個工坊。書籍提供章節來源；教學文字、例題與程式為原創。":"Twelve core lectures, ten mathematical refreshers and five writing units are mapped to the workshops. Books supply chapter references; teaching text, examples and code are original."}</p><div class="actions"><a class="button secondary" href={`${zh?"/zh":""}/teaching/mathematical-modeling-lecture-programme/`}>{zh?"閱讀 Notes":"Read the Notes"}</a><a class="button secondary" href={`${base}/sources/`}>{zh?"20 份書籍與 Notes 對照":"20 books & Notes source map"}</a></div><p class="ws-small">{zh?"進度只保存在目前瀏覽器。清除網站資料會移除紀錄；請定期匯出 JSON。首次執行 Python 需網絡載入科學運算環境。":"Progress stays in this browser. Clearing site data removes it; export JSON regularly. The first Python startup needs a network connection to load the scientific runtime."}</p></section>
 <script is:inline id="workshop-index-notes" type="application/json" set:html={JSON.stringify(rawNotes.units.map(n=>({id:n.id,title:n.title}))).replace(/</g,"\\u003c")}/>
 </div>
+<script is:inline src="/math-shared/storage.js"></script>
 <script>
  import {initializeWorkshopIndex} from "../scripts/workshop-client";
  document.querySelectorAll<HTMLElement>("[data-workshop-index]").forEach(initializeWorkshopIndex);

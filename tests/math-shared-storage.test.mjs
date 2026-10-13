@@ -19,6 +19,19 @@ test('event IDs deduplicate while independent checks increment rather than overw
  for(const store of [a,b]){store.edit({key:'progress',path:['answers','q','attempts'],kind:'increment',value:1});store.edit({key:'learning',path:['history','q'],kind:'append',value:{eventId:'same-event'}});}
  await Promise.all([a.flush(),b.flush()]);assert.equal(JSON.parse(storage.getItem('progress')).answers.q.attempts,2);assert.equal(JSON.parse(storage.getItem('learning')).history.q.length,1);
 });
+
+test('overlapping event removal and append preserve unrelated events and every unidentified legacy row',async()=>{
+ for(const appendFirst of [true,false]){
+  const legacy={at:'2026-09-01',notes:'legacy duplicate'},target={eventId:'remove-me',notes:'selected'},keep={eventId:'keep-me',notes:'earlier'};
+  const storage=memory({learning:JSON.stringify({history:{q:[legacy,legacy,target,keep]},classroom:{title:'',ids:[]}})}),lock=locks(),a=runtime(storage,lock).store(),b=runtime(storage,lock).store();
+  let release,entered;const enteredPromise=new Promise(resolve=>entered=resolve),gate=lock.request('math-learning:writer:v1',async()=>{entered();await new Promise(resolve=>release=resolve);});await enteredPromise;
+  a.edit({key:'learning',path:['history','q'],kind:'event-remove',value:{eventId:'remove-me'}});b.edit({key:'learning',path:['history','q'],kind:'append',value:{eventId:'new-peer-event',notes:'added while delete waits'}});
+  const writes=appendFirst?[b.flush(),a.flush()]:[a.flush(),b.flush()];release();await gate;assert((await Promise.all(writes)).every(result=>result.ok));
+  const expected=[legacy,legacy,keep,{eventId:'new-peer-event',notes:'added while delete waits'}];assert.deepEqual(JSON.parse(storage.getItem('learning')).history.q,expected);
+  a.edit({key:'learning',path:['history','q'],kind:'event-remove',value:{eventId:'remove-me'}});await a.flush();assert.deepEqual(JSON.parse(storage.getItem('learning')).history.q,expected,'repeated deletion is idempotent');
+  assert.throws(()=>a.edit({key:'learning',path:['history','q'],kind:'event-remove',value:legacy}),/stable event ID/);assert.throws(()=>a.edit({key:'learning',path:[],kind:'event-remove',value:{eventId:'keep-me'}}),/stable event ID/);assert.deepEqual(JSON.parse(storage.getItem('learning')).history.q,expected,'unidentified legacy records are never guessed or rewritten');
+ }
+});
 test('same-field conflict preserves both versions and requires a selected resolution',async()=>{
  const storage=memory({progress:JSON.stringify({answers:{q:{input:'old'}}})}),lock=locks(),a=runtime(storage,lock).store(),b=runtime(storage,lock).store();
  a.edit({key:'progress',path:['answers','q','input'],base:'old',value:'A'});b.edit({key:'progress',path:['answers','q','input'],base:'old',value:'B'});await a.flush();const result=await b.flush();assert.equal(result.status,'conflict');assert.equal(JSON.parse(storage.getItem('progress')).answers.q.input,'A');assert.equal(b.snapshot().progress.answers.q.input,'B');assert.equal(b.conflicts()[0].remote,'A');assert(b.exportRecovery().recoveries.length>=2);

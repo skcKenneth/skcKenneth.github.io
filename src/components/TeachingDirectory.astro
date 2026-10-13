@@ -1,6 +1,7 @@
 ---
 import { TEACHING_AUDIENCES, TEACHING_FORMATS, TEACHING_RESOURCES, teachingHref } from '../data/teaching-directory.mjs';
 import ClassroomPackCards from './ClassroomPackCards.astro';
+import MathSystemCallout from './MathSystemCallout.astro';
 import '../styles/teaching-directory.css';
 interface Props { locale?: 'en' | 'zh-Hant' }
 const { locale = 'en' } = Astro.props;
@@ -14,6 +15,7 @@ const label = (items: any[], id: string) => items.find(item => item.id === id)?.
     <h1>{t('Find your next learning step.', '找到適合你的下一步。')}</h1>
     <p class="lead">{t('Choose who you are learning with, then choose a format. Each resource explains its purpose and how to begin.', '先選學習對象，再選資源形式。每個入口都說明用途，讓你容易開始。')}</p>
   </div></header>
+  <MathSystemCallout locale={locale}/>
   <section class="container teaching-directory-section" aria-labelledby="teaching-audience-heading">
     <h2 id="teaching-audience-heading">{t('Who is learning?', '按學習對象開始')}</h2>
     <div class="teaching-audience-grid">{TEACHING_AUDIENCES.map(audience => <a href={`?audience=${audience.id}#teaching-resources`} data-audience-link={audience.id}><strong>{audience.label[locale]}</strong><span>{audience.description[locale]}</span><b aria-hidden="true">→</b></a>)}</div>

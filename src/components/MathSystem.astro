@@ -1,0 +1,78 @@
+---
+import {lessons as workshops} from '../data/workshop-lessons';
+import {questions} from '../data/senior-math/catalog.mjs';
+import {createMathCatalog,mathGrades,mathGroups,mathActivityUrl,mathSystemBase} from '../lib/math-system-catalog.mjs';
+import '../styles/math-system.css';
+const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
+const zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en;
+const classroomModules=import.meta.glob('../data/classroom-packs.mjs',{eager:true}) as Record<string,{CLASSROOM_PACKS:any[]}>;
+const classroomPacks=Object.values(classroomModules)[0]?.CLASSROOM_PACKS||[];
+const catalog=createMathCatalog(workshops,classroomPacks),base=mathSystemBase(locale);
+const configuration={locale,catalog,knownQuestionIds:questions.map((q:any)=>q.id),workshops:workshops.map(w=>({id:w.id,slug:w.slug,version:w.version,parameters:w.parameters,steps:w.steps.map(s=>({id:s.id}))}))};
+---
+<div class="math-system" data-math-system data-math-release="2026-10-13-system-v2" data-locale={locale}>
+ <header class="container math-system-head">
+  <p class="eyebrow">{t('MATHEMATICS · EXPERIMENT · EXPLAIN','數學・探究・解釋')}</p>
+  <h1>{t('One mathematics learning space','數學互動研習室')}</h1>
+  <p class="lead">{t('School lessons, inquiry laboratories, Python workshops and research models in one workspace. Open an activity here, keep its original records and carry your reasoning between lessons.','把中學課節、探究實驗、Python 工坊及研究模型放在同一工作空間。在這裡操作活動、保留原有紀錄，並把推理帶到下一課。')}</p>
+  <nav class="math-system-nav" aria-label={t('Learning workspace','研習空間')}>
+   <a href={base} data-system-view="catalog" aria-current="page">{t('Find an activity','選擇活動')}</a>
+   <a href={`${base}?view=classroom`} data-system-view="classroom">{t('Classroom','課堂')}</a>
+   <a href={`${base}?view=learning`} data-system-view="learning">{t('My learning and backup','我的學習與備份')}</a>
+   <a href={mathActivityUrl('school:inquiry:angle-bisector',locale)} class="math-system-tomorrow" data-activity="school:inquiry:angle-bisector">{t('Year 8: angle bisectors · 18 min','初二：角的平分線・18 分鐘')}</a>
+  </nav>
+  <p class="math-system-status" data-system-status role="status">{t('No sign-in. Records stay in this browser. Export a backup before clearing browser data.','免登入，紀錄留在此瀏覽器。清除瀏覽器資料前，請先匯出備份。')}</p>
+  <div data-system-note-conflicts hidden></div>
+ </header>
+
+ <section class="container math-activity" data-system-panel="activity" hidden aria-labelledby="math-activity-title">
+  <div class="math-activity-heading"><div><p class="eyebrow" data-activity-topic></p><h2 id="math-activity-title"></h2><p data-activity-summary></p></div><div class="math-activity-actions"><button type="button" data-classroom-prev hidden>{t('← Previous activity','← 上一活動')}</button><button type="button" data-classroom-next hidden>{t('Next activity →','下一活動 →')}</button><button type="button" data-add-classroom>{t('Add to classroom','加入課堂')}</button><button type="button" data-system-project>{t('Projection mode','投影模式')}</button><button type="button" data-system-print>{t('Print activity','列印活動')}</button><a href={base} data-source-link target="_blank" rel="noopener">{t('Open original page','開啟原有頁面')}</a></div></div>
+  <p class="small" data-activity-language></p>
+  <div class="math-activity-frame" data-frame-mount aria-busy="false"></div>
+  <p class="small" data-frame-status role="status"></p>
+  <details class="math-system-notebook" data-shared-notebook>
+   <summary>{t('My prediction, evidence and explanation','我的預測、證據與解釋')}</summary>
+   <p>{t('These notes belong to this activity. They complement its original notebook and do not change question results.','這份筆記屬於目前活動，補充活動原有學習單，不會更改題目評核結果。')}</p>
+   <label class="math-system-consent"><input type="checkbox" data-notebook-consent/>{t('Save these notes in this browser','在此瀏覽器保存這份筆記')}</label>
+   <div class="math-note-grid">{[['prediction','Prediction and reason','預測與理由'],['observation','Evidence and observations','證據與觀察'],['explanation','Explanation or proof','解釋或證明'],['limitations','Conditions, limitations and next question','條件、限制與下一個問題']].map(([key,en,ch])=><label>{t(en,ch)}<textarea rows="3" maxlength="6000" data-notebook-field={key}></textarea></label>)}</div>
+   <div class="math-activity-actions"><button type="button" data-notebook-export>{t('Download activity notes','下載活動筆記')}</button><button type="button" data-notebook-capture>{t('Record current controls','記錄目前操作設定')}</button></div><p data-notebook-status role="status"></p>
+  </details>
+ </section>
+
+ <section class="container math-system-catalog" data-system-panel="catalog" aria-labelledby="math-catalog-title">
+  <div class="section-head"><div><p class="eyebrow">{t('YOUR NEXT TASK','下一個任務')}</p><h2 id="math-catalog-title">{t('Choose by level, topic or purpose','按年級、主題或目的選擇')}</h2></div><p>{t('Each card opens the working activity inside this workspace. Original pages and saved question IDs remain available.','每張卡會在同一空間開啟可操作活動。原有頁面及已保存題目 ID 繼續可用。')}</p></div>
+  <form class="math-system-filters" data-math-filters>
+   <label>{t('Search title or topic','搜尋名稱或主題')}<input type="search" data-filter-query placeholder={t('Try “angle”, “probability” or “diffusion”','例如：角、概率、擴散')}/></label>
+   <label>{t('Level','年級／程度')}<select data-filter-grade>{mathGrades.map(([id,name]:any)=><option value={id}>{name[locale]}</option>)}</select></label>
+   <label>{t('Activity type','活動類型')}<select data-filter-group>{mathGroups.map(([id,name]:any)=><option value={id}>{name[locale]}</option>)}</select></label>
+   <button type="button" data-filter-reset>{t('Reset filters','重設篩選')}</button>
+  </form><p data-catalog-count role="status">{catalog.length} {t('activities and resources','項活動與資源')}</p>
+  <div class="math-catalog-grid" data-catalog-grid>{catalog.map(activity=><article class="math-activity-card" data-catalog-id={activity.id}>
+   <p class="eyebrow">{activity.topic[locale]}</p><h3><a href={mathActivityUrl(activity.id,locale)} data-activity={activity.id}>{activity.title[locale]}</a></h3><p>{activity.summary[locale]}</p><div class="math-activity-actions"><a href={mathActivityUrl(activity.id,locale)} data-activity={activity.id}>{t('Open activity →','開啟活動 →')}</a><button type="button" data-add-id={activity.id}>{t('Add to classroom','加入課堂')}</button></div>
+  </article>)}</div><button type="button" data-catalog-more hidden>{t('Show more activities','顯示更多活動')}</button>
+ </section>
+
+ <section class="container math-system-classroom" data-system-panel="classroom" hidden aria-labelledby="math-classroom-title">
+  <h2 id="math-classroom-title">{t('A classroom sequence across all activities','跨活動的課堂流程')}</h2><p>{t('Build a sequence of up to 30 activities. The share link contains activity IDs and a title; it contains no answers or notes.','安排最多 30 項活動。分享連結只包含活動 ID 與名稱，不包含學生答案或筆記。')}</p>
+  <label>{t('Classroom title','課堂名稱')}<input type="text" maxlength="120" data-system-classroom-title/></label><ol data-system-classroom-list></ol>
+  <label>{t('Classroom share link','課堂分享連結')}<input type="text" readonly data-system-classroom-link/></label><div class="math-activity-actions"><button type="button" data-classroom-copy>{t('Copy link','複製連結')}</button><button type="button" data-classroom-start>{t('Start this sequence','開始課堂流程')}</button><button type="button" data-classroom-export>{t('Download classroom plan','下載課堂流程')}</button></div>
+ </section>
+
+ <section class="container math-system-learning" data-system-panel="learning" hidden aria-labelledby="math-learning-title">
+  <h2 id="math-learning-title">{t('My learning across the collection','整套資源的學習紀錄')}</h2><p>{t('Saved drafts, checked answers, self-assessments, experiment notes and practice exposure are different kinds of evidence. They are shown separately; there is no combined mastery score.','已保存草稿、核對答案、自評、實驗筆記及抽題紀錄各有不同意思，分項顯示，不合併計算掌握率。')}</p>
+  <div class="math-learning-summary" data-system-learning-summary></div><p data-system-record-status role="status"></p><details data-system-raw-recovery hidden><summary>{t('Inspect retained raw recovery data','檢視保留的原始復原內容')}</summary><p>{t('These bytes are preserved for recovery. Download the complete backup before replacing an unreadable store.','這些原始內容會保留以便復原。覆蓋未能讀取的紀錄庫前，請先下載完整備份。')}</p><pre data-system-raw-bytes></pre></details>
+  <h3>{t('Saved activity notebooks','已保存活動筆記')}</h3><ul data-system-saved-activities></ul>
+  <h3>{t('Original answer history and corrections','原有作答歷史與訂正')}</h3><p><a href={`${zh?'/zh':''}/teaching/senior-math/my-learning/`} data-open-senior-learning>{t('Open detailed answers, retries and unknown records here','在這裡查看詳細作答、重做及未知題目紀錄')}</a></p><div data-native-learning-mount></div>
+  <section class="math-system-backup"><h3>{t('Complete backup','完整備份')}</h3><p>{t('Includes the original mathematics record stores, inquiry notes, optional lab notes, shared activity notes, classroom sequence and IndexedDB Python drafts. A backup can contain your written work and code; keep it privately.','包括原有數學紀錄、探究筆記、已選保存的探究室筆記、共用活動筆記、課堂流程及 IndexedDB Python 草稿。備份可能包含你寫下的內容與程式，請自行妥善保存。')}</p>
+   <button type="button" data-system-backup-download>{t('Download complete JSON backup','下載完整 JSON 備份')}</button><label>{t('Restore JSON: complete backup, old JAE/Senior v1/v2, lab notes or Python draft (maximum 16 MiB)','還原 JSON：完整備份、舊 JAE／高中 v1/v2、探究室筆記或 Python 草稿（最多 16 MiB）')}<input type="file" accept="application/json,.json" data-system-backup-file/></label>
+   <div data-system-import-preview hidden><h4>{t('Review before restoring','還原前檢視')}</h4><p>{t('Existing records are kept unless you select an overwrite. A copy of the current records is downloaded before applying. Workshop imports keep local conflicts by default.','現有紀錄預設保留，只有勾選才覆蓋。套用前會下載目前紀錄備份。工坊匯入亦預設保留本機衝突。')}</p><ul data-system-import-rows></ul><button type="button" data-system-backup-apply>{t('Download current backup and restore selected records','下載目前備份並還原所選紀錄')}</button></div><p data-system-backup-status role="status"></p>
+  </section>
+ </section>
+ <noscript><div class="container"><p>{t('The catalog and original activity links remain readable. The integrated activity workspace, local record view and backup tools require JavaScript.','活動目錄及原有頁面連結仍可閱讀。同一空間操作、本機紀錄及備份工具需要啟用 JavaScript。')}</p></div></noscript>
+ <script is:inline type="application/json" data-system-configuration set:html={JSON.stringify(configuration).replace(/</g,'\\u003c')}/>
+</div>
+<script is:inline src="/math-shared/storage.js"></script>
+<script>
+import {initializeMathSystem} from '../scripts/math-system-ui';
+document.querySelectorAll<HTMLElement>('[data-math-system]').forEach(initializeMathSystem);
+</script>

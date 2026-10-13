@@ -71,19 +71,80 @@ export function reportExport(progress,lesson,locale) {
     zh?'\n自動檢查僅核證指定性質；研究判斷由學生依評量準則審核。':'\nAutomated checks verify specified properties; research judgments require the rubric.'
   ].join('\n\n');
 }
+const cloneDraft=value=>value===undefined?undefined:structuredClone(value);
+const sameDraft=(left,right)=>JSON.stringify(left)===JSON.stringify(right);
+const plainDraft=value=>!!value&&typeof value==='object'&&!Array.isArray(value);
+/** Three-way draft merge. A completed run is an atomic evidence record. */
+export function mergeWorkshopDraft(base,incoming,latest){
+ latest=latest??base??{};
+ const document=cloneDraft(latest||{}),localView=cloneDraft(latest||{}),conflicts=[],accepted=[];
+ const assign=(target,path,value)=>{let node=target;for(const key of path.slice(0,-1))node=node[key]??={};if(value===undefined)delete node[path.at(-1)];else node[path.at(-1)]=cloneDraft(value);};
+ const walk=(before,next,current,path)=>{
+  if(sameDraft(before,next))return;
+  if(path.at(-1)==='updatedAt')return;
+  if(path.length===1&&path[0]==='completed'&&Array.isArray(next)){
+   const previous=new Set(Array.isArray(before)?before:[]),wanted=new Set(next),merged=new Set(Array.isArray(current)?current:[]);
+   for(const id of wanted)if(!previous.has(id))merged.add(id);for(const id of previous)if(!wanted.has(id))merged.delete(id);
+   assign(document,path,[...merged]);assign(localView,path,[...merged]);accepted.push(path);return;
+  }
+  if(path[0]!=='lastRun'&&plainDraft(next)&&(plainDraft(before)||before===undefined)&&(plainDraft(current)||current===undefined)){
+   for(const key of new Set([...Object.keys(before||{}),...Object.keys(next)]))if(!['__proto__','prototype','constructor'].includes(key))walk(before?.[key],next[key],current?.[key],[...path,key]);return;
+  }
+  if(sameDraft(current,before)||sameDraft(current,next)){assign(document,path,next);assign(localView,path,next);accepted.push(path);}
+  else{conflicts.push({path,base:cloneDraft(before),local:cloneDraft(next),remote:cloneDraft(current)});assign(localView,path,next);}
+ };
+ for(const key of new Set([...Object.keys(base||{}),...Object.keys(incoming||{})]))if(!['__proto__','prototype','constructor'].includes(key))walk(base?.[key],incoming?.[key],latest?.[key],[key]);
+ if(incoming?.updatedAt){document.updatedAt=incoming.updatedAt;localView.updatedAt=incoming.updatedAt;}
+ return {document,localView,conflicts,accepted};
+}
 export class ProgressStore {
-  constructor(factory) {try{this.factory=arguments.length?factory:globalThis.indexedDB;}catch{this.factory=undefined;}this.memory=new Map();this.db=null;this.persistent=false;}
+  constructor(factory) {try{this.factory=arguments.length&&factory!==undefined?factory:globalThis.indexedDB;}catch{this.factory=undefined;}this.memory=new Map();this.baselines=new Map();this.inputs=new Map();this.variants=new Map();this.lessons=new Map();this.blocked=new Set();this.listeners=new Set();this.queue=Promise.resolve();this.db=null;this.persistent=false;this.channel=null;}
+  registerLesson(lesson,initial){this.lessons.set(lesson.id,lesson);if(!this.baselines.has(lesson.id))this.baselines.set(lesson.id,cloneDraft(initial||freshProgress(lesson)));}
+  subscribe(listener){this.listeners.add(listener);return()=>this.listeners.delete(listener);}
+  notify(id,source,input){const state={lessonId:id,source,input:cloneDraft(input),progress:cloneDraft(this.memory.get(id)),conflicts:cloneDraft(this.variants.get(id)||[]),persistent:this.persistent};for(const listener of this.listeners)listener(state);}
+  exportRecovery(){return {format:'kenneth-workshop-session',version:1,records:[...this.memory.values()].map(cloneDraft),conflicts:Object.fromEntries(this.variants),blocked:[...this.blocked]};}
+  flush(){return this.queue;}
   async open() {
     if(!this.factory)return false;
-    try {this.db=await new Promise((resolve,reject)=>{const req=this.factory.open('kenneth-modeling-workshop',1);const timer=setTimeout(()=>reject(new Error('Storage timed out')),3000);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('progress'))req.result.createObjectStore('progress',{keyPath:'lessonId'});};req.onsuccess=()=>{clearTimeout(timer);resolve(req.result);};req.onerror=()=>{clearTimeout(timer);reject(req.error);};req.onblocked=()=>{clearTimeout(timer);reject(new Error('Storage blocked'));};});this.persistent=true;return true;}catch{this.persistent=false;return false;}
+    try {this.db=await new Promise((resolve,reject)=>{const req=this.factory.open('kenneth-modeling-workshop',1);const timer=setTimeout(()=>reject(new Error('Storage timed out')),3000);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('progress'))req.result.createObjectStore('progress',{keyPath:'lessonId'});};req.onsuccess=()=>{clearTimeout(timer);resolve(req.result);};req.onerror=()=>{clearTimeout(timer);reject(req.error);};req.onblocked=()=>{clearTimeout(timer);reject(new Error('Storage blocked'));};});this.persistent=true;
+      if(typeof window!=='undefined'&&typeof BroadcastChannel!=='undefined'){this.channel=new BroadcastChannel('kenneth-modeling-workshop:v1');this.channel.onmessage=event=>{if(typeof event.data?.lessonId==='string')void this.refresh(event.data.lessonId);};}
+      return true;}catch{this.persistent=false;return false;}
   }
   async get(id) {
     if(!this.persistent)return this.memory.get(id);
-    try{return await new Promise((resolve,reject)=>{const req=this.db.transaction('progress','readonly').objectStore('progress').get(id);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}catch{this.persistent=false;return this.memory.get(id);}
+    try{const record=await new Promise((resolve,reject)=>{const req=this.db.transaction('progress','readonly').objectStore('progress').get(id);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});if(record){const lesson=this.lessons.get(id);try{if(lesson)validateProgress(record,lesson);}catch{this.blocked.add(id);}this.memory.set(id,cloneDraft(record));this.baselines.set(id,cloneDraft(record));this.inputs.set(id,cloneDraft(record));}return record;}catch{this.persistent=false;return this.memory.get(id);}
   }
-  async put(progress) {
-    this.memory.set(progress.lessonId,structuredClone(progress));
-    if(!this.persistent)return false;
-    try{await new Promise((resolve,reject)=>{const tx=this.db.transaction('progress','readwrite');tx.objectStore('progress').put(progress);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});return true;}catch{this.persistent=false;return false;}
+  async put(progress,displayBaseline) {
+    const snapshot=cloneDraft(progress),id=snapshot.lessonId;this.memory.set(id,snapshot);
+    const task=this.queue.then(async()=>{
+     if(!this.persistent||this.blocked.has(id)){this.notify(id,'local',snapshot);return false;}
+     const work=async()=>{
+      const base=cloneDraft(displayBaseline||this.baselines.get(id)||{});
+      // A displayed conflicting value is still unaccepted. Preserve its original
+      // baseline until resolution, even when a later edit changes another field.
+      for(const conflict of this.variants.get(id)||[]){let node=base;for(const part of conflict.path.slice(0,-1))node=node[part]??={};if(conflict.base===undefined)delete node[conflict.path.at(-1)];else node[conflict.path.at(-1)]=cloneDraft(conflict.base);}
+      const merged=await new Promise((resolve,reject)=>{const tx=this.db.transaction('progress','readwrite'),store=tx.objectStore('progress'),request=store.get(id);let result;
+       request.onsuccess=()=>{try{const latest=request.result,lesson=this.lessons.get(id);if(latest&&lesson)validateProgress(latest,lesson);result=mergeWorkshopDraft(base,snapshot,latest);if(lesson)validateProgress(result.document,lesson);store.put(result.document);}catch(error){this.blocked.add(id);tx.abort();reject(error);}};
+       tx.oncomplete=()=>resolve(result);tx.onerror=tx.onabort=()=>reject(tx.error||new Error('Workshop write aborted'));
+      });
+      this.memory.set(id,merged.localView);this.inputs.set(id,snapshot);this.variants.set(id,merged.conflicts);
+      // Keep the original baseline for a conflicting field; unrelated changes advance.
+      const nextBase=cloneDraft(snapshot);for(const conflict of merged.conflicts){let node=nextBase;for(const part of conflict.path.slice(0,-1))node=node[part]??={};if(conflict.base===undefined)delete node[conflict.path.at(-1)];else node[conflict.path.at(-1)]=cloneDraft(conflict.base);}
+      this.baselines.set(id,nextBase);this.channel?.postMessage({lessonId:id});this.notify(id,'local',snapshot);return merged.conflicts.length===0;
+     };
+     try{const locks=globalThis.navigator?.locks;if(typeof window!=='undefined'&&(!locks||typeof locks.request!=='function')){this.notify(id,'local',snapshot);return false;}return locks?.request?await locks.request(globalThis.MathStorage?.lockName||'math-learning:writer:v1',work):await work();}
+     catch{this.persistent=false;this.memory.set(id,snapshot);this.notify(id,'local',snapshot);return false;}
+    });this.queue=task.catch(()=>false);return task;
   }
+  async refresh(id){
+   if(!this.persistent||!this.memory.has(id)||this.blocked.has(id))return;
+   await this.queue;
+   try{const latest=await new Promise((resolve,reject)=>{const request=this.db.transaction('progress','readonly').objectStore('progress').get(id);request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});if(!latest)return;const lesson=this.lessons.get(id);if(lesson)validateProgress(latest,lesson);const previous=this.memory.get(id),local=this.inputs.get(id)||previous,base=this.baselines.get(id)||local,merged=mergeWorkshopDraft(base,local,latest);this.memory.set(id,merged.localView);this.variants.set(id,merged.conflicts);this.notify(id,'remote',previous);}catch{this.blocked.add(id);this.notify(id,'remote');}
+  }
+  async resolve(id,choice){
+   const variants=this.variants.get(id)||[];if(!variants.length)return true;
+   const local=cloneDraft(this.memory.get(id));const canonical=await new Promise((resolve,reject)=>{const request=this.db.transaction('progress','readonly').objectStore('progress').get(id);request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});
+   this.baselines.set(id,cloneDraft(canonical));this.variants.delete(id);if(choice==='remote'){this.memory.set(id,canonical);this.inputs.set(id,cloneDraft(canonical));this.notify(id,'resolved-remote',local);return true;}return this.put(local);
+  }
+  dispose(){this.channel?.close();this.db?.close();this.listeners.clear();}
 }

@@ -97,10 +97,11 @@ test('Untrusted filter values cannot select arbitrary dataset properties or inje
 });
 test('The bilingual finder shares fourteen entrances while runtime imports remain independent',async()=>{
   assert.equal(modelDirectory.length,14);assert.equal(new Set(modelDirectory.map(model=>model.id)).size,14);
-  for(const model of modelDirectory) { assert.ok(model.title.en&&model.title['zh-Hant']);assert.ok(model.question.en&&model.question['zh-Hant']);const path=model.path.split('#')[0];await readFile(new URL(`../src/pages${path.slice(0,-1)}.astro`,import.meta.url));if(!model.englishOnly)await readFile(new URL(`../src/pages/zh${path.slice(0,-1)}.astro`,import.meta.url)); }
+  for(const model of modelDirectory) { assert.ok(model.title.en&&model.title['zh-Hant']);assert.ok(model.question.en&&model.question['zh-Hant']);const path=model.path.split('#')[0];await readFile(new URL(`../src/pages${path.slice(0,-1)}.astro`,import.meta.url));await readFile(new URL(`../src/pages/zh${path.slice(0,-1)}.astro`,import.meta.url)); }
   assert.equal(Object.keys(compiled.metafile.inputs).some(path=>/model-laboratory|workshop-client|frontier-model|inquiry-studio/.test(path)),false);
   const css=await readFile(new URL('../src/styles/catalog-filters.css',import.meta.url),'utf8');assert.match(css,/\[data-catalog-kind\] \[hidden\]\s*\{\s*display:none !important/);
-  const en=await readFile(new URL('../src/pages/teaching/model-laboratory.astro',import.meta.url),'utf8');assert.match(en,/data-model="logistic"/);assert.match(en,/data-model="sir"/);assert.match(en,/data-model="stopping"/);
+  for(const locale of ['teaching','zh/teaching']){const route=await readFile(new URL(`../src/pages/${locale}/model-laboratory.astro`,import.meta.url),'utf8');assert.match(route,/components\/InteractiveModelLaboratory\.astro/);}
+  const workbench=await readFile(new URL('../src/components/InteractiveModelLaboratory.astro',import.meta.url),'utf8');assert.match(workbench,/<ModelDirectory locale=\{locale\}/);assert.match(workbench,/data-model="logistic"/);assert.match(workbench,/data-model="sir"/);assert.match(workbench,/data-model="stopping"/);
 });
 test('Workshop summary distinguishes missing/blocked records and self-marked steps without changing records',()=>{
   const lessons=[{id:'a',title:{en:'First','zh-Hant':'第一課'},steps:Array(8)},{id:'b',title:{en:'Second','zh-Hant':'第二課'},steps:Array(8)}];

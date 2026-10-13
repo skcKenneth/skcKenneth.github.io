@@ -1,0 +1,14 @@
+import {readFile,readdir,mkdir,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {resolve,dirname,relative} from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),args=process.argv.slice(2),option=(key,fallback)=>args.includes(key)?args[args.indexOf(key)+1]:fallback;
+const base=option('--base','https://skckenneth.github.io'),classroom=args.includes('--classroom'),out=resolve(root,option('--output','.tmp/math-system-live-verification.json'));
+const paths=new Set(['/math-studio/']),hash=value=>createHash('sha256').update(value).digest('hex');
+async function files(folder){for(const item of await readdir(folder,{withFileTypes:true})){const full=resolve(folder,item.name);if(item.isDirectory())await files(full);else if(/\.(?:html|js|mjs|css|svg|json)$/.test(item.name))paths.add('/'+relative(resolve(root,'dist'),full).replaceAll('\\','/'));}}
+for(const folder of classroom?['math-shared','math-studio']:['math-shared','math-studio','math-labs'])await files(resolve(root,'dist',folder));
+if(!classroom)for(const prefix of ['/teaching/math/','/zh/teaching/math/']){paths.add(prefix);const html=await readFile(resolve(root,'dist','.'+prefix,'index.html'),'utf8'),raw=html.match(/<script[^>]*data-system-configuration[^>]*>([\s\S]*?)<\/script>/)?.[1];if(!raw)throw Error('Missing built activity registry');const {catalog}=JSON.parse(raw);for(const item of catalog)for(const source of Object.values(item.sources)){const url=new URL(source,base);paths.add(url.pathname);}}
+const report={at:new Date().toISOString(),base,scope:classroom?'Classroom static assets':'Registered activities in both languages and every mathematical static asset',records:[],failures:[]};
+const jobs=[...paths],workers=4;let cursor=0;
+await Promise.all(Array.from({length:workers},async()=>{while(cursor<jobs.length){const path=jobs[cursor++],local=await readFile(resolve(root,'dist','.'+path+(path.endsWith('/')?'index.html':'')));let row;for(let attempt=1;attempt<=3;attempt++){try{const response=await fetch(base+path,{signal:AbortSignal.timeout(30000),headers:{'Cache-Control':'no-cache'}}),live=Buffer.from(await response.arrayBuffer());row={path,status:response.status,localSha256:hash(local),liveSha256:hash(live),attempt};if(response.ok&&row.localSha256===row.liveSha256)break;}catch(error){row={path,error:String(error),attempt};}}report.records.push(row);if(row.status!==200||row.localSha256!==row.liveSha256)report.failures.push(row);}}));
+report.summary={checked:report.records.length,failures:report.failures.length};await mkdir(dirname(out),{recursive:true});await writeFile(out,JSON.stringify(report,null,2));console.log(JSON.stringify(report.summary));if(report.failures.length){console.error(JSON.stringify(report.failures.slice(0,5)));process.exitCode=1;}

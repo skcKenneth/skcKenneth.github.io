@@ -1,5 +1,5 @@
 /* 原創研習內容；章節與頁碼依使用者提供的教材及大綱核對。 */
-const grades={g7:{name:'初一',en:'YEAR 7',subtitle:'由有理數出發，建立代數與幾何的基礎。',source:'七年級上、下冊',scope:'大綱 PDF 第 13–19 頁',lab:'number'},g8:{name:'初二',en:'YEAR 8',subtitle:'從幾何論證到函數，連起數與形的關係。',source:'八年級上、下冊',scope:'大綱 PDF 第 20–25 頁',lab:'pythagoras'},g10:{name:'高一',en:'YEAR 10',subtitle:'以函數為主線，走向抽象思考與數學應用。',source:'A 版必修第一冊＋大綱補充',scope:'文組 PDF 第 31–38 頁；理組第 47–55 頁',lab:'exponential'}};
+const grades={g7:{name:'初一',en:'YEAR 7',subtitle:'由有理數出發，建立代數與幾何的基礎。',source:'七年級上、下冊',scope:'大綱 PDF 第 13–19 頁',lab:'number'},g8:{name:'初二',en:'YEAR 8',subtitle:'從幾何論證到函數，連起數與形的關係。',source:'八年級上、下冊',scope:'大綱 PDF 第 20–25 頁',lab:'bisector-property'},g10:{name:'高一',en:'YEAR 10',subtitle:'以函數為主線，走向抽象思考與數學應用。',source:'A 版必修第一冊＋大綱補充',scope:'文組 PDF 第 31–38 頁；理組第 47–55 頁',lab:'exponential'}};
 const lessons=[];
 function add(id,grade,num,title,term,topic,formula,source,scope,concepts,example,steps,pitfall,questions,lab){lessons.push({id,grade,num,title,term,topic,formula,source,scope,concepts,example,steps,pitfall,questions:questions.map(q=>({prompt:q[0],options:q[1],answer:q[2],explanation:q[3]})),lab});}
 add('rational','g7','01','有理數','上冊','數與代數','|−3| = 3','七上 第 1 章，p.1–23','大綱 PDF p.13',[
