@@ -15,7 +15,7 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
 ---
 
 <script is:inline src="/math-shared/storage.js"></script>
-<div class="jae-studio" data-jae-studio data-locale={locale} data-mode="study" data-print="student">
+<div class="jae-studio" data-jae-studio data-senior-release="2026-10-13-classroom-v1" data-locale={locale} data-mode="study" data-print="student">
   <script is:inline type="application/json" data-jae-data set:html={JSON.stringify(topics).replace(/</g, '\\u003c')} />
   {!standalone && <TeachingToolbar locale={locale} questionIds={topics.flatMap(topic => topic.questions.map((question: any) => question.id))} />}
   {!standalone && <header class="jae-hero">
