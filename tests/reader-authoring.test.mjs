@@ -21,12 +21,12 @@ test('audience and format combinations return matching resources in both languag
   assert(seniorPapers.some(item => item.id === 'senior-math'));
   assert(!seniorPapers.some(item => item.id === 'lecture-library'));
   assert.equal(filterTeachingResources({ query: '不存在的測試資源', locale: 'zh-Hant' }).length, 0);
-  assert.equal(filterTeachingResources({ query: ' Python ' })[0].id, 'modeling-workshop');
+  const pythonIds=filterTeachingResources({ query: ' Python ' }).map(item=>item.id);assert(pythonIds.includes('modeling-workshop'));assert(pythonIds.includes('math-system'));
   assert.equal(filterTeachingResources({ query: '投影片', locale: 'zh-Hant' })[0].id, 'lecture-library');
 });
-test('single-language resources retain explicit stable URLs and existing deep anchors', () => {
+test('bilingual resources expose both editions and retain existing deep anchors', () => {
   const studio = TEACHING_RESOURCES.find(item => item.id === 'math-studio');
-  assert(studio.chineseOnly); assert.equal(teachingHref(studio, 'en'), '/math-studio/'); assert.equal(teachingHref(studio, 'zh-Hant'), '/math-studio/');
+  assert.equal(studio.chineseOnly,false); assert.equal(teachingHref(studio, 'en'), '/math-studio/?lang=en'); assert.equal(teachingHref(studio, 'zh-Hant'), '/math-studio/?lang=zh-Hant');
   assert(TEACHING_RESOURCES.some(item => item.id === 'math-inquiry-lab'));
   assert.equal(teachingHref(TEACHING_RESOURCES.find(item => item.id === 'senior-math'), 'zh-Hant'), '/zh/teaching/senior-math/');
   assert.equal(new Set(TEACHING_RESOURCES.map(item => item.id)).size, TEACHING_RESOURCES.length);
@@ -97,11 +97,14 @@ test('standalone mathematics toolbar exports through existing controls and hones
   const { runInNewContext } = await import('node:vm');
   let available = false, exported = 0, callback;
   const button = { disabled: true, addEventListener: (_, handler) => button.handler = handler }, status = { textContent: '' };
-  const toolbar = { querySelector: selector => selector === '[data-site-export]' ? button : status };
+  const links=[{textContent:'',href:''},{textContent:'',href:''}],strong={textContent:''};
+  const toolbar = { setAttribute(){},querySelectorAll:()=>links,querySelector: selector => selector === '[data-site-export]' ? button : selector==='strong'?strong:status };
+  const document={documentElement:{lang:'zh-Hant'},querySelector:()=>toolbar,getElementById:()=>app};
   const original = { click: () => { exported++; } };
   const app = { querySelector: selector => selector.includes('data-g7-action') ? available ? original : null : available ? { textContent: '本機保存不可用；可繼續操作並下載紀錄。' } : null };
-  runInNewContext(source, { document: { querySelector: () => toolbar, getElementById: () => app }, MutationObserver: class { constructor(fn) { callback = fn; } observe() {} } });
+  runInNewContext(source, { document, MutationObserver: class { constructor(fn) { callback = fn; } observe() {} } });
   assert.equal(button.disabled, true); assert(status.textContent.includes('作答與分數限本次頁面'));
   available = true; callback(); assert.equal(button.disabled, false); assert(status.textContent.includes('本機保存不可用'));
   button.handler(); assert.equal(exported, 1);
+  document.documentElement.lang='en';available=false;callback();assert.equal(button.disabled,true);assert(status.textContent.includes('session'));assert.equal(links[0].href,'/teaching/');assert.equal(strong.textContent,'English');
 });

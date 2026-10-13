@@ -101,7 +101,9 @@ test('the JAE paper anchor leads to the canonical archive while official sources
 
 test('retained model workbenches have a route back to the complete model directory',()=>{
  for(const prefix of ['', 'zh/']) for(const workbench of ['frontier-model-studio','research-inquiry-studio']) {
-  assert.ok(source(`src/pages/${prefix}teaching/${workbench}.astro`).includes(`/${prefix}teaching/model-laboratory/#model-index`));
+  const component=workbench==='frontier-model-studio'?'FrontierModelStudio':'ResearchInquiryStudio';
+  assert.ok(source(`src/pages/${prefix}teaching/${workbench}.astro`).includes(`components/${component}.astro`));
+  const shared=source(`src/components/${component}.astro`);assert.ok(shared.includes("(locale==='zh-Hant'?'/zh':'')+\"/teaching/model-laboratory/#model-index\""));assert.ok(shared.includes('Return to all model experiments')&&shared.includes('返回全部模型實驗'));
  }
 });
 
