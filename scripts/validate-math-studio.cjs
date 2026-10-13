@@ -1,13 +1,9 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const path=require('node:path');const root=path.resolve(__dirname,'..');
-function loadSite(storage=new Map(),broken=false){
- const listeners={},elements={};function element(){return {innerHTML:'',textContent:'',dataset:{},querySelector(){return null;},querySelectorAll(){return [];},setAttribute(){},focus(){},addEventListener(t,fn){(listeners[t]??=[]).push(fn);}};}
- const app=elements.app=element();const ctx=vm.createContext({console,Intl,Date,Math,Set,Map,JSON,Blob,URL,setTimeout,AbortController,localStorage:{getItem(k){if(broken)throw Error('denied');return storage.get(k)||null;},setItem(k,v){if(broken)throw Error('denied');storage.set(k,v);}},window:{scrollY:0,scrollTo(){},addEventListener(){}},document:{title:'',getElementById(id){return elements[id]??=element();},querySelectorAll(){return [];},createElement(){return {click(){}};}}});
- for(const f of ['data.js','learning-content.js','challenge-bank.js','question-bank.js','learning-ui.js','practice.js','inquiry.js','inquiry-g7-core.js','inquiry-g7-content.js','inquiry-g7-ui.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,'public','math-studio',f),'utf8'),ctx,{filename:f});
- const evaluate=s=>vm.runInContext(s,ctx);return {ctx,app,elements,listeners,storage,evaluate};
-}
+const {loadSite}=require('../tests/helpers/math-studio-runtime.cjs');
+(async()=>{
 const s=loadSite(),ev=s.evaluate,bank=ev('PracticeBank'),lessons=ev('lessons');let checked=0;
-assert.equal(lessons.length,38);assert.equal(ev('Object.keys(labInfo).length'),21);
+assert.equal(lessons.length,38);assert.equal(ev('Object.keys(labInfo).length'),22);
 for(const l of lessons){const pool=bank.pool(l.id);assert(pool.length>=30,l.id+' pool');assert.equal(new Set(pool.map(q=>q.key)).size,pool.length);assert(pool.some(q=>q.type==='written'));assert.equal(new Set(pool.map(q=>q.family)).size,ev('!!ChallengeBank.registry['+JSON.stringify(l.id)+']')?12:8);
  for(const q of pool){checked++;assert(q.prompt&&q.steps?.length,q.family);assert([1,2,3].includes(q.level));assert(!/undefined|NaN/.test(JSON.stringify(q)),q.prompt);
  if(q.type==='numeric'){assert(Number.isFinite(q.answer));assert(bank.gradeNumeric(q,String(q.answer)).correct);assert(bank.gradeNumeric(q,q.answerText).correct);assert(!bank.gradeNumeric(q,String(q.answer+1)).correct);if(q.prompt.includes('保留 3 位小數'))assert(bank.gradeNumeric(q,q.answer.toFixed(3)).correct);}
@@ -36,12 +32,12 @@ const inquiry=ev('Inquiry');assert.equal(inquiry.quadraticInterval({a:0,r1:2,r2:
 assert.equal(inquiry.triangleValid({a:4,b:5,c:9}),false);assert.equal(inquiry.triangleValid({a:4,b:5,c:1}),false);assert.equal(inquiry.triangleValid({a:4,b:5,c:1.5}),true);
 assert.equal(inquiry.snapshot('outlier',{v:40}).result,'平均數=12.4；中位數=6；極差=36');assert.equal(inquiry.tariffVerdict({fixed:30,rate:1.5,n:60}),'兩方案同價');
 // Render every lab and all slider endpoint combinations without invalid SVG values.
-for(const type of ev('Object.keys(labInfo)')){ev(`state.view='labs';state.lab=${JSON.stringify(type)};render();updateLab(state.lab);`);assert(s.app.innerHTML.includes('data-inquiry="'+type+'"'));assert(s.elements['lab-stage'].innerHTML.includes('<svg'));assert(s.elements['lab-result'].innerHTML.length>10);const controls=[...s.app.innerHTML.matchAll(/<input[^>]*type="range"[^>]*>/g)].map(m=>{const a=Object.fromEntries([...m[0].matchAll(/([\w-]+)="([^"]*)"/g)].map(m=>[m[1],m[2]]));return {key:a['data-param'],values:[+a.min,+a.max,+a.value]};});const initial=JSON.parse(ev(`JSON.stringify(state.params['${type}'])`));for(const slider of controls)for(const value of slider.values){ev(`state.params['${type}']['${slider.key}']=${value};updateLab('${type}');`);assert(!/NaN|Infinity|undefined/.test(s.elements['lab-stage'].innerHTML),type+' bad SVG');ev(`state.params['${type}']=JSON.parse(${JSON.stringify(JSON.stringify(initial))});`);}assert.equal(inquiry.units[type].rubric.length,3);assert(inquiry.exportText(type).includes('成功準則'));}
+for(const type of ev('Object.keys(labInfo)')){ev(`state.view='labs';state.lab=${JSON.stringify(type)};render();updateLab(state.lab);`);if(type==='bisector-property'){assert(s.app.innerHTML.includes('data-g8'));assert(s.app.innerHTML.includes('<svg'));assert(!/NaN|Infinity|undefined/.test(s.app.innerHTML));continue;}assert(s.app.innerHTML.includes('data-inquiry="'+type+'"'));assert(s.elements['lab-stage'].innerHTML.includes('<svg'));assert(s.elements['lab-result'].innerHTML.length>10);const controls=[...s.app.innerHTML.matchAll(/<input[^>]*type="range"[^>]*>/g)].map(m=>{const a=Object.fromEntries([...m[0].matchAll(/([\w-]+)="([^"]*)"/g)].map(m=>[m[1],m[2]]));return {key:a['data-param'],values:[+a.min,+a.max,+a.value]};});const initial=JSON.parse(ev(`JSON.stringify(state.params['${type}'])`));for(const slider of controls)for(const value of slider.values){ev(`state.params['${type}']['${slider.key}']=${value};updateLab('${type}');`);assert(!/NaN|Infinity|undefined/.test(s.elements['lab-stage'].innerHTML),type+' bad SVG');ev(`state.params['${type}']=JSON.parse(${JSON.stringify(JSON.stringify(initial))});`);}assert.equal(inquiry.units[type].rubric.length,3);assert(inquiry.exportText(type).includes('成功準則'));}
 for(const view of ['courses','practice','sources']){ev(`state.view='${view}';state.lesson=null;render()`);assert(!s.app.innerHTML.includes('undefined'));}
 // UI event flow: start, answer, typed draft retention, saved history, new session.
 function click(site,dataset,panel){const button={dataset,disabled:false,closest(sel){return sel==='[data-practice-scope]'||sel==='[data-inquiry]'?panel:null;}};for(const fn of site.listeners.click)fn({target:{closest(sel){return sel==='button'?button:null;}}});}
 function input(site,el){el.matches??=()=>false;for(const fn of site.listeners.input)fn({target:el});}
-const practicePanel={dataset:{practiceScope:'rational'}};ev("openLesson('rational')");click(s,{practiceAction:'start'},practicePanel);assert(s.app.innerHTML.includes('random-q-0'));const history=JSON.parse(s.storage.get('math-studio-practice-v2'));assert.equal(Object.keys(history).length,10);const beforeKeys=Object.keys(history);
+const practicePanel={dataset:{practiceScope:'rational'}};ev("openLesson('rational')");click(s,{practiceAction:'start'},practicePanel);assert(s.app.innerHTML.includes('random-q-0'));await s.flush();const history=JSON.parse(s.storage.get('math-studio-practice-v2'));assert.equal(Object.keys(history).length,10);const beforeKeys=Object.keys(history);
 // Exercise real delegated handlers against rendered numeric, choice and written questions.
 const articles=[...s.app.innerHTML.matchAll(/<article class="random-question" id="random-q-(\d+)">([\s\S]*?)<\/article>/g)];
 for(const article of articles){const i=Number(article[1]),html=article[2],q=bank.pool('rational').find(q=>html.includes(ev('escapeHTML('+JSON.stringify(q.prompt)+')')));assert(q,'rendered prompt maps to bank');
@@ -53,30 +49,29 @@ const writtenCount=articles.filter(a=>a[2].includes('data-practice-written')).le
 // Switching practice grades must keep home navigation within that grade's valid term.
 for(const fn of s.listeners.change)fn({target:{dataset:{},value:'g10',closest(){return practicePanel;},matches(selector){return selector==='[data-practice-grade]';}}});assert.equal(ev('state.term'),'核心課題');
 
-ev("openLesson('rational')");click(s,{practiceAction:'start'},practicePanel);assert.equal(Object.keys(JSON.parse(s.storage.get('math-studio-practice-v2'))).length,20);
+ev("openLesson('rational')");click(s,{practiceAction:'start'},practicePanel);await s.flush();assert.equal(Object.keys(JSON.parse(s.storage.get('math-studio-practice-v2'))).length,20);
 // Freshly loaded app still prioritises unseen questions.
-const second=loadSite(s.storage);second.evaluate("openLesson('rational')");click(second,{practiceAction:'start'},practicePanel);assert.equal(Object.keys(JSON.parse(s.storage.get('math-studio-practice-v2'))).length,30);
+const second=loadSite(s.storage);second.evaluate("openLesson('rational')");click(second,{practiceAction:'start'},practicePanel);await second.flush();assert.equal(Object.keys(JSON.parse(s.storage.get('math-studio-practice-v2'))).length,30);
 // Capture requires a prediction, stores derived evidence, blocks duplicates and survives reload.
 const evidenceNode={innerHTML:''},inquiryPanel={dataset:{inquiry:'triangle'},querySelector(){return evidenceNode;}};ev("state.view='labs';state.lab='triangle';render()");click(s,{inquiryAction:'capture'},inquiryPanel);assert(s.elements['inquiry-message'].textContent.includes('先寫下'));
-input(s,{dataset:{inquiryField:'prediction',inquiryType:'triangle'},value:'我預測等號時不能圍成。'});click(s,{inquiryAction:'capture'},inquiryPanel);assert(evidenceNode.innerHTML.includes('實驗 1'));click(s,{inquiryAction:'capture'},inquiryPanel);assert(s.elements['inquiry-message'].textContent.includes('已記錄'));const third=loadSite(s.storage);third.evaluate("state.view='labs';state.lab='triangle';render()");assert(third.app.innerHTML.includes('我預測等號時不能圍成。'));assert(third.app.innerHTML.includes('實驗 1'));
+input(s,{dataset:{inquiryField:'prediction',inquiryType:'triangle'},value:'我預測等號時不能圍成。'});click(s,{inquiryAction:'capture'},inquiryPanel);assert(evidenceNode.innerHTML.includes('實驗 1'));click(s,{inquiryAction:'capture'},inquiryPanel);assert(s.elements['inquiry-message'].textContent.includes('已記錄'));await s.flush();const third=loadSite(s.storage);third.evaluate("state.view='labs';state.lab='triangle';render()");assert(third.app.innerHTML.includes('我預測等號時不能圍成。'));assert(third.app.innerHTML.includes('實驗 1'));
 // Restricted / malformed localStorage must not break the site.
 const blocked=loadSite(new Map(),true);blocked.evaluate("openLesson('rational')");click(blocked,{practiceAction:'start'},practicePanel);assert(blocked.app.innerHTML.includes('未能保存'));const corrupt=loadSite(new Map([['math-studio-practice-v2','{bad'],['math-studio-inquiry-v2','[]']]));assert(corrupt.app.innerHTML.includes('數學研習室'));
-console.log(JSON.stringify({status:'passed',questionsChecked:checked,...bank.stats(),labs:21,checks:'All pools and scopes, domains, numeric parser, choice remapping, exhaustion, rendering, input history and inquiry persistence'},null,2));
+console.log(JSON.stringify({status:'passed',questionsChecked:checked,...bank.stats(),labs:ev('Object.keys(labInfo).length'),checks:'All pools and scopes, domains, numeric parser, choice remapping, exhaustion, rendering, input history and inquiry persistence'},null,2));
 
 const publicRoot=path.join(root,'public','math-studio');
 const html=fs.readFileSync(path.join(publicRoot,'index.html'),'utf8');
 for(const m of html.matchAll(/(?:src|href)="([^"]+)"/g)){
  const url=m[1];if(url.startsWith('#')||/^(?:https?:|data:)/.test(url))continue;
- // This navigation returns to Astro's teaching route; it is not a bundled asset.
- if(url==='../zh/teaching/')continue;
- assert(!url.startsWith('/'),'assets must work under /math-studio/');
- assert(fs.existsSync(path.join(publicRoot,url.split('?')[0])),url);
+ if(url==='../zh/teaching/'||url==='../teaching/')continue;
+ assert(!url.startsWith('/')||url.startsWith('/math-shared/'),'assets must work under the mathematics platform');
+ assert(fs.existsSync(url.startsWith('/')?path.join(root,'public',url.split('?')[0]):path.join(publicRoot,url.split('?')[0])),url);
 }
 assert(!/chatgpt\.site|\/signin-with-chatgpt/.test(html));
 assert(html.includes('https://skckenneth.github.io/math-studio/'));
 for(const page of ['src/pages/teaching/index.astro','src/pages/zh/teaching/index.astro'])assert(fs.readFileSync(path.join(root,page),'utf8').includes('TeachingDirectory'));
 assert(fs.readFileSync(path.join(root,'src/data/teaching-directory.mjs'),'utf8').includes("'/math-studio/'"));
-assert(html.includes('href="../zh/teaching/"')&&html.includes('繁體中文資源'));
+assert(html.includes('href="../zh/teaching/"')&&html.includes('繁中／English'));
 console.log('GitHub Pages relative assets, canonical URL and bilingual teaching links passed.');
 
 // New support handlers keep comparison work separate from scored practice and escape drafts.
@@ -101,3 +96,4 @@ input(support,{dataset:{supportDraft:ep},value:'<script>alert(1)</script>',close
 click(support,{compareToggle:cp});assert(!support.app.innerHTML.includes('<script>alert(1)</script>'));assert(support.app.innerHTML.includes('&lt;script&gt;'));
 assert(!support.app.innerHTML.includes('客觀題：答對'),'support alone must not start or score a practice session');
 console.log('Support UI: prediction gate, invalid input, contrast history, completion, draft retention, escaping and independent scores passed.');
+})().catch(error=>{console.error(error);process.exitCode=1;});

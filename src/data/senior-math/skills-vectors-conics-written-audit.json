@@ -1,0 +1,379 @@
+{
+  "reviewDate": "2026-10-08",
+  "method": "Manual per-item derivation and domain review; numerical boundary checks are corroboration, not proof certificates.",
+  "ledger": "docs/senior-math-skills-vectors-conics-audit.md",
+  "records": [
+    {
+      "id": "skill-vectors-geometric-example-2",
+      "skillId": "vectors-geometric",
+      "taskType": "translated-arrow",
+      "sha256": "abd00963c7a6b5bfd94255fa650c5764e7281726b0d70ea46f0aa2cbc70da32b"
+    },
+    {
+      "id": "skill-vectors-geometric-example-3",
+      "skillId": "vectors-geometric",
+      "taskType": "counterexample",
+      "sha256": "2581cbf9dbca1e102a80b7febbedb5a472f81eafdd39d8bb425c431998ef4511"
+    },
+    {
+      "id": "skill-vectors-geometric-written-6",
+      "skillId": "vectors-geometric",
+      "taskType": "closed-path",
+      "sha256": "d1d9a44a9f4e5414d97ffaf4fa80f9f678aa2bfaa61ccf148e6c35df0a8cd1f7"
+    },
+    {
+      "id": "skill-vectors-geometric-written-7",
+      "skillId": "vectors-geometric",
+      "taskType": "normalization",
+      "sha256": "a77709fb4b743125b40a3cebdfb138f37986accb18b8f881e34734105ccf1b13"
+    },
+    {
+      "id": "skill-vectors-geometric-written-8",
+      "skillId": "vectors-geometric",
+      "taskType": "diagonal-decomposition",
+      "sha256": "20b5a4ca307505817536b1a89e453955b47c88d5780d6baaf98766139d40e24a"
+    },
+    {
+      "id": "skill-vectors-geometric-written-11",
+      "skillId": "vectors-geometric",
+      "taskType": "degenerate-case",
+      "sha256": "7c52ac887a593f8bba62f5507143830d8ea2ff92f9f3fd8bb88d2883847dc92e"
+    },
+    {
+      "id": "skill-vectors-geometric-written-13",
+      "skillId": "vectors-geometric",
+      "taskType": "physical-model",
+      "sha256": "06444f8a3869e34579bcef268d3f6f55b44c7a5553bce9bd83953221b250dce6"
+    },
+    {
+      "id": "skill-vectors-coordinates-example-1",
+      "skillId": "vectors-coordinates",
+      "taskType": "endpoint-subtraction",
+      "sha256": "6fb34443155dca9d5a1abdc101cf9d56796ef22508abb92418e212cda967f316"
+    },
+    {
+      "id": "skill-vectors-coordinates-example-2",
+      "skillId": "vectors-coordinates",
+      "taskType": "basis-system",
+      "sha256": "50bc1e82256ad3b905c77b31b80186fcdcb33309c03c58c806cedea99bfdc12d"
+    },
+    {
+      "id": "skill-vectors-coordinates-example-3",
+      "skillId": "vectors-coordinates",
+      "taskType": "collinearity-proof",
+      "sha256": "3b167a0461d3b015e732ed9f82dcc1d802a15e15bd597ad3b792e393198ce2e4"
+    },
+    {
+      "id": "skill-vectors-coordinates-written-5",
+      "skillId": "vectors-coordinates",
+      "taskType": "endpoint-reconstruction",
+      "sha256": "2e37e1d910e156ee21d2dcf4f551b42a5c2b75f8df1d8fa632dc83543cad5188"
+    },
+    {
+      "id": "skill-vectors-coordinates-written-8",
+      "skillId": "vectors-coordinates",
+      "taskType": "internal-division",
+      "sha256": "7d0dc472b5847f3ed6f5bb0e21363110c27b831cd1bf5d3109bbf06d9c2490ea"
+    },
+    {
+      "id": "skill-vectors-coordinates-written-9",
+      "skillId": "vectors-coordinates",
+      "taskType": "basis-degeneracy",
+      "sha256": "e253762d057d91053809a88634759907ad6ca3ab8300d9c453d5c8a615e9395e"
+    },
+    {
+      "id": "skill-vectors-coordinates-written-11",
+      "skillId": "vectors-coordinates",
+      "taskType": "basis-condition",
+      "sha256": "558ff0285ac9af8cf63bf9cad3a4253679e245e27bc59fd938f0439bf71754a2"
+    },
+    {
+      "id": "skill-vectors-coordinates-written-12",
+      "skillId": "vectors-coordinates",
+      "taskType": "inverse-centroid",
+      "sha256": "e60b2b3d69282656cbcc5acb501e79cc2062ca9c21ab1de294087f0c969c5310"
+    },
+    {
+      "id": "skill-vectors-coordinates-written-13",
+      "skillId": "vectors-coordinates",
+      "taskType": "affine-location",
+      "sha256": "85fe8d8711ffca27a38fbc892bd8b2cb5fc5415a2f7d2984cfa686d13545451b"
+    },
+    {
+      "id": "skill-vectors-dot-written-8",
+      "skillId": "vectors-dot",
+      "taskType": "orthogonality-proof",
+      "sha256": "9803a7125a187f274a07484fb06f619fb86e1030be326e9416a6cc421ca89a8d"
+    },
+    {
+      "id": "skill-vectors-dot-written-10",
+      "skillId": "vectors-dot",
+      "taskType": "zero-angle-error",
+      "sha256": "b6da75e3d8e1b625ef09adb2e676ceb73f52caf4a1bc32ec5b60d96a0cd1c96a"
+    },
+    {
+      "id": "skill-vectors-dot-written-12",
+      "skillId": "vectors-dot",
+      "taskType": "closest-point-segment",
+      "sha256": "9ee17bfce70ca464e7cc3188ecd13a3e0b912e94f6ba1ee720b10390a833f2bc"
+    },
+    {
+      "id": "skill-vectors-dot-written-13",
+      "skillId": "vectors-dot",
+      "taskType": "locus-proof",
+      "sha256": "074a3a11801c8c3848dcb9febf22567e927f09eca7a51074c8ff5c2580cbd74e"
+    },
+    {
+      "id": "skill-vectors-proof-triangles-example-1",
+      "skillId": "vectors-proof-triangles",
+      "taskType": "midpoint-proof",
+      "sha256": "10c66698feb8fa60fed1ed482fd36bccb9b79843e8cfda09116232a0ed53b74e"
+    },
+    {
+      "id": "skill-vectors-proof-triangles-example-2",
+      "skillId": "vectors-proof-triangles",
+      "taskType": "cosine-rule-derivation",
+      "sha256": "7733d6a37b3f6ac7715cb899ff79b73d026963b3118b6e5e933707a4b292d1b6"
+    },
+    {
+      "id": "skill-vectors-proof-triangles-example-3",
+      "skillId": "vectors-proof-triangles",
+      "taskType": "median-length",
+      "sha256": "c671c745525a79391e7f63895378b75b17716b192f8e3badc003e3f3adfcfdc0"
+    },
+    {
+      "id": "skill-vectors-proof-triangles-written-7",
+      "skillId": "vectors-proof-triangles",
+      "taskType": "right-angle-check",
+      "sha256": "1b6bc495d86b484d5e1fd608b5ec6451d27c69a0f7379869c76bbf30f60d402d"
+    },
+    {
+      "id": "skill-vectors-proof-triangles-written-8",
+      "skillId": "vectors-proof-triangles",
+      "taskType": "median-concurrency",
+      "sha256": "2edd205e51d77f7e5c2e8e2913d72de98c2323cac326b0d1c905210d935416b9"
+    },
+    {
+      "id": "skill-vectors-proof-triangles-written-10",
+      "skillId": "vectors-proof-triangles",
+      "taskType": "rhombus-diagonals",
+      "sha256": "5d87a7724970af99191ff604b6d11680d5b68006ed563917a7badb8da466630e"
+    },
+    {
+      "id": "skill-vectors-proof-triangles-written-12",
+      "skillId": "vectors-proof-triangles",
+      "taskType": "converse-proof",
+      "sha256": "1c662f076bd0fcd1cde4e97a7c84499c2be885bd745a015ab58527723b455812"
+    },
+    {
+      "id": "skill-vectors-proof-triangles-written-13",
+      "skillId": "vectors-proof-triangles",
+      "taskType": "orthocenter-construction",
+      "sha256": "aa5f70d01a64e21ff60128a9e419b82534fbb16fcf6843b8560e09e429228d1d"
+    },
+    {
+      "id": "skill-conics-ellipse-example-1",
+      "skillId": "conics-ellipse",
+      "taskType": "axis-reading",
+      "sha256": "1a012d295d44cfb7121281986a925f56c704c2e585b1a75fcae11a6eb9d6a6f0"
+    },
+    {
+      "id": "skill-conics-ellipse-example-2",
+      "skillId": "conics-ellipse",
+      "taskType": "definition-to-equation",
+      "sha256": "b8a7846d5b32ca6d909425eb58137ec9ec15815e1a6203a92174d790649cc3af"
+    },
+    {
+      "id": "skill-conics-ellipse-written-5",
+      "skillId": "conics-ellipse",
+      "taskType": "vertical-orientation",
+      "sha256": "2ad935c2831708039e2eb82689e995e6e90d4ae454361062584d088da22cca96"
+    },
+    {
+      "id": "skill-conics-ellipse-written-8",
+      "skillId": "conics-ellipse",
+      "taskType": "parameter-feasibility",
+      "sha256": "1fb48166cd35d99aa4c4f9917f2323732f39cb00dd1db3bdfd25dee43dc09397"
+    },
+    {
+      "id": "skill-conics-ellipse-written-10",
+      "skillId": "conics-ellipse",
+      "taskType": "translation",
+      "sha256": "74534d9d049721e4f1b33f130b27e914541df475df5e37e9e2c9bb68f588bfc3"
+    },
+    {
+      "id": "skill-conics-ellipse-written-11",
+      "skillId": "conics-ellipse",
+      "taskType": "degenerate-definition",
+      "sha256": "967352d75c669ee6363dd1309f3a6139766cb7d494c1644328277de88ebd78bd"
+    },
+    {
+      "id": "skill-conics-ellipse-written-12",
+      "skillId": "conics-ellipse",
+      "taskType": "ellipse-linear-optimization",
+      "sha256": "8d836e3795e4a18984e585e3405ab67672f5f5483e86659efd268007d282a776"
+    },
+    {
+      "id": "skill-conics-ellipse-written-13",
+      "skillId": "conics-ellipse",
+      "taskType": "locus-recovery",
+      "sha256": "33e0df33de424f3a33a754a6e7cb0dec204dc3a912d138fec363070384dab24a"
+    },
+    {
+      "id": "skill-conics-hyperbola-example-1",
+      "skillId": "conics-hyperbola",
+      "taskType": "hyperbola-parameters",
+      "sha256": "79ccd6a907c20544bc84de04114872b94619fd43956ac58fbf0164f954f71c21"
+    },
+    {
+      "id": "skill-conics-hyperbola-example-2",
+      "skillId": "conics-hyperbola",
+      "taskType": "hyperbola-definition",
+      "sha256": "57a452c3feb66130cd8d7ec7c56681b0f3c005e580b101c1acbc115d50b9a647"
+    },
+    {
+      "id": "skill-conics-hyperbola-example-3",
+      "skillId": "conics-hyperbola",
+      "taskType": "one-intersection-warning",
+      "sha256": "46a0659d88ab274d019324cf547e9a3c303a74453678ba9d30919d76e77bd17f"
+    },
+    {
+      "id": "skill-conics-hyperbola-written-6",
+      "skillId": "conics-hyperbola",
+      "taskType": "hyperbola-vertical",
+      "sha256": "0af1c2d64b85f4c0317dddf3f2ccc1c59625c5ea895bbb462ce9494251bd5174"
+    },
+    {
+      "id": "skill-conics-hyperbola-written-8",
+      "skillId": "conics-hyperbola",
+      "taskType": "hyperbola-domain",
+      "sha256": "efc269fbdee5486e4de9e3ed57bee2167e2e9855df3315096a75019d083a04ce"
+    },
+    {
+      "id": "skill-conics-hyperbola-written-9",
+      "skillId": "conics-hyperbola",
+      "taskType": "asymptote-nonmembership",
+      "sha256": "0c8503e30ccc4de6041cfd3e4710de0479d4f2d96bdcd0a289dc849b3460dd4b"
+    },
+    {
+      "id": "skill-conics-hyperbola-written-11",
+      "skillId": "conics-hyperbola",
+      "taskType": "signed-branch",
+      "sha256": "138fd16a383514286a7a0ce2bdfbbf3128c637f50a18e6cc7df2bb4a7a06e79f"
+    },
+    {
+      "id": "skill-conics-hyperbola-written-12",
+      "skillId": "conics-hyperbola",
+      "taskType": "recover-from-asymptotes",
+      "sha256": "f9419392fce0dbd65b9dfe5714345a07ee9d0df86561046eccf2a5559ed190b8"
+    },
+    {
+      "id": "skill-conics-hyperbola-written-13",
+      "skillId": "conics-hyperbola",
+      "taskType": "hyperbola-feasibility",
+      "sha256": "3dbbb0bb9eeec58ee700ded5ed05cae3793cc94d5911c9f558f55ba5a7425628"
+    },
+    {
+      "id": "skill-conics-parabola-example-1",
+      "skillId": "conics-parabola",
+      "taskType": "focus-directrix",
+      "sha256": "0365b3ed70091d630c8240a85a44c4a0617a1098efbd223b5eba31286e9de43b"
+    },
+    {
+      "id": "skill-conics-parabola-example-2",
+      "skillId": "conics-parabola",
+      "taskType": "locus-derivation",
+      "sha256": "25033b482b77cf7c038e5292ba89e490d644361fb417afee836ef2210f590297"
+    },
+    {
+      "id": "skill-conics-parabola-written-5",
+      "skillId": "conics-parabola",
+      "taskType": "negative-opening",
+      "sha256": "c50441859d3481bdc71191d23db8fb2afad1b7e8a51cacad0c79d61446b8964c"
+    },
+    {
+      "id": "skill-conics-parabola-written-8",
+      "skillId": "conics-parabola",
+      "taskType": "parabola-translation",
+      "sha256": "ef0940f3885e45220ad25e2b021cc3aa52626a4397fe33770fa907a14f2d8af1"
+    },
+    {
+      "id": "skill-conics-parabola-written-9",
+      "skillId": "conics-parabola",
+      "taskType": "vertex-not-centre",
+      "sha256": "372452adcf17060133f6601552f6021a995e1f19065b180845a57ee83ee9ae60"
+    },
+    {
+      "id": "skill-conics-parabola-written-11",
+      "skillId": "conics-parabola",
+      "taskType": "degenerate-parabola",
+      "sha256": "d8ea62e8a701c876a47315d1e2ec3fb9887989801564cea5ad8120c6a3fe1cb6"
+    },
+    {
+      "id": "skill-conics-parabola-written-12",
+      "skillId": "conics-parabola",
+      "taskType": "reverse-focus-directrix",
+      "sha256": "d9caca7c6049f768ab1dde95249d9644738bc66c12091ee627df7f94339970e9"
+    },
+    {
+      "id": "skill-conics-parabola-written-13",
+      "skillId": "conics-parabola",
+      "taskType": "distance-minimization",
+      "sha256": "1757c3f2afe822e15b1d19297984eef99e1f922d76bd863164d3d5369c111fce"
+    },
+    {
+      "id": "skill-conics-intersections-example-1",
+      "skillId": "conics-intersections",
+      "taskType": "line-substitution",
+      "sha256": "3ff4c01ad3ca82ca12a37b4834a693f678f5c819b72833ec24ee36cb0ad09db6"
+    },
+    {
+      "id": "skill-conics-intersections-example-2",
+      "skillId": "conics-intersections",
+      "taskType": "parabola-secant",
+      "sha256": "b7f964a8342136f901ba7ec414a6b0b69ff4a1ae1e3ccedb4285194af2644b8e"
+    },
+    {
+      "id": "skill-conics-intersections-example-3",
+      "skillId": "conics-intersections",
+      "taskType": "degree-loss-classification",
+      "sha256": "c76dc8876c3f6bf65eb42b640fc46fce0af7b6fb771ea8c27730ffcab63e60ea"
+    },
+    {
+      "id": "skill-conics-intersections-written-6",
+      "skillId": "conics-intersections",
+      "taskType": "repeated-root",
+      "sha256": "9cf83411273a327c3e06c6e83e4b937c32c5c21407f4e2dd6fab52c122abfc38"
+    },
+    {
+      "id": "skill-conics-intersections-written-7",
+      "skillId": "conics-intersections",
+      "taskType": "central-chord",
+      "sha256": "50267a6ad1b2ca8d5827bba321cd8ec3ed9d731fe8c6db3481068826122d9622"
+    },
+    {
+      "id": "skill-conics-intersections-written-9",
+      "skillId": "conics-intersections",
+      "taskType": "vieta-midpoint",
+      "sha256": "afc7da87e2959a3b03ced3bf22417401d3a956c41fa1e156e2c78c9bbad0f174"
+    },
+    {
+      "id": "skill-conics-intersections-written-10",
+      "skillId": "conics-intersections",
+      "taskType": "vertical-tangent",
+      "sha256": "8cff85b6bbdc3a924064de07019205e7383bfde657968960bd103b510804c515"
+    },
+    {
+      "id": "skill-conics-intersections-written-12",
+      "skillId": "conics-intersections",
+      "taskType": "midpoint-locus",
+      "sha256": "e0a148daabbe546d657fbfb1aa8f21cc7ef3903630678659cacfbaa697e626dc"
+    },
+    {
+      "id": "skill-conics-intersections-written-13",
+      "skillId": "conics-intersections",
+      "taskType": "inverse-chord",
+      "sha256": "c864cd8ba83b6b2ca87aa76c94ea9226804f2a66f275923789d94bc07376dda9"
+    }
+  ]
+}

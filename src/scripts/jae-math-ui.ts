@@ -1,19 +1,23 @@
 import { quadraticSummary, quadraticValue, trigValue, trigSummary, checkAnswer, loadProgress, saveProgress, initialProgress } from '../lib/jae-math-model.mjs';
 import { initializeSeniorInquiries } from './senior-math-inquiry-ui';
 import { progressForExport, readableProgress } from '../lib/jae-math-export.mjs';
+import { loadLearning, initialLearning, mergeLearning, saveLearning, recordLearningEvent, markWrittenDraftChanged, createBackup } from '../lib/senior-math-learning.mjs';
+import { initializeStudyTools } from './senior-math-study-ui';
+import { seniorStore, seniorKeys, storageConflictPanel } from '../lib/senior-math-storage';
 
 type Point = { x: number; y: number };
 type Stroke = { color: string; points: Point[] };
 
 export function initializeJaeMath(root: HTMLElement) {
   if (root.dataset.ready) return;
-  root.dataset.ready = 'true';
   const zh = root.dataset.locale === 'zh-Hant';
   const t = (en: string, ch: string) => zh ? ch : en;
   const q = <T extends Element = HTMLElement>(selector: string, within: ParentNode = root) => within.querySelector<T>(selector)!;
   const qa = <T extends Element = HTMLElement>(selector: string, within: ParentNode = root) => Array.from(within.querySelectorAll<T>(selector));
   const topics: any[] = JSON.parse(root.querySelector('[data-jae-data]')?.textContent || '[]');
   const questions: any[] = topics.flatMap(topic => topic.questions.map((question: any) => ({ ...question, topic: topic.id })));
+  if (!questions.length) return;
+  root.dataset.ready = 'true';
   const cards = new Map(qa<HTMLElement>('[data-question]').map(card => [card.dataset.question!, card]));
   let storage: Storage | undefined;
   try { storage = window.localStorage; } catch { /* Reading remains available. */ }
@@ -22,12 +26,80 @@ export function initializeJaeMath(root: HTMLElement) {
   let persistent = loaded.available;
   // Leave unreadable stored work intact. New work can still be exported.
   if (loaded.issue === 'corrupt') { storage = undefined; persistent = false; }
+  const learningLoaded = storage ? loadLearning(storage) : {learning:initialLearning(),available:false,issue:'unavailable'};
+  const learning = learningLoaded.learning;
+  const learningChanged = new Set<string>();
+  for(const [id,entry]of Object.entries(progress.answers)as any)if(entry.lastResult==='incorrect'&&!learning.everWrong[id]){learning.everWrong[id]=true;learningChanged.add(id);}
+  if (learningLoaded.issue === 'corrupt') { storage = undefined; persistent = false; }
+  const coordinated=seniorStore();
+  if(coordinated){const initial=coordinated.snapshot();progress=initial[seniorKeys.progress];Object.assign(learning,initial[seniorKeys.learning]);persistent=coordinated.state().status==='saved';}
+  else { storage=undefined;persistent=false; }
   const changedIds = new Set<string>();
-  const record = (id: string) => { changedIds.add(id); return progress.answers[id] ??= { input: '', notes: '', correction: '', completed: false, attempts: 0, lastResult: null }; };
-  const saveStatus = () => { q('[data-save-status]').textContent = loaded.issue === 'corrupt'
+  const emptyAnswer = () => ({ input: '', notes: '', correction: '', completed: false, attempts: 0, lastResult: null });
+  let baselineAnswers:any=structuredClone(progress.answers);
+  let baselineLearning:any=structuredClone(learning);
+  const changedLearningFields=()=>new Map([...learningChanged].map(id=>[id,new Set((['categories','reviews','hints','selfAssessments']as const).filter(field=>JSON.stringify(learning[field][id])!==JSON.stringify(baselineLearning[field]?.[id])))]));
+  const record = (id: string) => { changedIds.add(id); return progress.answers[id] ??= emptyAnswer(); };
+  const saveStatus = () => { const state=coordinated?.state();q('[data-save-status]').textContent = state?.status==='conflict'||state?.status==='external-change'?t('Both tab versions retained · choose below; export a backup','已保留兩個分頁版本 · 請於下方選擇並匯出備份'):loaded.issue === 'corrupt'||state?.status==='unreadable'
     ? t('Earlier local data could not be read; it is preserved. Export this session.', '未能讀取舊紀錄，原資料已保留；請匯出本次紀錄。')
     : persistent ? t('Saved in this browser · no sign-in', '已保存在此瀏覽器 · 免登入') : t('Session only · saving unavailable; please export', '僅本次瀏覽 · 未能本機保存，請匯出紀錄'); };
-  const save = () => { persistent = storage ? saveProgress(storage, progress, changedIds) : false; if (persistent) changedIds.clear(); saveStatus(); root.dispatchEvent(new CustomEvent('jae-progress',{bubbles:true,detail:progress})); };
+  let saveTimer: number | undefined;
+  const printToggledDetails = new WeakSet<HTMLDetailsElement>();
+  let capturing=false;
+  const capture=()=>{
+    if(!coordinated)return;
+    const operations:any[]=[];
+    for(const id of changedIds){const entry=progress.answers[id],before=baselineAnswers[id]||emptyAnswer();if(!entry)continue;
+      for(const field of ['input','notes','correction','completed','attempts','lastResult','checkedInput'])if(entry[field]!==before[field])operations.push({key:seniorKeys.progress,path:['answers',id,field],kind:field==='attempts'?'increment':'set',base:before[field],defaultValue:(emptyAnswer() as any)[field],value:field==='attempts'?Math.max(0,(entry[field]||0)-(before[field]||0)):entry[field]});}
+    const stored=coordinated.snapshot();for(const field of ['mode','topic','question'])if(progress.last[field]!==stored[seniorKeys.progress].last[field])operations.push({key:seniorKeys.progress,path:['last',field],kind:'set',base:stored[seniorKeys.progress].last[field],value:progress.last[field]});
+    for(const id of learningChanged){for(const field of ['categories','reviews','hints','selfAssessments','everWrong'] as const)if(JSON.stringify(learning[field][id])!==JSON.stringify(baselineLearning[field]?.[id]))operations.push({key:seniorKeys.learning,path:[field,id],kind:'set',base:baselineLearning[field]?.[id],value:learning[field][id]});
+      const prior=new Set((baselineLearning.history[id]||[]).map((event:any)=>event.eventId));for(const event of learning.history[id]||[])if(!prior.has(event.eventId))operations.push({key:seniorKeys.learning,path:['history',id],kind:'append',value:event});}
+    capturing=true;try{for(const operation of operations)coordinated.edit(operation);}finally{capturing=false;}
+    changedIds.clear();learningChanged.clear();const snapshot=coordinated.snapshot();progress=snapshot[seniorKeys.progress];Object.assign(learning,snapshot[seniorKeys.learning]);baselineAnswers=structuredClone(progress.answers);baselineLearning=structuredClone(learning);
+  };
+  const saveNow = () => {
+    clearTimeout(saveTimer);saveTimer=undefined;
+    if(coordinated){capture();coordinated.checkpoint();persistent=coordinated.state().status==='saved';saveStatus();root.dispatchEvent(new CustomEvent('jae-progress',{bubbles:true,detail:{...progress,learning}}));void coordinated.flush();return;}
+    const changedFields=new Map<string,Map<string,any>>();
+    for(const id of changedIds){const fields=new Map<string,any>(),entry=progress.answers[id],before=baselineAnswers[id]||emptyAnswer();
+      for(const field of ['input','notes','correction','completed','attempts','lastResult','checkedInput'])if(entry&&entry[field]!==before[field])fields.set(field,{delta:field==='attempts'?Math.max(0,(entry[field]||0)-(before[field]||0)):0});changedFields.set(id,fields);
+    }
+    const progressSaved=storage?saveProgress(storage,progress,changedIds,changedFields):false;
+    const learningSaved=storage?saveLearning(storage,learning,learningChanged,false,changedLearningFields()):false;
+    persistent=progressSaved&&learningSaved;
+    if(progressSaved){changedIds.clear();baselineAnswers=structuredClone(progress.answers);}if(learningSaved){learningChanged.clear();baselineLearning=structuredClone(learning);}
+    saveStatus();root.dispatchEvent(new CustomEvent('jae-progress',{bubbles:true,detail:{...progress,learning}}));
+  };
+  const save = () => {capture();clearTimeout(saveTimer);saveTimer=window.setTimeout(saveNow,250);q('[data-save-status]').textContent=t('Saving draft…','正在保存草稿…');};
+  window.addEventListener('pagehide',saveNow);
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveNow();});
+  root.addEventListener('click',event=>{if((event.target as HTMLElement).closest('a'))saveNow();},true);
+  window.addEventListener('storage',event=>{
+    if(coordinated){if(event.key===null||['jae-math-v1','senior-math-study-v2'].includes(event.key||''))coordinated.refresh();return;}
+    if(!storage||!['jae-math-v1','senior-math-study-v2'].includes(event.key||''))return;
+    // Flush only dirty records, merging against the latest other-tab snapshot.
+    if(changedIds.size||learningChanged.size)saveNow();
+    const latest=loadProgress(storage);if(latest.available&&!latest.issue){
+      const merged:any=latest.progress;
+      for(const id of changedIds){const current=progress.answers[id],before=baselineAnswers[id]||emptyAnswer();if(!current)continue;
+        const entry=merged.answers[id]??={input:'',notes:'',correction:'',completed:false,attempts:0,lastResult:null};
+        for(const field of ['input','notes','correction','completed','attempts','lastResult','checkedInput'])if(current[field]!==before[field])entry[field]=current[field];
+      }progress=merged;
+    }
+    const latestLearning=loadLearning(storage);if(latestLearning.available&&!latestLearning.issue)Object.assign(learning,mergeLearning(latestLearning.learning,learning,learningChanged,false,changedLearningFields()));
+    if(!learningChanged.size)baselineLearning=structuredClone(learning);
+    if(!changedIds.size){baselineAnswers=structuredClone(progress.answers);for(const [id,card]of cards){const entry=progress.answers[id];
+      qa<HTMLInputElement|HTMLTextAreaElement>('[data-number-answer], [data-written-answer]',card).forEach(e=>e.value=entry?.input||'');
+      qa<HTMLInputElement>('input[type=radio]',card).forEach(e=>e.checked=e.value===entry?.input);
+      qa<HTMLTextAreaElement>('[data-record]',card).forEach(e=>e.value=entry?.[e.dataset.record!]||'');q<HTMLInputElement>('[data-completed]',card).checked=entry?.completed===true;
+      qa<HTMLInputElement>('[data-error-category]',card).forEach(e=>e.checked=(learning.categories[id]||[]).includes(e.value));
+      feedback(card,entry?.checkedInput!==undefined&&entry.input!==entry.checkedInput?null:entry?.lastResult||null);
+    }}
+    root.dispatchEvent(new CustomEvent('jae-progress',{bubbles:true,detail:{...progress,learning}}));
+  });
+  if(coordinated){storageConflictPanel(root,coordinated,zh);coordinated.subscribe((state:any)=>{if(capturing)return;progress=state.snapshot[seniorKeys.progress];Object.assign(learning,state.snapshot[seniorKeys.learning]);baselineAnswers=structuredClone(progress.answers);baselineLearning=structuredClone(learning);persistent=state.status==='saved';
+    for(const [id,card]of cards){const entry=progress.answers[id];qa<HTMLInputElement|HTMLTextAreaElement>('[data-number-answer], [data-written-answer]',card).forEach(e=>{if(e.value!==(entry?.input||''))e.value=entry?.input||'';});qa<HTMLInputElement>('input[type=radio]',card).forEach(e=>e.checked=e.value===entry?.input);qa<HTMLTextAreaElement>('[data-record]',card).forEach(e=>{const value=entry?.[e.dataset.record!]||'';if(e.value!==value)e.value=value;});q<HTMLInputElement>('[data-completed]',card).checked=entry?.completed===true;qa<HTMLInputElement>('[data-error-category]',card).forEach(e=>e.checked=(learning.categories[id]||[]).includes(e.value));feedback(card,entry?.checkedInput!==undefined&&entry.input!==entry.checkedInput?null:entry?.lastResult||null);}
+    saveStatus();root.dispatchEvent(new CustomEvent('jae-progress',{bubbles:true,detail:{...progress,learning}}));});}
   qa<HTMLElement>('[data-interactive-only], [data-jae-controls]').forEach(element => { element.hidden = false; });
   saveStatus();
   initializeSeniorInquiries(root, record, save, id=>progress.answers[id]);
@@ -39,7 +111,7 @@ export function initializeJaeMath(root: HTMLElement) {
       correct: t('Correct. Explain why your method works before moving on.', '答案正確。繼續之前，試解釋你的方法為甚麼成立。'),
       incorrect: t('Not yet. Recheck the condition or open one hint, then try again.', '暫時未正確。再檢查題目條件，或先看一個提示後重試。'),
       empty: t('Choose or enter an answer first.', '請先選擇或輸入答案。'),
-      invalid: t('Enter a finite decimal or a simple fraction such as 3/2. Do not enter symbols or a zero denominator.', '請輸入有限小數或簡單分數（如 3/2），不要輸入符號，分母不可為零。'),
+      invalid: t('Use numbers, fractions, pi / π, sqrt(2), parentheses and + − × ÷ ^. The result must be finite.', '可輸入數字、分數、pi／π、sqrt(2)、括號及 + − × ÷ ^；結果須為有限數值。'),
       reviewed: t('Work recorded for self-assessment. Compare every step with the rubric; this is not automatic grading.', '已記錄作答供自評。請按清單逐步對照；這並非自動評分。'),
     };
     element.textContent = status ? messages[status] || '' : '';
@@ -58,12 +130,25 @@ export function initializeJaeMath(root: HTMLElement) {
     }
     qa<HTMLInputElement | HTMLTextAreaElement>('input[type=radio], [data-number-answer], [data-written-answer]', card).forEach(input => input.addEventListener('input', () => {
       if (record(question.id).lastResult && record(question.id).checkedInput === undefined) record(question.id).checkedInput = record(question.id).input;
-      record(question.id).input = input.value;
+      const entry=record(question.id);
+      if(['written','example'].includes(question.kind)&&entry.completed&&!learning.selfAssessments[question.id])recordLearningEvent(learning,question.id,entry,'self-assessed');
+      entry.input = input.value;
+      if(question.kind==='written'){markWrittenDraftChanged(learning,question.id,entry);learningChanged.add(question.id);q<HTMLInputElement>('[data-completed]',card).checked=entry.completed;}
       feedback(card, null);
       save();
     }));
-    qa<HTMLTextAreaElement>('[data-record]', card).forEach(input => input.addEventListener('input', () => { record(question.id)[input.dataset.record!] = input.value; save(); }));
-    q<HTMLInputElement>('[data-completed]', card).addEventListener('change', event => { record(question.id).completed = (event.target as HTMLInputElement).checked; save(); });
+    qa<HTMLTextAreaElement>('[data-record]', card).forEach(input => input.addEventListener('input', () => {
+      const entry=record(question.id);if(['written','example'].includes(question.kind)&&entry.completed&&!learning.selfAssessments[question.id])recordLearningEvent(learning,question.id,entry,'self-assessed');
+      entry[input.dataset.record!]=input.value;
+      if(['written','example'].includes(question.kind)&&input.dataset.record==='notes'){markWrittenDraftChanged(learning,question.id,entry);learningChanged.add(question.id);q<HTMLInputElement>('[data-completed]',card).checked=entry.completed;}
+      save();
+    }));
+    q<HTMLInputElement>('[data-completed]', card).addEventListener('change', event => {const entry=record(question.id);entry.completed=(event.target as HTMLInputElement).checked;recordLearningEvent(learning,question.id,entry,entry.completed?'self-assessed':'self-review-pending');learningChanged.add(question.id);saveNow();});
+    qa<HTMLDetailsElement>('[data-reveal]',card).forEach(detail=>detail.addEventListener('toggle',()=>{
+      if(printToggledDetails.has(detail)){printToggledDetails.delete(detail);return;}
+      if(!detail.open)return;const stage=Number(detail.dataset.reveal);if(stage<=(learning.hints[question.id]?.stage||0))return;
+      learning.hints[question.id]={stage,at:new Date().toISOString()};learningChanged.add(question.id);save();
+    }));
     card.querySelector('form')?.addEventListener('submit', event => {
       event.preventDefault();
       const answer = question.kind === 'choice' ? card.querySelector<HTMLInputElement>('input[type=radio]:checked')?.value || '' : q<HTMLInputElement | HTMLTextAreaElement>('[data-number-answer], [data-written-answer]', card).value;
@@ -73,10 +158,17 @@ export function initializeJaeMath(root: HTMLElement) {
       entry.lastResult = result.status;
       entry.checkedInput = answer;
       if (result.status === 'correct' || result.status === 'incorrect') entry.attempts += 1;
+      if(['correct','incorrect','reviewed'].includes(result.status)){recordLearningEvent(learning,question.id,entry,result.status);learningChanged.add(question.id);}
       feedback(card, result.status);
-      save();
+      if(result.status==='incorrect'&&question.id.startsWith('diagnostic-')){
+        const choice=question.choices.find((choice:any)=>choice.id===answer),misconception=choice?.misconception||question.distractorMisconceptions?.[answer];
+        const extra=misconception?.[zh?'zh':'en'];if(extra)q('[data-answer-feedback]',card).append(document.createTextNode(' '+extra));
+        for(const skill of question.relatedSkills||[]){const link=document.createElement('a');link.href=skill.url;link.textContent=t('Revisit: ','補救：')+skill.title[zh?'zh':'en'];q('[data-answer-feedback]',card).append(' ',link);}
+      }
+      saveNow();
     });
   }
+  initializeStudyTools(root,{questions,record,read:(id:string)=>progress.answers[id],learning,dirty:learningChanged,save,saveNow,storage,onRetry:(id:string)=>{if(id===activeQuestion().id)reveal(0);}});
 
   // Graphs use the same deterministic functions as the independently checked model.
   const svgNS = 'http://www.w3.org/2000/svg';
@@ -267,7 +359,7 @@ export function initializeJaeMath(root: HTMLElement) {
     const active = activeQuestion();
     progress.last = { mode, topic: active.topic, question: active.id };
     renderMode();
-    if (update) { updateUrl(active.id); save(); if (mode === 'classroom') scrollToLearningPosition(); }
+    if (update) { updateUrl(active.id); saveNow(); if (mode === 'classroom') scrollToLearningPosition(); }
   };
   const rememberStudyQuestion = (id: string) => {
     if (mode !== 'study') return;
@@ -281,7 +373,6 @@ export function initializeJaeMath(root: HTMLElement) {
   };
   for (const [id, card] of cards) {
     card.addEventListener('focusin', () => rememberStudyQuestion(id));
-    card.addEventListener('input', () => rememberStudyQuestion(id));
   }
   // Keep a reading student's language link at the current question, too.
   const readingCallback: IntersectionObserverCallback = entries => {
@@ -354,20 +445,22 @@ export function initializeJaeMath(root: HTMLElement) {
 
   const download = (filename: string, body: string, type: string) => { const url = URL.createObjectURL(new Blob([body], { type })); const anchor = document.createElement('a'); anchor.href = url; anchor.download = filename; anchor.hidden = true; document.body.append(anchor); anchor.click(); anchor.remove(); window.setTimeout(() => URL.revokeObjectURL(url), 10000); };
   qa<HTMLButtonElement>('[data-export]').forEach(button => button.addEventListener('click', () => {
-    const snapshot=progressForExport(storage,progress,changedIds);
-    if (button.dataset.export === 'json') download('jae-math-learning-record.json', JSON.stringify(snapshot, null, 2), 'application/json;charset=utf-8');
+    saveNow();const snapshot=coordinated?progress:progressForExport(storage,progress,changedIds);
+    if (button.dataset.export === 'json') download('senior-math-learning-record.json', JSON.stringify({...createBackup(snapshot,learning),...(coordinated?{sync:coordinated.exportRecovery()}: {})}, null, 2), 'application/json;charset=utf-8');
     else download('jae-math-learning-record.txt',readableProgress(snapshot,questions,zh?'zh-Hant':'en'),'text/plain;charset=utf-8');
   }));
   let printState: { details: [HTMLDetailsElement, boolean][]; hidden: [HTMLElement, boolean][] } | null = null;
-  const restorePrint = () => { if (!printState) return; printState.details.forEach(([element, open]) => { element.open = open; }); printState.hidden.forEach(([element, hidden]) => { element.hidden = hidden; }); printState = null; root.dataset.print = 'student'; requestAnimationFrame(() => redraw(activeQuestion().id)); };
+  const restorePrint = () => { if (!printState) return; printState.details.forEach(([element, open]) => { if(element.open!==open)printToggledDetails.add(element);element.open = open; }); printState.hidden.forEach(([element, hidden]) => { element.hidden = hidden; }); printState = null; root.dataset.print = 'student'; requestAnimationFrame(() => redraw(activeQuestion().id)); };
   const preparePrint = (edition: string) => {
+    saveNow();
     closeZoom();
     if (printState) return;
     const teacherDetails=Array.from(root.closest('.senior-math')?.querySelectorAll<HTMLDetailsElement>('.senior-teacher')||[]);
     printState = { details: [...qa<HTMLDetailsElement>('.jae-question details'),...teacherDetails].map(element => [element, element.open]), hidden: qa<HTMLElement>('[data-topic], [data-question]').map(element => [element, element.hidden]) };
     printState.hidden.forEach(([element]) => { element.hidden = false; });
-    printState.details.forEach(([element]) => { element.open = edition === 'teacher'; });
+    printState.details.forEach(([element]) => { if(element.open!==(edition==='teacher'))printToggledDetails.add(element);element.open = edition === 'teacher'; });
     root.dataset.print = edition;
+    qa<HTMLElement>('[data-print-record]').forEach(element=>{const id=element.closest<HTMLElement>('[data-question]')!.dataset.question!,entry=progress.answers[id];element.textContent=entry?[t('My answer: ','我的作答：')+entry.input,t('Reasoning: ','思路：')+entry.notes,t('Correction: ','訂正：')+entry.correction].join('\n\n'):t('No recorded work.','尚未記錄作答。');});
   };
   qa<HTMLButtonElement>('[data-print]').forEach(button => button.addEventListener('click', () => { preparePrint(button.dataset.print!); window.print(); }));
   window.addEventListener('beforeprint', () => preparePrint(root.dataset.print || 'student'));

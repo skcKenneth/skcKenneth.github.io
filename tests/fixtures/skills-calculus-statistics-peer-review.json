@@ -1,0 +1,820 @@
+{
+  "reviewDate": "2026-10-08",
+  "method": "Independent calculations from transcribed public givens; separate manual written review, not machine proof",
+  "records": [
+    {
+      "id": "skill-calculus-tangent-example-1",
+      "skillId": "calculus-tangent",
+      "taskType": "difference-quotient",
+      "publicSha256": "a9100ebcbe292c416f52cfb6cefc1bf0d525bc4bee77ebf4553197a48a293486"
+    },
+    {
+      "id": "skill-calculus-tangent-example-2",
+      "skillId": "calculus-tangent",
+      "taskType": "tangent-equation",
+      "publicSha256": "735c6811eadbd4fbf35769e26f851986b30aa5e86340fb30d30c1b1186864671",
+      "review": "At a=2, slope 2a=4 and ordinate a²=4 give y−4=4(x−2). Both point and slope are required.",
+      "writtenSha256": "66c5e273f5031a313615b70b55e7b7cb7262caf31911bb96a844e2eeae2ee7d6"
+    },
+    {
+      "id": "skill-calculus-tangent-example-3",
+      "skillId": "calculus-tangent",
+      "taskType": "inverse-rate",
+      "publicSha256": "fb5109b23c55f582f46f33ecd5822afe8969140fe4db1af4b9fc1d93fc79e75f"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-4",
+      "skillId": "calculus-tangent",
+      "taskType": "instantaneous-rate",
+      "publicSha256": "43d1e593e9c254c2e032648fe77d4dc101ee838bc82d6647faa4910c488e1045"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-5",
+      "skillId": "calculus-tangent",
+      "taskType": "average-rate",
+      "publicSha256": "4b6b40c6a0a8bf683c352e03890c69a3fcd1b6b790d7b0155f61d3ae89f855f7"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-6",
+      "skillId": "calculus-tangent",
+      "taskType": "point-versus-slope",
+      "publicSha256": "39597b43dc3e0117c4b54b316e5aa4c68aad5dde934b41b0b7a2a72881b6801d"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-7",
+      "skillId": "calculus-tangent",
+      "taskType": "corner-test",
+      "publicSha256": "29e9f0343fae8e23f8232af6c4ab74f51e096e6a3b85d6e398cbb97479c3176f",
+      "review": "The difference quotient of absolute value at zero is −1 for negative h and +1 for positive h; continuity does not make the two limits equal.",
+      "writtenSha256": "83a5a48bd08d141978170cf9f8959bf22010c1c000d5a2039f6fc3fe984a4f5c"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-8",
+      "skillId": "calculus-tangent",
+      "taskType": "normal-line",
+      "publicSha256": "1db015604cd93439ea2e87d9928ca5f0a34da838817180c87148f21ecebb5948"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-9",
+      "skillId": "calculus-tangent",
+      "taskType": "tangent-through-point",
+      "publicSha256": "43938ab66e909725b2bdbb7fba0d734810de9a4104e7675872edccc84925f5ed",
+      "review": "A general tangent y=2ax−a² contains (0,−4) exactly when a²=4; the two real contacts give both lines and exhaust all tangents.",
+      "writtenSha256": "61d7198f5c1a8a764b2836c4603ef8d2056d5df3cf06406108cffaa8f8ba9780"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-10",
+      "skillId": "calculus-tangent",
+      "taskType": "zero-slope-normal",
+      "publicSha256": "67a459b180a706e24e021eb3bcfd1c7ffa5ea7edd17973422ab12822c2756d93",
+      "review": "The tangent at the parabola's vertex is horizontal y=0 and its perpendicular normal is vertical x=0, whose slope is not a finite reciprocal.",
+      "writtenSha256": "fd93df9b87f2e8cfcbc2b0ce44cec0ab6a2b2eff3a7a810b7ffd5f8e75789243"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-11",
+      "skillId": "calculus-tangent",
+      "taskType": "measured-rate",
+      "publicSha256": "703a6b904e7bc11ddd3853efeb14dfbdffa7cac163360e4d537a771346daf11b"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-12",
+      "skillId": "calculus-tangent",
+      "taskType": "parameter-tangency",
+      "publicSha256": "16cdea89144cce555495ee2049a1c34af49b9ebedad158c747b2a67ffe0bf150",
+      "review": "The intersection polynomial x²−x−c has a double root iff 1+4c=0; hence c=−1/4 and contact x=1/2 uniquely.",
+      "writtenSha256": "1f4491474d5e80822a0e69d84b7cee6995b1893ba0a5c46be359690d7d7d0dd3"
+    },
+    {
+      "id": "skill-calculus-tangent-practice-13",
+      "skillId": "calculus-tangent",
+      "taskType": "tangent-local-error",
+      "publicSha256": "e638988041787921dbafcb81876ea7891179ad7e713cc2967b475462aa06785a"
+    },
+    {
+      "id": "diagnostic-calculus-tangent-1",
+      "skillId": "calculus-tangent",
+      "taskType": "diagnostic-slope",
+      "publicSha256": "06b8f0e9c448dda2c3542395d066494b698eab344ab137e74bf46c8692ced7a5"
+    },
+    {
+      "id": "diagnostic-calculus-tangent-2",
+      "skillId": "calculus-tangent",
+      "taskType": "diagnostic-corner",
+      "publicSha256": "542ebc61c69a6156052aac6625853e5fb0a2821d987717246d7f2191f0043d7b"
+    },
+    {
+      "id": "skill-calculus-rules-example-1",
+      "skillId": "calculus-rules",
+      "taskType": "power-sum",
+      "publicSha256": "6a76ff6da788cc907b9b9ab359a32037fb812d26749dd12f1c5775bb3a336114"
+    },
+    {
+      "id": "skill-calculus-rules-example-2",
+      "skillId": "calculus-rules",
+      "taskType": "product-rule",
+      "publicSha256": "a64bdfb473d8cf417e6d0b2f26ce135f93c32c2cd3400be24ef42290a319c08c",
+      "review": "Expanding (x²+1)(x−2)=x³−2x²+x−2 and differentiating gives 3x²−4x+1; the displayed product rule agrees term by term.",
+      "writtenSha256": "376b0e3f3a80239715fffcfb3aa77382a453ee01039679ccac02edfd4566de57"
+    },
+    {
+      "id": "skill-calculus-rules-example-3",
+      "skillId": "calculus-rules",
+      "taskType": "composite-recovery",
+      "publicSha256": "249e39b7024660b36d136fe637f0c4a8f88078c5cf13beeef3ff020698cf27cc"
+    },
+    {
+      "id": "skill-calculus-rules-practice-4",
+      "skillId": "calculus-rules",
+      "taskType": "constant",
+      "publicSha256": "c77ffa4d0c6bf3eda4451d468f8d1bcbc83ce78b1741e745da45d9cc8e13c680"
+    },
+    {
+      "id": "skill-calculus-rules-practice-5",
+      "skillId": "calculus-rules",
+      "taskType": "power-evaluation",
+      "publicSha256": "ff23c9c9b843b656d5b416e7e52f31704b5aa9da1cfbadfd5258163643d820ff"
+    },
+    {
+      "id": "skill-calculus-rules-practice-6",
+      "skillId": "calculus-rules",
+      "taskType": "chain-value",
+      "publicSha256": "73a4a4ad9cee2417e29b83f0f0c3f45ae97b3d7a348c8705573e5e151c63b951"
+    },
+    {
+      "id": "skill-calculus-rules-practice-7",
+      "skillId": "calculus-rules",
+      "taskType": "quotient-value",
+      "publicSha256": "e1840bf7e1f37537b4085c9a287f82e370eb0c68d337deadf0f5ff8fb3f84167"
+    },
+    {
+      "id": "skill-calculus-rules-practice-8",
+      "skillId": "calculus-rules",
+      "taskType": "log-domain",
+      "publicSha256": "d20569258978eeac474caa9d1e993364902279f1e7364fdbf2a9a40c11ac1e02",
+      "review": "A real logarithm needs 3x−2>0; differentiating gives 3/(3x−2) on x>2/3, not the larger nonzero-denominator domain.",
+      "writtenSha256": "7932777d0437953e7201221419ea1f47ad6d242ca97d9bae40c4cc190b760b31"
+    },
+    {
+      "id": "skill-calculus-rules-practice-9",
+      "skillId": "calculus-rules",
+      "taskType": "trig-radians",
+      "publicSha256": "3eef6a2d23a4c7894554fffea9404acd50b25e08a761f760a8548c5ca96ff624",
+      "review": "For a radian variable, chain differentiation gives 2cos(2x); a degree variable would supply the additional π/180 conversion factor.",
+      "writtenSha256": "19dc8b3e5ee1ae988d2956e2619d686e019cacc2c9e159a8eee5b3220f52fd67"
+    },
+    {
+      "id": "skill-calculus-rules-practice-10",
+      "skillId": "calculus-rules",
+      "taskType": "exponential",
+      "publicSha256": "92cefa0be59aa759600ab543cf66200b77be009bd3944dfdb7456d0cfdc94b66",
+      "review": "Differentiating exp(−x) yields −exp(−x) for every real x; the negative rate does not imply a negative function value.",
+      "writtenSha256": "b2627f34fa7c53660d4cf4c57a02fde7fd5e5f4803d7557c262c8f500fad0891"
+    },
+    {
+      "id": "skill-calculus-rules-practice-11",
+      "skillId": "calculus-rules",
+      "taskType": "product-at-point",
+      "publicSha256": "3f473f53068348342dcf7ac6f46f616b2dbdf0dd17100551f669de6def34f4cc"
+    },
+    {
+      "id": "skill-calculus-rules-practice-12",
+      "skillId": "calculus-rules",
+      "taskType": "rule-comparison",
+      "publicSha256": "6f4e228cf83bdb7028850af9fc485e1160cec25ec00736e07867bed8c67234b1",
+      "review": "The increment (x+h)²−x² equals 2xh+h²; dividing by nonzero h and limiting proves 2x and refutes multiplying derivatives.",
+      "writtenSha256": "55ec60f1561e271ff2b34e3e6541dab967b301c84e6e394a79594f41903e0a8a"
+    },
+    {
+      "id": "skill-calculus-rules-practice-13",
+      "skillId": "calculus-rules",
+      "taskType": "parameter-chain",
+      "publicSha256": "f8a1bedfa60eee7f796c390f13334d05c3aa3c925f354f5bd90a62dab5d41af3"
+    },
+    {
+      "id": "diagnostic-calculus-rules-1",
+      "skillId": "calculus-rules",
+      "taskType": "diagnostic-chain",
+      "publicSha256": "fcae8f4cf6868571130e2262bd897913bbc82a62a62ad74e2b7809c23e2063d7"
+    },
+    {
+      "id": "diagnostic-calculus-rules-2",
+      "skillId": "calculus-rules",
+      "taskType": "diagnostic-product",
+      "publicSha256": "71f81cebb99b664b9c52b279f84691b5040ce403777ffb172ca52fe5a9811980"
+    },
+    {
+      "id": "skill-calculus-extrema-example-1",
+      "skillId": "calculus-extrema",
+      "taskType": "sign-change",
+      "publicSha256": "32a7b4a6fb01bc76212b57b854f2223dcd5e6a73ece247dc813f492d9a752aff",
+      "review": "The roots of 3x²−3 are −1 and 1, with signs +,−,+; substitution gives local maximum (−1,2) and minimum (1,−2).",
+      "writtenSha256": "6b07f4745075823ad675c61d857877395ec736fa0ba286521f7ca01e5504c534"
+    },
+    {
+      "id": "skill-calculus-extrema-example-2",
+      "skillId": "calculus-extrema",
+      "taskType": "closed-interval",
+      "publicSha256": "b01694eace8521ae72b3bd152428626025ae7cc451555d214a927a5882a7e191"
+    },
+    {
+      "id": "skill-calculus-extrema-example-3",
+      "skillId": "calculus-extrema",
+      "taskType": "constraint-optimization",
+      "publicSha256": "dec5c74fac24acf2656467de412295b2b41c0dbc15357d0f199060635b9af984"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-4",
+      "skillId": "calculus-extrema",
+      "taskType": "increasing-sign",
+      "publicSha256": "8f7b47eb7d607d24e440934c5bb352af1d4cc4c30d96ae758b5869b838690559",
+      "review": "The derivative 2x is negative for x<0. The supplied open decreasing interval is valid; endpoint inclusion is not asserted to be impossible.",
+      "writtenSha256": "b8f583fcf5603134ac58848989f268c913624b43cb0b8eb8a4e65a64e982aba4"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-5",
+      "skillId": "calculus-extrema",
+      "taskType": "stationary-not-extreme",
+      "publicSha256": "7641fbc8580175234940aff67041df0ba3d1914579135e8ec0ca5c38af020868",
+      "review": "The derivative 3x² vanishes at zero but is positive on either side, so x³ passes through a stationary point without an extremum.",
+      "writtenSha256": "530a638781830c9d886cf4444eefafe3ae64cd0f60db9552a3bf62828503cc74"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-6",
+      "skillId": "calculus-extrema",
+      "taskType": "endpoint-optimum",
+      "publicSha256": "57ade839b749831427a52147d5592547ad5c773fd7fd3763699f0c42503d5a2c"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-7",
+      "skillId": "calculus-extrema",
+      "taskType": "second-derivative-test",
+      "publicSha256": "aba19c1f14b1bd389090916ad19f434b6d4f37c2d852ccda5c88f0ffb4ee454b"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-8",
+      "skillId": "calculus-extrema",
+      "taskType": "nondifferentiable-minimum",
+      "publicSha256": "2a601081fe9d0ff3c135c1d05f412abc0c03d36a66963dc3d02ea5e90e3f2bcc",
+      "review": "Absolute value is nonnegative with equality at zero; this establishes the minimum by definition despite unequal one-sided derivatives.",
+      "writtenSha256": "58b462102b29e300b4c3167c68bff4a57cc617a2248a64cf31c7f0d1474696b3"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-9",
+      "skillId": "calculus-extrema",
+      "taskType": "derivative-sign-chart",
+      "publicSha256": "40e7d831d763335d239b99a7754ed0d48b7bcbe31b5287b3ecb93da01f56932f",
+      "review": "Away from x=1, the squared factor is positive, so the derivative has the sign of x+2. The sign changes only at −2, which is a minimum.",
+      "writtenSha256": "2167887ae0260f68997ad4a816286859d5ad6021839539802357ed57970889fe"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-10",
+      "skillId": "calculus-extrema",
+      "taskType": "global-vs-local",
+      "publicSha256": "a1656edeccc5c816529d744539871bc9904f78ac67b219fe0bf84f26709ae1f1",
+      "review": "The cubic tends to positive infinity as x tends to positive infinity; its finite local maximum cannot be a global maximum over the real line.",
+      "writtenSha256": "8c45cda3c4678a8ae786294b24f03ae6aa5a38f9a346909c68e7b6b4cdee7cd7"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-11",
+      "skillId": "calculus-extrema",
+      "taskType": "stationary-inflection",
+      "publicSha256": "3c1ac85deb29f65b7c4ce59a3366a87bad500424558c06ba9a7f3f18d9e6bf01",
+      "review": "For x⁴, the second derivative test at zero is inconclusive, while x⁴≥0 and the first-derivative sign change establish a minimum.",
+      "writtenSha256": "6af7903b22aeac978d5954ddfda7e237cac84c2fd6f65e31edac606f21080b32"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-12",
+      "skillId": "calculus-extrema",
+      "taskType": "parameter-regimes",
+      "publicSha256": "fb8fae146360f5d6e4ff8a418b11d71d107936cdb966a3ebac27deb3b8f7319d",
+      "review": "For x³−kx, 3x²=k has two simple roots and alternating signs exactly when k>0. At k=0 the root has no extremum; k<0 gives positive derivative.",
+      "writtenSha256": "ce07d671e280fa1352686d62f2471cb98e1c5ed6374131fe5cf7b8c33356e747"
+    },
+    {
+      "id": "skill-calculus-extrema-practice-13",
+      "skillId": "calculus-extrema",
+      "taskType": "open-domain-optimum",
+      "publicSha256": "e342cd78180d73abfb395e7f3ee2531b4f5b9e1776900c15a29bc3d9ff47712c",
+      "review": "On 0<x<1, 2x−x²=1−(x−1)²<1 and approaches 1 from below. This proves supremum 1 without an attained maximum.",
+      "writtenSha256": "acbcfd8b266fd26648df75b71950069579739b4f3029158479c969a56c86a3de"
+    },
+    {
+      "id": "diagnostic-calculus-extrema-1",
+      "skillId": "calculus-extrema",
+      "taskType": "diagnostic-stationary",
+      "publicSha256": "296a4dff1f13dc521b87773dcc90dea2673141b79716de779d39543edb908795"
+    },
+    {
+      "id": "diagnostic-calculus-extrema-2",
+      "skillId": "calculus-extrema",
+      "taskType": "diagnostic-endpoint",
+      "publicSha256": "dadebeaf102785e2a534964000c79e04214a7e9ec381c6179f44e5315c5d9242"
+    },
+    {
+      "id": "skill-calculus-inflection-example-1",
+      "skillId": "calculus-inflection",
+      "taskType": "curvature-sign",
+      "publicSha256": "4f4a26b57e8c92dbe00fb7d4a77ac00e54fbb3391808ed3c8cf465d63b3995b9",
+      "review": "The second derivative of x³ is 6x, negative left and positive right; the curve contains the resulting inflection (0,0).",
+      "writtenSha256": "269d246f5bf44687af728c7cca439a7ff3c786aa95942843353db4dae89f3116"
+    },
+    {
+      "id": "skill-calculus-inflection-example-2",
+      "skillId": "calculus-inflection",
+      "taskType": "shifted-inflection",
+      "publicSha256": "e2da8edeb1fd4eef31e1c0e1bb2b43be7b3a608f092299fb63c54db96bd53707",
+      "review": "For x³−6x²+3x, the simple second-derivative root is x=2 and direct function substitution gives −10, rather than substituting into the derivative.",
+      "writtenSha256": "6f6ddc9ee93e970c4695a86edc2a48b783f0696242f8a32e1008d4b797bb6e6b"
+    },
+    {
+      "id": "skill-calculus-inflection-example-3",
+      "skillId": "calculus-inflection",
+      "taskType": "nonstationary-inflection",
+      "publicSha256": "b2eddad01331baa344298335ac5585f705b49ce7571a43343ed2a54ddea94e88",
+      "review": "For x³+x, curvature changes at zero while the derivative there is 1. Its tangent is y=x, confirming that inflection need not mean stationary.",
+      "writtenSha256": "07ff0d4bab0fc1505e254d568f68034886c46d104e636ea53ac42a2543dfc282"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-4",
+      "skillId": "calculus-inflection",
+      "taskType": "second-derivative-value",
+      "publicSha256": "5d8aee85e71b15c486d938474da66c512eadd03d9fefc86a016bc3cb3348be86"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-5",
+      "skillId": "calculus-inflection",
+      "taskType": "convex-quadratic",
+      "publicSha256": "008f1d321264ee9536b6e0af2f3580bac4f8ea510bd1b765f1a657ca8396e398",
+      "review": "The second derivative of x² is the positive constant 2; a minimum at zero does not imply a concavity change.",
+      "writtenSha256": "30de5c3c55087953a26fea51a87df4c0619cd08e20ab03e42d2c8c2ec93c8ee1"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-6",
+      "skillId": "calculus-inflection",
+      "taskType": "zero-second-no-change",
+      "publicSha256": "53f637e41114f17024cbdae35f34c49ecd4ba5049546205ceb680f43429629ab",
+      "review": "For x⁴ the second derivative 12x² is positive on both sides of its zero, so the candidate fails the sign-change condition.",
+      "writtenSha256": "8778cd7d1bd48d51430800bae1df478255924ffcc9a3d32c5bf089965031c850"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-7",
+      "skillId": "calculus-inflection",
+      "taskType": "curvature-interval",
+      "publicSha256": "880b30c68b5c4a7f81c13df418150ca28bb43aadd777a2e0e6ec0a431bd06f29",
+      "review": "Twice differentiating x³−3x² gives 6x−6. Strictly positive curvature occurs for x>1, independently of the sign of the first derivative.",
+      "writtenSha256": "7356c7ddd1727ff29a076dbfbc9d0bce380b794d68aa409bfb93626f7d5a307d"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-8",
+      "skillId": "calculus-inflection",
+      "taskType": "two-inflections",
+      "publicSha256": "96db2cd1b687e42dd14111abdf1b690d5502206d1ca7567889a490259dcce6fa",
+      "review": "For x⁴−6x², 12(x²−1) has signs +,−,+ and simple roots −1 and 1; both abscissae are genuine concavity changes.",
+      "writtenSha256": "fbc1c923bb2825b363fa29210b85136162c79de71bd36f57861406b35b8f9d86"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-9",
+      "skillId": "calculus-inflection",
+      "taskType": "derivative-graph",
+      "publicSha256": "c7bed247d23a97f79c1f8bfa4242fc7c6d301a880609dee2553e0d8301e47d76",
+      "review": "Increasing then decreasing first derivative, with the stated second-derivative signs, gives concave up then down at x=2. The solution retains the actual-point/continuity requirement.",
+      "writtenSha256": "4f3ca2dd1004c2617f9ff55c0915ff6414de42275a0a25d44beeeb206c1ddd00"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-10",
+      "skillId": "calculus-inflection",
+      "taskType": "domain-hole",
+      "publicSha256": "4c56aba9b7cdc08e2d0dcd0c5c414990e76a1532d48c3f2561bfed97942b6198",
+      "review": "Although 2/x³ changes sign across zero, 1/x is undefined there; an excluded input is not an inflection point on the curve.",
+      "writtenSha256": "891772e4a0096a10a51d67618ef54284179fe798f772d5e9d72eadbb2a625a64"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-11",
+      "skillId": "calculus-inflection",
+      "taskType": "cubic-slope-inflection",
+      "publicSha256": "e57f1c5edc363be298d29ac3ce2e05bb6d06ddacb145e260a1db22864bc26699"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-12",
+      "skillId": "calculus-inflection",
+      "taskType": "parameter-curvature",
+      "publicSha256": "056a8ef42f13f7f90e3b4534f688f2a7ce893f553609ab1d70123c6bbdb5b3e8",
+      "review": "The roots of 12x²+2k are two simple real roots ±√(−k/6) exactly for k<0. At k=0 the double root has no sign change.",
+      "writtenSha256": "783397d9da73741764f3ca2d6a9a20bc1392a28577fd7f8e01a3f1fc3369a254"
+    },
+    {
+      "id": "skill-calculus-inflection-practice-13",
+      "skillId": "calculus-inflection",
+      "taskType": "tangent-crossing",
+      "publicSha256": "84ab6d5a52d007293687cd3197fab0c292e644928426766e59d0f91d265754ac",
+      "review": "Both x³ and x⁴ have tangent y=0 at zero, but only x³ crosses it and changes curvature. The explanation correctly avoids claiming a universal visual crossing theorem.",
+      "writtenSha256": "608721c95ca0b9da26528a086a3e694b877b95bb2ed39db734d711c5b0d41a78"
+    },
+    {
+      "id": "diagnostic-calculus-inflection-1",
+      "skillId": "calculus-inflection",
+      "taskType": "diagnostic-false-candidate",
+      "publicSha256": "21e73b6fbcb1fb9f8cad1bdb9b95431cc73343a0f942ec1249729b5a0a75028e"
+    },
+    {
+      "id": "diagnostic-calculus-inflection-2",
+      "skillId": "calculus-inflection",
+      "taskType": "diagnostic-slope-at-inflection",
+      "publicSha256": "7d7c021566e9180df75e05c163c73f6d4f3299a2bcdcbb41be9d6b0f0e9fe7e2"
+    },
+    {
+      "id": "skill-probability-conditional-example-1",
+      "skillId": "probability-conditional",
+      "taskType": "restricted-denominator",
+      "publicSha256": "ad0ac9b27bf8a08ee9d101369a702634a12edd0af839a37041a3c32c5ae56a04"
+    },
+    {
+      "id": "skill-probability-conditional-example-2",
+      "skillId": "probability-conditional",
+      "taskType": "total-probability",
+      "publicSha256": "f063db07dfe8fb7bac5f19e516ad45068319e40d929926ac598117b53404f2a2"
+    },
+    {
+      "id": "skill-probability-conditional-example-3",
+      "skillId": "probability-conditional",
+      "taskType": "base-rate-transfer",
+      "publicSha256": "7f21a7ce9ffebc735516fe3ca284ccd260d34bb7e8f73bb6d40efd2c100558a6"
+    },
+    {
+      "id": "skill-probability-conditional-practice-4",
+      "skillId": "probability-conditional",
+      "taskType": "conditional-ratio",
+      "publicSha256": "2443b1fc9b631d63faec8804ea3456052fdaab9cdea4f647694e52a8592c056d"
+    },
+    {
+      "id": "skill-probability-conditional-practice-5",
+      "skillId": "probability-conditional",
+      "taskType": "reverse-condition",
+      "publicSha256": "ef5904b117384089b388eee3ff7220deb6bd0251e4cc796d99933c88ba63e43a"
+    },
+    {
+      "id": "skill-probability-conditional-practice-6",
+      "skillId": "probability-conditional",
+      "taskType": "without-replacement",
+      "publicSha256": "e03b5eb256121b96026313bfb7ea6f1a8a22f94bbc002743ddf61f0bf227f9d5"
+    },
+    {
+      "id": "skill-probability-conditional-practice-7",
+      "skillId": "probability-conditional",
+      "taskType": "undefined-condition",
+      "publicSha256": "899b384b3386910e04bd7f3156666cfd22da2c7eead9a6cf329d18f185011b53",
+      "review": "P(B)=0 forces P(A∩B)=0; the elementary conditional ratio is 0/0, not probability zero. No assertion about advanced regular conditional probabilities is needed.",
+      "writtenSha256": "5439482a09aae386cf3a8aa8cb21447032cdf48d8f5ce0acb63c3144b3abb7a7"
+    },
+    {
+      "id": "skill-probability-conditional-practice-8",
+      "skillId": "probability-conditional",
+      "taskType": "independence-test",
+      "publicSha256": "1741690e657b2d589c9053fa60c93063ee28fb9f87df593fbdb448e64103396e",
+      "review": "Multiplying the given marginals 0.4 and 0.5 gives 0.2, exactly the supplied intersection. This verifies independence while allowing overlap.",
+      "writtenSha256": "a1595dc7d366b654c7e70792b0fb9ca34719a2fd0dcfc8c94ba659a939195229"
+    },
+    {
+      "id": "skill-probability-conditional-practice-9",
+      "skillId": "probability-conditional",
+      "taskType": "partition-validation",
+      "publicSha256": "580b49caa82e383f20bf9668f325c582d246cd1284ee38403a377e95f0313181",
+      "review": "Overlapping positive-probability cases do not form a partition. A and its complement are disjoint and exhaustive; sum joint probabilities, and use conditional factors only for positive-probability cells.",
+      "writtenSha256": "da600f58ba49aa5142922ce219a6ecb14040dbcce4158d8fbae11112ad3bcd65"
+    },
+    {
+      "id": "skill-probability-conditional-practice-10",
+      "skillId": "probability-conditional",
+      "taskType": "posterior-machine",
+      "publicSha256": "5c44e10199eed21539e25518c5207bb8b452add083ab47b7121a3b52d23ea7b4"
+    },
+    {
+      "id": "skill-probability-conditional-practice-11",
+      "skillId": "probability-conditional",
+      "taskType": "table-conditional",
+      "publicSha256": "d1222f9df4060b15860274b26d025bb79c03ddfee1cb19f193df9a7b46ee754f"
+    },
+    {
+      "id": "skill-probability-conditional-practice-12",
+      "skillId": "probability-conditional",
+      "taskType": "posterior-design",
+      "publicSha256": "e2b06fa8945be2086f84779fbe39470c98f554d87cc9376242e9d3c8180738a1"
+    },
+    {
+      "id": "skill-probability-conditional-practice-13",
+      "skillId": "probability-conditional",
+      "taskType": "posterior-parameter",
+      "publicSha256": "8923b07c781c35e35c472a606f53d380fa630575e1cf1ff0e3488313bfa8ad26"
+    },
+    {
+      "id": "diagnostic-probability-conditional-1",
+      "skillId": "probability-conditional",
+      "taskType": "diagnostic-denominator",
+      "publicSha256": "b90b2057ae74ed1d25b8a97fed7194f934378b5787423214741d76df3e6dc9c9"
+    },
+    {
+      "id": "diagnostic-probability-conditional-2",
+      "skillId": "probability-conditional",
+      "taskType": "diagnostic-independence",
+      "publicSha256": "8c7b7cf72758ab58ad8802fa8662d236750b79e7abcf54e65bb342cd4bdef3f1"
+    },
+    {
+      "id": "skill-probability-moments-example-1",
+      "skillId": "probability-moments",
+      "taskType": "weighted-mean",
+      "publicSha256": "bc2217486a214f871b6f82c83c892927da86803df5217e9bb454a76efdeebbe3"
+    },
+    {
+      "id": "skill-probability-moments-example-2",
+      "skillId": "probability-moments",
+      "taskType": "variance-definition",
+      "publicSha256": "2d5b99cd6f9102e9fd6d9c0acb13f2ba3dc76653012cc33703ed3cc5b7419e88"
+    },
+    {
+      "id": "skill-probability-moments-example-3",
+      "skillId": "probability-moments",
+      "taskType": "dependence-transfer",
+      "publicSha256": "15747708ee5da7cb8d595f59757b03de9206641959b89b06afc1b9b4c6eb7422"
+    },
+    {
+      "id": "skill-probability-moments-practice-4",
+      "skillId": "probability-moments",
+      "taskType": "normalization",
+      "publicSha256": "9fed294e19d61c4c643528f500aaf291cd174af764845ceb5c5554b563abd796"
+    },
+    {
+      "id": "skill-probability-moments-practice-5",
+      "skillId": "probability-moments",
+      "taskType": "second-moment",
+      "publicSha256": "2087bdf4fd26b577f38bfe7b3017c1c7ab3cdd142d4617b9a45004e0e43bd719"
+    },
+    {
+      "id": "skill-probability-moments-practice-6",
+      "skillId": "probability-moments",
+      "taskType": "mean-shift",
+      "publicSha256": "b18487e8621648a256dd31ee88c52dd7387528a0df0ab537924a0160d0e1d73a"
+    },
+    {
+      "id": "skill-probability-moments-practice-7",
+      "skillId": "probability-moments",
+      "taskType": "variance-scale",
+      "publicSha256": "80db1d1cb55a04891dc0db6e6944ba30250e0c64b1f8f9f4621a9e98b756404e"
+    },
+    {
+      "id": "skill-probability-moments-practice-8",
+      "skillId": "probability-moments",
+      "taskType": "net-payoff",
+      "publicSha256": "ff67efcd2d2f6e8f4a5ea7cd8ff59db5df9608d42ba4a3aa02426a356d815b16"
+    },
+    {
+      "id": "skill-probability-moments-practice-9",
+      "skillId": "probability-moments",
+      "taskType": "independent-sum",
+      "publicSha256": "f0acce952a2e6f195292797ffb33a779178040b710107dc82b39234f3d32b409"
+    },
+    {
+      "id": "skill-probability-moments-practice-10",
+      "skillId": "probability-moments",
+      "taskType": "invalid-distribution",
+      "publicSha256": "d66499703fefe75609edd1ca71d71e700bfac2c99544ab54c0ffc304252a312d",
+      "review": "The listed numbers sum to one but include −0.1; normalization does not repair the violation of probability nonnegativity.",
+      "writtenSha256": "df6fbc233f1366c573862bfa6bd093026fb99ba90b2abef32bee0cb896cbe24e"
+    },
+    {
+      "id": "skill-probability-moments-practice-11",
+      "skillId": "probability-moments",
+      "taskType": "zero-variance",
+      "publicSha256": "639218302ad8136d5c9307e7659b4c40ee7b6e5c5c44a176953cd09201af1271",
+      "review": "A finite sum of nonnegative weighted squared deviations vanishes only if every positive-weight value equals the mean. Zero-weight labels do not change the probability-one conclusion.",
+      "writtenSha256": "821e66840601030422db3ccf993c9d00c3cc2b40bc8a939415c0b9e681192495"
+    },
+    {
+      "id": "skill-probability-moments-practice-12",
+      "skillId": "probability-moments",
+      "taskType": "moment-feasibility",
+      "publicSha256": "5ab12782fb40fdeabfb92c7dfd33dd3642d5ded0ae02da02a9ad3187574b5574",
+      "review": "E(X²)−E(X)²=3−4<0 contradicts variance nonnegativity, so the two proposed moments cannot hold simultaneously.",
+      "writtenSha256": "f19999d00b70baa674a83a6413668e24b2dc0ce125d81854da4d7dcc1358753f"
+    },
+    {
+      "id": "skill-probability-moments-practice-13",
+      "skillId": "probability-moments",
+      "taskType": "equal-mean-risk",
+      "publicSha256": "876156ff021074504800c50152755012b90dcf93e6862457834b35abccf47509"
+    },
+    {
+      "id": "diagnostic-probability-moments-1",
+      "skillId": "probability-moments",
+      "taskType": "diagnostic-moment",
+      "publicSha256": "58dde67b3d1f69bf445822d7b3e3398cabc896bde4394c75289dce7f3a880080"
+    },
+    {
+      "id": "diagnostic-probability-moments-2",
+      "skillId": "probability-moments",
+      "taskType": "diagnostic-scaling",
+      "publicSha256": "870e62d7834300e45c5bd907116bf08858347fd7a876badbfd8cc4853a377b5d"
+    },
+    {
+      "id": "skill-probability-models-example-1",
+      "skillId": "probability-models",
+      "taskType": "binomial-mass",
+      "publicSha256": "51ced2ee1256e74f3628f1440d13739be8fe592170d892a6635f3e8fdb2013f6"
+    },
+    {
+      "id": "skill-probability-models-example-2",
+      "skillId": "probability-models",
+      "taskType": "hypergeometric-mass",
+      "publicSha256": "b8020f6d2c13eec39af4bcaf21bbea7eb8ef2c0589b7c4dc00eeb222237e8515"
+    },
+    {
+      "id": "skill-probability-models-example-3",
+      "skillId": "probability-models",
+      "taskType": "model-comparison",
+      "publicSha256": "c448b58d729947bcebe4e5ef563c8b1b1aa08f66370b6d8d76cc797f55c104c4",
+      "review": "Independent replacement gives (3/5)²=9/25. Removing a first red gives (3/5)(2/4)=3/10. The first-draw marginal agrees but the joint probability differs.",
+      "writtenSha256": "f6570e97481c70aadd69e021f505ad41787e9ac91ba796e608123203f50fbcd7"
+    },
+    {
+      "id": "skill-probability-models-practice-4",
+      "skillId": "probability-models",
+      "taskType": "binomial-mean",
+      "publicSha256": "361d567ad18d5cc99963abd34b403e7801b62b00c223d4e4a9b5d09369b5df66"
+    },
+    {
+      "id": "skill-probability-models-practice-5",
+      "skillId": "probability-models",
+      "taskType": "binomial-zero",
+      "publicSha256": "ae8eb788c47bcfa50b9d6c13bdae5a872f55fd3b5b2544c176c76a4fbe7cf10d"
+    },
+    {
+      "id": "skill-probability-models-practice-6",
+      "skillId": "probability-models",
+      "taskType": "model-conditions",
+      "publicSha256": "c07ac25c546aa1c795920f9e962fcfc4c14f86a07cfc38572892b4741fc92305",
+      "review": "Fixed sample size alone does not imply a binomial count. In a mixed finite bag, (K−1)/(N−1) generally differs from K/N; deterministic monochrome exceptions do not invalidate “not necessarily.”",
+      "writtenSha256": "0bf306a01ca4668aa296c04ac2c670a8a959cdf9aab54658865b8ed8dc6a5422"
+    },
+    {
+      "id": "skill-probability-models-practice-7",
+      "skillId": "probability-models",
+      "taskType": "binomial-variance",
+      "publicSha256": "bd7c71e293799500f330008e7a635d2856d5c3657568bc53685a1299f012f94f"
+    },
+    {
+      "id": "skill-probability-models-practice-8",
+      "skillId": "probability-models",
+      "taskType": "hypergeometric-support",
+      "publicSha256": "de2ae898baa3b5739be6984a30a284c25ba0c0e47089f47363f6374d379d8c13",
+      "review": "Three draws from four red and one blue must include at least two reds and can include three; thus support is exactly {2,3}.",
+      "writtenSha256": "85dc2f99d3a861c9f3cf21f32bf36e8f3e101d2091980a4f75609bcd5fb61cae"
+    },
+    {
+      "id": "skill-probability-models-practice-9",
+      "skillId": "probability-models",
+      "taskType": "normal-standardize",
+      "publicSha256": "ab7c473d9f4c4cfd648264511c7019d25ca19993e770b355b3fa009df88b8f95"
+    },
+    {
+      "id": "skill-probability-models-practice-10",
+      "skillId": "probability-models",
+      "taskType": "normal-symmetry",
+      "publicSha256": "cdb662abd4b0ab8956c790c5a3aec87162b993a1449f5dd7952e207ca5eae1c2"
+    },
+    {
+      "id": "skill-probability-models-practice-11",
+      "skillId": "probability-models",
+      "taskType": "supplied-normal-table",
+      "publicSha256": "fc6ed18d35910b91e496fd7e8efdd8b7b4aa6c31624dfcdbd8dca6c52fa7e0f2"
+    },
+    {
+      "id": "skill-probability-models-practice-12",
+      "skillId": "probability-models",
+      "taskType": "reliability-design",
+      "publicSha256": "bf5b3a9780c1c521cef9171284e3ca03ce24bd247b7a108f69618faaa9d6dcc3"
+    },
+    {
+      "id": "skill-probability-models-practice-13",
+      "skillId": "probability-models",
+      "taskType": "sampling-collapse",
+      "publicSha256": "2fedfc6fb3abdb9b8891243e042294e173d7cd355cb7427703a96d85086a9338",
+      "review": "Drawing the whole six-object bag fixes the count at two; a point mass has mean 2 and variance zero, unlike the inappropriate nondegenerate binomial model.",
+      "writtenSha256": "2ddba03748bededed944e6dde870249f63f4cc80eaf58bd28e6664dd7dabf300"
+    },
+    {
+      "id": "diagnostic-probability-models-1",
+      "skillId": "probability-models",
+      "taskType": "diagnostic-replacement",
+      "publicSha256": "52538b1666e3fb90693089c6cc6608dcfd2f6e0c3a49e27d4ed18e6336429300"
+    },
+    {
+      "id": "diagnostic-probability-models-2",
+      "skillId": "probability-models",
+      "taskType": "diagnostic-normal-scale",
+      "publicSha256": "09cfa942379813287fb413b5f11e07d8a319c0d6f8572d3c4512d29b3fd3c980"
+    },
+    {
+      "id": "skill-statistics-regression-example-1",
+      "skillId": "statistics-regression",
+      "taskType": "least-squares-slope",
+      "publicSha256": "a7b70f033c6a60da01fc7954278ea5c30dc4e845f95300e032f07b7839cad97b"
+    },
+    {
+      "id": "skill-statistics-regression-example-2",
+      "skillId": "statistics-regression",
+      "taskType": "residual",
+      "publicSha256": "d66eeb3dba806d73752108e731440f3d61c3b5858d809f5c7fc7cda144c3f76e"
+    },
+    {
+      "id": "skill-statistics-regression-example-3",
+      "skillId": "statistics-regression",
+      "taskType": "unit-transfer",
+      "publicSha256": "673c45759d6a22645c31411b8e4d2c0e74dec72a800b6301416532957a87e895"
+    },
+    {
+      "id": "skill-statistics-regression-practice-4",
+      "skillId": "statistics-regression",
+      "taskType": "centroid-intercept",
+      "publicSha256": "6399c069ebf35ca3e5c7072bd110d6b7819157603a9b0eddcc410e044d369e84"
+    },
+    {
+      "id": "skill-statistics-regression-practice-5",
+      "skillId": "statistics-regression",
+      "taskType": "prediction",
+      "publicSha256": "982f05fe0e4d6504bd25ee66cef51884b5c9f4d5bafc88cc280a2715fb8f1330"
+    },
+    {
+      "id": "skill-statistics-regression-practice-6",
+      "skillId": "statistics-regression",
+      "taskType": "undefined-predictor",
+      "publicSha256": "651f5feb4a0c2cd93632a23f4d6fa9fc6de33acd2c4313dde48633558f4c7f96",
+      "review": "Constant x=2 gives Sxx=0. Every pair satisfying intercept+2·slope=mean response gives the same fitted values, so the slope is not identifiable.",
+      "writtenSha256": "fa52e2969d932f80d436c1982523bab091c94ba016261e2b0ba0e2574f05480d"
+    },
+    {
+      "id": "skill-statistics-regression-practice-7",
+      "skillId": "statistics-regression",
+      "taskType": "correlation-not-causation",
+      "publicSha256": "29705e4ecc1eabdfde13bb303670661a35b8ae3bc5886a0d27891169fd4254ad",
+      "review": "An observational association does not identify a tutoring effect; prior attainment and selection provide concrete possible confounding paths, even with a precisely estimated slope.",
+      "writtenSha256": "5797b5707806938c6d131b5b186a0df84152fa8880755f7c938948b312c8a302"
+    },
+    {
+      "id": "skill-statistics-regression-practice-8",
+      "skillId": "statistics-regression",
+      "taskType": "correlation-coefficient",
+      "publicSha256": "18d367772209288189138332fb4c2a0399a768d73c35624399ae0f04ae868a3b"
+    },
+    {
+      "id": "skill-statistics-regression-practice-9",
+      "skillId": "statistics-regression",
+      "taskType": "nonlinear-zero-correlation",
+      "publicSha256": "0ddd919dc24d6b5964ee680ca607aa4ffa2b25c2f65c84b2844935b7ac29abc6",
+      "review": "The centered products for (−1,1),(0,0),(1,1) cancel, Sxx=2 and Syy=2/3 are positive, so r=0 despite the deterministic quadratic relation.",
+      "writtenSha256": "e4694651af9a311168fc713ad768d60ed9b82f73ba3552bb6e2ce26b634f9e1b"
+    },
+    {
+      "id": "skill-statistics-regression-practice-10",
+      "skillId": "statistics-regression",
+      "taskType": "residual-sum",
+      "publicSha256": "7aa42a95ac34b9a0efa38c867f4679975834e8a0d0c34abe82814812ed999875",
+      "review": "Fresh least-squares calculation for (0,1),(1,3),(2,2) gives slope 1/2 and intercept 3/2. Residuals −1/2,1,−1/2 sum to zero because an intercept is fitted.",
+      "writtenSha256": "fb4e5e1abfdc991aba3780304ba2a6d9e7facb43f2d9bb57cf790ceae44b7855"
+    },
+    {
+      "id": "skill-statistics-regression-practice-11",
+      "skillId": "statistics-regression",
+      "taskType": "extrapolation",
+      "publicSha256": "787c47fe5c44a57ef65d797bef187cd1f92ffd131bb4f6beeff5e3257d34f69c",
+      "review": "The proposed input 100 lies far outside observed [1,5]; a close in-range fit supplies no evidence that the same response form remains valid there.",
+      "writtenSha256": "608c5e1562940840db7f29d148251018af472c45aad9aaa14156d6469db40420"
+    },
+    {
+      "id": "skill-statistics-regression-practice-12",
+      "skillId": "statistics-regression",
+      "taskType": "paired-data-transfer",
+      "publicSha256": "a9effd980f506a2af9eff5c43986d5e2e538e6486bfabfd8ecddf9cf27909a22",
+      "review": "Original and reversed y pairings have Sxx=2 but cross-products +2 and −2, so slopes are +1 and −1 although marginal lists agree.",
+      "writtenSha256": "1163285aa72c43a8ff0852d7005d2a97b601d99311106b552b87a351973a735c"
+    },
+    {
+      "id": "skill-statistics-regression-practice-13",
+      "skillId": "statistics-regression",
+      "taskType": "fit-objective-transfer",
+      "publicSha256": "d94c19892ad5bd9b3fc97b4b0671ae123486a2d29faccb2ba525c3795592ac70",
+      "review": "For responses 0,0,3, squared loss is 3(c−1)²+6 and is minimized at mean 1; absolute loss is minimized at median 0. The displayed losses 6/9 and 3/4 agree.",
+      "writtenSha256": "be53f1311dd23613b7d11bf78765ff7933ede8342de87eb084684ab154a0d41b"
+    },
+    {
+      "id": "diagnostic-statistics-regression-1",
+      "skillId": "statistics-regression",
+      "taskType": "diagnostic-residual",
+      "publicSha256": "296e70fb7e53fc0032da0c5b1a057413eab77b0d786b9e7b41b149ecd44713a4"
+    },
+    {
+      "id": "diagnostic-statistics-regression-2",
+      "skillId": "statistics-regression",
+      "taskType": "diagnostic-correlation",
+      "publicSha256": "08b4968bd2e6d6c48fff7d9fa9822cc8ab977804e513dffb9036bf6c9b6807ef"
+    }
+  ]
+}

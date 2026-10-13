@@ -1,0 +1,30 @@
+---
+import {books,schoolRoutes,base,label} from '../data/senior-math/catalog.mjs';
+import {bankIndex,BANK_PAGE_SIZE} from '../lib/senior-math-bank-index.mjs';
+const {locale='en',pageNumber=1,skills=[]}=Astro.props;
+const zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en,l=(pair:any)=>label(pair,locale),root=base(locale),index=bankIndex(locale);
+const pages=Math.ceil(index.length/BANK_PAGE_SIZE),number=Math.max(1,Math.min(pages,pageNumber)),items=index.slice((number-1)*BANK_PAGE_SIZE,number*BANK_PAGE_SIZE);
+const pageUrl=(n:number)=>root+'question-bank/'+(n===1?'':`page/${n}/`);
+const hasPrevious=number>1,hasNext=number<pages;
+const levels:Record<string,string>={foundation:t('Foundation','基礎'),standard:t('Standard','鞏固'),transfer:t('Transfer','遷移')};
+const level=(row:any)=>row.review==='ungraded'?t('Ungraded','未分級'):(levels[row.level]||'')+(row.review==='provisional'?t(' · provisional',' · 暫定'):'');
+---
+<div class="container senior-content" data-senior-bank data-locale={locale}>
+ <p>{t('Read 50 questions per page. Reviewed task difficulty, provisional labels and ungraded past-paper questions are distinguished; these labels are not a measure of ability.','每頁閱讀 50 題。已覆核、暫定及舊卷未分級題分開標示；難度標記不代表學生能力。')}</p>
+ <form class="senior-filters" data-bank-controls hidden>
+  <label>{t('Find a skill or question','搜尋知識點或題目')}<input type="search" data-bank-search/></label>
+  <label>{t('Difficulty','難度')}<select data-bank-level><option value="">{t('All','全部')}</option>{['foundation','standard','transfer'].map(value=><option value={value}>{level({level:value})}</option>)}</select></label>
+  <label>{t('Format','題型')}<select data-bank-kind><option value="">{t('All','全部')}</option>{[['example','Worked example','例題'],['choice','Multiple choice','選擇'],['number','Numeric','數值'],['written','Written','書面推理']].map(([value,en,ch])=><option value={value}>{t(en,ch)}</option>)}</select></label>
+  <label>{t('Source','來源')}<select data-bank-source><option value="">{t('All','全部')}</option><option value="original">{t('Original','原創')}</option><option value="official">{t('Official paper','官方試卷')}</option></select></label>
+  <label>{t('Textbook / supplement','教材／補充')}<select data-bank-book><option value="">{t('All','全部')}</option>{books.map((b:any)=><option value={b.id}>{l(b.title)}</option>)}<option value="supplement">{t('Supplement','補充')}</option><option value="skills">{t('Skill lessons','技能小課')}</option></select></label>
+  <label>{t('Examination','聯考範圍')}<select data-bank-exam><option value="">{t('All','全部')}</option><option>JM01</option><option>JM02</option></select></label>
+  <label>{t('School route','校本路徑')}<select data-bank-school><option value="">{t('All','全部')}</option>{schoolRoutes.map((r:any)=><option value={r.id}>{l(r.title)}</option>)}</select></label>
+  <label>{t('Targeted skill','技能小課')}<select data-bank-skill><option value="">{t('All','全部')}</option>{skills.map((s:any)=><option value={s.id}>{l(s.title)}</option>)}</select></label>
+  <label>{t('Correction task family','訂正任務類型')}<select data-bank-correction><option value="">{t('All','全部')}</option>{[['conditions','Conditions / domain','條件／定義域'],['method','Method selection','方法選擇'],['algebra','Algebra / signs','代數符號'],['missing-solutions','Missing solutions','漏解'],['diagram','Graphs','圖像'],['expression','Explanation','表達']].map(([key,en,ch])=><option value={key}>{t(en,ch)}</option>)}</select></label>
+  <label><input type="checkbox" data-bank-wrong/>{t('My latest checked wrong answers','最近核對的錯題')}</label><label><input type="checkbox" data-bank-corrected/>{t('Previously wrong, now corrected','曾錯後改正')}</label><label><input type="checkbox" data-bank-completed/>{t('I marked that I can explain','已標記能解釋')}</label>
+ </form>
+ <p data-bank-count role="status">{index.length} {t('questions','題')} · {t('Page','頁')} {number} / {pages}</p>
+ <div data-bank-list>{items.map((row:any)=><div class="senior-bank-entry"><a class="senior-bank-row" href={row.url} data-bank-row data-id={row.id}><span>{row.title} · {level(row)}</span><strong>{row.prompt}</strong><small>{row.source==='official'?row.paperId:t('Original teaching material','原創教學材料')}</small></a><button type="button" data-classroom-add={row.id} data-interactive-only hidden>{t('Add to classroom list','加入課堂清單')}</button></div>)}</div>
+ <nav class="senior-pagination" data-bank-pagination aria-label={t('Question bank pages','題庫分頁')}>{hasPrevious&&<a href={pageUrl(number-1)}>{t('Previous page','上一頁')}</a>}{hasNext&&<a href={pageUrl(number+1)}>{t('Next page','下一頁')}</a>}</nav>
+ <noscript><p>{t('Use the page links to read the full bank. Each question has a readable explanation without JavaScript.','使用分頁連結閱讀全部題庫；每題詳解不用 JavaScript 亦可閱讀。')}</p></noscript>
+</div>

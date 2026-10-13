@@ -10,7 +10,7 @@ const G7InquiryUI = (() => {
     for(const field of Object.keys(labels))if(typeof raw[field]==='string')n[field]=raw[field].slice(0,6000);
     n.params=C.normalize(id,raw.params||{});n.stage=Number.isInteger(raw.stage)?Math.max(0,Math.min(5,raw.stage)):0;
     if(typeof raw.draft==='string')n.draft=raw.draft.slice(0,100);
-    if(Array.isArray(raw.evidence))n.evidence=raw.evidence.filter(e=>e&&typeof e.settings==='string'&&typeof e.result==='string').slice(0,12).map(e=>({version:typeof e.version==='string'?e.version.slice(0,50):'legacy-v2',settings:e.settings.slice(0,8000),result:e.result.slice(0,12000),...(e.params&&e.version===C.version?{params:C.normalize(id,e.params)}:{})}));
+    if(Array.isArray(raw.evidence))n.evidence=raw.evidence.filter(e=>e&&typeof e.settings==='string'&&typeof e.result==='string').slice(0,12).map(e=>({version:typeof e.version==='string'?e.version.slice(0,50):'legacy-v2',settings:e.settings.slice(0,8000),result:e.result.slice(0,12000),...(typeof e.eventId==='string'?{eventId:e.eventId}:{}),...(e.params&&e.version===C.version?{params:C.normalize(id,e.params)}:{})}));
     if(Array.isArray(raw.selected))n.selected=raw.selected.filter(i=>Number.isInteger(i)&&i>=0&&i<n.evidence.length).slice(0,2);
     if(Array.isArray(raw.checks))n.checks=raw.checks.filter(x=>x&&typeof x.prompt==='string'&&typeof x.answer==='string'&&typeof x.correct==='boolean').slice(-20);
     if(Array.isArray(raw.opened))n.opened=raw.opened.filter(x=>typeof x==='string').slice(0,30);
@@ -21,12 +21,14 @@ const G7InquiryUI = (() => {
     try{const parsed=JSON.parse(value||'{}');return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};}catch{return {};}
   }
   const current=readStored(key),old=readStored('math-studio-inquiry-v2');
-  for(const id of ids)records[id]=sanitize(current[id]||old[id],id);
+  for(const id of ids)records[id]=sanitize({...old[id],...current[id]},id);
   const note=id=>records[id]??=(sanitize(null,id));
-  function save() {
-    try{localStorage.setItem(key,JSON.stringify(records));persistent=true;}catch{persistent=false;}
-    const el=document.getElementById('g7-save-status');if(el)el.textContent=persistent?'探究紀錄已保存在此瀏覽器。':'本機保存失敗；本次操作仍保留，請下載紀錄。';
-  }
+  const recordStore=globalThis.MathNativeStore?.create({key,initial:records,fallbackRecords:old,onChange(raw){
+    for(const id of ids)records[id]=sanitize({...old[id],...raw[id]},id);recordStore.adopt(records);
+    globalThis.MathNativeStore.hydrateFields('[data-g7-field]','g7Field',records,'g7Id');
+    if(typeof state!=='undefined'&&C.has(state.lab)){state.params[state.lab]=copy(note(state.lab).params);update(state.lab);refreshEvidence(state.lab);}
+  },onStatus(result){persistent=result.ok;const el=document.getElementById('g7-save-status');if(el)el.textContent=result.status==='conflict'?'兩個分頁修改同一欄；兩份草稿已保留，請處理衝突。':persistent?'探究紀錄已保存在此瀏覽器。':'本機保存尚未完成；本次操作仍保留，請下載紀錄。';}});
+  function save() {if(recordStore)return recordStore.save(records);persistent=false;return Promise.resolve({ok:false,status:'session'});}
   function restoreParameters(){return Object.fromEntries(ids.map(id=>[id,copy(note(id).params)]));}
   function inputField(id,field) {return `<label class="g7-field" for="g7-${field}">${labels[field]}<textarea id="g7-${field}" rows="3" maxlength="6000" data-g7-field="${field}" data-g7-id="${id}">${escapeHTML(note(id)[field]||'')}</textarea></label>`;}
   function controls(id,p) {
@@ -138,7 +140,7 @@ const G7InquiryUI = (() => {
         if(!(n.prediction||'').trim()){message('先留下預測，再記錄實驗。');document.getElementById('g7-prediction').focus();return;}
         const row=C.snapshot(id,state.params[id]);if(n.evidence.some(e=>e.version===row.version&&e.settings===row.settings)){message('這組設定已記錄；請改一個條件再比較。');return;}
         if(n.evidence.length>=12){message('已有12筆；請先下載，或移除一筆再記錄。');return;}
-        n.evidence.push(row);save();refreshEvidence(id);message(`已保存實驗 ${n.evidence.length}。`,true);
+        n.evidence.push({...row,eventId:globalThis.MathNativeStore?.eventId()||String(Date.now())});save();refreshEvidence(id);message(`已保存實驗 ${n.evidence.length}。`,true);
       }
       if(b.dataset.g7Compare!==undefined){const i=Number(b.dataset.g7Compare);if(!n.evidence[i])return;if(n.selected.includes(i))n.selected=n.selected.filter(x=>x!==i);else if(n.selected.length<2)n.selected.push(i);else{message('先取消其中一筆，再選另一筆；同時比較兩筆。',true);return;}save();refreshEvidence(id);message('已更新並排比較。',true);}
       if(b.dataset.g7Remove!==undefined){const i=Number(b.dataset.g7Remove);n.evidence.splice(i,1);n.selected=n.selected.filter(x=>x!==i).map(x=>x>i?x-1:x);save();refreshEvidence(id);message('已移除選定紀錄，其他草稿保留。',true);}

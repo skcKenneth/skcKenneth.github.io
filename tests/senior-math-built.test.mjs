@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
 import {seniorPages} from '../src/lib/senior-math-pages.mjs';
-import {lessons,reviews,papers,questions,lessonById,questionById} from '../src/data/senior-math/catalog.mjs';
+import {lessons,reviews,papers,questions,lessonById,questionById,skillById,skillFamilies} from '../src/data/senior-math/catalog.mjs';
 const output=new URL('../dist/',import.meta.url);
 const read=path=>readFileSync(new URL(path,output),'utf8');
 const topicData=html=>JSON.parse(html.match(/<script\b[^>]*data-jae-data[^>]*>([\s\S]*?)<\/script>/)?.[1]||'[]');
@@ -21,15 +21,15 @@ for(const [locale,prefix] of [['en',''],['zh-Hant','zh/']]){
     const relative=decodeURIComponent(href.slice(1)),target=relative.endsWith('/')?relative+'index.html':relative;
     assert(existsSync(new URL(target,output)),`${path}: broken ${href}`);
    }
-   if(['lesson','question','paper'].includes(page.type)){
+   if(['lesson','question','paper','skill','skill-diagnostic'].includes(page.type)){
     const topics=topicData(html);assert.equal(topics.length,1,path);
-    const expected=page.type==='lesson'?lessonById.get(page.id).questions:page.type==='question'?[questionById.get(page.id)]:papers.find(p=>p.id===page.id).questions;
+    const expected=page.type==='lesson'?lessonById.get(page.id).questions:page.type==='question'?[questionById.get(page.id)]:page.type==='skill'?skillById.get(page.id).questions:page.type==='skill-diagnostic'?skillFamilies.find(f=>f.id===page.id).diagnostics:papers.find(p=>p.id===page.id).questions;
     assert.deepEqual(topics[0].questions.map(q=>q.id),expected.map(q=>q.id),`${path}: only this page's content`);
     assert.equal((html.match(/data-question="/g)||[]).length,expected.length,path);
     assert.equal((html.match(/data-reveal="/g)||[]).length,3*expected.length,path);
     for(const q of expected){assert(html.includes(`id="${q.id}"`),path);assert(html.includes('完整解答')||html.includes('Worked solution'),path);}
    }
-   if(page.type==='lesson'){
+   if(page.type==='lesson'||page.type==='skill'){
     assert(html.includes('id="teacher"'),path);assert(html.includes('data-lesson-check'),path);
     assert(topicData(html)[0].inquiry||page.id.startsWith('review-'),`${path}: inquiry`);
    }
@@ -49,7 +49,10 @@ for(const [locale,prefix] of [['en',''],['zh-Hant','zh/']]){
   assert(index.includes(`/${prefix}teaching/senior-math/`));
   assert(search.includes('高中數學研習室')&&search.includes('Senior Mathematics Studio')&&search.includes('JM02'));
   const bank=read(`${prefix}teaching/senior-math/question-bank/index.html`);
-  assert.equal((bank.match(/data-bank-row\b/g)||[]).length,questions.length);
+  assert.equal((bank.match(/data-bank-row\b/g)||[]).length,50);
+  assert(Buffer.byteLength(bank,'utf8')<=150000,`${locale}: bank first page exceeds 150 KB`);
+  const seen=[];for(const page of seniorPages.filter(p=>p.type==='bank')){const html=read(`${prefix}teaching/senior-math/${page.path}/index.html`);const rows=[...html.matchAll(/data-bank-row\b[^>]*data-id="([^"]+)"/g)].map(m=>m[1]);assert(rows.length<=50);seen.push(...rows);assert(!html.includes('data-jae-data'),`${page.path}: bank embeds solutions`);}
+  assert.deepEqual(seen,questions.map(q=>q.id),`${locale}: static no-JavaScript pages cover every item once`);
   for(const filter of ['level','kind','source','book','exam','school','wrong','completed'])assert(bank.includes(`data-bank-${filter}`));
   const exam=read(`${prefix}teaching/senior-math/paths/exam/index.html`);
   assert(exam.includes('JM01_Exam_Syllabus_2027.pdf')&&exam.includes('JM02_Exam_Syllabus_2027.pdf'));

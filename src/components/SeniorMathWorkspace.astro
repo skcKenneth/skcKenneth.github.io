@@ -1,0 +1,20 @@
+---
+import JaeMathStudio from './JaeMathStudio.astro';
+const {locale='en',type}=Astro.props;
+const zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en;
+---
+<div class="container senior-content senior-workspace" data-math-workspace={type} data-locale={locale}>
+ {type==='my-learning'?<>
+  <p>{t('Recent attempts, corrections and next steps stay in this browser. There is no combined mastery score. Each question keeps its five most recent assessments; the history is capped at 1 MiB. Latest drafts and ever-wrong flags are retained separately.','最近作答、訂正及下一步保存在此瀏覽器，不合併計算掌握率。每題保留最近五次評核，歷史上限 1 MiB；最新草稿及曾錯標記另外保留。')}</p>
+  <p data-workspace-status role="status"></p><div data-learning-summary></div>
+  <div class="senior-grid">{[['resume','Continue the last task','繼續上次任務'],['wrong','Recent wrong answers','最近錯題'],['corrected','Previously wrong, now corrected','曾錯後改正'],['due','Scheduled retries','三天／七天重做'],['next','Next lesson or assessment','下一課／章節評量'],['unknown','Retained unknown records','保留的未知題目紀錄']].map(([key,en,ch])=><section class="senior-card"><h2>{t(en,ch)}</h2><ul data-learning-list={key}></ul></section>)}</div>
+  <section class="senior-backup"><h2>{t('Backup and restore','備份與還原')}</h2><p>{t('The backup includes latest answers, history and the classroom list. Both old v1 and new v2 JSON files are accepted. Preview before importing; conflicts keep local work unless you select an overwrite. Unknown question records are retained.','備份包括最新答案、歷史及課堂清單。接受舊 v1 與新 v2 JSON；匯入前先預覽，衝突預設保留本機紀錄，只有勾選才覆蓋。未知題目紀錄亦會保留。')}</p><button type="button" data-backup-download>{t('Download current backup','下載目前備份')}</button><label>{t('Choose a JSON backup (up to 16 MiB)','選擇 JSON 備份（最多 16 MiB）')}<input type="file" accept="application/json,.json" data-backup-file/></label><div data-backup-preview hidden><h3>{t('Import preview','匯入預覽')}</h3><p data-backup-info></p><ul data-backup-rows></ul><label><input type="checkbox" data-backup-classroom/>{t('Replace my current classroom list with the backup list','以備份清單取代目前課堂清單')}</label><p>{t('Download your current backup above before applying changes. Histories merge; latest drafts and settings follow the choices below.','套用前請先下載上方目前備份。歷史會合併，最新草稿及設定依下方選擇處理。')}</p><button type="button" data-backup-apply>{t('Download backup and apply selected import','下載原紀錄備份並套用所選匯入')}</button></div></section>
+ </>:<>
+  <p>{t('Choose up to 30 questions from lessons or the question bank, then order and name the list. A shared link includes only question IDs, title and classroom mode; it contains no student work.','由課節或題庫選最多 30 題，再排序及命名。分享連結只包括題目 ID、名稱及課堂模式，不包含學生作答。')}</p><p data-workspace-status role="status"></p>
+  <label>{t('Classroom list title','課堂清單名稱')}<input type="text" maxlength="120" data-classroom-title/></label><ol data-classroom-list></ol>
+  <label>{t('Share this link','分享此連結')}<input type="text" readonly data-classroom-link/></label><p><button type="button" data-classroom-copy>{t('Copy link','複製連結')}</button> <button type="button" data-classroom-teach>{t('Load this list for teaching / printing','載入清單授課／列印')}</button></p>
+  <p>{t('Changes to the list take effect after loading it. The selected questions carry their shared conditions.','更改清單後，重新載入以套用；所選題目會帶入共用條件。')}</p><div data-classroom-fallback></div>
+ </>}
+ <noscript><p>{t('Local learning records, backup restore and classroom lists require JavaScript. All question pages and the paginated bank remain readable.','本機紀錄、備份還原及課堂清單需要 JavaScript；題目詳解及逐頁題庫仍可閱讀。')}</p></noscript>
+</div>
+{type==='classroom'&&<div data-classroom-stage><JaeMathStudio locale={locale} lessonTopics={[]} standalone/></div>}

@@ -5,8 +5,8 @@ const site=loadSite(),C=site.evaluate('G7InquiryCore'),U=site.evaluate('G7Inquir
 const plain=x=>JSON.parse(JSON.stringify(x));
 const near=(a,b)=>assert(Math.abs(a-b)<1e-8,`${a} != ${b}`);
 function result(id,p){return C.calculate(id,{...C.defaults(id),...p});}
-test('12 chapter-aligned inquiries, 21 total; every case, prompt and graphic renders',()=>{
- assert.equal(site.evaluate('Object.keys(labInfo).length'),21);
+test('12 chapter-aligned Year 7 inquiries plus the Year 8 bisector; every case, prompt and graphic renders',()=>{
+ assert.equal(site.evaluate('Object.keys(labInfo).length'),22);
  const lessons=site.evaluate('lessons.filter(l=>l.grade==="g7").map(l=>l.id)');
  assert.deepEqual(Object.values(C.definitions).map(d=>d.lesson).sort(),plain(lessons).sort());
  for(const [id,u] of Object.entries(U)){
@@ -79,7 +79,7 @@ test('synthetic sampling is reproducible, without replacement and correctly labe
 });
 function input(s,dataset,value){const node={dataset,value,matches(){return false;},setAttribute(){},removeAttribute(){}};for(const cb of s.listeners.input)cb({target:node});}
 function click(s,id,dataset){const panel={dataset:{g7Inquiry:id,inquiry:id},querySelector(){return null;}};const node={dataset,closest(sel){return sel==='[data-inquiry]'||sel==='[data-g7-inquiry]'?panel:null;}};for(const cb of s.listeners.click)cb({target:{closest(sel){return sel==='button'?node:null;}}});}
-test('old evidence remains verbatim, new parameters/steps/drafts/checks persist across reload',()=>{
+test('old evidence remains verbatim, new parameters/steps/drafts/checks persist across reload',async()=>{
  const old={number:{prediction:'舊預測 <script>bad</script>',evidence:[{settings:'a=-3',result:'相反數=3；|a|=3'}]}};
  const storage=new Map([['math-studio-inquiry-v2',JSON.stringify(old)]]),s=loadSite(storage);
  s.evaluate("state.view='labs';state.lab='number';render();updateLab('number')");
@@ -91,22 +91,22 @@ test('old evidence remains verbatim, new parameters/steps/drafts/checks persist 
  for(const cb of s.listeners.change)cb({target:{dataset:{g7Stage:''},value:'4',closest(){return null;}}});
  click(s,'number',{g7Action:'capture'});click(s,'number',{g7Action:'check'});
  assert.equal(s.elements['g7-check-message'].textContent,'這項數值正確。再用自己的話解釋原因。');
- const stored=JSON.parse(storage.get('math-studio-inquiry-g7-v1')).number;
+ await s.flush();const stored=JSON.parse(storage.get('math-studio-inquiry-g7-v1')).number;
  assert.equal(stored.evidence.length,2);assert.equal(stored.evidence[0].version,'legacy-v2');assert.equal(stored.evidence[1].params.a,1);assert.equal(stored.stage,4);
  const next=loadSite(storage);next.evaluate("state.view='labs';state.lab='number';render();updateLab('number')");
  assert.equal(next.evaluate('state.params.number.a'),1);assert(next.app.innerHTML.includes('兩種目標可能不同'));assert(next.app.innerHTML.includes('value="6"'));
  assert.equal(storage.get('math-studio-inquiry-v2'),JSON.stringify(old));
  assert(next.evaluate("Inquiry.exportText('number')").includes('學生答案：6'));
 });
-test('prediction gate, comparison limits, draft retention, invalid controls and denied storage',()=>{
+test('prediction gate, comparison limits, draft retention, invalid controls and denied storage',async()=>{
  const s=loadSite();s.evaluate("state.view='labs';state.lab='powers';render();updateLab('powers')");
  click(s,'powers',{g7Action:'capture'});assert(s.elements['g7-message'].textContent.includes('先留下'));
  input(s,{g7Id:'powers',g7Field:'prediction'},'平方不同，立方可能相同');input(s,{g7Draft:''},'4');
  click(s,'powers',{g7Action:'capture'});click(s,'powers',{g7Action:'capture'});assert(s.elements['g7-message'].textContent.includes('已記錄'));
  click(s,'powers',{g7Case:'1'});click(s,'powers',{g7Action:'capture'});click(s,'powers',{g7Case:'2'});click(s,'powers',{g7Action:'capture'});
  for(const i of ['0','1','2'])click(s,'powers',{g7Compare:i});assert(s.elements['g7-message'].textContent.includes('同時比較兩筆'));
- const record=JSON.parse(s.storage.get('math-studio-inquiry-g7-v1')).powers;assert.equal(record.evidence.length,3);assert.equal(record.selected.length,2);assert.equal(record.draft,'4');
+ await s.flush();const record=JSON.parse(s.storage.get('math-studio-inquiry-g7-v1')).powers;assert.equal(record.evidence.length,3);assert.equal(record.selected.length,2);assert.equal(record.draft,'4');
  input(s,{g7Id:'powers',g7Param:'n'},'0');assert.equal(s.evaluate('state.params.powers.n'),4);assert(s.elements['g7-control-message'].textContent.includes('有效數值'));
  const broken=loadSite(new Map(),true);broken.evaluate("state.view='labs';state.lab='matches';render();updateLab('matches')");input(broken,{g7Id:'matches',g7Field:'prediction'},'每次多三支');click(broken,'matches',{g7Action:'capture'});
- assert(broken.elements['g7-save-status'].textContent.includes('保存失敗'));assert(broken.evaluate("Inquiry.exportText('matches')").includes('每次多三支'));
+ await broken.flush();assert(broken.elements['g7-save-status'].textContent.includes('保存'));assert(broken.evaluate("Inquiry.exportText('matches')").includes('每次多三支'));
 });

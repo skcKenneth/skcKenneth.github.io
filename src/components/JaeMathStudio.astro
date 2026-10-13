@@ -10,10 +10,11 @@ const { locale = 'en', lessonTopics, standalone = false } = Astro.props;
 const zh = locale === 'zh-Hant';
 const t = (en: string, ch: string) => zh ? ch : en;
 const label = (value: any) => value?.[zh ? 'zh' : 'en'] || '';
-const topics = (lessonTopics || jaeTopics) as any[];
+const topics = (lessonTopics || jaeTopics.map(topic=>({...topic,questions:topic.questions.map(question=>({...question,difficultyReview:'provisional'}))}))) as any[];
 const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), standard: t('Standard', '鞏固'), transfer: t('Transfer', '遷移') };
 ---
 
+<script is:inline src="/math-shared/storage.js"></script>
 <div class="jae-studio" data-jae-studio data-locale={locale} data-mode="study" data-print="student">
   <script is:inline type="application/json" data-jae-data set:html={JSON.stringify(topics).replace(/</g, '\\u003c')} />
   {!standalone && <TeachingToolbar locale={locale} questionIds={topics.flatMap(topic => topic.questions.map((question: any) => question.id))} />}
@@ -45,6 +46,7 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
       <details class="jae-tools"><summary>{t('Export & print', '匯出與列印')}</summary><div class="jae-tools-menu">
         <button type="button" data-export="json">{t('Download JSON', '下載 JSON 紀錄')}</button><button type="button" data-export="text">{t('Download readable record', '下載文字紀錄')}</button>
         <button type="button" data-print="student">{t('Print student worksheet', '列印學生練習紙')}</button><button type="button" data-print="teacher">{t('Print teacher solutions', '列印教師解答')}</button>
+        <button type="button" data-print="work">{t('Print my work and corrections','列印我的作答與訂正')}</button><a href={zh?'/zh/teaching/senior-math/my-learning/':'/teaching/senior-math/my-learning/'}>{t('Restore a backup / My learning','還原備份／我的學習')}</a>
       </div></details>
     </div>
   </div>
@@ -65,7 +67,7 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
       <header class="jae-topic-heading"><p class="jae-eyebrow">{t('TOPIC', '專題')} 0{topicIndex + 1}</p><h2>{label(topic.title)}</h2><p>{label(topic.summary)}</p></header>
       {(topic.objectives.length>0||topic.concepts.length>0||topic.misconceptions.length>0) && <div class="jae-topic-reading">
         <div class="jae-objectives"><h3>{t('What you will be able to explain', '學完之後，你能解釋')}</h3><ul>{topic.objectives.map((objective: any) => <li>{label(objective)}</li>)}</ul></div>
-        <div class="jae-concepts">{topic.concepts.map((concept: any) => <article><h3>{label(concept.title)}</h3><p>{label(concept.body)}</p>{concept.formula && <MathExpression expression={concept.formula} display />}</article>)}</div>
+        <div class="jae-concepts">{topic.concepts.map((concept: any) => <article><h3>{label(concept.title)}</h3>{concept.motivation&&<p>{label(concept.motivation)}</p>}<p>{label(concept.body)}</p>{concept.formula && <MathExpression expression={concept.formula} display />}{concept.derivation?.length>0&&<ol>{concept.derivation.map((step:any)=><li><p>{label(step.body)}</p>{step.math&&<MathExpression expression={step.math} display/>}</li>)}</ol>}{concept.conditions?.length>0&&<><h4>{t('When it applies','成立條件')}</h4><ul>{concept.conditions.map((v:any)=><li>{label(v)}</li>)}</ul></>}{concept.counterexample&&<p><strong>{t('Counterexample: ','反例：')}</strong>{label(concept.counterexample)}</p>}{concept.representations?.length>0&&<ul>{concept.representations.map((v:any)=><li>{label(v)}</li>)}</ul>}</article>)}</div>
         <aside class="jae-misconceptions"><h3>{t('Pause at these common mistakes', '這些地方，值得停一停')}</h3><ul>{topic.misconceptions.map((item: any) => <li>{label(item)}</li>)}</ul></aside>
       </div>}
 
@@ -81,23 +83,32 @@ const levels: Record<string, string> = { foundation: t('Foundation', '基礎'), 
       </section>}
 
       <div class="jae-exercise-heading"><h3>{t('Try it. Leave your reasoning visible.', '試一試，把思路寫下來。')}</h3><p>{t('Use one hint at a time. A correction explains what changed, not just the final answer.', '每次只看一個提示。訂正時記錄想法如何改變，不只抄下答案。')}</p></div>
+      {topic.questions[0]?.id.startsWith('skill-')&&<p class="senior-scaffolding">{t('Examples 1–3: study a full demonstration; finish a solution from its first step; then choose a method independently before opening the solution. The remaining exercises may continue after class.','例題 1–3：先讀完整示範；由已完成的首步接續推理；再獨立選方法，完成後才展開解答。其餘練習可於課後繼續。')}</p>}
       <div class="jae-questions">{topic.questions.map((question: any, index: number) => <article class="jae-question" id={question.id} data-question={question.id} data-question-topic={topic.id}>
         <div class="jae-question-stage"><div class="jae-question-left">
-          <div class="jae-question-meta"><span>{String(index + 1).padStart(2, '0')} / {levels[question.level] || ''}</span><a href={question.permalink || `#${question.id}`} aria-label={t('Link to this question', '此題連結')}>#</a><span>{question.kind === 'example' ? t('Worked example', '示範例題') : t('Your turn', '獨立練習')}</span></div>
+          <div class="jae-question-meta"><span>{String(index + 1).padStart(2, '0')} / {question.difficultyReview==='ungraded'?t('Ungraded','未分級'):(levels[question.level] || '')+(question.difficultyReview==='provisional'?t(' · provisional',' · 暫定'):'')}</span><a href={question.permalink || `#${question.id}`} aria-label={t('Link to this question', '此題連結')}>#</a><span>{question.kind === 'example' ? t('Worked example', '示範例題') : t('Your turn', '獨立練習')}</span></div>
+          {question.sharedStem?.segments.length>0&&<aside class="senior-shared-stem"><h5>{t('Shared conditions and earlier statements','共用條件與前置題意')}</h5><p>{t('Read the shared conditions and earlier tasks. Their solutions are not included here; derive any needed result yourself.','請閱讀共用條件及前面小問；此處不展示解答，需要的結果請自行推導。')}</p>{question.sharedStem.segments.map((part:any)=><div><strong>{part.id.startsWith('context-')?t('Given context','已知條件'):part.label}</strong><p>{label(part.prompt)}</p>{part.expression&&<MathExpression expression={part.expression} display/>}{part.conditions?.length>0&&<ul>{part.conditions.map((c:any)=><li>{label(c)}</li>)}</ul>}{part.promptSvg&&<div class="senior-prompt-svg" set:html={part.promptSvg}/>}</div>)}</aside>}
           <h4>{label(question.prompt)}</h4>{question.expression && <MathExpression expression={question.expression} display />}
+          {index===1&&question.id.startsWith('skill-')&&question.kind==='example'&&<div class="senior-partial-solution"><p><strong>{t('First step provided — complete the reasoning:','已提供首步，請接續推理：')}</strong>{label(question.steps[0].body)}</p>{question.steps[0].math&&<MathExpression expression={question.steps[0].math} display/>}</div>}
           {question.promptSvg && <div class="senior-prompt-svg" set:html={question.promptSvg} />}
           {question.sourceDiscrepancy && <aside class="senior-discrepancy">{label(question.sourceDiscrepancy)}</aside>}
           {question.conditions?.length > 0 && <ul class="jae-conditions">{question.conditions.map((condition: any) => <li>{label(condition)}</li>)}</ul>}
           {question.source?.type === 'official' && <p class="senior-question-source">{t('Official paper', '官方試卷')} · {question.source.paperId} · {question.source.question} · PDF {question.source.pdfPage}</p>}
           {question.officialUrl && <p><a href={question.officialUrl} target="_blank" rel="noopener noreferrer">{t('Official original and suggested answers','官方原卷及參考答案')} ↗</a> · {t('Suggested answer PDF page','參考答案 PDF 頁')} {question.source.answerPdfPage}</p>}
           {question.relatedLessons?.length>0 && <details class="senior-question-skills"><summary>{t('Skills and prerequisite lessons','考點與先備課節')}</summary><nav>{question.relatedLessons.map((lesson:any)=><a class="senior-chip" href={lesson.url}>{label(lesson.title)}</a>)}</nav></details>}
+          {question.relatedSkills?.length>0&&<nav aria-label={t('Targeted skill support','技能補救')}>{question.relatedSkills.map((skill:any)=><a class="senior-chip" href={skill.url}>{label(skill.title)}</a>)}</nav>}
+          {question.examScopes&&<p class="senior-question-source">{t('Scope: ','範圍：')}{question.examScopes.filter((s:string)=>s!=='extension').join(' / ')||t('School extension','校本延伸')}{question.examScopeNote&&<> · {label(question.examScopeNote)}</>}</p>}
+          <button type="button" data-classroom-add={question.id} data-interactive-only hidden>{t('Add to classroom list','加入課堂清單')}</button>
           {question.kind === 'choice' && <div class="jae-static-options"><ol type="A">{question.choices?.map((choice: any) => <li>{label(choice.label)}{choice.expression && <MathExpression expression={choice.expression} />}</li>)}</ol></div>}
           {question.kind !== 'example' && <form class="jae-answer-form" data-answer-form data-interactive-only hidden>
-            {question.kind === 'choice' ? <fieldset><legend>{t('Choose an answer', '選擇答案')}</legend><div class="jae-options">{question.choices?.map((choice: any) => <label><input type="radio" name={`answer-${question.id}`} value={choice.id} /><span><b>{choice.id}</b> {label(choice.label)}{choice.expression && <MathExpression expression={choice.expression} />}</span></label>)}</div></fieldset> : question.kind !== 'written' && <label class="jae-answer-label" for={`answer-${question.id}`}>{t('Your answer (decimal or fraction, e.g. 3/2)', '你的答案（小數或分數，例如 3/2）')}<input id={`answer-${question.id}`} type="text" inputmode="text" autocomplete="off" data-number-answer placeholder={t('Enter a number', '輸入數值')} /></label>}
+            {question.kind === 'choice' ? <fieldset><legend>{t('Choose an answer', '選擇答案')}</legend><div class="jae-options">{question.choices?.map((choice: any) => <label><input type="radio" name={`answer-${question.id}`} value={choice.id} /><span><b>{choice.id}</b> {label(choice.label)}{choice.expression && <MathExpression expression={choice.expression} />}</span></label>)}</div></fieldset> : question.kind !== 'written' && <label class="jae-answer-label" for={`answer-${question.id}`}>{t('Your answer (e.g. 3/2, pi/3, sqrt(2))', '你的答案（例如 3/2、pi/3、sqrt(2)）')}<input id={`answer-${question.id}`} type="text" inputmode="text" autocomplete="off" data-number-answer placeholder={t('Enter a number', '輸入數值')} /></label>}
             {question.kind === 'written' && <label>{t('Written reasoning for self-assessment', '書面推理與自評')}<textarea data-written-answer maxlength="6000" rows="4"></textarea></label>}
             <button class="jae-button" type="submit">{question.kind === 'written' ? t('Record my work', '記錄我的作答') : t('Check answer', '核對答案')}</button><p class="jae-answer-feedback" data-answer-feedback role="status"></p>
           </form>}
           <div class="jae-study-record" data-interactive-only hidden><label for={`notes-${question.id}`}>{t('My reasoning / first attempt', '我的思路／初次嘗試')}<textarea id={`notes-${question.id}`} data-record="notes" rows="3" maxlength="6000" placeholder={t('What did you notice? Which method did you try?', '你留意到甚麼？嘗試用了哪個方法？')}></textarea></label><label for={`correction-${question.id}`}>{t('My correction', '我的訂正')}<textarea id={`correction-${question.id}`} data-record="correction" rows="2" maxlength="6000" placeholder={t('What changed, and why?', '哪一步要修改？原因是甚麼？')}></textarea></label><label class="jae-completion"><input type="checkbox" data-completed />{t('I can explain this solution', '我能解釋這題的解法')}</label></div>
+          <section class="senior-learning-tools" data-interactive-only hidden><p data-evidence role="status"></p><fieldset><legend>{t('What needed correction?','訂正哪方面？')}</legend>{[['conditions','Conditions / domain','條件／定義域'],['method','Method selection','方法選擇'],['algebra','Algebra / signs','代數符號'],['missing-solutions','Missing solutions','漏解'],['diagram','Graph','圖像'],['expression','Explanation','表達']].map(([key,en,ch])=><label><input type="checkbox" data-error-category value={key}/>{t(en,ch)}</label>)}</fieldset><p><button type="button" data-review-days="3">{t('Retry in 3 days','三天後重做')}</button> <button type="button" data-review-days="7">{t('Retry in 7 days','七天後重做')}</button> <button type="button" data-independent-retry>{t('Start an independent retry','開始獨立重做')}</button></p><p data-review-due></p><details><summary>{t('Recent attempts (up to five)','最近作答（最多五次）')}</summary><ol data-attempt-history></ol></details></section>
+          <pre class="jae-print-record" data-print-record></pre>
+          <div data-correction-support></div>
           <div class="jae-print-working"><p>{t('Working and explanation', '計算過程與解釋')}</p><div></div></div>
         </div><div class="jae-question-right">
           <p class="jae-reasoning-label">{t('BUILD THE REASONING', '逐步建立思路')}</p>

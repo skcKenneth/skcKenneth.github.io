@@ -37,6 +37,39 @@ test('malformed TOML comment endings terminate instead of looping',()=>{
   assert.equal(result.error,undefined,result.error?.message);assert.equal(result.status,0,result.stderr);
 });
 
+test('indexed source maps reject invalid or amplified offsets while preserving ordinary mappings',()=>{
+  const postcssRequire=createRequire(astroRequire.resolve('postcss'));
+  const {SourceMapConsumer,SourceMapGenerator}=postcssRequire('source-map-js');
+  const flat={version:3,sources:['lesson.js'],names:[],mappings:'AAAA'};
+  const indexed=(line,column=0,map=flat)=>({version:3,sections:[{offset:{line,column},map}]});
+  for(const value of [-1,0.5,Infinity,NaN,'2',Number.MAX_SAFE_INTEGER+1]){
+    assert.throws(()=>new SourceMapConsumer(indexed(value)),/offset|integer/i);
+    assert.throws(()=>new SourceMapConsumer(indexed(0,value)),/offset|integer/i);
+  }
+  assert.throws(()=>new SourceMapConsumer(indexed(10000001)),/exceed/i);
+  assert.throws(()=>new SourceMapConsumer(indexed(4000000,0,indexed(4000000,0,indexed(4000000)))),/nested|exceed/i);
+  const consumer=new SourceMapConsumer(indexed(2));
+  const mappings=[];consumer.eachMapping(mapping=>mappings.push(mapping));
+  assert.equal(mappings.length,1);assert.equal(mappings[0].generatedLine,3);
+  const generator=new SourceMapGenerator({file:'lesson-built.js'});
+  mappings.forEach(mapping=>generator.addMapping({generated:{line:mapping.generatedLine,column:mapping.generatedColumn},original:{line:mapping.originalLine,column:mapping.originalColumn},source:mapping.source}));
+  const copied=generator.toJSON();
+  assert.equal(copied.mappings,';;AAAA');assert.deepEqual(copied.sources,['lesson.js']);
+});
+
+test('KaTeX ignores inherited trust settings and preserves explicit safe rendering',async()=>{
+  const {default:katex}=await import('katex');
+  const expression=String.raw`\htmlClass{trusted-marker}{x}`;
+  const inherited=Object.assign(Object.create({trust:true}),{throwOnError:true,strict:'ignore'});
+  const untrusted=katex.renderToString(expression,inherited);
+  assert.doesNotMatch(untrusted,/class="[^"]*\btrusted-marker\b/);
+  assert.match(untrusted,/katex/);
+  const explicitlyTrusted=katex.renderToString(expression,{trust:true,throwOnError:true,strict:'ignore'});
+  assert.match(explicitlyTrusted,/class="[^"]*\btrusted-marker\b/);
+  const formula=katex.renderToString(String.raw`\frac{1}{2}+\sqrt{x^2}`,{output:'htmlAndMathml',throwOnError:true,strict:'error',trust:false});
+  assert.match(formula,/<math\b/);assert.match(formula,/katex-html/);
+});
+
 test('devalue rejects out-of-range references and round-trips valid state',async()=>{
   const {parse,stringify}=await dependency('devalue');
   for(const input of ['[{"x":999999999}]','[[999999999]]'])assert.throws(()=>parse(input));

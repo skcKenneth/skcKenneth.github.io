@@ -1,3 +1,4 @@
+import {parseExactNumeric} from './senior-math-numeric.mjs';
 /** Deterministic mathematics and local progress for the JAE pilot. */
 export const STORAGE_KEY = 'jae-math-v1';
 export const quadraticValue = (x, a, b, c) => a * x * x + b * x + c;
@@ -23,14 +24,9 @@ export function trigSummary(amplitude, frequency, phaseDegrees) {
   const periodic = amplitude !== 0 && frequency !== 0;
   return { amplitude: Math.abs(amplitude), periodDegrees: periodic ? 360 / Math.abs(frequency) : null, periodRadians: periodic ? 2 * Math.PI / Math.abs(frequency) : null, phaseDegrees };
 }
-/** Parse only finite decimals and simple fractions; never evaluate expressions. */
+/** Parse bounded arithmetic, pi and square roots without executing input. */
 export function parseNumeric(input) {
-  const value = String(input ?? '').trim().replace(/\u2212/g, '-'), decimal = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/;
-  if (decimal.test(value)) { const number = Number(value); return Number.isFinite(number) ? number : null; }
-  const parts = value.split('/').map(part => part.trim());
-  if (parts.length !== 2 || !parts.every(part => decimal.test(part))) return null;
-  const numerator = Number(parts[0]), denominator = Number(parts[1]), result = numerator / denominator;
-  return denominator !== 0 && Number.isFinite(numerator) && Number.isFinite(denominator) && Number.isFinite(result) ? result : null;
+  return parseExactNumeric(input);
 }
 export function checkAnswer(question, input) {
   const text = String(input ?? '').trim();
@@ -80,19 +76,23 @@ export function loadProgress(storage) {
     if (!raw) return { progress: initialProgress(), available: true, issue: null };
     try {
       const value = JSON.parse(raw);
-      if (value?.version !== 1) return { progress: initialProgress(), available: true, issue: 'corrupt' };
+      if (value?.version !== 1 || !value.answers || typeof value.answers!=='object' || Array.isArray(value.answers) || Object.values(value.answers).some(record=>!record||typeof record!=='object'||Array.isArray(record))) return { progress: initialProgress(), available: true, issue: 'corrupt' };
       return { progress: normalizeProgress(value), available: true, issue: null };
     } catch { return { progress: initialProgress(), available: true, issue: 'corrupt' }; }
   } catch { return { progress: initialProgress(), available: false, issue: 'unavailable' }; }
 }
-export function saveProgress(storage, progress, changedIds) {
+export function saveProgress(storage, progress, changedIds, changedFields) {
   try {
     const safe = normalizeProgress(progress); safe.updatedAt = new Date().toISOString();
     if (changedIds) {
       const latest = loadProgress(storage);
       if (!latest.available || latest.issue === 'corrupt') return false;
       const merged = { ...latest.progress.answers };
-      for (const id of changedIds) if (safe.answers[id]) merged[id] = safe.answers[id];
+      for (const id of changedIds) if (safe.answers[id]) {
+        const fields=changedFields?.get(id);
+        if(fields){const record={...(merged[id]||{input:'',notes:'',correction:'',completed:false,attempts:0,lastResult:null})};for(const [field,change]of fields){if(field==='attempts')record.attempts=(record.attempts||0)+change.delta;else record[field]=safe.answers[id][field];}merged[id]=record;}
+        else merged[id] = safe.answers[id];
+      }
       safe.answers = merged;
     }
     storage.setItem(STORAGE_KEY, JSON.stringify(safe)); progress.updatedAt = safe.updatedAt;

@@ -8,6 +8,13 @@ export { curriculumSourceManifest };
 import { examCoverage, lessonsForSkills } from './exam-coverage.mjs';
 export { examCoverage, lessonsForSkills };
 import { jaeTopics } from '../jae-math.mjs';
+import { itemMetadata } from './item-metadata.mjs';
+import { contextualizePaper } from '../../lib/senior-math-context.mjs';
+import { alignInquiry } from './inquiry-audit.mjs';
+import {skills,skillById,skillFamilies} from './skills.mjs';
+export {skills,skillById,skillFamilies};
+const annotate=question=>({...question,...itemMetadata[question.id]});
+const annotateLesson=lesson=>{const annotated={...lesson,questions:lesson.questions.map(annotate)};return lesson.inquiry?alignInquiry(annotated):annotated;};
 
 export const books = [
   { id:'c1', title:L('Compulsory volume 1','必修第一冊'), chapters:5, sections:24, documentId:'textbook-c1', filename:'高一必修 第一册(A版).pdf', pdfPages:270 },
@@ -17,21 +24,23 @@ export const books = [
   { id:'s3', title:L('Selective compulsory volume 3','選擇性必修第三冊'), chapters:3, sections:11, documentId:'textbook-s3', filename:'高三選擇性必修 第三册(A版).pdf', pdfPages:154 },
 ];
 export const chapters = [...foundationChapters, ...advancedChapters];
-export const coreLessons = [...foundationLessons, ...advancedLessons];
-export const lessons = [...coreLessons, ...advancedSupplements, ...algebraBridgeLessons];
-export const reviews = [...foundationReviews, ...advancedReviews];
-export const papers = examPapers;
+export const coreLessons = [...foundationLessons, ...advancedLessons].map(annotateLesson);
+export const lessons = [...coreLessons, ...advancedSupplements.map(annotateLesson), ...algebraBridgeLessons.map(annotateLesson)];
+export const reviews = [...foundationReviews, ...advancedReviews].map(annotateLesson);
+export const papers = examPapers.map(paper=>contextualizePaper({...paper,questions:paper.questions.map(annotate)}));
 export const lessonById = new Map([...lessons, ...reviews].map(item=>[item.id,item]));
 export const label = (pair, locale) => pair?.[locale === 'zh-Hant' ? 'zh' : 'en'] || '';
 export const base = locale => `${locale === 'zh-Hant' ? '/zh' : ''}/teaching/senior-math/`;
 export const lessonUrl = (id, locale='en') => `${base(locale)}lessons/${id}/`;
+export const skillUrl = (id,locale='en')=>`${base(locale)}skills/${id}/`;
 export const questionUrl = (id, locale='en') => `${base(locale)}questions/${id}/`;
 export const paperUrl = (id, locale='en') => `${base(locale)}papers/${id}/`;
-export const pilotQuestions = jaeTopics.flatMap(topic=>topic.questions.map(question=>({...question, lessonId:topic.id, lessonTitle:topic.title, legacy:true, source:{type:'original',lessonId:topic.id}})));
+export const pilotQuestions = jaeTopics.flatMap(topic=>topic.questions.map(question=>annotate({...question, lessonId:topic.id, lessonTitle:topic.title, legacy:true, source:{type:'original',lessonId:topic.id}})));
 export const questions = [
   ...[...lessons,...reviews].flatMap(item=>item.questions.map(question=>({...question,lessonId:item.id,lessonTitle:item.title,bookId:item.bookId,chapterId:item.chapterId}))),
   ...papers.flatMap(paper=>paper.questions.map(question=>({...question,paperId:paper.id,lessonId:paper.id,lessonTitle:L(`${paper.year} ${paper.code}`,`${paper.year} ${paper.code}`)}))),
   ...pilotQuestions,
+  ...skills.flatMap(skill=>[...skill.questions,...skill.diagnostics].map(question=>({...question,lessonId:skill.id,lessonTitle:skill.title,bookId:skill.bookId,chapterId:skill.chapterId,parentLessonIds:skill.parentLessonIds,prerequisiteSkillIds:skill.prerequisites}))),
 ];
 export const questionById = new Map(questions.map(question=>[question.id,question]));
 const chapterLessons = (...ids) => ids.flatMap(id=>coreLessons.filter(item=>item.chapterId===id).map(item=>item.id));
@@ -86,22 +95,14 @@ export const syllabusSources = [
   {id:'jae-jm02-2027',code:'JM02',year:2027,pdfPages:5,filename:'2027 JM02 考試大綱',url:'https://www.must.edu.mo/images/JAE/JM02_Exam_Syllabus_2027.pdf'},
 ];
 export const sourceById=new Map([...books.map(b=>({...b,id:b.documentId})),...schoolRoutes.map(r=>({...r,id:r.documentId})),...syllabusSources].map(source=>[source.id,source]));
-export const relatedLessonIds=question=>lessonsForSkills(question.skills||[]).filter(id=>lessonById.has(id));
+export const relatedLessonIds=question=>[...new Set(question.relatedLessonIds||[...(question.parentLessonIds||[]),...lessonsForSkills(question.skills||[]),...(lessonById.has(question.lessonId)?[question.lessonId]:[])])].filter(id=>lessonById.has(id));
 export const examinationCodes=id=>examCoverage.filter(exam=>exam.areas.some(a=>a.lessonIds.includes(id))||exam.inherits.some(code=>examCoverage.find(e=>e.code===code).areas.some(a=>a.lessonIds.includes(id)))).map(e=>e.code);
 export function examinationCodesForQuestion(question){
- if(question.paperId)return [papers.find(p=>p.id===question.paperId)?.code].filter(Boolean);
- if(question.legacy)return ['JM01','JM02'];
- const ids=relatedLessonIds(question);
- if(ids.includes('s2-5-2')&&/e\^\{|\\(?:sin|cos|tan|ln|log)/.test(question.expression||''))return [];
- if(ids.includes('sup-matrices')){
-  const systemOnly=/system/i.test(question.prompt.en)&&!/(?:pmatrix|vmatrix|det|A\^\{-1\})/.test(question.expression||'');
-  return systemOnly?['JM01','JM02']:['JM02'];
- }
- return [...new Set(ids.flatMap(examinationCodes))];
+ return (question.examScopes||itemMetadata[question.id]?.examScopes||[]).filter(code=>code==='JM01'||code==='JM02');
 }
 export const schoolPathIds=id=>schoolRoutes.filter(route=>route.groups.some(g=>g.lessonIds.includes(id))).map(r=>r.id);
 export function questionTopic(question) {
-  const parent = lessonById.get(question.lessonId);
+  const parent = lessonById.get(question.lessonId)||skillById.get(question.lessonId);
   if (parent) return {...parent, concepts:[], questions:[question], inquiry:undefined};
   return {id:question.lessonId,title:question.lessonTitle,summary:question.explanation,objectives:[],concepts:[],misconceptions:[],questions:[question]};
 }

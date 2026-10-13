@@ -2,7 +2,8 @@
 const PracticeUI=(()=>{
  const key='math-studio-practice-v2';let history={},persistent=true;const configs={},sessions={};let runCounter=0;
  try{const data=JSON.parse(localStorage.getItem(key)||'{}');if(data&&typeof data==='object'&&!Array.isArray(data))for(const [k,v] of Object.entries(data))if(typeof v==='number'&&Number.isFinite(v)&&v>0)history[k]=v;}catch{persistent=false;}
- function save(){try{localStorage.setItem(key,JSON.stringify(history));persistent=true;}catch{persistent=false;}}
+ const recordStore=globalThis.MathNativeStore?.create({key,initial:history,exposure:true,onChange(raw){history=Object.fromEntries(Object.entries(raw).filter(([,v])=>typeof v==='number'&&Number.isFinite(v)&&v>0));recordStore.adopt(history);},onStatus(result){persistent=result.ok;}});
+ function save(){if(recordStore)return recordStore.save(history);persistent=false;return Promise.resolve({ok:false,status:'session'});}
  function scope(id){return id||'grade-'+state.grade;}
  function config(id){const k=scope(id);return configs[k]??=( {grade:state.grade,lesson:id||'all',level:'mix',count:10} );}
  function start(id){const c=config(id),result=PracticeBank.select(c,history),stamp=Date.now();for(const q of result.questions)history[q.key]=stamp;save();sessions[scope(id)]={runId:++runCounter,...result,config:{...c},answers:{},drafts:{}};}

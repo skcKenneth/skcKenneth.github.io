@@ -31,9 +31,10 @@ test('Sine/cosine transformation uses explicit degrees and handles constants', (
   assert.equal(trigSummary(1,0,0).periodRadians,null);
   assert.throws(()=>trigSummary(1,Infinity,0));
 });
-test('Numeric checks accept fractions and reject expressions or division by zero', () => {
+test('Numeric checks accept bounded arithmetic and reject invalid or unbounded input', () => {
   for(const [text,result] of [['.5',.5],['−2',-2],[' -3 / 4 ',-.75],['0',0]]) assert.equal(parseNumeric(text),result);
-  for(const text of ['','1/0','Infinity','NaN','2+3','Math.PI','1/2/3','1e309','<script>']) assert.equal(parseNumeric(text),null);
+  assert.equal(parseNumeric('2+3'),5);assert.equal(parseNumeric('1/2/3'),1/6);
+  for(const text of ['','1/0','Infinity','NaN','Math.PI','1e309','<script>']) assert.equal(parseNumeric(text),null);
   assert.equal(parseNumeric('1/'+'9'.repeat(400)),null);
   const q={kind:'number',answer:.5,tolerance:1e-8};
   assert.equal(checkAnswer(q,'1/2').status,'correct');

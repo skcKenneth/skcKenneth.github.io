@@ -1,0 +1,380 @@
+{
+  "scope": "Manual per-item mathematical derivation review by the authoring agent, with separate computational witnesses; not an external peer-review certificate.",
+  "items": [
+    {
+      "id": "skill-quadratics-vertex-example-1",
+      "derivationReview": "Expand (x−3)^2−4 to recover the three original coefficients. Nonnegative square has equality exactly at x=3, so both the −4 value and attaining input are correct.",
+      "sha256": "73cce04c8215fa5c96027f82ad8eb60309dec4d96cf14f7992438a43abccbd62"
+    },
+    {
+      "id": "skill-quadratics-vertex-example-2",
+      "derivationReview": "Vertex forces a(x−2)^2−3. Substituting (0,5) gives a=2 uniquely, and this nonzero coefficient reproduces the stated vertex and extra point.",
+      "sha256": "af8af7679235235cea10152bdea2eec693ba6cf4973558fc55410e749391c8ad"
+    },
+    {
+      "id": "skill-quadratics-vertex-example-3",
+      "derivationReview": "Perimeter 20 implies side sum 10; positive lengths impose 0<x<10. Area 25−(x−5)^2 is at most 25 with the feasible equality lengths 5,5.",
+      "sha256": "e52bededb0bdd7740464f5740c4ba1d7744280f91d5b8db4f69539edb1163dc4"
+    },
+    {
+      "id": "skill-quadratics-vertex-exercise-2",
+      "derivationReview": "Expansion of 2(x+2)^2−5 is 2x^2+8x+3. The external factor doubles the added square compensation; the vertex is therefore (−2,−5).",
+      "sha256": "04c5caeca3b0814ee92496a1101cabd5ecb68d714adb15a47361941cd107d174"
+    },
+    {
+      "id": "skill-quadratics-vertex-exercise-5",
+      "derivationReview": "Distances of inputs 1 and 4 from axis 3 are 2 and 1. Positive square coefficient preserves this order; explicit outputs 0 and −3 corroborate it.",
+      "sha256": "7c5b4669af085180345f5f9b29aed5f4000b0b7d4f9b0ad3340f4905f9cccbbb"
+    },
+    {
+      "id": "skill-quadratics-vertex-exercise-6",
+      "derivationReview": "The distinct equal-height pair x=−1,1 fixes the axis at 0 for a quadratic. The value 2 at the axis and value 3 at x=1 give x^2+2; the remaining pair checks consistently.",
+      "sha256": "4272b281a5441a68940813a8428a1dfd75dc3e9c334c00493b1bf4437726a1eb"
+    },
+    {
+      "id": "skill-quadratics-vertex-exercise-7",
+      "derivationReview": "The right translation requires new input x=2 to reproduce original input zero, hence x−2 inside. Adding three shifts the output and vertex up without altering the axis.",
+      "sha256": "73d6d079c281a1441a9c8c3b8161ea0364881ac88566678a2b6e638f560780b7"
+    },
+    {
+      "id": "skill-quadratics-vertex-exercise-9",
+      "derivationReview": "Any quadratic with distinct roots 1,5 is a(x−1)(x−5). Its axis is 3; the required minimum at −8 forces a=2, which is positive and unique.",
+      "sha256": "4085e419a815bd44eb6e48782f75535a8193a741c1fbca6e934d5b68b00546c3"
+    },
+    {
+      "id": "skill-quadratics-vertex-exercise-10",
+      "derivationReview": "Complete the cost to (n−4.5)^2+9.75. Among allowed integers the minimum distance is 0.5, attained only at 4 and 5, so both costs equal 10; the real vertex is forbidden.",
+      "sha256": "543345fc75d5982d6753a760b48919e6c4e2a6882594fc7f26d4b7b4a02a3ced"
+    },
+    {
+      "id": "skill-quadratics-roots-example-1",
+      "derivationReview": "The product (x−2)(x−3) expands to x^2−5x+6. Zero-product alternatives yield exactly 2 and 3, and each substitution has zero residual.",
+      "sha256": "7f22d77d5dfb561d531f6a11fdfe352e5e32e7c25d1aa0c15b876f73a7d8d45e"
+    },
+    {
+      "id": "skill-quadratics-roots-example-3",
+      "derivationReview": "The discriminant is 4(k−2)(k+1), with leading coefficient always 1. Tangency therefore occurs exactly at k=2 or −1; the repeated input −b/(2a)=k checks both contacts.",
+      "sha256": "b66438e9677df6fb2f5ae5726b8d8fc248f664b54c3ed4b636121b316798d104"
+    },
+    {
+      "id": "skill-quadratics-roots-exercise-3",
+      "derivationReview": "A positive real value 7 has two signed roots. Both ±sqrt(7) square to 7, and factorisation over the reals proves no other input can satisfy the equation.",
+      "sha256": "532d9455686ef69219921f4be7855a7e8c31a2d00c914f24657bbd78dfe343a0"
+    },
+    {
+      "id": "skill-quadratics-roots-exercise-5",
+      "derivationReview": "Equating heights gives (x−3)(x+1)=0. Back-substitution into x^2 gives the two complete points (3,9) and (−1,1), rather than inputs alone.",
+      "sha256": "906b9796178ed4581cdef1bea9ab2032fa3d9806c38fe4135ad283b4c4b1cc38"
+    },
+    {
+      "id": "skill-quadratics-roots-exercise-7",
+      "derivationReview": "The original denominator excludes 2. On that domain the quotient is x+2, whose sole root −2 has denominator −4, so cancellation introduces no accepted forbidden point.",
+      "sha256": "c355c4d04779956ba1077aba8d9ac48d9728871e1bcb4cc78a71b40c4ff0cc8b"
+    },
+    {
+      "id": "skill-quadratics-roots-exercise-9",
+      "derivationReview": "At k=1 the equation is linear and has root −1/2. Otherwise its discriminant vanishes only at k=2, giving (x+1)^2=0; these disjoint branches exhaust exactly-one-real-root cases.",
+      "sha256": "60784b537b5e9faeddfea17850d7fb97c5adca083a7518cbd64e5280237d637c"
+    },
+    {
+      "id": "skill-quadratics-roots-exercise-10",
+      "derivationReview": "Counterexample x^2−1 has positive discriminant but opposite-sign roots. For real distinct roots, positive product forces equal nonzero signs and positive sum forces the positive sign; conversely positive distinct roots imply all three conditions.",
+      "sha256": "5f96f511d9051217983c83548812fe6f58631326d3f228856e5ff35b0c5e2ce0"
+    },
+    {
+      "id": "skill-quadratics-inequalities-example-1",
+      "derivationReview": "Factors have equal signs outside roots 1 and 4, opposite signs inside. Strict positivity excludes both zero endpoints, producing exactly the two open rays.",
+      "sha256": "d5efe85c594b13c2d02695ade56ad2e61a027f978bf65d81f7fec71770334bbe"
+    },
+    {
+      "id": "skill-quadratics-inequalities-example-2",
+      "derivationReview": "Negating the expression reverses the target inequality. The upward product (x−1)(x−3) is nonpositive exactly on the closed inside interval [1,3].",
+      "sha256": "d5232aa7d52bc29b407ff52d0ffafee0e8a5253186020c6a8b14bd1128e06496"
+    },
+    {
+      "id": "skill-quadratics-inequalities-example-3",
+      "derivationReview": "The minimum of (x−1)^2+k−1 is k−1 and is attained. Strict positivity for every real input is therefore equivalent to k>1; the boundary k=1 fails at x=1.",
+      "sha256": "cbcd3d022b007b09afe0986a9bd5c46b748ed69b014cef7aca13a385937f78b7"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-2",
+      "derivationReview": "Switching strict to weak positivity preserves all nonzero signs and adds exactly the zeros 2,5. There is no change to the negative inside region.",
+      "sha256": "fe5ac817cd2f5f3f6ac36b92314e036d1266c1f614d0e3e8898554bb344c7779"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-3",
+      "derivationReview": "Nonnegativity of every real square together with the requested nonpositive bound forces equality. The base x−2 must vanish, leaving only the singleton {2}.",
+      "sha256": "de673d738f2e8e5493b28c78cb88af28e2fae2ca7455c560763362dcf07a2c3a"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-4",
+      "derivationReview": "The expression equals (x+1/2)^2+3/4, giving a strictly positive attained minimum. This proves the full real line solution without relying on root absence alone.",
+      "sha256": "a1c58dd14fe5ca482fdbec06e71b5a3747e108411999698e8e7dc52657456b5d"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-5",
+      "derivationReview": "The factorised quadratic is nonpositive on [2,3]. Intersecting with x>2 removes only the left endpoint, yielding (2,3].",
+      "sha256": "283a20b1b9ed39fbeb79f2faead696ca2c84903d2d77821137facc10a68fa1bb"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-6",
+      "derivationReview": "Critical inputs −2 and 1 split three intervals. Numerator and denominator have equal signs on the outside intervals; 1 is permitted equality and −2 is always undefined.",
+      "sha256": "3b4b46c6117b0a2d3fca2407be3963fd8b1576f2e92c31d2353b606ba19da737"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-7",
+      "derivationReview": "The real radical requires −(x−1)(x−5)≥0. The closed interval [1,5] includes both zero radicands, and every outside input has negative radicand.",
+      "sha256": "2f55ff70b370813b54411f1b1e7d4ecb7b8364db3b1bbd0274241dada118ea56"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-8",
+      "derivationReview": "A two-factor sign chart gives negativity only for 0<x<2. The student rule x<2 accepts x=−1 with positive product 3, exposing the omitted unknown-divisor sign.",
+      "sha256": "b034dc244de892187b2f0808417000a5a9846565851c9ceeac03110904f2aeb2"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-9",
+      "derivationReview": "The perimeter gives y=10−x and area condition (x−3)(x−7)≤0, so x lies in [3,7] with positive y automatically. The shorter side min(x,10−x) then ranges over [3,5].",
+      "sha256": "f762f745d00bb38b1ff5b818ae181faf1a9aac7e16212f033200e2ddcc4dc927"
+    },
+    {
+      "id": "skill-quadratics-inequalities-exercise-10",
+      "derivationReview": "For a<1 the leading term drives values negative at large inputs; at a=1 the linear function fails too. For a>1 global nonnegativity is equivalent to discriminant 8−4a≤0, so a≥2 including the square boundary.",
+      "sha256": "6cf4c5142827dd174ecc36b4e382400e3217d924d9e83999bfc7a3951c8c7dba"
+    },
+    {
+      "id": "skill-quadratics-intervals-example-3",
+      "derivationReview": "The closest permitted point to zero is t+1 if t<−1, zero if −1≤t≤0, and t if t>0. Squaring gives the three pieces, which agree at both branch boundaries.",
+      "sha256": "d82fcb16022589b857df7741d9f2a7eba1b540128df73effa944fcd975c1c587"
+    },
+    {
+      "id": "skill-quadratics-intervals-exercise-4",
+      "derivationReview": "Zero belongs to the interval and gives the minimum. Input −2 gives the largest absolute input, hence maximum 4. Continuity fills [0,4] and both values are attained.",
+      "sha256": "a77034b3e476d051e372a1233f10e303ba471fa55632d00c7983e1e583313511"
+    },
+    {
+      "id": "skill-quadratics-intervals-exercise-5",
+      "derivationReview": "For every 0<x<1, output lies strictly between 0 and 1. Sequences approaching each excluded endpoint achieve arbitrarily close bounds, proving infimum/supremum but no attained extrema.",
+      "sha256": "b9ef22652a8f481e6006098b6711e84b49478aff8e5d77e32c1b9c536acc08b8"
+    },
+    {
+      "id": "skill-quadratics-intervals-exercise-6",
+      "derivationReview": "Vertex input 3 is contained exactly when a≤3 and a+2≥3. Solving both inequalities gives 1≤a≤3, including endpoint coincidence.",
+      "sha256": "3e459615050f7cd53bc027d9a5e832a213dadd8a9b7da2882fe61fb26d9d1d5f"
+    },
+    {
+      "id": "skill-quadratics-intervals-exercise-8",
+      "derivationReview": "Throughout [−1,1], the positive distance 2−x strictly decreases as x increases. Squaring positive distances preserves strict order, proving strict decrease without differentiation.",
+      "sha256": "fc2250719ad2d48876b5681d21851f97be62c46cf53097981779c55dcb9b8f92"
+    },
+    {
+      "id": "skill-quadratics-intervals-exercise-9",
+      "derivationReview": "For fixed a, the largest squared distance is at an endpoint. Distances a+1 and 2−a sum to 3, so their maximum is at least 1.5, with equality exactly at admissible a=0.5. Squaring gives minimax 9/4.",
+      "sha256": "4350cbf0ccb71ccd53988938741c64f81c3c19954d1e8084dd4a5411f64de034"
+    },
+    {
+      "id": "skill-quadratics-intervals-exercise-10",
+      "derivationReview": "Permitted settings nearest to 2.4 are 2 and 3, with squared distances .16 and .36. All other integers are farther, proving unique n=2 and loss 1.16; both real-vertex-only and endpoint-only shortcuts fail.",
+      "sha256": "e003d134059ca7803a8a6923eca3f427375c2aaad4bdc8272dccd92aff982be5"
+    },
+    {
+      "id": "skill-trig-unit-circle-example-3",
+      "derivationReview": "Subtracting two full 360-degree turns gives terminal angle 45 degrees. The unit-radius first-quadrant coordinates are both sqrt(2)/2, while the actual accumulated travel remains 765 degrees.",
+      "sha256": "b057c5ee3114d3d1ddb094901644476005a4bdd29e0baf88eb90ccdfa71cc464"
+    },
+    {
+      "id": "skill-trig-unit-circle-exercise-3",
+      "derivationReview": "At 90 degrees the point is (0,1). Tangent as vertical divided by horizontal is 1/0, undefined as a real number and neither zero nor a real infinity.",
+      "sha256": "b60e3dea7a0900a4be42a67d2a62bcd1326977899cc95611164f559972d93bc2"
+    },
+    {
+      "id": "skill-trig-unit-circle-exercise-4",
+      "derivationReview": "The radian angle −pi/3 is a clockwise 60-degree rotation into quadrant IV. Cosine is 1/2 and sine is −sqrt(3)/2, preserving unit squared norm.",
+      "sha256": "229fd144d9c7141a3c4750612a238b0e4cfe471d8daac5cb5f9e64fa2c949cd3"
+    },
+    {
+      "id": "skill-trig-unit-circle-exercise-6",
+      "derivationReview": "Point (1,−2) has the required tangent ratio and quadrant. Its positive radius sqrt(5) gives cosine 1/sqrt(5), and any positive ray scaling cancels in the ratio.",
+      "sha256": "c63141f2d7ea2cc08b0d150698638b066c15975d2a60c31b90ba026512e2e440"
+    },
+    {
+      "id": "skill-trig-unit-circle-exercise-8",
+      "derivationReview": "Reflection across the y-axis takes an acute alpha point to pi−alpha. It reverses only the horizontal coordinate, leaving the common vertical coordinate equal to sine alpha.",
+      "sha256": "611ba4ccf8def27930e7bc5c7b4f6978b40e87ed786240658bb2fc89615ce75a"
+    },
+    {
+      "id": "skill-trig-unit-circle-exercise-9",
+      "derivationReview": "A clockwise 120-degree rotation is angle −120 degrees. Its unit coordinates (−1/2,−sqrt(3)/2) scaled by radius 2 give (−1,−sqrt(3)); signed height and positive distance below the axis are explicitly distinguished.",
+      "sha256": "6f818f706a9de2f2dd1eada9008d096e3a69e83eac157c930de6185101054c56"
+    },
+    {
+      "id": "skill-trig-unit-circle-exercise-10",
+      "derivationReview": "Exact sine and cosine .8 would have squared norm 1.28 rather than 1. Every quadrant sign change preserves this norm, so no real angle or sign repair can fit the claimed exact readings.",
+      "sha256": "42f53f20577c75ca821e1c2331341a74e9fcddcfa13e3bc065b149d4794530a5"
+    },
+    {
+      "id": "skill-trig-identities-example-1",
+      "derivationReview": "The Pythagorean identity changes the numerator to sin^2 x. Cancellation yields sin x only under the original restriction sin x nonzero, equivalent to excluding integer multiples of pi in radians.",
+      "sha256": "4524ba7821708a87e92928a5e865cbe1d2b64b57c07797dea55a1687a469dfc0"
+    },
+    {
+      "id": "skill-trig-identities-example-2",
+      "derivationReview": "Substituting sin^2 x=1−cos^2 x in the difference yields 2cos^2 x−1. The alternative substitution gives 1−2sin^2 x; neither operation divides, so both identities are global.",
+      "sha256": "33ccd1fa18250343fef949719498926f83b855ad04eb7095178dde0108760563"
+    },
+    {
+      "id": "skill-trig-identities-example-3",
+      "derivationReview": "Both tan 45-degree values are defined and equal one, but the combined denominator is zero and the target angle is 90 degrees. Neither the formula nor real arithmetic permits assigning infinity to this undefined quotient.",
+      "sha256": "9b8e2c9e87d04f937f71033e10d5f08837addfcbdfb988454a636edceeb1618a"
+    },
+    {
+      "id": "skill-trig-identities-exercise-3",
+      "derivationReview": "Replace cos^2 x by 1−sin^2 x in cos 2x=cos^2 x−sin^2 x. This derives the requested one-angle form directly, with no excluded angles.",
+      "sha256": "b635e936918b2258347cca8ba39d6f646787b1f27f78058d7d85fcfbcebbe787"
+    },
+    {
+      "id": "skill-trig-identities-exercise-4",
+      "derivationReview": "The proposed identity at two 30-degree angles gives sqrt(3)/2 on the left and 1 on the right. These exact numbers differ, supplying a valid universal-claim counterexample.",
+      "sha256": "78cd342337667b7727ef5a49e9c402f5ecd79f2a821957bc0ee1f84826a12723"
+    },
+    {
+      "id": "skill-trig-identities-exercise-5",
+      "derivationReview": "The numerator becomes 2sin^2 x and denominator 2sin x cos x. The quotient is tan x only where both factors are nonzero, excluding all integer multiples of pi/2 rather than cosine zeros alone.",
+      "sha256": "66e1d156c473c9631c81215bd103717c07f0da5cef50f3068405df17560035f3"
+    },
+    {
+      "id": "skill-trig-identities-exercise-6",
+      "derivationReview": "The sine addition formula for 45+30 gives sqrt(2)/2 times sqrt(3)/2 plus sqrt(2)/2 times 1/2. The exact combined value is (sqrt(6)+sqrt(2))/4.",
+      "sha256": "7d910e9e1d945b5413bf34a11a61ebf3f0cf5eb1574ee547a91b691d1de58da0"
+    },
+    {
+      "id": "skill-trig-identities-exercise-8",
+      "derivationReview": "Expanding sine of x+y and x−y yields opposite cos x sin y terms, which cancel, and two identical sin x cos y terms. No division or domain narrowing occurs.",
+      "sha256": "e8d9ec03fe2e22b4e9698337c3653c5b411a5e6b4d430772f36c4c1274327cf5"
+    },
+    {
+      "id": "skill-trig-identities-exercise-9",
+      "derivationReview": "Expanding (3s+4c)^2+(4s−3c)^2 cancels mixed terms and gives 25(s^2+c^2)=25. Nonnegativity proves the bound; the admissible unit point (c,s)=(4/5,3/5) attains +5.",
+      "sha256": "546815660f91fd18096dd106d564d53874187d8df4058dbfd6a873d4091a73af"
+    },
+    {
+      "id": "skill-trig-identities-exercise-10",
+      "derivationReview": "Expanding the numerator gives 2sin x cos x=sin 2x, so the quotient is one wherever its original denominator is nonzero. All x=k pi/2 remain excluded and are holes in the horizontal graph.",
+      "sha256": "d78d94802a02e44020a2f7c1409cbb7db3b97b7f5d069e8d6f9854a49582a072"
+    },
+    {
+      "id": "skill-trig-transformations-example-1",
+      "derivationReview": "Factor the phase as 2(x−pi/4). Nonzero amplitude 3, midline 1 and frequency 2 give period pi and right shift pi/4; the inside phase is not itself the shift.",
+      "sha256": "04679ad594aaded16afc7c6c839756f834de21e5d996f80424a2d8d63a4c12f5"
+    },
+    {
+      "id": "skill-trig-transformations-example-2",
+      "derivationReview": "The mean of extremes −1,5 is 2 and half-difference 3. Least period pi forces positive frequency 2, but no crossing or phase reference is supplied, so phi remains undetermined.",
+      "sha256": "5d9bff228cf6256a85eb25bac1ad0cf19f671e3322da8e13fd8790b2ecfb3296"
+    },
+    {
+      "id": "skill-trig-transformations-example-3",
+      "derivationReview": "Range −2 to 6 gives midline 2 and positive amplitude 4; period 2pi/3 gives frequency 3. Setting phase zero at pi/6 gives the stated model and positive local crossing direction.",
+      "sha256": "b57fc15dde3123e12300ba3e140c8f61b612b257dfed050d3e42fece11b230a6"
+    },
+    {
+      "id": "skill-trig-transformations-exercise-2",
+      "derivationReview": "A nonconstant sin(4x) repeats its full phase after input shift 2pi/4=pi/2. Amplitude five has no effect on horizontal period.",
+      "sha256": "984bf9184ace0e10e5edf3e5a5bdead9ca797491ce39f2e9ccbaf03db3a456ed"
+    },
+    {
+      "id": "skill-trig-transformations-exercise-3",
+      "derivationReview": "Writing 2x+pi/3=2(x+pi/6) identifies h=−pi/6 relative to sin 2x. This requires both division by frequency and reversing the sign in x−h.",
+      "sha256": "b86517fa85501d7c6c611dd8a253db47579d7535b370871ce88db73ffc39e550"
+    },
+    {
+      "id": "skill-trig-transformations-exercise-4",
+      "derivationReview": "The exact sine range [−1,1], multiplied by positive 2 and shifted by 3, becomes [1,5], with midpoint 3 and both extrema attained.",
+      "sha256": "9000549f289c61fac0835e51ad9a4ecef390fc79f758221c609e69df2b492681"
+    },
+    {
+      "id": "skill-trig-transformations-exercise-5",
+      "derivationReview": "At common input pi/2 the first function gives sin pi=0 while the second gives 2. Their periods and amplitudes differ, demonstrating input scaling versus output scaling.",
+      "sha256": "0bcd568263a096c231580ad0407f999318042436d458ad048b07ab8abccd067e"
+    },
+    {
+      "id": "skill-trig-transformations-exercise-6",
+      "derivationReview": "Zero amplitude reduces the formula to constant four. Every positive translation is a period, and halving any positive candidate gives a smaller one, proving absence of a least positive period.",
+      "sha256": "7a7e2aae5f0379a74aab3c2013e4a033c7cec9f38fd382ea0f416ba302b60a3d"
+    },
+    {
+      "id": "skill-trig-transformations-exercise-8",
+      "derivationReview": "For a positive-frequency sine an upward zero requires phase 2kpi, not an odd multiple of pi. Thus x=(pi+2kpi)/3 and the smallest nonnegative solution is pi/3; x=0 crosses downwards.",
+      "sha256": "8142428adf2edfe1f5cb60c2eb665f3cf207c55564f072e39c888425c564a1bc"
+    },
+    {
+      "id": "skill-trig-transformations-exercise-9",
+      "derivationReview": "Frequency pi/6 radians per hour gives 12-hour period. Height≤3 is cosine≤−1/2; phases [2pi/3,4pi/3] translate to [4,8] hours, with the next cycle [16,20] and no other intervals in [0,24].",
+      "sha256": "4375c2a320d3619f6760c9b07b62391d8793e57329c84ce164673be1e548165e"
+    },
+    {
+      "id": "skill-trig-transformations-exercise-10",
+      "derivationReview": "At every integer n, sin(2pi n)=0, so both constant two and 2+sin(2pi t) match every recorded value. At t=1/4 they give 2 and 3 respectively, providing a concrete discriminating observation.",
+      "sha256": "9038f1e670b9124556438f66108165e120a835d60f3a8fff22ced34e8ab1401a"
+    },
+    {
+      "id": "skill-trig-equations-example-1",
+      "derivationReview": "Unit-circle sine one-half occurs at 30 and 150 degrees in the half-open first cycle. Adding any full turn moves outside the required interval; endpoints are not roots.",
+      "sha256": "cb408e06ed72a50edfd730fb66300b91fb86f66635e7831e76375eec1fb3d153"
+    },
+    {
+      "id": "skill-trig-equations-example-2",
+      "derivationReview": "Factoring in s=sin x gives (2s+1)(s−1). Both sine values are feasible; s=1 gives only 90 degrees and s=−1/2 gives 210 and 330, with no duplicated input.",
+      "sha256": "dea5c9ce71e63fad1597ccde0d38706df15908422d8afa898a4339c8d3ade907"
+    },
+    {
+      "id": "skill-trig-equations-example-3",
+      "derivationReview": "The double-angle identity yields cos x(2sin x−1)=0. The cosine-zero branch gives pi/2 and 3pi/2; the sine branch gives pi/6 and 5pi/6, all distinct and within the original domain.",
+      "sha256": "344efc677141b673edc60030fa9f58cae716f9d176a9c5b16f69d5a09ebfac8b"
+    },
+    {
+      "id": "skill-trig-equations-exercise-1",
+      "derivationReview": "Horizontal coordinate zero occurs at the two vertical unit-circle directions, 90 and 270 degrees, with no additional copies inside one half-open 360-degree interval.",
+      "sha256": "84332a3f46f981874c68b6ff31af89462f5a5977e56677f5e764da8f597be39f"
+    },
+    {
+      "id": "skill-trig-equations-exercise-2",
+      "derivationReview": "The reference tangent solution is 45 degrees and tangent period is 180 degrees. Adding one period yields 225; further copies leave the requested interval and neither candidate has zero cosine.",
+      "sha256": "a13be04270f93d665278946bf67ca9522b279e4e4a9781ce25ef9da5a4a7e987"
+    },
+    {
+      "id": "skill-trig-equations-exercise-3",
+      "derivationReview": "Sine of any real angle is a unit-circle coordinate in [−1,1]. The value two is outside the range, proving the empty real solution set without applying an inverse function.",
+      "sha256": "6a0f540ff9c73f3a79694234c0dae3642ba83a8c56497acfd8c1af4440fbb7ea"
+    },
+    {
+      "id": "skill-trig-equations-exercise-5",
+      "derivationReview": "The transformed angle 2x ranges over [0,720) degrees, with solutions 30,150,390,510. Dividing every candidate by two produces 15,75,195,255, all within the original interval.",
+      "sha256": "29cd2a214d10a9c21cf3b6c3379a81569dd829435ae052a3a2837b97fef750bf"
+    },
+    {
+      "id": "skill-trig-equations-exercise-6",
+      "derivationReview": "For u=x−pi/3 the two cosine branches are 2pi/3+2kpi and 4pi/3+2kpi. Restoring x and filtering [0,2pi) gives exactly pi and 5pi/3; neighbouring periodic copies are outside.",
+      "sha256": "441bccfdaed4b56a867d2fabcb9d1bdcc47350401bfc173d6676e665d1ebe603"
+    },
+    {
+      "id": "skill-trig-equations-exercise-7",
+      "derivationReview": "Cosine-zero points have sine ±1 and cannot satisfy equality, so the original equation excludes the zero divisor. Safe division then gives tangent one, with pi/4 and 5pi/4 in the interval.",
+      "sha256": "e72ea391e1981411bcff7ca3cac37c7fc96855a667a1d64a9b004b9eb8a4aea1"
+    },
+    {
+      "id": "skill-trig-equations-exercise-8",
+      "derivationReview": "The squared equation permits both sine signs, giving four standard candidates. Original negative sine rejects 30,150 degrees and retains 210,330; all retained values satisfy the unsquared equation.",
+      "sha256": "0d621675a6a13f749a1c2c3cdcb09d005727033648d46a9c039ff8fbaab83fa7"
+    },
+    {
+      "id": "skill-trig-equations-exercise-9",
+      "derivationReview": "Outside the sine range there are zero intersections; extreme heights ±1 give one each; nonzero interior heights give two each. Height zero includes 0,pi,2pi because both distinct endpoint inputs belong to the closed interval.",
+      "sha256": "c03f9fe686bf3b3360cf5c712b05f0d1d06b4a8533e5eb5dbbc54bc1f0f2bacd"
+    },
+    {
+      "id": "skill-trig-equations-exercise-10",
+      "derivationReview": "The height inequality is sin(pi t/4)>1/2 on a single phase cycle. The strict phase interval (pi/6,5pi/6) converts to time (2/3,10/3); both endpoints yield exactly four metres and must be excluded.",
+      "sha256": "fecaff86b08c7f46e1de24a7fe26fbd1d35e8a0c80a8ef83eb44dac6e5014a71"
+    }
+  ]
+}

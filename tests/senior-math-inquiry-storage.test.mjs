@@ -33,7 +33,8 @@ function fixture(locale='en'){
     querySelector:selector=>nodes.get(selector)||null,
     querySelectorAll:selector=>selector==='[data-inquiry-param]'?[first,second]:[],
   };
-  return {root:{dataset:{locale},querySelectorAll:selector=>selector==='[data-senior-lab]'?[lab]:[]},first,second,nodes};
+  const root=new Element();root.dataset.locale=locale;root.querySelectorAll=selector=>selector==='[data-senior-lab]'?[lab]:[];
+  return {root,first,second,nodes};
 }
 function session(progress,storage){
   const dirty=new Set();let reads=0,mutations=0,saves=0;
@@ -60,9 +61,12 @@ test('Restoring inquiry notes does not dirty stale data or overwrite another lan
   // Mode and directory saves are allowed to merge a page with no changed items.
   assert(saveProgress(storage,oldTab,s.dirty));
   assert.equal(loadProgress(storage).progress.answers[id].notes,'New prediction from Chinese tab');
+  f.root.fire('jae-progress');
+  assert.equal(f.nodes.get('[data-inquiry-note]').value,'New prediction from Chinese tab');
+  assert.deepEqual(s.counts(),{reads:2,mutations:0,saves:0});
   f.nodes.get('[data-inquiry-note]').value='I revised my prediction';f.nodes.get('[data-inquiry-note]').fire('input');
   assert.equal(loadProgress(storage).progress.answers[id].notes,'I revised my prediction');
-  assert.deepEqual(s.counts(),{reads:1,mutations:1,saves:1});
+  assert.deepEqual(s.counts(),{reads:2,mutations:1,saves:1});
 });
 
 test('An absent inquiry record stays absent until the student actually writes',()=>{

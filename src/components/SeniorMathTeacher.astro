@@ -1,0 +1,9 @@
+---
+import MathExpression from './MathExpression.astro';
+const {teacher,locale='en'}=Astro.props;
+const zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en,l=(v:any)=>v?.[zh?'zh':'en']||'';
+---
+<details class="container senior-teacher" id="teacher"><summary>{t('Teacher preparation and assessment','教師備課與評核')}</summary>
+ {teacher.timing?.length>0&&<><h3>{t('40-minute lesson','40 分鐘教案')}</h3><table class="senior-table"><thead><tr><th>{t('Minutes','分鐘')}</th><th>{t('Focus','環節')}</th><th>{t('Teaching and student action','教師及學生任務')}</th></tr></thead><tbody>{teacher.timing.map((r:any)=><tr><td>{r.minutes}</td><td>{l(r.title)}</td><td>{l(r.activity)}</td></tr>)}</tbody></table></>}
+ <div class="senior-grid">{[['prompts','Question sequence','提問順序'],['board','Board development','板書發展'],['anticipated','Expected correct and incorrect responses','預期正誤回答'],['followups','Follow-up questions','追問'],['remediation','Remediation','補救'],['exit','Exit check','離堂檢核'],['rubric','Assessment checklist and sample responses','評核清單與作答示例']].map(([key,en,ch])=>teacher[key]?.length>0&&<section><h3>{t(en,ch)}</h3><ul>{teacher[key].map((entry:any)=><li>{l(entry)}{entry.math&&<MathExpression expression={entry.math} display/>}{entry.sample&&<blockquote>{l(entry.sample)}</blockquote>}</li>)}</ul></section>)}</div>
+</details>
