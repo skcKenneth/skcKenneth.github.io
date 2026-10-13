@@ -1,12 +1,12 @@
 """Validate the actual bilingual classroom PDFs made by Chromium, without editing them."""
-import json, re, unicodedata
+import json, re, unicodedata, sys
 from pathlib import Path
 from pypdf import PdfReader
 import pdfplumber
 import pypdfium2 as pdfium
 
 root=Path(__file__).resolve().parents[1]
-output=root/'.tmp'/'math-system-browser-qa'
+output=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else root/'.tmp'/'math-system-browser-qa'
 report={'checks':[], 'pdfs':[], 'limits':'Selected actual A4 editions; extraction and glyph bounds do not establish every possible print layout.'}
 compact=lambda s:re.sub(r'\s+','',unicodedata.normalize('NFKC',s))
 def check(name,ok,evidence=None):report['checks'].append({'name':name,'passed':bool(ok),'evidence':evidence})

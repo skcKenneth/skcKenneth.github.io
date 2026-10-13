@@ -11,7 +11,12 @@ export function matchCatalog(query, catalog) {
     .filter(item=>item.score>0).sort((a,b)=>b.score-a.score||a.index-b.index).map(item=>item.entry);
 }
 export function routeKey(url, origin='https://skckenneth.github.io') {
-  try { const parsed=new URL(url,origin);return parsed.origin===new URL(origin).origin?parsed.pathname.replace(/\/$/,''):null; }
+  try { const parsed=new URL(url,origin);if(parsed.origin!==new URL(origin).origin)return null;const path=parsed.pathname.replace(/\/$/,''),activities=parsed.searchParams.getAll('activity'),activity=activities[0];
+    // Activity selection is part of a Mathematics Learning Space route. Other
+    // queries and fragments retain the site's existing pathname deduplication.
+    if(/^\/(?:zh\/)?teaching\/math$/.test(path)&&activities.length===1&&activity.length<=160&&/^(?:school|senior|jae|lab|model|workshop|resource|classroom):[a-z0-9][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*){0,2}$/.test(activity))return path+'?activity='+encodeURIComponent(activity);
+    return path;
+  }
   catch { return null; }
 }
 export function mergeSearchResults(named, indexed, origin) {
