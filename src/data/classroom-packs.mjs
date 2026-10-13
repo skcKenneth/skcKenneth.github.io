@@ -14,7 +14,7 @@ export const CLASSROOM_PACKS = [
     engine: {
       path: '/math-studio/', localized: false,
       title: bi('Mathematics Studio', '數學研習室'),
-      language: bi('Traditional Chinese interactive tool; this classroom guide is bilingual.', '互動工具只有繁中；本課堂指引提供中英文。'),
+      language: bi('The interactive tool and this classroom guide support Traditional Chinese and English.', '互動工具及本課堂指引均支援繁體中文及英文。'),
       launch: [bi('Choose Year 7 (初一) first.', '先選「初一」。'), bi('Open Interactive exploration (互動探索), then choose Sampling and charts (抽樣與圖表).', '再開啟「互動探索」，選「抽樣與圖表」。'), bi('Apply the settings below manually. Opening a link does not load these settings or replace your saved inquiry.', '手動輸入下列設定。開啟連結不會載入設定或取代已保存探究。')],
       runtime: bi('The existing activity runs in the browser with JavaScript. If a device is unavailable, use the population and group counts below for a paper comparison; that is not a new random draw.', '現有活動需要瀏覽器 JavaScript。沒有裝置時，可用下列全校與小組人數作紙本比較；紙本比較並非新的隨機抽樣。')
     },
@@ -93,7 +93,7 @@ export function classroomPackHref(id, locale = 'en', teacher = false) {
   if (!getClassroomPack(id)) throw new Error(`Unknown classroom pack: ${id}`);
   return `${locale === 'zh-Hant' ? '/zh' : ''}/teaching/classroom-packs/${id}/${teacher ? 'teacher/' : ''}`;
 }
-export const classroomEngineHref = (pack, locale = 'en') => `${pack.engine.localized && locale === 'zh-Hant' ? '/zh' : ''}${pack.engine.path}`;
+export const classroomEngineHref = (pack, locale = 'en') => pack.engine.path === '/math-studio/' ? `/math-studio/?lang=${locale === 'zh-Hant' ? 'zh-Hant' : 'en'}` : `${pack.engine.localized && locale === 'zh-Hant' ? '/zh' : ''}${pack.engine.path}`;
 
 /** Only a preset ID and bounded integer seed may enter a share URL. Never accepts progress. */
 export function normalizeClassroomSettings(id, raw = {}) {

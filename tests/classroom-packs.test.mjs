@@ -30,7 +30,8 @@ test('two bilingual classroom packs have complete single-class sequences and val
   }
   assert.equal(getClassroomPack('__proto__'),null);
   assert.throws(()=>classroomPackHref('unknown'),/Unknown classroom pack/);
-  assert.equal(classroomEngineHref(CLASSROOM_PACKS[0],'zh-Hant'),'/math-studio/');
+  assert.equal(classroomEngineHref(CLASSROOM_PACKS[0],'zh-Hant'),'/math-studio/?lang=zh-Hant');
+  assert.equal(classroomEngineHref(CLASSROOM_PACKS[0],'en'),'/math-studio/?lang=en');
   assert.equal(classroomEngineHref(CLASSROOM_PACKS[1],'zh-Hant'),'/zh/teaching/modeling-workshop/mixing-tank/');
 });
 
@@ -45,7 +46,7 @@ test('presets and evidence boundaries agree with the actual inquiry and workshop
   assert.equal(fullGroup.metrics.count,36);assert.equal(fullGroup.metrics.percent,90);assert.equal(fullGroup.metrics.populationPercent,50);
   assert.match(sampling.scope.en,/invented, not a real school survey/);
   assert.match(sampling.stages.find(item=>item.id==='repeat').teacher.en,/single draw need not improve/);
-  assert.match(sampling.engine.language.en,/Traditional Chinese interactive/);
+  assert.match(sampling.engine.language.en,/support Traditional Chinese and English/);
   const {lessons}=await bundle('src/data/workshop-lessons.ts');
   const lesson=lessons.find(item=>item.slug==='mixing-tank');
   assert.equal(lesson.id,'workshop-01');assert.equal(lesson.version,'1.0.0');
