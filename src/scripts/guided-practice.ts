@@ -1,5 +1,11 @@
 type Pair={en:string;'zh-Hant':string};
 type Question={id:string;role:string;[key:string]:any};
+/** Export the given figure without answer-only coordinates or construction marks. */
+export function studentDiagram(value:any):any{
+ if(Array.isArray(value))return value.map(studentDiagram);
+ if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).filter(([key])=>!/^(solution|answer)/i.test(key)).map(([key,item])=>[key,studentDiagram(item)]));
+ return value;
+}
 export function initializeGuidedPractice(root:HTMLElement){
  if(root.dataset.guidedReady)return;
  const {pack,locale,teacher}=JSON.parse(root.querySelector('[data-practice-configuration]')!.textContent!);
@@ -45,6 +51,6 @@ export function initializeGuidedPractice(root:HTMLElement){
  printSelect.addEventListener('change',()=>{root.dataset.printEdition=printSelect.value;});
  root.querySelectorAll<HTMLButtonElement>('[data-practice-print]').forEach(button=>button.addEventListener('click',()=>{printSelect.value=button.dataset.practicePrint!;root.dataset.printEdition=printSelect.value;window.print();}));
  window.addEventListener('beforeprint',()=>{root.dataset.printEdition=['student','teacher','supplement'].includes(printSelect.value)?printSelect.value:'student';});window.addEventListener('afterprint',resetEdition);
- query('[data-practice-export]').addEventListener('click',()=>{const includeAnswers=teacher;const selected=pack.questions.map((q:Question)=>{if(includeAnswers)return q;const {id,role,type,skill,prompt,expression,options,diagram,scaffold,space}=q;return {id,role,type,skill,prompt,expression,options,diagram,scaffold,space};});const data={version:pack.version,packId:pack.id,route:mode,edition:includeAnswers?'teacher':'student',source:pack.source,questions:selected};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=pack.id+'-'+locale+'-'+data.edition+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);query('[data-practice-output-status]').textContent=t('Downloaded the fixed lesson questions. No paper answers were collected.','已下載固定課堂題目；沒有收集紙筆答案。');});
+ query('[data-practice-export]').addEventListener('click',()=>{const includeAnswers=teacher;const selected=pack.questions.map((q:Question)=>{if(includeAnswers)return q;const {id,role,type,skill,prompt,expression,options,diagram,scaffold,space,sourceLessons}=q;return {id,role,type,skill,prompt,expression,options,diagram:studentDiagram(diagram),scaffold,space,sourceLessons};});const data={version:pack.version,packId:pack.id,route:mode,edition:includeAnswers?'teacher':'student',source:pack.source,questions:selected};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=pack.id+'-'+locale+'-'+data.edition+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);query('[data-practice-output-status]').textContent=t('Downloaded the fixed lesson questions. No paper answers were collected.','已下載固定課堂題目；沒有收集紙筆答案。');});
  cards.forEach(card=>card.tabIndex=-1);root.dataset.guidedReady='true';phases();resetEdition();render();
 }

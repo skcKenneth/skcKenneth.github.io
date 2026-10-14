@@ -7,7 +7,7 @@ function loadSite(storage=new Map(),broken=false){
  const root=path.resolve(__dirname,'../../public/math-studio');
  vm.runInContext(fs.readFileSync(path.join(root,'../math-shared/storage.js'),'utf8'),ctx,{filename:'storage.js'});ctx.MathStorage=ctx.window.MathStorage;
  vm.runInContext(fs.readFileSync(path.join(root,'../math-shared/native-store.js'),'utf8'),ctx,{filename:'native-store.js'});
- for(const f of ['data.js','learning-content.js','challenge-bank.js','question-bank.js','learning-ui.js','practice.js','inquiry.js','inquiry-g7-core.js','inquiry-g7-content.js','inquiry-g7-ui.js','inquiry-g8-core.js','inquiry-g8-content.js','inquiry-g8-ui.js','app.js'])if(fs.existsSync(path.join(root,f)))vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx,{filename:f});
+ for(const f of ['data.js','guided-practice-catalog.js','learning-content.js','challenge-bank.js','question-bank.js','learning-ui.js','practice.js','inquiry.js','inquiry-g7-core.js','inquiry-g7-content.js','inquiry-g7-ui.js','inquiry-g8-core.js','inquiry-g8-content.js','inquiry-g8-ui.js','app.js'])if(fs.existsSync(path.join(root,f)))vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx,{filename:f});
  const evaluate=s=>vm.runInContext(s,ctx),flush=()=>ctx.MathStorage.flushAll();return {ctx,app,elements,listeners,storage,evaluate,flush};
 }
 module.exports={loadSite};

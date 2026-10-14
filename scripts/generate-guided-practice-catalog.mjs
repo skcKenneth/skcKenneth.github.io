@@ -1,0 +1,14 @@
+import {writeFile,mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {ALL_PRACTICE_PACKS} from '../src/data/guided-practice/index.mjs';
+import {UPPER_CHAPTERS} from '../src/data/upper-core-plan.mjs';
+const teachingOrder=UPPER_CHAPTERS.flatMap(chapter=>chapter.packIds);
+const expected=[...teachingOrder].sort();
+if(JSON.stringify(ALL_PRACTICE_PACKS.map(pack=>pack.id).sort())!==JSON.stringify(expected))throw new Error('The complete upper-volume inventory is required before generating navigation');
+for(const pack of ALL_PRACTICE_PACKS)for(const locale of ['en','zh-Hant'])if(!pack.sourceNavigation?.[locale])throw new Error(`Missing bilingual textbook navigation ${pack.id}/${locale}`);
+const path=resolve(import.meta.dirname,'../public/math-studio/guided-practice-catalog.js');
+const entries=ALL_PRACTICE_PACKS.map(({id,grade,nativeLesson,title,sourceNavigation})=>{const c=UPPER_CHAPTERS.find(chapter=>chapter.packIds.includes(id));if(!c)throw new Error(`Unmapped chapter ${id}`);return {id,grade,nativeLesson,title,sourceNavigation,chapter:{printedPages:c.pages,en:`Year ${grade==='g7'?7:8} upper · Chapter ${c.number} · ${c.title.en}`,'zh-Hant':`${grade==='g7'?'七':'八'}上第${c.number}章・${c.title['zh-Hant']}`}};});
+entries.sort((a,b)=>teachingOrder.indexOf(a.id)-teachingOrder.indexOf(b.id));
+await mkdir(resolve(path,'..'),{recursive:true});
+await writeFile(path,`/* Generated from the classroom registry; contains navigation metadata only. */\nconst MathGuidedPracticeCatalog=${JSON.stringify(entries).replace(/</g,'\\u003c')};\n`,'utf8');
+console.log(`Guided practice navigation: ${entries.length} packs`);

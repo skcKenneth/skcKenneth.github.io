@@ -19,6 +19,7 @@ const configuration={locale,catalog,knownQuestionIds:questions.map((q:any)=>q.id
    <a href={base} data-system-view="catalog" aria-current="page">{t('Find an activity','選擇活動')}</a>
    <a href={`${base}?view=classroom`} data-system-view="classroom">{t('Classroom','課堂')}</a>
    <a href={`${base}?view=learning`} data-system-view="learning">{t('My learning and backup','我的學習與備份')}</a>
+   <a href={`${zh?'/zh':''}/teaching/classroom-packs/curriculum/`}>{t('Year 7–8 chapter plan','七上、八上章節規劃')}</a>
    <a href={mathActivityUrl('school:inquiry:angle-bisector',locale)} class="math-system-tomorrow" data-activity="school:inquiry:angle-bisector">{t('Year 8: angle bisectors · 18 min','初二：角的平分線・18 分鐘')}</a>
   </nav>
   <p class="math-system-status" data-system-status role="status">{t('No sign-in. Records stay in this browser. Export a backup before clearing browser data.','免登入，紀錄留在此瀏覽器。清除瀏覽器資料前，請先匯出備份。')}</p>

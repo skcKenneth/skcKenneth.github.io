@@ -14,7 +14,7 @@ const practiceCount=ALL_CLASSROOM_PACKS.filter(pack=>pack.kind==='guided-practic
     <h1 data-pagefind-meta="title">{zh?'一節課，可以由這裏開始。':'A clear starting point for one class.'}</h1>
     <p class="lead" data-pagefind-meta="description">{zh?`${practiceCount} 套初一、初二 40 分鐘紙筆練習，另有抽樣及建模活動。每套配雙語投影、學生工作紙與獨立教師參考。`:`${practiceCount} forty-minute Year 7–8 paper-practice lessons, alongside sampling and modeling activities. Each has bilingual projection, student worksheets and separate teacher references.`}</p>
   </div></header>
-  <section class="container classroom-index-body" aria-labelledby="classroom-choose"><h2 id="classroom-choose">{zh?'選一節課':'Choose a lesson'}</h2><ClassroomPackCards locale={locale}/></section>
+  <section class="container classroom-index-body" aria-labelledby="classroom-choose"><h2 id="classroom-choose">{zh?'選一節課':'Choose a lesson'}</h2><p><a class="button secondary" href={`${base}/teaching/classroom-packs/curriculum/`}>{zh?'按七上／八上章節選核心包':'Choose by Year 7–8 textbook chapter'} →</a></p><ClassroomPackCards locale={locale}/></section>
   <aside class="container classroom-notice"><p>{zh?'紙筆練習使用固定題組，不儲存學生答案；普通班可逐題訂正，進階班可先探究再選題。原抽樣及建模指引的設定仍需在原工具手動套用。教師參考是公開資料，與學生工作紙分頁呈現。':'Paper lessons use fixed question sets and do not store learner answers. Ordinary classes can practise and correct in order; advanced classes can investigate before selecting exercises. Apply the original sampling and modeling settings manually in their tools. Teacher references are public and separate from student worksheets.'}</p></aside>
   <p class="container classroom-back"><a href={`${base}/teaching/`}>← {zh?'返回教學資源':'All teaching resources'}</a></p>
 </div>

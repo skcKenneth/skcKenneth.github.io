@@ -39,6 +39,7 @@ export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/z
     ...READER_NOTE_IDS.map(articleId => ({path: `${base}/writing/${articleId}/`, locale, kind: 'note', articleId, alternatePath: `${alternateBase}/writing/${articleId}/`})),
     {path: `${base}/about/`, locale, kind: 'about', alternatePath: `${alternateBase}/about/`},
     {path: `${base}/teaching/classroom-packs/`, locale, kind: 'classroomIndex', alternatePath: `${alternateBase}/teaching/classroom-packs/`},
+    {path: `${base}/teaching/classroom-packs/curriculum/`, locale, kind: 'classroomIndex', alternatePath: `${alternateBase}/teaching/classroom-packs/curriculum/`},
     ...ALL_CLASSROOM_PACKS.flatMap(pack => [false, true].map(teacher => ({
       path: classroomPackHref(pack.id, locale, teacher), locale, kind: teacher ? 'classroomTeacher' : 'classroomStudent',
       packId: pack.id, alternatePath: classroomPackHref(pack.id, other, teacher),

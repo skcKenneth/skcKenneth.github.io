@@ -6,7 +6,7 @@ import { runInNewContext } from 'node:vm';
 import { build } from 'esbuild';
 import katex from 'katex';
 import { CLASSROOM_PACKS, ALL_CLASSROOM_PACKS, getClassroomPack, classroomPackHref, classroomEngineHref, normalizeClassroomSettings, classroomSharePath, classroomSettingRows } from '../src/data/classroom-packs.mjs';
-import { PRACTICE_PACKS } from '../src/data/guided-practice/index.mjs';
+import { PRACTICE_PACKS, ALL_PRACTICE_PACKS } from '../src/data/guided-practice/index.mjs';
 import { createMathCatalog } from '../src/lib/math-system-catalog.mjs';
 import { TOPIC_IDS } from '../src/data/site-reader.mjs';
 import { TEACHING_RESOURCES } from '../src/data/teaching-directory.mjs';
@@ -70,9 +70,9 @@ test('presets and evidence boundaries agree with the actual inquiry and workshop
 });
 
 test('seven paper-first packs join all bilingual classroom routes without changing legacy preset contracts',()=>{
-  assert.equal(CLASSROOM_PACKS.length,2);assert.equal(PRACTICE_PACKS.length,7);assert.equal(ALL_CLASSROOM_PACKS.length,9);
+  assert.equal(CLASSROOM_PACKS.length,2);assert.equal(PRACTICE_PACKS.length,7);assert.equal(ALL_CLASSROOM_PACKS.length,2+ALL_PRACTICE_PACKS.length);
   const catalog=createMathCatalog([],ALL_CLASSROOM_PACKS);
-  for(const pack of PRACTICE_PACKS){
+  for(const pack of ALL_PRACTICE_PACKS){
     assert.equal(getClassroomPack(pack.id),pack);
     const activity=catalog.find(item=>item.id===`classroom:${pack.id}`);
     assert.deepEqual(activity.grades,[pack.grade]);

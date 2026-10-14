@@ -1,4 +1,4 @@
-import { PRACTICE_PACKS } from './guided-practice/index.mjs';
+import { ALL_PRACTICE_PACKS } from './guided-practice/index.mjs';
 
 const bi = (en, zh) => ({en, 'zh-Hant': zh});
 const stage = (id, minutes, title, task, teacher, math = []) => ({id, minutes, title, task, teacher, math});
@@ -91,7 +91,7 @@ export const CLASSROOM_PACKS = [
 ];
 
 /** Keep the two legacy engine guides separate for their preset/seed contracts. */
-export const ALL_CLASSROOM_PACKS = [...CLASSROOM_PACKS, ...PRACTICE_PACKS];
+export const ALL_CLASSROOM_PACKS = [...CLASSROOM_PACKS, ...ALL_PRACTICE_PACKS];
 export const getClassroomPack = id => ALL_CLASSROOM_PACKS.find(pack => pack.id === id) || null;
 export function classroomPackHref(id, locale = 'en', teacher = false) {
   if (!getClassroomPack(id)) throw new Error(`Unknown classroom pack: ${id}`);

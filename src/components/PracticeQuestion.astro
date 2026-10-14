@@ -13,11 +13,11 @@ const roles:any={worked:t('Worked example','教師示範'),guided:t('Guided atte
   {q.expression&&<MathExpression expression={q.expression} display/>}
   {q.options&&<ol class="guided-options" type="A">{q.options.map((value:any)=><li>{value[locale]}</li>)}</ol>}
   {q.scaffold?.length>0&&<ol class="guided-scaffold">{q.scaffold.map((value:any)=><li>{value[locale]}</li>)}</ol>}
- </div>{q.diagram&&<PracticeDiagram diagram={q.diagram} locale={locale} solution={teacher&&['construction','shape'].includes(q.diagram.kind)}/>}</div>
+ </div>{q.diagram&&<PracticeDiagram diagram={q.diagram} locale={locale} solution={teacher&&['construction','shape','coordinate'].includes(q.diagram.kind)}/>}</div>
  {screen?<>
   <ol class="guided-hints" data-pagefind-ignore>{q.hints.map((hint:any)=><li data-practice-hint-content hidden>{hint[locale]}</li>)}</ol>
   <ol class="guided-solution-steps" data-pagefind-ignore>{q.steps.map((step:any)=><li data-practice-step-content hidden>{step[locale]}</li>)}</ol>
-  <div class="guided-answer" data-pagefind-ignore data-practice-answer-content hidden><strong>{t('Reference answer','參考答案')}</strong><p>{q.answer[locale]}</p>{q.diagram&&['construction','shape'].includes(q.diagram.kind)&&<PracticeDiagram diagram={q.diagram} locale={locale} solution/>}</div>
+  <div class="guided-answer" data-pagefind-ignore data-practice-answer-content hidden><strong>{t('Reference answer','參考答案')}</strong><p>{q.answer[locale]}</p>{q.answerExpression&&<MathExpression expression={q.answerExpression} display/>}{q.diagram&&['construction','shape','coordinate'].includes(q.diagram.kind)&&<PracticeDiagram diagram={q.diagram} locale={locale} solution/>}</div>
   <details class="guided-rubric" data-pagefind-ignore><summary>{t('Check your work','檢核清單')}</summary><ul>{q.rubric.map((item:any)=><li>{item[locale]}</li>)}</ul></details>
- </>:teacher?<div class="guided-answer" data-pagefind-ignore><strong>{t('Reference answer','參考答案')}</strong><p>{q.answer[locale]}</p><ol>{q.steps.map((step:any)=><li>{step[locale]}</li>)}</ol><ul class="guided-teacher-rubric">{q.rubric.map((item:any)=><li>{item[locale]}</li>)}</ul>{q.diagram&&['construction','shape'].includes(q.diagram.kind)&&<PracticeDiagram diagram={q.diagram} locale={locale} solution/>}</div>:<div class="guided-paper-space" aria-label={t('Space for your working','作答空間')}></div>}
+ </>:teacher?<div class="guided-answer" data-pagefind-ignore><strong>{t('Reference answer','參考答案')}</strong><p>{q.answer[locale]}</p>{q.answerExpression&&<MathExpression expression={q.answerExpression} display/>}<ol>{q.steps.map((step:any)=><li>{step[locale]}</li>)}</ol><ul class="guided-teacher-rubric">{q.rubric.map((item:any)=><li>{item[locale]}</li>)}</ul>{q.diagram&&['construction','shape','coordinate'].includes(q.diagram.kind)&&<PracticeDiagram diagram={q.diagram} locale={locale} solution/>}</div>:<div class="guided-paper-space" aria-label={t('Space for your working','作答空間')}></div>}
 </article>

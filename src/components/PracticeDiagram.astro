@@ -2,7 +2,7 @@
 interface Props { diagram:any; locale?:'en'|'zh-Hant'; solution?:boolean }
 const {diagram:d,locale='en',solution=false}=Astro.props;
 const zh=locale==='zh-Hant';
-const lines:any[]=[],paths:any[]=[],dots:any[]=[],texts:any[]=[],polygons:number[][][]=[],circles:any[]=[];
+const lines:any[]=[],paths:any[]=[],dots:any[]=[],texts:any[]=[],polygons:number[][][]=[],circles:any[]=[],ellipses:any[]=[];
 const L=(a:number[],b:number[],style='')=>lines.push({a,b,style});
 const T=(p:number[],text:string,dx=7,dy=-7)=>texts.push({p,text,dx,dy});
 const D=(p:number[],name?:string)=>{dots.push(p);if(name)T(p,name);};
@@ -63,13 +63,46 @@ if(d.kind==='bisector'){
   const p:number[][]=pts.map((v:any)=>[190+(v.x-cx)*s,145-(v.y-cy)*s]);pts.forEach((v:any,i:number)=>D(p[i],v.label));const pairs=d.pairs||[[0,1]];for(const [i,j]of pairs)L(p[i],p[j],d.tool==='pair-axis'?'auxiliary':'');
   if(solution&&pairs.length){const [i,j]=pairs[0],A=p[i],B=p[j],v=B.map((x,k)=>x-A[k]),len=Math.hypot(...v),M=A.map((x,k)=>(x+B[k])/2),u=[-v[1]/len,v[0]/len];L(M.map((x,k)=>x-u[k]*125),M.map((x,k)=>x+u[k]*125),'axis');right(M,A,M.map((x,k)=>x+u[k]*50));tick(A,M);tick(M,B);const theta=Math.atan2(v[1],v[0]);arc(A,len*.7,theta-1.1,theta+1.1);arc(B,len*.7,theta+Math.PI-1.1,theta+Math.PI+1.1);}
  }
+}else if(d.kind==='geometry'||d.kind==='coordinate'){
+ const raw=[...(d.points||[]),...(solution?d.solutionPoints||[]:[])],all=raw.map((p:any)=>[Number(p.x),Number(p.y)]);
+ if(!all.length)throw new Error('A geometry diagram requires points');
+ const xs=all.map(p=>p[0]),ys=all.map(p=>p[1]),coordinate=d.kind==='coordinate';
+ const extent=Math.ceil(Math.max(...xs.map(Math.abs),...ys.map(Math.abs)))+1;
+ const bounds=d.bounds||(coordinate?[-extent,extent,-extent,extent]:[Math.min(...xs)-.5,Math.max(...xs)+.5,Math.min(...ys)-.5,Math.max(...ys)+.5]);
+ const [xmin,xmax,ymin,ymax]=bounds,s=Math.min(280/Math.max(.1,xmax-xmin),210/Math.max(.1,ymax-ymin)),cx=(xmin+xmax)/2,cy=(ymin+ymax)/2;
+ const project=(p:number[])=>[190+(p[0]-cx)*s,145-(p[1]-cy)*s],lookup:Record<string,number[]>={};
+ for(const p of raw){if(lookup[p.id])throw new Error(`Duplicate diagram point ${p.id}`);lookup[p.id]=project([p.x,p.y]);}
+ const at=(id:string)=>{if(!lookup[id])throw new Error(`Missing diagram point ${id}`);return lookup[id];};
+ if(coordinate){for(let x=Math.ceil(xmin);x<=Math.floor(xmax);x++){L(project([x,ymin]),project([x,ymax]),x===0?'axis':'grid');if(x!==0)T(project([x,0]),String(x),-4,18);}for(let y=Math.ceil(ymin);y<=Math.floor(ymax);y++){L(project([xmin,y]),project([xmax,y]),y===0?'axis':'grid');if(y!==0)T(project([0,y]),String(y),-19,5);}T(project([xmax,0]),'x',5,-5);T(project([0,ymax]),'y',5,-5);T(project([0,0]),'O',-18,17);}
+ for(const [a,b]of [...d.edges||[],...(solution?d.solutionEdges||[]:[])])L(at(a),at(b));
+ for(const [a,b]of d.auxiliary||[])L(at(a),at(b),'auxiliary');
+ for(const poly of d.polygons||[])polygons.push(poly.map(at));
+ for(const [a,v,b]of d.rightAngles||[])right(at(v),at(a),at(b));
+ for(const [index,group]of (d.equalSegments||[]).entries())for(const[a,b]of group)tick(at(a),at(b),index+1);
+ for(const[index,group]of (d.equalAngles||[]).entries())for(const[a,v,b]of group){const O=at(v),A=at(a),B=at(b);let start=Math.atan2(A[1]-O[1],A[0]-O[0]),end=Math.atan2(B[1]-O[1],B[0]-O[0]);while(end<start)end+=2*Math.PI;if(end-start>Math.PI){const temp=start;start=end;end=temp+2*Math.PI;}arc(O,24+index*6,start,end);}
+ for(const p of raw)D(at(p.id),d.showLabels===false?undefined:p.label||p.id);
+}else if(d.kind==='number-line'){
+ const min=Number(d.min??-5),max=Number(d.max??5),step=Number(d.step??1),X=(value:number)=>40+(value-min)/(max-min)*300;
+ if(!(max>min&&step>0&&(max-min)/step<=30))throw new Error('Invalid number-line bounds');
+ L([35,150],[350,150]);L([350,150],[342,145]);L([350,150],[342,155]);
+ for(let value=min;value<=max+1e-9;value+=step){L([X(value),145],[X(value),155]);T([X(value),150],String(Number(value.toFixed(8))),-7,24);}
+ for(const p of d.points||[])D([X(p.value),150],p.id||String(p.value));
+}else if(d.kind==='angle'){
+ const O=[190,145],rays=(d.rays||[]).map((p:any)=>({id:p.id,point:[190+115*Math.cos(p.degrees*Math.PI/180),145-115*Math.sin(p.degrees*Math.PI/180)]}));
+ D(O,d.origin||'O');for(const ray of rays){L(O,ray.point);D(ray.point,ray.id);}
+ for(const[a,b]of d.rightPairs||[])right(O,rays[a].point,rays[b].point);
+ for(const a of d.angleLabels||[]){const start=-(d.rays[a.from].degrees)*Math.PI/180,end=-(d.rays[a.to].degrees)*Math.PI/180,middle=(start+end)/2;arc(O,36,Math.min(start,end),Math.max(start,end));T([O[0]+60*Math.cos(middle),O[1]+60*Math.sin(middle)],a.text,-10,5);}
+}else if(d.kind==='solid'){
+ if(d.shape==='cylinder'){ellipses.push({c:[190,65],rx:85,ry:25},{c:[190,225],rx:85,ry:25});L([105,65],[105,225]);L([275,65],[275,225]);}
+ else{const wide=d.shape==='cuboid'?150:115,A=[80,110],B=[80+wide,110],C=[80+wide,235],D1=[80,235],E=[135,60],F=[135+wide,60],G=[135+wide,185],H=[135,185];for(const[a,b]of [[A,B],[B,C],[C,D1],[D1,A],[A,E],[E,F],[F,B],[F,G],[G,C]])L(a,b);for(const[a,b]of [[E,H],[H,G],[H,D1]])L(a,b,'auxiliary');if(d.labelVertices)[A,B,C,D1,E,F,G,H].forEach((p,i)=>D(p,String.fromCharCode(65+i)));}
 }
 ---
 <figure class="guided-diagram">
- <svg viewBox="-15 -15 410 320" role="img" aria-label={caption} xmlns="http://www.w3.org/2000/svg">
+ <svg viewBox={d.kind==='geometry'&&(d.polygons||[]).length===2?'-15 20 410 250':'-15 -15 410 320'} role="img" aria-label={caption} xmlns="http://www.w3.org/2000/svg">
   <title>{caption}</title>
   {polygons.map(points=><polygon points={points.map(p=>p.join(',')).join(' ')} fill="none" stroke="currentColor" stroke-width="2"/>)}
   {circles.map(c=><circle cx={c.c[0]} cy={c.c[1]} r={c.r} fill="none" stroke="currentColor" stroke-width="2"/>)}
+  {ellipses.map(c=><ellipse cx={c.c[0]} cy={c.c[1]} rx={c.rx} ry={c.ry} fill="none" stroke="currentColor" stroke-width="2"/>)}
   {lines.map(l=><line x1={l.a[0]} y1={l.a[1]} x2={l.b[0]} y2={l.b[1]} class={l.style}/>)}
   {paths.map(p=><path d={p.d} class={p.style} fill="none"/>)}
   {dots.map(p=><circle cx={p[0]} cy={p[1]} r="2.8" fill="currentColor"/>)}
