@@ -1,0 +1,79 @@
+---
+interface Props { diagram:any; locale?:'en'|'zh-Hant'; solution?:boolean }
+const {diagram:d,locale='en',solution=false}=Astro.props;
+const zh=locale==='zh-Hant';
+const lines:any[]=[],paths:any[]=[],dots:any[]=[],texts:any[]=[],polygons:number[][][]=[],circles:any[]=[];
+const L=(a:number[],b:number[],style='')=>lines.push({a,b,style});
+const T=(p:number[],text:string,dx=7,dy=-7)=>texts.push({p,text,dx,dy});
+const D=(p:number[],name?:string)=>{dots.push(p);if(name)T(p,name);};
+const right=(v:number[],a:number[],b:number[])=>{const u=a.map((x,i)=>x-v[i]),w=b.map((x,i)=>x-v[i]),un=Math.hypot(...u),wn=Math.hypot(...w);if(!un||!wn)return;const p=v.map((x,i)=>x+u[i]/un*11),r=v.map((x,i)=>x+w[i]/wn*11),q=p.map((x,i)=>x+w[i]/wn*11);paths.push({d:`M${p} L${q} L${r}`,style:'right'});};
+const tick=(a:number[],b:number[],n=1)=>{const m=a.map((x,i)=>(x+b[i])/2),u=[b[1]-a[1],a[0]-b[0]],len=Math.hypot(...u);if(!len)return;for(let i=0;i<n;i++){const off=(i-(n-1)/2)*5,along=[(b[0]-a[0])/len*off,(b[1]-a[1])/len*off];L(m.map((x,j)=>x+along[j]-u[j]/len*5),m.map((x,j)=>x+along[j]+u[j]/len*5),'mark');}};
+const arc=(c:number[],r:number,a:number,b:number)=>{const p=[c[0]+r*Math.cos(a),c[1]+r*Math.sin(a)],q=[c[0]+r*Math.cos(b),c[1]+r*Math.sin(b)];paths.push({d:`M${p} A${r},${r} 0 0,1 ${q}`,style:'construction'});};
+const names=d.labels||{};
+const caption=d.caption?.[locale]||(zh?'幾何示意圖；除作圖任務外，圖形不按比例。':'Geometry diagram; not drawn to scale except for construction tasks.');
+if(d.kind==='bisector'){
+ const o=[65,145],a=[320,30],b=[320,260],p=[190,145];
+ const foot=(v:number[])=>{const u=v.map((x,i)=>x-o[i]),f=p.reduce((s,x,i)=>s+(x-o[i])*u[i],0)/u.reduce((s,x)=>s+x*x,0);return o.map((x,i)=>x+f*u[i]);};
+ const m=foot(a),n=foot(b),angle=(Number(d.rotation)||0)*Math.PI/180;
+ const rotate=(v:number[])=>[190+(v[0]-190)*Math.cos(angle)-(v[1]-145)*Math.sin(angle),145+(v[0]-190)*Math.sin(angle)+(v[1]-145)*Math.cos(angle)];
+ const [O,A,B,P,M,N]=[o,a,b,p,m,n].map(rotate);
+ L(O,A);L(O,B);L(O,P,'auxiliary');L(P,M,'distance');L(P,N,'distance');right(M,O,P);right(N,O,P);
+ for(const [point,key]of [[O,'O'],[A,'A'],[B,'B'],[P,'P'],[M,'M'],[N,'N']] as any[])D(point,names[key]||key);
+ if(d.givenBisector!==false||solution){const start=Math.atan2(A[1]-O[1],A[0]-O[0]),middle=Math.atan2(P[1]-O[1],P[0]-O[0]),end=Math.atan2(B[1]-O[1],B[0]-O[0]);arc(O,36,start,middle);arc(O,42,middle,end);}
+ if(d.givenEqualDistances||solution){tick(P,M);tick(P,N);}
+ if(d.slanted){const Q=rotate([280,o[1]+(280-o[0])*(a[1]-o[1])/(a[0]-o[0])]);L(P,Q,'slanted');D(Q,names.Q||'Q');}
+}else if(d.kind==='perpendicular-bisector'){
+ const angle=(Number(d.rotation)||0)*Math.PI/180,rotate=(v:number[])=>[190+(v[0]-190)*Math.cos(angle)-(v[1]-145)*Math.sin(angle),145+(v[0]-190)*Math.sin(angle)+(v[1]-145)*Math.cos(angle)];
+ const [A,B,M,P]=[[70,195],[310,195],[190,195],[190,55]].map(rotate);L(A,B);L(P,A,'auxiliary');L(P,B,'auxiliary');L(rotate([190,15]),rotate([190,270]),'axis');
+ if(d.givenPerpendicular!==false||solution)right(M,A,P);
+ if(d.givenMidpoint!==false||solution){tick(A,M);tick(M,B);}
+ if(d.givenEqualEndpointDistances||solution){tick(P,A,2);tick(P,B,2);}
+ for(const [p,k]of [[A,'A'],[B,'B'],[M,'M'],[P,'P']] as any[])D(p,names[k]||k);
+}else if(d.kind==='shape'){
+ const shape=d.shape||'rectangle';let vertices:number[][]=[];let axes:number[][][]=[];
+ if(shape==='circle'){circles.push({c:[190,145],r:100});axes=[[[190,30],[190,260]],[[75,145],[305,145]],[[110,65],[270,225]]];}
+ else if(shape==='square'){vertices=[[105,60],[275,60],[275,230],[105,230]];axes=[[[190,35],[190,255]],[[80,145],[300,145]],[[90,45],[290,245]],[[90,245],[290,45]]];}
+ else if(shape==='isosceles'||shape==='isosceles-triangle'){vertices=[[190,35],[75,245],[305,245]];axes=[[[190,20],[190,260]]];}
+ else if(shape==='equilateral'||shape==='equilateral-triangle'){vertices=[[190,35],[75,234.19],[305,234.19]];axes=vertices.map((v,i)=>[v,vertices[(i+1)%3].map((x,j)=>(x+vertices[(i+2)%3][j])/2)]);}
+ else if(shape==='scalene'||shape==='scalene-triangle'){vertices=[[85,45],[310,95],[145,245]];}
+ else if(shape==='regular-pentagon'){vertices=Array.from({length:5},(_,i)=>[190+105*Math.cos(-Math.PI/2+i*2*Math.PI/5),145+105*Math.sin(-Math.PI/2+i*2*Math.PI/5)]);axes=vertices.map((v,i)=>[v,vertices[(i+2)%5].map((x,j)=>(x+vertices[(i+3)%5][j])/2)]);}
+ else if(shape==='rhombus'){vertices=[[190,40],[315,145],[190,250],[65,145]];axes=[[[190,25],[190,265]],[[50,145],[330,145]]];}
+ else if(shape==='parallelogram'){vertices=[[75,70],[260,70],[305,220],[120,220]];}
+ else{vertices=[[70,75],[310,75],[310,215],[70,215]];axes=[[[190,45],[190,245]],[[45,145],[335,145]]];}
+ if(vertices.length)polygons.push(vertices);if(d.showAxes||solution)for(const [a,b]of axes)L(a,b,'axis');
+ if(d.labelVertices!==false)vertices.forEach((p,i)=>D(p,String.fromCharCode(65+i)));
+}else if(d.kind==='mirror-pair'){
+ const vertices=d.vertices||[{x:-3,y:1,label:'A'},{x:-2,y:4,label:'B'},{x:-1,y:0,label:'C'}];const axis=d.axis||{point:[0,0],direction:[0,1]},u=axis.direction,p0=axis.point,uu=u[0]*u[0]+u[1]*u[1];
+ const reflection=(v:any)=>{const t=((v.x-p0[0])*u[0]+(v.y-p0[1])*u[1])/uu;return [2*(p0[0]+t*u[0])-v.x,2*(p0[1]+t*u[1])-v.y];};
+ const raw=vertices.map((v:any)=>[v.x,v.y]),mirrored=vertices.map(reflection),all=[...raw,...mirrored,p0];
+ const xs=all.map(v=>v[0]),ys=all.map(v=>v[1]),cx=(Math.max(...xs)+Math.min(...xs))/2,cy=(Math.max(...ys)+Math.min(...ys))/2,s=Math.min(280/Math.max(1,Math.max(...xs)-Math.min(...xs)),200/Math.max(1,Math.max(...ys)-Math.min(...ys)));
+ const project=(p:number[])=>[190+(p[0]-cx)*s,145-(p[1]-cy)*s],v1=raw.map(project),v2=mirrored.map(project);
+ if(v1.length>2){polygons.push(v1);polygons.push(v2);}else{L(v1[0],v1[1]);L(v2[0],v2[1]);}
+ vertices.forEach((v:any,i:number)=>{D(v1[i],v.label);D(v2[i],v.primeLabel||v.label+'′');if(d.showPairs)L(v1[i],v2[i],'auxiliary');});
+ const n=Math.hypot(...u);L(project([p0[0]-u[0]/n*20,p0[1]-u[1]/n*20]),project([p0[0]+u[0]/n*20,p0[1]+u[1]/n*20]),'axis');
+}else if(d.kind==='construction'){
+ if(d.tool==='angle-bisector'){
+  const pts=d.points||[{x:0,y:0,label:'O'},{x:4,y:0,label:'A'},{x:0,y:4,label:'B'}],xs=pts.map((p:any)=>p.x),ys=pts.map((p:any)=>p.y),cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2,s=Math.min(220/Math.max(1,Math.max(...xs)-Math.min(...xs)),150/Math.max(1,Math.max(...ys)-Math.min(...ys)));
+  const [O,A,B]:number[][]=pts.map((v:any)=>[190+(v.x-cx)*s,145-(v.y-cy)*s]);L(O,A);L(O,B);D(O,pts[0].label);D(A,pts[1].label);D(B,pts[2].label);
+  const a=A.map((x,i)=>x-O[i]),b=B.map((x,i)=>x-O[i]),la=Math.hypot(...a),lb=Math.hypot(...b),ua=a.map(x=>x/la),ub=b.map(x=>x/lb);
+  if(Math.abs(a[0]*b[0]+a[1]*b[1])<1e-7)right(O,A,B);
+  if(solution){const r=Math.min(la,lb)*.55,C=O.map((x,i)=>x+r*ua[i]),E=O.map((x,i)=>x+r*ub[i]),v=ua.map((x,i)=>x+ub[i]),nv=Math.hypot(...v),u=v.map(x=>x/nv),gap=Math.hypot(C[0]-E[0],C[1]-E[1]),radius=gap*.7,h=Math.sqrt(radius**2-gap**2/4),X=C.map((x,i)=>(x+E[i])/2+u[i]*h);L(O.map((x,i)=>x-u[i]*110),O.map((x,i)=>x+u[i]*240),'axis');const angles=[Math.atan2(a[1],a[0]),Math.atan2(b[1],b[0])].sort((x,y)=>x-y);arc(O,r,angles[0],angles[1]);for(const centre of [C,E]){const theta=Math.atan2(X[1]-centre[1],X[0]-centre[0]);arc(centre,radius,theta-.7,theta+.7);}D(C,'C');D(E,'D');D(X,'E');}
+ }else{
+  const pts=d.points||[{x:0,y:0,label:'A'},{x:6,y:0,label:'B'}],xs=pts.map((p:any)=>p.x),ys=pts.map((p:any)=>p.y),cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2,s=Math.min(220/Math.max(1,Math.max(...xs)-Math.min(...xs)),150/Math.max(1,Math.max(...ys)-Math.min(...ys)));
+  const p:number[][]=pts.map((v:any)=>[190+(v.x-cx)*s,145-(v.y-cy)*s]);pts.forEach((v:any,i:number)=>D(p[i],v.label));const pairs=d.pairs||[[0,1]];for(const [i,j]of pairs)L(p[i],p[j],d.tool==='pair-axis'?'auxiliary':'');
+  if(solution&&pairs.length){const [i,j]=pairs[0],A=p[i],B=p[j],v=B.map((x,k)=>x-A[k]),len=Math.hypot(...v),M=A.map((x,k)=>(x+B[k])/2),u=[-v[1]/len,v[0]/len];L(M.map((x,k)=>x-u[k]*125),M.map((x,k)=>x+u[k]*125),'axis');right(M,A,M.map((x,k)=>x+u[k]*50));tick(A,M);tick(M,B);const theta=Math.atan2(v[1],v[0]);arc(A,len*.7,theta-1.1,theta+1.1);arc(B,len*.7,theta+Math.PI-1.1,theta+Math.PI+1.1);}
+ }
+}
+---
+<figure class="guided-diagram">
+ <svg viewBox="-15 -15 410 320" role="img" aria-label={caption} xmlns="http://www.w3.org/2000/svg">
+  <title>{caption}</title>
+  {polygons.map(points=><polygon points={points.map(p=>p.join(',')).join(' ')} fill="none" stroke="currentColor" stroke-width="2"/>)}
+  {circles.map(c=><circle cx={c.c[0]} cy={c.c[1]} r={c.r} fill="none" stroke="currentColor" stroke-width="2"/>)}
+  {lines.map(l=><line x1={l.a[0]} y1={l.a[1]} x2={l.b[0]} y2={l.b[1]} class={l.style}/>)}
+  {paths.map(p=><path d={p.d} class={p.style} fill="none"/>)}
+  {dots.map(p=><circle cx={p[0]} cy={p[1]} r="2.8" fill="currentColor"/>)}
+  {texts.map(v=><text x={v.p[0]+v.dx} y={v.p[1]+v.dy} font-size="18" fill="currentColor">{v.text}</text>)}
+ </svg>
+ <figcaption>{caption}</figcaption>
+</figure>

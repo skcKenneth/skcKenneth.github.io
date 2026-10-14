@@ -1,3 +1,5 @@
+import { PRACTICE_PACKS } from './guided-practice/index.mjs';
+
 const bi = (en, zh) => ({en, 'zh-Hant': zh});
 const stage = (id, minutes, title, task, teacher, math = []) => ({id, minutes, title, task, teacher, math});
 
@@ -88,16 +90,20 @@ export const CLASSROOM_PACKS = [
   }
 ];
 
-export const getClassroomPack = id => CLASSROOM_PACKS.find(pack => pack.id === id) || null;
+/** Keep the two legacy engine guides separate for their preset/seed contracts. */
+export const ALL_CLASSROOM_PACKS = [...CLASSROOM_PACKS, ...PRACTICE_PACKS];
+export const getClassroomPack = id => ALL_CLASSROOM_PACKS.find(pack => pack.id === id) || null;
 export function classroomPackHref(id, locale = 'en', teacher = false) {
   if (!getClassroomPack(id)) throw new Error(`Unknown classroom pack: ${id}`);
   return `${locale === 'zh-Hant' ? '/zh' : ''}/teaching/classroom-packs/${id}/${teacher ? 'teacher/' : ''}`;
 }
-export const classroomEngineHref = (pack, locale = 'en') => pack.engine.path === '/math-studio/' ? `/math-studio/?lang=${locale === 'zh-Hant' ? 'zh-Hant' : 'en'}` : `${pack.engine.localized && locale === 'zh-Hant' ? '/zh' : ''}${pack.engine.path}`;
+export const classroomEngineHref = (pack, locale = 'en') => pack.kind==='guided-practice'
+  ? `/math-studio/?lesson=${encodeURIComponent(pack.nativeLesson)}&lang=${locale==='zh-Hant'?'zh-Hant':'en'}`
+  : pack.engine.path === '/math-studio/' ? `/math-studio/?lang=${locale === 'zh-Hant' ? 'zh-Hant' : 'en'}` : `${pack.engine.localized && locale === 'zh-Hant' ? '/zh' : ''}${pack.engine.path}`;
 
 /** Only a preset ID and bounded integer seed may enter a share URL. Never accepts progress. */
 export function normalizeClassroomSettings(id, raw = {}) {
-  const pack = getClassroomPack(id);
+  const pack = CLASSROOM_PACKS.find(item=>item.id===id);
   if (!pack) throw new Error(`Unknown classroom pack: ${id}`);
   const preset = pack.presets.some(item => item.id === raw?.preset) ? raw.preset : pack.presets[0].id;
   const text = String(raw?.seed ?? '');

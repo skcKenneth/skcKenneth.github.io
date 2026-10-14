@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import ClassroomPackPage from '../../../../../components/ClassroomPackPage.astro';
-import { CLASSROOM_PACKS, classroomPackHref } from '../../../../../data/classroom-packs.mjs';
-export function getStaticPaths(){return CLASSROOM_PACKS.map(pack=>({params:{pack:pack.id},props:{pack}}));}
+import { ALL_CLASSROOM_PACKS, classroomPackHref } from '../../../../../data/classroom-packs.mjs';
+export function getStaticPaths(){return ALL_CLASSROOM_PACKS.map(pack=>({params:{pack:pack.id},props:{pack}}));}
 const {pack}=Astro.props;
 ---
 <BaseLayout title={`${pack.title['zh-Hant']}｜教師參考`} description={`${pack.title['zh-Hant']}的課前準備、參考推理及證據適用範圍。`} locale="zh-Hant" type="Teaching" topicIds={pack.topicIds} alternatePath={classroomPackHref(pack.id,'en',true)}><ClassroomPackPage packId={pack.id} locale="zh-Hant" teacher/></BaseLayout>

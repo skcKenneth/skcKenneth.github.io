@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 import { EDITORIAL_ARTICLE_IDS, getReaderMedia } from '../src/data/reader-media.mjs';
 import { CONCEPT_IDS } from '../src/data/reader-concepts.mjs';
 import { READING_PATH_IDS } from '../src/data/reading-paths.mjs';
-import { CLASSROOM_PACKS, classroomPackHref } from '../src/data/classroom-packs.mjs';
+import { ALL_CLASSROOM_PACKS, classroomPackHref } from '../src/data/classroom-packs.mjs';
 
 export const READER_NOTE_IDS = ['after-a-good-fit-what-to-measure', 'keep-the-result-that-changes-the-question', 'choose-the-question-before-the-score'];
 
@@ -39,7 +39,7 @@ export const LIVE_ROUTES = ['', '/zh', '/writing', '/zh/writing', '/topics', '/z
     ...READER_NOTE_IDS.map(articleId => ({path: `${base}/writing/${articleId}/`, locale, kind: 'note', articleId, alternatePath: `${alternateBase}/writing/${articleId}/`})),
     {path: `${base}/about/`, locale, kind: 'about', alternatePath: `${alternateBase}/about/`},
     {path: `${base}/teaching/classroom-packs/`, locale, kind: 'classroomIndex', alternatePath: `${alternateBase}/teaching/classroom-packs/`},
-    ...CLASSROOM_PACKS.flatMap(pack => [false, true].map(teacher => ({
+    ...ALL_CLASSROOM_PACKS.flatMap(pack => [false, true].map(teacher => ({
       path: classroomPackHref(pack.id, locale, teacher), locale, kind: teacher ? 'classroomTeacher' : 'classroomStudent',
       packId: pack.id, alternatePath: classroomPackHref(pack.id, other, teacher),
     }))),

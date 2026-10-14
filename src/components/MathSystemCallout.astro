@@ -3,8 +3,8 @@ import {lessons} from '../data/workshop-lessons';
 import {createMathCatalog} from '../lib/math-system-catalog.mjs';
 const {locale='en'}=Astro.props;
 const zh=locale==='zh-Hant',base=zh?'/zh':'';
-const classroomModules=import.meta.glob('../data/classroom-packs.mjs',{eager:true}) as Record<string,{CLASSROOM_PACKS:any[]}>;
-const count=createMathCatalog(lessons,Object.values(classroomModules)[0]?.CLASSROOM_PACKS||[]).length;
+const classroomModules=import.meta.glob('../data/classroom-packs.mjs',{eager:true}) as Record<string,{ALL_CLASSROOM_PACKS:any[]}>;
+const count=createMathCatalog(lessons,Object.values(classroomModules)[0]?.ALL_CLASSROOM_PACKS||[]).length;
 ---
 <section class="section math-system-callout" id="mathematics-learning-space"><div class="container">
  <p class="eyebrow">{zh?'數學互動・統一研習空間':'INTERACTIVE MATHEMATICS · ONE WORKSPACE'}</p>

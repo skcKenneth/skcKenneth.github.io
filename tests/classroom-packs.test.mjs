@@ -5,7 +5,9 @@ import { resolve } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { build } from 'esbuild';
 import katex from 'katex';
-import { CLASSROOM_PACKS, getClassroomPack, classroomPackHref, classroomEngineHref, normalizeClassroomSettings, classroomSharePath, classroomSettingRows } from '../src/data/classroom-packs.mjs';
+import { CLASSROOM_PACKS, ALL_CLASSROOM_PACKS, getClassroomPack, classroomPackHref, classroomEngineHref, normalizeClassroomSettings, classroomSharePath, classroomSettingRows } from '../src/data/classroom-packs.mjs';
+import { PRACTICE_PACKS } from '../src/data/guided-practice/index.mjs';
+import { createMathCatalog } from '../src/lib/math-system-catalog.mjs';
 import { TOPIC_IDS } from '../src/data/site-reader.mjs';
 import { TEACHING_RESOURCES } from '../src/data/teaching-directory.mjs';
 const root=resolve(import.meta.dirname,'..');
@@ -65,6 +67,23 @@ test('presets and evidence boundaries agree with the actual inquiry and workshop
   assert.match(sampling.engine.launch[1].en,/Open Interactive exploration/);
   assert.ok(existsSync(resolve(root,'public/resources/modeling-workshop/mixing-tank/baseline.csv')));
   assert.ok(existsSync(resolve(root,'public/resources/modeling-workshop/mixing-tank/reference.ipynb')));
+});
+
+test('seven paper-first packs join all bilingual classroom routes without changing legacy preset contracts',()=>{
+  assert.equal(CLASSROOM_PACKS.length,2);assert.equal(PRACTICE_PACKS.length,7);assert.equal(ALL_CLASSROOM_PACKS.length,9);
+  const catalog=createMathCatalog([],ALL_CLASSROOM_PACKS);
+  for(const pack of PRACTICE_PACKS){
+    assert.equal(getClassroomPack(pack.id),pack);
+    const activity=catalog.find(item=>item.id===`classroom:${pack.id}`);
+    assert.deepEqual(activity.grades,[pack.grade]);
+    assert.deepEqual(activity.aliases,pack.aliases);
+    for(const locale of locales){
+      assert.equal(classroomPackHref(pack.id,locale,true),`${classroomPackHref(pack.id,locale)}teacher/`);
+      assert.equal(activity.sources[locale],classroomPackHref(pack.id,locale));
+      assert.match(classroomEngineHref(pack,locale),new RegExp(`^/math-studio/\\?lesson=${pack.nativeLesson}&lang=${locale}$`));
+    }
+    assert.throws(()=>normalizeClassroomSettings(pack.id,{preset:'school-20',seed:2026}),/Unknown classroom pack/,'fixed paper questions must not enter legacy preset/seed engine settings');
+  }
 });
 
 test('share paths whitelist preset and bounded integer seed while excluding answers, names and teacher mode',()=>{
@@ -169,7 +188,7 @@ if(process.argv.includes('--built')){
       const base=locale==='zh-Hant'?'/zh':'';
       const overview=read(`dist${base}/teaching/index.html`);
       const index=read(`dist${base}/teaching/classroom-packs/index.html`);
-      assert.equal(occurrences(index,'data-classroom-card='),2);
+      assert.equal(occurrences(index,'data-classroom-card='),ALL_CLASSROOM_PACKS.length);
       for(const pack of CLASSROOM_PACKS){
         const student=read(`dist${classroomPackHref(pack.id,locale)}index.html`);
         const teacher=read(`dist${classroomPackHref(pack.id,locale,true)}index.html`);

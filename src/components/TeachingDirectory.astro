@@ -1,5 +1,5 @@
 ---
-import { TEACHING_AUDIENCES, TEACHING_FORMATS, TEACHING_RESOURCES, teachingHref } from '../data/teaching-directory.mjs';
+import { TEACHING_AUDIENCES, TEACHING_FORMATS, TEACHING_RESOURCES, teachingHref, teachingSearchText } from '../data/teaching-directory.mjs';
 import ClassroomPackCards from './ClassroomPackCards.astro';
 import MathSystemCallout from './MathSystemCallout.astro';
 import '../styles/teaching-directory.css';
@@ -21,7 +21,7 @@ const label = (items: any[], id: string) => items.find(item => item.id === id)?.
     <div class="teaching-audience-grid">{TEACHING_AUDIENCES.map(audience => <a href={`?audience=${audience.id}#teaching-resources`} data-audience-link={audience.id}><strong>{audience.label[locale]}</strong><span>{audience.description[locale]}</span><b aria-hidden="true">→</b></a>)}</div>
   </section>
   <section class="container teaching-directory-section classroom-directory" aria-labelledby="teaching-classroom-heading">
-    <div class="section-head"><div><p class="eyebrow">{t('Ready for one class','一節課就開始')}</p><h2 id="teaching-classroom-heading">{t('One-class activities','一節課活動')}</h2></div><p>{t('Student tasks, a lesson sequence and separate teacher references, using the existing tools.','學生任務、課堂次序與獨立教師參考，沿用現有工具。')}</p></div>
+    <div class="section-head"><div><p class="eyebrow">{t('Ready for one class','一節課就開始')}</p><h2 id="teaching-classroom-heading">{t('One-class activities and guided practice','一節課活動與分步練習')}</h2></div><p>{t('Forty-minute paper-practice lessons, investigations, student worksheets and separate teacher references.','40 分鐘紙筆練習、探究、學生工作紙及獨立教師參考。')}</p></div>
     <ClassroomPackCards locale={locale}/>
     <p><a href={`${zh?'/zh':''}/teaching/classroom-packs/`}>{t('All one-class activities','全部一節課活動')} →</a></p>
   </section>
@@ -35,7 +35,7 @@ const label = (items: any[], id: string) => items.find(item => item.id === id)?.
       <button class="button secondary" type="reset">{t('Reset', '重設')}</button>
     </form>
     <p data-teaching-result-count role="status" class="small">{TEACHING_RESOURCES.length} {t('resources', '份資源')}</p>
-    <div class="teaching-resource-grid">{TEACHING_RESOURCES.map(resource => <article class="teaching-resource-card" id={resource.id} data-teaching-resource data-audiences={resource.audiences.join(' ')} data-formats={resource.formats.join(' ')} data-search={`${resource.title[locale]} ${resource.purpose[locale]}`.toLocaleLowerCase()}>
+    <div class="teaching-resource-grid">{TEACHING_RESOURCES.map(resource => <article class="teaching-resource-card" id={resource.id} data-teaching-resource data-audiences={resource.audiences.join(' ')} data-formats={resource.formats.join(' ')} data-search={teachingSearchText(resource,locale)}>
       {resource.anchorAliases.map((id: string) => <span id={id} class="teaching-anchor" aria-hidden="true"></span>)}
       <p class="eyebrow">{resource.audiences.map((id: string) => label(TEACHING_AUDIENCES, id)).join(' · ')}</p>
       <h3>{resource.title[locale]}</h3><p>{resource.purpose[locale]}</p>

@@ -49,8 +49,8 @@ test('publication checks all 24 new paired guide routes and rejects incorrect co
 });
 test('release requires paired notes, about updates, distinct classroom audiences and RSS discovery', () => {
   const additions=LIVE_ROUTES.filter(spec=>['note','about','classroomIndex','classroomStudent','classroomTeacher'].includes(spec.kind));
-  assert.equal(additions.length,18);
-  assert.equal(LIVE_ROUTES.length,90);
+  assert.equal(additions.length,46);
+  assert.equal(LIVE_ROUTES.length,118);
   for(const spec of additions){
     const fixture=payload(spec);
     const wrongPair=Buffer.from(fixture.bytes.toString().replace(`href="https://skckenneth.github.io${spec.alternatePath}"`,'href="https://skckenneth.github.io/wrong/"'));

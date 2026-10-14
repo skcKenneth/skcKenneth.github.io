@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import ClassroomPackPage from '../../../../components/ClassroomPackPage.astro';
-import { CLASSROOM_PACKS, classroomPackHref } from '../../../../data/classroom-packs.mjs';
-export function getStaticPaths(){return CLASSROOM_PACKS.map(pack=>({params:{pack:pack.id},props:{pack}}));}
+import { ALL_CLASSROOM_PACKS, classroomPackHref } from '../../../../data/classroom-packs.mjs';
+export function getStaticPaths(){return ALL_CLASSROOM_PACKS.map(pack=>({params:{pack:pack.id},props:{pack}}));}
 const {pack}=Astro.props;
 ---
 <BaseLayout title={`${pack.title.en} — Teacher reference`} description={`Teacher preparation, reference reasoning and evidence limits for ${pack.title.en}`} type="Teaching" topicIds={pack.topicIds} alternatePath={classroomPackHref(pack.id,'zh-Hant',true)}><ClassroomPackPage packId={pack.id} teacher/></BaseLayout>

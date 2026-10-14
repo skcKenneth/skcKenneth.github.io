@@ -1,7 +1,7 @@
 import {SYSTEM_KEY,NATIVE_KEYS,decodeNativeRecord,readNativeRecords,readNativeRecoveryBytes,retainedRecoveryCount,collectDraftVariants,recordSummary,createSystemBackup,parseSystemBackup,previewSystemBackup,mergeNativeBackup,readWorkshopRecords,restoreWorkshopRecords,rollbackWorkshopRecords} from '../lib/math-system-records.mjs';
 import {validateProgress} from '../lib/workshop-state.mjs';
 
-type Activity={id:string;group:string;grades:string[];title:Record<string,string>;summary:Record<string,string>;topic:Record<string,string>;runtime:string;nativeId:string;sources:Record<string,string>};
+type Activity={id:string;group:string;grades:string[];title:Record<string,string>;summary:Record<string,string>;topic:Record<string,string>;aliases?:string[];runtime:string;nativeId:string;sources:Record<string,string>};
 export function initializeMathSystem(root:HTMLElement){
  const configuration=JSON.parse(root.querySelector('[data-system-configuration]')!.textContent||'{}');
  const locale=configuration.locale,zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en;
@@ -69,7 +69,7 @@ export function initializeMathSystem(root:HTMLElement){
  }
  function filterCatalog(){
   const term=query<HTMLInputElement>('[data-filter-query]').value.trim().toLocaleLowerCase(),grade=query<HTMLSelectElement>('[data-filter-grade]').value,group=query<HTMLSelectElement>('[data-filter-group]').value;
-  const matches=catalog.filter(item=>(grade==='all'||item.grades.includes(grade))&&(group==='all'||item.group===group)&&(!term||[item.title.en,item.title['zh-Hant'],item.summary.en,item.summary['zh-Hant'],item.topic.en,item.topic['zh-Hant'],item.id].join(' ').toLocaleLowerCase().includes(term)));
+  const matches=catalog.filter(item=>(grade==='all'||item.grades.includes(grade))&&(group==='all'||item.group===group)&&(!term||[item.title.en,item.title['zh-Hant'],item.summary.en,item.summary['zh-Hant'],item.topic.en,item.topic['zh-Hant'],item.id,...(item.aliases||[])].join(' ').toLocaleLowerCase().includes(term)));
   const visible=new Set(matches.slice(0,displayLimit).map(x=>x.id));all('[data-catalog-id]').forEach(card=>card.hidden=!visible.has(card.dataset.catalogId!));
   text('[data-catalog-count]',t(`${matches.length} matching activities · showing ${Math.min(displayLimit,matches.length)}`,`找到 ${matches.length} 項活動・顯示 ${Math.min(displayLimit,matches.length)} 項`));query('[data-catalog-more]').hidden=matches.length<=displayLimit;
  }

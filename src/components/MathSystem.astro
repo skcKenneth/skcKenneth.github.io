@@ -5,8 +5,8 @@ import {createMathCatalog,mathGrades,mathGroups,mathActivityUrl,mathSystemBase} 
 import '../styles/math-system.css';
 const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
 const zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en;
-const classroomModules=import.meta.glob('../data/classroom-packs.mjs',{eager:true}) as Record<string,{CLASSROOM_PACKS:any[]}>;
-const classroomPacks=Object.values(classroomModules)[0]?.CLASSROOM_PACKS||[];
+const classroomModules=import.meta.glob('../data/classroom-packs.mjs',{eager:true}) as Record<string,{ALL_CLASSROOM_PACKS:any[]}>;
+const classroomPacks=Object.values(classroomModules)[0]?.ALL_CLASSROOM_PACKS||[];
 const catalog=createMathCatalog(workshops,classroomPacks),base=mathSystemBase(locale);
 const configuration={locale,catalog,knownQuestionIds:questions.map((q:any)=>q.id),workshops:workshops.map(w=>({id:w.id,slug:w.slug,version:w.version,parameters:w.parameters,steps:w.steps.map(s=>({id:s.id}))}))};
 ---
