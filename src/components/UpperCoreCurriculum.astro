@@ -1,29 +1,32 @@
 ---
 import {ALL_PRACTICE_PACKS,getPracticePack} from '../data/guided-practice/index.mjs';
 import {UPPER_CHAPTERS,UPPER_CORE_VERSION} from '../data/upper-core-plan.mjs';
+import {LOWER_CHAPTERS,LOWER_CORE_VERSION} from '../data/lower-core-plan.mjs';
 import {classroomPackHref} from '../data/classroom-packs.mjs';
 import '../styles/classroom-packs.css';
 import '../styles/upper-core-curriculum.css';
-interface Props{locale?:'en'|'zh-Hant'}
-const {locale='en'}=Astro.props,zh=locale==='zh-Hant',base=zh?'/zh':'',t=(en:string,ch:string)=>zh?ch:en;
-for(const chapter of UPPER_CHAPTERS)for(const id of chapter.packIds)if(!getPracticePack(id))throw new Error(`Missing upper core material ${id}`);
-const total=ALL_PRACTICE_PACKS.reduce((n:number,p:any)=>n+p.questions.length,0);
+interface Props{locale?:'en'|'zh-Hant';volume?:'upper'|'lower'}
+const {locale='en',volume='upper'}=Astro.props,zh=locale==='zh-Hant',base=zh?'/zh':'',t=(en:string,ch:string)=>zh?ch:en;
+const lower=volume==='lower',chapters=lower?LOWER_CHAPTERS:UPPER_CHAPTERS,version=lower?LOWER_CORE_VERSION:UPPER_CORE_VERSION;
+const packIds=chapters.flatMap(chapter=>chapter.packIds),packs=ALL_PRACTICE_PACKS.filter(pack=>packIds.includes(pack.id));
+for(const chapter of chapters)for(const id of chapter.packIds)if(!getPracticePack(id))throw new Error(`Missing upper core material ${id}`);
+const total=packs.reduce((n:number,p:any)=>n+p.questions.length,0);
 ---
-<div class="classroom-page upper-core-plan" data-upper-core-curriculum data-upper-core-version={UPPER_CORE_VERSION} data-classroom-index>
+<div class="classroom-page upper-core-plan" data-upper-core-curriculum={lower?undefined:true} data-lower-core-curriculum={lower?true:undefined} data-upper-core-version={lower?undefined:version} data-lower-core-version={lower?version:undefined} data-classroom-index>
  <header class="page-head"><div class="container classroom-reading-width">
-  <nav class="classroom-breadcrumbs"><a href={`${base}/teaching/classroom-packs/`}>{t('Classroom packs','課堂包')}</a> / {t('Upper-volume plan','上冊章節規劃')}</nav>
+  <nav class="classroom-breadcrumbs"><a href={`${base}/teaching/classroom-packs/`}>{t('Classroom packs','課堂包')}</a> / {t(lower?'Lower-volume plan':'Upper-volume plan',lower?'下冊章節規劃':'上冊章節規劃')}</nav>
   <p class="eyebrow">{t('PLAN · PRACTISE · REVISE','規劃・練習・修訂')}</p>
-  <h1>{t('Year 7 and Year 8: chapter core practice','初一、初二：上冊章節核心練習')}</h1>
-  <p class="lead">{t(`${UPPER_CHAPTERS.length} textbook chapters, ${ALL_PRACTICE_PACKS.length} classroom packs and ${total} fixed original questions.`,`對應 ${UPPER_CHAPTERS.length} 章教材，共 ${ALL_PRACTICE_PACKS.length} 個課堂包、${total} 題固定原創練習。`)}</p>
-  <p>{t('Use these packs after the corresponding textbook lessons and for chapter review. The Year 7 book contains 50 lessons and Year 8 contains 52; the references below preserve that teaching sequence.','核心包配合相應正文課時學習後使用，亦可作章末複習。七上正文有 50 課時，八上有 52 課時；以下對照保留原書教學次序。')}</p>
-  <div class="classroom-page-actions"><a href="#g7">{t('Year 7 upper','七上')}</a><a href="#g8">{t('Year 8 upper','八上')}</a><a href={`${base}/teaching/math/`}>{t('Arrange My Classroom','在研習室安排題單')}</a></div>
+  <h1>{t(`Year 7 and Year 8: ${volume}-volume chapter core practice`,`初一、初二：${lower?'下':'上'}冊章節核心練習`)}</h1>
+  <p class="lead">{t(`${chapters.length} textbook chapters, ${packs.length} classroom packs and ${total} fixed original questions.`,`對應 ${chapters.length} 章教材，共 ${packs.length} 個課堂包、${total} 題固定原創練習。`)}</p>
+  <p>{t(`Use after the corresponding textbook lessons and for chapter review. Year 7 has ${lower?49:50} textbook lessons and Year 8 has ${lower?42:52}; this plan preserves their teaching sequence.`,`核心包配合相應正文課時學習後使用，亦可作章末複習。七${lower?'下':'上'}正文有 ${lower?49:50} 課時，八${lower?'下':'上'}有 ${lower?42:52} 課時；以下保留原書教學次序。`)}</p>
+  <div class="classroom-page-actions"><a href="#g7">{t(`Year 7 ${volume}`,`七${lower?'下':'上'}`)}</a><a href="#g8">{t(`Year 8 ${volume}`,`八${lower?'下':'上'}`)}</a><a href={`${base}/teaching/classroom-packs/curriculum/${lower?'':'lower/'}`}>{t(lower?'Upper volumes':'Lower volumes',lower?'七上／八上':'七下／八下')}</a><a href={`${base}/teaching/math/`}>{t('Arrange My Classroom','在研習室安排題單')}</a></div>
  </div></header>
  <div class="container classroom-reading-width classroom-body">
   <section class="classroom-notice"><h2>{t('Use the same bank in two ways','同一題庫，兩條課堂路線')}</h2><p>{t('Ordinary classes: prerequisites 4 min, short inquiry 5, worked and guided attempts 8, independent practice 15, correction 5, exit 3. Advanced classes: inquiry 18, organise 4, selected practice 13, exit 5.','普通班：先備 4 分鐘、短探究 5、示範與帶做 8、獨立練習 15、訂正 5、離堂 3。進階班：探究 18、整理 4、精選練習 13、離堂 5。')}</p><p>{t('Every pack has one worked example, one guided attempt, eight core tasks, four follow-ups and two extensions. Student core worksheets contain two A4 pages; supplements and teacher references are separate.','每包一題示範、一題帶做、八題核心、四題補練及兩題進階。學生核心工作紙為兩頁 A4；補練及教師解答另印。')}</p></section>
-  {['g7','g8'].map(grade=><section id={grade}><h2>{grade==='g7'?t('Year 7 upper volume','七年級上冊'):t('Year 8 upper volume','八年級上冊')}</h2>{UPPER_CHAPTERS.filter(chapter=>chapter.grade===grade).map(chapter=><article class="upper-core-chapter" data-upper-chapter={chapter.id}>
-   <header><p class="eyebrow">{t('Chapter','第')}{chapter.number}{zh?'章':''} · {t('text pp.','正文')}{chapter.pages.join('–')}{zh?' 頁':''}</p><h3>{chapter.title[locale]}</h3><p>{chapter.use[locale]} · {t('Foundation lessons','基訓課時')} {chapter.lessons.join('–')}</p></header>
-   <ol>{chapter.packIds.map(id=>{const pack=getPracticePack(id)!;return <li data-upper-pack={id}><div><h4>{pack.title[locale]}</h4><p>{pack.summary[locale]}</p><small>{t('Referenced lessons','對照課時')} {(pack.source.foundationLessons||[pack.source.foundationLesson]).join(', ')}</small></div><div class="upper-core-links"><a href={classroomPackHref(id,locale)}>{t('Practice route','練習課堂')}</a><a href={`${classroomPackHref(id,locale)}?route=inquiry`}>{t('Inquiry route','探究課堂')}</a><a href={classroomPackHref(id,locale,true)}>{t('Teacher answers','教師解答')}</a></div></li>;})}</ol>
+  {['g7','g8'].map(grade=><section id={grade}><h2>{grade==='g7'?t(`Year 7 ${volume} volume`,`七年級${lower?'下':'上'}冊`):t(`Year 8 ${volume} volume`,`八年級${lower?'下':'上'}冊`)}</h2>{chapters.filter(chapter=>chapter.grade===grade).map(chapter=><article class="upper-core-chapter" data-upper-chapter={lower?undefined:chapter.id} data-lower-chapter={lower?chapter.id:undefined}>
+   <header><p class="eyebrow">{t('Chapter','第')}{chapter.number}{zh?'章':''} · {t('text pp.','正文')}{chapter.pages.join('–')}{zh?' 頁':''}</p><h3>{chapter.title[locale]}</h3><p>{chapter.use[locale]} · {t(lower?'Textbook lessons':'Foundation lessons',lower?'正文課時':'基訓課時')} {chapter.lessons.join('–')}</p></header>
+   <ol>{chapter.packIds.map(id=>{const pack=getPracticePack(id)!;return <li data-upper-pack={lower?undefined:id} data-lower-pack={lower?id:undefined}><div><h4>{pack.title[locale]}</h4><p>{pack.summary[locale]}</p><small>{t('Referenced lessons','對照課時')} {(pack.source.textLessons||pack.source.foundationLessons||[pack.source.foundationLesson]).join(', ')}</small></div><div class="upper-core-links"><a href={classroomPackHref(id,locale)}>{t('Practice route','練習課堂')}</a><a href={`${classroomPackHref(id,locale)}?route=inquiry`}>{t('Inquiry route','探究課堂')}</a><a href={classroomPackHref(id,locale,true)}>{t('Teacher answers','教師解答')}</a></div></li>;})}</ol>
   </article>)}</section>)}
-  <section><h2>{t('Collect classroom evidence, then deepen the set','收集試教資料，再深化題組')}</h2><p>{t('Record completion of the core tasks, both exit questions and two common errors. If many students cannot finish, add guidance or split a step before increasing the question count. After the chapter core set, add lesson-by-lesson variants using this evidence, then extend to the lower volumes.','記錄核心題完成情況、兩道離堂題及兩項常見錯法。若不少學生未完成，先增加帶做或拆細步驟，再增加題量。其後按試教資料補齊逐課時變式，再延伸七下、八下。')}</p><p>{t('The questions and explanations are original. Textbook and foundation page references identify the skills; the source PDFs and answer books are not reproduced. Paper answers do not create automatic scores or browser learning records.','題目及解說為原創；正文及基訓頁碼供對照技能，本頁不重刊原 PDF 或答案冊。紙筆作答不自動產生成績或瀏覽器學習紀錄。')}</p></section>
+  <section><h2>{t('Collect classroom evidence, then deepen the set','收集試教資料，再深化題組')}</h2><p>{t('Record completion of the core tasks, both exit questions and two common errors. If many students cannot finish, add guidance or split a step before increasing the question count. After the chapter core set, add lesson-by-lesson variants using this evidence, then deepen the sets in both volumes.','記錄核心題完成情況、兩道離堂題及兩項常見錯法。若不少學生未完成，先增加帶做或拆細步驟，再增加題量。其後按試教資料補齊逐課時變式，逐步深化上下冊題組。')}</p><p>{t('The questions and explanations are original. Textbook and foundation page references identify the skills; the source PDFs and answer books are not reproduced. Paper answers do not create automatic scores or browser learning records.','題目及解說為原創；正文及基訓頁碼供對照技能，本頁不重刊原 PDF 或答案冊。紙筆作答不自動產生成績或瀏覽器學習紀錄。')}</p>{lower&&<p>{t('Lower-volume questions were independently checked. Only the source textbooks were supplied; no separate lower-volume foundation or answer books were checked.','下冊原創題已獨立驗算；本次只提供正文，未核對另冊基礎訓練或答案冊。')}</p>}</section>
  </div>
 </div>

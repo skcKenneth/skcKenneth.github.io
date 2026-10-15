@@ -43,6 +43,8 @@ test('shared rendering groups complete negative, compound, symbolic and multi-di
  for(const bad of ['2^(-3)','x^-3','x^12'])assert.throws(()=>assertCanonicalDisplayMath(bad),/Group the complete superscript/);
  assert.throws(()=>splitAuthoredMath('\\(x^2'),/Unclosed/);
  assert.throws(()=>splitAuthoredMath('\\(\\(x^2\\)\\)'),/nested/);
+ const system=String.raw`\(\begin{cases}(2)x+(3)y=16\\(4)x+(1)y=12\end{cases}\)`;
+ assert.deepEqual(splitAuthoredMath(system),[{kind:'math',value:system.slice(2,-2)}],'a row break before a parenthesised coefficient remains inside one formula');
  r.context.input='<img src=x onerror=alert(1)> \\(x^{12}\\)';
  const html=r.run('MathAuthoredMath.render(input)');assert.ok(html.includes('&lt;img'));assert.ok(!html.includes('<img'));assert.deepEqual(exponents(html),['12']);
 });

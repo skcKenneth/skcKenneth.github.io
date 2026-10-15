@@ -70,7 +70,8 @@
     "review:content": "node scripts/content-review.mjs",
     "test:math-storage": "node --test tests/math-shared-storage.test.mjs tests/math-studio-sync.test.cjs",
     "test:guided-practice": "node --test tests/guided-practice.test.mjs",
-    "test:math-system": "node --test tests/formula-rendering.test.mjs tests/guided-practice.test.mjs tests/guided-practice-upper.test.mjs tests/math-system.test.mjs tests/math-system-search.test.mjs tests/model-language.test.mjs tests/math-lab.test.mjs tests/math-studio-english.test.cjs tests/math-studio-learning-english.test.cjs tests/math-studio-practice-english.test.cjs tests/math-studio-challenge-english.test.cjs"
+    "test:math-system": "node --test tests/formula-rendering.test.mjs tests/guided-practice.test.mjs tests/guided-practice-upper.test.mjs tests/guided-practice-lower.test.mjs tests/guided-practice-inquiry.test.mjs tests/guided-practice-diagrams.test.mjs tests/math-system.test.mjs tests/math-system-search.test.mjs tests/model-language.test.mjs tests/math-lab.test.mjs tests/math-studio-english.test.cjs tests/math-studio-learning-english.test.cjs tests/math-studio-practice-english.test.cjs tests/math-studio-challenge-english.test.cjs",
+    "test:guided-practice:lower": "node --test tests/guided-practice-lower.test.mjs tests/guided-practice-inquiry.test.mjs tests/guided-practice-diagrams.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "7.2.4",

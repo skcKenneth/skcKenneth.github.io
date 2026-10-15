@@ -1,48 +1,171 @@
-"""Package only accepted authored PDFs, excluding browser fixtures and backups."""
+"""Package a closed accepted paper inventory; never glob browser output folders.
+
+Compatible CLI: OUTPUT.zip SOURCES... (defaults to the original upper volume).
+Add --scope lower or --scope all for the separately accepted lower or full set.
+Sources are directories containing pdf-manifest.json and pdf-audit.json.
+"""
+import argparse
+import hashlib
 import json
-import sys
+import os
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 
-if len(sys.argv) < 4:
-    raise SystemExit('Usage: python package-guided-practice-worksheets.py OUTPUT.zip PILOT_ACCEPTANCE UPPER_ACCEPTANCE')
-target = Path(sys.argv[1]).resolve()
-documents = []
-identities = set()
-for argument in sys.argv[2:]:
-    source = Path(argument).resolve()
-    audit = json.loads((source / 'pdf-audit.json').read_text(encoding='utf-8'))
-    assert audit['passed'], 'Only accepted paper editions can be packaged'
-    manifest = json.loads((source / 'pdf-manifest.json').read_text(encoding='utf-8'))
-    for item in manifest['pdfs']:
-        identity = (item['packId'], item['locale'], item['edition'])
-        assert identity not in identities, 'Duplicate paper edition'
-        identities.add(identity)
-        file = (source / item['file']).resolve()
-        assert file.parent == source and file.suffix == '.pdf' and file.is_file()
-        documents.append((file, f"{item['locale']}/{item['edition']}/{item['file']}"))
-assert len({identity[0] for identity in identities}) == 28
-assert len(documents) == 168
-assert all({(locale, edition) for pack_id, locale, edition in identities if pack_id == pack} ==
-           {(locale, edition) for locale in ['en', 'zh-Hant'] for edition in ['student', 'teacher', 'supplement']}
-           for pack in {identity[0] for identity in identities})
-target.parent.mkdir(parents=True, exist_ok=True)
-readme = '''七上、八上章節核心課堂包 / Year 7–8 upper-volume core practice
-28 original bilingual packs, 448 fixed original questions, 168 PDF editions.
-student: blank two-page A4 core worksheets.
-supplement: further practice and extensions, separately printed.
-teacher: reference answers and assessment rubrics; keep separate from student copies.
+UPPER_IDS = frozenset('''
+g7-rational-number-line g7-rational-operations g7-expressions-values
+g7-polynomial-add-subtract g7-equations-meaning g7-equations-collect
+g7-equations-transpose g7-equations-brackets-fractions g7-equations-applications
+g7-geometry-segments g7-geometry-angles
+g8-triangles-sides g8-triangles-angles g8-congruence-sss-sas
+g8-congruence-angle-hl g8-bisector-distances g8-bisector-converse
+g8-symmetry-recognition g8-perpendicular-bisector g8-symmetry-axis-construction
+g8-reflection-coordinates g8-isosceles-equilateral g8-powers-multiplication
+g8-products-division g8-factorisation g8-rational-expressions
+g8-rational-operations g8-rational-equations
+'''.split())
+LOWER_IDS = frozenset('''
+g7-intersections-perpendicular g7-parallel-conditions g7-translation
+g7-square-cube-roots g7-real-number-estimation g7-coordinate-location-translation
+g7-systems-elimination g7-systems-modelling g7-three-variable-systems
+g7-linear-inequalities g7-inequality-systems-applications
+g7-statistical-surveys g7-frequency-histograms
+g8-radicals-meaning g8-radicals-operations g8-pythagoras-lengths
+g8-pythagoras-converse g8-parallelograms-tests g8-rectangles-rhombi
+g8-squares-classification g8-functions-representations
+g8-linear-functions-properties g8-linear-functions-models
+g8-data-centres g8-data-variance
+'''.split())
+ALL_IDS = UPPER_IDS | LOWER_IDS
+LOCALES = ('en', 'zh-Hant')
+EDITIONS = ('student', 'teacher', 'supplement')
+SCOPES = {'upper': UPPER_IDS, 'lower': LOWER_IDS, 'all': ALL_IDS}
+ROOT = Path(__file__).resolve().parents[1]
 
-共28個原創雙語課堂包，448道固定題。student為兩頁A4留白核心；supplement為補練及進階；teacher附參考解答及準則，請與學生版本分開派發。
-配合相應教材課時學習後使用，亦可作章末複習。
-https://skckenneth.github.io/zh/teaching/classroom-packs/curriculum/
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def load_json(path):
+    return json.loads(path.read_text(encoding='utf-8-sig'))
+
+
+def identity(item):
+    return item['packId'], item['locale'], item['edition']
+
+
+def package(target, sources, scope='upper'):
+    require(len(UPPER_IDS) == 28 and len(LOWER_IDS) == 25 and len(ALL_IDS) == 53,
+            'Closed inventory definition is inconsistent')
+    expected_ids = SCOPES[scope]
+    expected = {(pack, locale, edition) for pack in expected_ids
+                for locale in LOCALES for edition in EDITIONS}
+    require(target.suffix.lower() == '.zip', 'Output must be a ZIP archive')
+    documents, identities, excluded, evidence = [], set(), [], []
+    for argument in sources:
+        source = Path(argument).resolve(strict=True)
+        audit_path, manifest_path, browser_path = source / 'pdf-audit.json', source / 'pdf-manifest.json', source / 'report.json'
+        audit, manifest, browser = load_json(audit_path), load_json(manifest_path), load_json(browser_path)
+        require(browser.get('passed') is True, f'Browser acceptance did not pass: {source.name}')
+        require(isinstance(browser.get('cases'), list) and browser['cases']
+                and all(case.get('status') == 'passed' for case in browser['cases']),
+                f'Browser acceptance has incomplete or failed cases: {source.name}')
+        require(not browser.get('pageErrors') and not browser.get('printIssues'),
+                f'Browser acceptance contains unresolved errors: {source.name}')
+        require(audit.get('passed') is True, f'Paper acceptance did not pass: {source.name}')
+        require(all(check.get('passed') is True for check in audit.get('checks', [])),
+                f'Acceptance contains a failed check: {source.name}')
+        require(isinstance(audit.get('pdfs'), list), f'Missing per-PDF acceptance evidence: {source.name}')
+        accepted = {}
+        for item in audit['pdfs']:
+            key = identity(item)
+            require(key not in accepted, f'Duplicate per-PDF acceptance identity: {key}')
+            accepted[key] = item['file']
+        require(isinstance(manifest.get('pdfs'), list), f'Missing PDF manifest: {source.name}')
+        evidence.append({'source': source.name,
+                         'manifestSHA256': hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+                         'auditSHA256': hashlib.sha256(audit_path.read_bytes()).hexdigest(),
+                         'browserReportSHA256': hashlib.sha256(browser_path.read_bytes()).hexdigest()})
+        for item in manifest['pdfs']:
+            key = identity(item)
+            pack_id, locale, edition = key
+            if pack_id not in expected_ids:
+                excluded.append({'packId': pack_id,
+                                 'reason': 'outside selected scope' if pack_id in ALL_IDS else 'unregistered fixture or other output'})
+                continue
+            require(locale in LOCALES and edition in EDITIONS, f'Unrecognised paper edition: {key}')
+            require(key not in identities, f'Duplicate paper edition: {key}')
+            filename = f'{pack_id}-{locale}-{edition}.pdf'
+            require(item['file'] == filename, f'Noncanonical PDF filename: {item["file"]}')
+            require(accepted.get(key) == filename, f'PDF is absent from passed acceptance: {key}')
+            file = (source / filename).resolve(strict=True)
+            require(file.parent == source and file.is_file(), f'PDF is outside acceptance directory: {filename}')
+            with file.open('rb') as stream:
+                require(stream.read(5) == b'%PDF-', f'Invalid PDF header: {filename}')
+            identities.add(key)
+            documents.append((file, f'{locale}/{edition}/{filename}'))
+    missing = sorted(expected - identities)
+    require(not missing and identities == expected,
+            f'Incomplete {scope} inventory: missing {len(missing)} of {len(expected)} editions; {missing[:6]}')
+    plans = ['upper-core-plan.md'] if scope == 'upper' else ['lower-core-plan.md'] if scope == 'lower' else ['upper-core-plan.md', 'lower-core-plan.md']
+    for name in plans:
+        require((ROOT / 'docs' / name).is_file(), f'Missing classroom plan: {name}')
+    packs, pdfs = len(expected_ids), len(expected)
+    label = {'upper': ('七上、八上', 'upper-volume'), 'lower': ('七下、八下', 'lower-volume'),
+             'all': ('七、八年級上下冊', 'upper- and lower-volume')}[scope]
+    links = {'upper': ['https://skckenneth.github.io/zh/teaching/classroom-packs/curriculum/'],
+             'lower': ['https://skckenneth.github.io/zh/teaching/classroom-packs/curriculum/lower/'],
+             'all': ['https://skckenneth.github.io/zh/teaching/classroom-packs/curriculum/',
+                     'https://skckenneth.github.io/zh/teaching/classroom-packs/curriculum/lower/']}[scope]
+    readme = f'''{label[0]}章節核心課堂包 / Year 7–8 {label[1]} core practice
+{packs} original bilingual packs, {packs * 16} fixed original questions, {pdfs} PDF editions.
+Each pack has en and zh-Hant editions of student, supplement and teacher papers.
+student: blank two-page A4 core worksheets, including worked/guided spaces.
+supplement: further practice and extensions, separately printed.
+teacher: reference answers and rubrics; keep separate from student copies.
+
+共{packs}個原創雙語課堂包、{packs * 16}道固定題、{pdfs}份PDF。
+student為兩頁A4留白核心；supplement為補練及進階；teacher附參考解答及準則。
+配合相應正文課時學習後使用，亦可作章末複習；軟件驗收不等同教師試教或學習成效證據。
+只收錄通過本機紙本驗收的已登記題組，不包含測試fixture、備份或原教材PDF。
+{chr(10).join(links)}
 '''
-with ZipFile(target, 'w', ZIP_DEFLATED) as archive:
-    archive.writestr('README.txt', readme)
-    archive.write(Path(__file__).resolve().parents[1] / 'docs' / 'upper-core-plan.md', 'upper-core-plan.md')
-    for file, name in documents:
-        archive.write(file, name)
-with ZipFile(target) as archive:
-    assert archive.testzip() is None
-    assert len(archive.namelist()) == 170
-print(json.dumps({'path': str(target), 'pdfs': len(documents), 'bytes': target.stat().st_size}))
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_name(target.name + '.building')
+    expected_names = {'README.txt', *plans, *(name for _, name in documents)}
+    try:
+        with ZipFile(temporary, 'w', ZIP_DEFLATED) as archive:
+            archive.writestr('README.txt', readme)
+            for name in plans:
+                archive.write(ROOT / 'docs' / name, name)
+            for file, name in sorted(documents, key=lambda row: row[1]):
+                archive.write(file, name)
+        with ZipFile(temporary) as archive:
+            require(archive.testzip() is None, 'ZIP CRC verification failed')
+            names = archive.namelist()
+            require(len(names) == len(expected_names) and set(names) == expected_names,
+                    'ZIP entry inventory differs from the accepted selection')
+        os.replace(temporary, target)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+    return {'path': str(target), 'scope': scope, 'packs': packs, 'questions': packs * 16,
+            'pdfs': pdfs, 'entries': len(expected_names), 'bytes': target.stat().st_size,
+            'crcPassed': True, 'excludedEntries': len(excluded), 'acceptanceSources': evidence}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('output', help='OUTPUT.zip')
+    parser.add_argument('sources', nargs='+', help='Accepted PDF manifest directories')
+    parser.add_argument('--scope', choices=SCOPES, default='upper')
+    args = parser.parse_args()
+    try:
+        print(json.dumps(package(Path(args.output).resolve(), args.sources, args.scope), ensure_ascii=True))
+    except (ValueError, OSError, KeyError, TypeError, json.JSONDecodeError) as error:
+        parser.exit(1, f'Packaging failed: {error}\n')
+
+
+if __name__ == '__main__':
+    main()

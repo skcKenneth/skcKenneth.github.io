@@ -2,6 +2,9 @@ import { G7_PACKS } from './g7.mjs';
 import { G8_PACKS } from './g8.mjs';
 import { G7_UPPER_PACKS } from './g7-upper.mjs';
 import { G8_UPPER_PACKS } from './g8-upper.mjs';
+import { G7_LOWER_PACKS } from './g7-lower.mjs';
+import { G8_LOWER_PACKS } from './g8-lower.mjs';
+import { G8_LOWER_INQUIRIES } from './g8-lower-inquiries.mjs';
 import { bi } from './shared.mjs';
 
 const aliases = {
@@ -23,6 +26,7 @@ const sourceNavigation = pack => pack.grade==='g7'
 export const PRACTICE_PACKS = [...G7_PACKS, ...G8_PACKS].map(pack=>({ ...pack, aliases:aliases[pack.id]||[], sourceNavigation:sourceNavigation(pack) }));
 /** The original seven remain a stable regression set; all routes use the complete registry. */
 export const UPPER_PRACTICE_PACKS=[...G7_UPPER_PACKS,...G8_UPPER_PACKS].map(pack=>{const navigation=pack.sourceNavigation||pack.source.sourceNavigation;return {...pack,aliases:[...(pack.aliases||[]),...Object.values(navigation||{})],sourceNavigation:navigation};});
-export const ALL_PRACTICE_PACKS=[...PRACTICE_PACKS,...UPPER_PRACTICE_PACKS];
+export const LOWER_PRACTICE_PACKS=[...G7_LOWER_PACKS,...G8_LOWER_PACKS].map(pack=>{const navigation=pack.sourceNavigation||pack.source.sourceNavigation,inquiry=G8_LOWER_INQUIRIES[pack.id];return {...pack,...(inquiry?{inquiry:inquiry.text,inquiryStages:inquiry.stages}:{}),aliases:[...(pack.aliases||[]),...Object.values(navigation||{})],sourceNavigation:navigation};});
+export const ALL_PRACTICE_PACKS=[...PRACTICE_PACKS,...UPPER_PRACTICE_PACKS,...LOWER_PRACTICE_PACKS];
 export const getPracticePack = id => ALL_PRACTICE_PACKS.find(pack=>pack.id===id)||null;
 export { G7_PACKS, G8_PACKS };

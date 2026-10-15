@@ -1,0 +1,74 @@
+---
+import MathText from './MathText.astro';
+interface Props { diagram:any; locale?:'en'|'zh-Hant'; solution?:boolean }
+const {diagram:d,locale='en',solution=false}=Astro.props;
+const t=(en:string,zh:string)=>locale==='zh-Hant'?zh:en;
+const label=(value:any)=>typeof value==='object'&&value!==null?value[locale]||value.en||'':String(value??'');
+const width=360,height=230,left=40,right=325,top=22,bottom=190;
+const bounds=d.bounds||[-4,4,-4,4], [xmin,xmax,ymin,ymax]=bounds;
+const X=(x:number)=>left+(x-xmin)/(xmax-xmin)*(right-left),Y=(y:number)=>bottom-(y-ymin)/(ymax-ymin)*(bottom-top);
+const ticks=(min:number,max:number,step:number)=>Array.from({length:Math.max(0,Math.floor((max-min)/step)+1)},(_,i)=>min+i*step);
+const xTicks=ticks(xmin,xmax,d.xStep||Math.max(1,Math.ceil((xmax-xmin)/6))),yTicks=ticks(ymin,ymax,d.yStep||Math.max(1,Math.ceil((ymax-ymin)/6)));
+const clipLine=(line:any)=>{
+ const lo=Math.max(xmin,line.domain?.[0]??xmin),hi=Math.min(xmax,line.domain?.[1]??xmax),k=Number(line.k),b=Number(line.b),p:number[][]=[];
+ if(lo>hi)return null;
+ for(const x of[lo,hi]){const y=k*x+b;if(y>=ymin-1e-9&&y<=ymax+1e-9)p.push([x,y]);}
+ if(k)for(const y of[ymin,ymax]){const x=(y-b)/k;if(x>=lo-1e-9&&x<=hi+1e-9)p.push([x,y]);}
+ const unique=p.filter((v,i)=>p.findIndex(w=>Math.abs(v[0]-w[0])<1e-8&&Math.abs(v[1]-w[1])<1e-8)===i);
+ return unique.length>=2?unique.slice(0,2):null;
+};
+const lines=[...(d.lines||[]),...(solution?(d.solutionLines||[]).map((v:any)=>({...v,isSolution:true})):[])];
+const points=[...(d.points||[]),...(solution?(d.solutionPoints||[]).map((v:any)=>({...v,isSolution:true})):[])];
+const intervals=[...(d.intervals||[]),...(solution?(d.solutionIntervals||[]).map((v:any)=>({...v,isSolution:true})):[])];
+const min=d.min??-5,max=d.max??5,IX=(x:number)=>35+(x-min)/(max-min)*290;
+const intervalTicks=ticks(min,max,d.step||Math.max(1,Math.ceil((max-min)/8)));
+const categories=d.categories||[],total=categories.reduce((n:number,c:any)=>n+Number(c.count),0);
+const bins=[...(d.bins||[]),...(solution?(d.solutionBins||[]).map((v:any)=>({...v,isSolution:true})):[])];
+const binMin=d.xRange?.[0]??(bins.length?Math.min(...bins.map((b:any)=>b.lo)):0),binMax=d.xRange?.[1]??(bins.length?Math.max(...bins.map((b:any)=>b.hi)):1);
+const density=d.height==='density'||new Set(bins.map((b:any)=>b.hi-b.lo)).size>1;
+const heights=bins.map((b:any)=>density?b.frequency/(b.hi-b.lo):b.frequency),maxValue=Math.max(d.maxHeight??1,...heights,...categories.map((c:any)=>Number(c.count)));
+const binTicks=[...new Set([binMin,binMax,...bins.flatMap((b:any)=>[b.lo,b.hi]),...(!bins.length?ticks(binMin,binMax,d.xStep||Math.max(1,Math.ceil((binMax-binMin)/6))):[])])].sort((a:any,b:any)=>a-b);
+const barTicks=ticks(0,maxValue,Math.max(.25,maxValue/4));
+const BX=(x:number)=>45+(x-binMin)/(binMax-binMin)*275,barY=(y:number)=>185-y/maxValue*145;
+let cumulative=0;
+const sectors=categories.map((c:any)=>{const a=cumulative/total*2*Math.PI-Math.PI/2;cumulative+=Number(c.count);const b=cumulative/total*2*Math.PI-Math.PI/2;return {...c,a,b,path:`M130 115 L${130+80*Math.cos(a)} ${115+80*Math.sin(a)} A80 80 0 ${b-a>Math.PI?1:0} 1 ${130+80*Math.cos(b)} ${115+80*Math.sin(b)} Z`};});
+---
+<figure class="guided-diagram lower-practice-diagram" data-diagram-kind={d.kind} data-solution={solution?'true':undefined}>
+ {d.kind==='data-table'||(d.kind==='statistics'&&d.chart==='table')?<table class="practice-data-table">
+  <thead><tr>{(d.headers||[t(bins.length?'Interval':'Category',bins.length?'組別':'類別'),t('Frequency','頻數')]).map((v:any)=><th><MathText text={label(v)}/></th>)}</tr></thead>
+  <tbody>{(d.rows||(bins.length?bins.map((b:any)=>[`[${b.lo},${b.hi}${b.hiClosed?']':')'}`,b.frequency]):categories.map((c:any)=>[c.label,c.count]))).map((row:any[])=><tr>{row.map(v=><td><MathText text={label(v)}/></td>)}</tr>)}</tbody>
+ </table>:<svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label(d.label)||t('Use the labelled axes and given information','按所標坐標軸及已知資料作答')}>
+  {d.kind==='function-graph'&&<g>
+   {xTicks.map(x=><g><line class="grid" x1={X(x)} y1={top} x2={X(x)} y2={bottom}/><text x={X(x)} y={bottom+20} text-anchor="middle">{x}</text></g>)}
+   {yTicks.map(y=><g><line class="grid" x1={left} y1={Y(y)} x2={right} y2={Y(y)}/><text x={left-7} y={Y(y)+5} text-anchor="end">{y}</text></g>)}
+   <rect class="graph-frame" x={left} y={top} width={right-left} height={bottom-top}/>
+   {ymin<=0&&ymax>=0&&<line class="graph-axis" x1={left} x2={right+8} y1={Y(0)} y2={Y(0)}/>}
+   {xmin<=0&&xmax>=0&&<line class="graph-axis" x1={X(0)} x2={X(0)} y1={top-8} y2={bottom}/>}
+   <text x={right+10} y={bottom+20}>x</text><text x={left-22} y={top-8}>y</text>
+   {lines.map((line:any)=>{const p=clipLine(line);return p&&<line class:list={['function-line',line.isSolution&&'solution-layer']} data-line-id={line.id} data-k={line.k} data-b={line.b} data-solution-layer={line.isSolution?'true':undefined} x1={X(p[0][0])} y1={Y(p[0][1])} x2={X(p[1][0])} y2={Y(p[1][1])}/>;})}
+   {lines.filter((line:any)=>line.domain).flatMap((line:any)=>line.domain.map((x:number,i:number)=>({x,y:Number(line.k)*x+Number(line.b),closed:line.domainClosed?.[i]!==false,line}))).filter((p:any)=>p.x>=xmin&&p.x<=xmax&&p.y>=ymin&&p.y<=ymax).map((p:any)=><circle data-line-endpoint={p.line.id} data-x={p.x} data-y={p.y} data-closed={String(p.closed)} data-solution-layer={p.line.isSolution?'true':undefined} cx={X(p.x)} cy={Y(p.y)} r="4" fill={p.closed?'currentColor':'white'}/>)}
+   {points.filter((p:any)=>p.x>=xmin&&p.x<=xmax&&p.y>=ymin&&p.y<=ymax).map((p:any)=><g data-point={p.id} data-x={p.x} data-y={p.y} data-solution-layer={p.isSolution?'true':undefined}><circle cx={X(p.x)} cy={Y(p.y)} r="3"/><text x={X(p.x)+7} y={Y(p.y)-7}>{p.id}</text></g>)}
+  </g>}
+  {d.kind==='interval'&&<g>
+   <line class="graph-axis" x1="28" y1="155" x2="335" y2="155"/><path class="graph-axis" d="M328 150 L335 155 L328 160"/>
+   {intervalTicks.map(x=><g><line x1={IX(x)} x2={IX(x)} y1="151" y2="159"/><text x={IX(x)} y="180" text-anchor="middle">{x}</text></g>)}
+   {intervals.map((v:any,i:number)=>{const y=65+i*25,lo=v.lo===null?min:Math.max(min,v.lo),hi=v.hi===null?max:Math.min(max,v.hi);return <g data-interval-lo={v.lo??'-infinity'} data-interval-hi={v.hi??'infinity'} data-lo-closed={String(v.loClosed)} data-hi-closed={String(v.hiClosed)} data-solution-layer={v.isSolution?'true':undefined}><line class="interval-segment" x1={IX(lo)} x2={IX(hi)} y1={y} y2={y}/>{v.lo!==null&&<circle class="interval-endpoint" cx={IX(lo)} cy={y} r="4" fill={v.loClosed?'currentColor':'white'}/>} {v.hi!==null&&<circle class="interval-endpoint" cx={IX(hi)} cy={y} r="4" fill={v.hiClosed?'currentColor':'white'}/>} {v.lo===null&&<path d={`M${IX(min)+7} ${y-5} L${IX(min)} ${y} L${IX(min)+7} ${y+5}`} fill="none"/>}{v.hi===null&&<path d={`M${IX(max)-7} ${y-5} L${IX(max)} ${y} L${IX(max)-7} ${y+5}`} fill="none"/>}{v.label&&<text x="35" y={y-10}>{label(v.label)}</text>}</g>;})}
+  </g>}
+  {d.kind==='statistics'&&d.chart==='sector'&&<g>
+   {total>0&&sectors.map((c:any,i:number)=>c.count===total?<circle cx="130" cy="115" r="80" class={`chart-fill shade-${i%4}`}/>:<path d={c.path} class={`chart-fill shade-${i%4}`} data-frequency={c.count} data-sector-angle={c.count/total*360}/>)}
+   {categories.map((c:any,i:number)=><text x="225" y={60+i*25}>{label(c.label)}: {c.count}</text>)}
+  </g>}
+  {d.kind==='statistics'&&['bar','histogram'].includes(d.chart)&&<g>
+   <line class="graph-axis" x1="40" x2="330" y1="185" y2="185"/><line class="graph-axis" x1="45" x2="45" y1="25" y2="185"/>
+   {barTicks.map(y=><g><line class="grid" x1="45" x2="320" y1={barY(y)} y2={barY(y)}/><text x="38" y={barY(y)+5} text-anchor="end">{Number(y.toFixed(3))}</text></g>)}
+   {d.chart==='histogram'?<g>{bins.map((b:any,i:number)=><rect class="chart-fill" x={BX(b.lo)} y={barY(heights[i])} width={BX(b.hi)-BX(b.lo)} height={185-barY(heights[i])} data-bin-lo={b.lo} data-bin-hi={b.hi} data-frequency={b.frequency} data-height={heights[i]} data-height-kind={density?'density':'frequency'} data-solution-layer={b.isSolution?'true':undefined}/>)}{binTicks.map(x=><g><line x1={BX(x)} x2={BX(x)} y1="185" y2="190"/><text x={BX(x)} y="205" text-anchor="middle">{x}</text></g>)}</g>:categories.map((c:any,i:number)=><g><rect class="chart-fill" x={55+i*260/categories.length} y={barY(c.count)} width={180/categories.length} height={185-barY(c.count)} data-frequency={c.count}/><text x={55+(i+.35)*260/categories.length} y="205" text-anchor="middle">{label(c.label)}</text></g>)}
+   <text x="45" y="17">{label(d.yLabel)||t(density?'Frequency density':'Frequency',density?'頻數密度':'頻數')}</text>
+   <text x="320" y="225" text-anchor="end">{label(d.xLabel)}</text>
+  </g>}
+ </svg>}
+ <figcaption>{label(d.caption)||t('Use the stated conditions and the labelled scales.','依已知條件及所標刻度作答。')}</figcaption>
+</figure>
+<style>
+ .lower-practice-diagram svg{width:100%;height:auto;max-height:22rem;color:#294a37;font:16px system-ui,sans-serif}.lower-practice-diagram :is(line,path,rect,circle){stroke:currentColor;stroke-width:1.6}.lower-practice-diagram text{fill:currentColor;stroke:none}.lower-practice-diagram .grid{stroke:#cbd8ce;stroke-width:.7}.graph-frame{fill:none;stroke:#9caf9f!important}.graph-axis{stroke-width:1.8!important}.function-line,.interval-segment{stroke-width:3!important}.solution-layer{stroke-dasharray:6 3}.chart-fill{fill:#c6d8ca}.shade-1{fill:#edf1e7}.shade-2{fill:#a0baa7}.shade-3{fill:white}.practice-data-table{border-collapse:collapse;width:100%;font-size:.85rem}.practice-data-table :is(th,td){border:1px solid #a5b6a7;padding:.3rem;text-align:center}
+ @media print{.lower-practice-diagram svg{height:43mm!important;max-height:43mm!important;font-size:16px}.practice-data-table{font-size:8pt}.practice-data-table :is(th,td){padding:1mm}.lower-practice-diagram figcaption{font-size:6.5pt}}
+</style>

@@ -14,19 +14,22 @@ const byRole=(...roles:string[]):any[]=>pack.questions.filter((q:any)=>roles.inc
 const ordinal=(q:any)=>pack.questions.findIndex((item:any)=>item.id===q.id)+1;
 const printedPages=pack.source.printedPages;
 const pages=printedPages.length>1?`${printedPages[0]}–${printedPages.at(-1)}`:String(printedPages[0]);
-const sourceLessons=pack.source.foundationLessons||[pack.source.foundationLesson];
+const lower=pack.source.volume==='lower';
+const sourceLessons=lower?pack.source.textLessons:pack.source.foundationLessons||[pack.source.foundationLesson];
 const lessonLabel=sourceLessons.length>1?`${sourceLessons[0]}–${sourceLessons.at(-1)}`:String(sourceLessons[0]);
-const sourceLabel=t(`Year ${pack.grade==='g7'?'7':'8'}, upper volume · text pp. ${pages} · foundation ${sourceLessons.length>1?'lessons':'lesson'} ${lessonLabel}`,`${pack.grade==='g7'?'七':'八'}上・正文 ${pages} 頁・基訓第 ${lessonLabel} 課時`);
-const paperLayout=pack.printLayout||(['geometry','triangles','congruence','symmetry'].includes(pack.nativeLesson)||pack.id.includes('number-line')?'geometry-grid':pack.version==='2026-10-14-upper-core-v1'?'working-grid':'working-stack');
+const sourceLabel=t(`Year ${pack.grade==='g7'?'7':'8'}, ${lower?'lower':'upper'} volume · text pp. ${pages} · ${lower?'textbook':'foundation'} ${sourceLessons.length>1?'lessons':'lesson'} ${lessonLabel}`,`${pack.grade==='g7'?'七':'八'}${lower?'下':'上'}・正文 ${pages} 頁・${lower?'正文':'基訓'}第 ${lessonLabel} 課時`);
+const paperLayout=pack.printLayout||(['geometry','triangles','congruence','symmetry'].includes(pack.nativeLesson)||pack.id.includes('number-line')?'geometry-grid':lower||pack.version==='2026-10-14-upper-core-v1'?'working-grid':'working-stack');
 const compactCongruence=['g8-congruence-sss-sas','g8-congruence-angle-hl'].includes(pack.id);
-const paperNotice=compactCongruence?t('Diagrams are not to scale. Conditions and reasons matter; measurement is not proof.','示意圖不按比例。留意條件與理由；量度不代替證明。'):t('Conditions and reasons matter; measurement is not proof.','留意條件與理由；量度不代替證明。');
+const paperNotice=compactCongruence||pack.id==='g8-parallelograms-tests'?t('Diagrams are not to scale. Conditions and reasons matter; measurement is not proof.','示意圖不按比例。留意條件與理由；量度不代替證明。'):t('Conditions and reasons matter; measurement is not proof.','留意條件與理由；量度不代替證明。');
 const nativeHref=`/math-studio/?lesson=${pack.nativeLesson}&lang=${locale}`;
-const inquiryLabs:Record<string,string>={rational:'number',operations:'powers',expressions:'matches','polynomial-add':'magic','linear-equation':'balance',geometry:'angles',triangles:'triangle',multiply:'area',factor:'area'};
-const inquiryLab=inquiryLabs[pack.nativeLesson];
-const inquiryHref=pack.id.startsWith('g8-bisector-')?`/math-studio/?lang=${locale}#g8/bisector-property`:inquiryLab?`/math-studio/?grade=${pack.grade}&lab=${inquiryLab}&lang=${locale}`:null;
+const inquiryLabs:Record<string,string>={rational:'number',operations:'powers',expressions:'matches','polynomial-add':'magic','linear-equation':'balance',geometry:'angles',triangles:'triangle',multiply:'area',factor:'area',parallel:'parallels',real:'roots',coordinates:'routes',systems:'tickets',inequality:'tariffs','data-collection':'sampling',pythagoras:'pythagoras','linear-function':'linear',statistics:'outlier'};
+const lowerInquiries:Record<string,string>={'g7-parallel-conditions':'parallels','g7-square-cube-roots':'roots','g7-real-number-estimation':'roots','g7-coordinate-location-translation':'routes','g7-systems-elimination':'tickets','g7-systems-modelling':'tickets','g7-linear-inequalities':'tariffs','g7-inequality-systems-applications':'tariffs','g7-statistical-surveys':'sampling','g8-pythagoras-lengths':'pythagoras','g8-linear-functions-properties':'linear','g8-linear-functions-models':'tariffs','g8-data-centres':'outlier'};
+const inquiryLab=lower?lowerInquiries[pack.id]:inquiryLabs[pack.nativeLesson];
+const inquiryGrade=inquiryLab==='tariffs'?'g7':pack.grade;
+const inquiryHref=pack.id.startsWith('g8-bisector-')?`/math-studio/?lang=${locale}#g8/bisector-property`:inquiryLab?`/math-studio/?grade=${inquiryGrade}&lab=${inquiryLab}&lang=${locale}`:null;
 const configuration={pack,locale,teacher};
 ---
-<div class="classroom-page guided-practice" data-guided-practice={pack.id} data-classroom-pack={teacher?undefined:pack.id} data-classroom-teacher={teacher?pack.id:undefined} data-locale={locale} data-practice-version={pack.version} data-formula-render-version={FORMULA_RENDER_VERSION} data-print-edition="student" data-paper-layout={paperLayout} data-paper-compact={compactCongruence?'congruence':undefined}>
+<div class="classroom-page guided-practice" data-guided-practice={pack.id} data-classroom-pack={teacher?undefined:pack.id} data-classroom-teacher={teacher?pack.id:undefined} data-locale={locale} data-practice-version={pack.version} data-practice-volume={lower?'lower':'upper'} data-formula-render-version={FORMULA_RENDER_VERSION} data-print-edition="student" data-paper-layout={paperLayout} data-paper-compact={compactCongruence?'congruence':undefined}>
  <header class="page-head"><div class="container classroom-reading-width">
   <nav class="classroom-breadcrumbs" aria-label={t('Breadcrumb','所在位置')}><ol><li><a href={`${base}/teaching/`}>{t('Teaching','教學')}</a></li><li><a href={`${base}/teaching/classroom-packs/`}>{t('One-class activities','一節課活動')}</a></li><li aria-current="page">{pack.title[locale]}</li></ol></nav>
   <p class="eyebrow">{t('PAPER · REASONING · PRACTICE','紙筆・推理・練習')}</p>
@@ -34,7 +37,7 @@ const configuration={pack,locale,teacher};
   <p class="lead" data-pagefind-meta="description">{pack.summary[locale]}</p>
   <p class="classroom-meta">40 {t('minutes','分鐘')} · {sourceLabel}</p>
   {pack.sourceNavigation&&<p class="small">{t('Textbook reference: ','教材對照：')}{pack.sourceNavigation[locale]}</p>}
-  {pack.version==='2026-10-14-upper-core-v1'&&<p class="small">{t('Chapter core practice: use after the referenced textbook lessons, or for chapter review.','章節核心練習：配合所列正文課時學習後使用，亦可作章末複習。')} <a href={`${base}/teaching/classroom-packs/curriculum/`}>{t('See the upper-volume plan','查看上冊章節規劃')}</a></p>}
+  {(lower||pack.version==='2026-10-14-upper-core-v1')&&<p class="small">{t('Chapter core practice: use after the referenced textbook lessons, or for chapter review.','章節核心練習：配合所列正文課時學習後使用，亦可作章末複習。')} <a href={`${base}/teaching/classroom-packs/curriculum/${lower?'lower/':''}`}>{t(lower?'See the lower-volume plan':'See the upper-volume plan',lower?'查看下冊章節規劃':'查看上冊章節規劃')}</a></p>}
   <p class="guided-intro">{t('One worked example, one guided attempt, eight core questions, four follow-ups and two extensions. Write on paper; the teacher controls the reveal.','一題示範、一題帶做、八題核心、四題補練及兩題進階。學生紙筆作答，教師控制揭示。')}</p>
   <div class="classroom-page-actions" data-pagefind-ignore>
    <button class="button secondary" type="button" data-practice-projection aria-pressed="false">{t('Projection mode','投影模式')}</button>
@@ -58,6 +61,7 @@ const configuration={pack,locale,teacher};
    <details><summary>{t('Organise the key idea','整理關鍵概念')}</summary><p><MathText text={pack.concept[locale]}/></p></details>
    <div class="classroom-page-actions"><a class="button secondary" href={nativeHref} target="_blank" rel="noopener" data-practice-native>{t('Open the original chapter','開啟原章節')}</a>{inquiryHref&&<a class="button secondary" href={inquiryHref} target="_blank" rel="noopener">{t('Open the interactive inquiry','開啟互動探究')}</a>}</div>
    <p class="small">{t('Use the lesson question here for paper discussion; the original activity opens separately.','可按本頁問題作紙筆討論；原活動另頁開啟。')}</p>
+   {lower&&<p class="small">{t('Ordinary route: use the first fixed case for the five-minute demonstration. Advanced route: follow the full 18-minute investigation; record predictions before checking.','普通班用首個指定例作5分鐘概念示範；進階班按完整18分鐘探究，先寫預測再核對。')}</p>}
   </section>
   <div class="guided-question-stack">{pack.questions.map((q:any)=><PracticeQuestion question={q} locale={locale} ordinal={ordinal(q)}/>)}</div>
   <nav class="guided-navigation" aria-label={t('Question navigation','逐題導航')} data-pagefind-ignore>
@@ -93,7 +97,12 @@ const configuration={pack,locale,teacher};
   </div>)}
  </section>
  <section class="guided-print-root" data-practice-print-root data-pagefind-ignore data-edition="supplement"><header class="guided-paper-heading"><h1>{pack.title[locale]} — {t('Further practice','補練')}</h1><p>{sourceLabel}</p></header>{byRole('supplement','extension').map(q=><PracticeQuestion question={q} locale={locale} edition="student" ordinal={ordinal(q)}/>)}</section>
- <section class="guided-print-root" data-practice-print-root data-pagefind-ignore data-edition="teacher"><header class="guided-paper-heading"><h1>{pack.title[locale]} — {t('Teacher answers','教師解答')}</h1><p>{sourceLabel}</p><p><MathText text={pack.taskTeacher?.[locale]||''}/></p></header>{pack.questions.map((q:any)=><PracticeQuestion question={q} locale={locale} edition="teacher" ordinal={ordinal(q)}/>)}</section>
+ <section class="guided-print-root" data-practice-print-root data-pagefind-ignore data-edition="teacher"><header class="guided-paper-heading"><h1>{pack.title[locale]} — {t('Teacher answers','教師解答')}</h1><p>{sourceLabel}</p><p><MathText text={pack.taskTeacher?.[locale]||''}/></p>{lower&&<>
+  <p>{t('Ordinary route: prerequisites 4, short inquiry 5, worked/guided 8, independent 15, correction 5, exit 3 minutes. Advanced route: inquiry 18, organise 4, selected practice 13, exit 5 minutes.','普通班：先備4、短探究5、示範帶做8、獨立15、訂正5、離堂3分鐘。進階班：探究18、整理4、精選練習13、離堂5分鐘。')}</p>
+  <p><strong>{t('Prerequisites: ','先備：')}</strong><MathText text={pack.prerequisites[locale]}/></p>
+  <p>{t('Ordinary route: use the first fixed case for the five-minute demonstration. Advanced route: complete the full investigation.','普通班取首個指定例作5分鐘概念示範；進階班完成整個探究。')}</p>
+  {pack.inquiryStages?<ol class="guided-teacher-inquiry">{pack.inquiryStages.map((stage:any)=><li>{stage.minutes}′ <MathText text={stage.task[locale]}/></li>)}</ol>:<p><strong>{t('Inquiry and discussion: ','探究與討論：')}</strong><MathText text={pack.inquiry[locale]}/></p>}
+ </>}</header>{pack.questions.map((q:any)=><PracticeQuestion question={q} locale={locale} edition="teacher" ordinal={ordinal(q)}/>)}</section>
  <script is:inline type="application/json" data-practice-configuration set:html={JSON.stringify(configuration).replace(/</g,'\\u003c')}></script>
 </div>
 <script>

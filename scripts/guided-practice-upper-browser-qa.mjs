@@ -4,9 +4,10 @@ import {createRequire} from 'node:module';
 import {createServer} from 'node:http';
 import {mkdir,readFile,writeFile,stat} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
-import {UPPER_PRACTICE_PACKS as packs,ALL_PRACTICE_PACKS} from '../src/data/guided-practice/index.mjs';
+import {UPPER_PRACTICE_PACKS as packs,PRACTICE_PACKS} from '../src/data/guided-practice/index.mjs';
 import {UPPER_NEW_PACK_IDS,UPPER_CHAPTERS} from '../src/data/upper-core-plan.mjs';
 
+const ALL_PRACTICE_PACKS=[...PRACTICE_PACKS,...packs];
 assert.deepEqual(packs.map(p=>p.id).sort(),[...UPPER_NEW_PACK_IDS].sort(),'Frozen data matches the closed approved inventory');
 const require=createRequire(process.env.PLAYWRIGHT_RUNTIME||'C:/Users/kenneth/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/package.json');
 const {chromium}=require('playwright');

@@ -7,7 +7,7 @@ import {UPPER_CHAPTERS,UPPER_NEW_PACK_IDS,UPPER_CORE_VERSION} from '../src/data/
 import {rational,add,subtract,multiply,divide,equal,number,format,power,evaluateMath,expressionIdentity,proportionalExpressions,factorLeaves,integerFactorIsIrreducible,polynomialCoefficients,monomialDomainVariables,variablesIn,originalDomain,solveEquation,squaredDistance,near,checkCongruence} from './helpers/guided-upper-math.mjs';
 
 const packs=registry.UPPER_PRACTICE_PACKS||[];
-const all=registry.ALL_PRACTICE_PACKS||[];
+const all=[...registry.PRACTICE_PACKS,...packs];
 const roles={worked:1,guided:1,prior:2,independent:4,exit:2,supplement:4,extension:2};
 const locales=['en','zh-Hant'];
 const lessonRanges={

@@ -1,7 +1,9 @@
 ---
+import LowerPracticeDiagram from './LowerPracticeDiagram.astro';
 interface Props { diagram:any; locale?:'en'|'zh-Hant'; solution?:boolean }
 const {diagram:d,locale='en',solution=false}=Astro.props;
 const zh=locale==='zh-Hant';
+const lower=['function-graph','interval','statistics','data-table'].includes(d.kind);
 const lines:any[]=[],paths:any[]=[],dots:any[]=[],texts:any[]=[],polygons:number[][][]=[],circles:any[]=[],ellipses:any[]=[];
 const L=(a:number[],b:number[],style='')=>lines.push({a,b,style});
 const T=(p:number[],text:string,dx=7,dy=-7)=>texts.push({p,text,dx,dy});
@@ -10,7 +12,7 @@ const right=(v:number[],a:number[],b:number[])=>{const u=a.map((x,i)=>x-v[i]),w=
 const tick=(a:number[],b:number[],n=1)=>{const m=a.map((x,i)=>(x+b[i])/2),u=[b[1]-a[1],a[0]-b[0]],len=Math.hypot(...u);if(!len)return;for(let i=0;i<n;i++){const off=(i-(n-1)/2)*5,along=[(b[0]-a[0])/len*off,(b[1]-a[1])/len*off];L(m.map((x,j)=>x+along[j]-u[j]/len*5),m.map((x,j)=>x+along[j]+u[j]/len*5),'mark');}};
 const arc=(c:number[],r:number,a:number,b:number)=>{const p=[c[0]+r*Math.cos(a),c[1]+r*Math.sin(a)],q=[c[0]+r*Math.cos(b),c[1]+r*Math.sin(b)];paths.push({d:`M${p} A${r},${r} 0 0,1 ${q}`,style:'construction'});};
 const names=d.labels||{};
-const caption=d.caption?.[locale]||(zh?'幾何示意圖；除作圖任務外，圖形不按比例。':'Geometry diagram; not drawn to scale except for construction tasks.');
+const caption=d.caption?.[locale]||(d.kind==='coordinate'?(d.showAxes===false?(zh?'方格圖；每格為一單位，依方向及格數移動。':'Squared grid; each square is one unit. Use the stated directions and counts.'):(zh?'依所標坐標軸及單位方格作答。':'Use the labelled axes and unit grid.')):(zh?'幾何示意圖；除作圖任務外，圖形不按比例。':'Geometry diagram; not drawn to scale except for construction tasks.'));
 if(d.kind==='bisector'){
  const o=[65,145],a=[320,30],b=[320,260],p=[190,145];
  const foot=(v:number[])=>{const u=v.map((x,i)=>x-o[i]),f=p.reduce((s,x,i)=>s+(x-o[i])*u[i],0)/u.reduce((s,x)=>s+x*x,0);return o.map((x,i)=>x+f*u[i]);};
@@ -73,12 +75,13 @@ if(d.kind==='bisector'){
  const project=(p:number[])=>[190+(p[0]-cx)*s,145-(p[1]-cy)*s],lookup:Record<string,number[]>={};
  for(const p of raw){if(lookup[p.id])throw new Error(`Duplicate diagram point ${p.id}`);lookup[p.id]=project([p.x,p.y]);}
  const at=(id:string)=>{if(!lookup[id])throw new Error(`Missing diagram point ${id}`);return lookup[id];};
- if(coordinate){for(let x=Math.ceil(xmin);x<=Math.floor(xmax);x++){L(project([x,ymin]),project([x,ymax]),x===0?'axis':'grid');if(x!==0)T(project([x,0]),String(x),-4,18);}for(let y=Math.ceil(ymin);y<=Math.floor(ymax);y++){L(project([xmin,y]),project([xmax,y]),y===0?'axis':'grid');if(y!==0)T(project([0,y]),String(y),-19,5);}T(project([xmax,0]),'x',5,-5);T(project([0,ymax]),'y',5,-5);T(project([0,0]),'O',-18,17);}
+ if(coordinate){for(let x=Math.ceil(xmin);x<=Math.floor(xmax);x++){L(project([x,ymin]),project([x,ymax]),x===0&&d.showAxes!==false?'axis':'grid');if(x!==0&&d.showAxes!==false)T(project([x,0]),String(x),-4,18);}for(let y=Math.ceil(ymin);y<=Math.floor(ymax);y++){L(project([xmin,y]),project([xmax,y]),y===0&&d.showAxes!==false?'axis':'grid');if(y!==0&&d.showAxes!==false)T(project([0,y]),String(y),-19,5);}if(d.showAxes!==false){T(project([xmax,0]),'x',5,-5);T(project([0,ymax]),'y',5,-5);T(project([0,0]),'O',-18,17);}}
  for(const [a,b]of [...d.edges||[],...(solution?d.solutionEdges||[]:[])])L(at(a),at(b));
  for(const [a,b]of d.auxiliary||[])L(at(a),at(b),'auxiliary');
  for(const poly of d.polygons||[])polygons.push(poly.map(at));
  for(const [a,v,b]of d.rightAngles||[])right(at(v),at(a),at(b));
  for(const [index,group]of (d.equalSegments||[]).entries())for(const[a,b]of group)tick(at(a),at(b),index+1);
+ for(const[index,group]of (d.parallelSegments||[]).entries())for(const[a,b]of group){const A=at(a),B=at(b),dx=B[0]-A[0],dy=B[1]-A[1],len=Math.hypot(dx,dy);if(!len)throw new Error('A parallel mark needs a nonzero segment');for(let i=0;i<=index;i++){const offset=(i-index/2)*8,m=[(A[0]+B[0])/2+dx/len*offset,(A[1]+B[1])/2+dy/len*offset];paths.push({d:`M${m[0]-dx/len*4+dy/len*4} ${m[1]-dy/len*4-dx/len*4} L${m[0]} ${m[1]} L${m[0]-dx/len*4-dy/len*4} ${m[1]-dy/len*4+dx/len*4}`,style:'mark'});}}
  for(const[index,group]of (d.equalAngles||[]).entries())for(const[a,v,b]of group){const O=at(v),A=at(a),B=at(b);let start=Math.atan2(A[1]-O[1],A[0]-O[0]),end=Math.atan2(B[1]-O[1],B[0]-O[0]);while(end<start)end+=2*Math.PI;if(end-start>Math.PI){const temp=start;start=end;end=temp+2*Math.PI;}arc(O,24+index*6,start,end);}
  for(const p of raw)D(at(p.id),d.showLabels===false?undefined:p.label||p.id);
 }else if(d.kind==='number-line'){
@@ -97,7 +100,7 @@ if(d.kind==='bisector'){
  else{const wide=d.shape==='cuboid'?150:115,A=[80,110],B=[80+wide,110],C=[80+wide,235],D1=[80,235],E=[135,60],F=[135+wide,60],G=[135+wide,185],H=[135,185];for(const[a,b]of [[A,B],[B,C],[C,D1],[D1,A],[A,E],[E,F],[F,B],[F,G],[G,C]])L(a,b);for(const[a,b]of [[E,H],[H,G],[H,D1]])L(a,b,'auxiliary');if(d.labelVertices)[A,B,C,D1,E,F,G,H].forEach((p,i)=>D(p,String.fromCharCode(65+i)));}
 }
 ---
-<figure class="guided-diagram">
+{lower?<LowerPracticeDiagram diagram={d} locale={locale} solution={solution}/>:<figure class="guided-diagram" data-diagram-kind={d.kind}>
  <svg viewBox={d.kind==='geometry'&&(d.polygons||[]).length===2?'-15 20 410 250':'-15 -15 410 320'} role="img" aria-label={caption} xmlns="http://www.w3.org/2000/svg">
   <title>{caption}</title>
   {polygons.map(points=><polygon points={points.map(p=>p.join(',')).join(' ')} fill="none" stroke="currentColor" stroke-width="2"/>)}
@@ -109,4 +112,4 @@ if(d.kind==='bisector'){
   {texts.map(v=><text x={v.p[0]+v.dx} y={v.p[1]+v.dy} font-size="18" fill="currentColor">{v.text}</text>)}
  </svg>
  <figcaption>{caption}</figcaption>
-</figure>
+</figure>}

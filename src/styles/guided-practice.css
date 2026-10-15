@@ -33,3 +33,10 @@
 }
 
 .authored-math-inline{display:inline-block;max-width:100%;vertical-align:baseline;line-height:1.4;padding:.08em 0}.authored-math-inline .katex{font-size:1.06em}
+.guided-question-body:has(.lower-practice-diagram){grid-template-columns:minmax(0,1fr)}
+@media print{.guided-question-body:has(.lower-practice-diagram){grid-template-columns:minmax(0,1fr)}.guided-answer>.lower-practice-diagram{display:block;max-width:100%}.guided-question:has(.lower-practice-diagram svg) .guided-paper-space{height:8mm}}
+
+@media print{[data-practice-volume="lower"] .guided-diagram[data-diagram-kind="coordinate"] svg{height:48mm!important;max-height:48mm!important}}
+@media print{.guided-teacher-inquiry{font-size:8pt;line-height:1.4;padding-left:5mm;margin:2mm 0}.guided-teacher-inquiry li{margin-block:1mm}}
+@media print{[data-guided-practice="g8-squares-classification"] .guided-paper-page:not(.guided-paper-page--practice) [data-role="guided"] .guided-paper-space{height:8mm}}
+@media print{[data-guided-practice="g8-parallelograms-tests"] .guided-paper-page--practice .guided-diagram figcaption{display:none}}
