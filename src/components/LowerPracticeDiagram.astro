@@ -30,13 +30,14 @@ const heights=bins.map((b:any)=>density?b.frequency/(b.hi-b.lo):b.frequency),max
 const binTicks=[...new Set([binMin,binMax,...bins.flatMap((b:any)=>[b.lo,b.hi]),...(!bins.length?ticks(binMin,binMax,d.xStep||Math.max(1,Math.ceil((binMax-binMin)/6))):[])])].sort((a:any,b:any)=>a-b);
 const barTicks=ticks(0,maxValue,Math.max(.25,maxValue/4));
 const BX=(x:number)=>45+(x-binMin)/(binMax-binMin)*275,barY=(y:number)=>185-y/maxValue*145;
+const tableRows=solution&&d.solutionRows?d.solutionRows:d.rows||(bins.length?bins.map((b:any)=>[`[${b.lo},${b.hi}${b.hiClosed?']':')'}`,b.frequency]):categories.map((c:any)=>[c.label,c.count]));
 let cumulative=0;
 const sectors=categories.map((c:any)=>{const a=cumulative/total*2*Math.PI-Math.PI/2;cumulative+=Number(c.count);const b=cumulative/total*2*Math.PI-Math.PI/2;return {...c,a,b,path:`M130 115 L${130+80*Math.cos(a)} ${115+80*Math.sin(a)} A80 80 0 ${b-a>Math.PI?1:0} 1 ${130+80*Math.cos(b)} ${115+80*Math.sin(b)} Z`};});
 ---
 <figure class="guided-diagram lower-practice-diagram" data-diagram-kind={d.kind} data-solution={solution?'true':undefined}>
  {d.kind==='data-table'||(d.kind==='statistics'&&d.chart==='table')?<table class="practice-data-table">
   <thead><tr>{(d.headers||[t(bins.length?'Interval':'Category',bins.length?'組別':'類別'),t('Frequency','頻數')]).map((v:any)=><th><MathText text={label(v)}/></th>)}</tr></thead>
-  <tbody>{(d.rows||(bins.length?bins.map((b:any)=>[`[${b.lo},${b.hi}${b.hiClosed?']':')'}`,b.frequency]):categories.map((c:any)=>[c.label,c.count]))).map((row:any[])=><tr>{row.map(v=><td><MathText text={label(v)}/></td>)}</tr>)}</tbody>
+  <tbody>{tableRows.map((row:any[])=><tr>{row.map(v=><td><MathText text={label(v)}/></td>)}</tr>)}</tbody>
  </table>:<svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label(d.label)||t('Use the labelled axes and given information','按所標坐標軸及已知資料作答')}>
   {d.kind==='function-graph'&&<g>
    {xTicks.map(x=><g><line class="grid" x1={X(x)} y1={top} x2={X(x)} y2={bottom}/><text x={X(x)} y={bottom+20} text-anchor="middle">{x}</text></g>)}

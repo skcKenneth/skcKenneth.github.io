@@ -2,6 +2,7 @@
 import {chapterTitle,chapterSubtitle,functionWorksheets,worksheetBase,worksheetUrl,worksheetActivityId} from '../data/function-worksheets.mjs';
 import {worksheetControls,worksheetScene} from '../lib/function-worksheet-models.mjs';
 import MathExpression from './MathExpression.astro';
+import MathText from './MathText.astro';
 import 'katex/dist/katex.min.css';
 import '../styles/function-worksheets.css';
 interface Props {locale?:'en'|'zh-Hant';lessonId?:string}
@@ -63,7 +64,7 @@ const relatedNames:Record<string,string>={'c1-3-1':t('Function concepts','函數
     <button type="button" class="fw-primary" data-fw-next data-fw-show-stages="1">{t('We have evidence →','已有證據，嘗試解釋 →')}</button>
    </section>
    <section class="fw-stage-content" data-fw-show-stages="2" hidden><h3>{t('An observation, a counterexample, or a general argument?','呢個係觀察、反例，定一般說理？')}</h3><p>{t('Discuss your reason before opening the hints. A few successful tests support a conjecture; a proof must cover every allowed input.','先討論理由，再開提示。幾次成功測試可以支持猜想；證明要涵蓋所有允許輸入。')}</p>
-    <div class="fw-hints">{lesson.hints.map((hint:any,i:number)=><details data-fw-hint><summary>{t(`Hint ${i+1}`,`提示 ${i+1}`)}</summary><p>{l(hint)}</p></details>)}</div>
+    <div class="fw-hints">{lesson.hints.map((hint:any,i:number)=><details data-fw-hint><summary>{t(`Hint ${i+1}`,`提示 ${i+1}`)}</summary><p><MathText text={l(hint)}/></p></details>)}</div>
     <details class="fw-reasoning" data-fw-answer><summary>{t('Reveal the reasoning','展開參考說理')}</summary><p>{l(lesson.explanation)}</p><ul data-fw-reasoning-facts>{scene.facts.map((fact:string)=><li>{fact}</li>)}</ul></details>
     <div class="fw-examples">{lesson.workedExamples.map((example:any)=><article><h4>{l(example.prompt)}</h4><MathExpression expression={example.expression} display/><details data-fw-answer><summary>{t('Reveal the steps','逐步核對解法')}</summary><ol>{example.steps.map((step:any)=><li>{l(step)}</li>)}</ol></details></article>)}</div>
     <button type="button" class="fw-primary" data-fw-next>{t('Try a new case →','用喺新例子 →')}</button>

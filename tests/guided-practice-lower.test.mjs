@@ -52,6 +52,14 @@ test('all 53 routes preserve the frozen original 28 packs and unique question id
  assert.equal(createHash('sha256').update(JSON.stringify([...PRACTICE_PACKS,...UPPER_PRACTICE_PACKS])).digest('hex'),'469b2e4ab6e2a985a86442b518a37023814b9b5f4d16175512f86147d598560f');
  for(const p of ALL_PRACTICE_PACKS)assert.equal(getPracticePack(p.id),p);assert.equal(getPracticePack('nonexistent-pack'),null);
 });
+test('histogram requested frequencies and densities stay blank in student question data',()=>{
+ const id='g7-frequency-histograms:worked:histogram-model',q=packs.flatMap(p=>p.questions).find(q=>q.id===id),d=q.diagram;
+ assert.equal(d.kind,'data-table');assert.ok(!Object.hasOwn(d,'bins'),'Do not reclassify requested frequency answers as supplied bin data');assert.equal(d.rows.length,3);assert.ok(d.rows.every(row=>row.length===3&&row.slice(1).every(value=>typeof value==='string'&&/^_+$/.test(value))),'Both requested columns are genuinely blank');
+ assert.deepEqual(d.rows.map(row=>row[0]),['[0,2)','[2,4)','[4,6]']);
+ // Recount the original observations and divide by each stated width for teacher-only rows.
+ const bins=q.audit.bins,values=q.audit.values,teacher=bins.map(bin=>{const count=values.filter(v=>Number(v)>=Number(bin.lo)&&(Number(v)<Number(bin.hi)||bin.hiClosed&&Number(v)===Number(bin.hi))).length;return [`[${bin.lo},${bin.hi}${bin.hiClosed?']':')'}`,count,count/(Number(bin.hi)-Number(bin.lo))];});assert.deepEqual(d.solutionRows,teacher);assert.deepEqual(teacher,[['[0,2)',4,2],['[2,4)',6,3],['[4,6]',2,1]]);
+ const frozen=packs.flatMap(p=>p.questions).map(q=>q.id===id?{...q,diagram:undefined}:q);assert.equal(createHash('sha256').update(JSON.stringify(frozen)).digest('hex'),'b8cc459b9a4d1246700849aef67505e50e5c59964ce175ba142f3a461b04c793','Every other question plus this question’s prompt, audit and answers remain unchanged');
+});
 test('lower mappings cover every supplied section and retain complete 40-minute routes and guided blanks',()=>{
  for(const chapter of LOWER_CHAPTERS){const chapterPacks=LOWER_PRACTICE_PACKS.filter(p=>chapter.packIds.includes(p.id)),covered=new Set(chapterPacks.flatMap(p=>p.source.textLessons));assert.deepEqual([...covered].sort((a,b)=>a-b),Array.from({length:chapter.lessons[1]-chapter.lessons[0]+1},(_,i)=>chapter.lessons[0]+i));}
  for(const p of LOWER_PRACTICE_PACKS){const c=LOWER_CHAPTERS.find(c=>c.packIds.includes(p.id));assert.equal(p.minutes,40);assert.deepEqual(p.ordinaryFlow.map(row=>row.slice(0,2)),[['prior',4],['inquiry',5],['model',8],['independent',15],['correction',5],['exit',3]]);assert.deepEqual(p.inquiryFlow.map(row=>row.slice(0,2)),[['inquiry',18],['model',4],['independent',13],['exit',5]]);

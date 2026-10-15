@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import crypto from 'node:crypto';
 import {splitAuthoredMath,assertCanonicalDisplayMath} from '../src/lib/authored-math.mjs';
 import {PRACTICE_PACKS,UPPER_PRACTICE_PACKS} from '../src/data/guided-practice/index.mjs';
+import {functionWorksheets} from '../src/data/function-worksheets.mjs';
 
 const native = new URL('../public/math-studio/',import.meta.url);
 function runtime() {
@@ -52,6 +53,13 @@ test('all 28 existing packs use canonical dedicated TeX and explicit inline form
  const packs=[...PRACTICE_PACKS,...UPPER_PRACTICE_PACKS];assert.equal(packs.length,28);
  const walk=value=>{if(typeof value==='string'){for(const part of splitAuthoredMath(value))if(part.kind==='text')assert.ok(!part.value.includes('^')&&!/\\[A-Za-z]+/.test(part.value),'Unmarked authored formula: '+value);}else if(Array.isArray(value))value.forEach(walk);else if(value&&typeof value==='object')Object.values(value).forEach(walk);};
  for(const pack of packs){for(const key of ['title','summary','concept','inquiry','prerequisites','taskTeacher','taskStudent'])walk(pack[key]);for(const q of pack.questions){for(const key of ['expression','answerExpression'])if(q[key])assertCanonicalDisplayMath(q[key]);for(const key of ['prompt','answer','steps','hints','options','scaffold','rubric'])walk(q[key]);}}
+});
+
+test('all fourteen function worksheets render canonical bilingual hints with correct fractional and negative exponent semantics',()=>{
+ assert.equal(functionWorksheets.length,14);assert.deepEqual(functionWorksheets.map(worksheet=>worksheet.id),Array.from({length:14},(_,i)=>String(i+1).padStart(2,'0')));
+ const r=runtime();for(const worksheet of functionWorksheets){assert.ok(worksheet.hints?.length);for(const hint of worksheet.hints)for(const locale of ['en','zh-Hant']){const text=hint[locale];assert.ok(typeof text==='string'&&text.trim(),worksheet.id+'/'+locale);for(const part of splitAuthoredMath(text)){if(part.kind==='text')assert.ok(!/\^|\\[A-Za-z]+/.test(part.value),'Unmarked function hint formula '+worksheet.id+'/'+locale+': '+part.value);else assertCanonicalDisplayMath(part.value);}r.context.input=text;r.run('MathAuthoredMath.render(input)');}}
+ const worksheet=functionWorksheets.find(worksheet=>worksheet.id==='11');for(const locale of ['en','zh-Hant']){const hint=worksheet.hints[0][locale];assert.deepEqual(splitAuthoredMath(hint).filter(part=>part.kind==='math').map(part=>part.value),['x^{1/2}','\\sqrt{x}','x^{-1}','\\frac{1}{x}']);r.context.input=hint;const html=r.run('MathAuthoredMath.render(input)');assert.deepEqual(exponents(html),['1/2','-1'],'Read both complete second-child exponents from actual MathML: '+locale);assert.ok(/<msqrt>\s*<mi>x<\/mi>\s*<\/msqrt>/.test(html),'Root applies to x: '+locale);assert.ok(/<mfrac>\s*<mn>1<\/mn>\s*<mi>x<\/mi>\s*<\/mfrac>/.test(html),'Reciprocal numerator 1 and denominator x: '+locale);}
+ const component=fs.readFileSync(new URL('../src/components/FunctionWorksheetPage.astro',import.meta.url),'utf8');assert.ok(/<MathText\s+text=\{l\(hint\)\}\s*\/>/.test(component),'Worksheet hint markup must call the authored-math renderer');
 });
 test('native annotation-only changes preserve every selectable key, answer and legacy authored string',()=>{
  const r=runtime();

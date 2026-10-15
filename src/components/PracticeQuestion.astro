@@ -9,7 +9,8 @@ if(q.expression)assertCanonicalDisplayMath(q.expression);
 if(q.answerExpression)assertCanonicalDisplayMath(q.answerExpression);
 const zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en,screen=edition==='screen',teacher=edition==='teacher';
 const roles:any={worked:t('Worked example','教師示範'),guided:t('Guided attempt','帶做'),prior:t('Prerequisite','先備'),independent:t('Independent practice','獨立練習'),exit:t('Exit question','離堂題'),supplement:t('Further practice','補練／家課'),extension:t('Extension','進階')};
-const solutionDiagram=q.diagram&&['construction','shape','coordinate','function-graph','interval','statistics'].includes(q.diagram.kind);
+const solutionDiagram=q.diagram&&(['construction','shape','coordinate','function-graph','interval','statistics'].includes(q.diagram.kind)||(q.diagram.kind==='data-table'&&q.diagram.solutionRows));
+const teacherQuestionDiagram=teacher&&!!solutionDiagram&&q.diagram.kind!=='data-table';
 ---
 <article class:list={['guided-question',`guided-question--${q.space||'short'}`]} data-practice-question={screen?'':undefined} data-question-id={q.id} data-role={q.role} data-question-type={q.type}>
  <header class="guided-question-heading"><span>{roles[q.role]}</span><small>{ordinal===undefined?q.suffix:ordinal}</small></header>
@@ -18,7 +19,7 @@ const solutionDiagram=q.diagram&&['construction','shape','coordinate','function-
   {q.expression&&<MathExpression expression={q.expression} display/>}
   {q.options&&<ol class="guided-options" type="A">{q.options.map((value:any)=><li><MathText text={value[locale]}/></li>)}</ol>}
   {q.scaffold?.length>0&&<ol class="guided-scaffold">{q.scaffold.map((value:any)=><li><MathText text={value[locale]}/></li>)}</ol>}
- </div>{q.diagram&&<PracticeDiagram diagram={q.diagram} locale={locale} solution={teacher&&solutionDiagram}/>}</div>
+ </div>{q.diagram&&<PracticeDiagram diagram={q.diagram} locale={locale} solution={teacherQuestionDiagram}/>}</div>
  {screen?<>
   <ol class="guided-hints" data-pagefind-ignore>{q.hints.map((hint:any)=><li data-practice-hint-content hidden><MathText text={hint[locale]}/></li>)}</ol>
   <ol class="guided-solution-steps" data-pagefind-ignore>{q.steps.map((step:any)=><li data-practice-step-content hidden><MathText text={step[locale]}/></li>)}</ol>

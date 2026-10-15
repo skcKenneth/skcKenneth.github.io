@@ -6,12 +6,14 @@ import {LIVE_ROUTES,validateLivePayload} from './publish-summary.mjs';
 import {ALL_PRACTICE_PACKS} from '../src/data/guided-practice/index.mjs';
 import {LOWER_CORE_VERSION} from '../src/data/lower-core-plan.mjs';
 import {FORMULA_RENDER_VERSION} from '../src/lib/authored-math.mjs';
+import {functionWorksheets,worksheetBase,worksheetUrl} from '../src/data/function-worksheets.mjs';
 const arg=name=>process.argv.includes(name)?process.argv[process.argv.indexOf(name)+1]:null;
 const commit=arg('--commit');if(!/^[a-f0-9]{40}$/.test(commit||''))throw Error('Supply the confirmed deployed --commit SHA');
 const base=arg('--base')||'https://skckenneth.github.io',out=resolve(arg('--output')||'.tmp/lower-production-verification.json');
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const packs=new Map(ALL_PRACTICE_PACKS.map(pack=>[pack.id,pack]));
 const routes=[...LIVE_ROUTES,{path:'/math-studio/',kind:'native'},...['en','zh-Hant'].map(locale=>({path:`${locale==='zh-Hant'?'/zh':''}/teaching/math/`,kind:'mathSystem',locale}))],assets=new Set();
+routes.push(...['en','zh-Hant'].flatMap(locale=>[{path:worksheetBase(locale),kind:'preservedFunctions',locale},...functionWorksheets.map(item=>({path:worksheetUrl(item.id,locale),kind:'preservedFunctions',locale,id:item.id}))]));
 const native=['index.html','app.js','i18n.js','learning-content.js','learning-ui.js','practice.js','question-bank.js','challenge-bank.js','guided-practice-catalog.js'];
 native.forEach(file=>assets.add('/math-studio/'+file));
 for(const file of await readdir('dist/math-shared/formulas'))if(file!=='fonts'&&file!=='LICENSE.txt')assets.add('/math-shared/formulas/'+file);
@@ -26,10 +28,12 @@ for(let i=0;i<routes.length;i+=8)report.routes.push(...await Promise.all(routes.
  if(spec.path.includes('/curriculum/lower/')&&!body.includes(`data-lower-core-version="${LOWER_CORE_VERSION}"`))errors.push('Lower curriculum version missing');
  if(['/teaching/math/','/zh/teaching/math/'].includes(spec.path)&&!body.includes(`data-math-release="${LOWER_CORE_VERSION}"`))errors.push('Learning space release version missing');
  if(spec.kind==='mathSystem'){if(!body.includes(`<html lang="${spec.locale}"`))errors.push('Learning space language missing');for(const pack of ALL_PRACTICE_PACKS)if(!body.includes(`classroom:${pack.id}`))errors.push('Missing catalog activity '+pack.id);}
+ if(spec.kind==='preservedFunctions'){if(!body.includes(`data-fw-locale="${spec.locale}"`))errors.push('Preserved functions language missing');if(!body.includes(spec.id?`data-function-worksheet="${spec.id}"`:'data-function-chapter'))errors.push('Preserved functions route missing');}
  for(const match of body.matchAll(/(?:src|href)="(\/_astro\/[^"?]+\.(?:js|css))"/g))assets.add(match[1]);
  return {path:spec.path,status:response.status,passed:errors.length===0,errors,...(configurationHash?{configurationHash}:{})};
  }catch(error){return {path:spec.path,passed:false,errors:[String(error)]};}
 })));
+for(const path of [...assets].filter(path=>path.endsWith('.css'))){const css=await readFile('dist'+path,'utf8');for(const match of css.matchAll(/url\(["']?([^"')]+\.(?:woff2?|ttf))["']?\)/g)){const font=new URL(match[1],base+path).pathname;if(font.startsWith('/_astro/'))assets.add(font);}}
 for(let i=0,list=[...assets];i<list.length;i+=8)report.assets.push(...await Promise.all(list.slice(i,i+8).map(async path=>{
  try{const response=await fetch(base+path,{cache:'no-store'}),remote=Buffer.from(await response.arrayBuffer()),local=await readFile('dist'+path);return {path,status:response.status,localHash:hash(local),remoteHash:hash(remote),passed:response.status===200&&hash(local)===hash(remote)};}
  catch(error){return {path,passed:false,error:String(error)};}

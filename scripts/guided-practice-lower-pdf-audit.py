@@ -118,6 +118,12 @@ for item in manifest['pdfs']:
         intro = item.get('teacherIntroductionMath', {})
         check(prefix + ': teacher inquiry and prerequisites MathML',
               intro.get('passed') is True and isinstance(intro.get('expectedExpressions'), int) and not intro.get('problems'), intro)
+    if 'g7-frequency-histograms:worked:histogram-model' in item['questionIds']:
+        tables = item.get('givenOnlyTables', [])
+        rows = [['[0,2)', '____', '____'], ['[2,4)', '____', '____'], ['[4,6]', '____', '____']]
+        check(prefix + ': requested histogram table values are not preprinted',
+              len(tables) == 1 and tables[0].get('passed') is True and tables[0].get('studentRows') == rows
+              and tables[0].get('teacherSolutionChecked') is (item['edition'] == 'teacher'), tables)
     missing = [prompt for prompt in item.get('requiredText', []) if compact(prompt) not in joined]
     check(prefix + ': all fixed question prompts survive', not missing, missing)
     forbidden = [marker for marker in item.get('forbiddenText', []) if compact(marker) in joined]

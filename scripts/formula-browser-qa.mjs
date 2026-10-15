@@ -67,6 +67,20 @@ try{
   const after=await snap(page);for(const[key,value]of Object.entries(legacy))if(key!=='math-studio-practice-v2')assert.equal(after[key],value);assert.equal(JSON.parse(after['math-studio-practice-v2']).OLD_UNRECOGNIZED_PROMPT,1700000000000);
   return {trustedRandomDraw:true,independentScientificAnswer:answer,gradeCorrect:true,rawDraftPreserved:true,oldHistoryEntryPreserved:true};
  });
+ await check('function-power-hints-render-fractional-and-negative-exponents',async page=>{
+  const routes=[];
+  for(const locale of ['en','zh-Hant']){
+   const route=`${locale==='en'?'':'/zh'}/teaching/senior-math/function-worksheets/11/`;
+   await go(page,route);await page.locator('[data-fw-stage-button="2"]').click();
+   const hint=page.locator('[data-fw-hint]').first();await hint.locator('summary').click();
+   assert.deepEqual(await exponentTexts(hint),['1/2','-1']);await noCaretProse(hint);
+   assert.deepEqual(await hint.locator('annotation').allTextContents(),['x^{1/2}','\\sqrt{x}','x^{-1}','\\frac{1}{x}']);
+   await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+   await page.screenshot({path:resolve(output,'function-power-hint-'+locale+'.png'),fullPage:true});
+   await page.setViewportSize({width:1440,height:1000});routes.push(route);
+  }
+  return {routes,renderedExponents:['1/2','-1'],authoredFormulaOnly:true,mobileWidth:390};
+ });
  await check('guided-reveal-student-export-and-default-print-privacy',async page=>{
   await seed(page);const before=await snap(page);let pdfs=0;
   for(const locale of ['en','zh-Hant'])for(const pack of ['g8-rational-operations','g8-powers-multiplication']){

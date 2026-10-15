@@ -7,10 +7,10 @@ import {LOWER_PRACTICE_PACKS} from '../src/data/guided-practice/index.mjs';
 
 const source=fs.readFileSync(new URL('../src/components/LowerPracticeDiagram.astro',import.meta.url),'utf8');
 const frontmatter=source.split('---')[1].replace(/^import .*;$/gm,'');
-// Extract the production pipelines verbatim, including the endpoint filter and table labels.
+// Extract production frontmatter, including its real tableRows selection, plus endpoint markup pipeline.
 const endpointExpression=source.match(/\{(lines\.filter\([\s\S]+?)\.map\(\(p:any\)=><circle data-line-endpoint/)[1];
-const tableExpression=source.match(/\{\((d\.rows\|\|[\s\S]+?)\)\.map\(\(row:any\[\]\)=><tr/)[1];
-const js=transformSync(frontmatter+`\nglobalThis.qa={clipLine,lines,points,intervals,bins,heights,binMin,binMax,maxValue,density,BX,barY,binTicks,barTicks,label,endpoints:${endpointExpression},tableRows:(${tableExpression})};`,{loader:'ts'}).code;
+assert.ok(source.includes('<tbody>{tableRows.map('),'The template must use the selected production table rows');
+const js=transformSync(frontmatter+`\nglobalThis.qa={clipLine,lines,points,intervals,bins,heights,binMin,binMax,maxValue,density,BX,barY,binTicks,barTicks,label,endpoints:${endpointExpression},tableRows};`,{loader:'ts'}).code;
 const renderState=(diagram,solution=false,locale='en')=>{const context=vm.createContext({Astro:{props:{diagram,locale,solution}}});vm.runInContext(js,context);return context.qa;};
 const plain=value=>JSON.parse(JSON.stringify(value));
 const close=(a,b)=>Math.abs(a-b)<=1e-8*Math.max(1,Math.abs(a),Math.abs(b));
@@ -53,6 +53,17 @@ test('student diagram state contains no solution layers while blank histogram ax
  }assert.equal(count,36);
 });
 test('actual bin table pipeline retains half-open labels and localises authored category labels',()=>{
- const histogram=LOWER_PRACTICE_PACKS.flatMap(p=>p.questions).find(q=>q.id==='g7-frequency-histograms:worked:histogram-model');for(const locale of ['en','zh-Hant']){const state=renderState(histogram.diagram,false,locale);assert.deepEqual(plain(state.tableRows),[['[0,2)',4],['[2,4)',6],['[4,6]',2]]);}
+ const given={kind:'statistics',chart:'table',bins:[{lo:0,hi:2,frequency:4},{lo:2,hi:4,frequency:6},{lo:4,hi:6,frequency:2,hiClosed:true}]};for(const locale of ['en','zh-Hant']){const state=renderState(given,false,locale);assert.deepEqual(plain(state.tableRows),[['[0,2)',4],['[2,4)',6],['[4,6]',2]]);}
  const category=LOWER_PRACTICE_PACKS.flatMap(p=>p.questions).find(q=>q.id==='g7-statistical-surveys:guided:sector-model');assert.deepEqual(renderState(category.diagram,false,'en').tableRows.map(row=>renderState(category.diagram,false,'en').label(row[0])),['Walk','Cycle','Bus']);assert.deepEqual(renderState(category.diagram,false,'zh-Hant').tableRows.map(row=>renderState(category.diagram,false,'zh-Hant').label(row[0])),['步行','單車','巴士']);
+});
+test('worked histogram table shows only blanks to students and answers exclusively in the teacher layer',()=>{
+ const q=LOWER_PRACTICE_PACKS.flatMap(p=>p.questions).find(q=>q.id==='g7-frequency-histograms:worked:histogram-model');
+ const blanks=[['[0,2)','____','____'],['[2,4)','____','____'],['[4,6]','____','____']],answers=[['[0,2)',4,2],['[2,4)',6,3],['[4,6]',2,1]];
+ assert.equal(q.diagram.kind,'data-table');assert.deepEqual(q.diagram.rows,blanks);assert.deepEqual(q.diagram.solutionRows,answers);assert.ok(!q.diagram.bins,'Requested counts are not supplied as student bin frequencies');
+ for(const locale of ['en','zh-Hant']){assert.deepEqual(plain(renderState(q.diagram,false,locale).tableRows),blanks);assert.deepEqual(plain(renderState(q.diagram,true,locale).tableRows),answers);}
+ const synthetic={kind:'data-table',rows:[['given','____']],solutionRows:[['given',42]]};assert.deepEqual(plain(renderState(synthetic).tableRows),[['given','____']]);assert.deepEqual(plain(renderState(synthetic,true).tableRows),[['given',42]]);
+ // Evaluate the actual recursive student export function; do not manufacture an export adapter.
+ const ui=fs.readFileSync(new URL('../src/scripts/guided-practice.ts',import.meta.url),'utf8'),start=ui.indexOf('export function studentDiagram'),end=ui.indexOf('export function initializeGuidedPractice');assert.ok(start>=0&&end>start);
+ const exportCode=transformSync(ui.slice(start,end).replace('export function','function')+'\nglobalThis.qaStudentDiagram=studentDiagram;',{loader:'ts'}).code,context=vm.createContext({});vm.runInContext(exportCode,context);
+ const saved=structuredClone(q.diagram),student=context.qaStudentDiagram(q.diagram);assert.deepEqual(plain(student.rows),blanks);assert.ok(!Object.hasOwn(student,'solutionRows'));assert.ok(!JSON.stringify(student).includes('solution'));assert.deepEqual(q.diagram,saved,'Export does not mutate the teacher source');
 });

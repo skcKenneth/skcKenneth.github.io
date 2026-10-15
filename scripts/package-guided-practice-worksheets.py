@@ -8,6 +8,8 @@ import argparse
 import hashlib
 import json
 import os
+import re
+import subprocess
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 
@@ -55,6 +57,26 @@ def identity(item):
     return item['packId'], item['locale'], item['edition']
 
 
+def current_lower_fingerprint():
+    """Read the accepted runtime source/build binding once; never infer it from PDF names."""
+    try:
+        result = subprocess.run(
+            ['node', str(ROOT / 'scripts' / 'guided-practice-paper-fingerprint.mjs')],
+            cwd=ROOT, check=True, capture_output=True, text=True)
+    except (OSError, subprocess.CalledProcessError) as error:
+        detail = getattr(error, 'stderr', '') or str(error)
+        raise ValueError(f'Cannot verify current lower paper fingerprint: {detail.strip()}') from error
+    fingerprint = json.loads(result.stdout)
+    require(isinstance(fingerprint, dict)
+            and fingerprint.get('schema') == 'lower-paper-v1'
+            and fingerprint.get('routes') == 100
+            and all(isinstance(fingerprint.get(key), str)
+                    and re.fullmatch(r'[0-9a-fA-F]{64}', fingerprint[key])
+                    for key in ('sourceSHA256', 'printBuildSHA256')),
+            'Current lower paper fingerprint has an invalid schema')
+    return fingerprint
+
+
 def package(target, sources, scope='upper'):
     require(len(UPPER_IDS) == 28 and len(LOWER_IDS) == 25 and len(ALL_IDS) == 53,
             'Closed inventory definition is inconsistent')
@@ -62,11 +84,16 @@ def package(target, sources, scope='upper'):
     expected = {(pack, locale, edition) for pack in expected_ids
                 for locale in LOCALES for edition in EDITIONS}
     require(target.suffix.lower() == '.zip', 'Output must be a ZIP archive')
+    lower_fingerprint = current_lower_fingerprint() if expected_ids & LOWER_IDS else None
     documents, identities, excluded, evidence = [], set(), [], []
     for argument in sources:
         source = Path(argument).resolve(strict=True)
         audit_path, manifest_path, browser_path = source / 'pdf-audit.json', source / 'pdf-manifest.json', source / 'report.json'
         audit, manifest, browser = load_json(audit_path), load_json(manifest_path), load_json(browser_path)
+        require(isinstance(manifest.get('pdfs'), list), f'Missing PDF manifest: {source.name}')
+        if any(item.get('packId') in expected_ids & LOWER_IDS for item in manifest['pdfs']):
+            require(manifest.get('paperFingerprint') == lower_fingerprint,
+                    f'Stale or missing lower paper source/build fingerprint: {source.name}')
         require(browser.get('passed') is True, f'Browser acceptance did not pass: {source.name}')
         require(isinstance(browser.get('cases'), list) and browser['cases']
                 and all(case.get('status') == 'passed' for case in browser['cases']),
@@ -82,7 +109,6 @@ def package(target, sources, scope='upper'):
             key = identity(item)
             require(key not in accepted, f'Duplicate per-PDF acceptance identity: {key}')
             accepted[key] = item['file']
-        require(isinstance(manifest.get('pdfs'), list), f'Missing PDF manifest: {source.name}')
         evidence.append({'source': source.name,
                          'manifestSHA256': hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
                          'auditSHA256': hashlib.sha256(audit_path.read_bytes()).hexdigest(),
@@ -103,6 +129,13 @@ def package(target, sources, scope='upper'):
             require(file.parent == source and file.is_file(), f'PDF is outside acceptance directory: {filename}')
             with file.open('rb') as stream:
                 require(stream.read(5) == b'%PDF-', f'Invalid PDF header: {filename}')
+            if pack_id in LOWER_IDS:
+                expected_hash = item.get('pdfSHA256')
+                require(isinstance(expected_hash, str)
+                        and re.fullmatch(r'[0-9a-fA-F]{64}', expected_hash),
+                        f'Missing or invalid lower PDF byte fingerprint: {filename}')
+                require(hashlib.sha256(file.read_bytes()).hexdigest() == expected_hash,
+                        f'Lower PDF bytes changed after acceptance: {filename}')
             identities.add(key)
             documents.append((file, f'{locale}/{edition}/{filename}'))
     missing = sorted(expected - identities)

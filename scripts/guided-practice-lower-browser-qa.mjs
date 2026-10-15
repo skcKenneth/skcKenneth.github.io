@@ -8,6 +8,8 @@ import {LOWER_PRACTICE_PACKS as packs,PRACTICE_PACKS} from '../src/data/guided-p
 import {LOWER_NEW_PACK_IDS,LOWER_CHAPTERS} from '../src/data/lower-core-plan.mjs';
 import {splitAuthoredMath} from '../src/lib/authored-math.mjs';
 import katex from 'katex';
+import {createHash} from 'node:crypto';
+import {lowerPaperFingerprint} from './guided-practice-paper-fingerprint.mjs';
 
 const ALL_PRACTICE_PACKS=packs;
 assert.deepEqual(packs.map(p=>p.id).sort(),[...LOWER_NEW_PACK_IDS].sort(),'Frozen data matches the closed approved inventory');
@@ -25,7 +27,9 @@ if(arg('--serve')){
 await mkdir(output,{recursive:true});
 const browser=await chromium.launch({executablePath,headless:true});
 const report={startedAt:new Date().toISOString(),origin,browser:browser.version(),executablePath,approvedPackIds:LOWER_NEW_PACK_IDS,isolation:'Disposable contexts with synthetic records only; no application mocks.',cases:[],pageErrors:[],printIssues:[]};
-const manifest={origin,expectedPackIds:LOWER_NEW_PACK_IDS,locales:['en','zh-Hant'],editions:['student','teacher','supplement'],pdfs:[]};
+const paperFingerprint=await lowerPaperFingerprint();
+report.paperFingerprint=paperFingerprint;
+const manifest={origin,paperFingerprint,expectedPackIds:LOWER_NEW_PACK_IDS,locales:['en','zh-Hant'],editions:['student','teacher','supplement'],pdfs:[]};
 const pathFor=(pack,locale,teacher=false)=>`${locale==='zh-Hant'?'/zh':''}/teaching/classroom-packs/${pack.id}/${teacher?'teacher/':''}`;
 const snapshot=page=>page.evaluate(()=>Object.fromEntries(Object.keys(localStorage).sort().map(key=>[key,localStorage.getItem(key)])));
 const oldBytes={
@@ -88,6 +92,14 @@ async function printPdf(page,pack,locale,edition){
  const ids=await root.locator('[data-question-id]').evaluateAll(nodes=>nodes.map(node=>node.dataset.questionId));assert.deepEqual(ids,questions.map(q=>q.id));
  if(edition!=='teacher')assert.equal(await root.locator('[data-practice-answer-content],[data-practice-solution],.guided-answer').count(),0,'Blank print data has no answer markup');
  else{assert.equal(await root.locator('.guided-answer').count(),16,'Teacher print contains all sixteen solution blocks');assert.equal(await root.locator('.guided-teacher-rubric').count(),16);}
+ const givenOnlyTables=[];
+ for(const q of questions.filter(q=>q.diagram?.solutionRows)){
+  const cells=rows=>rows.map(row=>row.map(v=>String(typeof v==='object'?v[locale]??v.en:v))),card=root.locator(`[data-question-id="${q.id}"]`),actual=await card.locator('.guided-question-body > figure table tbody tr').evaluateAll(nodes=>nodes.map(n=>[...n.querySelectorAll('td')].map(c=>c.textContent.trim())));
+  assert.deepEqual(actual,cells(q.diagram.rows),q.id+'/'+locale+'/'+edition+'/printed given-only table');
+  if(q.id==='g7-frequency-histograms:worked:histogram-model')assert.ok(actual.every(row=>row.length===3&&row[1]==='____'&&row[2]==='____'),q.id+'/'+edition+'/requested statistics remain blank in the question');
+  if(edition==='teacher'){const solution=await card.locator('.guided-answer figure table tbody tr').evaluateAll(nodes=>nodes.map(n=>[...n.querySelectorAll('td')].map(c=>c.textContent.trim())));assert.deepEqual(solution,cells(q.diagram.solutionRows),q.id+'/'+locale+'/teacher-only printed solution table');}
+  givenOnlyTables.push({questionId:q.id,studentRows:actual,teacherSolutionChecked:edition==='teacher',passed:true});
+ }
  for(const q of questions.filter(q=>hiddenDerivedInput(pack,q)))assert.equal(await root.locator(`[data-question-id="${q.id}"] .guided-question-body .math-expression--display`).count(),0,q.id+'/'+edition+'/requested model or derived output is absent from the printed question givens');
  await page.locator('[data-practice-print-edition]').selectOption(edition);await page.emulateMedia({media:'print'});
  const overflow=await root.locator('.math-expression .katex-html').evaluateAll(nodes=>nodes.flatMap(node=>{const card=node.closest('[data-question-id]'),container=card||node.closest('header')||node.closest('[data-practice-print-root]'),a=node.getBoundingClientRect(),b=container.getBoundingClientRect();return a.width&&b.width&&(a.left<b.left-1||a.right>b.right+1)?[{id:card?.dataset.questionId||'teacher-introduction',formula:[a.left,a.right],card:[b.left,b.right]}]:[];}));
@@ -95,7 +107,7 @@ async function printPdf(page,pack,locale,edition){
  if(overflow.length)report.printIssues.push({packId:pack.id,locale,edition,overflow});
  await page.emulateMedia({media:null});
  const file=`${pack.id}-${locale}-${edition}.pdf`;await page.pdf({path:resolve(output,file),format:'A4',preferCSSPageSize:true,printBackground:true,tagged:true});
- const record={file,packId:pack.id,locale,edition,questionIds:ids,printLayoutIssues:overflow,requiredText:requiredText(questions.map(q=>q.prompt[locale])),mathmlAudit:await auditAuthoredMath(root,questions,locale,edition),forbiddenText:edition==='teacher'?[]:forbiddenPrintAnswers(questions,locale),expectedPages:edition==='student'?2:undefined};
+ const record={file,packId:pack.id,locale,edition,questionIds:ids,printLayoutIssues:overflow,givenOnlyTables,requiredText:requiredText(questions.map(q=>q.prompt[locale])),mathmlAudit:await auditAuthoredMath(root,questions,locale,edition),forbiddenText:edition==='teacher'?[]:forbiddenPrintAnswers(questions,locale),expectedPages:edition==='student'?2:undefined};
  if(edition==='student'){record.pageOneText=requiredText(questions.slice(0,4).map(q=>q.prompt[locale]));record.pageTwoText=requiredText(questions.slice(4).map(q=>q.prompt[locale]));}
  if(edition==='teacher'){record.teacherIntroductionMath=await auditTeacherIntro(root,pack,locale);record.requiredGroups={
   allReferenceAnswers:requiredText(questions.map(q=>q.answer[locale])),
@@ -104,6 +116,7 @@ async function printPdf(page,pack,locale,edition){
   actualInquiryPlan:requiredText(pack.inquiryStages?pack.inquiryStages.map(s=>s.task[locale]):[pack.inquiry[locale]]),
   bothFortyMinuteRoutes:[locale==='en'?'Ordinary route: prerequisites 4, short inquiry 5, worked/guided 8, independent 15, correction 5, exit 3 minutes. Advanced route: inquiry 18, organise 4, selected practice 13, exit 5 minutes.':'普通班：先備4、短探究5、示範帶做8、獨立15、訂正5、離堂3分鐘。進階班：探究18、整理4、精選練習13、離堂5分鐘。']
  };}
+ record.pdfSHA256=createHash('sha256').update(await readFile(resolve(output,file))).digest('hex');
  manifest.pdfs.push(record);await persist();
  await page.waitForFunction(()=>document.querySelector('[data-practice-print-edition]').value==='student');assert.equal(await page.locator('[data-guided-practice]').getAttribute('data-print-edition'),'student');
  await page.emulateMedia({media:'print'});assert.equal(await page.locator('[data-practice-print-root]:visible').count(),1);assert.ok(await page.locator('[data-practice-print-root][data-edition="student"]').isVisible());await page.emulateMedia({media:null});
@@ -187,7 +200,7 @@ try{
    if(d.kind==='data-table'||(d.kind==='statistics'&&d.chart==='table')){
     assert.equal(await figure.locator('table').count(),1,q.id+'/real table');const rows=await figure.locator('tbody tr').evaluateAll(nodes=>nodes.map(n=>[...n.querySelectorAll('td')].map(c=>c.textContent.trim())));
     if(d.bins){assert.equal(rows.length,d.bins.length,q.id+'/all supplied bin rows rendered');for(let i=0;i<rows.length;i++){const bin=d.bins[i],numbers=rows[i][0].match(/-?\d+(?:\.\d+)?/g)?.map(Number);assert.deepEqual(numbers,[bin.lo,bin.hi],q.id+'/interval label');assert.equal(rows[i][0],`[${bin.lo},${bin.hi}${bin.hiClosed?']':')'}`,q.id+'/actual class boundary inclusion');close(Number(rows[i][1]),bin.frequency,q.id+'/frequency cell');}}
-    else{const expected=d.rows||d.categories.map(c=>[c.label,c.count]);assert.deepEqual(rows,expected.map(r=>r.map(v=>String(typeof v==='object'?v.en??v['zh-Hant']:v))),q.id+'/actual data cells');}
+    else{const expected=d.rows||d.categories.map(c=>[c.label,c.count]),cells=values=>values.map(r=>r.map(v=>String(typeof v==='object'?v.en??v['zh-Hant']:v)));assert.deepEqual(rows,cells(expected),q.id+'/actual given-only data cells');if(d.solutionRows){const teacher=article.locator('.guided-answer figure table');assert.equal(await teacher.count(),1,q.id+'/teacher-only solution table');const actual=await teacher.locator('tbody tr').evaluateAll(nodes=>nodes.map(n=>[...n.querySelectorAll('td')].map(c=>c.textContent.trim())));assert.deepEqual(actual,cells(d.solutionRows),q.id+'/teacher table exact requested values');teacherLayers++;if(q.id==='g7-frequency-histograms:worked:histogram-model'){assert.ok(rows.every(row=>row.length===3&&row[1]==='____'&&row[2]==='____'),q.id+'/requested frequencies and densities absent from student givens');assert.deepEqual(actual,[['[0,2)','4','2'],['[2,4)','6','3'],['[4,6]','2','1']],q.id+'/teacher results independently counted and divided by class width');}}}
     continue;
    }
    const svg=figure.locator('svg');assert.equal(await svg.count(),1,q.id+'/real SVG');
@@ -226,5 +239,5 @@ try{
   const expected={};for(const pack of packs)for(const q of pack.questions)if(q.diagram){const family=q.diagram.kind==='statistics'?'statistics:'+q.diagram.chart:q.diagram.kind;expected[family]=(expected[family]||0)+1;}assert.deepEqual(counts,expected,'Every authored lower diagram audited, no skipped family');assert.ok(counts.geometry&&counts.coordinate&&counts.interval&&counts['statistics:histogram']&&counts['function-graph']&&counts['data-table']);return {diagrams,counts,teacherLayers,actualCoordinatesEndpointsAreasAndLinesVerified:true,studentSolutionLayersHidden:true};
  });
 
-}finally{report.completedAt=new Date().toISOString();report.passed=report.cases.length>0&&report.cases.every(c=>c.status==='passed')&&report.pageErrors.length===0;await persist();await browser.close();if(server)await new Promise(done=>server.close(done));}
+}finally{report.completedAt=new Date().toISOString();report.paperFingerprintUnchanged=JSON.stringify(await lowerPaperFingerprint())===JSON.stringify(paperFingerprint);report.passed=report.paperFingerprintUnchanged&&report.cases.length>0&&report.cases.every(c=>c.status==='passed')&&report.pageErrors.length===0;await persist();await browser.close();if(server)await new Promise(done=>server.close(done));}
 assert.ok(report.passed,JSON.stringify({failed:report.cases.filter(c=>c.status!=='passed'),pageErrors:report.pageErrors}));
