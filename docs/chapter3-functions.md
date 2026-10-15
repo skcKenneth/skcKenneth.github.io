@@ -67,12 +67,16 @@ The site's named search catalog includes the chapter entrance and all fourteen n
 Run these commands from the site checkout:
 
 ```powershell
-node --test tests/function-worksheets.test.mjs tests/function-worksheet-models.test.mjs
+pnpm run test:functions
 node --test tests/math-system.test.mjs tests/math-shared-storage.test.mjs tests/senior-math-v2-peer-runtime.test.mjs
 pnpm run build
 node tests/function-worksheets.test.mjs --built
+node scripts/function-worksheets-browser-qa.mjs
+python scripts/function-worksheets-pdf-audit.py
 ```
 
 Content tests check all fourteen ordered lessons, eight scene families, bilingual teaching fields, two-stage hints, valid lesson cross-references, strictly rendered TeX, and the fifteen activity/search catalog entries. Search tests check bilingual aliases, everyday and topic-filter visibility, paired URLs, and deduplication with Pagefind results. Model tests cover mappings, interval restrictions, representation, composition, extrema, symmetry, powers, and the two decision scenarios. Built-page checks run only with `--built` or `FUNCTION_WORKSHEETS_BUILT=1`, after a fresh build, including the metadata and complete named catalog on both search pages.
 
 Before release, inspect both languages in a real browser: projection size, keyboard operation, reset, staged reveals, the whole-class lesson selection, notes/backup, and student/teacher printing. Deployment is confirmed only after the relevant publishing workflow succeeds and the live bilingual pages and interactions are checked.
+
+The browser script uses disposable Edge contexts and synthetic teacher notes. With a fresh `dist`, it checks all fourteen lessons in both languages using actual mouse, keyboard and touchscreen events, plus first-screen projection at 1440×900 and 1366×768. It also exercises number-line painting, endpoint focus, gesture undo, 390-pixel layout, shared notes/backups, search, and eight student/teacher A4 PDFs. Reports and screenshots stay in `.tmp/chapter3-browser-qa`; set `FUNCTION_WORKSHEETS_QA_ORIGIN=https://skcKenneth.github.io` to repeat the same checks against production. The PDF audit requires `pypdf` and `pdfplumber`; add `--production` for the production output folder.
