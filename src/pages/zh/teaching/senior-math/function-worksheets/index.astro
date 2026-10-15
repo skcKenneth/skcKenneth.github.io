@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import FunctionWorksheetPage from '../../../../../components/FunctionWorksheetPage.astro';
+import {chapterTitle, chapterSubtitle, worksheetBase} from '../../../../../data/function-worksheets.mjs';
+import {FUNCTION_WORKSHEET_TOPIC_IDS} from '../../../../../lib/function-worksheet-search-catalog.mjs';
+---
+<BaseLayout title={chapterTitle['zh-Hant']} description={chapterSubtitle['zh-Hant']} type="Teaching" topicIds={FUNCTION_WORKSHEET_TOPIC_IDS} locale="zh-Hant" alternatePath={worksheetBase('en')}>
+  <FunctionWorksheetPage locale="zh-Hant" />
+</BaseLayout>

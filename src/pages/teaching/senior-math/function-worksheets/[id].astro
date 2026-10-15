@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import FunctionWorksheetPage from '../../../../components/FunctionWorksheetPage.astro';
+import {chapterTitle, functionWorksheets, worksheetUrl} from '../../../../data/function-worksheets.mjs';
+import {FUNCTION_WORKSHEET_TOPIC_IDS} from '../../../../lib/function-worksheet-search-catalog.mjs';
+export function getStaticPaths(){return functionWorksheets.map(lesson=>({params:{id:lesson.id},props:{lesson}}));}
+const {lesson}=Astro.props;
+---
+<BaseLayout title={`${lesson.title.en} · ${chapterTitle.en}`} description={lesson.focus.en} type="Teaching" topicIds={FUNCTION_WORKSHEET_TOPIC_IDS} alternatePath={worksheetUrl(lesson.id,'zh-Hant')}>
+  <FunctionWorksheetPage locale="en" lessonId={lesson.id} />
+</BaseLayout>
