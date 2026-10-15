@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import FunctionWorksheetPage from '../../../../components/FunctionWorksheetPage.astro';
+import {chapterTitle, chapterSubtitle, worksheetBase} from '../../../../data/function-worksheets.mjs';
+---
+<BaseLayout title={chapterTitle.en} description={chapterSubtitle.en} type="Teaching" alternatePath={worksheetBase('zh-Hant')}>
+  <FunctionWorksheetPage locale="en" />
+</BaseLayout>
