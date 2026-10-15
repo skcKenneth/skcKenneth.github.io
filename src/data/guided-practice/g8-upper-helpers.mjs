@@ -1,6 +1,8 @@
 /** Fixed, original upper-volume practice; helpers assemble content, never randomise it. */
 import { bi, question, makePack } from './shared.mjs';
+import {splitAuthoredMath} from '../../lib/authored-math.mjs';
 export const B=bi;
+export const M=expression=>`\\(${String(expression).replaceAll('*','\\cdot ')}\\)`;
 export const VERSION='2026-10-14-upper-core-v1';
 export const PDF='大湾区初中数学三维课堂（八年级上册）正文.pdf';
 const titles=['與三角形有關的線段（1）','與三角形有關的線段（2）','與三角形有關的角（1）','三角形的外角','多邊形及其內角和（1）','多邊形及其內角和（2）','全等三角形','三角形全等的判定（SSS）','三角形全等的判定（SAS）','三角形全等的判定（ASA 和 AAS）','三角形全等的判定（HL）','三角形全等的判定（複習課）','角平分線的性質（1）','角平分線的性質（2）','軸對稱圖形','軸對稱圖形的性質','畫圖形的對稱軸','作軸對稱圖形','用坐標表示軸對稱','等腰三角形的性質','等腰三角形的判定','等邊三角形的性質與判定（1）','等邊三角形的性質與判定（2）','等腰三角形（綜合）','課題學習 最短路徑問題','同底數冪的乘法','冪的乘方','積的乘方','單項式與單項式相乘','單項式與多項式相乘','多項式與多項式相乘','平方差公式','完全平方公式','乘法公式（綜合）','整式的除法（1）','整式的除法（2）','因式分解（1）','因式分解（2）','因式分解（3）','從分數到分式','分式的基本性質與約分','分式乘除法（1）','分式乘除法（2）','分式的基本性質與通分','分式的加減','分式的混合運算','整數指數冪','科學記數法','分式方程（1）','分式方程（2）','分式方程（3）','分式方程（4）'];
@@ -20,6 +22,7 @@ export const pairs=rows=>rows.map(([en,zh])=>B(en,zh));
 // Prose is rendered as text. Keep TeX only in dedicated MathExpression fields.
 export function proseMath(input){
  const text=String(input);
+ if(text.includes('\\('))return splitAuthoredMath(text).map(part=>part.kind==='math'?`\\(${part.value}\\)`:proseMath(part.value)).join('');
  const group=start=>{if(text[start]!=='{')return null;let depth=1,end=start+1;while(end<text.length&&depth){if(text[end]==='{')depth++;if(text[end]==='}')depth--;end++;}return depth?null:{value:text.slice(start+1,end-1),end};};
  let result='';
  for(let i=0;i<text.length;){
@@ -51,7 +54,7 @@ export function C(role,suffix,sourceLessons,prompt,options,steps,audit,diagram,f
   [['Choose the statement justified by the stated conditions and explain why.','選出符合題目條件的敘述，並說明理由。']],{type:'choice',options,correctChoice:0,audit,...(diagram?{diagram}:{}),...fields});
 }
 export function poly(role,suffix,sourceLessons,original,result,rule,intermediate,fields={}){
- const steps=[ [rule.en,rule['zh-Hant']], [`${original} = ${intermediate||result}.`,`${original} = ${intermediate||result}。`] ];
+ const steps=[ [rule.en,rule['zh-Hant']], [`${M(`${original} = ${intermediate||result}`)}.`,`${M(`${original} = ${intermediate||result}`)}。`] ];
  if(intermediate)steps.push([`Collect like terms to obtain ${result}.`,`合併同類項，得 ${result}。`]);
  steps.push(['Check the signs, coefficients and exponents in every term.','逐項核對正負號、係數及指數。']);
  return Q(role,suffix,sourceLessons,fields.prompt||B('Simplify completely, showing the relevant rule.','寫出所用法則，並完全化簡。'),B(`${result}.`,`${result}。`),steps,

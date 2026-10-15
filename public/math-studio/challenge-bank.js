@@ -3,9 +3,9 @@ const ChallengeBank = (() => {
   const registry = {};
   const n = x => Number(x.toFixed(8)).toString().replaceAll('-', '−');
   const follow = (step, label, text) => ({step, label, text});
-  const numeric = (prompt, answer, steps, hint, followups, params) => ({
+  const numeric = (prompt, answer, steps, hint, followups, params, math) => ({
     type: 'numeric', prompt, answer, answerText: n(answer), tolerance: 1e-6,
-    steps, hint, followups, params
+    steps, hint, followups, params, ...(math?{math}:{})
   });
   const written = (prompt, steps, hint, followups, params, rubric) => ({
     type: 'written', prompt, steps, hint, followups, params, rubric
@@ -61,7 +61,7 @@ const ChallengeBank = (() => {
         follow(0,'為甚麼用 A 除以 B？',`若 A 是 B 的 t 倍，便有 A=B×t，故 t=A÷B。只減兩個量會得到差，不是倍數。`),
         follow(1,'不記指數公式也能計嗎？',`10^${p} 是 ${p} 個 10 相乘，分母有 ${q} 個 10。逐個約去後還有 ${d} 個 10。`),
         follow(2,'怎樣檢查倍數的方向？',`本題 ${p}>${q}，且係數介乎 2 與 8，故 A>B，所得倍數約 ${n(a/b*10**d)} 應大於 1。`)
-      ],{a,b,p,q});
+      ],{a,b,p,q},[p,q,d].map(exponent=>({source:`10^${exponent}`,tex:`10^{${exponent}}`})));
   });
   register('operations','order-error','定位同級運算錯誤','乘除由左至右','見乘法就先乘',r=>{
     const a=r.int(2,12),b=r.int(2,10),c=r.int(2,10),total=a*b;
@@ -217,7 +217,11 @@ const ChallengeBank = (() => {
         follow(0,'係數不同仍是同類項嗎？',`可以，${a} 與 −${b} 不影響字母部分是否相同。判準是每個相同字母的指數。`),
         follow(1,'只看總次數夠嗎？','不夠。x²y 和 xy² 的總次數都是 3，卻不是同類項；每個字母的指數要分別相等。'),
         follow(2,'代回怎樣確認？',`m=${u-k} 時 m+${k}=${u}，n=${v}，兩項字母部分都為 x^${u}y^${v}。`)
-      ],{a,b,u,v,k});
+      ],{a,b,u,v,k},[
+        {source:`${a}x^(m+${k})y^${v}`,tex:`${a}x^{m+${k}}y^{${v}}`},
+        {source:`−${b}x^${u}y^n`,tex:`-${b}x^{${u}}y^{n}`},
+        {source:`x^${u}y^${v}`,tex:`x^{${u}}y^{${v}}`}
+      ]);
   });
   register('polynomial-add','perimeter','由周長組合整式','幾何數量與整式合併','只計一條長與寬',r=>{
     const a=r.int(2,8),b=r.int(1,12),c=r.int(1,7),d=r.int(1,12),x=r.int(2,10);

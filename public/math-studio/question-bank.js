@@ -2,7 +2,7 @@
 const PracticeBank=(()=>{
  const generators={},deep={};
  const num=n=>Number(n.toFixed(8)).toString().replaceAll('-','−');
- const N=(prompt,answer,steps,hint,unit='')=>({type:'numeric',prompt,answer,answerText:prompt.includes('保留 3 位小數')?answer.toFixed(3):num(answer),steps,hint,unit,tolerance:prompt.includes('保留 3 位小數')?.00051:1e-6});
+ const N=(prompt,answer,steps,hint,unit='',math)=>({type:'numeric',prompt,answer,answerText:prompt.includes('保留 3 位小數')?answer.toFixed(3):num(answer),steps,hint,unit,tolerance:prompt.includes('保留 3 位小數')?.00051:1e-6,...(math?{math}:{})});
  const C=(prompt,options,steps,hint)=>({type:'choice',prompt,options,answer:0,steps,hint});
  const W=(prompt,steps,rubric,hint)=>({type:'written',prompt,steps,rubric,hint});
  function G(id,items){generators[id]=items;}
@@ -183,10 +183,10 @@ G('function-properties',[
  {level:3,family:'function-properties-v4',concept:'function-properties',misconceptions:[],support:null,make:r=>{let a=r.int(1,10),b=r.int(1,10);return N(`f 是奇函數，且 f(${a})=${b}。求 f(−${a})+f(0)。`,-b,[`奇函數 f(−${a})=−f(${a})=−${b}。`,`0 在本題定義域，f(0)=0，因此和為 −${b}。`],'使用奇函數定義；由題式可知 f(0) 存在。');}}
 ]);
 G('exponential',[
- {level:1,family:'exponential-v1',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.int(2,5),n=r.int(2,6);return N(`求 log_${a}(${a**n})。`,n,[`因為 ${a}^${n}=${a**n}。`,`故對數值為 ${n}。`],'把對數式改寫成指數式。');}},
- {level:2,family:'exponential-v2',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.int(2,5),n=r.int(2,5),b=r.int(1,10);return N(`解 log_${a}(x−${b})=${n}，求 x。`,a**n+b,[`先要求 x>${b}。`,`x−${b}=${a}^${n}=${a**n}，x=${a**n+b}，符合限制。`],'先列真數條件。');}},
+ {level:1,family:'exponential-v1',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.int(2,5),n=r.int(2,6);return N(`求 log_${a}(${a**n})。`,n,[`因為 ${a}^${n}=${a**n}。`,`故對數值為 ${n}。`],'把對數式改寫成指數式。','',[{source:`${a}^${n}`,tex:`${a}^{${n}}`},{source:`log_${a}(${a**n})`,tex:`\\log_{${a}}(${a**n})`}]);}},
+ {level:2,family:'exponential-v2',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.int(2,5),n=r.int(2,5),b=r.int(1,10);return N(`解 log_${a}(x−${b})=${n}，求 x。`,a**n+b,[`先要求 x>${b}。`,`x−${b}=${a}^${n}=${a**n}，x=${a**n+b}，符合限制。`],'先列真數條件。','',[{source:`${a}^${n}`,tex:`${a}^{${n}}`},{source:`log_${a}(x−${b})=${n}`,tex:`\\log_{${a}}(x-${b})=${n}`}]);}},
  {level:2,family:'exponential-v3',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.int(2,5),m=r.int(2,5),n=r.int(1,4);return N(`求 log_${a}(${a**m}) − log_${a}(${a**n})。`,m-n,[`兩個對數分別為 ${m}、${n}。`,`相減得 ${num(m-n)}。`],'可直接求對數，也可用商法則。');}},
- {level:3,family:'exponential-v4',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.pick([2,3]),n=r.int(3,8),b=r.int(2,6);return N(`某模型初值 ${b}，每期乘 ${a}。首次達到或超過 ${b*a**n} 的期數是多少？`,n,[`第 t 期值為 ${b}×${a}ᵗ。`,`條件化為 ${a}ᵗ≥${a**n}=${a}^${n}。`,`a>1，故最小整數 t=${n}。`],'將倍增過程寫成指數模型，再比較指數。');}}
+ {level:3,family:'exponential-v4',concept:'exponential',misconceptions:[],support:null,make:r=>{let a=r.pick([2,3]),n=r.int(3,8),b=r.int(2,6);return N(`某模型初值 ${b}，每期乘 ${a}。首次達到或超過 ${b*a**n} 的期數是多少？`,n,[`第 t 期值為 ${b}×${a}ᵗ。`,`條件化為 ${a}ᵗ≥${a**n}=${a}^${n}。`,`a>1，故最小整數 t=${n}。`],'將倍增過程寫成指數模型，再比較指數。','',[{source:`${a}^${n}`,tex:`${a}^{${n}}`}]);}}
 ]);
 G('trigonometry',[
  {level:1,family:'trigonometry-v1',concept:'trigonometry',misconceptions:[],support:null,make:r=>{let a=15*r.int(1,24);return N(`${a}°=kπ 弧度，求 k（可用分數）。`,a/180,[`度數乘 π/180。`,`k=${a}/180。`],'180° 對應 π 弧度。');}},
@@ -219,9 +219,9 @@ G('variation',[
  {level:3,family:'variation-v4',concept:'variation',misconceptions:[],support:null,make:r=>{let a=r.int(2,10),b=r.int(2,8),x=r.int(3,12);return N(`y 的一部分固定，另一部分與 x 成正變。x=1 時 y=${a+b}，x=2 時 y=${a+2*b}。求 x=${x} 時 y。`,a+b*x,[`設 y=A+Bx，兩式相減得 B=${b}。`,`回代得 A=${a}。`,`y(${x})=${a}+${b}×${x}=${a+b*x}。`],'先用兩組數據求固定部分與變動部分。');}}
 ]);
 G('polynomial-gcd',[
- {level:1,family:'polynomial-gcd-v1',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=a+r.int(1,5);return N(`x^${a} 與 x^${b} 的首一最大公因式是 x^k，求 k。`,a,[`共有因式 x 的次數取較小值。`,`k=${a}。`],'公因式須同時整除兩式。');}},
- {level:2,family:'polynomial-gcd-v2',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(2,7),b=r.int(2,7);return N(`P=(x−1)^${a}(x+1)，Q=(x−1)(x+1)^${b}。求首一最小公倍式的次數。`,a+b,[`每個因式取最高次冪，LCM=(x−1)^${a}(x+1)^${b}。`,`次數=${a}+${b}=${a+b}。`],'最小公倍式需包含每式所有因式。');}},
- {level:2,family:'polynomial-gcd-v3',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(1,8),b=r.int(1,8),c=r.int(1,8);return N(`P=(x−1)^${a+b}，Q=(x−1)^${a}(x+2)^${c}。求首一最大公因式的次數。`,a,[`兩式共有 (x−1)，最低次冪為 ${a}。`,`故最大公因式為 (x−1)^${a}，次數=${a}。`],'不共有的因式不取。');}},
+ {level:1,family:'polynomial-gcd-v1',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(2,8),b=a+r.int(1,5);return N(`x^${a} 與 x^${b} 的首一最大公因式是 x^k，求 k。`,a,[`共有因式 x 的次數取較小值。`,`k=${a}。`],'公因式須同時整除兩式。','',[{source:`x^${a}`,tex:`x^{${a}}`},{source:`x^${b}`,tex:`x^{${b}}`},{source:'x^k',tex:'x^{k}'}]);}},
+ {level:2,family:'polynomial-gcd-v2',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(2,7),b=r.int(2,7);return N(`P=(x−1)^${a}(x+1)，Q=(x−1)(x+1)^${b}。求首一最小公倍式的次數。`,a+b,[`每個因式取最高次冪，LCM=(x−1)^${a}(x+1)^${b}。`,`次數=${a}+${b}=${a+b}。`],'最小公倍式需包含每式所有因式。','',[{source:`(x−1)^${a}`,tex:`(x-1)^{${a}}`},{source:`(x+1)^${b}`,tex:`(x+1)^{${b}}`}]);}},
+ {level:2,family:'polynomial-gcd-v3',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let a=r.int(1,8),b=r.int(1,8),c=r.int(1,8);return N(`P=(x−1)^${a+b}，Q=(x−1)^${a}(x+2)^${c}。求首一最大公因式的次數。`,a,[`兩式共有 (x−1)，最低次冪為 ${a}。`,`故最大公因式為 (x−1)^${a}，次數=${a}。`],'不共有的因式不取。','',[{source:`(x−1)^${a+b}`,tex:`(x-1)^{${a+b}}`},{source:`(x−1)^${a}`,tex:`(x-1)^{${a}}`},{source:`(x+2)^${c}`,tex:`(x+2)^{${c}}`}]);}},
  {level:3,family:'polynomial-gcd-v4',concept:'polynomial-gcd',misconceptions:[],support:null,make:r=>{let p=r.int(4,10),q=r.int(4,10),g=r.int(1,3);return N(`非零多項式 P、Q 次數分別為 ${p}、${q}，其最大公因式次數為 ${g}。求最小公倍式次數。`,p+q-g,[`首一化後，GCD×LCM 等於兩式乘積的首一版本。`,`比較次數：deg LCM=${p}+${q}−${g}=${p+q-g}。`],'用乘積的因式次數關係。');}}
 ]);
 G('partial-fractions',[

@@ -1,0 +1,7 @@
+---
+import MathExpression from './MathExpression.astro';
+import {splitAuthoredMath} from '../lib/authored-math.mjs';
+interface Props { text: string }
+const parts=splitAuthoredMath(Astro.props.text);
+---
+{parts.map(part=>part.kind==='math'?<span class="authored-math-inline" data-authored-math><MathExpression expression={part.value}/></span>:part.value)}

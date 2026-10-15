@@ -4,7 +4,7 @@ const LearningContent = (() => {
   const n = x => Number(x.toFixed(8)).toString().replaceAll('-', '−');
   function rng(seed) { let x=seed>>>0; return {int(a,b){x=(Math.imul(x,1664525)+1013904223)>>>0;return a+Math.floor(x/4294967296*(b-a+1));}}; }
   const step=(doing,why)=>({doing,why});
-  const ex=(prompt,answer,steps,hint,params)=>({prompt,answer,steps,hint,params});
+  const ex=(prompt,answer,steps,hint,params,math)=>({prompt,answer,steps,hint,params,...(math?{math}:{})});
   function section(lesson,id,title,concepts,diagram,make){
     (chapters[lesson]??=[]).push({id,title,concepts,diagram,make(seed){return make(rng(seed));}});
   }
@@ -38,7 +38,7 @@ const LearningContent = (() => {
     '近似數不是精確值。按指定數位四捨五入時，查看下一位；例如 3.146 保留兩位小數為 3.15。題目沒有要求近似時，先保留精確數值。'
   ],'45000 → 4.5（縮小 10000 倍）→ ×10⁴（補回原值）',r=>{
     const a=r.int(2,9),p=r.int(3,7),value=a*10**p;
-    return ex(`把 ${value} 寫成 a×10ⁿ，其中 1≤a<10。求指數 n。`,p,[step(`首因數取 ${a}。`,'它介乎 1 與 10 之間，符合規範。'),step(`${value}÷${a}=${10**p}=10^${p}。`,'用除法確定要補償的 10 的冪。'),step(`所以 ${value}=${a}×10^${p}，n=${p}。`,'乘回去應得到原數。')],'數值變小後，要用相應的 10 的冪補回。',{a,p});
+    return ex(`把 ${value} 寫成 a×10ⁿ，其中 1≤a<10。求指數 n。`,p,[step(`首因數取 ${a}。`,'它介乎 1 與 10 之間，符合規範。'),step(`${value}÷${a}=${10**p}=10^${p}。`,'用除法確定要補償的 10 的冪。'),step(`所以 ${value}=${a}×10^${p}，n=${p}。`,'乘回去應得到原數。')],'數值變小後，要用相應的 10 的冪補回。',{a,p},[{source:`10^${p}`,tex:`10^{${p}}`}]);
   });
   section('rational','classification','正負數、零與共同基準',[
     '整數和分數合稱有理數。有限小數及循環小數也能寫成分數，例如 0.5=1/2；數字的書寫形式與數的分類要分開。',
@@ -94,7 +94,7 @@ const LearningContent = (() => {
     '同類項要求字母相同，而且各相同字母的指數相同。係數可以不同；總次數相同並不足夠，例如 x²y 與 xy² 不是同類項。'
   ],'−2x²y：係數 −2 ｜ x 指數 2 ｜ y 指數 1 ｜ 次數 3',r=>{
     const a=r.int(2,12),u=r.int(2,8),v=r.int(1,8);
-    return ex(`單項式 −${a}x^${u}y^${v} 的次數是多少？`,u+v,[step(`x 的指數為 ${u}，y 的指數為 ${v}。`,'次數只計字母的指數。'),step(`係數 −${a} 不計入次數。`,'數字的大小與符號不決定單項式次數。'),step(`次數=${u}+${v}=${u+v}。`,'把各字母的指數相加。')],'不要把係數也加進去。',{a,u,v});
+    return ex(`單項式 −${a}x^${u}y^${v} 的次數是多少？`,u+v,[step(`x 的指數為 ${u}，y 的指數為 ${v}。`,'次數只計字母的指數。'),step(`係數 −${a} 不計入次數。`,'數字的大小與符號不決定單項式次數。'),step(`次數=${u}+${v}=${u+v}。`,'把各字母的指數相加。')],'不要把係數也加進去。',{a,u,v},[{source:`−${a}x^${u}y^${v}`,tex:`-${a}x^{${u}}y^{${v}}`}]);
   });
   section('polynomial-add','combine','合併同類項：只改係數',[
     '把同類項想像成同一種數量：3x+2x=(3+2)x=5x。這是分配律的逆用。',

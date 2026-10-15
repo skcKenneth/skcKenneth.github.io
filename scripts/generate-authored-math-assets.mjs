@@ -1,0 +1,14 @@
+import {build} from 'esbuild';
+import {copyFile,mkdir,readdir,readFile,writeFile} from 'node:fs/promises';
+import {createRequire} from 'node:module';
+import {dirname,resolve} from 'node:path';
+const require=createRequire(import.meta.url),root=resolve(import.meta.dirname,'..');
+const target=resolve(root,'public/math-shared/formulas');
+const distribution=dirname(require.resolve('katex/dist/katex.min.css'));
+await mkdir(resolve(target,'fonts'),{recursive:true});
+await build({entryPoints:[resolve(root,'src/scripts/native-authored-math.ts')],bundle:true,format:'iife',globalName:'MathAuthoredMath',minify:true,target:'es2020',outfile:resolve(target,'authored-math.js')});
+const css=await readFile(resolve(distribution,'katex.min.css'),'utf8');
+await writeFile(resolve(target,'authored-math.css'),css+'\n.authored-math-inline{display:inline-block;max-width:100%;vertical-align:baseline;line-height:1.4;padding:.08em 0}.authored-math-inline .katex{font-size:1.06em}\n');
+for(const font of await readdir(resolve(distribution,'fonts')))await copyFile(resolve(distribution,'fonts',font),resolve(target,'fonts',font));
+await copyFile(resolve(distribution,'../LICENSE'),resolve(target,'LICENSE.txt'));
+console.log('Local authored-math assets generated from the pinned KaTeX dependency.');

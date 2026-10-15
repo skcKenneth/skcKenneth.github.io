@@ -2,6 +2,8 @@
 import {getPracticePack} from '../data/guided-practice/index.mjs';
 import {classroomPackHref} from '../data/classroom-packs.mjs';
 import PracticeQuestion from './PracticeQuestion.astro';
+import MathText from './MathText.astro';
+import {FORMULA_RENDER_VERSION} from '../lib/authored-math.mjs';
 import '../styles/classroom-packs.css';
 import '../styles/guided-practice.css';
 interface Props { packId:string; locale?:'en'|'zh-Hant'; teacher?:boolean }
@@ -24,7 +26,7 @@ const inquiryLab=inquiryLabs[pack.nativeLesson];
 const inquiryHref=pack.id.startsWith('g8-bisector-')?`/math-studio/?lang=${locale}#g8/bisector-property`:inquiryLab?`/math-studio/?grade=${pack.grade}&lab=${inquiryLab}&lang=${locale}`:null;
 const configuration={pack,locale,teacher};
 ---
-<div class="classroom-page guided-practice" data-guided-practice={pack.id} data-classroom-pack={teacher?undefined:pack.id} data-classroom-teacher={teacher?pack.id:undefined} data-locale={locale} data-practice-version={pack.version} data-print-edition="student" data-paper-layout={paperLayout} data-paper-compact={compactCongruence?'congruence':undefined}>
+<div class="classroom-page guided-practice" data-guided-practice={pack.id} data-classroom-pack={teacher?undefined:pack.id} data-classroom-teacher={teacher?pack.id:undefined} data-locale={locale} data-practice-version={pack.version} data-formula-render-version={FORMULA_RENDER_VERSION} data-print-edition="student" data-paper-layout={paperLayout} data-paper-compact={compactCongruence?'congruence':undefined}>
  <header class="page-head"><div class="container classroom-reading-width">
   <nav class="classroom-breadcrumbs" aria-label={t('Breadcrumb','所在位置')}><ol><li><a href={`${base}/teaching/`}>{t('Teaching','教學')}</a></li><li><a href={`${base}/teaching/classroom-packs/`}>{t('One-class activities','一節課活動')}</a></li><li aria-current="page">{pack.title[locale]}</li></ol></nav>
   <p class="eyebrow">{t('PAPER · REASONING · PRACTICE','紙筆・推理・練習')}</p>
@@ -52,8 +54,8 @@ const configuration={pack,locale,teacher};
   </section>
   <section class="guided-concept" data-practice-inquiry>
    <p class="eyebrow">{t('Observe · explain','觀察・解釋')}</p><h2>{t('A question before practising','練習前先想一想')}</h2>
-   <p>{pack.inquiry?.[locale]||pack.concept[locale]}</p>
-   <details><summary>{t('Organise the key idea','整理關鍵概念')}</summary><p>{pack.concept[locale]}</p></details>
+   <p><MathText text={pack.inquiry?.[locale]||pack.concept[locale]}/></p>
+   <details><summary>{t('Organise the key idea','整理關鍵概念')}</summary><p><MathText text={pack.concept[locale]}/></p></details>
    <div class="classroom-page-actions"><a class="button secondary" href={nativeHref} target="_blank" rel="noopener" data-practice-native>{t('Open the original chapter','開啟原章節')}</a>{inquiryHref&&<a class="button secondary" href={inquiryHref} target="_blank" rel="noopener">{t('Open the interactive inquiry','開啟互動探究')}</a>}</div>
    <p class="small">{t('Use the lesson question here for paper discussion; the original activity opens separately.','可按本頁問題作紙筆討論；原活動另頁開啟。')}</p>
   </section>
@@ -68,8 +70,8 @@ const configuration={pack,locale,teacher};
   </nav>
   <details class="guided-preparation" data-guided-teacher-preparation>
    <summary>{t('Preparation and assessment notes','備課與評量說明')}</summary>
-   <h2>{t('Prerequisites','先備要求')}</h2><p>{pack.prerequisites[locale]}</p>
-   <h2>{t('Look for in students’ work','觀察學生作答')}</h2><p>{pack.taskTeacher?.[locale]||t('Check the conditions, reasoning, correspondence and conclusion. Accept other correct methods.','核對條件、理由、對應與結論；接受其他正確方法。')}</p>
+   <h2>{t('Prerequisites','先備要求')}</h2><p><MathText text={pack.prerequisites[locale]}/></p>
+   <h2>{t('Look for in students’ work','觀察學生作答')}</h2><p><MathText text={pack.taskTeacher?.[locale]||t('Check the conditions, reasoning, correspondence and conclusion. Accept other correct methods.','核對條件、理由、對應與結論；接受其他正確方法。')}/></p>
    <p>{t('Collect the paper exit questions and note completion and common errors. This page does not grade or store paper answers.','收集紙本離堂題，記錄完成情況及常見錯法；本頁不批改或儲存紙筆答案。')}</p>
    {teacher&&<><h2>{t('All reference answers','全部參考答案')}</h2>{pack.questions.map((q:any)=><PracticeQuestion question={q} locale={locale} edition="teacher" ordinal={ordinal(q)}/>)}</>}
    <button class="button secondary" type="button" data-practice-reveal-all>{t('Expand all classroom reasoning','展開全部課堂解析')}</button>
@@ -91,7 +93,7 @@ const configuration={pack,locale,teacher};
   </div>)}
  </section>
  <section class="guided-print-root" data-practice-print-root data-pagefind-ignore data-edition="supplement"><header class="guided-paper-heading"><h1>{pack.title[locale]} — {t('Further practice','補練')}</h1><p>{sourceLabel}</p></header>{byRole('supplement','extension').map(q=><PracticeQuestion question={q} locale={locale} edition="student" ordinal={ordinal(q)}/>)}</section>
- <section class="guided-print-root" data-practice-print-root data-pagefind-ignore data-edition="teacher"><header class="guided-paper-heading"><h1>{pack.title[locale]} — {t('Teacher answers','教師解答')}</h1><p>{sourceLabel}</p><p>{pack.taskTeacher?.[locale]}</p></header>{pack.questions.map((q:any)=><PracticeQuestion question={q} locale={locale} edition="teacher" ordinal={ordinal(q)}/>)}</section>
+ <section class="guided-print-root" data-practice-print-root data-pagefind-ignore data-edition="teacher"><header class="guided-paper-heading"><h1>{pack.title[locale]} — {t('Teacher answers','教師解答')}</h1><p>{sourceLabel}</p><p><MathText text={pack.taskTeacher?.[locale]||''}/></p></header>{pack.questions.map((q:any)=><PracticeQuestion question={q} locale={locale} edition="teacher" ordinal={ordinal(q)}/>)}</section>
  <script is:inline type="application/json" data-practice-configuration set:html={JSON.stringify(configuration).replace(/</g,'\\u003c')}></script>
 </div>
 <script>
