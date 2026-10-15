@@ -6,6 +6,9 @@ import {chapterTitle,chapterSubtitle,functionWorksheets,worksheetBase,worksheetU
 import {lessonById} from '../src/data/senior-math/catalog.mjs';
 import {seniorPages} from '../src/lib/senior-math-pages.mjs';
 import {createMathCatalog} from '../src/lib/math-system-catalog.mjs';
+import {createFunctionWorksheetSearchCatalog,FUNCTION_WORKSHEET_TOPIC_IDS} from '../src/lib/function-worksheet-search-catalog.mjs';
+import {classifySearchUrl,createSearchCatalog,entryMatchesSearch,matchCatalog,mergeSearchResults,readSearchState,routeKey} from '../src/lib/search-catalog.mjs';
+import {TOPIC_IDS} from '../src/data/site-reader.mjs';
 
 const locales=['en','zh-Hant'];
 const ids=Array.from({length:14},(_,i)=>String(i+1).padStart(2,'0'));
@@ -96,6 +99,47 @@ test('The unified classroom catalog exposes fifteen unique native Senior 1 activ
  for(const locale of locales)assert.equal(overview.sources[locale],worksheetBase(locale));
 });
 
+test('Named search exposes fifteen paired native teaching entrances with valid public metadata',()=>{
+ for(const locale of locales){
+  const catalog=createFunctionWorksheetSearchCatalog(locale),other=locale==='en'?'zh-Hant':'en';
+  assert.deepEqual(catalog.map(item=>item.id),['senior:function-worksheets',...ids.map(worksheetActivityId)]);
+  assert.equal(new Set(catalog.map(item=>routeKey(item.url))).size,15);
+  for(const [index,item]of catalog.entries()){
+   const id=index?ids[index-1]:undefined;
+   assert.equal(item.url,id?worksheetUrl(id,locale):worksheetBase(locale));
+   assert.equal(item.alternateUrl,id?worksheetUrl(id,other):worksheetBase(other));
+   assert.equal(item.title,index?functionWorksheets[index-1].title[locale]:chapterTitle[locale]);
+   assert.equal(item.excerpt,index?functionWorksheets[index-1].focus[locale]:chapterSubtitle[locale]);
+   assert.equal(item.kind,'teaching');assert.equal(classifySearchUrl(item.url),item.kind);assert.equal(classifySearchUrl(item.alternateUrl),item.kind);assert.equal(item.archived,false);
+   assert.deepEqual(item.topicIds,FUNCTION_WORKSHEET_TOPIC_IDS);assert(item.topicIds.every(topic=>TOPIC_IDS.includes(topic)));
+   assert(entryMatchesSearch(item,readSearchState('')),item.id+': hidden from everyday search');
+   for(const topic of item.topicIds)assert(entryMatchesSearch(item,readSearchState('?topic='+topic,TOPIC_IDS)),item.id+': topic filter');
+   for(const field of ['sourceFilename','sourceSection','teacher','workedExamples','exit','hints','answer'])assert(!(field in item),item.id+': private/answer field '+field);
+   assert(!/\.docx|[A-Z]:[\\/]|共用雲端硬碟/.test(JSON.stringify(item)),item.id+': private source metadata in search');
+  }
+ }
+});
+
+test('Chapter and lesson names are discoverable in either language without punctuation or locale assumptions',()=>{
+ for(const locale of locales){
+  const catalog=createFunctionWorksheetSearchCatalog(locale);
+  for(const query of ['第三章 函數','Chapter 3 Functions','Ｃｈａｐｔｅｒ　３　Ｆｕｎｃｔｉｏｎｓ','函數','functions','高一文組']){
+   const found=matchCatalog(query,catalog);assert.equal(found.length,15,query);assert.equal(found[0].id,'senior:function-worksheets',query+': chapter entrance first');
+  }
+  for(const lesson of functionWorksheets)for(const language of locales)assert.equal(matchCatalog(lesson.title[language],catalog)[0]?.id,worksheetActivityId(lesson.id),`${locale}: ${lesson.title[language]}`);
+ }
+});
+
+test('Named chapter activities retain aliases and stay distinct when merged with workspace and Pagefind results',()=>{
+ for(const locale of locales){
+  const catalog=createFunctionWorksheetSearchCatalog(locale),generic={url:`${locale==='zh-Hant'?'/zh':''}/teaching/math/`,title:'Mathematics Learning Space',kind:'teaching'};
+  const named=createSearchCatalog({},locale,{extras:[generic,...catalog]});assert.equal(named.length,16);
+  const indexed=catalog.map(item=>({url:item.url+'?from=pagefind',title:'Indexed page',kind:'teaching'}));
+  const merged=mergeSearchResults(named,indexed,'https://skckenneth.github.io');assert.equal(merged.length,16);assert.deepEqual(merged.slice(1),catalog);
+  assert.equal(matchCatalog('senior:function-worksheet:14',merged)[0]?.url,worksheetUrl('14',locale));
+ }
+});
+
 if(process.argv.includes('--built')||process.env.FUNCTION_WORKSHEETS_BUILT==='1'){
  const output=new URL('../dist/',import.meta.url);
  for(const locale of locales)test(`Fresh ${locale} output contains all fifteen readable, paired chapter pages`,()=>{
@@ -104,6 +148,8 @@ if(process.argv.includes('--built')||process.env.FUNCTION_WORKSHEETS_BUILT==='1'
    assert(existsSync(new URL(path,output)),path+' missing: build the current checkout first');
    const html=readFileSync(new URL(path,output),'utf8');
    assert(html.includes(`lang="${locale}"`),path);assert.equal((html.match(/<main\b/g)||[]).length,1,path);assert.equal((html.match(/<h1\b/g)||[]).length,1,path);
+   for(const topic of FUNCTION_WORKSHEET_TOPIC_IDS)assert(html.includes(`data-pagefind-filter="topic[content]" content="${topic}"`),path+': topic metadata');
+   assert(html.includes('data-pagefind-filter="search-kind[content]" content="teaching"'),path+': teaching search kind');
    assert(!/class="katex-error"|[A-Z]:[\\/]+共用|共用雲端硬碟/.test(html),path);
    assert(html.includes(id?`data-function-worksheet="${id}"`:'data-function-chapter'),path+': correct chapter content');
    if(id){
@@ -122,5 +168,11 @@ if(process.argv.includes('--built')||process.env.FUNCTION_WORKSHEETS_BUILT==='1'
     assert(existsSync(new URL(target,output)),`${path}: broken local link ${href}`);
    }
   }
+ });
+ for(const locale of locales)test(`Fresh ${locale} search page includes the complete named chapter catalog`,()=>{
+  const prefix=locale==='zh-Hant'?'zh/':'',html=readFileSync(new URL(prefix+'search/index.html',output),'utf8');
+  const raw=html.match(/data-catalog="([^"]*)"/)?.[1];assert(raw,'Missing search catalog');
+  const catalog=JSON.parse(raw.replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'));
+  for(const item of createFunctionWorksheetSearchCatalog(locale))assert.deepEqual(catalog.find(entry=>entry.id===item.id),item,item.id);
  });
 }

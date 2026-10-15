@@ -5,6 +5,7 @@ import {TOPICS,getTopicIds} from '../data/site-reader.mjs';
 import {createSearchCatalog} from '../lib/search-catalog.mjs';
 import {createReaderGuideCatalog} from '../lib/reader-guide-catalog.mjs';
 import {createClassroomSearchCatalog} from '../lib/classroom-search-catalog.mjs';
+import {createFunctionWorksheetSearchCatalog} from '../lib/function-worksheet-search-catalog.mjs';
 import '../styles/site-search.css';
 const {locale='en'}=Astro.props as {locale?:'en'|'zh-Hant'};
 const zh=locale==='zh-Hant',base=zh?'/zh':'';
@@ -21,7 +22,7 @@ const entrances=[
   ['quantum-repeater-lab','Quantum repeater scheduling lab','量子中繼排程實驗室','Experiment with quantum networks and scheduling.','實驗量子網絡與排程。',[]],
   ['melt-pond-topology-lab','Melt-pond topology observation lab','融池拓撲觀測實驗室','Examine how observation changes topological evidence.','檢查觀測方法如何改變拓撲證據。',[]]
 ] as [string,string,string,string,string,string[]][];
-const extras=[...createReaderGuideCatalog(locale),...createClassroomSearchCatalog(locale),
+const extras=[...createReaderGuideCatalog(locale),...createClassroomSearchCatalog(locale),...createFunctionWorksheetSearchCatalog(locale),
   {url:`${base}/teaching/math/`,title:zh?'數學互動研習室':'Mathematics Learning Space',aliases:['數學互動研習室','統一數學','Mathematics Learning Space','math-studio','互動探究'],excerpt:zh?'在同一空間操作中學課節、聯考、探究室、Python 工坊與研究模型，安排課堂並備份原有紀錄。':'School lessons, JAE, inquiry labs, Python workshops and research models with shared classroom planning, native records and complete backup.',kind:'teaching',archived:false,topicIds:['mathematical-thinking','teaching-research-practice']},
   {url:`${base}/teaching/math/?activity=school%3Ainquiry%3Aangle-bisector`,title:zh?'角的平分線的性質':'Angle-bisector property',aliases:['角的平分線的性質','角平分線','垂直距離','全等三角形','初二','angle bisector','angle-bisector property','Year 8 geometry'],excerpt:zh?'18 分鐘雙語投影探究：垂直距離、量度、AAS 證明及 HL 逆命題。':'An 18-minute bilingual inquiry: perpendicular distances, measurements, AAS proof and the HL converse.',kind:'teaching',archived:false,topicIds:['mathematical-thinking','teaching-research-practice']},
   ...entrances.map(([slug,en,ch,excerptEn,excerptZh,aliases])=>({url:`${base}/teaching/${slug==='jae-math'?'senior-math/studios/jae':slug}/`,title:zh?ch:en,excerpt:zh?excerptZh:excerptEn,

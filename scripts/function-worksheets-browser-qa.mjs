@@ -7,7 +7,9 @@ import {resolve,dirname,extname,sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {functionWorksheets,worksheetUrl,worksheetBase,worksheetActivityId} from '../src/data/function-worksheets.mjs';
 import {worksheetControls} from '../src/lib/function-worksheet-models.mjs';
-const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),output=resolve(root,'.tmp/chapter3-browser-qa'),directory=resolve(root,'dist');
+const remoteOrigin=process.env.FUNCTION_WORKSHEETS_QA_ORIGIN;
+if(remoteOrigin&&!/^https:\/\/skcKenneth\.github\.io\/?$/.test(remoteOrigin))throw Error('Production QA is limited to this public site.');
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),output=resolve(root,remoteOrigin?'.tmp/chapter3-production-qa':'.tmp/chapter3-browser-qa'),directory=resolve(root,'dist');
 const require=createRequire(process.env.PLAYWRIGHT_RUNTIME||'C:/Users/kenneth/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/package.json');
 const {chromium}=require('playwright');
 await mkdir(output,{recursive:true});
@@ -15,7 +17,7 @@ await writeFile(resolve(output,'print-expectations.json'),JSON.stringify(Object.
 const report={startedAt:new Date().toISOString(),isolation:'Disposable Edge contexts, synthetic teacher notes, no personal learner data',cases:[],pageErrors:[],pdfs:[]};
 const mime={'.html':'text/html;charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2'};
 const server=createServer(async(req,res)=>{try{let file=resolve(directory,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));if(!file.startsWith(directory+sep))throw Error('outside root');if((await stat(file)).isDirectory())file=resolve(file,'index.html');res.writeHead(200,{'Content-Type':mime[extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(await readFile(file));}catch{res.writeHead(404);res.end('Not found');}});
-await new Promise(done=>server.listen(0,'127.0.0.1',done));const origin='http://127.0.0.1:'+server.address().port;
+if(!remoteOrigin)await new Promise(done=>server.listen(0,'127.0.0.1',done));const origin=remoteOrigin?.replace(/\/$/,'')||'http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({executablePath:process.env.QA_BROWSER_EXECUTABLE||'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',headless:true});report.browser=browser.version();
 async function run(name,fn,options={}){const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true,...options});context.on('page',page=>page.on('pageerror',error=>report.pageErrors.push({name,error:String(error),url:page.url()})));const page=await context.newPage();try{const evidence=await fn(page,context);report.cases.push({name,status:'passed',evidence});console.log('PASS '+name);}catch(error){report.cases.push({name,status:'failed',error:String(error),stack:error.stack});await page.screenshot({path:resolve(output,name+'-failure.png'),fullPage:true}).catch(()=>{});console.error('FAIL '+name+' '+error.message);}finally{await context.close();await writeFile(resolve(output,'report.json'),JSON.stringify(report,null,2));}}
 async function open(page,id,locale='en'){await page.goto(origin+worksheetUrl(id,locale),{waitUntil:'networkidle'});await page.locator('[data-fw-stage-status]').waitFor();}
@@ -34,8 +36,11 @@ try{
    }
   }return {checked:checked.length,allSelectPresets:true,answersClosedInitially:true};
  });
+ await run('bilingual-chapter-and-lesson-site-search',async page=>{
+  const checked=[];for(const locale of ['en','zh-Hant']){const base=locale==='zh-Hant'?'/zh':'';for(const [query,target]of [[locale==='zh-Hant'?'第三章 函數':'Chapter 3 Functions',worksheetBase(locale)],[functionWorksheets[13].title[locale],worksheetUrl('14',locale)]]){await page.goto(origin+base+'/search/?q='+encodeURIComponent(query),{waitUntil:'networkidle'});await page.locator(`[data-search-results] a[href="${target}"]`).first().waitFor();checked.push({locale,query,target});}}return {checked};
+ });
  await run('projection-keyboard-reset-and-observation-download',async page=>{
-  await open(page,'14');await page.locator('[data-fw-project]').click();assert.equal(await page.locator('[data-fw-project]').getAttribute('aria-pressed'),'true');assert.equal(await page.locator('.site-header').isVisible(),false);
+  await open(page,'14');await page.locator('[data-fw-project]').click();assert.equal(await page.locator('[data-fw-project]').getAttribute('aria-pressed'),'true');assert.equal(await page.locator('.site-header').isVisible(),false);assert.equal(await page.locator('.breadcrumbs').isVisible(),false);
   await page.locator('h1').click();await page.keyboard.press('ArrowRight');await assertStage(page,1);
   const controls=worksheetControls('14'),mode=controls.find(c=>c.type==='select'),printing=mode?.options.find(option=>/print/i.test(option.label.en));assert(printing);await setControl(page,mode.key,printing.value);
   const quantity=controls.find(c=>c.key==='x')||controls.find(c=>c.type==='number');assert(quantity);await setControl(page,quantity.key,10);await page.locator('[data-fw-capture]').click();await setControl(page,quantity.key,40);await page.locator('[data-fw-capture]').click();assert.equal(await page.locator('[data-fw-observations] li').count(),2);
@@ -66,5 +71,5 @@ try{
  await run('denied-storage-native-activity-remains-usable',async(page,context)=>{
   await context.addInitScript(()=>{Storage.prototype.setItem=function(){throw new DOMException('QA denied','QuotaExceededError');};});await open(page,'06');await setStage(page,1);await page.locator('[data-fw-capture]').click();const downloading=page.waitForEvent('download');await page.locator('[data-fw-export]').click();const download=await downloading;await download.saveAs(resolve(output,'denied-storage-observation.txt'));assert((await readFile(resolve(output,'denied-storage-observation.txt'),'utf8')).includes('Teacher board observations'));return {modelUsable:true,immediateExport:true};
  });
-}finally{report.finishedAt=new Date().toISOString();await writeFile(resolve(output,'report.json'),JSON.stringify(report,null,2));await browser.close();await new Promise(done=>server.close(done));}
+}finally{report.finishedAt=new Date().toISOString();await writeFile(resolve(output,'report.json'),JSON.stringify(report,null,2));await browser.close();if(!remoteOrigin)await new Promise(done=>server.close(done));}
 assert.equal(report.pageErrors.length,0,JSON.stringify(report.pageErrors));assert(report.cases.every(item=>item.status==='passed'),JSON.stringify(report.cases.filter(item=>item.status!=='passed')));console.log(`Passed ${report.cases.length} browser cases; ${report.pdfs.length} A4 PDFs; zero page errors.`);

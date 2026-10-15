@@ -4,12 +4,13 @@ import json
 import re
 import unicodedata
 import logging
+import sys
 from pypdf import PdfReader
 import pdfplumber
 logging.getLogger('pdfminer').setLevel(logging.ERROR)
 
 root = Path(__file__).resolve().parents[1]
-directory = root / '.tmp' / 'chapter3-browser-qa'
+directory = root / '.tmp' / ('chapter3-production-qa' if '--production' in sys.argv else 'chapter3-browser-qa')
 expectations = json.loads((directory / 'print-expectations.json').read_text(encoding='utf-8'))
 report = json.loads((directory / 'report.json').read_text(encoding='utf-8'))
 

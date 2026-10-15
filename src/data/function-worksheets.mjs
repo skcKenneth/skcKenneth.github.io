@@ -111,7 +111,7 @@ export const functionWorksheets = [
       bi('Write each domain in words, inequalities and interval notation. Check that all three forms make the same endpoint decision.', '用文字、不等式及區間記號各寫一次定義域，核對三種表示對端點的判斷一致。'),
     ],
     explanation: bi('A real denominator cannot equal zero, so 1/(x − 2) allows all real x except 2. A real square root allows a zero radicand, so √(x − 3) allows x ≥ 3. Round brackets exclude a finite endpoint; square brackets include it. Infinity describes an unbounded direction, not an attainable endpoint, so it always takes a round bracket.', '實數分母不可為零，所以 1/(x−2) 允許除 2 外的所有實數。實數平方根的被開方數可以為零，所以 √(x−3) 允許 x≥3。圓括號不包括有限端點，方括號包括端點。無窮大表示無界方向，不是可取得的端點，因此一律用圓括號。'),
-    transfer: bi('Write the domain of √(5 − x), then exclude x = 2 as an extra restriction. Show both exclusions correctly on a number line.', '寫出 √(5−x) 的定義域，再加入 x≠2 的限制，用數線正確表示兩種端點。'),
+    transfer: bi('Write the domain of √(5 − x), then exclude x = 2 as an extra restriction. Show the included endpoint and excluded point correctly on a number line.', '寫出 √(5−x) 的定義域，再加入 x≠2 的限制，用數線正確表示兩種端點。'),
     hints: [bi('Before drawing a number line, write what must be nonzero or nonnegative.', '畫數線前，先寫出哪個式子必須非零或非負。'), bi('For the square root, solve x − 3 ≥ 0; for the fraction, remove the point where x − 2 = 0.', '平方根先解 x−3≥0；分式則剔除使 x−2＝0 的點。')],
     workedExamples: [
       {

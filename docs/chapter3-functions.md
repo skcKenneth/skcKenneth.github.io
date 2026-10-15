@@ -35,6 +35,8 @@ The unified mathematics catalog contains the overview activity `senior:function-
 
 The routes use the existing `BaseLayout`, with the matching English/Traditional Chinese alternate path. The chapter manifest stores its own bilingual text and links back to the existing function lessons in compulsory volume 1, chapter 3 (`c1-3`). Only the original document filename is shown in the teacher reference; private drive paths are excluded from public output.
 
+The site's named search catalog includes the chapter entrance and all fourteen native lesson URLs in both languages. It accepts chapter names with or without the middle dot, English or Chinese lesson titles, and the stable activity IDs. All fifteen entries are ordinary teaching results, with the topics `mathematical-thinking` and `teaching-research-practice`; their search records include titles and summaries only, without worked answers or document cross-references. The same topics are emitted as Pagefind metadata on every chapter route.
+
 ## Verification
 
 Run these commands from the site checkout:
@@ -46,6 +48,6 @@ pnpm run build
 node tests/function-worksheets.test.mjs --built
 ```
 
-Content tests check all fourteen ordered lessons, eight scene families, bilingual teaching fields, two-stage hints, valid lesson cross-references, strictly rendered TeX, and the fifteen catalog entries. Model tests cover mappings, interval restrictions, representation, composition, extrema, symmetry, powers, and the two decision scenarios. Built-page checks run only with `--built` or `FUNCTION_WORKSHEETS_BUILT=1`, after a fresh build.
+Content tests check all fourteen ordered lessons, eight scene families, bilingual teaching fields, two-stage hints, valid lesson cross-references, strictly rendered TeX, and the fifteen activity/search catalog entries. Search tests check bilingual aliases, everyday and topic-filter visibility, paired URLs, and deduplication with Pagefind results. Model tests cover mappings, interval restrictions, representation, composition, extrema, symmetry, powers, and the two decision scenarios. Built-page checks run only with `--built` or `FUNCTION_WORKSHEETS_BUILT=1`, after a fresh build, including the metadata and complete named catalog on both search pages.
 
 Before release, inspect both languages in a real browser: projection size, keyboard operation, reset, staged reveals, the whole-class lesson selection, notes/backup, and student/teacher printing. Deployment is confirmed only after the relevant publishing workflow succeeds and the live bilingual pages and interactions are checked.
