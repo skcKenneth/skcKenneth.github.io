@@ -254,6 +254,8 @@ export function initializeMathSystem(root:HTMLElement){
   if(target.hasAttribute('data-notebook-export')){if(active)download(`mathematics-${active.nativeId}-notes.json`,JSON.stringify({activityId:active.id,title:active.title[locale],createdAt:new Date().toISOString(),notes:currentNotebook()},null,2));return;}
   if(target.hasAttribute('data-notebook-capture')){try{
    const doc=frame?.contentDocument;if(!doc)throw Error();const controls=Array.from(doc.querySelectorAll<HTMLInputElement|HTMLSelectElement>('input[type=range],input[type=number],select')).slice(0,40).map(el=>({control:el.getAttribute('aria-label')||el.labels?.[0]?.textContent?.trim()||el.id,value:el.value}));
+   const board=doc.querySelector('[data-fw-work-state]')?.textContent||'';
+   if(board&&board.length<=10000)controls.push({control:t('Function board design','函數畫布設計'),value:board});
    notebookInput('observation',[currentNotebook().observation||'',t('Current controls','目前操作設定')+':\n'+JSON.stringify(controls,null,2)].filter(Boolean).join('\n\n').slice(0,6000));
   }catch{text('[data-notebook-status]',t('Control capture is unavailable. You can record observations manually.','暫時無法擷取操作設定，可自行記錄觀察。'));}return;}
   if(target.dataset.classroomAction){const index=Number(target.dataset.classroomIndex),action=target.dataset.classroomAction,id=classroom.ids[index],desired=classroom.ids.slice();if(!id)return;seedClassroomSelection();if(action==='remove')edit(['classroom','ids'],id,'array-remove');else{const other=index+(action==='up'?-1:1);if(other>=0&&other<desired.length){[desired[index],desired[other]]=[desired[other],desired[index]];edit(['classroom','ids'],{id,beforeId:desired[desired.indexOf(id)+1]||null},'array-move');}}persistClassroom();return;}

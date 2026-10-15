@@ -14,7 +14,32 @@ The entry point is `/zh/teaching/senior-math/function-worksheets/` in Traditiona
 | 25–37 | Connect the worked example to the original worksheet. | Complete the paper practice and transfer question. |
 | 37–40 | Use the exit check with a new example. | State a conclusion and its justification. |
 
-Hints, conclusions, worked solutions, and teacher references are initially hidden. Sampling can suggest a conjecture but does not replace an algebraic argument. Select the student print edition to distribute a record page; use the teacher edition for answers and anticipated misconceptions. Shared classroom notes describe the operator's lesson/preparation record; they are not individual student scores.
+The board stays visible during all four stages. Students take turns dragging, connecting, painting, placing or rearranging objects. Numeric readings update immediately; the **Check my design / 檢查我的設計** button reveals the diagnosis after students explain their claim. Any edit hides the old diagnosis while keeping the claim. Undo restores one complete gesture, and **Paper starting model** restores the source-aligned model. Reset also clears the session's board works.
+
+Hints, worked solutions, and teacher references are initially hidden in the side panel. Sampling can suggest a conjecture but does not replace an algebraic argument. Select the student print edition to distribute a record page with current board work; diagnoses and teacher answers are excluded. The teacher edition retains the paper examples and reference reasoning. Shared classroom notes describe the operator's lesson/preparation record; they are not individual student scores.
+
+## Direct operation in all fourteen lessons
+
+| Lesson | Core operation |
+| --- | --- |
+| 01 | Add, reconnect and remove arrows while retaining every stated input. |
+| 02 | Place input chips in two same-rule, different-domain models. |
+| 03 | Paint an interval on the number line, move bounds, toggle endpoint inclusion and probe membership. |
+| 04 | Overlay restriction masks or build the output set/range; retain the cancellation hole. |
+| 05 | Place fixed table data as learner points and choose whether to connect them. |
+| 06 | Move the two piece boundaries independently; test gaps and distinct/same outputs. |
+| 07 | Rearrange machine cards and feed a numeric token through the two stages. |
+| 08 | Trim the domain, move the curve cursor and place extrema candidates. |
+| 09 | Move two strictly ordered input handles to seek a counterexample. |
+| 10 | Compare geometric mirror/rotation candidates with actual function points and change the domain. |
+| 11 | Match five curve cards to formulas and test additional inputs. |
+| 12 | Move a positive base through one and place comparisons on an ordering board. |
+| 13 | Rearrange discount cards or undo the affine input using operation cards. |
+| 14 | Move integer quantity/time and budget handles, then place a quote choice. |
+
+Objects and destinations are focusable. Arrow keys move handles; Enter selects a card and places it at a destination. The tap/keyboard panel offers equivalent buttons. Pointer capture stays on the stable SVG root while the drawing updates, and a cancelled gesture restores its starting state. Only teacher model-set choices use dropdowns.
+
+The board can retain up to twelve session works, restore a prior design, download its exact state/readings, and include it in student printing. The common notebook's capture button also records the current design without introducing new storage keys or altering backup formats. No formula supplied by a learner is executed.
 
 ## Eight inquiry families
 
