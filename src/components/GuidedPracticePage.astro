@@ -3,6 +3,7 @@ import {getPracticePack} from '../data/guided-practice/index.mjs';
 import {classroomPackHref} from '../data/classroom-packs.mjs';
 import PracticeQuestion from './PracticeQuestion.astro';
 import MathText from './MathText.astro';
+import WorksheetArchiveDownload from './WorksheetArchiveDownload.astro';
 import {FORMULA_RENDER_VERSION} from '../lib/authored-math.mjs';
 import '../styles/classroom-packs.css';
 import '../styles/guided-practice.css';
@@ -82,6 +83,7 @@ const configuration={pack,locale,teacher};
   </details>
   <section class="guided-output" data-pagefind-ignore>
    <h2>{t('Paper for the class','課堂用紙')}</h2>
+   <WorksheetArchiveDownload locale={locale}/>
    <p>{t('Core student worksheet: two A4 pages. Further practice is separate. Teacher copies include reference reasoning.','學生核心工作紙：兩頁A4。補練另頁；教師版另附參考推理。')}</p>
    <label>{t('Print edition','列印版本')}<select data-practice-print-edition><option value="student">{t('Student core · blank','學生核心・留白')}</option><option value="supplement">{t('Further practice and extensions','補練與進階')}</option><option value="teacher">{t('Teacher · with solutions','教師・附解答')}</option></select></label>
    <div class="classroom-page-actions"><button class="button" type="button" data-practice-print="student">{t('Print student worksheet','列印學生工作紙')}</button><button class="button secondary" type="button" data-practice-print="supplement">{t('Print follow-ups','列印補練')}</button><button class="button secondary" type="button" data-practice-print="teacher">{t('Print teacher answers','列印教師解答')}</button><button class="button secondary" type="button" data-practice-export={teacher?'teacher':'student'}>{teacher?t('Download lesson and answers','下載課堂包與解答'):t('Download lesson questions','下載課堂題目')}</button></div>

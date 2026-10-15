@@ -1,0 +1,11 @@
+---
+import {WORKSHEET_ARCHIVE as archive} from '../data/worksheet-archive.mjs';
+interface Props {locale?:'en'|'zh-Hant'}
+const {locale='en'}=Astro.props,zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en;
+---
+<div data-worksheet-archive data-pagefind-ignore>
+ <div class="classroom-page-actions">
+  <a class="button secondary" href={archive.href} download={archive.filename} data-worksheet-archive-download data-archive-sha256={archive.sha256} data-archive-bytes={archive.bytes}>{t(`Download all worksheets (ZIP · ${archive.pdfs} PDFs · ${archive.sizeLabel})`,`下載完整工作紙（ZIP・${archive.pdfs}份PDF・${archive.sizeLabel}）`)}</a>
+ </div>
+ <p class="small">{t(`All ${archive.packs} Year 7–8 upper- and lower-volume packs in Traditional Chinese and English. Includes teacher answers; student core, further practice and teacher papers are in separate folders.`,`七、八年級上下冊共${archive.packs}包，齊備繁中／英文。含教師答案；學生核心、補練進階及教師版分開存放。`)}</p>
+</div>
