@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { LIVE_ROUTES, READER_NOTE_IDS, validateLivePayload, groupChanges, createPublishSummary, verifyLiveSite } from '../scripts/publish-summary.mjs';
 import {ALL_CLASSROOM_PACKS} from '../src/data/classroom-packs.mjs';
+import { EDITORIAL_ARTICLE_IDS } from '../src/data/reader-media.mjs';
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 function payload(spec) {
   if (spec.kind === 'png') return { contentType: 'image/png', bytes: Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]) };
@@ -51,7 +52,7 @@ test('publication checks all 24 new paired guide routes and rejects incorrect co
 test('release requires paired notes, about updates, distinct classroom audiences and RSS discovery', () => {
   const additions=LIVE_ROUTES.filter(spec=>['note','about','classroomIndex','classroomStudent','classroomTeacher'].includes(spec.kind));
   assert.equal(additions.length,14+4*ALL_CLASSROOM_PACKS.length);
-  assert.equal(LIVE_ROUTES.length,86+4*ALL_CLASSROOM_PACKS.length);
+  assert.equal(LIVE_ROUTES.length,62+4*EDITORIAL_ARTICLE_IDS.length+4*ALL_CLASSROOM_PACKS.length);
   for(const spec of additions){
     const fixture=payload(spec);
     const wrongPair=Buffer.from(fixture.bytes.toString().replace(`href="https://skckenneth.github.io${spec.alternatePath}"`,'href="https://skckenneth.github.io/wrong/"'));

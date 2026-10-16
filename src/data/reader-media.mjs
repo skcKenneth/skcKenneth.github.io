@@ -1,6 +1,7 @@
 import manifest from '../../public/images/reader-media-manifest.json' with { type: 'json' };
 
 export const EDITORIAL_ARTICLE_IDS = Object.freeze([
+  'do-more-test-time-steps-make-better-forecasts',
   'two-networks-one-spectrum-different-alarms',
   'how-many-equilibria-did-the-optimizer-miss',
   'what-must-a-traffic-model-remember',

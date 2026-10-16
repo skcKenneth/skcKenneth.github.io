@@ -42,24 +42,26 @@ test('generated image receipt preserves reviewed PNG and thumbnail bytes across 
   }
 });
 
-test('six editorial covers have distinct geometry, exact sizes and explicit decorative provenance',async()=>{
+test('registered editorial covers have distinct geometry, exact sizes and explicit decorative provenance',async()=>{
   const sharp=createRequire(import.meta.resolve('astro/package.json'))('sharp');
   const manifest=JSON.parse(readFileSync(new URL('../public/images/reader-media-manifest.json',import.meta.url),'utf8'));
-  assert.equal(EDITORIAL_ARTICLE_IDS.length,6);assert.equal(new Set(EDITORIAL_ARTICLE_IDS).size,6);
+  assert.equal(EDITORIAL_ARTICLE_IDS.length,7);assert.equal(new Set(EDITORIAL_ARTICLE_IDS).size,EDITORIAL_ARTICLE_IDS.length);
   const drawings=new Set();
   for(const id of EDITORIAL_ARTICLE_IDS){
     const record=manifest.editorial[id];assert.equal(record.purpose,'decorative-editorial-cover-not-research-data');
     const svg=readFileSync(new URL('../public/'+record.coverSvg,import.meta.url),'utf8');
     assert.match(svg,/width="640" height="400"/);assert.match(svg,/<desc>Decorative editorial cover, not a research figure or data\./);
     assert.doesNotMatch(svg,/<(?:script|foreignObject)|\b(?:href|src)="(?:https?:|\/)/i);assert.equal(svg.includes('\r'),false);
-    assert.match(svg,/#1f6652/);assert.match(svg,/#f5f3ed/);drawings.add(svg.replace(/<title>.*?<\/title>|<desc>.*?<\/desc>/g,''));
+    if(id==='do-more-test-time-steps-make-better-forecasts'){assert.match(svg,/#7A1E3A/);assert.match(svg,/#FAF8F7/);assert.doesNotMatch(svg,/#1f6652|#a96d46/);}
+    else {assert.match(svg,/#1f6652/);assert.match(svg,/#f5f3ed/);}
+    drawings.add(svg.replace(/<title>.*?<\/title>|<desc>.*?<\/desc>/g,''));
     const media=getReaderMedia(id);assert.deepEqual(media.cover,{src:'/'+record.cover,width:640,height:400});
     const dimensions=await sharp(readFileSync(new URL('../public'+media.cover.src,import.meta.url))).metadata();assert.equal(dimensions.width,640);assert.equal(dimensions.height,400);
   }
-  assert.equal(drawings.size,6);assert.equal(getReaderMedia('modeling-workflow'),null);assert.equal(getReaderMedia('__proto__'),null);assert.equal(getReaderMedia(EDITORIAL_ARTICLE_IDS[0],'unknown'),null);
+  assert.equal(drawings.size,EDITORIAL_ARTICLE_IDS.length);assert.equal(getReaderMedia('modeling-workflow'),null);assert.equal(getReaderMedia('__proto__'),null);assert.equal(getReaderMedia(EDITORIAL_ARTICLE_IDS[0],'unknown'),null);
 });
 
-test('twelve real share PNGs carry exact localized titles, readable-font receipts and canonical bilingual IDs',()=>{
+test('all registered share PNGs carry exact localized titles, readable-font receipts and canonical bilingual IDs',()=>{
   const manifest=JSON.parse(readFileSync(new URL('../public/images/reader-media-manifest.json',import.meta.url),'utf8'));
   for(const id of EDITORIAL_ARTICLE_IDS)for(const locale of ['en','zh-Hant']){
     const entries=collections[locale==='en'?'writing':'writingZh'];
@@ -70,6 +72,25 @@ test('twelve real share PNGs carry exact localized titles, readable-font receipt
     assert.deepEqual([...bytes.subarray(0,8)],[137,80,78,71,13,10,26,10]);assert.equal(bytes.readUInt32BE(16),1200);assert.equal(bytes.readUInt32BE(20),630);
     const receipt=manifest.images[media.share.src.slice(1)];assert.equal(receipt.rendering.title,entry.data.title);assert.equal(receipt.rendering.locale,locale);
     assert.match(receipt.rendering.fontFamily,/Noto Sans/);assert.match(receipt.rendering.fontSha256,/^[a-f0-9]{64}$/);
+  }
+});
+
+test('test-time forecasting homepage art stays separate from its quantitative research figures',()=>{
+  const id='do-more-test-time-steps-make-better-forecasts';
+  assert.ok(EDITORIAL_ARTICLE_IDS.includes(id));
+  const manifest=JSON.parse(readFileSync(new URL('../public/images/reader-media-manifest.json',import.meta.url),'utf8'));
+  const record=manifest.editorial[id];assert.ok(record);
+  const svg=readFileSync(new URL('../public/'+record.coverSvg,import.meta.url),'utf8');
+  assert.match(svg,/shared context.*repeated-update loop.*diverging forecast paths/i);
+  assert.match(svg,/not measured trajectories or performance results/);
+  assert.match(svg,/#7A1E3A/);assert.doesNotMatch(svg,/#1f6652|#a96d46/);
+  assert.doesNotMatch(svg,/<(?:image|text|linearGradient|radialGradient)\b/i);
+  for(const locale of ['en','zh-Hant']){
+    const entry=collections[locale==='en'?'writing':'writingZh'].find(item=>(item.data.sourceSlug||item.data.slug)===id);
+    assert.equal(entry.data.heroImage,'/images/test-time-forecasting/fig-01.svg');
+    const media=getReaderMedia(id,locale);
+    assert.equal(media.cover.src,'/images/reader-covers/'+id+'.webp');
+    assert.equal(media.share.src,'/images/reader-shares/'+id+'-'+locale+'.png');
   }
 });
 

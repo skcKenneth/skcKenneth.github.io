@@ -18,6 +18,7 @@ const portfolioSlugs = [
   "when-a-traffic-solver-invents-a-jam",
 ];
 const researchArticleSlugs = [
+  "do-more-test-time-steps-make-better-forecasts",
   "two-networks-one-spectrum-different-alarms",
   "how-many-equilibria-did-the-optimizer-miss",
   "when-early-warnings-cannot-tell-the-difference",

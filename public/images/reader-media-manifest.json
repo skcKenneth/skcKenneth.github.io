@@ -36,6 +36,11 @@
       "sha256": "d7921a64862a1b7d9faf2a942a6ce6b071fe91297b34de2d89e67ceb429879cb",
       "bytes": 12942
     },
+    "images/reader-thumbs/do-more-test-time-steps-make-better-forecasts.webp": {
+      "inputSha256": "438fa0b4c1a12468b7ad2e31279de7d217a641b7bbd4bfe138928d919510e0c4",
+      "sha256": "2ade13b1c8352bca53ea3d8c1d1d1c0d7846d2548add1d79c7af01fc101e6522",
+      "bytes": 15168
+    },
     "images/reader-thumbs/from-pixels-to-patrols.webp": {
       "inputSha256": "79b2305ab7cd2982b2f5ef670797799dc62b90750e42489a36b59a71a81e909b",
       "sha256": "788de32a39a853705fe90c0ac2ba8491e5509e44de3544f15f28cabd3c50916f",
@@ -225,6 +230,38 @@
       "inputSha256": "24a76aa943b167ec7c064b3aa1d3c3f8c073403c665216dc7c6dbcf7cfb96388",
       "sha256": "80c7288140718efcc218a3f36d4d283afeb5dc06f185d4b25a0511d348a2196d",
       "bytes": 6764
+    },
+    "images/reader-covers/do-more-test-time-steps-make-better-forecasts.svg": {
+      "inputSha256": "9b7750cbff69d9747936e04235b9d470805cbb6c7692cd3f878805efd310a1e8",
+      "sha256": "627839478ded0ae9ba33dd84fc3de6a27db1aaee8b87b8c0660bf29542c57470",
+      "bytes": 1286
+    },
+    "images/reader-covers/do-more-test-time-steps-make-better-forecasts.webp": {
+      "inputSha256": "780a42fb1f2088413126aa8c3f3b0c6d50b163c5e92aaf28bf1ce40a68b85be6",
+      "sha256": "9903d4220e31dc3b1ba7e556b37e7577947970f325d8f4eb341a3fc55425ad35",
+      "bytes": 8554
+    },
+    "images/reader-shares/do-more-test-time-steps-make-better-forecasts-en.png": {
+      "inputSha256": "3816a92eb7e693ff753238ee0a6e663e93e866be4b6300a52dac275f5f791b02",
+      "sha256": "b04ca0483f18f339585dded29645488a54d356663819972b43ed50e25aeb8a97",
+      "bytes": 36561,
+      "rendering": {
+        "fontFamily": "Noto Sans TC",
+        "fontSha256": "c6481c5d93420aeac11087367dae56ae7492eb1989ce42f4ca5d5aa5e2db3116",
+        "title": "Do More Test-Time Steps Make Better Forecasts?",
+        "locale": "en"
+      }
+    },
+    "images/reader-shares/do-more-test-time-steps-make-better-forecasts-zh-Hant.png": {
+      "inputSha256": "c165a036dd914b07373505b8a13ea70a08160ccd2d48f4b09dccd61c07ec3493",
+      "sha256": "e18b2aa45286b139cb1d77d595cbcd7110d8b235608cda7f2672250fb5065f9e",
+      "bytes": 40448,
+      "rendering": {
+        "fontFamily": "Noto Sans TC",
+        "fontSha256": "c6481c5d93420aeac11087367dae56ae7492eb1989ce42f4ca5d5aa5e2db3116",
+        "title": "多算幾步，就會預測得更準嗎？",
+        "locale": "zh-Hant"
+      }
     },
     "images/reader-covers/two-networks-one-spectrum-different-alarms.svg": {
       "inputSha256": "c78071fe2c30e239fd4915815085dd00b43eeba7c243a906451e899298a45d3f",
@@ -420,6 +457,19 @@
     }
   },
   "editorial": {
+    "do-more-test-time-steps-make-better-forecasts": {
+      "titles": {
+        "en": "Do More Test-Time Steps Make Better Forecasts?",
+        "zh-Hant": "多算幾步，就會預測得更準嗎？"
+      },
+      "cover": "images/reader-covers/do-more-test-time-steps-make-better-forecasts.webp",
+      "coverSvg": "images/reader-covers/do-more-test-time-steps-make-better-forecasts.svg",
+      "shares": {
+        "en": "images/reader-shares/do-more-test-time-steps-make-better-forecasts-en.png",
+        "zh-Hant": "images/reader-shares/do-more-test-time-steps-make-better-forecasts-zh-Hant.png"
+      },
+      "purpose": "decorative-editorial-cover-not-research-data"
+    },
     "two-networks-one-spectrum-different-alarms": {
       "titles": {
         "en": "Two Networks, One Spectrum, Different Alarms",

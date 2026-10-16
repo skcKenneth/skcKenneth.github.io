@@ -5,6 +5,7 @@ import { validatePublishSvg } from "./science-sync-policy.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 export const researchArticles = {
+  "do-more-test-time-steps-make-better-forecasts": 10,
   "two-networks-one-spectrum-different-alarms": 10,
   "how-many-equilibria-did-the-optimizer-miss": 10,
   "when-early-warnings-cannot-tell-the-difference": 5,

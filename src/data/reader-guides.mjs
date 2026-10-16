@@ -3,6 +3,30 @@ import { canonicalId } from './site-reader.mjs';
 // Editorial reading guides summarize the paired article bodies, not new research results.
 // Keys are shared article IDs; translated display slugs do not determine the pairing.
 export const READER_GUIDES = {
+  'do-more-test-time-steps-make-better-forecasts': {
+    en: {
+      question: 'When extra updates fit the observed context better, do they also improve the unseen future?',
+      takeaways: [
+        'Separate context residual, future forecasting error and physical-parameter identification.',
+        'Keep the negative result: the source-norm learned variant fails in the reported 128-loop held-out comparison, rather than treating completed training as useful prediction.',
+        'Compare Fourier initialization gains with direct least squares; the sampling-alias control shows why successful prediction need not identify a unique transport speed.'
+      ],
+      audience: 'Readers interested in dynamical systems, forecasting and small learned models.',
+      prerequisite: 'Linear algebra, least squares and basic derivatives; Fourier modes and adaptation are explained along the way.',
+      evidence: 'This small-scale independent reimplementation uses synthetic affine systems and periodic advection–diffusion, with three training seeds per variant and a smaller AdamW budget than the source study. Its conditional error summaries retain separate failure counts and do not establish universal benefits from more updates or refute the original paper.'
+    },
+    'zh-Hant': {
+      question: '多做幾次更新，把已觀測片段擬合得更好，是否也能改善尚未看見的未來？',
+      takeaways: [
+        '分清 context 殘差、未來預測誤差與物理參數辨識。',
+        '保留負面結果：原文範數版本在所報告的 128 次循環、未見系統比較中失敗，不能把訓練完成當成預測有用。',
+        '把 Fourier 初始化的改善與直接最小平方比較；採樣混疊控制說明，預測成功亦未必能唯一辨識輸運速度。'
+      ],
+      audience: '對動力系統、預測與小型學習模型有興趣的讀者。',
+      prerequisite: '線性代數、最小平方及基本導數；正文會解釋 Fourier 模態與測試時適應。',
+      evidence: '這是採用合成 affine 系統及週期平流–擴散的小規模獨立重實作；每個版本只有三個訓練 seeds，AdamW 預算亦小於原研究。條件式誤差摘要另列失敗數量，未建立增加更新的一般優勢，亦不構成對原論文的否定。'
+    }
+  },
   'two-networks-one-spectrum-different-alarms': {
     en: {
       question: 'How can identical eigenvalues and total-mass decay produce different finite-time alarms?',

@@ -4,14 +4,16 @@ import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
 import {transformSync} from 'esbuild';
 import {READER_GUIDES,READER_GUIDE_IDS,getReaderGuide} from '../src/data/reader-guides.mjs';
+import {EDITORIAL_ARTICLE_IDS} from '../src/data/reader-media.mjs';
 import {collections} from './helpers/reader-content.mjs';
 const root=new URL('../',import.meta.url);
 const read=path=>readFileSync(new URL(path,root),'utf8');
 const body=id=>read(`src/content/writing/${id}.md`);
 const count=(text,needle)=>text.split(needle).length-1;
 
-test('six guides use shared article IDs with complete paired reader information',()=>{
- assert.equal(READER_GUIDE_IDS.length,6);
+test('editorial guides use shared article IDs with complete paired reader information',()=>{
+ assert.equal(READER_GUIDE_IDS.length,EDITORIAL_ARTICLE_IDS.length);
+ assert.deepEqual([...READER_GUIDE_IDS].sort(),[...EDITORIAL_ARTICLE_IDS].sort());
  for(const id of READER_GUIDE_IDS) {
   const en=collections.writing.find(entry=>entry.data.slug===id);
   const zh=collections.writingZh.find(entry=>entry.data.sourceSlug===id);
@@ -32,6 +34,13 @@ test('six guides use shared article IDs with complete paired reader information'
 });
 
 test('guides preserve the articles’ critical negative findings and evidence domains',()=>{
+ const ttf='do-more-test-time-steps-make-better-forecasts';
+ assert.match(getReaderGuide(ttf).question,/observed context.*unseen future/);
+ assert.match(getReaderGuide(ttf,'zh-Hant').question,/已觀測片段.*尚未看見的未來/);
+ assert.match(getReaderGuide(ttf).takeaways.join(' '),/source-norm.*fails.*128-loop.*least squares.*sampling-alias.*unique transport speed/);
+ assert.match(getReaderGuide(ttf,'zh-Hant').takeaways.join(' '),/原文範數.*128 次循環.*失敗.*最小平方.*採樣混疊.*唯一辨識/);
+ assert.match(getReaderGuide(ttf).evidence,/small-scale independent.*synthetic.*three training seeds.*AdamW.*separate failure counts.*not establish universal.*refute the original paper/);
+ assert.match(getReaderGuide(ttf,'zh-Hant').evidence,/合成.*小規模獨立重實作.*三個訓練 seeds.*AdamW.*失敗數量.*未建立.*一般優勢.*不構成.*原論文.*否定/);
  const spectral='two-networks-one-spectrum-different-alarms';
  assert.match(body(spectral),/equal exit-rate assumption/);
  assert.match(body(spectral),/Cycles introduce arbitrarily long walks/);
@@ -110,7 +119,7 @@ test('the actual disclosure initializer opens desktop and collapses mobile witho
 });
 
 if(process.argv.includes('--built')) {
- test('all twelve built pilot pages have one guide and question without a repeated visible abstract',()=>{
+ test('all paired editorial pages have one built guide and question without a repeated visible abstract',()=>{
   for(const id of READER_GUIDE_IDS) for(const [prefix,locale,collection] of [['','en','writing'],['zh/','zh-Hant','writingZh']]) {
    const entry=collections[collection].find(entry=>(entry.data.sourceSlug||entry.data.slug)===id);
    const html=read(`dist/${prefix}writing/${entry.data.slug}/index.html`);
