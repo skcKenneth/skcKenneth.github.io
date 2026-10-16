@@ -1,6 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {readSearchState,searchParams,allowedSearchKinds,pagefindFilters,entryMatchesSearch,paginateSearch,matchCatalog,mergeSearchResults,createSearchCatalog,classifySearchUrl} from '../src/lib/search-catalog.mjs';
+
+test('plain-text search excerpts wrap unbroken mathematical tokens without clipping or changing content',()=>{
+  const css=readFileSync(new URL('../src/styles/site-search.css',import.meta.url),'utf8');
+  const excerptRule=css.match(/\.search-result p\{([^}]+)\}/)?.[1];
+  assert.ok(excerptRule,'search excerpts need a scoped paragraph rule');
+  assert.match(excerptRule,/(?:^|;)overflow-wrap:anywhere(?:;|$)/);
+  assert.doesNotMatch(excerptRule,/overflow(?:-x)?:hidden|text-overflow:ellipsis|line-clamp/);
+  const runtime=readFileSync(new URL('../src/scripts/site-search.ts',import.meta.url),'utf8');
+  assert.match(runtime,/excerpt\.textContent=entry\.excerpt/,'retain literal mathematical excerpts rather than deleting tokens or interpreting HTML');
+});
 
 test('Search URL round trips pagination, topics and explicit inclusion choices',()=>{
   const state=readSearchState('?q=%E6%95%B8%E5%AD%B8&type=writing&topic=data-ai&page=3&archive=1&questions=1&technical=1',['data-ai']);
