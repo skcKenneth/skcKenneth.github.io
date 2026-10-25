@@ -3,6 +3,30 @@ import { canonicalId } from './site-reader.mjs';
 // Editorial reading guides summarize the paired article bodies, not new research results.
 // Keys are shared article IDs; translated display slugs do not determine the pairing.
 export const READER_GUIDES = {
+  'when-local-precision-hides-the-wrong-source': {
+    en: {
+      question: 'Can a locally precise heat-source estimate still leave a distant source explanation unresolved?',
+      takeaways: [
+        'Distinguish local Fisher curvature, exact reflection ambiguity and noisy source-location errors.',
+        'Compare labeled sensor and sampling-time layouts under the same eight-reading budget, allowing unknown amplitude and diffusivity.',
+        'Keep finite-grid separation, continuous lower bounds and numerical inverse fits as different kinds of evidence.'
+      ],
+      audience: 'Readers interested in inverse problems, diffusion, uncertainty and experimental design.',
+      prerequisite: 'Basic calculus, linear algebra and Gaussian noise; the heat kernel and design criteria are explained in the article.',
+      evidence: 'A synthetic one-dimensional reflecting heat model with a known pulse time and ideal labeled point sensors. The reflection identity and standard design tools are established mathematics; finite experiments and any unresolved certificates do not establish universal uniqueness or field-sensor reliability.'
+    },
+    'zh-Hant': {
+      question: '局部看來很精準的熱源估計，是否仍可能留下一個相距很遠、尚未排除的解釋？',
+      takeaways: [
+        '分清局部 Fisher 曲率、精確鏡像歧義，以及帶噪聲的熱源位置誤差。',
+        '在同樣八次讀數下比較有標籤的測點與採樣時間，並容許未知強度和擴散率。',
+        '把有限網格分離、連續下界與數值反演結果視為不同層次的證據。'
+      ],
+      audience: '對反問題、擴散、不確定性及實驗設計有興趣的讀者。',
+      prerequisite: '基本微積分、線性代數及高斯噪聲；正文會解釋熱核與設計準則。',
+      evidence: '研究使用一維反射邊界、已知脈衝時間及理想帶標籤點感測器的合成熱模型。鏡像恆等式與標準設計工具是既有數學；有限實驗及任何未決認證均不建立普遍唯一性或現場感測器可靠性。'
+    }
+  },
   'do-more-test-time-steps-make-better-forecasts': {
     en: {
       question: 'When extra updates fit the observed context better, do they also improve the unseen future?',

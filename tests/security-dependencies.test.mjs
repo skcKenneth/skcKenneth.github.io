@@ -8,7 +8,7 @@ import {pathToFileURL} from 'node:url';
 const root=new URL('../',import.meta.url);
 const astroRequire=createRequire(import.meta.resolve('astro/package.json'));
 const dependency=async name=>import(pathToFileURL(astroRequire.resolve(name)).href);
-const minima={astro:'7.2.8',sharp:'0.35.5','js-yaml':'4.3.2',svgo:'4.1.0','smol-toml':'1.9.0',devalue:'5.9.4','fast-uri':'3.1.8',katex:'0.18.2','source-map-js':'1.2.2'};
+const minima={astro:'7.3.3',vite:'8.1.6',undici:'8.12.2',zod:'4.6.6',sharp:'0.35.5','js-yaml':'4.3.2',svgo:'4.1.0','smol-toml':'1.9.0',devalue:'5.9.4','fast-uri':'3.1.9',katex:'0.18.2','source-map-js':'1.2.2'};
 const atLeast=(version,min)=>{const a=version.split('.').map(Number),b=min.split('.').map(Number);for(let i=0;i<3;i++){if(a[i]!==b[i])return a[i]>b[i];}return true;};
 
 test('every locked copy meets the verified advisory patch floor',()=>{
@@ -19,6 +19,38 @@ test('every locked copy meets the verified advisory patch floor',()=>{
     assert.ok(versions.length,name+' missing from lock');
     for(const v of versions)assert.ok(/^\d+\.\d+\.\d+$/.test(v)&&atLeast(v,min),name+' '+v+' < '+min);
   }
+});
+
+test('oversized constrained Zod collections stop before accumulating element issues',async()=>{
+  const {z}=await dependency('zod');
+  const hostile=z.array(z.string()).max(2).safeParse(Array(10000).fill(17));
+  assert.equal(hostile.success,false);
+  assert.equal(hostile.error.issues.length,1);
+  assert.equal(hostile.error.issues[0].code,'too_big');
+  const ordinary=z.array(z.string()).max(2).safeParse(['heat','source']);
+  assert.equal(ordinary.success,true);
+  assert.deepEqual(ordinary.data,['heat','source']);
+});
+
+test('Astro JSX escapes dynamic script and style terminators while retaining trusted compiler literals',async()=>{
+  const {jsx}=await import('astro/jsx-runtime');
+  const {renderJSX}=await import('astro/runtime/server/jsx.js');
+  const {markHTMLString}=await import('astro/runtime/server/index.js');
+  for(const tag of ['script','style'])for(const ending of [tag,tag.toUpperCase()]){
+    const payload=`</${ending}><script>UNTRUSTED_MARKER</script>`;
+    const html=String(await renderJSX({},jsx(tag,{children:payload})));
+    assert.doesNotMatch(html,/<\/(?:script|style)>\s*<script>/i);
+    assert.equal((html.match(/<script>/g)||[]).length,tag==='script'?1:0);
+    assert.match(html,/UNTRUSTED_MARKER/,'escape, do not silently discard dynamic text');
+  }
+  const literal=String(await renderJSX({},jsx('script',{children:markHTMLString('const ok = 2 < 3;')})));
+  assert.equal(literal,'<script>const ok = 2 < 3;</script>');
+  assert.equal(String(await renderJSX({},jsx('style',{children:'p { color: red; }'}))),'<style>p { color: red; }</style>');
+});
+
+test('legacy icon helper pins the patched Pillow floor without rewriting published artwork',()=>{
+  const requirement=readFileSync(new URL('../scripts/requirements-personal-icon.txt',import.meta.url),'utf8');
+  assert.match(requirement,/^Pillow==13\.0\.0\s*$/m);
 });
 
 test('YAML merge budget counts empty sources and preserves ordinary frontmatter',async()=>{

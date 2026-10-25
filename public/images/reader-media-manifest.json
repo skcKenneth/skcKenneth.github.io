@@ -176,6 +176,11 @@
       "sha256": "47b5c09ae70d473c40c9bfbc32bb50eb8a433a07fcab34c64537eaa5fffb0d34",
       "bytes": 7064
     },
+    "images/reader-thumbs/when-local-precision-hides-the-wrong-source.webp": {
+      "inputSha256": "33c02ef4118e227950a1d199072bdfb62c449f67ea05da6b31e714d6849e6376",
+      "sha256": "f0d75fcb5a69b69717c1bea92736562ef689beb88640fd3d148987c5959c0bee",
+      "bytes": 8502
+    },
     "images/reader-thumbs/when-michaelis-menten-stops-being-valid.webp": {
       "inputSha256": "0638190db9ba2581895983a5abb26a6a5a99cbe1f7fea12b288be8fc7c96dcd4",
       "sha256": "f5ccf9a3a5b1476ebb40039c03b747e3b8b68b3d88e187bf6198d3c75ab2351c",
@@ -230,6 +235,38 @@
       "inputSha256": "24a76aa943b167ec7c064b3aa1d3c3f8c073403c665216dc7c6dbcf7cfb96388",
       "sha256": "80c7288140718efcc218a3f36d4d283afeb5dc06f185d4b25a0511d348a2196d",
       "bytes": 6764
+    },
+    "images/reader-covers/when-local-precision-hides-the-wrong-source.svg": {
+      "inputSha256": "096fe1f1494edb56829c81fd4c5092c19f68a6dbee340f7024a33d0f5af063cc",
+      "sha256": "408e9725bb59c88c855344a74fc1e73dfb3e603cc5f1a517303b71c008500e5a",
+      "bytes": 1352
+    },
+    "images/reader-covers/when-local-precision-hides-the-wrong-source.webp": {
+      "inputSha256": "245178afed0f4b13b90978f2dc1a7ef20e6a0cfeeeb8c2ccfd2956ae05115ddc",
+      "sha256": "cf4deab6886a9d04cfe08b104613c355ec0095754e4561f9f4df8c10ba59fdc9",
+      "bytes": 6904
+    },
+    "images/reader-shares/when-local-precision-hides-the-wrong-source-en.png": {
+      "inputSha256": "b46e5a02053b650f70c1086fe239edf9bb6d8d4cc76205ad847db71bb13aeea0",
+      "sha256": "ef17c253ceb4863359a88ae22d9bd2142db13452877c036c109c53426e487d06",
+      "bytes": 34713,
+      "rendering": {
+        "fontFamily": "Noto Sans TC",
+        "fontSha256": "c6481c5d93420aeac11087367dae56ae7492eb1989ce42f4ca5d5aa5e2db3116",
+        "title": "When Local Precision Hides the Wrong Heat Source",
+        "locale": "en"
+      }
+    },
+    "images/reader-shares/when-local-precision-hides-the-wrong-source-zh-Hant.png": {
+      "inputSha256": "50fedb989500fefdf6c3cebf3050b6ef4a257771692f9ddd51d5442c10a88951",
+      "sha256": "b2c42be452028706fc3675df9e0b759b83d1f8276861bb3c39fbe062438f943b",
+      "bytes": 40440,
+      "rendering": {
+        "fontFamily": "Noto Sans TC",
+        "fontSha256": "c6481c5d93420aeac11087367dae56ae7492eb1989ce42f4ca5d5aa5e2db3116",
+        "title": "局部很精準，為甚麼仍會找錯熱源？",
+        "locale": "zh-Hant"
+      }
     },
     "images/reader-covers/do-more-test-time-steps-make-better-forecasts.svg": {
       "inputSha256": "9b7750cbff69d9747936e04235b9d470805cbb6c7692cd3f878805efd310a1e8",
@@ -457,6 +494,19 @@
     }
   },
   "editorial": {
+    "when-local-precision-hides-the-wrong-source": {
+      "titles": {
+        "en": "When Local Precision Hides the Wrong Heat Source",
+        "zh-Hant": "局部很精準，為甚麼仍會找錯熱源？"
+      },
+      "cover": "images/reader-covers/when-local-precision-hides-the-wrong-source.webp",
+      "coverSvg": "images/reader-covers/when-local-precision-hides-the-wrong-source.svg",
+      "shares": {
+        "en": "images/reader-shares/when-local-precision-hides-the-wrong-source-en.png",
+        "zh-Hant": "images/reader-shares/when-local-precision-hides-the-wrong-source-zh-Hant.png"
+      },
+      "purpose": "decorative-editorial-cover-not-research-data"
+    },
     "do-more-test-time-steps-make-better-forecasts": {
       "titles": {
         "en": "Do More Test-Time Steps Make Better Forecasts?",

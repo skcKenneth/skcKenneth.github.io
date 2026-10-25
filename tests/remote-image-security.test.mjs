@@ -22,13 +22,13 @@ test('patched pinned Astro and dependency removal are required, not an audit exc
   const lock=readFileSync(new URL('../pnpm-lock.yaml',import.meta.url),'utf8');
   assert.doesNotMatch(lock,/^  http-cache-semantics@/m);
   const workspace=readFileSync(new URL('../pnpm-workspace.yaml',import.meta.url),'utf8');
-  assert.match(workspace,/["']?astro@7\.2\.8>http-cache-semantics["']?:\s*["']-["']/);
-  assert.match(workspace,/patchedDependencies:[\s\S]*astro@7\.2\.8/);
-  const patch=readFileSync(new URL('../patches/astro@7.2.8.patch',import.meta.url));
+  assert.match(workspace,/["']?astro@7\.3\.3>http-cache-semantics["']?:\s*["']-["']/);
+  assert.match(workspace,/patchedDependencies:[\s\S]*astro@7\.3\.3/);
+  const patch=readFileSync(new URL('../patches/astro@7.3.3.patch',import.meta.url));
   const attributes=readFileSync(new URL('../.gitattributes',import.meta.url),'utf8');
   assert.match(attributes,/^patches\/\*\.patch text eol=lf$/m,'Windows checkout must preserve the pinned patch hash');
   const hash=createHash('sha256').update(patch).digest('hex');
-  assert.match(lock,new RegExp('patchedDependencies:[\\s\\S]*?astro@7\\.2\\.8: '+hash));
+  assert.match(lock,new RegExp('patchedDependencies:[\\s\\S]*?astro@7\\.3\\.3: '+hash));
   const source=readFileSync(remoteUrl,'utf8');
   assert.doesNotMatch(source,/import CachePolicy|new CachePolicy/);
   assert.match(source,/expires: Date\.now\(\)/);

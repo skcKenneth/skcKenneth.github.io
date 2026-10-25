@@ -45,14 +45,14 @@ test('generated image receipt preserves reviewed PNG and thumbnail bytes across 
 test('registered editorial covers have distinct geometry, exact sizes and explicit decorative provenance',async()=>{
   const sharp=createRequire(import.meta.resolve('astro/package.json'))('sharp');
   const manifest=JSON.parse(readFileSync(new URL('../public/images/reader-media-manifest.json',import.meta.url),'utf8'));
-  assert.equal(EDITORIAL_ARTICLE_IDS.length,7);assert.equal(new Set(EDITORIAL_ARTICLE_IDS).size,EDITORIAL_ARTICLE_IDS.length);
+  assert.deepEqual(Object.keys(manifest.editorial).sort(),[...EDITORIAL_ARTICLE_IDS].sort());assert.equal(new Set(EDITORIAL_ARTICLE_IDS).size,EDITORIAL_ARTICLE_IDS.length);
   const drawings=new Set();
   for(const id of EDITORIAL_ARTICLE_IDS){
     const record=manifest.editorial[id];assert.equal(record.purpose,'decorative-editorial-cover-not-research-data');
     const svg=readFileSync(new URL('../public/'+record.coverSvg,import.meta.url),'utf8');
     assert.match(svg,/width="640" height="400"/);assert.match(svg,/<desc>Decorative editorial cover, not a research figure or data\./);
     assert.doesNotMatch(svg,/<(?:script|foreignObject)|\b(?:href|src)="(?:https?:|\/)/i);assert.equal(svg.includes('\r'),false);
-    if(id==='do-more-test-time-steps-make-better-forecasts'){assert.match(svg,/#7A1E3A/);assert.match(svg,/#FAF8F7/);assert.doesNotMatch(svg,/#1f6652|#a96d46/);}
+    if(['do-more-test-time-steps-make-better-forecasts','when-local-precision-hides-the-wrong-source'].includes(id)){assert.match(svg,/#7A1E3A/);assert.match(svg,/#FAF8F7/);assert.doesNotMatch(svg,/#1f6652|#a96d46/);}
     else {assert.match(svg,/#1f6652/);assert.match(svg,/#f5f3ed/);}
     drawings.add(svg.replace(/<title>.*?<\/title>|<desc>.*?<\/desc>/g,''));
     const media=getReaderMedia(id);assert.deepEqual(media.cover,{src:'/'+record.cover,width:640,height:400});
