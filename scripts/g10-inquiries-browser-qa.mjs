@@ -51,7 +51,7 @@ if(!process.env.G10_QA_PRINT_ONLY)for(const locale of ['zh-Hant','en']){
   await run(name,async page=>{
    await open(page,activity,locale);assert.equal(await page.locator('[data-g10-model]').isVisible(),false);
    await page.locator('[data-g10-reveal]').click();await page.locator('[data-g10-stage]>svg').waitFor();
-   const readings=[];for(let i=0;i<activity.cases.length;i++){await page.locator(`[data-g10-case="${i}"]`).click();readings.push(await page.locator('[data-g10-table]').textContent());}
+   const readings=[];for(let i=0;i<activity.cases.length;i++){assert.match(await page.locator(`[data-g10-case="${i}"]`).textContent(),new RegExp('^'+(i+1)+'\\.'));await page.locator(`[data-g10-case="${i}"]`).click();readings.push(await page.locator('[data-g10-table]').textContent());}
    assert.ok(new Set(readings).size>=2,'cases did not change readings');
    const control=page.locator('[data-g10-control]').first(),tag=await control.evaluate(el=>el.tagName),before=await state(page);
    if(tag==='SELECT'){const values=await control.locator('option').evaluateAll(options=>options.map(o=>o.value)),current=await control.inputValue();await control.selectOption(values.find(value=>value!==current));}
@@ -98,9 +98,10 @@ if(!process.env.G10_QA_PRINT_ONLY){
   await context.addInitScript(()=>{Object.defineProperty(window,'localStorage',{get(){throw new DOMException('Denied','SecurityError');}});Object.defineProperty(window,'sessionStorage',{get(){throw new DOMException('Denied','SecurityError');}});});await open(page,inquiries[0],'en');await page.locator('[data-g10-reveal]').click();await page.locator('.g10-notebook summary').click();await page.locator('[data-g10-note="explanation"]').fill('Session-only QA');await page.locator('[data-g10-consent]').check();const download=page.waitForEvent('download');await page.locator('[data-g10-export]').click();await download;return {interactive:true,export:true};
  });
 }
-if(!process.env.G10_QA_SKIP_PRINT&&!filter)for(const locale of ['zh-Hant','en'])for(const chapter of chapters)for(const teacher of [false,true])await run(`print-${locale}-${chapter.id}-${teacher?'teacher':'student'}`,async page=>{
+if(!process.env.G10_QA_SKIP_PRINT)for(const locale of ['zh-Hant','en'])for(const chapter of chapters)for(const teacher of [false,true])await run(`print-${locale}-${chapter.id}-${teacher?'teacher':'student'}`,async page=>{
  const url=origin+inquiryBase(locale)+`print/${chapter.id}/${teacher?'teacher/':''}`;const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});assert.equal(response.status(),200);await page.locator('[data-g10-paper-id]').first().waitFor({state:'visible'});await page.emulateMedia({media:'print'});await page.evaluate(async()=>{await document.fonts.ready;});assert.equal(await page.locator('[data-g10-paper-id]').count(),chapter.count);assert.equal(await page.locator('[data-g10-paper-answer]').count(),teacher?chapter.count:0);
+ assert.equal(await page.locator('[data-g10-teacher-case-label]').count()>0,teacher);if(!teacher){assert.ok(await page.locator('[data-g10-student-case]').count()>0);for(const label of await page.locator('[data-g10-student-case]').allTextContents())assert.match(label,/^(Case|例子)\s+\d+$/);}
  const name=`${locale}-${chapter.id}-${teacher?'teacher':'student'}.pdf`;await page.pdf({path:resolve(output,name),format:'A4',printBackground:true,preferCSSPageSize:true});report.pdfs.push({file:name,locale,chapter:chapter.id,teacher,count:chapter.count});return {cards:chapter.count,pdf:name,answers:teacher};
 });
-await browser.close();if(!external)await new Promise(done=>server.close(done));report.finishedAt=new Date().toISOString();await save();
+await browser.close();if(!external)await new Promise(done=>server.close(done));if(!report.cases.length)report.errors.push({error:'No QA cases matched the requested filter.'});report.finishedAt=new Date().toISOString();await save();
 const failures=report.cases.filter(c=>c.status!=='passed');console.log(JSON.stringify({cases:report.cases.length,passed:report.cases.length-failures.length,failed:failures.length,pageErrors:report.errors.length,pdfs:report.pdfs.length,report:resolve(output,'report.json')}));if(failures.length||report.errors.length)process.exitCode=1;

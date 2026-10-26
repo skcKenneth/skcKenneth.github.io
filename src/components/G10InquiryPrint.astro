@@ -6,7 +6,7 @@ const {locale='en',chapterId,teacher=false}=Astro.props;
 const t=(en:string,zh:string)=>locale==='zh-Hant'?zh:en,l=(value:any)=>value?.[locale]||'';
 const chapter=chapters.find(c=>c.id===chapterId)!,activities=inquiries.filter(a=>a.chapter===chapterId);
 const sheets=teacher?activities.map(a=>[a]):Array.from({length:Math.ceil(activities.length/2)},(_,i)=>activities.slice(i*2,i*2+2));
-function caseInputs(activity:any,c:any){return Object.entries(c.params).filter(([key])=>!['directState','scenario','view'].includes(key)&&activity.controls.some((control:any)=>control.key===key)).map(([key,value])=>{const control=activity.controls.find((control:any)=>control.key===key),option=control.options?.find((option:any)=>String(option.value)===String(value));return `${l(control.label)} = ${option?l(option.label):value}`;}).join('; ');}
+function caseInputs(activity:any,c:any){return Object.entries(c.params).filter(([key])=>!['directState','scenario','view'].includes(key)&&activity.controls.some((control:any)=>control.key===key&&(teacher||!control.options))).map(([key,value])=>{const control=activity.controls.find((control:any)=>control.key===key),option=control.options?.find((option:any)=>String(option.value)===String(value));return `${l(control.label)} = ${option?l(option.label):value}`;}).join('; ');}
 function paperCases(activity:any){return teacher?activity.cases:studentCases(activity);}
 ---
 <div class="container g10-print-page" lang={locale} data-g10-print data-g10-print-teacher={String(teacher)}>
@@ -15,7 +15,8 @@ function paperCases(activity:any){return teacher?activity.cases:studentCases(act
   <p class="eyebrow">{chapter.id} {l(chapter.title)} · {activity.id} · 5–10 {t('min','分鐘')}{teacher?` · ${t('TEACHER · ANSWERS','教師版・含答案')}`:''}</p>
   <h2>{l(activity.title)}</h2><p><strong>{l(activity.question)}</strong></p>
   <p>{t('Predict: ','先預測：')}{l(activity.prediction)}</p>{!teacher&&<div class="g10-writing-line"/>}
-  <table class="g10-paper-table"><thead><tr><th>{t('Compare','對照')}</th><th>{teacher?t('Computed observation','計算觀察'):t('What changed? What stayed?','改變／不變嘅量')}</th></tr></thead><tbody>{paperCases(activity).map((c:any)=><tr><td>{l(c.label)}{caseInputs(activity,c)&&<><br/><span class="g10-case-inputs">{caseInputs(activity,c)}</span></>}</td><td>{teacher?evaluateInquiry(activity.id,c.params,locale).summary:'　　　　　　　　　　　　　　　　　'}</td></tr>)}</tbody></table>
+  {!teacher&&<p>{t('Case numbers match the projection buttons. Record the displayed conditions and your observation.','例子編號對應投影按鈕，請記下畫面條件及你的觀察。')}</p>}
+  <table class="g10-paper-table"><thead><tr><th>{t('Compare','對照')}</th><th>{teacher?t('Computed observation','計算觀察'):t('What changed? What stayed?','改變／不變嘅量')}</th></tr></thead><tbody>{paperCases(activity).map((c:any)=><tr><td>{teacher?<span data-g10-teacher-case-label>{l(c.label)}</span>:<span data-g10-student-case={activity.cases.indexOf(c)+1}>{t('Case ','例子 ')}{activity.cases.indexOf(c)+1}</span>}{caseInputs(activity,c)&&<><br/><span class="g10-case-inputs">{caseInputs(activity,c)}</span></>}</td><td>{teacher?evaluateInquiry(activity.id,c.params,locale).summary:'　　　　　　　　　　　　　　　　　'}</td></tr>)}</tbody></table>
   {teacher?<>
    <p><strong>{t('Conclusion: ','結論：')}</strong>{l(activity.explanation)}</p>
    <p><strong>{t('Conditions: ','條件：')}</strong>{l(activity.conditions)}</p>

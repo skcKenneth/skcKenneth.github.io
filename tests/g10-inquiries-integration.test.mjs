@@ -5,6 +5,7 @@ import {inquiries,chapters,coverageRows,evaluateInquiry,inquiryUrl,inquiryNoteId
 import {createMathCatalog} from '../src/lib/math-system-catalog.mjs';
 import {requiredInquiryTargets} from '../src/data/g10-inquiry-coverage.mjs';
 import {createSystemBackup,parseSystemBackup,SYSTEM_KEY} from '../src/lib/math-system-records.mjs';
+const built=process.argv.includes('--built');
 
 test('all 85 prescribed subsection identities are covered, not just chapter counts',()=>{
  assert.equal(inquiries.length,85);assert.equal(chapters.length,14);
@@ -54,7 +55,16 @@ test('student print markup has no teacher explanations or answers',()=>{
   const prefix=locale==='en'?'../dist/teaching/':'../dist/zh/teaching/';
   const student=readFileSync(new URL(`${prefix}senior-math/inquiries/print/${chapter.id}/index.html`,import.meta.url),'utf8');
   const teacher=readFileSync(new URL(`${prefix}senior-math/inquiries/print/${chapter.id}/teacher/index.html`,import.meta.url),'utf8');
-  assert.doesNotMatch(student,/data-g10-paper-answer/);assert.match(teacher,/data-g10-paper-answer/);
+  assert.doesNotMatch(student,/data-g10-paper-answer/);assert.doesNotMatch(student,/data-g10-teacher-case-label/);assert.match(teacher,/data-g10-paper-answer/);if(built)assert.match(student,/data-g10-student-case/);
   for(const activity of inquiries.filter(a=>a.chapter===chapter.id)){assert.ok(student.includes(activity.id));assert.ok(teacher.includes(activity.id));}
+ }
+});
+test('student print case headings are neutral numbers rather than outcome labels',()=>{
+ const component=readFileSync(new URL('../src/components/G10InquiryPrint.astro',import.meta.url),'utf8');
+ assert.match(component,/data-g10-student-case/);assert.match(component,/teacher\|\|!control\.options/);
+ if(existsSync(new URL('../dist/teaching/senior-math/inquiries/print/09/index.html',import.meta.url)))for(const prefix of ['../dist/teaching/','../dist/zh/teaching/']){
+  const html=readFileSync(new URL(`${prefix}senior-math/inquiries/print/09/index.html`,import.meta.url),'utf8');
+  // Only inspect newly built neutral-card markup; pre-build output is independently rechecked after build.
+  if(built)assert.match(html,/data-g10-student-case/);if(html.includes('data-g10-student-case'))for(const label of ['太短：零解','相切，一解','雙解情況','90° 最大值'])assert.ok(!html.includes(label),label);
  }
 });

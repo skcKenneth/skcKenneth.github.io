@@ -33,7 +33,7 @@ const fields=[['prediction',t('My prediction','我的預測')],['observation',t(
   </nav>
   <section class="g10-prediction"><p class="eyebrow">{t('1 MIN · PREDICT ON PAPER','1 分鐘・紙上預測')}</p><h2>{l(activity.prediction)}</h2><p>{t('Discuss or write first. No typed answer is required to continue.','先討論或寫下判斷，毋須輸入文字即可繼續。')}</p><button type="button" data-g10-reveal>{t('Show model and compare','展示模型，開始比較')}</button></section>
   <section class="g10-model" data-g10-model hidden aria-label={t('Interactive comparison','互動比較')}>
-   <div class="g10-presets" role="group" aria-label={t('Contrasting cases','對照案例')}>{activity.cases.map((c:any,i:number)=><button type="button" data-g10-case={i} aria-pressed={i===0?'true':'false'}>{l(c.label)}</button>)}</div>
+   <div class="g10-presets" role="group" aria-label={t('Contrasting cases','對照案例')}>{activity.cases.map((c:any,i:number)=><button type="button" data-g10-case={i} aria-pressed={i===0?'true':'false'}>{i+1}. {l(c.label)}</button>)}</div>
    <div class="g10-stage" data-g10-stage set:html={initial?.svg}/>
    <div class="g10-controls" data-g10-controls>{activity.controls.map((control:any)=><label>{l(control.label)}{control.options?<select data-g10-control={control.key}>{control.options.map((option:any)=><option value={option.value}>{l(option.label)}</option>)}</select>:<input data-g10-control={control.key} type="range" min={control.min} max={control.max} step={control.step||1} value={activity.cases[0].params[control.key]??control.min}/> }<output data-g10-output={control.key}/></label>)}</div>
    <div data-g10-direct-tools class="g10-direct-tools"/>

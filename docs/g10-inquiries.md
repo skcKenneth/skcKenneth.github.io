@@ -12,6 +12,8 @@ Each short inquiry has one core question, at least three executable comparison c
 
 All controls, task text and teacher material have complete English and Traditional Chinese versions. Student prints contain two cards per A4 page and no teacher answer markup. Teacher reference prints explicitly disclose answers and use one activity per page for legibility. The pedagogical sequence is an original adaptation informed by NRICH's trial, conjecture and generalization approach: https://nrich.maths.org/articles/low-threshold-high-ceiling-tasks-secondary-classrooms . No educational-effectiveness claim is made.
 
+Student case headings use neutral numbers matching the projection buttons. Outcome-bearing case labels and model-choice descriptions remain in the teacher edition; students record the projected conditions and their own observations. Built-output tests check the neutral markers as well as answer separation.
+
 ## Records and compatibility
 
 The collection uses the existing `math-system-notebook-v1` store and coordinated writer, not a new independent evidence database. Optional saved notes and comparison records are included in existing complete backup/restore. Unsaved drafts stay in sessionStorage in the current tab, with notebook export available. Function short views share the original `senior:function-worksheet:NN` note identity. Unified activity IDs remain distinct navigation entries, with `noteId` explicitly mapping shared evidence. Language switches preserve model URLs and per-tab drafts. Visits are not marked as learning completion.
