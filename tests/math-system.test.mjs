@@ -15,7 +15,8 @@ const copy=value=>structuredClone(value);
 test('Unified catalog contains working activity adapters for every original collection',()=>{
  const catalog=createMathCatalog(lessons);assert.equal(new Set(catalog.map(a=>a.id)).size,catalog.length);
  for(const item of catalog){for(const locale of ['en','zh-Hant']){assert.ok(item.title[locale]);assert.match(item.sources[locale],/^\//);}assert.ok(item.runtime);}
- for(const [group,count]of [['school',38],['inquiry',25],['model',14],['workshop',6]])assert.equal(catalog.filter(a=>a.group===group).length,count);
+ for(const [group,count]of [['school',38],['inquiry',110],['model',14],['workshop',6]])assert.equal(catalog.filter(a=>a.group===group).length,count);
+ assert.equal(catalog.filter(a=>a.group==='inquiry'&&!a.id.startsWith('school:inquiry:g10-')).length,25,'all original inquiries remain alongside the 85 new subsection entries');
  assert.ok(catalog.find(a=>a.id==='school:inquiry:angle-bisector').sources.en.includes('lab=bisector-property'));
  assert.ok(catalog.filter(a=>a.runtime==='lab').every(a=>a.sources.en.startsWith('/math-labs/inquiry/')));
  assert.ok(catalog.some(a=>a.id==='resource:competition'));

@@ -1,0 +1,10 @@
+import {writeFile,mkdir} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {chapters,inquiries,inquiryBase,inquiryUrl,evaluateInquiry} from '../src/data/g10-inquiries.mjs';
+import {requiredInquiryTargets} from '../src/data/g10-inquiry-coverage.mjs';
+const entries=chapters.map(chapter=>({id:chapter.id,title:chapter.title,lesson:chapter.lesson,items:inquiries.filter(a=>a.chapter===chapter.id).map(a=>({id:a.id,title:a.title,url:{en:inquiryUrl(a.id,'en'),'zh-Hant':inquiryUrl(a.id,'zh-Hant')}}))}));
+await writeFile(fileURLToPath(new URL('../public/math-studio/g10-inquiry-catalog.js',import.meta.url)),`/* Generated from the authored Senior 1 chapter map. */\nwindow.G10InquiryLinks=${JSON.stringify({base:{en:inquiryBase('en'),'zh-Hant':inquiryBase('zh-Hant')},chapters:entries}).replace(/</g,'\\u003c')};\n`);
+console.log('Senior 1 inquiry links: 14 chapters / '+inquiries.length+' activities');
+const directory=fileURLToPath(new URL('../public/resources/g10-inquiries/',import.meta.url));await mkdir(directory,{recursive:true});
+const coverage={version:1,meaning:{en:'Authored subsection coverage and example evidence, not student mastery or universal proof. Teacher reference includes explanations.','zh-Hant':'已編寫的小節覆蓋及示例證據，不代表學生掌握或全稱證明。教師參考包含解釋。'},activities:requiredInquiryTargets.map(required=>{const a=inquiries.find(a=>a.id===required.id);if(!a)throw Error('Missing required target '+required.id);const chapter=chapters.find(c=>c.id===a.chapter);return{...required,title:a.title,chapterTitle:chapter.title,kind:chapter.kind,sourceLesson:`/math-studio/?lesson=${chapter.lesson}&grade=g10`,url:{en:inquiryUrl(a.id,'en'),'zh-Hant':inquiryUrl(a.id,'zh-Hant')},coreClaim:a.explanation,conditions:a.conditions,evidence:a.cases.map(c=>({label:c.label,boundary:c.boundary,params:c.params,observation:{en:evaluateInquiry(a.id,c.params,'en').summary,'zh-Hant':evaluateInquiry(a.id,c.params,'zh-Hant').summary}}))};})};
+await writeFile(directory+'coverage.json',JSON.stringify(coverage,null,2)+'\n');

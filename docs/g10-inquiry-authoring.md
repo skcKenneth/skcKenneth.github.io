@@ -1,0 +1,13 @@
+# Senior 1 micro-inquiry authoring contract
+
+85 original bilingual activities in the existing 14-chapter order; 5–10 minutes, teacher projection and paper discussion. Browser observations are not proofs or evidence of learning effectiveness.
+
+Each author module exports `activities` and `evaluate(id, params, locale='en')`. An activity has stable `id` (`g10-CC-NN`), `chapter` (`CC`), `order` (number), bilingual objects (`{en, 'zh-Hant'}`) for `title`, `question`, `prediction`, `prerequisites`, `explanation`, `conditions`, `misconception`, `challenge`, `proof`, and `teacherPrompt`; `exit: {prompt, answer}`; at least 3 `cases: [{label, params, boundary}]` with a boundary/counterexample; and `controls: [{key,label,min,max,step}]` for numeric input or `{key,label,options:[{value,label}]}` for a select. Every case is executable and meaningful. A control should change the mathematical result, not just presentation. Conditional geometry can additionally have a view-angle control.
+
+`evaluate` returns `{svg, columns: string[], rows: (string|number)[][], summary: string, valid: boolean, metrics: object}` localized to the requested language. SVG must have `viewBox="0 0 720 340"` (or a compatible responsive aspect ratio), a nonempty accessible label/title, escaped labels, finite coordinates, and meaningful mathematical objects (not a table rendered as an image). Tables independently expose its quantities. Invalid/domain/degenerate inputs produce an explanatory result; do not silently clip them into valid data. Agents may implement group-specific SVG helpers in their owned modules.
+
+Use plain text Unicode math in authored prose, no raw TeX. Keep controls and results fully bilingual. Explanations state assumptions, a mathematical justification, and the distinction between finite observations and universal proof. Teacher-only content is hidden in student printouts.
+
+Function activities 05-01 through 05-14 reuse existing worksheet native IDs 01–14 and `function-hands-on.mjs` state/reducer/renderer. Cases may carry native direct-state or deterministic reducer actions. Export any extra adapter required by the generic UI from the function author module; do not modify the original 14 worksheets. Function activity 05-15 is the radical/extraneous-root task.
+
+Expected counts by chapter: 4,4,4,4,15,9,12,6,5,6,4,3,4,5 (85 total). Keep chapter/prerequisite labels, original source identities and core/supplement/additional mathematics distinctions in the aggregate catalogue. Tests must independently check nontrivial mathematical claims and boundary cases rather than only compare the renderer to itself.

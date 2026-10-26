@@ -1,5 +1,6 @@
 import {lessons, reviews, skills, papers, lessonUrl, skillUrl, paperUrl} from '../data/senior-math/catalog.mjs';
 import {chapterTitle, chapterSubtitle, functionWorksheets, worksheetBase, worksheetUrl, worksheetActivityId} from '../data/function-worksheets.mjs';
+import {inquiries as g10Inquiries,chapters as g10Chapters,inquiryUrl,inquiryActivityId,inquiryNoteId} from '../data/g10-inquiries.mjs';
 
 const bi=(en,zh)=>({en,'zh-Hant':zh});
 const pair=value=>bi(value?.en||'',value?.zh||value?.['zh-Hant']||'');
@@ -24,6 +25,7 @@ export function createMathCatalog(workshops=[],classroomPacks=[]){
  const catalog=[
   {id:'senior:function-worksheets',group:'senior',grades:['g10'],title:chapterTitle,summary:chapterSubtitle,topic:chapterTitle,runtime:'senior',nativeId:'function-worksheets',sources:bi(worksheetBase('en'),worksheetBase('zh-Hant'))},
   ...functionWorksheets.map(item=>({id:worksheetActivityId(item.id),group:'senior',grades:['g10'],title:item.title,summary:item.focus,topic:chapterTitle,runtime:'senior',nativeId:`function-worksheet-${item.id}`,sources:bi(worksheetUrl(item.id,'en'),worksheetUrl(item.id,'zh-Hant'))})),
+  ...g10Inquiries.map(item=>({id:inquiryActivityId(item.id),noteId:inquiryNoteId(item),group:'inquiry',grades:['g10'],title:item.title,summary:item.question,topic:g10Chapters.find(c=>c.id===item.chapter).title,runtime:'senior',nativeId:item.id,sources:bi(inquiryUrl(item.id,'en'),inquiryUrl(item.id,'zh-Hant'))})),
   {id:'school:inquiry:angle-bisector',group:'inquiry',grades:['g8'],title:bi('Properties of an angle bisector','角的平分線的性質'),summary:bi('A 15–20 minute classroom inquiry: predict, measure perpendicular distances, explain and test the converse.','15–20 分鐘課堂探究：預測、量度垂直距離、解釋及檢查逆命題。'),topic:bi('Geometry · congruent triangles','幾何・全等三角形'),runtime:'school',nativeId:'bisector-property',sources:bi('/math-studio/?lab=bisector-property&grade=g8&lang=en','/math-studio/?lab=bisector-property&grade=g8&lang=zh-Hant')},
   ...schoolLessons.map(([id,grade,en,zh])=>({id:`school:lesson:${id}`,group:'school',grades:[grade],title:bi(en,zh),summary:bi('Chapter concepts, worked examples and tiered practice.','章節概念、逐步例題及分層練習。'),topic:bi('School curriculum','中學課程'),runtime:'school',nativeId:id,sources:bi(`/math-studio/?lesson=${id}&lang=en`,`/math-studio/?lesson=${id}&lang=zh-Hant`)})),
   ...schoolInquiries.map(([id,grade,en,zh])=>({id:`school:inquiry:${id}`,group:'inquiry',grades:[grade],title:bi(en,zh),summary:bi('Predict, change one condition, save evidence and revise your explanation.','先預測，一次改一項條件，保存證據並修訂解釋。'),topic:bi('School inquiry','中學探究'),runtime:'school',nativeId:id,sources:bi(`/math-studio/?lab=${id}&lang=en`,`/math-studio/?lab=${id}&lang=zh-Hant`)})),

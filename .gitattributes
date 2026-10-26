@@ -1,6 +1,12 @@
 *.pdf binary
 *.zip binary
 patches/*.patch text eol=lf
+tests/guided-practice.test.mjs text eol=lf
+public/math-studio/app.js text eol=lf
+public/math-studio/index.html text eol=lf
+public/math-studio/inquiry-g7-ui.js text eol=lf
+public/math-studio/inquiry-g7.css text eol=lf
+public/math-studio/g10-inquiry-catalog.js text eol=lf
 public/images/**/*.svg -text whitespace=cr-at-eol
 public/science/**/*.svg binary
 public/images/deflated-continuation-folding/*.svg -text whitespace=cr-at-eol

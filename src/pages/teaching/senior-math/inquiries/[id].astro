@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import G10Inquiry from '../../../../components/G10Inquiry.astro';
+import {inquiries,inquiryUrl} from '../../../../data/g10-inquiries.mjs';
+export function getStaticPaths(){return inquiries.map(activity=>({params:{id:activity.id},props:{activity}}));}
+const {activity}=Astro.props;
+---
+<BaseLayout title={activity.title.en} description={activity.question.en} type="Teaching" alternatePath={inquiryUrl(activity.id,'zh-Hant')} topicIds={['mathematical-thinking','teaching-research-practice']}><G10Inquiry locale="en" activityId={activity.id}/></BaseLayout>

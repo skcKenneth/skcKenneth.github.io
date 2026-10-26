@@ -161,6 +161,10 @@ const G7InquiryUI = (() => {
   }
   function catalog() {
     const all=Object.entries(labInfo),grade=state.grade;
+    if(grade==='g10'&&globalThis.G10InquiryLinks){
+      const locale=state.language==='en'?'en':'zh-Hant',en=locale==='en',registry=globalThis.G10InquiryLinks;
+      return `<div class="segmented g7-grade-filter" role="group" aria-label="${en?'Inquiry grade':'探究年級'}">${Object.entries(grades).map(([id,g])=>button(en?g.en:g.name,`data-lab-grade="${id}" aria-pressed="${grade===id}"`,grade===id?'active':'')).join('')}</div><h2>${en?'Senior 1 · 14 chapters · 85 short inquiries':'高一・14 章・85 個短探究'}</h2><p>${en?'5–10 minutes each. Predict on paper, compare cases and explain.':'每項 5–10 分鐘，紙上預測、對照例子，再講清楚理由。'}</p><p><a href="${registry.base[locale]}">${en?'Open chapter map and printable sheets':'開啟章節地圖及列印學習單'} ↗</a></p>${registry.chapters.map(chapter=>`<section><h3>${chapter.id} ${escapeHTML(chapter.title[locale])}</h3><div class="lab-selector">${chapter.items.map(item=>`<a class="g10-inquiry-link" href="${item.url[locale]}" data-g10-inquiry-link="${item.id}"><small>${item.id} · 5–10 ${en?'min':'分鐘'}</small>${escapeHTML(item.title[locale])}</a>`).join('')}</div></section>`).join('')}`;
+    }
     const core=grade==='g7'?ids:all.filter(([id])=>(!C.has(id)&&Inquiry.units[id].grade.includes(grades[grade].name))||(id==='tariffs'&&grade==='g8')).map(([id])=>id);
     const extension=grade==='g7'?['triangle','area','outlier']:[];
     const cards=list=>list.map(id=>button(`<small>${C.has(id)?'CH. '+String(ids.indexOf(id)+1).padStart(2,'0'):Inquiry.units[id].grade}</small>${labInfo[id].short}`,`data-open-lab="${id}" aria-pressed="${state.lab===id}"`,state.lab===id?'active':'')).join('');

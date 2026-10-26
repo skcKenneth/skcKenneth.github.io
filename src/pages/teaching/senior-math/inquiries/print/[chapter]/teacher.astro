@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import G10InquiryPrint from '../../../../../../components/G10InquiryPrint.astro';
+import {chapters,inquiryBase} from '../../../../../../data/g10-inquiries.mjs';
+export function getStaticPaths(){return chapters.map(chapter=>({params:{chapter:chapter.id},props:{chapter}}));}
+const {chapter}=Astro.props;
+---
+<BaseLayout title={`${chapter.title.en} · Teacher reference · answers included`} type="Teaching" alternatePath={`${inquiryBase('zh-Hant')}print/${chapter.id}/teacher/`}><G10InquiryPrint locale="en" chapterId={chapter.id} teacher/></BaseLayout>

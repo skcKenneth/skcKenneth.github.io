@@ -1,0 +1,20 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {resolve,posix} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {inquiries,chapters,inquiryBase,inquiryUrl} from '../src/data/g10-inquiries.mjs';
+const root=fileURLToPath(new URL('../',import.meta.url)),origin='https://skckenneth.github.io',dist=resolve(root,'dist');
+const report={checkedAt:new Date().toISOString(),origin,routes:[],assets:[],errors:[]},assets=new Set();
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+async function fetchBytes(path){const response=await fetch(origin+path,{headers:{'Cache-Control':'no-cache'}});if(!response.ok)throw Error(`${response.status} ${path}`);return Buffer.from(await response.arrayBuffer());}
+const routes=[];for(const locale of ['en','zh-Hant']){
+ routes.push({path:inquiryBase(locale),kind:'index'});
+ for(const activity of inquiries)routes.push({path:inquiryUrl(activity.id,locale),kind:'activity',id:activity.id});
+ for(const chapter of chapters)for(const teacher of [false,true])routes.push({path:inquiryBase(locale)+`print/${chapter.id}/${teacher?'teacher/':''}`,kind:'print',teacher,count:chapter.count});
+}
+async function pool(items,fn,limit=8){let cursor=0;await Promise.all(Array.from({length:Math.min(limit,items.length)},async()=>{while(cursor<items.length){const item=items[cursor++];await fn(item);}}));}
+await pool(routes,async route=>{try{const bytes=await fetchBytes(route.path),html=bytes.toString('utf8');if(route.kind==='activity'&&!html.includes(`data-g10-id="${route.id}"`))throw Error('Missing activity marker');if(route.kind==='index'&&new Set([...html.matchAll(/href="[^"#?]*\/(g10-\d{2}-\d{2})\//g)].map(m=>m[1])).size!==85)throw Error('Incomplete index');if(route.kind==='print'&&(html.match(/data-g10-paper-id=/g)||[]).length!==route.count)throw Error('Incomplete print cards');if(route.kind==='print'&&((html.match(/data-g10-paper-answer/g)||[]).length!== (route.teacher?route.count:0)))throw Error('Answer separation mismatch');for(const match of html.matchAll(/(?:src|href)="(\/_astro\/[^"?]+\.(?:js|css))(?:[?"][^"]*)?/g))assets.add(match[1]);report.routes.push({path:route.path,status:200,kind:route.kind});}catch(error){report.errors.push({path:route.path,error:String(error)});}});
+const pending=[...assets],seen=new Set();while(pending.length){const path=pending.shift();if(seen.has(path))continue;seen.add(path);try{const bytes=await readFile(resolve(dist,'.'+path));if(path.endsWith('.js'))for(const match of bytes.toString('utf8').matchAll(/(?:from\s*|import\s*\(?)["'](\.[^"']+\.js)["']/g)){const child=posix.normalize(posix.join(posix.dirname(path),match[1]));if(child.startsWith('/_astro/')&&!seen.has(child))pending.push(child);}}catch(error){report.errors.push({path,error:'Local asset unavailable: '+error});}}
+for(const path of ['/math-studio/index.html','/math-studio/inquiry-g7-ui.js','/math-studio/inquiry-g7.css','/math-studio/app.js','/math-studio/g10-inquiry-catalog.js','/resources/g10-inquiries/coverage.json'])seen.add(path);
+await pool([...seen],async path=>{try{const local=await readFile(resolve(dist,'.'+path)),live=await fetchBytes(path),localSha256=sha(local),liveSha256=sha(live);if(localSha256!==liveSha256)throw Error('SHA-256 mismatch');report.assets.push({path,bytes:live.length,sha256:liveSha256,matched:true});}catch(error){report.errors.push({path,error:String(error)});}});
+await mkdir(resolve(root,'.tmp'),{recursive:true});await writeFile(resolve(root,'.tmp/g10-live-check.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({routes:report.routes.length,assets:report.assets.length,errors:report.errors.length}));if(report.errors.length){console.error(JSON.stringify(report.errors.slice(0,10)));process.exitCode=1;}

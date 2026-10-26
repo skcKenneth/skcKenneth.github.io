@@ -1,0 +1,57 @@
+---
+import {inquiries,chapters,inquiryTitle,inquirySummary,inquiryBase,inquiryUrl,inquiryActivityId,inquiryNoteId,evaluateInquiry} from '../data/g10-inquiries.mjs';
+import '../styles/g10-inquiries.css';
+interface Props {locale?:'en'|'zh-Hant';activityId?:string}
+const {locale='en',activityId}=Astro.props;
+const zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en,l=(v:any)=>v?.[locale]||'';
+const activity:any=inquiries.find(a=>a.id===activityId),chapter=activity?chapters.find(c=>c.id===activity.chapter):undefined;
+const index=inquiries.indexOf(activity),workspace=`${zh?'/zh':''}/teaching/math/`;
+const initial=activity?evaluateInquiry(activity.id,activity.cases[0].params,locale):null;
+const fields=[['prediction',t('My prediction','我的預測')],['observation',t('Compared evidence','對照證據')],['explanation',t('Revised explanation','修訂解釋')],['limitations',t('Conditions and next question','條件與下一個問題')]];
+---
+<div class="g10-inquiries container" lang={locale} data-g10-root data-g10-id={activityId} data-g10-locale={locale}>
+ <header class="g10-heading">
+  <a href={activity?inquiryBase(locale):workspace}>← {activity?l(inquiryTitle):t('Mathematics learning space','數學互動研習室')}</a>
+  <p class="eyebrow">{activity?`${activity.id} · ${l(chapter?.kindLabel)}`:t('SENIOR 1 · PAPER AND PROJECTION','高一・紙本與投影')}</p>
+  <h1>{activity?l(activity.title):l(inquiryTitle)}</h1>
+  <p>{activity?l(activity.question):l(inquirySummary)}</p>
+ </header>
+ {!activity?<>
+  <aside class="g10-intro"><p>{t('Choose a chapter. Each task starts with a question, offers contrasting cases and ends with a short explanation. All controls work without a sign-in.','選一章開始。每項由問題出發，提供對照例子，最後寫一個簡短解釋。所有操作均免登入。')}</p><p>{t('Counts describe authored content, not student mastery. Textbook and school-syllabus boundaries follow the existing Senior 1 chapter map.','數量表示已編寫內容，不代表學生掌握程度。教材與校本大綱界線沿用現有高一章節。')}</p><a href="/math-studio/?grade=g10">{t('Original chapter lessons and practice','原有章節講解與練習')} ↗</a> · <a href="/resources/g10-inquiries/coverage.json" download>{t('Subsection map · teacher reference with explanations (JSON)','小節覆蓋對照・教師參考含解釋（JSON）')}</a></aside>
+  <nav class="g10-chapter-nav" aria-label={t('Chapters','章節')}>{chapters.map(c=><a href={`#chapter-${c.id}`}>{c.id} {l(c.title)}</a>)}</nav>
+  {chapters.map(c=><section class="g10-chapter" id={`chapter-${c.id}`} data-g10-chapter={c.id}>
+   <div class="g10-chapter-heading"><div><p class="eyebrow">{l(c.kindLabel)} · {c.count} {t('short inquiries','個短探究')}</p><h2>{c.id} {l(c.title)}</h2></div><div class="g10-print-links"><a href={`${inquiryBase(locale)}print/${c.id}/`}>{t('Student sheets','學生學習單')}</a><a href={`${inquiryBase(locale)}print/${c.id}/teacher/`}>{t('Teacher reference · answers included','教師參考・包含答案')}</a></div></div>
+   <ol class="g10-cards">{inquiries.filter(a=>a.chapter===c.id).map(a=><li><article><p class="eyebrow">{a.id} · 5–10 {t('min','分鐘')}</p><h3><a href={inquiryUrl(a.id,locale)}>{l(a.title)}</a></h3><p>{l(a.question)}</p><p class="g10-prerequisite">{t('Before you start: ','先備：')}{l(a.prerequisites)}</p></article></li>)}</ol>
+  </section>)}
+ </>:<>
+  <nav class="g10-toolbar" aria-label={t('Inquiry tools','探究工具')}>
+   <button type="button" data-g10-project aria-pressed="false">{t('Projection mode','投影模式')}</button>
+   <a href={`${workspace}?activity=${encodeURIComponent(inquiryActivityId(activity.id))}`} target="_top">{t('Open in classroom workspace','在課堂研習室開啟')}</a>
+   <a href={`${inquiryBase(locale)}print/${chapter?.id}/#${activity.id}`}>{t('Student sheet','學生學習單')}</a>
+   <a href={`${inquiryBase(locale)}print/${chapter?.id}/teacher/#${activity.id}`}>{t('Teacher print · answers','教師列印・含答案')}</a>
+   {activity.nativeId&&<a href={`${zh?'/zh':''}/teaching/senior-math/function-worksheets/${activity.nativeId}/`}>{t('Full function worksheet','完整函數工作紙')}</a>}
+  </nav>
+  <section class="g10-prediction"><p class="eyebrow">{t('1 MIN · PREDICT ON PAPER','1 分鐘・紙上預測')}</p><h2>{l(activity.prediction)}</h2><p>{t('Discuss or write first. No typed answer is required to continue.','先討論或寫下判斷，毋須輸入文字即可繼續。')}</p><button type="button" data-g10-reveal>{t('Show model and compare','展示模型，開始比較')}</button></section>
+  <section class="g10-model" data-g10-model hidden aria-label={t('Interactive comparison','互動比較')}>
+   <div class="g10-presets" role="group" aria-label={t('Contrasting cases','對照案例')}>{activity.cases.map((c:any,i:number)=><button type="button" data-g10-case={i} aria-pressed={i===0?'true':'false'}>{l(c.label)}</button>)}</div>
+   <div class="g10-stage" data-g10-stage set:html={initial?.svg}/>
+   <div class="g10-controls" data-g10-controls>{activity.controls.map((control:any)=><label>{l(control.label)}{control.options?<select data-g10-control={control.key}>{control.options.map((option:any)=><option value={option.value}>{l(option.label)}</option>)}</select>:<input data-g10-control={control.key} type="range" min={control.min} max={control.max} step={control.step||1} value={activity.cases[0].params[control.key]??control.min}/> }<output data-g10-output={control.key}/></label>)}</div>
+   <div data-g10-direct-tools class="g10-direct-tools"/>
+   <p class="g10-summary" data-g10-summary aria-live="polite">{initial?.summary}</p>
+   <div class="g10-table-wrap"><table data-g10-table><thead/><tbody/></table></div>
+   <button type="button" data-g10-capture>{t('Keep this comparison','保留這筆對照')}</button><p data-g10-capture-status role="status"/>
+   <div class="g10-comparisons" data-g10-comparisons/>
+  </section>
+  <section class="g10-explain"><p class="eyebrow">{t('2 MIN · EXPLAIN AND REVISE','2 分鐘・解釋與修訂')}</p><h2>{t('Which condition does your claim need?','你嘅猜想需要加上咩條件？')}</h2><p>{t('Compare at least two cases. Write a reason, then check the explanation together.','比較至少兩個例子。寫出理由，再一齊核對解釋。')}</p><details data-g10-answer><summary>{t('Reveal explanation and conditions','揭示解釋與條件')}</summary><p>{l(activity.explanation)}</p><p><strong>{t('Conditions: ','條件：')}</strong>{l(activity.conditions)}</p><p><strong>{t('Mathematical justification: ','數學論證：')}</strong>{l(activity.proof)}</p></details></section>
+  <section class="g10-exit"><p class="eyebrow">{t('1 MIN · EXIT CHECK','1 分鐘・離堂檢核')}</p><h2>{l(activity.exit.prompt)}</h2><details data-g10-answer><summary>{t('Check after answering','作答後核對')}</summary><p>{l(activity.exit.answer)}</p></details></section>
+  <details class="g10-teacher" data-g10-answer><summary>{t('Teacher guidance and extension','教師提示與延伸')}</summary><p><strong>{t('Before: ','先備：')}</strong>{l(activity.prerequisites)}</p><p><strong>{t('Ask: ','追問：')}</strong>{l(activity.teacherPrompt)}</p><p><strong>{t('Watch for: ','迷思：')}</strong>{l(activity.misconception)}</p><p><strong>{t('Challenge: ','挑戰：')}</strong>{l(activity.challenge)}</p><p>{t('Suggested timing: predict 1 min, compare 3 min, explain 2 min, exit check 1 min. Observations can suggest a claim; they do not prove it for every input.','建議時間：預測 1 分鐘、對照 3 分鐘、解釋 2 分鐘、檢核 1 分鐘。觀察可以提出猜想，不能證明所有輸入都成立。')}</p></details>
+  <details class="g10-notebook"><summary>{t('Optional local notebook','可選本機筆記')}</summary><p>{t('Paper responses are enough. Drafts remain in this tab; choose local saving to include them in the existing complete backup.','可以只用紙本。草稿暫存在本分頁；選擇本機保存後，會納入既有完整備份。')}</p><label><input type="checkbox" data-g10-consent/>{t('Save this notebook in this browser','在此瀏覽器保存這份筆記')}</label>{fields.map(([key,label])=><label>{label}<textarea data-g10-note={key} rows="3" maxlength="6000"/></label>)}<p data-g10-save-status role="status"/><button type="button" data-g10-export>{t('Export this notebook','匯出這份筆記')}</button><a href={`${workspace}?view=learning`} target="_top">{t('Complete backup and restore','完整備份與還原')}</a></details>
+  <nav class="g10-neighbours" aria-label={t('Activity sequence','活動次序')}>{index>0?<a href={inquiryUrl(inquiries[index-1].id,locale)}>← {l(inquiries[index-1].title)}</a>:<span/>}{(index + 1 < inquiries.length) && <a href={inquiryUrl(inquiries[index+1].id,locale)}>{l(inquiries[index+1].title)} →</a>}</nav>
+  <pre hidden data-g10-work-state/><script is:inline type="application/json" data-g10-config set:html={JSON.stringify({id:activity.id,locale,noteId:inquiryNoteId(activity)}).replace(/</g,'\\u003c')}/>
+ </>}
+</div>
+<script is:inline src="/math-shared/storage.js"></script>
+<script>
+import {initializeG10Inquiry} from '../scripts/g10-inquiry-ui';
+document.querySelectorAll<HTMLElement>('[data-g10-id]').forEach(initializeG10Inquiry);
+</script>

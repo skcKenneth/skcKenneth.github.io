@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import G10Inquiry from '../../../../../components/G10Inquiry.astro';
+import {inquiryTitle,inquirySummary,inquiryBase} from '../../../../../data/g10-inquiries.mjs';
+---
+<BaseLayout title={inquiryTitle['zh-Hant']} description={inquirySummary['zh-Hant']} type="教學" locale="zh-Hant" alternatePath={inquiryBase('en')} topicIds={['mathematical-thinking','teaching-research-practice']}><G10Inquiry locale="zh-Hant"/></BaseLayout>

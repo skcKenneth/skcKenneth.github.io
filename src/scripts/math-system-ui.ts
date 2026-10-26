@@ -1,7 +1,7 @@
 import {SYSTEM_KEY,NATIVE_KEYS,decodeNativeRecord,readNativeRecords,readNativeRecoveryBytes,retainedRecoveryCount,collectDraftVariants,recordSummary,createSystemBackup,parseSystemBackup,previewSystemBackup,mergeNativeBackup,readWorkshopRecords,restoreWorkshopRecords,rollbackWorkshopRecords} from '../lib/math-system-records.mjs';
 import {validateProgress} from '../lib/workshop-state.mjs';
 
-type Activity={id:string;group:string;grades:string[];title:Record<string,string>;summary:Record<string,string>;topic:Record<string,string>;aliases?:string[];runtime:string;nativeId:string;sources:Record<string,string>};
+type Activity={id:string;noteId?:string;group:string;grades:string[];title:Record<string,string>;summary:Record<string,string>;topic:Record<string,string>;aliases?:string[];runtime:string;nativeId:string;sources:Record<string,string>};
 export function initializeMathSystem(root:HTMLElement){
  const configuration=JSON.parse(root.querySelector('[data-system-configuration]')!.textContent||'{}');
  const locale=configuration.locale,zh=locale==='zh-Hant',t=(en:string,ch:string)=>zh?ch:en;
@@ -74,7 +74,7 @@ export function initializeMathSystem(root:HTMLElement){
   text('[data-catalog-count]',t(`${matches.length} matching activities · showing ${Math.min(displayLimit,matches.length)}`,`找到 ${matches.length} 項活動・顯示 ${Math.min(displayLimit,matches.length)} 項`));query('[data-catalog-more]').hidden=matches.length<=displayLimit;
  }
  function currentNotebook(){
-  if(!active)return {};return sessionNotes.get(active.id)||system.activities?.[active.id]||{consent:false,prediction:'',observation:'',explanation:'',limitations:''};
+  if(!active)return {};const id=active.noteId||active.id;return sessionNotes.get(id)||system.activities?.[id]||{consent:false,prediction:'',observation:'',explanation:'',limitations:''};
  }
  function hydrateNotebook(){
   if(!active)return;const note=currentNotebook();query<HTMLInputElement>('[data-notebook-consent]').checked=note.consent===true;
@@ -82,7 +82,7 @@ export function initializeMathSystem(root:HTMLElement){
   text('[data-notebook-status]',note.consent?t('These notes use local browser storage.','這份筆記已選擇使用本機瀏覽器儲存。'):t('Notes stay in this open session unless you choose to save them.','未選擇保存時，筆記只留在本次開啟頁面。'));
  }
  function notebookInput(field:string,value:any){
-  if(!active)return;const id=active.id,note={...currentNotebook(),[field]:value,updatedAt:Date.now()};sessionNotes.set(id,note);const dirty=noteDirty.get(id)||new Set<string>();dirty.add(field);noteDirty.set(id,dirty);
+  if(!active)return;const id=active.noteId||active.id,note={...currentNotebook(),[field]:value,updatedAt:Date.now()};sessionNotes.set(id,note);const dirty=noteDirty.get(id)||new Set<string>();dirty.add(field);noteDirty.set(id,dirty);
   if(note.consent){
    const first=!system.activities?.[id]?.consent;
    edit(['activities',id],{consent:false,prediction:'',observation:'',explanation:'',limitations:'',updatedAt:0},'seed');

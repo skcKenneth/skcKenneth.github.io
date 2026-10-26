@@ -1,0 +1,31 @@
+---
+import {chapters,inquiries,inquiryTitle,inquiryBase,evaluateInquiry,studentCases} from '../data/g10-inquiries.mjs';
+import '../styles/g10-inquiries.css';
+interface Props {locale?:'en'|'zh-Hant';chapterId:string;teacher?:boolean}
+const {locale='en',chapterId,teacher=false}=Astro.props;
+const t=(en:string,zh:string)=>locale==='zh-Hant'?zh:en,l=(value:any)=>value?.[locale]||'';
+const chapter=chapters.find(c=>c.id===chapterId)!,activities=inquiries.filter(a=>a.chapter===chapterId);
+const sheets=teacher?activities.map(a=>[a]):Array.from({length:Math.ceil(activities.length/2)},(_,i)=>activities.slice(i*2,i*2+2));
+function caseInputs(activity:any,c:any){return Object.entries(c.params).filter(([key])=>!['directState','scenario','view'].includes(key)&&activity.controls.some((control:any)=>control.key===key)).map(([key,value])=>{const control=activity.controls.find((control:any)=>control.key===key),option=control.options?.find((option:any)=>String(option.value)===String(value));return `${l(control.label)} = ${option?l(option.label):value}`;}).join('; ');}
+function paperCases(activity:any){return teacher?activity.cases:studentCases(activity);}
+---
+<div class="container g10-print-page" lang={locale} data-g10-print data-g10-print-teacher={String(teacher)}>
+ <div class="g10-print-controls"><a href={`${inquiryBase(locale)}#chapter-${chapter.id}`}>← {l(inquiryTitle)}</a><p>{teacher?t('Teacher reference: contains answers, conditions and proofs.','教師參考：包含答案、條件與論證。'):t('Student sheets: two short inquiries per A4 page.','學生學習單：每張 A4 兩個短探究。')}</p><button type="button" data-g10-print-button>{t('Print / save PDF','列印／儲存 PDF')}</button></div>
+ {sheets.map(sheet=><section class:list={['g10-print-sheet',{'g10-teacher-sheet':teacher}]}>{sheet.map((activity:any)=><article id={activity.id} class="g10-print-card" data-g10-paper-id={activity.id}>
+  <p class="eyebrow">{chapter.id} {l(chapter.title)} · {activity.id} · 5–10 {t('min','分鐘')}{teacher?` · ${t('TEACHER · ANSWERS','教師版・含答案')}`:''}</p>
+  <h2>{l(activity.title)}</h2><p><strong>{l(activity.question)}</strong></p>
+  <p>{t('Predict: ','先預測：')}{l(activity.prediction)}</p>{!teacher&&<div class="g10-writing-line"/>}
+  <table class="g10-paper-table"><thead><tr><th>{t('Compare','對照')}</th><th>{teacher?t('Computed observation','計算觀察'):t('What changed? What stayed?','改變／不變嘅量')}</th></tr></thead><tbody>{paperCases(activity).map((c:any)=><tr><td>{l(c.label)}{caseInputs(activity,c)&&<><br/><span class="g10-case-inputs">{caseInputs(activity,c)}</span></>}</td><td>{teacher?evaluateInquiry(activity.id,c.params,locale).summary:'　　　　　　　　　　　　　　　　　'}</td></tr>)}</tbody></table>
+  {teacher?<>
+   <p><strong>{t('Conclusion: ','結論：')}</strong>{l(activity.explanation)}</p>
+   <p><strong>{t('Conditions: ','條件：')}</strong>{l(activity.conditions)}</p>
+   <p><strong>{t('Justification: ','論證：')}</strong>{l(activity.proof)}</p>
+   <p><strong>{t('Ask: ','追問：')}</strong>{l(activity.teacherPrompt)}</p>
+   <p><strong>{t('Watch for: ','迷思：')}</strong>{l(activity.misconception)}</p>
+   <p><strong>{t('Extension: ','延伸：')}</strong>{l(activity.challenge)}</p>
+  </>:<><p>{t('Revise: My claim needs the condition… because…','修訂：我嘅猜想需要加上……條件，因為……')}</p><div class="g10-writing-line"/><div class="g10-writing-line"/></>}
+  <p><strong>{t('Exit: ','離堂檢核：')}</strong>{l(activity.exit.prompt)}</p>{teacher?<p data-g10-paper-answer>{l(activity.exit.answer)}</p>:<div class="g10-writing-line"/>}
+  {teacher&&<p>{t('Before: ','先備：')}{l(activity.prerequisites)} · {t('Timing: predict 1, compare 3, explain 2, exit 1 minute. Finite observations do not prove a universal claim.','時間：預測 1、比較 3、解釋 2、檢核 1 分鐘。有限觀察不能證明全稱命題。')}</p>}
+ </article>)}</section>)}
+</div>
+<script>document.querySelectorAll('[data-g10-print-button]').forEach(button=>button.addEventListener('click',()=>window.print()));</script>
