@@ -22,6 +22,8 @@ async function run(name,fn,options={}){
  if(process.env.G10_QA_FILTER&&!new RegExp(process.env.G10_QA_FILTER).test(name))return;
  const context=await browser.newContext({viewport:{width:1366,height:768},acceptDownloads:true,...options}),page=await context.newPage();context.setDefaultTimeout(12000);
  page.on('pageerror',error=>report.errors.push({name,error:String(error)}));
+ page.on('console',message=>{const location=message.location().url;if(message.type()==='error'&&(!location||location.startsWith(origin)))report.errors.push({name,consoleError:message.text(),location});});
+ page.on('requestfailed',request=>{if(request.url().startsWith(origin))report.errors.push({name,requestFailed:request.url(),error:request.failure()?.errorText});});
  try{const evidence=await fn(page,context);report.cases.push({name,status:'passed',evidence});}
  catch(error){report.cases.push({name,status:'failed',url:page.url(),error:String(error),stack:error.stack});await page.screenshot({path:resolve(output,name.replace(/[^a-z0-9-]/gi,'_')+'-failure.png'),fullPage:true}).catch(()=>{});console.error('FAIL '+name+' '+error.message);}
  finally{await context.close();await save();}
@@ -97,7 +99,7 @@ if(!process.env.G10_QA_PRINT_ONLY){
  });
 }
 if(!process.env.G10_QA_SKIP_PRINT&&!filter)for(const locale of ['zh-Hant','en'])for(const chapter of chapters)for(const teacher of [false,true])await run(`print-${locale}-${chapter.id}-${teacher?'teacher':'student'}`,async page=>{
- const url=origin+inquiryBase(locale)+`print/${chapter.id}/${teacher?'teacher/':''}`;const response=await page.goto(url,{waitUntil:'networkidle'});assert.equal(response.status(),200);assert.equal(await page.locator('[data-g10-paper-id]').count(),chapter.count);assert.equal(await page.locator('[data-g10-paper-answer]').count(),teacher?chapter.count:0);
+ const url=origin+inquiryBase(locale)+`print/${chapter.id}/${teacher?'teacher/':''}`;const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});assert.equal(response.status(),200);await page.locator('[data-g10-paper-id]').first().waitFor({state:'visible'});await page.emulateMedia({media:'print'});await page.evaluate(async()=>{await document.fonts.ready;});assert.equal(await page.locator('[data-g10-paper-id]').count(),chapter.count);assert.equal(await page.locator('[data-g10-paper-answer]').count(),teacher?chapter.count:0);
  const name=`${locale}-${chapter.id}-${teacher?'teacher':'student'}.pdf`;await page.pdf({path:resolve(output,name),format:'A4',printBackground:true,preferCSSPageSize:true});report.pdfs.push({file:name,locale,chapter:chapter.id,teacher,count:chapter.count});return {cards:chapter.count,pdf:name,answers:teacher};
 });
 await browser.close();if(!external)await new Promise(done=>server.close(done));report.finishedAt=new Date().toISOString();await save();
