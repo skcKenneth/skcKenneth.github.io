@@ -13,6 +13,19 @@ const equations = text => [...text.matchAll(/\$\$\s*([\s\S]*?)\s*\$\$/g)].map(m 
 const externalLinks = text => [...new Set([...text.matchAll(/\]\((https:\/\/[^)]+)\)/g)].map(m => m[1]))].sort();
 const numericTableRows = text => text.split(/\r?\n/).filter(l => /^\| \d/.test(l)).map(l => l.match(/-?\d+(?:\.\d+)?/g));
 
+test("both editions offer the silent bilingual presentation and English script", () => {
+  for (const text of editions) {
+    assert.match(text, /<video\b[^>]*\bcontrols\b[^>]*\bpreload="metadata"[^>]*\bplaysinline\b/);
+    assert.match(text, /<video\b[^>]*\baria-label="[^"]+"/);
+    assert.match(text, /<video\b[^>]*style="width: 100%; height: auto;"/);
+    assert.match(text, /<source src="\/media\/adma2026-solar-presentation\.mp4" type="video\/mp4"/);
+    assert.ok(text.includes("](/media/adma2026-solar-english-script.txt)"));
+    assert.match(text, /<a href="\/media\/adma2026-solar-presentation\.mp4">/);
+  }
+  assert.match(editions[0], /It is silent, with Traditional Chinese and English text on screen/);
+  assert.match(editions[1], /影片沒有旁白，畫面同時顯示繁體中文及英文/);
+});
+
 test("ADMA has two published editions and eight accessible shared SVGs", () => {
   assert.deepEqual(checkResearchArticles([slug]), []);
   for (const text of editions) {
@@ -101,6 +114,9 @@ if (process.argv.includes("--built")) {
     for (const prefix of ["","zh/"]) {
       const article=read(`dist/${prefix}writing/${slug}/index.html`);
       assert.equal((article.match(/<figcaption>/g)||[]).length,8);
+      assert.match(article, /<video\b[^>]*\bcontrols\b[^>]*\bpreload="metadata"[^>]*\bplaysinline\b/);
+      assert.ok(article.includes("/media/adma2026-solar-presentation.mp4"));
+      assert.ok(article.includes("/media/adma2026-solar-english-script.txt"));
       assert.equal((article.match(/class="katex-display"/g)||[]).length,9);
       assert.doesNotMatch(article,/katex-error|Draft preview|草稿預覽/);
       const project=read(`dist/${prefix}projects/${slug}/index.html`);

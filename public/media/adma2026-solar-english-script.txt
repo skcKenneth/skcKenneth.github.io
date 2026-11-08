@@ -1,0 +1,57 @@
+When Solar Power Changes Fast
+
+English presentation script
+
+This script accompanies the silent, bilingual animation. The timings are approximate; speak at a measured pace and pause for the audience to read the figures. The animation itself contains no narration.
+
+0:00–0:25 — The question
+
+Hello, and thank you for visiting our poster. Solar power can change quickly. A useful forecast needs to communicate not only an expected value, but also its uncertainty. Our question is: how reliable are prediction intervals when power changes rapidly and sensor inputs are degraded? The power curve here is illustrative, not an observed trace.
+
+0:25–1:00 — Intervals and groups
+
+A prediction interval gives a lower and an upper bound for a future value. When the observed value is inside, it is covered; outside, it is a miss. The bounds and points in this picture are illustrative.
+
+Now consider a synthetic example: nine out of ten cases are covered overall, or 90%. But in the selected two-case group, only one is covered. An overall rate can therefore hide poor performance in a smaller group. This example is not a result from our dataset.
+
+1:00–1:35 — Ramps and sensor degradation
+
+We classify a ramp from the realised power change: at least 10% of capacity over 15 minutes, or 20% over 60. These are study thresholds, not dispatch limits. The future label is unavailable at forecast time.
+
+We also test controlled sensor-feature masking while keeping the target observed. This is a structured stress test, not a complete natural outage. The graphics here are schematic.
+
+1:35–2:15 — The evaluation design
+
+Each of four rolling-origin folds uses earlier data for model fitting, followed by calibration and a later test period. The timeline illustrates the order, rather than the exact calendar scale. Test quarters are disjoint, while folds reuse historical data.
+
+We evaluate five external confirmation stations at two forecast horizons. Five stations, four folds and two horizons give 40 station–fold–horizon units—not 40 independent stations. The station is our replication unit.
+
+2:15–3:00 — Method comparison
+
+Both methods share a forecaster. Condition calibrates by sensor condition; Descriptor adds features available at forecast time.
+
+The plots show each station's worst eligible group. Undercoverage is the shortfall from the 90% target, floored at zero; lower is better. Grey circles mark Condition and blue points mark Descriptor. The red line is the 0.10 tolerance.
+
+Descriptor improves all five stations at both horizons. The mean reductions are 11.0 percentage points at 15 minutes and 8.0 at 60 minutes.
+
+3:00–3:35 — Improvement versus the criterion
+
+Even after that improvement, the worst eligible Descriptor groups covered only 47.0% at 15 minutes and 53.7% at 60 minutes. These were first-quarter 2020 weather-masking ramp groups at CSGS2 and CSGS8, with 183 and 231 issued intervals, respectively. Eligible groups have at least 80 issued intervals.
+
+Neither result reaches the 80% audit floor. Indeed, no candidate passed the 0.10 worst-group undercoverage criterion at every station. This floor is a permissive research benchmark, not a coverage guarantee.
+
+3:35–4:00 — The trade-off
+
+The arrows now show Descriptor minus Condition. Relative to the baseline, capacity-normalized interval width rose by 0.028 at both horizons. Normalized interval score fell by 0.049 at 15 minutes and 0.027 at 60 minutes; lower is better.
+
+But improvement was not uniform. For the 15-minute non-ramp group, the normalized interval score increased by 0.001.
+
+4:00–4:30 — Takeaway and limitations
+
+Our evidence comes from one dataset and five external confirmation stations. Controlled feature masking does not represent every real-world failure.
+
+The takeaway is that Descriptor CQR improved the cross-station comparison, but the absolute reliability criterion was still not met. We have not established a conditional coverage guarantee or operational benefit. Thank you; I would be happy to discuss the methods and limitations.
+
+Short English website description
+
+How reliable are solar-power prediction intervals when power changes quickly or sensor data are degraded? This ADMA 2026 poster animation explains a five-station audit at 15- and 60-minute horizons. Descriptor CQR reduced worst-group undercoverage relative to Condition CQR at every confirmation station and both horizons, but no candidate met the study's absolute reliability criterion. The animation is silent, with Traditional Chinese and English text; illustrative curves and examples are labeled, and the findings are limited to the study's data and conditions.

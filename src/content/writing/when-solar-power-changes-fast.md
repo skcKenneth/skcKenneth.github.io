@@ -21,6 +21,17 @@ There are two different ways to improve that band. One is to make it perform bet
 
 This article explains our accepted ADMA 2026 short paper through that distinction. It is an empirical study of public energy data, not a new theorem guaranteeing conditional coverage. The [project overview](/projects/when-solar-power-changes-fast/) records the research and author information; the [student research studio](/teaching/student-research-studio/) places it within the mentoring programme.
 
+## Poster presentation animation
+
+This approximately four-and-a-half-minute animation explains the research question, evaluation and findings. It is silent, with Traditional Chinese and English text on screen.
+
+<video controls preload="metadata" playsinline width="960" style="width: 100%; height: auto;" aria-label="Bilingual ADMA 2026 poster presentation animation">
+  <source src="/media/adma2026-solar-presentation.mp4" type="video/mp4" />
+  Your browser cannot play this video. <a href="/media/adma2026-solar-presentation.mp4">Download the animation</a>.
+</video>
+
+[Read the English presentation script](/media/adma2026-solar-english-script.txt).
+
 ## What the solar experiment found
 
 We evaluated five stations across four chronological folds and two forecast horizons, giving **40 station–fold–horizon combinations**. The leading calibration candidate, Descriptor CQR, reduced mean station worst-group undercoverage by **0.110 at 15 minutes and 0.080 at 60 minutes**. Those are absolute changes in coverage shortfall, equivalent to 11.0 and 8.0 percentage points, not relative percentage improvements.

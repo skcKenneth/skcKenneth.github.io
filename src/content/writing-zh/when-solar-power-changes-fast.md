@@ -22,6 +22,17 @@ archived: false
 
 本文以這個區別解說我們獲 ADMA 2026 接納的短論文。它是一項使用公開能源數據的實證研究，不是一條保證所有條件覆蓋率的新定理。[專案簡介](/zh/projects/when-solar-power-changes-fast/)整理研究與作者資料；[學生研究工作室](/zh/teaching/student-research-studio/)則記錄這項工作的研究指導背景。下面先看結果，再逐步拆解模型、分母、比較方法，以及那些沒有被改善數字解決的問題。
 
+## 海報報告動畫
+
+這段約四分半鐘的動畫介紹研究問題、評估方法與結果。影片沒有旁白，畫面同時顯示繁體中文及英文。
+
+<video controls preload="metadata" playsinline width="960" style="width: 100%; height: auto;" aria-label="ADMA 2026 中英雙語海報報告動畫">
+  <source src="/media/adma2026-solar-presentation.mp4" type="video/mp4" />
+  你的瀏覽器無法播放影片，可<a href="/media/adma2026-solar-presentation.mp4">下載動畫</a>。
+</video>
+
+[閱讀英文報告講稿](/media/adma2026-solar-english-script.txt)。
+
 ## 這個太陽能實驗發現了甚麼
 
 研究包括五個站點、四個按時間排列的資料折，以及兩個預測期，合共 **40 個站點—時間折—預測期評估組合**。表現最一致的校準候選 Descriptor CQR，令平均站點最差群組欠覆蓋，在 **15 分鐘減少 0.110，在 60 分鐘減少 0.080**。這些是覆蓋短缺的絕對變化，等於 11.0 及 8.0 個百分點，不是相對百分比改善。
