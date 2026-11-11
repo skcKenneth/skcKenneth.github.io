@@ -114,7 +114,9 @@ const links = [
       button.type = 'button'; button.className = 'reader-image-button';
       button.setAttribute('aria-label', `${isZh ? '放大圖像' : 'Enlarge figure'}${img.alt ? `: ${img.alt}` : ''}`);
       button.title = isZh ? '按一下放大圖像' : 'Click to enlarge figure';
-      img.before(button); button.append(img);
+      // Keep picture's source and img siblings so responsive source selection still works.
+      const media = img.parentElement?.tagName === 'PICTURE' ? img.parentElement : img;
+      media.before(button); button.append(media);
       button.addEventListener('click', () => {
         trigger = button; enlarged.src = img.currentSrc || img.src; enlarged.alt = img.alt;
         caption.textContent = img.closest('figure')?.querySelector('figcaption')?.textContent || img.alt;

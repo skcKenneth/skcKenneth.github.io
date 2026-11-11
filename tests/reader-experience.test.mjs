@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync, readdirSync } from 'node:fs';
+import { runInNewContext } from 'node:vm';
+import { transformSync } from 'esbuild';
 import { filterArticles, paginateArticles, readArticleQuery, writeArticleQuery, selectRelatedArticles, createWritingFeed } from '../src/data/reader-utils.mjs';
 import { getTopicIds, TOPIC_IDS } from '../src/data/site-reader.mjs';
 import { collections } from './helpers/reader-content.mjs';
@@ -51,6 +53,59 @@ test('article reader preserves semantic figures and offers keyboard native figur
   assert.match(component, /data-pagefind-ignore/);
   assert.match(component, /relatedSlugs|selectRelatedArticles/);
   assert.match(component, /headings\.filter/);
+});
+
+test('figure zoom preserves responsive picture children and opens the selected source in both languages', () => {
+  const component = readFileSync(new URL('src/components/ArticleReader.astro', root), 'utf8');
+  const code = transformSync(component.match(/<script>([\s\S]*?)<\/script>/)[1], { loader: 'ts', target: 'es2022' }).code;
+  class Element {
+    constructor(tag) { this.tagName = tag.toUpperCase(); this.children = []; this.attributes = {}; this.listeners = {}; }
+    append(...nodes) {
+      for (const node of nodes) {
+        if (node.parentElement) node.parentElement.children.splice(node.parentElement.children.indexOf(node), 1);
+        node.parentElement = this; this.children.push(node);
+      }
+    }
+    before(node) { const parent = this.parentElement; parent.children.splice(parent.children.indexOf(this), 0, node); node.parentElement = parent; }
+    closest(selector) { return selector.split(/,\s*/).some(tag => tag.toUpperCase() === this.tagName) ? this : this.parentElement?.closest(selector); }
+    querySelector(selector) { return this.children.find(node => node.tagName.toLowerCase() === selector); }
+    getAttribute(name) { return this.attributes[name] ?? null; }
+    setAttribute(name, value) { this.attributes[name] = value; }
+    removeAttribute(name) { delete this.attributes[name]; }
+    addEventListener(name, callback) { this.listeners[name] = callback; }
+    focus() { this.focused = true; }
+  }
+  for (const locale of ['en', 'zh-Hant']) {
+    const reader = new Element('div'); reader.dataset = { locale };
+    const figure = new Element('figure'), picture = new Element('picture'), source = new Element('source'), img = new Element('img');
+    source.setAttribute('media', '(max-width: 640px)'); source.setAttribute('srcset', '/figure-mobile.svg');
+    img.src = '/figure-desktop.svg'; img.currentSrc = '/figure-mobile.svg'; img.alt = 'Recorded results';
+    const caption = new Element('figcaption'); caption.textContent = 'Figure caption';
+    picture.append(source, img); figure.append(picture, caption);
+    const plain = new Element('img'); plain.src = '/plain.svg'; plain.alt = 'Plain figure';
+    reader.append(figure, plain);
+    const dialog = new Element('dialog'), close = new Element('button'), enlarged = new Element('img'), modalCaption = new Element('p');
+    dialog.querySelector = selector => ({ '[data-close-figure]': close, img: enlarged, '.reader-image-caption': modalCaption })[selector];
+    dialog.showModal = () => { dialog.open = true; };
+    dialog.close = () => { dialog.open = false; dialog.listeners.close(); };
+    reader.querySelector = selector => selector === '.reader-image-dialog' ? dialog : undefined;
+    reader.querySelectorAll = selector => selector === '.reader-prose img' ? [img, plain] : [];
+    runInNewContext(code, { document: { querySelector: () => reader, createElement: tag => new Element(tag) }, window: { addEventListener() {} } });
+
+    assert.equal(picture.parentElement.tagName, 'BUTTON');
+    assert.deepEqual(picture.children, [source, img], 'source and img remain direct picture children');
+    assert.equal(img.parentElement, picture);
+    assert.equal(picture.parentElement.parentElement, figure);
+    const trigger = picture.parentElement;
+    assert.equal(trigger.type, 'button');
+    assert.ok(trigger.getAttribute('aria-label').startsWith(locale === 'en' ? 'Enlarge figure' : '放大圖像'));
+    trigger.listeners.click();
+    assert.equal(dialog.open, true); assert.equal(enlarged.src, '/figure-mobile.svg');
+    assert.equal(enlarged.alt, img.alt); assert.equal(modalCaption.textContent, caption.textContent); assert.equal(close.focused, true);
+    close.listeners.click(); assert.equal(dialog.open, false); assert.equal(trigger.focused, true);
+    assert.equal(plain.parentElement.tagName, 'BUTTON');
+    plain.parentElement.listeners.click(); assert.equal(enlarged.src, '/plain.svg');
+  }
 });
 
 if (process.argv.includes('--built')) {
