@@ -1,0 +1,35 @@
+{
+  "purpose": "Publication-inspired explanatory figures, not a certification of journal submission compliance",
+  "input_archive_name": "Weekly_Blog_2026-11-07_Turing_Certificate_Failure_Audit.zip",
+  "inputs": {
+    "results/summary.json": {
+      "entry": "Weekly_Blog_2026-11-07_Turing_Certificate_Failure_Audit/results/summary.json",
+      "sha256": "b3db667b49375f9fc7f6fe73abb01fef1e7007aa415fc34b39d8b391552d98ce"
+    },
+    "results/exploratory_rows.csv": {
+      "entry": "Weekly_Blog_2026-11-07_Turing_Certificate_Failure_Audit/results/exploratory_rows.csv",
+      "sha256": "ee432f5b10daf5ae27dafdd7e0cabd59dc3731aeaa110dffd87262dfe8335efe"
+    }
+  },
+  "validation": {
+    "rows": 2520,
+    "reference_cases": 30,
+    "evaluations_per_method_and_budget": 180,
+    "sampling_instances_per_method_and_budget": 18,
+    "scales_per_sampling_instance": 10,
+    "reference_stable_evaluations_per_method_budget": 96,
+    "reference_unstable_evaluations_per_method_budget": 84,
+    "max_scale_duplicate_epsilon_spread": 1.4210854715202004e-14,
+    "all_plotted_summary_aggregates_match_csv": true,
+    "all_conclusive_certificates_match_reference_verdict": true
+  },
+  "scope": "24-node synthetic undirected positive-weight networks; homogeneous-equilibrium linear instability only",
+  "comparison": "Equal draws with replacement, not equal unique retained edges or equal runtime",
+  "inference": "Descriptive summaries; 180 evaluations are not 180 independent sampling instances",
+  "spectral_distortion_deduplication": "Select the smallest Laplacian scale for each method/draw/graph_seed/replicate after confirming all 10 scale duplicates agree to 1e-10",
+  "schematic_intervals": "All illustrated intervals use epsilon=0.2 and are hypothetical, not sampled eigenvalues",
+  "style_references": [
+    "https://research-figure-guide.nature.com/figures/preparing-figures-our-specifications/",
+    "https://conferences.ieeeauthorcenter.ieee.org/write-your-paper/improve-your-graphics/"
+  ]
+}

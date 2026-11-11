@@ -1,0 +1,17 @@
+{
+  "sourceArchive": "Weekly_Blog_2026-11-07_Turing_Certificate_Failure_Audit.zip",
+  "sourceArchiveSha256": "6cf6c5296a3bb8f40de74a0129a1ee9d7b43e9b40dafe62ae9b8afdb5ace1c22",
+  "snapshotDate": "2026-11-07",
+  "publicationDate": "2026-11-11",
+  "resultsSha256": "ee432f5b10daf5ae27dafdd7e0cabd59dc3731aeaa110dffd87262dfe8335efe",
+  "summarySha256": "b3db667b49375f9fc7f6fe73abb01fef1e7007aa415fc34b39d8b391552d98ce",
+  "rows": 2520,
+  "referenceCases": 30,
+  "samplingInstances": 252,
+  "scalesReusedPerInstance": 10,
+  "evaluationsPerMethodBudget": 180,
+  "samplingInstancesPerMethodBudget": 18,
+  "comparison": "Matched draws with replacement, not matched distinct-edge counts.",
+  "scope": "24-node synthetic undirected positive-weight graphs; linear instability only.",
+  "curation": "Numerical source, tests, configuration and frozen results. Internal prompts excluded."
+}

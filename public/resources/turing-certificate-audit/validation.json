@@ -1,0 +1,92 @@
+{
+  "checkedAt": "2026-11-11",
+  "sourceArchiveSha256": "6cf6c5296a3bb8f40de74a0129a1ee9d7b43e9b40dafe62ae9b8afdb5ace1c22",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows 11",
+    "dependencies": {
+      "numpy": "2.4.6",
+      "scipy": "1.18.0",
+      "matplotlib": "3.11.0",
+      "pytest": "9.1.1"
+    }
+  },
+  "originalTestsPassed": 16,
+  "comparison": {
+    "checks": [
+      {
+        "name": "pytest",
+        "returncode": 0,
+        "elapsed_seconds": 1.297
+      },
+      {
+        "name": "experiment",
+        "returncode": 0,
+        "elapsed_seconds": 7.391
+      }
+    ],
+    "n_records": 2520,
+    "n_references": 30,
+    "reference_verdict_counts": {
+      "stable": 16,
+      "unstable": 14
+    },
+    "max_csv_abs_differences": {
+      "retained_fraction": 0.0,
+      "scale": 0.0,
+      "spectral_distortion": 1.4210854715202004e-14
+    },
+    "max_summary_abs_difference": 1.7763568394002505e-15,
+    "max_reference_growth_abs_difference": 7.93809462606987e-15,
+    "all_discrete_fields_identical": true,
+    "all_numeric_fields_close_at_absolute_1e-10": true,
+    "sampling_groups": 252,
+    "scale_cases_per_group": 10,
+    "certificate_counts": {
+      "inconclusive": 2327,
+      "stable": 97,
+      "unstable": 96
+    },
+    "wrong_conclusive_certificates": 0
+  },
+  "scope": "Local reproduction of a fixed synthetic numerical audit. Not interval-arithmetic proof, biological validation, a speedup result or a website deployment record.",
+  "publicPackageSmokeTest": {
+    "package_sha256": "412347f9bd44a2da9f891cd5308c716b1ab236c478a970acea3fa280b07979b1",
+    "code_config_files_unchanged": [
+      "configs/base.json",
+      "pyproject.toml",
+      "scripts/run_experiment.py",
+      "src/sparseturing/__init__.py",
+      "src/sparseturing/dispersion.py",
+      "src/sparseturing/graphs.py",
+      "tests/test_dispersion.py",
+      "tests/test_graphs.py"
+    ],
+    "commands": [
+      {
+        "command": "pytest",
+        "returncode": 0,
+        "elapsed_seconds": 1.156
+      },
+      {
+        "command": "experiment",
+        "returncode": 0,
+        "elapsed_seconds": 3.563
+      }
+    ],
+    "figures_generated": [
+      "01_sparsity_vs_distortion.pdf",
+      "01_sparsity_vs_distortion.png",
+      "02_disagreement.pdf",
+      "02_disagreement.png",
+      "03_certificate_rate.pdf",
+      "03_certificate_rate.png",
+      "04_false_stable.pdf",
+      "04_false_stable.png"
+    ],
+    "n_records": 2520,
+    "reference_cases": 30,
+    "fresh_package_smoke_test_passed": true,
+    "dependencyInstallation": "Used the existing validated dependency environment; fresh dependency installation was not tested."
+  }
+}

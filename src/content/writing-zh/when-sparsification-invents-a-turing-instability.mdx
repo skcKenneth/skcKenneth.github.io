@@ -1,0 +1,176 @@
+---
+title: "當網絡稀疏化製造出 Turing 不穩定：一次譜證書的實用性審核"
+slug: when-sparsification-invents-a-turing-instability
+sourceSlug: when-sparsification-invents-a-turing-instability
+topicIds: [dynamics-networks, risk-decisions, computation-code]
+summary: 一項合成網絡實驗顯示，邊抽樣會產生線性失穩的錯誤警報；數學上可靠的譜證書，亦經常未能判定原網絡的失穩狀態。本文逐一區分壓縮、判斷一致與證書有結論三個目標。
+date: 2026-11-11
+lastUpdated: 2026-11-11
+featured: false
+topics: [Turing 不穩定, 圖稀疏化, 有效電阻, 譜證書, 負面結果, 可重現計算]
+heroImage: /images/turing-certificate-audit/band-certificate.svg
+draft: false
+type: 研究筆記
+archived: false
+relatedSlugs: [growing-domain-turing-topology, random-stress-tests-are-not-certificates]
+redirectFrom: []
+---
+
+import TuringAuditExplorer from "../../components/TuringAuditExplorer.astro";
+
+當一項計算需要重複很多次，較小的網絡很有吸引力。然而，刪除連接可能連科學問題的答案也一起改變。在這項合成實驗中，有效電阻抽樣以 110 次邊抽樣保留約 **68.0% 的原有相異邊**，但縮減後網絡的線性失穩判斷，在 **180 次評估中有 63 次**與原網絡不一致。事後計算的譜證書，在這 180 次評估中全部未能下結論。
+
+標題的「製造出」是指抽樣網絡的線性化模型產生錯誤警報，並非數值抽樣創造了生物圖樣。這是一項針對無向、正權重網絡的探索性審核，研究快照日期為 **2026 年 11 月 7 日**。實驗沒有生物量測，也沒有模擬非線性圖樣。
+
+問題可以說得很精確：**抽樣刪邊之後，能否保留原網絡關於 Turing 失穩起始的答案？在有實用壓縮效果的預算下，證書又能否核實這個答案？** 網絡稀疏、判斷一致、證書有明確結論，是三個不同目標。
+
+## 反應模型如何把特徵值變成判斷
+
+在每個頂點放置兩種會反應的物種。無因次 Schnakenberg 反應動力學為
+
+$$
+f(u,v)=a-u+u^2v,\qquad g(u,v)=b-u^2v.
+$$
+
+取 $a=0.1$、$b=0.9$，空間均勻平衡點為 $(u_*,v_*)=(1,0.9)$。該點的反應雅可比矩陣及擴散矩陣分別是
+
+$$
+J=\begin{pmatrix}0.8&1\\-1.8&-1\end{pmatrix},
+\qquad D=\operatorname{diag}(0.1,1).
+$$
+
+設 $L$ 為對稱的組合圖拉普拉斯矩陣。網絡的線性化動力學為 $z'=(I\otimes J-L\otimes D)z$。每個拉普拉斯特徵值 $q\geq0$ 都對應一個二維模態矩陣 $J-qD$，其跡與行列式為
+
+$$
+\operatorname{tr}(J-qD)=-0.2-1.1q<0,
+\qquad
+\det(J-qD)=1-0.7q+0.1q^2=0.1(q-2)(q-5).
+$$
+
+行列式為負時，兩個增長特徵值中有一個為正。因此，精確的開失穩帶為 **$2<q<5$**。均勻模態 $q=0$ 穩定；只有圖的特徵值進入這個區間，擴散才會令某個非恆定模態失穩。
+
+當 $q=2$ 或 $q=5$，其中一個增長特徵值為零。這些端點屬於中性情況，不能把「沒有嚴格失穩模態」直接寫成「嚴格漸近穩定」。程式判斷使用小量容差；本文不聲稱能夠辨別極接近端點的等號情況。
+
+<figure class="article-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/images/turing-certificate-audit/band-certificate-mobile.svg" />
+    <img src="/images/turing-certificate-audit/band-certificate.svg" alt="數學示意圖：2 至 5 的開 Turing 失穩帶，以及特徵值包圍區間如何分別證明失穩、沒有嚴格失穩模態，或仍未能下結論。" loading="eager" decoding="async" />
+  </picture>
+  <figcaption><strong>圖 1。</strong> 這是數學示意，並非量測數據或已記錄的模態軌跡。只要一個完整包圍區間嚴格落在開失穩帶內，便可證明原圖有失穩模態；要證明沒有嚴格失穩模態，則必須所有區間都避開失穩帶。區間跨越邊界可能令證書無法下結論；端點本身為中性。</figcaption>
+</figure>
+
+## 邊抽樣不會保證每一次實現都保真
+
+有效電阻抽樣是經典方法。對權重為 $w_e$ 的邊 $e=(i,j)$，定義
+
+$$
+R_e=(e_i-e_j)^T L^+(e_i-e_j),
+\qquad p_e=\frac{w_eR_e}{n-1},
+$$
+
+其中 $L^+$ 為偽逆。對連通圖，各邊的槓桿分數 $w_eR_e$ 總和為 $n-1$；分數較高的邊有較大抽樣機率。
+
+獨立進行 $k$ 次**有放回抽樣**。每次抽中邊 $e$，便加入 $w_e/(kp_e)$ 的權重；同一條邊重複出現時，把權重合併。均勻抽樣則對原圖的 $m$ 條邊取 $p_e=1/m$，使用相同的逆機率加權。兩者都有 $\mathbb{E}[L_s]=L$。
+
+這個期望等式不代表某一次抽得的 $L_s$ 必然保留譜或失穩判斷。重新加權可能把特徵值移入或移出失穩帶。此外，110 次抽樣不等於保留 110 條相異邊：重複抽中仍會消耗預算。構造沿用 [Spielman 與 Srivastava（2011）](https://doi.org/10.1137/080734029) 的既有框架；本次使用小型圖的稠密參考計算，並非實作該論文的快速演算法。
+
+## 證書實際證明甚麼
+
+假設事後計算建立以下 Loewner 半正定序夾逼：
+
+$$
+(1-\varepsilon)L\preceq L_s\preceq(1+\varepsilon)L,
+\qquad 0\leq\varepsilon<1.
+$$
+
+對 $L$ 與 $L_s$ 按次序排列的非恆定模態特徵值 $q_i$、$s_i$，標準 min–max 原理給出
+
+$$
+q_i\in I_i=
+\left[\frac{s_i}{1+\varepsilon},\frac{s_i}{1-\varepsilon}\right].
+$$
+
+因此，關於**原圖**可以有三種答案：
+
+- **證明失穩：**至少一個完整的 $I_i$ 嚴格包含於 $(2,5)$。
+- **證明沒有嚴格失穩模態：**每個 $I_i$ 均與 $(2,5)$ 不相交；可能的中性端點情況仍須與嚴格穩定區分。
+- **未能下結論：**兩個充分條件均不成立，或所需的 $\varepsilon<1$ 條件不成立。
+
+證書未能下結論，是保留判斷，不是判定穩定。即使 $\varepsilon<1$，區間仍可能太寬，或跨越失穩帶端點，令證書沒有答案。這是譜近似的標準推論，本文沒有提出新定理。
+
+計算成本也有明確界線。參考實作在與常數向量正交的子空間上，利用 $L^{-1/2}L_sL^{-1/2}$ 的極端特徵值求失真。這一步需要原圖的完整特徵分解。因此，這項計算是在審核保證，並未示範一種能更快避開原圖分析的方法。數學推論以夾逼不等式確實成立為前提；浮點特徵值計算本身，不是以區間算術嚴格證明該不等式。
+
+## 凍結實驗與每個分母
+
+三組 24 頂點的圖種子，都有連通的環狀骨架，再加入隨機長距離連接。十個正權重尺度形成 30 個原圖／尺度個案，其中 16 個沒有嚴格失穩模態，14 個失穩。完整的 $48\times48$ 線性化矩陣，另用來數值交叉核對模態計算。
+
+抽樣預算為 20、40、70、110、170、350、700 次，每種方法有六個重複種子。合共 **252 組基礎抽樣實例**，各重用於十個尺度，形成 2,520 行評估紀錄。固定一種方法及預算時，分母 180 是 **18 組基礎樣本 × 十個尺度**，並非 180 個獨立樣本。圖中的百分比只描述這個固定設計，沒有信賴區間，也不代表整體網絡族群的錯誤機率。
+
+| 抽樣方法 | 抽樣次數 | 平均保留相異邊 | 失穩判斷不一致 | 有明確結論的證書 |
+|---|---:|---:|---:|---:|
+| 有效電阻（ER） | 110 | 68.0% | 63/180 = 35.0% | 0/180 |
+| 均勻抽樣 | 110 | 71.2% | 57/180 = 31.7% | 0/180 |
+| ER | 700 | 99.94% | 12/180 = 6.7% | 86/180 = 47.8% |
+| 均勻抽樣 | 700 | 99.88% | 9/180 = 5.0% | 81/180 = 45.0% |
+
+<figure class="article-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/images/turing-certificate-audit/budget-outcomes-mobile.svg" />
+    <img src="/images/turing-certificate-audit/budget-outcomes.svg" alt="七種抽樣預算下，有效電阻與均勻抽樣的相異邊保留率、失穩判斷不一致率，以及有明確結論的證書比例；保留率上升，錯誤整體下降，但證書結論仍然稀少。" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><strong>圖 2。</strong> 凍結合成結果按相同抽樣次數比較，並非相同相異邊數。有效電阻（ER）用藍色圓點，均勻抽樣用橙紅方點，並以不同線型輔助識別。每項不一致率或證書比例的分母都是 180 次原圖／尺度評估，來自 18 組重用的基礎樣本。到 700 次抽樣，兩者幾乎保留所有原邊，但有結論的證書仍不足一半。</figcaption>
+</figure>
+
+在本組網絡中，110 次抽樣時均勻方法的判斷不一致較少，同時保留的邊比例較高；350 次抽樣時，兩方法的不一致率次序卻相反。這些觀察不能證明任何一種方法普遍較佳。以相同相異邊數比較、測試留出的圖族，以及量度整體運算時間，會回答其他不同問題。
+
+<TuringAuditExplorer locale="zh-Hant" />
+
+探索器讀取凍結結果。切換選項只會顯示已記錄的計數，不會生成新隨機網絡，也不會重新求解特徵值。
+
+## 錯誤警報與漏報失穩並不相同
+
+**假失穩（false unstable）**是原圖沒有嚴格失穩模態，抽樣圖卻被判為失穩；**假穩定（false stable）**則漏掉原圖存在的失穩。兩者的條件分母不同。
+
+110 次抽樣時，ER 在原圖沒有嚴格失穩模態的 96 次評估中，產生 63 次錯誤警報，即 **63/96 = 65.625%**；在原圖失穩的 84 次評估中，則沒有漏報，即 **0/84**。同樣的 63 次錯誤，放在全體評估中便是 **63/180 = 35%** 不一致。均勻方法對應的錯誤警報為 57/96，漏報為 0/84。
+
+<figure class="article-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/images/turing-certificate-audit/conditional-errors-mobile.svg" />
+    <img src="/images/turing-certificate-audit/conditional-errors.svg" alt="分開顯示每種方法與預算的兩類條件錯誤：在 96 次原圖沒有失穩的評估中計算錯誤失穩警報，在 84 次原圖失穩的評估中計算漏報。" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><strong>圖 3。</strong> 錯誤方向必須配上正確分母。每個方法／預算的假失穩計數，以 96 次原圖沒有嚴格失穩模態的評估為分母；假穩定計數則以 84 次原圖失穩的評估為分母。本次觀察到的錯誤主要是失穩警報。某一格沒有記錄漏報，不代表在其他圖、尺度或種子下風險為零。</figcaption>
+</figure>
+
+這種不對稱屬於本組網絡。原本小於 2 的特徵值被推高，可能進入失穩帶；但原本已在失穩帶內的特徵值繼續增大，也可能越過 5 而離開失穩帶。其他譜配置，可能改變哪一類錯誤較常見。
+
+## 為何失真減少，仍然沒有答案
+
+<figure class="article-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/images/turing-certificate-audit/spectral-distortion-mobile.svg" />
+    <img src="/images/turing-certificate-audit/spectral-distortion.svg" alt="兩種抽樣方法的事後譜失真與中位數隨預算下降，圖中標示 epsilon 等於一的門檻，每個方法與預算只畫出 18 組基礎抽樣點，去除尺度重用。" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><strong>圖 4。</strong> 去除十倍尺度重用後的事後 Loewner 失真。每個方法／預算顯示 18 個基礎抽樣值及其中位數。同時縮放兩個拉普拉斯矩陣，除數值捨入誤差外，相對失真不變。低於一的門檻容許使用包圍區間公式，但跨過此門檻本身不能證明失穩判斷。</figcaption>
+</figure>
+
+110 次抽樣時，ER 的失真中位數約為 0.927，但沒有證書下到結論。700 次抽樣時，中位數約為 0.359，仍有 94/180 次評估未能下結論；均勻方法的中位數約為 0.356，有 99/180 次未能下結論。全局乘法譜界，可能要求遠高於單一失穩帶判斷所需的精度。
+
+紀錄合共有 193 個明確證書，全部與參考標籤一致。這個有限的吻合結果支持實作審核，但不等於建立可擴展證書、一般錯誤機率，或有實用價值的壓縮優勢。
+
+## 既有研究與下一條誠實問題
+
+圖反應—擴散系統的縮減已有研究基礎。Ajayakumar 與 Raha 的 [*SGRDN-Data learned sparsification of graph reaction-diffusion networks*](https://arxiv.org/abs/2303.11943)，最初於 2023 年發布、2025 年修訂，直接研究這類系統的稀疏化。有效電阻抽樣與譜夾逼亦早於本次審核。因此，本文不把兩者的結合包裝成新方法。
+
+[Zhu、Zhang 與 Shen（2026）](https://journals.aps.org/pre/abstract/10.1103/2mcl-8fs8) 研究高階網絡反應—擴散系統的譜粗粒化；其摘要報告能維持 Turing 不穩定的必要條件。這是相關的保真目標，但縮減操作與系統類別，都不同於本篇的邊抽樣。
+
+本篇的貢獻是一個範圍清楚的負面結果紀錄：在測試預算下，判斷錯誤與證書保留判斷持續存在；大幅減邊與高證書覆蓋率未能同時達成。由於沒有模擬非線性圖樣，線性失穩起始的判斷一致，本身不保證最後的斑點、條紋、局部化或圖樣拓撲一致。
+
+下一條有用的問題是：能否以針對任務的方法，保護真正相關的譜帶，在可核實的判斷裕量下減少總成本？回答之前，需要更強的比較與獨立新穎性評估。本次結果提出了動機，尚未提供答案。
+
+## 公開紀錄與延伸閱讀
+
+**2026 年 11 月 11 日**的獨立本機重跑，在 Windows 11 使用 Python **3.12.13**、NumPy **2.4.6**、SciPy **1.18.0**、Matplotlib **3.11.0** 及 pytest **9.1.1**。原有測試 **16/16 全部通過**。完整 2,520 次評估重跑後，每個 CSV 離散欄位都與凍結壓縮包一致；觀察到的最大浮點絕對差約為 **1.42 × 10⁻¹⁴**。[核查紀錄](/resources/turing-certificate-audit/validation.json)保存環境及比較結果。這項檢查建立的是所提供實驗的本機數值重現，並非以區間算術證明譜不等式，也不能由觀察到的 193 個明確個案推成一般保證。
+
+[逐次評估紀錄（CSV）](/resources/turing-certificate-audit/results.csv)、[彙總結果（JSON）](/resources/turing-certificate-audit/summary.json)、[整理後的原始碼包](/resources/turing-certificate-audit/source-code.zip)及[紀錄說明](/resources/turing-certificate-audit/README.md)，一併保存結果、設定與重現界線。這些下載資料描述合成線性審核，並非生物數據或非線性驗證。
+
+要進一步區分線性失穩起始與演化中的圖樣，可讀[當 Turing 圖樣必須隨區域一起生長](/zh/writing/growing-domain-turing-topology/)；要區分觀察到的答案與有保證的界，可讀[隨機壓力測試不是證書](/zh/writing/random-stress-tests-are-not-certificates/)。

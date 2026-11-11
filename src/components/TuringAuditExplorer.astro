@@ -1,0 +1,98 @@
+---
+import records from '../data/turing-certificate-audit.json';
+interface Props { locale?: 'en' | 'zh-Hant' }
+const { locale = 'en' } = Astro.props;
+const zh = locale === 'zh-Hant';
+const initial = records.find(r => r.method === 'effective_resistance' && r.draws === 110)!;
+const pct = (value: number) => (100 * value).toFixed(1) + '%';
+const copy = zh ? {
+  title: '探索凍結結果', intro: '選擇抽樣方法與預算，查看已保存的結果；這裡不會執行新模擬。',
+  method: '抽樣方法', budget: '有放回抽樣次數', uniform: '均勻抽樣',
+  retained: '平均保留不同邊', disagreement: '判斷不一致', conclusive: '明確證書',
+  evaluations: '次評估', falseUnstable: '錯報失穩', falseStable: '漏報失穩',
+  caveat: '每方法／預算有180次圖與尺度評估，但只來自18組基礎抽樣，各重用10個尺度。比較匹配抽樣次數，沒有匹配實際保留邊數；百分比只作描述。',
+  all: '完整結果表', table: '每方法／預算的保留邊比例、判斷和證書結果',
+  nojs: '互動選擇需要JavaScript；完整結果表和文章靜態圖仍可閱讀。',
+} : {
+  title: 'Explore the frozen results', intro: 'Choose a sampler and draw budget to inspect recorded outcomes. This does not run a new simulation.',
+  method: 'Sampling method', budget: 'Draws with replacement', uniform: 'Uniform',
+  retained: 'Mean unique edges retained', disagreement: 'Verdict disagreement', conclusive: 'Conclusive certificates',
+  evaluations: 'evaluations', falseUnstable: 'False unstable', falseStable: 'False stable',
+  caveat: 'Each method/budget has 180 graph-scale evaluations from 18 underlying samples, each reused at 10 scales. Draw counts are matched; distinct retained edges are not. Percentages are descriptive.',
+  all: 'All recorded results', table: 'Retention, verdict disagreement and certificates by method and draw budget',
+  nojs: 'The selectors need JavaScript; the full table and static article figures remain available.',
+};
+const id = 'turing-audit-' + locale;
+---
+<div class="turing-audit" data-turing-audit data-locale={locale} data-pagefind-ignore>
+  <p class="audit-title">{copy.title}</p><p>{copy.intro}</p>
+  <div class="audit-controls">
+    <label for={id+'-method'}>{copy.method}
+      <select id={id+'-method'} data-audit-method>
+        <option value="effective_resistance">{zh ? '有效電阻抽樣（ER）' : 'Effective resistance (ER)'}</option>
+        <option value="uniform">{copy.uniform}</option>
+      </select>
+    </label>
+    <label for={id+'-budget'}>{copy.budget}
+      <select id={id+'-budget'} data-audit-budget>
+        {[20,40,70,110,170,350,700].map(v => <option value={v} selected={v===110}>{v}</option>)}
+      </select>
+    </label>
+  </div>
+  <div class="audit-results" aria-live="polite" aria-atomic="true">
+    <dl class="audit-metrics">
+      <div><dt>{copy.retained}</dt><dd data-audit-retained>{pct(initial.mean_retained_fraction)}</dd></div>
+      <div><dt>{copy.disagreement}</dt><dd data-audit-disagreement>{pct(initial.verdict_disagreement_rate)}</dd><dd class="audit-count" data-audit-disagreement-count>{initial.disagreementCount}/180 {copy.evaluations}</dd></div>
+      <div><dt>{copy.conclusive}</dt><dd data-audit-conclusive>{pct(initial.conclusive_certificate_rate)}</dd><dd class="audit-count" data-audit-conclusive-count>{initial.conclusiveCount}/180 {copy.evaluations}</dd></div>
+    </dl>
+    <p class="audit-direction" data-audit-direction>{copy.falseUnstable}: {initial.falseUnstableCount}/96; {copy.falseStable}: {initial.falseStableCount}/84.</p>
+  </div>
+  <p class="audit-note">{copy.caveat}</p>
+  <noscript><p>{copy.nojs}</p></noscript>
+  <details><summary>{copy.all}</summary>
+    <div class="audit-table" tabindex="0" role="region" aria-label={copy.table}>
+      <table><caption>{copy.table}</caption>
+        <thead><tr><th scope="col">{copy.method}</th><th scope="col">{copy.budget}</th><th scope="col">{copy.retained}</th><th scope="col">{copy.disagreement}</th><th scope="col">{copy.conclusive}</th></tr></thead>
+        <tbody>{records.map(r => <tr><th scope="row">{r.method==='effective_resistance'?'ER':copy.uniform}</th><td>{r.draws}</td><td>{pct(r.mean_retained_fraction)}</td><td>{r.disagreementCount}/180</td><td>{r.conclusiveCount}/180</td></tr>)}</tbody>
+      </table>
+    </div>
+  </details>
+</div>
+<style>
+  .turing-audit{border:1px solid var(--line);background:var(--surface);padding:clamp(1rem,3vw,1.6rem);margin:2rem 0;max-width:100%;min-width:0}
+  .audit-title{font-weight:750;font-size:1.15rem;margin-top:0}.audit-controls{display:flex;gap:1rem;flex-wrap:wrap;margin:1.25rem 0}
+  .audit-controls label{display:flex;flex-direction:column;gap:.35rem;font-size:.88rem;font-weight:700;flex:1 1 12rem;min-width:0}
+  select{font:inherit;color:var(--ink);background:white;border:1px solid #63736a;border-radius:0;padding:.55rem;width:100%;min-height:44px}
+  .audit-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.6rem 0 1rem}
+  .audit-metrics>div{border-top:2px solid var(--ink);padding-top:.7rem;min-width:0}.audit-metrics dt{font-size:.8rem;line-height:1.5}
+  .audit-metrics dd{font-family:Georgia,serif;font-size:clamp(1.6rem,4vw,2.4rem);margin:.2rem 0;line-height:1.3;font-variant-numeric:tabular-nums}
+  .audit-metrics dd.audit-count{font:.8rem/1.5 var(--sans);color:var(--muted)}
+  .audit-direction,.audit-note{font-size:.85rem;line-height:1.6}.audit-note{border-left:3px solid var(--accent);padding:.5rem .8rem;background:#e9ede6}
+  .audit-table{max-width:100%;overflow:auto;margin-top:1rem}.audit-table table{min-width:640px;font-size:.8rem;font-variant-numeric:tabular-nums}
+  .audit-table caption{text-align:left;margin-bottom:.6rem}.audit-table th,.audit-table td{padding:.5rem;text-align:left}
+  summary{cursor:pointer;font-weight:700}select:focus-visible,.audit-table:focus-visible,summary:focus-visible{outline:3px solid #005fcc;outline-offset:3px}
+  @media(max-width:600px){.audit-metrics{grid-template-columns:1fr}.audit-metrics>div{display:grid;grid-template-columns:1fr 1fr;align-items:center}.audit-metrics dd{text-align:right}.audit-metrics dd.audit-count{grid-column:1/-1;text-align:left}}
+  @media print{.audit-controls{display:none}.audit-table{overflow:visible}.audit-metrics{break-inside:avoid}}
+</style>
+<script>
+  import data from '../data/turing-certificate-audit.json';
+  document.querySelectorAll<HTMLElement>('[data-turing-audit]').forEach(root => {
+    if(root.dataset.initialized==='true')return;
+    root.dataset.initialized='true';
+    const method=root.querySelector<HTMLSelectElement>('[data-audit-method]')!;
+    const budget=root.querySelector<HTMLSelectElement>('[data-audit-budget]')!;
+    const zh=root.dataset.locale==='zh-Hant';
+    const text=(selector:string,value:string)=>{root.querySelector<HTMLElement>(selector)!.textContent=value;};
+    const percent=(value:number)=>(100*value).toFixed(1)+'%';
+    const update=()=>{
+      const d=data.find(r=>r.method===method.value&&r.draws===Number(budget.value));if(!d)return;
+      text('[data-audit-retained]',percent(d.mean_retained_fraction));
+      text('[data-audit-disagreement]',percent(d.verdict_disagreement_rate));
+      text('[data-audit-conclusive]',percent(d.conclusive_certificate_rate));
+      text('[data-audit-disagreement-count]',d.disagreementCount+'/'+d.evaluations+' '+(zh?'次評估':'evaluations'));
+      text('[data-audit-conclusive-count]',d.conclusiveCount+'/'+d.evaluations+' '+(zh?'次評估':'evaluations'));
+      text('[data-audit-direction]',(zh?'錯報失穩':'False unstable')+': '+d.falseUnstableCount+'/'+d.stableDenominator+'; '+(zh?'漏報失穩':'False stable')+': '+d.falseStableCount+'/'+d.unstableDenominator+'.');
+    };
+    method.addEventListener('change',update);budget.addEventListener('change',update);
+  });
+</script>

@@ -1,0 +1,175 @@
+---
+title: "When Sparsification Invents a Turing Instability: Auditing a Spectral Certificate"
+slug: when-sparsification-invents-a-turing-instability
+topicIds: [dynamics-networks, risk-decisions, computation-code]
+summary: A synthetic network experiment shows how edge sampling can create false linear-instability alarms, while a mathematically sound spectral certificate often cannot settle the original graph's verdict.
+date: 2026-11-11
+lastUpdated: 2026-11-11
+featured: false
+topics: [Turing instability, graph sparsification, effective resistance, spectral certificates, negative results, reproducibility]
+heroImage: /images/turing-certificate-audit/band-certificate.svg
+draft: false
+type: Research Notes
+archived: false
+relatedSlugs: [growing-domain-turing-topology, random-stress-tests-are-not-certificates]
+redirectFrom: []
+---
+
+import TuringAuditExplorer from "../../components/TuringAuditExplorer.astro";
+
+A smaller network is attractive when a calculation must be repeated many times. But deleting connections can change the scientific answer. In this synthetic experiment, 110 edge draws with effective-resistance sampling retain about **68.0% of distinct original edges**, yet the reduced graph disagrees with the original graph's linear-instability verdict in **63 of 180 evaluations**. A posterior spectral certificate settles none of those 180 cases.
+
+The title's “invents” refers to a false alarm in the sampled graph's linearized model. It does not mean that numerical sampling creates a biological pattern. This is an exploratory audit of undirected, positive-weight graphs, with a research snapshot dated **7 November 2026**. There are no biological measurements or nonlinear pattern simulations.
+
+The question is precise: **can edge sampling preserve the original network's answer about the onset of a Turing instability, and can a certificate verify that answer at a useful reduction budget?** Sparsity, decision agreement and a conclusive certificate are three different objectives.
+
+## A reaction model turns eigenvalues into a decision
+
+Put two reacting species at each vertex. The dimensionless Schnakenberg kinetics are
+
+$$
+f(u,v)=a-u+u^2v,\qquad g(u,v)=b-u^2v.
+$$
+
+With $a=0.1$ and $b=0.9$, the homogeneous equilibrium is $(u_*,v_*)=(1,0.9)$. Its reaction Jacobian and diffusion matrix are
+
+$$
+J=\begin{pmatrix}0.8&1\\-1.8&-1\end{pmatrix},
+\qquad D=\operatorname{diag}(0.1,1).
+$$
+
+Let $L$ be the symmetric combinatorial graph Laplacian. The linearized network dynamics are $z'=(I\otimes J-L\otimes D)z$. Each Laplacian eigenvalue $q\geq0$ produces a two-dimensional block $J-qD$, whose trace and determinant are
+
+$$
+\operatorname{tr}(J-qD)=-0.2-1.1q<0,
+\qquad
+\det(J-qD)=1-0.7q+0.1q^2=0.1(q-2)(q-5).
+$$
+
+A negative determinant gives one positive growth eigenvalue. Therefore the exact open instability band is **$2<q<5$**. The homogeneous mode $q=0$ is stable; diffusion can destabilize a nonconstant mode only when a graph eigenvalue enters that band.
+
+At $q=2$ or $q=5$, one growth eigenvalue is zero. These endpoints are neutral, so “no strictly unstable mode” must not silently become “strict asymptotic stability.” The numerical verdict uses a small tolerance; the audit makes no claims about resolving near-endpoint equality.
+
+<figure class="article-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/images/turing-certificate-audit/band-certificate-mobile.svg" />
+    <img src="/images/turing-certificate-audit/band-certificate.svg" alt="Schematic open Turing instability band from 2 to 5 and spectral enclosure intervals illustrating certified instability, no strictly unstable mode, and an inconclusive result." loading="eager" decoding="async" />
+  </picture>
+  <figcaption><strong>Figure 1.</strong> Mathematical schematic, not measured or recorded mode trajectories. One interval wholly inside the open band certifies an unstable mode in the original graph. Certifying no strictly unstable mode requires every interval to avoid the band. An interval crossing a boundary can leave the result inconclusive; endpoints themselves are neutral.</figcaption>
+</figure>
+
+## Sampling edges does not preserve every realization
+
+Effective-resistance sampling is classical. For edge $e=(i,j)$, with weight $w_e$, define
+
+$$
+R_e=(e_i-e_j)^T L^+(e_i-e_j),
+\qquad p_e=\frac{w_eR_e}{n-1},
+$$
+
+where $L^+$ is the pseudoinverse. On a connected graph, the leverage scores $w_eR_e$ sum to $n-1$. Edges with larger scores receive greater sampling probability.
+
+Draw $k$ edges independently **with replacement**. Each occurrence contributes weight $w_e/(kp_e)$; repeated occurrences aggregate into one weighted edge. Uniform sampling uses $p_e=1/m$ for $m$ original edges and the same inverse-probability construction. Both give $\mathbb{E}[L_s]=L$.
+
+That expectation does not promise that a particular $L_s$ preserves the spectrum or its instability verdict. Reweighting can move eigenvalues into or out of the band. Also, 110 draws do not mean 110 distinct retained edges: repeated edges still consume draws. The construction follows the established framework of [Spielman and Srivastava (2011)](https://doi.org/10.1137/080734029); the implementation here uses dense small-graph reference routines rather than their fast algorithm.
+
+## What a certificate actually certifies
+
+Suppose an a posteriori calculation establishes the Loewner sandwich
+
+$$
+(1-\varepsilon)L\preceq L_s\preceq(1+\varepsilon)L,
+\qquad 0\leq\varepsilon<1.
+$$
+
+For ordered nonconstant-mode eigenvalues $q_i$ of $L$ and $s_i$ of $L_s$, the standard min–max principle gives
+
+$$
+q_i\in I_i=
+\left[\frac{s_i}{1+\varepsilon},\frac{s_i}{1-\varepsilon}\right].
+$$
+
+This supports three answers about the **original** graph:
+
+- **Certified unstable:** at least one entire $I_i$ lies strictly inside $(2,5)$.
+- **Certified no strictly unstable mode:** every $I_i$ is disjoint from $(2,5)$; neutral endpoint possibilities remain distinct from strict stability.
+- **Inconclusive:** neither sufficient condition holds, or the required $\varepsilon<1$ condition fails.
+
+An inconclusive certificate is an abstention, not a stability verdict. Even $\varepsilon<1$ is insufficient for a conclusion: an interval can remain too wide or straddle a band endpoint. This is a standard consequence of spectral approximation, not a new theorem.
+
+There is also a cost boundary. The reference implementation computes distortion from extremal eigenvalues of $L^{-1/2}L_sL^{-1/2}$ on the subspace orthogonal to the constant vector. It needs the full reference eigendecomposition. This audits a guarantee without demonstrating a faster way to avoid original-graph analysis. The implication assumes a valid sandwich; floating-point eigenvalue calculations are not an interval-arithmetic proof of that inequality.
+
+## The frozen experiment and its denominators
+
+Three 24-node graph seeds use a connected ring backbone plus random longer connections. Ten positive weight scales produce 30 original graph/scale cases: 16 have no strictly unstable mode and 14 are unstable. Full $48\times48$ linearizations provide a separate numerical cross-check of the modal calculation.
+
+The budgets are 20, 40, 70, 110, 170, 350 and 700 draws, with six replicate seeds and two samplers. There are **252 base sampling instances**, each reused across ten scales, yielding 2,520 recorded evaluations. For one method and budget, the denominator 180 is **18 base samples × ten scales**, not 180 independent samples. The plotted percentages are descriptive counts for this fixed design, without confidence intervals or population-level error claims.
+
+| Sampler | Draws | Mean distinct edges retained | Verdict disagreement | Conclusive certificates |
+|---|---:|---:|---:|---:|
+| Effective resistance (ER) | 110 | 68.0% | 63/180 = 35.0% | 0/180 |
+| Uniform | 110 | 71.2% | 57/180 = 31.7% | 0/180 |
+| ER | 700 | 99.94% | 12/180 = 6.7% | 86/180 = 47.8% |
+| Uniform | 700 | 99.88% | 9/180 = 5.0% | 81/180 = 45.0% |
+
+<figure class="article-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/images/turing-certificate-audit/budget-outcomes-mobile.svg" />
+    <img src="/images/turing-certificate-audit/budget-outcomes.svg" alt="Aligned plots compare effective-resistance and uniform sampling across seven draw budgets: distinct-edge retention rises, disagreement generally falls, and conclusive certificates remain scarce." loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><strong>Figure 2.</strong> Frozen synthetic results at equal draw budgets, not equal distinct-edge counts. ER uses blue circles and uniform uses vermilion squares, with different line styles. Each disagreement or certificate denominator is 180 graph/scale evaluations from 18 reused base samples. At 700 draws, both methods retain almost every original edge, while fewer than half of certificates conclude.</figcaption>
+</figure>
+
+Uniform has fewer disagreements at 110 draws in this ensemble, while retaining a larger edge fraction. At 350 draws the disagreement ordering reverses. These observations establish neither sampler's general superiority. A matched-distinct-edge benchmark, held-out graph families and end-to-end timings would answer different questions.
+
+<TuringAuditExplorer locale="en" />
+
+The explorer reads frozen results. Changing a selector reveals recorded counts; it does not generate new random graphs or run a fresh eigensolver.
+
+## A false alarm and a missed instability differ
+
+A **false-unstable** result calls the sampled graph unstable when the original has no strictly unstable mode. A **false-stable** result misses an instability present in the original. Their conditional denominators differ.
+
+At 110 draws, ER produces 63 false alarms among 96 evaluations whose originals have no strictly unstable mode: **63/96 = 65.625%**. It misses none of the 84 originally unstable evaluations: **0/84**. The same 63 errors give the overall **63/180 = 35%** disagreement. Uniform gives 57/96 false alarms and 0/84 missed instabilities.
+
+<figure class="article-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/images/turing-certificate-audit/conditional-errors-mobile.svg" />
+    <img src="/images/turing-certificate-audit/conditional-errors.svg" alt="Separate conditional error plots show false instability alarms among 96 originally non-unstable evaluations and missed instabilities among 84 originally unstable evaluations, for each sampler and budget." loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><strong>Figure 3.</strong> Error direction with its proper denominator. False-unstable counts use 96 original non-unstable evaluations per method/budget; false-stable counts use 84 originally unstable evaluations. Most observed errors are false alarms. Zero recorded missed instabilities in a cell does not establish zero risk on other graphs, scales or seeds.</figcaption>
+</figure>
+
+The asymmetry belongs to this ensemble. An inflated eigenvalue below 2 can enter the unstable band, but increasing an eigenvalue already in the band can also carry it above 5. Other spectral arrangements could change which error dominates.
+
+## Why a smaller distortion can still leave no answer
+
+<figure class="article-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="/images/turing-certificate-audit/spectral-distortion-mobile.svg" />
+    <img src="/images/turing-certificate-audit/spectral-distortion.svg" alt="Posterior spectral-distortion values and medians decline with draw budget for both samplers, with a threshold at epsilon equals one and only 18 base-sampling points shown per method and budget." loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><strong>Figure 4.</strong> Posterior Loewner distortion after removing tenfold scale reuse. Each method/budget shows 18 base-sampling values and their median. Scaling both Laplacians together leaves the relative distortion unchanged apart from numerical roundoff. The threshold at one permits the interval formula; crossing below it does not itself certify the instability decision.</figcaption>
+</figure>
+
+At 110 draws the ER median distortion is about 0.927, yet no certificate concludes. At 700 draws its median is about 0.359, but 94/180 evaluations remain inconclusive. Uniform's corresponding median is about 0.356, with 99/180 inconclusive. A global multiplicative bound can demand much more spectral accuracy than a single band-membership decision appears to require.
+
+The record contains 193 conclusive certificates in total, all agreeing with the reference labels. That finite consistency result supports the implementation audit. It does not establish a scalable certificate, a general error probability or a useful compression advantage.
+
+## Prior work and the next honest question
+
+Graph reaction–diffusion reduction is established prior work. Ajayakumar and Raha's [*SGRDN-Data learned sparsification of graph reaction-diffusion networks*](https://arxiv.org/abs/2303.11943), initially posted in 2023 and revised in 2025, directly studies sparsification for these systems. Effective-resistance sampling and the spectral sandwich also precede this audit. Introducing their combination is not presented as a new method.
+
+[Zhu, Zhang and Shen (2026)](https://journals.aps.org/pre/abstract/10.1103/2mcl-8fs8) study spectral coarse graining for higher-order network reaction–diffusion systems; their abstract reports maintaining necessary Turing-instability conditions. That is a related preservation objective, with a different reduction operation and system class from edge sampling here.
+
+The contribution here is a focused negative-result account: at the tested budgets, decision errors and certificate abstention persist; high certificate coverage is not obtained alongside substantial edge reduction. No nonlinear patterns were simulated, so agreement about linear onset says nothing by itself about final spots, stripes, localization or pattern topology.
+
+A useful next question is whether a task-specific method can protect the relevant spectral band, with a verified decision margin and lower total cost. Answering it needs stronger comparisons and an independent novelty assessment. The present results motivate that question; they do not answer it.
+
+## Public record and related reading
+
+An independent local rerun on **11 November 2026** used Python **3.12.13**, NumPy **2.4.6**, SciPy **1.18.0**, Matplotlib **3.11.0** and pytest **9.1.1** on Windows 11. All **16/16 tests passed**. The complete 2,520-evaluation rerun agreed with the frozen archive in every discrete CSV field; the largest observed absolute floating-point difference was approximately **1.42 × 10⁻¹⁴**. The [validation record](/resources/turing-certificate-audit/validation.json) records the environment and comparison. This establishes local numerical reproduction of the supplied experiment, not an interval-arithmetic proof of the spectral inequalities or a general guarantee from the 193 observed conclusive cases.
+
+The [recorded evaluations (CSV)](/resources/turing-certificate-audit/results.csv), [aggregate summary (JSON)](/resources/turing-certificate-audit/summary.json), [curated source package](/resources/turing-certificate-audit/source-code.zip) and [record notes](/resources/turing-certificate-audit/README.md) keep the results, configuration and reproduction boundary together. The downloads describe a synthetic linear audit, not a biological dataset or nonlinear validation.
+
+For the distinction between linear onset and an evolving pattern, read [When a Turing Pattern Has to Grow with Its Domain](/writing/growing-domain-turing-topology/). For the difference between an observed answer and a verified bound, see [Random Stress Tests Are Not Certificates](/writing/random-stress-tests-are-not-certificates/).
