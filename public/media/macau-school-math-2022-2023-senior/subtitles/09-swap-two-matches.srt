@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:12,000
+每行每列各選一個數。題目說，不同選法得到的總和都相同。
+Take one entry from each row and column. Every such selection has the same sum.
+
+2
+00:00:12,000 --> 00:00:25,000
+先選左上角與第 i 行第 j 列，再將其餘行與列任意配對。
+Choose the top-left and (i,j) entries. Match all the remaining rows and columns.
+
+3
+00:00:25,000 --> 00:00:42,000
+只交換這兩行對應的列。綠色標記仍留在原位。
+Swap the columns assigned to just those two rows. The green selections stay in place.
+
+4
+00:00:42,000 --> 00:00:58,000
+兩個總和相等。R 是兩邊相同的其餘配對總和，可以相消。
+Both totals are equal. Cancel R, the sum of their shared remaining entries.
+
+5
+00:00:58,000 --> 00:01:13,000
+把左上角當基準。每行只需記下首格相對基準的差。
+Use the top-left entry as the anchor. Store each row’s difference from it.
+
+6
+00:01:13,000 --> 00:01:27,000
+第一行記下每一列的基準值。兩組資料足以重建表中每一格。
+Store each column’s base value in row one. These two lists recover every entry.
+
+7
+00:01:27,000 --> 00:01:42,000
+沿第 i 行送入 xᵢ，沿第 j 列送入 yⱼ。兩者在交點相加。
+Send xᵢ across row i and yⱼ down column j. Add them at the intersection.
+
+8
+00:01:42,000 --> 00:01:55,000
+把同一步驟用在每個交點，就得到整張表的行加列表示。
+Repeat at every intersection. The entire array is a row offset plus a column base.
+
+9
+00:01:55,000 --> 00:02:10,000
+首行、首列直接由定義成立。只有一格時，取 x₁ 為零即可。
+The definitions cover row one and column one. For n = 1, take x₁ = 0.
+
+10
+00:02:10,000 --> 00:02:25,000
+每一格都拆成兩個量。任何配對都各取一次，所以總和自然一致。
+Every matching uses each row offset and column base once, explaining the common sum.

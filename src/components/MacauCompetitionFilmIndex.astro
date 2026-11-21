@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  competitionArchivePath, competitionEditions, competitionFilmsPath, filmTimestamp,
+} from '../data/macau-competition-films';
+
+interface Props { locale: 'en' | 'zh-Hant' }
+const { locale } = Astro.props;
+const zh = locale === 'zh-Hant';
+const prefix = zh ? '/zh' : '';
+const title = zh ? '澳門學界數學比賽動畫題解' : 'Macau School Mathematics Competition Films';
+const description = zh
+  ? '選擇高中組試卷的學年，觀看附繁體中文及英文字幕的完整版或逐題短片。'
+  : 'Choose a Senior Division paper and watch the full film or individual solutions with Traditional Chinese and English captions.';
+const fullLabel = zh ? '觀看完整版' : 'Watch full film';
+const clipsLabel = zh ? '選擇題目' : 'Choose a question';
+---
+
+<BaseLayout title={title} description={description} type="Teaching" locale={locale}
+  alternatePath={zh ? competitionFilmsPath : '/zh' + competitionFilmsPath}>
+  <header class="page-head films-head">
+    <div class="container">
+      <h1>{title}</h1>
+      <p class="lead">{description}</p>
+      <a class="button secondary" href={prefix + competitionArchivePath}>
+        {zh ? '瀏覽書面題解資源庫' : 'Browse the written solution archive'}
+      </a>
+    </div>
+  </header>
+  <section class="container film-selection" aria-label={zh ? '按學年選擇' : 'Choose an academic year'}>
+    <ul class="film-editions" role="list">
+      {Object.entries(competitionEditions).map(([edition, { duration, questionSections }]) => {
+        const year = edition.replace('-', zh ? '／' : '/');
+        const path = prefix + competitionArchivePath + edition + '-senior/';
+        return (
+          <li class="film-edition">
+            <h2>{year}</h2>
+            <p class="film-facts">
+              {questionSections.length} {zh ? '題' : 'questions'}
+              <span aria-hidden="true"> · </span>
+              <time datetime={'PT' + duration + 'S'}>{filmTimestamp(duration)}</time>
+            </p>
+            <div class="film-actions">
+              <a class="button" href={path + '#full-film'} aria-label={fullLabel + ' · ' + year}>{fullLabel}</a>
+              <a class="button secondary" href={path + '#individual-solutions'} aria-label={clipsLabel + ' · ' + year}>{clipsLabel}</a>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .films-head { padding-block: clamp(2rem, 5vw, 4.25rem) 2.5rem; }
+  .films-head h1 { max-width: 23em; font-size: clamp(2rem, 4.9vw, 4.35rem); text-wrap: balance; }
+  .film-selection { padding-block: 2rem 4rem; }
+  .film-editions { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .film-edition { padding: clamp(1rem, 3vw, 1.65rem); border: 1px solid var(--line); background: var(--surface); }
+  .film-edition h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.15rem); }
+  .film-facts { margin: .35rem 0 1.05rem; color: var(--muted); }
+  .film-facts time { font-variant-numeric: tabular-nums; }
+  .film-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+  @media (max-width: 44rem) { .film-editions { grid-template-columns: 1fr; } }
+</style>

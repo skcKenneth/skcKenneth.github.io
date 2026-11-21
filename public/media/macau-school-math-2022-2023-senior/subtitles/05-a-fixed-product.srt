@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:13,000
+三個分式的分母看似各不相同。要找總和的最小值，先看它們的共同形式。
+The denominators look different. Look for a common form before finding the minimum.
+
+2
+00:00:13,000 --> 00:00:29,000
+每項分子分母同除以分子，按原題次序定義 u、v、w。
+Divide each fraction by its numerator and define u, v and w in the original order.
+
+3
+00:00:29,000 --> 00:00:44,000
+u、v、w 相乘時，a、b、c 全部約掉，所以乘積固定為 8。
+Multiply u, v and w. All powers of a, b and c cancel, so the product is fixed at 8.
+
+4
+00:00:44,000 --> 00:01:00,000
+讓 a 和 c 互為倒數，b 固定。藍橙兩條柱此消彼長，乘積維持不變。
+Let a and c be reciprocal with b fixed. The blue and orange bars vary with fixed product.
+
+5
+00:01:00,000 --> 00:01:16,000
+三項算術平均不少於幾何平均，故 u+v+w 至少是 6。
+By AM–GM, the sum u+v+w is at least 6, since the product is 8.
+
+6
+00:01:16,000 --> 00:01:30,000
+把 S−1 通分。成對的 uv、vw、wu 抵消，分子只剩下這幾項。
+Put S−1 over a common denominator. The pair terms uv, vw and wu cancel.
+
+7
+00:01:30,000 --> 00:01:46,000
+代入 uvw=8。分子非負，分母為正，所以 S 不小於 1。
+Use uvw=8. The numerator is nonnegative and the denominator is positive, so S≥1.
+
+8
+00:01:46,000 --> 00:02:00,000
+只有 u=v=w=2 才取等號。比較 u、v、w，就得出 a=b=c。
+Equality needs u=v=w=2. Comparing those three ratios gives a=b=c.
+
+9
+00:02:00,000 --> 00:02:15,000
+當 a=b=c 時，每項都是三分之一，最小值 1 確實取得。
+When a=b=c, each fraction is one third, so the minimum 1 is attained.

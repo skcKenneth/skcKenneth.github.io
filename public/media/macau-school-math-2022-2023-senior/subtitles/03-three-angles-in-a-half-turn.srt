@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:09,000
+三個數都為正，所以其反正切都是銳角。
+The three numbers are positive, so their arctangents are acute.
+
+2
+00:00:09,000 --> 00:00:20,000
+把 A、B、C 看成同一個三角形的內角，移動頂點看看。
+View A, B and C as the angles of one triangle. Watch the top vertex move.
+
+3
+00:00:20,000 --> 00:00:32,000
+把三個角依次排在同一個圓心，終點始終是另一端。
+Put the angles at one centre. Their sum is always a half-turn.
+
+4
+00:00:32,000 --> 00:00:48,000
+總角是 π，正弦等於零。把三個角的正弦和餘弦展開。
+The sine of π is zero. Expand using the angle addition formulas.
+
+5
+00:00:48,000 --> 00:01:00,000
+抽出三個餘弦的乘積，括號就只剩三個正切和它們的乘積。
+Factor out the three cosines to leave tangents in the bracket.
+
+6
+00:01:00,000 --> 00:01:13,000
+三個角都是銳角，餘弦不為零。因此 x＋y＋z＝xyz。
+All three cosines are positive, so x + y + z = xyz.
+
+7
+00:01:13,000 --> 00:01:24,000
+通分後，分子是 x＋y＋z，而分母是 xyz。兩者相等。
+With denominator xyz, the numerator is x + y + z. They are equal.
+
+8
+00:01:24,000 --> 00:01:35,000
+所以原式的值是 1。
+The original sum is therefore 1.

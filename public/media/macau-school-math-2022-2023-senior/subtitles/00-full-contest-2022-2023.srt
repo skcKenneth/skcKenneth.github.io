@@ -1,0 +1,634 @@
+1
+00:00:00,000 --> 00:00:04,300
+同一批格點，可以用兩種方法數。
+Count the same lattice points in two ways.
+
+2
+00:00:04,300 --> 00:00:08,800
+移動三角形頂點，睇向量會帶我哋去邊。
+Move a triangle vertex to see where the vectors lead.
+
+3
+00:00:08,800 --> 00:00:12,000
+試做一題，再睇畫面點樣帶出關鍵一步。
+Try a problem, then watch the picture reveal the key step.
+
+4
+00:00:12,000 --> 00:00:22,000
+正切是射線的斜率。角度小一點，斜率會怎樣變？
+The tangent is the slope of a ray. How does it change when the angle shrinks?
+
+5
+00:00:22,000 --> 00:00:34,000
+由 45° 順時針轉 30°。橙色升幅就是 15° 的正切。
+Turn 45° clockwise by 30°. The orange rise is now the tangent of 15°.
+
+6
+00:00:34,000 --> 00:00:45,000
+正切差角公式，將 15° 改寫成兩個熟悉角度的正切。
+The tangent subtraction formula uses the two familiar angles.
+
+7
+00:00:45,000 --> 00:00:57,000
+45° 的正切是 1，30° 的正切是 1 除以根號 3。
+The tangent of 45° is 1, and the tangent of 30° is 1/√3.
+
+8
+00:00:57,000 --> 00:01:12,000
+乘以分母的共軛式，得到 2 減根號 3。
+Multiply by the conjugate to get 2 minus the square root of 3.
+
+9
+00:01:12,000 --> 00:01:22,000
+三個對數的真數一樣，底數分別是 xy、yz 和 zx。
+The three logarithms have one argument, with bases xy, yz and zx.
+
+10
+00:01:22,000 --> 00:01:33,000
+原題的條件讓每個式子有定義。取倒數，底數與真數交換。
+Every term is defined. Reciprocals swap the base and argument.
+
+11
+00:01:33,000 --> 00:01:43,000
+三個換底後的分母全是 log(xyz)，所以可以合在一起。
+All three terms now have denominator log(xyz), so combine them.
+
+12
+00:01:43,000 --> 00:01:54,000
+相加的對數可以合成一個乘積。數一數每個字母出現幾次。
+Multiply the arguments. How often does each letter occur?
+
+13
+00:01:54,000 --> 00:02:04,000
+把相同的因數排在一起。每個字母正好出現兩次。
+Put equal factors together. Each letter appears exactly twice.
+
+14
+00:02:04,000 --> 00:02:14,000
+乘積是 x²y²z²，也就是整個 xyz 的平方。
+The product is x²y²z², the square of the entire product xyz.
+
+15
+00:02:14,000 --> 00:02:27,000
+平方令對數加倍。原式等於 2。
+Squaring doubles the logarithm. The original sum is 2.
+
+16
+00:02:27,000 --> 00:02:36,000
+三個數都為正，所以其反正切都是銳角。
+The three numbers are positive, so their arctangents are acute.
+
+17
+00:02:36,000 --> 00:02:47,000
+把 A、B、C 看成同一個三角形的內角，移動頂點看看。
+View A, B and C as the angles of one triangle. Watch the top vertex move.
+
+18
+00:02:47,000 --> 00:02:59,000
+把三個角依次排在同一個圓心，終點始終是另一端。
+Put the angles at one centre. Their sum is always a half-turn.
+
+19
+00:02:59,000 --> 00:03:15,000
+總角是 π，正弦等於零。把三個角的正弦和餘弦展開。
+The sine of π is zero. Expand using the angle addition formulas.
+
+20
+00:03:15,000 --> 00:03:27,000
+抽出三個餘弦的乘積，括號就只剩三個正切和它們的乘積。
+Factor out the three cosines to leave tangents in the bracket.
+
+21
+00:03:27,000 --> 00:03:40,000
+三個角都是銳角，餘弦不為零。因此 x＋y＋z＝xyz。
+All three cosines are positive, so x + y + z = xyz.
+
+22
+00:03:40,000 --> 00:03:51,000
+通分後，分子是 x＋y＋z，而分母是 xyz。兩者相等。
+With denominator xyz, the numerator is x + y + z. They are equal.
+
+23
+00:03:51,000 --> 00:04:02,000
+所以原式的值是 1。
+The original sum is therefore 1.
+
+24
+00:04:02,000 --> 00:04:14,000
+把歐拉函數和向下取整放在一起，會數出甚麼？
+What do the totient and the floor count together?
+
+25
+00:04:14,000 --> 00:04:27,000
+用 n＝6 做例子。畫出所有滿足 1 ≤ p ≤ q ≤ n 的整數點。
+For n = 6, plot every integer pair with 1 ≤ p ≤ q ≤ n.
+
+26
+00:04:27,000 --> 00:04:40,000
+先按行數。第 q 行有 q 點，所以總數是 1＋2＋⋯＋n。
+Count by rows first. Row q has q dots, giving 1 + 2 + ⋯ + n.
+
+27
+00:04:40,000 --> 00:04:55,000
+再按射線數。同一條射線上，每點的比 p／q 都相同。
+Now count by rays. Every point on one ray has the same ratio p/q.
+
+28
+00:04:55,000 --> 00:05:10,000
+分母 3 有兩個最簡分數。每條射線各有兩個整數點。
+Denominator 3 has two reduced fractions, each with two points.
+
+29
+00:05:10,000 --> 00:05:24,000
+分母 1 也算：1／1 是對角線，總共有 n 點。
+Denominator 1 counts too: 1/1 gives the diagonal with all n points.
+
+30
+00:05:24,000 --> 00:05:39,000
+一般而言，每點約分成唯一的 a／k。放大 t 倍就得回原來的點。
+Each point reduces to a unique a/k. Scale by t to recover the point.
+
+31
+00:05:39,000 --> 00:05:52,000
+分母 k 有 φ(k) 條射線，每條各有 ⌊n／k⌋ 個點。
+Denominator k has φ(k) rays, each with ⌊n/k⌋ points.
+
+32
+00:05:52,000 --> 00:06:07,000
+兩種數法數的是同一批點，所以原式等於 n(n＋1)／2。
+The two methods count the same points, giving n(n + 1)/2.
+
+33
+00:06:07,000 --> 00:06:20,000
+三個分式的分母看似各不相同。要找總和的最小值，先看它們的共同形式。
+The denominators look different. Look for a common form before finding the minimum.
+
+34
+00:06:20,000 --> 00:06:36,000
+每項分子分母同除以分子，按原題次序定義 u、v、w。
+Divide each fraction by its numerator and define u, v and w in the original order.
+
+35
+00:06:36,000 --> 00:06:51,000
+u、v、w 相乘時，a、b、c 全部約掉，所以乘積固定為 8。
+Multiply u, v and w. All powers of a, b and c cancel, so the product is fixed at 8.
+
+36
+00:06:51,000 --> 00:07:07,000
+讓 a 和 c 互為倒數，b 固定。藍橙兩條柱此消彼長，乘積維持不變。
+Let a and c be reciprocal with b fixed. The blue and orange bars vary with fixed product.
+
+37
+00:07:07,000 --> 00:07:23,000
+三項算術平均不少於幾何平均，故 u+v+w 至少是 6。
+By AM–GM, the sum u+v+w is at least 6, since the product is 8.
+
+38
+00:07:23,000 --> 00:07:37,000
+把 S−1 通分。成對的 uv、vw、wu 抵消，分子只剩下這幾項。
+Put S−1 over a common denominator. The pair terms uv, vw and wu cancel.
+
+39
+00:07:37,000 --> 00:07:53,000
+代入 uvw=8。分子非負，分母為正，所以 S 不小於 1。
+Use uvw=8. The numerator is nonnegative and the denominator is positive, so S≥1.
+
+40
+00:07:53,000 --> 00:08:07,000
+只有 u=v=w=2 才取等號。比較 u、v、w，就得出 a=b=c。
+Equality needs u=v=w=2. Comparing those three ratios gives a=b=c.
+
+41
+00:08:07,000 --> 00:08:22,000
+當 a=b=c 時，每項都是三分之一，最小值 1 確實取得。
+When a=b=c, each fraction is one third, so the minimum 1 is attained.
+
+42
+00:08:22,000 --> 00:08:35,000
+兩條對角線的長度和，比兩組對邊的和都大，但比周界細。
+The sum of the diagonals exceeds both opposite-side sums and is below the perimeter.
+
+43
+00:08:35,000 --> 00:08:48,000
+移動頂點 D 時，兩條對角線的交點 H 仍留在凸四邊形內。
+As D moves, the diagonal intersection H stays inside the convex quadrilateral.
+
+44
+00:08:48,000 --> 00:09:10,000
+由 A 經 H 到 B，要比直行更長。同樣，由 C 經 H 到 D 也是較長的路。
+The detours from A to B and from C to D through H are longer than the straight sides.
+
+45
+00:09:10,000 --> 00:09:31,000
+交換對邊配對。兩條折路仍剛好用完四段對角線，得到另一個下界。
+Swap the side pairing. The four diagonal pieces give the other lower bound.
+
+46
+00:09:31,000 --> 00:09:42,000
+H 在四邊形內。每條折路都走三角形的兩邊，所以下界都是嚴格的。
+H lies inside. Each detour uses two sides of a triangle, so the bounds are strict.
+
+47
+00:09:42,000 --> 00:10:02,000
+要找上界，先由 A 走到 C。沿邊界有兩條路，每一條都比 AC 長。
+For the upper bound, take the two boundary routes from A to C. Both are longer than AC.
+
+48
+00:10:02,000 --> 00:10:22,000
+把同一方法用在 BD。兩條邊界路線再次合成一個完整周界。
+Repeat for BD. Its two boundary routes again add up to the perimeter.
+
+49
+00:10:22,000 --> 00:10:36,000
+將 2AC 小於 P 和 2BD 小於 P 相加，再除以 2，就得到嚴格上界。
+Add 2AC<P and 2BD<P, then divide by 2 to obtain the strict upper bound.
+
+50
+00:10:36,000 --> 00:10:52,000
+用交點處的折路證下界，用兩條邊界路線證上界。
+Crossing detours give the lower bound. Boundary paths give the upper bound.
+
+51
+00:10:52,000 --> 00:11:05,000
+這條不等式要對所有正數 a、b 成立。k 最大可以是多少？
+The inequality must hold for all positive a and b. How large can k be?
+
+52
+00:11:05,000 --> 00:11:20,000
+除以正數 ab²，把右邊界變成 k。左邊可以整理成倒數對。
+Divide by the positive ab². The left side rearranges into reciprocal pairs.
+
+53
+00:11:20,000 --> 00:11:39,000
+固定 b，只移動 a。a 和 1/a 的乘積固定為 1，總和最少是 2。
+Fix b and vary a. Because a times 1/a stays at 1, their sum is at least 2.
+
+54
+00:11:39,000 --> 00:11:59,000
+兩條柱同高時 a=1。代入 R，餘下的式子只含 b。
+The bars match at a=1. Substitute that value to leave an expression in b alone.
+
+55
+00:11:59,000 --> 00:12:14,000
+將 b 拆成兩份 b/2。加上 1，就有總和 b+1 的三項。
+Split b into two halves and add 1. The three terms sum to b+1.
+
+56
+00:12:14,000 --> 00:12:31,000
+再用三項 AM–GM。三項同高就取等號，也就是 b/2=1。
+Apply AM–GM to the three terms. Equality means all three match, so b/2=1.
+
+57
+00:12:31,000 --> 00:12:47,000
+兩邊立方後除以 b²。連同第一個界限，可知 R 至少是 27/4。
+Cube both sides and divide by b². With the first bound, R is at least 27/4.
+
+58
+00:12:47,000 --> 00:13:07,000
+a=1、b=2 令兩次同時取等號。因此 27/4 是最大可行常數。
+At a=1 and b=2, both bounds are equalities. Thus 27/4 is the largest possible k.
+
+59
+00:13:07,000 --> 00:13:20,000
+S 收集三次式 F 的所有整數取值。兩個取值相乘，還能寫成同一形式嗎？
+S contains all integer values of F. Can the product of two values have the same form?
+
+60
+00:13:20,000 --> 00:13:34,000
+把三次式分成一次因子 L 和二次因子 Q，再分別看它們除以 3 的餘數。
+Factor the cubic as L times Q, then track their residues modulo 3.
+
+61
+00:13:34,000 --> 00:13:47,000
+整數的立方和本身同餘，所以原式 F 與 L 同餘。
+An integer and its cube have the same residue modulo 3, so F and L agree.
+
+62
+00:13:47,000 --> 00:14:00,000
+Q 與 L 的平方只差 3 的倍數，所以模 3 同餘。
+Q and L squared differ by a multiple of 3, so they agree modulo 3.
+
+63
+00:14:00,000 --> 00:14:14,000
+如果 3 整除 F，就整除 L 和 Q。F 是兩個 3 的倍數相乘，所以 9 也整除 F。
+If 3 divides F, it divides L and Q. Their product is therefore divisible by 9.
+
+64
+00:14:14,000 --> 00:14:27,000
+看模 9 的九個餘數。3 和 6 被排除，0 和六個非 3 倍數仍有可能。
+Among the nine residues modulo 9, eliminate 3 and 6. Seven possible residues remain.
+
+65
+00:14:27,000 --> 00:14:40,000
+選 t 為任意整數。令兩個輸入等於 t，第三個差 1，便得到所有 3t±1。
+Let t be any integer. Shift the third input by one to obtain all 3t±1.
+
+66
+00:14:40,000 --> 00:14:54,000
+讓另外兩個輸入在 t 的兩側，就有 L=3t、Q=3，得到每個 9 的倍數。
+Put two inputs on opposite sides of t. Then L=3t and Q=3, giving all multiples of 9.
+
+67
+00:14:54,000 --> 00:15:13,000
+沿整數刻度選 t，三個公式各自構造一個取值，也能得到負數與零。
+Select integer values of t to construct values, including negatives and zero.
+
+68
+00:15:13,000 --> 00:15:23,000
+至此已構造所有非 3 倍數與所有 9 倍數。這兩類就是完整的 S。
+The nonmultiples of 3 and the multiples of 9 make up the entire set S.
+
+69
+00:15:23,000 --> 00:15:38,000
+其中一個因數被 9 整除，乘積也被 9 整除。兩個都不被 3 整除，乘積亦然。
+One multiple of 9 gives a multiple of 9. Two nonmultiples of 3 stay so.
+
+70
+00:15:38,000 --> 00:15:57,000
+兩個示例的積仍是 F 的取值。一般證明顯示 S 乘法封閉。
+Both products are values of F, as the closure proof predicts.
+
+71
+00:15:57,000 --> 00:16:09,000
+每行每列各選一個數。題目說，不同選法得到的總和都相同。
+Take one entry from each row and column. Every such selection has the same sum.
+
+72
+00:16:09,000 --> 00:16:22,000
+先選左上角與第 i 行第 j 列，再將其餘行與列任意配對。
+Choose the top-left and (i,j) entries. Match all the remaining rows and columns.
+
+73
+00:16:22,000 --> 00:16:39,000
+只交換這兩行對應的列。綠色標記仍留在原位。
+Swap the columns assigned to just those two rows. The green selections stay in place.
+
+74
+00:16:39,000 --> 00:16:55,000
+兩個總和相等。R 是兩邊相同的其餘配對總和，可以相消。
+Both totals are equal. Cancel R, the sum of their shared remaining entries.
+
+75
+00:16:55,000 --> 00:17:10,000
+把左上角當基準。每行只需記下首格相對基準的差。
+Use the top-left entry as the anchor. Store each row’s difference from it.
+
+76
+00:17:10,000 --> 00:17:24,000
+第一行記下每一列的基準值。兩組資料足以重建表中每一格。
+Store each column’s base value in row one. These two lists recover every entry.
+
+77
+00:17:24,000 --> 00:17:39,000
+沿第 i 行送入 xᵢ，沿第 j 列送入 yⱼ。兩者在交點相加。
+Send xᵢ across row i and yⱼ down column j. Add them at the intersection.
+
+78
+00:17:39,000 --> 00:17:52,000
+把同一步驟用在每個交點，就得到整張表的行加列表示。
+Repeat at every intersection. The entire array is a row offset plus a column base.
+
+79
+00:17:52,000 --> 00:18:07,000
+首行、首列直接由定義成立。只有一格時，取 x₁ 為零即可。
+The definitions cover row one and column one. For n = 1, take x₁ = 0.
+
+80
+00:18:07,000 --> 00:18:22,000
+每一格都拆成兩個量。任何配對都各取一次，所以總和自然一致。
+Every matching uses each row offset and column base once, explaining the common sum.
+
+81
+00:18:22,000 --> 00:18:36,000
+用格路解讀原卷兩邊嘅和。每條路都由左下去右上。
+Read both sums as paths from the bottom left to the top right.
+
+82
+00:18:36,000 --> 00:18:51,000
+如果有 n−j 個斜步，向右同向上各要 j 步。
+With n − j diagonals, there are j east steps and j north steps.
+
+83
+00:18:51,000 --> 00:19:09,000
+先揀向右嘅位置，再喺剩低 n 格揀向上嘅位置。
+Choose positions for E, then place N in j of the n remaining slots.
+
+84
+00:19:09,000 --> 00:19:28,000
+將每個斜步拆成先向右、後向上，標記中間嘅拐角。
+Expand a diagonal into east then north, and mark the corner.
+
+85
+00:19:28,000 --> 00:19:46,000
+展開後只剩向右同向上嘅步。拐角可以各自標記。
+The expanded path uses only E and N. Each corner can be marked.
+
+86
+00:19:46,000 --> 00:20:04,000
+反過來，將畫咗記號嘅 EN 壓回斜步，就還原原路。
+Compress each marked EN back to a diagonal to recover the path.
+
+87
+00:20:04,000 --> 00:20:25,000
+比較拐角位置。每行向右再向上，令兩組座標嚴格遞增。
+At successive EN corners both coordinates strictly increase.
+
+88
+00:20:25,000 --> 00:20:43,000
+反過來，按座標順序先向上再向右，逐個接返拐角。
+Given the ordered coordinates, go north then east to each corner.
+
+89
+00:20:43,000 --> 00:20:53,000
+最後先上到頂，有餘下路程先向右，所以冇新增 EN 拐角。
+Go north to the top, then east as needed. No extra EN corner is added.
+
+90
+00:20:53,000 --> 00:21:11,000
+k 個拐角各自可以標記或唔標記，共有 2ᵏ 種。
+Each of the k corners can be marked or unmarked, giving 2ᵏ choices.
+
+91
+00:21:11,000 --> 00:21:32,000
+兩種點法數嘅係同一批格路，所以兩邊相等。
+The two counts describe the same paths, so the sums are equal.
+
+92
+00:21:32,000 --> 00:21:45,000
+數列由正整數組成並嚴格遞增。另有倍增關係和質數條件。
+The positive integers increase strictly and obey the doubling and prime conditions.
+
+93
+00:21:45,000 --> 00:21:59,000
+從第 n 項走到第 2n 項，剛好有 n 步。總長度也等於 n。
+There are n steps from aₙ to a₂ₙ. Their total length is exactly n.
+
+94
+00:21:59,000 --> 00:22:15,000
+每步至少是一。已經有 n 步，只要再加一格就會超出總長度。
+Each step is at least one. One extra unit would exceed the total length.
+
+95
+00:22:15,000 --> 00:22:28,000
+每步都只能是一。任選 n，就知道第 n 項到下一項的差是一。
+Every gap in the block is one. Since n is arbitrary, the gap at index n is always one.
+
+96
+00:22:28,000 --> 00:22:42,000
+所以數列就是整數下標加固定偏移 d。第一項是正整數，所以 d 至少為零。
+The sequence is its index plus a fixed shift d. The positive first term makes d nonnegative.
+
+97
+00:22:42,000 --> 00:22:55,000
+假設 d 大於零。質數有無窮多個，選一個大於 (d+1)² 的質數 p。
+Suppose d is positive. Choose a prime p greater than (d + 1)².
+
+98
+00:22:55,000 --> 00:23:10,000
+既然第 p−d 項是質數 p，它的下標 p−d 也是質數。重複這一步。
+Since a₍ₚ₋d₎ = p is prime, its index p − d is prime. Repeat the same step.
+
+99
+00:23:10,000 --> 00:23:26,000
+先看示例。每次減二，十三到十一再到九，質數條件到九就行不通。
+In this example, subtract two each time. The chain 13, 11, 9 breaks at 9.
+
+100
+00:23:26,000 --> 00:23:42,000
+一般情況下，做到第 d 次仍大於 d+1。因此這 d+1 個值都被逼成質數。
+Even the last value exceeds d + 1. All d + 1 values would have to be prime.
+
+101
+00:23:42,000 --> 00:23:58,000
+除以 d+1 看餘數。每次減 d，餘數就加一，走遍整個循環。
+Modulo d + 1, subtracting d advances one residue. The chain visits every residue.
+
+102
+00:23:58,000 --> 00:24:12,000
+必有一項餘數是零。它比 d+1 大，又能被 d+1 整除，所以是合數。
+One remainder is zero. Its value exceeds the divisor d + 1, so it is composite.
+
+103
+00:24:12,000 --> 00:24:24,000
+最後核對 d=0。自然數列嚴格遞增，也滿足倍增關係和質數條件。
+Check d = 0. The natural numbers satisfy the increasing, doubling and prime conditions.
+
+104
+00:24:24,000 --> 00:24:32,000
+倍增關係鎖定每步的長度，質數條件再將固定偏移歸零。
+The doubling rule fixes every gap. The prime condition then eliminates the shift.
+
+105
+00:24:32,000 --> 00:24:46,000
+以外心 O 做原點。A、B、C 到 O 都係同一個半徑。
+Take the circumcenter O as origin. All three vertices have the same radius.
+
+106
+00:24:46,000 --> 00:25:01,000
+先將三個位置向量相加，暫時叫所得嘅點做 P。
+Add the three position vectors and call the resulting point P.
+
+107
+00:25:01,000 --> 00:25:17,000
+B 同 C 嘅向量和指向弦嘅中點。將呢條箭嘴平移到 A。
+The sum of B and C points through their chord midpoint. Move it to A.
+
+108
+00:25:17,000 --> 00:25:33,000
+用內積確認 AP 垂直 BC。交叉項相消，只剩兩個相同半徑。
+The dot product checks AP perpendicular to BC. The equal radii cancel.
+
+109
+00:25:33,000 --> 00:25:48,000
+同樣由 B 出發得另一條高。兩條高交於 P，所以 P 就係垂心。
+The same argument gives the altitude from B. The two meet at P, the orthocenter.
+
+110
+00:25:48,000 --> 00:26:08,000
+沿圓周拖動 A。每幀都由三個半徑向量重算垂心。
+Slide A on the circle. Recompute the orthocenter from the three radii.
+
+111
+00:26:08,000 --> 00:26:25,000
+A 同 C 成一直徑時，佢哋嘅向量相消，垂心就落喺 B。
+When AC is a diameter, those two vectors cancel and H lands at B.
+
+112
+00:26:25,000 --> 00:26:44,000
+再轉過直角，垂心移到三角形外。相同嘅向量式繼續成立。
+Continue into the obtuse case. H moves outside, with the same vector rule.
+
+113
+00:26:44,000 --> 00:26:59,000
+由三個向量和減去垂心嘅位置向量，答案係零向量。
+Subtract the orthocenter vector from the three-vector sum to get zero.
+
+114
+00:26:59,000 --> 00:27:07,000
+理由一直一樣：三個頂點到外心嘅距離相等。
+The reason stays the same. All three radii are equal.
+
+115
+00:27:07,000 --> 00:27:13,000
+由 45 度減去 30 度，再用正切差角公式。
+Subtract 30 degrees from 45 and use the tangent difference formula.
+
+116
+00:27:13,000 --> 00:27:19,000
+取倒數交換底數，三個乘積合起來有每個因數兩次。
+Taking reciprocals swaps bases. Each factor then appears twice.
+
+117
+00:27:19,000 --> 00:27:25,000
+三角和係半轉。正弦加角式得 x＋y＋z＝xyz。
+The angles sum to a half-turn, giving x + y + z = xyz.
+
+118
+00:27:25,000 --> 00:27:31,000
+同一批格點按行數一次，再按最簡分數嘅斜率數。
+Count the same dots by rows and by reduced slopes.
+
+119
+00:27:31,000 --> 00:27:37,000
+通分後只要證三項之和至少係 6，用 AM–GM。
+After combining fractions, AM–GM gives the needed lower bound.
+
+120
+00:27:37,000 --> 00:27:43,000
+交點拆短兩組對邊，沿外圍兜路則長過對角線。
+The intersection splits both lower bounds. Boundary routes give the upper bound.
+
+121
+00:27:43,000 --> 00:27:49,000
+先平衡 a 同 1/a，再將 b 拆成兩半。
+Balance a with its reciprocal, then split b into halves.
+
+122
+00:27:49,000 --> 00:27:55,000
+集合由 9 嘅倍數同非 3 倍數組成，乘法保留呢個性質。
+Multiples of 9 and nonmultiples of 3 form the set and are closed under products.
+
+123
+00:27:55,000 --> 00:28:01,000
+交換配對，比較兩條對角，再用首行首列重建。
+Swap two matches, compare diagonals, and rebuild from the first row and column.
+
+124
+00:28:01,000 --> 00:28:07,000
+斜步同已標記嘅 EN 拐角互換。兩邊數同一批格路。
+A diagonal is interchangeable with a marked EN corner. Both counts match.
+
+125
+00:28:07,000 --> 00:28:13,000
+相鄰差鎖定為 1；正偏移迫使素數鏈出現合數。
+The gaps are 1. A positive offset forces a composite in the prime chain.
+
+126
+00:28:13,000 --> 00:28:19,000
+等長半徑令內積為零，向量和落喺兩條高嘅交點。
+Equal radii make the dot products zero, so the vector sum is the orthocenter.
+
+127
+00:28:19,000 --> 00:28:25,000
+揀一道題，用自己嘅話講返關鍵一步。
+Choose one problem and explain its key move in your own words.

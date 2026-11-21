@@ -1,0 +1,64 @@
+1
+00:00:00,000 --> 00:00:13,000
+數列由正整數組成並嚴格遞增。另有倍增關係和質數條件。
+The positive integers increase strictly and obey the doubling and prime conditions.
+
+2
+00:00:13,000 --> 00:00:27,000
+從第 n 項走到第 2n 項，剛好有 n 步。總長度也等於 n。
+There are n steps from aₙ to a₂ₙ. Their total length is exactly n.
+
+3
+00:00:27,000 --> 00:00:43,000
+每步至少是一。已經有 n 步，只要再加一格就會超出總長度。
+Each step is at least one. One extra unit would exceed the total length.
+
+4
+00:00:43,000 --> 00:00:56,000
+每步都只能是一。任選 n，就知道第 n 項到下一項的差是一。
+Every gap in the block is one. Since n is arbitrary, the gap at index n is always one.
+
+5
+00:00:56,000 --> 00:01:10,000
+所以數列就是整數下標加固定偏移 d。第一項是正整數，所以 d 至少為零。
+The sequence is its index plus a fixed shift d. The positive first term makes d nonnegative.
+
+6
+00:01:10,000 --> 00:01:23,000
+假設 d 大於零。質數有無窮多個，選一個大於 (d+1)² 的質數 p。
+Suppose d is positive. Choose a prime p greater than (d + 1)².
+
+7
+00:01:23,000 --> 00:01:38,000
+既然第 p−d 項是質數 p，它的下標 p−d 也是質數。重複這一步。
+Since a₍ₚ₋d₎ = p is prime, its index p − d is prime. Repeat the same step.
+
+8
+00:01:38,000 --> 00:01:54,000
+先看示例。每次減二，十三到十一再到九，質數條件到九就行不通。
+In this example, subtract two each time. The chain 13, 11, 9 breaks at 9.
+
+9
+00:01:54,000 --> 00:02:10,000
+一般情況下，做到第 d 次仍大於 d+1。因此這 d+1 個值都被逼成質數。
+Even the last value exceeds d + 1. All d + 1 values would have to be prime.
+
+10
+00:02:10,000 --> 00:02:26,000
+除以 d+1 看餘數。每次減 d，餘數就加一，走遍整個循環。
+Modulo d + 1, subtracting d advances one residue. The chain visits every residue.
+
+11
+00:02:26,000 --> 00:02:40,000
+必有一項餘數是零。它比 d+1 大，又能被 d+1 整除，所以是合數。
+One remainder is zero. Its value exceeds the divisor d + 1, so it is composite.
+
+12
+00:02:40,000 --> 00:02:52,000
+最後核對 d=0。自然數列嚴格遞增，也滿足倍增關係和質數條件。
+Check d = 0. The natural numbers satisfy the increasing, doubling and prime conditions.
+
+13
+00:02:52,000 --> 00:03:00,000
+倍增關係鎖定每步的長度，質數條件再將固定偏移歸零。
+The doubling rule fixes every gap. The prime condition then eliminates the shift.

@@ -9,7 +9,7 @@ const zh = locale === 'zh-Hant';
 const t = (en: string, ch: string) => zh ? ch : en;
 const label = (items: any[], id: string) => items.find(item => item.id === id)?.label[locale] || id;
 const schoolCompetitionResources = TEACHING_RESOURCES.filter(resource =>
-  resource.id === 'macau-competition' || resource.id.startsWith('macau-competition-senior-videos'));
+  resource.id === 'macau-competition-films' || resource.id === 'macau-competition');
 ---
 <div data-teaching-directory data-locale={locale}>
   <header class="page-head teaching-directory-head"><div class="container">
