@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:11,000
+一排有 2n+1 枚硬幣。每枚硬幣數左白同右黑，加埋啱啱係 n 就叫好。
+Of 2n+1 coins, a coin is good when whites to its left plus blacks to its right total n.
+
+2
+00:00:11,000 --> 00:00:24,000
+睇硬幣之間嘅分界。高度等於左邊白幣加右邊黑幣。
+At each boundary, height counts white coins to the left and black coins to the right.
+
+3
+00:00:24,000 --> 00:00:37,000
+由左掃到右。過一枚黑幣，右邊少一黑，高度跌一格。
+Sweep right. Passing a black coin removes one black from the right, so height drops.
+
+4
+00:00:37,000 --> 00:00:52,000
+黑幣由 4 跌到 3，跨過門檻。呢枚黑幣嘅分數係 3。
+Here the black coin is good when the walk crosses the threshold from 4 to 3.
+
+5
+00:00:52,000 --> 00:01:06,000
+過白幣就升一格。由 3 升到 4 時，呢枚白幣都係好硬幣。
+Passing a white coin raises the height. A rise from 3 to 4 also marks a good coin.
+
+6
+00:01:06,000 --> 00:01:33,000
+每次穿過門檻，計數就加一。
+Every crossing increases the good-coin count by one.
+
+7
+00:01:33,000 --> 00:01:44,000
+最後再跌一格，今次無穿過門檻，計數維持 5。
+The final drop stays below the threshold, so the good-coin count remains five.
+
+8
+00:01:44,000 --> 00:01:51,000
+一般情況都一樣。排除硬幣自己，揀兩個相鄰高度較細嗰個。
+In general, exclude the coin itself by taking the lower of its two heights.
+
+9
+00:01:51,000 --> 00:01:59,000
+相鄰高度相差一。較細嗰個係 n，即係一步穿過門檻。
+Heights differ by one. The lower height is n exactly when the walk crosses.
+
+10
+00:01:59,000 --> 00:02:13,000
+起點係黑幣總數，終點係白幣總數。兩個高度加埋係 2n+1。
+Start at the black count. End at the white count. Together they make 2n+1.
+
+11
+00:02:13,000 --> 00:02:26,000
+兩個整數高度嘅平均係 n 加二分一，所以必定喺門檻嘅兩側。
+The endpoints average n plus one half, so they straddle the threshold.
+
+12
+00:02:26,000 --> 00:02:40,000
+每次穿越轉一邊。起點終點異側，所以穿越次數係奇數。
+Every crossing switches sides. Opposite endpoints require an odd count.

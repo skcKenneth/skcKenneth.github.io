@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:10,000
+有幾多對整數 (a, b)，滿足 b 的立方比 a 的立方大 61？
+How many integer pairs (a, b) have cubes differing by b³ − a³ = 61?
+
+2
+00:00:10,000 --> 00:00:23,000
+立方函數嚴格遞增，所以 d＝b−a＞0。61 是質數。
+The cube function is increasing, so d = b − a > 0. The number 61 is prime.
+
+3
+00:00:23,000 --> 00:00:39,000
+用 d 表示兩數之間的距離，用 s 表示兩數的和。比較 4Q 和距離的平方。
+Use d for the gap and s for the sum. Compare 4Q with the square of the gap.
+
+4
+00:00:39,000 --> 00:00:48,000
+若距離是 61，第一個平方已經大過 4，故第二個因數無法等於 1。
+With a gap of 61, its square alone exceeds 4, so the second factor cannot be 1.
+
+5
+00:00:48,000 --> 00:00:59,000
+唯一剩下的距離是 1。代入便知和是 9 或 −9，所以中點是 ±4.5。
+The only gap left is 1. Substitution gives sums 9 and −9, so the midpoints are ±4.5.
+
+6
+00:00:59,000 --> 00:01:12,000
+在數線上標出中點及相距一個單位的端點，先讀出 (4, 5)。
+Mark the midpoint and endpoints one unit apart on the number line to read (4, 5).
+
+7
+00:01:12,000 --> 00:01:23,000
+以 0 為中心反射，端點變成 −5 和 −4。按 a＜b 的次序讀出第二對。
+Reflect across zero to get endpoints −5 and −4. Read the second pair in the order a < b.
+
+8
+00:01:23,000 --> 00:01:35,000
+兩對都滿足原式。答案是 C，共兩對。
+Both pairs satisfy the equation. The answer is C, two pairs.

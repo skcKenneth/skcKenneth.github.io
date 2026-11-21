@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:06,500
+甲先寫一個正整數，然後乙先行。乙每次減一個正平方。
+Amy writes a positive integer. Bob moves first and subtracts a positive square.
+
+2
+00:00:06,500 --> 00:00:13,000
+輪到甲時，佢可以揀任意正整數做指數。
+On Amy's turn, she raises the number to any positive integer power.
+
+3
+00:00:13,000 --> 00:00:26,000
+乙要將黑板變做零。由 7 開始，乙先將 7 拆成四塊平方磚。
+Bob aims for zero. He starts by splitting 7 into four positive square tiles.
+
+4
+00:00:26,000 --> 00:00:39,000
+乙減走一塊面積 4 嘅磚，剩返三塊面積 1 嘅磚。
+Bob subtracts the tile of area four, leaving three tiles of area one.
+
+5
+00:00:39,000 --> 00:00:57,000
+甲將 3 立方，即係將總面積乘 9。每塊磚嘅邊長一齊乘 3。
+Amy cubes 3, multiplying the total area by nine. Scale every side length by three.
+
+6
+00:00:57,000 --> 00:01:13,000
+面積變大，平方磚仍有三塊。乙再減一塊面積 9 嘅磚。
+The area grows and three tiles remain. Bob removes a tile of area nine.
+
+7
+00:01:13,000 --> 00:01:27,000
+今次甲將 18 平方。結果可以直接睇成一塊邊長 18 嘅平方磚。
+This time Amy squares 18. The result is one square tile of side length 18.
+
+8
+00:01:27,000 --> 00:01:39,000
+乙減走最後一塊就歸零。依家將策略推廣到任意初值。
+Bob subtracts the last tile and reaches zero. Now generalize the strategy.
+
+9
+00:01:39,000 --> 00:01:52,000
+正整數 N 可寫成 N 個 1 平方之和。乙每次減走一個正平方。
+Start with N copies of one squared. Bob always removes one positive square.
+
+10
+00:01:52,000 --> 00:02:09,000
+假設仲有 j 項。奇數次方將每項邊長同乘 m 嘅 r 次方。
+If j terms remain, an odd power scales all sides by the same factor, m to the r.
+
+11
+00:02:09,000 --> 00:02:22,000
+偶數次方只剩一個平方。甲揀任何次方，項數都唔會增加。
+An even power gives one square. Amy's move never increases the count.
+
+12
+00:02:22,000 --> 00:02:45,000
+乙每次至少少一項。最多 N 次乙嘅回合，黑板就歸零。
+Each Bob move removes a term. The board reaches zero within N Bob moves.

@@ -8,6 +8,7 @@ export const TEACHING_AUDIENCES = [
 export const TEACHING_FORMATS = [
   { id: 'interactive', label: bi('Interactive', '互動') }, { id: 'practice', label: bi('Practice', '練習') },
   { id: 'past-papers', label: bi('Past papers', '舊卷') }, { id: 'notes', label: bi('Notes', '筆記') }, { id: 'slides', label: bi('Slides', '投影片') },
+  { id: 'video', label: bi('Video', '影片') },
 ];
 const resource = (id, path, audiences, formats, title, purpose, duration, extra = {}) => ({ id, path, audiences, formats, title, purpose, duration, chineseOnly: false, external: false, anchorAliases: [], aliases:[], ...extra });
 const selfPaced = bi('Self-paced; choose one lesson or activity', '自定進度；每次選一課或一個活動');
@@ -20,6 +21,14 @@ export const TEACHING_RESOURCES = [
   resource('math-studio', '/math-studio/', ['junior', 'senior', 'teacher'], ['interactive', 'practice', 'notes'], bi('Mathematics Studio — Years 7, 8 and 10', '數學研習室｜初一・初二・高一'), bi('Bilingual chapter notes, randomized practice and 22 inquiries, including the angle-bisector activity.', '雙語章節講解、隨機練習及 22 個探究，包括角平分線活動。'), bi('Inquiry: 25–35 min + optional extension', '探究：25–35 分鐘，可加延伸'), { localizedPaths:bi('/math-studio/?lang=en','/math-studio/?lang=zh-Hant') }),
   resource('senior-math', '/teaching/senior-math/', ['senior', 'teacher'], ['interactive', 'practice', 'notes', 'past-papers'], bi('Senior Mathematics Studio', '高中數學研習室'), bi('A textbook course, school routes, the complete JAE foundations studio and JM01/JM02 explanations.', '教材主線、校本路徑、完整四校聯考基礎研習室及 JM01／JM02 舊卷詳解。'), selfPaced, { anchorAliases: ['jae-math'] }),
   resource('math-inquiry-lab', '/math-labs/inquiry/index.html', ['junior', 'senior', 'teacher'], ['interactive', 'practice'], bi('Math Inquiry Lab', '數學探究室 · Math Inquiry Lab'), bi('Predict, experiment and explain quadratic functions, probability and regression.', '透過預測、操作與解釋，探究二次函數、概率及迴歸。'), selfPaced, { localizedPaths:bi('/math-labs/inquiry/index.html?lang=en','/math-labs/inquiry/index.html?lang=zh-Hant') }),
+  resource(
+    'macau-competition-senior-videos', '/teaching/macau-school-math-competition/2025-2026-senior/',
+    ['senior', 'teacher'], ['video', 'past-papers'],
+    bi('2025/2026 Macau competition: Senior Division animations', '2025／2026 澳門學界數學比賽高中組動畫'),
+    bi('Work through nine questions with diagrams, step-by-step reasoning and bilingual captions.', '透過動態圖解、逐步推導及雙語字幕，一起解開九道題。'),
+    bi('21-minute full film · nine question clips', '21 分鐘完整版・九條逐題短片'),
+    { aliases: ['學界數學', '逐題解說', '2025/2026', '2025-2026', 'school mathematics competitions', 'interschool maths'] },
+  ),
   resource('macau-competition', '/teaching/macau-school-math-competition/', ['junior', 'senior', 'teacher'], ['past-papers', 'practice', 'notes'], bi('Macau competition solution archive', '澳門校際／學界數學比賽題解資源庫'), bi('Compare an independent solution with the official question and record your reasoning.', '對照官方原題與獨立題解，記錄解題轉化。'), bi('Suggested: 10–20 min before reading a solution', '建議先獨立嘗試 10–20 分鐘')),
   resource('lecture-library', '/teaching/mathematical-modeling-lecture-programme/', ['modeling', 'teacher'], ['notes', 'slides', 'practice'], bi('Mathematical modeling lecture library', '數學建模教材庫'), bi('27 bilingual Notes units, English slides and eight teaching datasets.', '27 個雙語筆記單元、英文投影片及八組教學資料。'), bi('Duration shown for each unit', '各單元列出預計時間')),
   resource('modeling-workshop', '/teaching/modeling-workshop/', ['modeling', 'teacher'], ['interactive', 'practice', 'notes'], bi('Mathematical Modeling Workshop', '數學建模學習工坊'), bi('Write Python, compare a baseline and export a complete research record.', '編寫 Python、比較基準，再匯出完整研究紀錄。'), bi('About 150 min per workshop', '每個工坊約 150 分鐘')),

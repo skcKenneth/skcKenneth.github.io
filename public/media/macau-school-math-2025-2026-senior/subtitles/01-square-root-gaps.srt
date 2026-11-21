@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:09,000
+求這個和。每一項先取不大於它的最大整數。
+Find the sum. First round each difference down to an integer.
+
+2
+00:00:09,000 --> 00:00:14,000
+藍線是相鄰兩個根號的差。黃尺長一個單位。
+Blue shows the gap between adjacent roots. The yellow ruler is one unit long.
+
+3
+00:00:14,000 --> 00:00:20,000
+因為 2＜√6＜3，第一個間距在 1 和 2 之間。
+Since 2 < √6 < 3, the first gap lies between 1 and 2.
+
+4
+00:00:20,000 --> 00:00:31,000
+因為 25＜26＜36，第二個間距亦大過 1、細過 2。
+Since 25 < 26 < 36, the second gap is also between 1 and 2.
+
+5
+00:00:31,000 --> 00:00:44,000
+到第三個間距，藍線比一個單位短。
+By the third gap, the blue segment is shorter than one unit.
+
+6
+00:00:44,000 --> 00:01:02,000
+乘以共軛式。分子固定為 10，分母越來越大。
+Multiply by the conjugate. The numerator stays at 10 as the denominator grows.
+
+7
+00:01:02,000 --> 00:01:11,000
+間距一路縮小，所以從第三項起，每一項取整都等於零。
+The gaps keep shrinking, so every floor from the third term onward is zero.
+
+8
+00:01:11,000 --> 00:01:20,000
+只有頭兩項各貢獻 1。答案是 A，2。
+Only the first two terms contribute 1 each. The answer is A, 2.
