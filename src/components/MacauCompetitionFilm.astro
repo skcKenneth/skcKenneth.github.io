@@ -7,10 +7,12 @@ const zh = locale === 'zh-Hant';
 const archive = '/teaching/macau-school-math-competition/';
 const project = `${archive}2025-2026-senior/`;
 const media = '/media/macau-school-math-2025-2026-senior/';
-const fullStem = '00-full-contest-2025-2026';
+const fullStem = '00-full-contest-2025-2026-with-recap';
 const fullVideo = `${media}${fullStem}.mp4`;
+const fullSubtitles = `${media}subtitles/${fullStem}.srt`;
 const officialPaper = 'https://portal.dsedj.gov.mo/webdsejspace/addon/upload/Upload_viewfile_page.jsp?id=711644';
 const introSeconds = 12;
+const recapSeconds = 60;
 
 const questions = [
   { file: '01-square-root-gaps', seconds: 80, zh: '根號之間的距離', en: 'Gaps between square roots' },
@@ -30,6 +32,12 @@ const chapters = questions.map((question, index) => {
   elapsed += question.seconds;
   return { ...question, start, number: index + 1, title: zh ? question.zh : question.en };
 });
+const duration = elapsed + recapSeconds;
+const filmChapters = [
+  { start: 0, label: zh ? '開場' : 'Intro', title: zh ? '從圖像到解法' : 'From pictures to solutions' },
+  ...chapters.map(({ start, number, title }) => ({ start, title, label: zh ? `第 ${number} 題` : `Q${number}` })),
+  { start: elapsed, label: zh ? '回顧' : 'Recap', title: zh ? '九題解法與答案' : 'Nine methods and answers' },
+];
 const timestamp = (seconds: number) =>
   `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
 
@@ -60,7 +68,7 @@ const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual
     <section id="full-film" aria-labelledby="full-film-heading">
       <div class="section-title">
         <h2 id="full-film-heading">{zh ? '完整版' : 'Full film'}</h2>
-        <p>{zh ? `${timestamp(elapsed)} · 繁體中文及英文字幕` : `${timestamp(elapsed)} · Traditional Chinese and English captions`}</p>
+        <p>{zh ? `${timestamp(duration)} · 繁體中文及英文字幕` : `${timestamp(duration)} · Traditional Chinese and English captions`}</p>
       </div>
       <div class="screening">
         <div class="screening-player">
@@ -70,23 +78,17 @@ const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual
           </video>
           <div class="asset-links">
             <a href={fullVideo} download>{zh ? '下載完整版（MP4）' : 'Download the full film (MP4)'}</a>
-            <a href={`${media}subtitles/${fullStem}.srt`} download>{downloadCaption}</a>
+            <a href={fullSubtitles} download>{downloadCaption}</a>
           </div>
         </div>
         <nav class="chapter-nav" aria-labelledby="chapter-heading">
           <h3 id="chapter-heading">{zh ? '影片章節' : 'Film chapters'}</h3>
           <ol>
-            <li>
-              <a data-competition-start="0" href={`${fullVideo}#t=0`} aria-controls="competition-full-player">
-                <span class="question-number">{zh ? '開場' : 'Intro'}</span>
-                <span>{zh ? '從圖像到解法' : 'From pictures to solutions'}</span><time datetime="PT0S">00:00</time>
-              </a>
-            </li>
-            {chapters.map(({ start, number, title: label }) => (
+            {filmChapters.map(({ start, label, title: chapterTitle }) => (
               <li>
                 <a data-competition-start={start} href={`${fullVideo}#t=${start}`} aria-controls="competition-full-player">
-                  <span class="question-number">{zh ? `第 ${number} 題` : `Q${number}`}</span>
-                  <span>{label}</span><time datetime={`PT${start}S`}>{timestamp(start)}</time>
+                  <span class="question-number">{label}</span>
+                  <span>{chapterTitle}</span><time datetime={`PT${start}S`}>{timestamp(start)}</time>
                 </a>
               </li>
             ))}
