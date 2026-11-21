@@ -1,0 +1,29 @@
+1
+00:00:00,000 --> 00:00:07,000
+要求所有實數解。我們先畫出 x 同 x³ 的和。
+Find every real solution. Begin by building the graph of x + x³.
+
+2
+00:00:07,000 --> 00:00:18,000
+沿同一個 x 比較兩個高度，逐點將它們相加。
+At each x, add the heights of the two curves.
+
+3
+00:00:18,000 --> 00:00:28,000
+把和與 5/8 比較。代入一半，正好是 1/8＋1/2。
+Compare the sum with 5/8. Substituting one half gives 1/8 + 1/2.
+
+4
+00:00:28,000 --> 00:00:38,000
+還會有第二個交點嗎？比較 f(y) 和 f(x) 的差。
+Could there be another intersection? Compare f(y) with f(x).
+
+5
+00:00:38,000 --> 00:00:46,000
+Q 大於零。因此 y＞x 時，f(y)＞f(x)。
+Q is positive. If y > x, then f(y) > f(x).
+
+6
+00:00:46,000 --> 00:00:55,000
+函數嚴格遞增。唯一的實數解是 x＝1/2。
+The function is strictly increasing. Its only real solution is x = 1/2.

@@ -1,0 +1,114 @@
+1
+00:00:00,000 --> 00:00:12,000
+一條弦繞固定點轉動。它會揭示哪一條線經過中點？
+A chord pivots around a fixed point. Which line will pass through the midpoint?
+
+2
+00:00:12,000 --> 00:00:25,000
+H 是垂心。沿 A 的高線，外接圓的另一交點是 P。
+H is the orthocenter. The altitude from A meets the circle again at P.
+
+3
+00:00:25,000 --> 00:00:38,000
+從 B、C 作高線，分別在 AC、AB 得到垂足 E、F。
+Drop altitudes from B and C. Their feet on AC and AB are E and F.
+
+4
+00:00:38,000 --> 00:00:52,000
+沿 PE、PF 走到外接圓，分別得到 Q、R，再連起兩點。
+Follow PE and PF to the circle to obtain Q and R. Join the two points.
+
+5
+00:00:52,000 --> 00:01:06,000
+QR 與 EF 相交於 T。題目指定 A、T、Y 共線。
+QR meets EF at T. The problem makes A, T, and Y collinear.
+
+6
+00:01:06,000 --> 00:01:20,000
+令 K 為 EF 的中點。要證明 PY 通過 K。
+Let K be the midpoint of EF. We need to show that PY passes through K.
+
+7
+00:01:20,000 --> 00:01:33,000
+沿 P 把 Q、R 回投到 EF。初始的回投點是 E、F。
+Project Q and R back from P to EF. We start at E and F.
+
+8
+00:01:33,000 --> 00:01:51,000
+固定 T，只轉動弦。兩個圓上交點與回投點同步移動。
+Keep T fixed and turn the chord. Both circle points and both preimages move together.
+
+9
+00:01:51,000 --> 00:02:08,000
+弦轉至通過 A。看橙色回投點落在 K，也就是 t=0。
+The chord reaches A. Watch the orange preimage land at K, where t = 0.
+
+10
+00:02:08,000 --> 00:02:20,000
+現在換成單位圓坐標。把圓心作原點，讓 OA 指向右方。
+Now use unit-circle coordinates. Put the origin at O and turn OA to the right.
+
+11
+00:02:20,000 --> 00:02:35,000
+D 是 BC 的中點。以 D 為圓心的另一個圓，通過 B、C、E、F。
+D is the midpoint of BC. The circle centered at D passes through B, C, E, and F.
+
+12
+00:02:35,000 --> 00:02:50,000
+把 C 沿 AB 反射，C 和鏡像的中點是 F。E 的做法相同。
+Reflect C across AB. F is the midpoint of C and its image. Repeat for E.
+
+13
+00:02:50,000 --> 00:03:05,000
+反射固定弦的兩端。將 E、F 的座標平均，得到 K 相對 D 的位移。
+The reflection fixes the chord ends. Average E and F to obtain K's displacement from D.
+
+14
+00:03:05,000 --> 00:03:19,000
+DK 垂直平分 EF，所以 EF 是豎線。以 δ 表示半條 EF 的長度。
+DK perpendicularly bisects EF, so EF is vertical. Let δ be its half-length.
+
+15
+00:03:19,000 --> 00:03:33,000
+沿 P 和 Z(t) 的直線從圓上走到另一點 U(t)。
+The line through P and Z(t) meets the circle again at U(t).
+
+16
+00:03:33,000 --> 00:03:49,000
+令 Lℓ 是過 T 的直線方程。代入 U 並清分母，得到二次式 Gℓ。
+Write Lℓ for a line equation through T. Substitute U and clear the denominator.
+
+17
+00:03:49,000 --> 00:04:04,000
+過 T 的直線方程可由 EF、QR 線性組合。二次式亦跟同一組合。
+The equations of lines through T combine those of EF and QR. The quadratics follow suit.
+
+18
+00:04:04,000 --> 00:04:16,000
+PK 不是切線。記它與單位圓的第二交點為 Y₀。
+PK is a secant. Call its second intersection with the circle Y₀.
+
+19
+00:04:16,000 --> 00:04:28,000
+過 T 和 Y₀ 的弦在 K 回投，所以二次式有根 t=0。
+The chord through T and Y₀ has preimage K, so its polynomial has root t = 0.
+
+20
+00:04:28,000 --> 00:04:43,000
+用 K=D+r²A 化簡係數。另一根就是 A 回投到 EF 的座標。
+Use K = D + r²A to simplify. The other root matches the projection of A onto EF from P.
+
+21
+00:04:43,000 --> 00:04:56,000
+兩個圓上弦端是 A、Y₀。題目已指定另一端是 Y，所以 Y₀=Y。
+The two circle endpoints are A and Y₀. The specified second endpoint is Y, so Y₀ = Y.
+
+22
+00:04:56,000 --> 00:05:06,000
+這個證明以題設的交點和直線均可定義為前提。
+The proof uses configurations in which the named intersections and lines are defined.
+
+23
+00:05:06,000 --> 00:05:15,000
+所以 PY 通過 EF 的中點 K，完成證明。
+Therefore PY passes through K, the midpoint of EF.

@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:12,000
+先做第 (i) 小題。x 由 0 走到 1，哪個位置最高？
+Start with part (i). Where does the curve peak on [0, 1]?
+
+2
+00:00:12,000 --> 00:00:24,000
+取 4t³＝1。這樣 t−t⁴ 就等於 3t⁴。
+Set 4t³ = 1. Then t − t⁴ equals 3t⁴.
+
+3
+00:00:24,000 --> 00:00:37,000
+橙色水平線代表 f(t)。用 f(t) 減 f(x)，可把 x 寫成 4t³x。
+The orange level is f(t). In the difference, replace x with 4t³x.
+
+4
+00:00:37,000 --> 00:00:50,000
+分解後，差距包含一個平方，另一因數恆正。
+The difference factors into a square times a positive expression.
+
+5
+00:00:50,000 --> 00:01:01,000
+平方為零時 x＝t，所以真正的最高點就在 t。
+The square vanishes only at x = t, so that is the unique peak.
+
+6
+00:01:01,000 --> 00:01:15,000
+第 (ii) 小題把總長 1 分給 a、b、c。三個量都大於零。
+Part (ii) splits a unit into positive quantities a, b and c.
+
+7
+00:01:15,000 --> 00:01:26,000
+用 a＝1−b−c，拆出平方根和四次方根各自增加的量。
+Use a = 1 − b − c to separate the two gains from the roots.
+
+8
+00:01:26,000 --> 00:01:39,000
+對第一個增益配方。平方根等於 1/2 時，這項最大。
+Complete a square for the first gain. It is largest when √b = 1/2.
+
+9
+00:01:39,000 --> 00:01:52,000
+令 x＝c 的四次方根。第二個增益就是第 (i) 小題。
+Set x equal to the fourth root of c. The second gain is part (i).
+
+10
+00:01:52,000 --> 00:02:05,000
+兩項的差距可同時縮到零。注意總長一直保持為 1。
+Both gaps can reach zero together. The total stays equal to one.
+
+11
+00:02:05,000 --> 00:02:15,000
+a 的餘量仍大於零，所以這個分配確實能達到上界。
+The remaining a is positive, so this allocation attains the bound.
+
+12
+00:02:15,000 --> 00:02:25,000
+把 1 和兩個增益上界加起來，就得到最後答案。
+Add one and the two gain bounds to get the final answer.

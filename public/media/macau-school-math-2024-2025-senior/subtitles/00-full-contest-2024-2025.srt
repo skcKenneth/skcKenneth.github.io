@@ -1,0 +1,579 @@
+1
+00:00:00,000 --> 00:00:04,000
+把根號差接成一條數線。
+Join differences of square roots on a number line.
+
+2
+00:00:04,000 --> 00:00:08,000
+把對數條件畫成一個圓。
+Turn a logarithmic constraint into a circle.
+
+3
+00:00:08,000 --> 00:00:12,000
+移動圖形，找出一直保持嘅關係。
+Move the figure and look for what stays true.
+
+4
+00:00:12,000 --> 00:00:19,000
+分母的根號一直在變。先看看每項可以怎樣重寫。
+Every denominator is different. Start by rewriting one term.
+
+5
+00:00:19,000 --> 00:00:26,000
+乘以共軛式。相鄰奇數之差固定為 2。
+Multiply by the conjugate. Consecutive odd numbers differ by 2.
+
+6
+00:00:26,000 --> 00:00:36,000
+每項變成數線上一段距離的一半。
+Each term is half the length of a segment on the number line.
+
+7
+00:00:36,000 --> 00:00:45,000
+先拼接頭四段。相接的根號是共同端點。
+Join the first four segments. Neighbours share an endpoint.
+
+8
+00:00:45,000 --> 00:00:56,000
+代數也一樣。每個中間根號出現一次加、一次減。
+Each intermediate root is added once and subtracted once.
+
+9
+00:00:56,000 --> 00:01:07,000
+所有線段拼成由 1 到 45 的一整段。
+All the pieces join into the interval from 1 to 45.
+
+10
+00:01:07,000 --> 00:01:17,000
+整段長 44，取一半得 22。選 A。
+Half of 44 is 22. The answer is A.
+
+11
+00:01:17,000 --> 00:01:25,000
+先找出根式的實數定義域，再化簡。
+Find the real domain before simplifying the radical.
+
+12
+00:01:25,000 --> 00:01:35,000
+x 在原點左邊或原點。從它走到 0 的距離是 |x|。
+The point x is at or left of zero. Its distance from zero is |x|.
+
+13
+00:01:35,000 --> 00:01:44,000
+把根號內拆成 81、x² 和 −x，三個因數都是非負。
+Split the radicand into 81, x² and −x. All three are nonnegative.
+
+14
+00:01:44,000 --> 00:01:53,000
+平方根是非負的。所以 √(x²) 提出來是 |x|。
+The square root is nonnegative, hence √(x²) is |x|.
+
+15
+00:01:53,000 --> 00:01:59,000
+在這個定義域 |x|＝−x。滑到原點，兩邊仍然相等。
+Here |x| = −x. The identity still holds at zero.
+
+16
+00:01:59,000 --> 00:02:07,000
+因此原式是 −9x√(−x)。選 B。
+The expression simplifies to −9x√(−x). Choose B.
+
+17
+00:02:07,000 --> 00:02:16,000
+對數有定義，所以 a、b 都是正數。
+The logarithms require a and b to be positive.
+
+18
+00:02:16,000 --> 00:02:27,000
+把兩個對數各記作 u、v。再對等式兩邊取對數。
+Call the logarithms u and v, then take logs of both sides.
+
+19
+00:02:27,000 --> 00:02:40,000
+固定的是 u²＋v²。所有可行點組成一個圓。
+The sum of squares is fixed. The feasible points form a circle.
+
+20
+00:02:40,000 --> 00:02:52,000
+圓上不同位置有不同乘積。怎樣比較所有位置？
+The product changes around the circle. How do we compare every point?
+
+21
+00:02:52,000 --> 00:03:04,000
+將固定的平方和減去 (u−v)²，剩下的正是 2uv。
+Subtract (u − v)² from the fixed sum of squares to get 2uv.
+
+22
+00:03:04,000 --> 00:03:14,000
+橙線量度離 u＝v 有多遠。平方項為零時，乘積最大。
+Orange measures distance to u = v. The product peaks when the square is zero.
+
+23
+00:03:14,000 --> 00:03:25,000
+圓與 u＝v 相交兩次。正對數和負對數都可達到最大值。
+There are two intersections. Positive and negative logs both attain the maximum.
+
+24
+00:03:25,000 --> 00:03:37,000
+等號時兩個對數同號且相等。最大值是 log₁₀4。
+Equality holds when the two logs are equal. The maximum is log₁₀4.
+
+25
+00:03:37,000 --> 00:03:44,000
+要求所有實數解。我們先畫出 x 同 x³ 的和。
+Find every real solution. Begin by building the graph of x + x³.
+
+26
+00:03:44,000 --> 00:03:55,000
+沿同一個 x 比較兩個高度，逐點將它們相加。
+At each x, add the heights of the two curves.
+
+27
+00:03:55,000 --> 00:04:05,000
+把和與 5/8 比較。代入一半，正好是 1/8＋1/2。
+Compare the sum with 5/8. Substituting one half gives 1/8 + 1/2.
+
+28
+00:04:05,000 --> 00:04:15,000
+還會有第二個交點嗎？比較 f(y) 和 f(x) 的差。
+Could there be another intersection? Compare f(y) with f(x).
+
+29
+00:04:15,000 --> 00:04:23,000
+Q 大於零。因此 y＞x 時，f(y)＞f(x)。
+Q is positive. If y > x, then f(y) > f(x).
+
+30
+00:04:23,000 --> 00:04:32,000
+函數嚴格遞增。唯一的實數解是 x＝1/2。
+The function is strictly increasing. Its only real solution is x = 1/2.
+
+31
+00:04:32,000 --> 00:04:44,000
+先做第 (i) 小題。x 由 0 走到 1，哪個位置最高？
+Start with part (i). Where does the curve peak on [0, 1]?
+
+32
+00:04:44,000 --> 00:04:56,000
+取 4t³＝1。這樣 t−t⁴ 就等於 3t⁴。
+Set 4t³ = 1. Then t − t⁴ equals 3t⁴.
+
+33
+00:04:56,000 --> 00:05:09,000
+橙色水平線代表 f(t)。用 f(t) 減 f(x)，可把 x 寫成 4t³x。
+The orange level is f(t). In the difference, replace x with 4t³x.
+
+34
+00:05:09,000 --> 00:05:22,000
+分解後，差距包含一個平方，另一因數恆正。
+The difference factors into a square times a positive expression.
+
+35
+00:05:22,000 --> 00:05:33,000
+平方為零時 x＝t，所以真正的最高點就在 t。
+The square vanishes only at x = t, so that is the unique peak.
+
+36
+00:05:33,000 --> 00:05:47,000
+第 (ii) 小題把總長 1 分給 a、b、c。三個量都大於零。
+Part (ii) splits a unit into positive quantities a, b and c.
+
+37
+00:05:47,000 --> 00:05:58,000
+用 a＝1−b−c，拆出平方根和四次方根各自增加的量。
+Use a = 1 − b − c to separate the two gains from the roots.
+
+38
+00:05:58,000 --> 00:06:11,000
+對第一個增益配方。平方根等於 1/2 時，這項最大。
+Complete a square for the first gain. It is largest when √b = 1/2.
+
+39
+00:06:11,000 --> 00:06:24,000
+令 x＝c 的四次方根。第二個增益就是第 (i) 小題。
+Set x equal to the fourth root of c. The second gain is part (i).
+
+40
+00:06:24,000 --> 00:06:37,000
+兩項的差距可同時縮到零。注意總長一直保持為 1。
+Both gaps can reach zero together. The total stays equal to one.
+
+41
+00:06:37,000 --> 00:06:47,000
+a 的餘量仍大於零，所以這個分配確實能達到上界。
+The remaining a is positive, so this allocation attains the bound.
+
+42
+00:06:47,000 --> 00:06:57,000
+把 1 和兩個增益上界加起來，就得到最後答案。
+Add one and the two gain bounds to get the final answer.
+
+43
+00:06:57,000 --> 00:07:12,000
+在射線 AH 上移動 X，看看 AM 同 AN 有甚麼關係。
+Move X along the ray AH and compare AM with AN.
+
+44
+00:07:12,000 --> 00:07:24,000
+D 係不含 A 嘅弧 BC 中點，亦係圓上沿 AH 方向嘅最遠端。
+D bisects the arc BC opposite A, at the far end of the circle in direction AH.
+
+45
+00:07:24,000 --> 00:07:42,000
+M 取 DX 嘅一半。過 O 畫平行於 AD 嘅直線，交 DX 得 N。
+M is halfway along DX. Draw ON parallel to AD to find N on DX.
+
+46
+00:07:42,000 --> 00:08:05,000
+只拖動 X。由同一個距離 AX 同步決定 M、N 同兩條射線。
+Only X moves. The same distance AX determines M, N and the two rays.
+
+47
+00:08:05,000 --> 00:08:21,000
+AD 平分角 BAC。先鏡射 M 成 M′，再證明 N 喺射線 AM′ 上。
+AD bisects BAC. Reflect M to M′, then show that N is on the ray AM′.
+
+48
+00:08:21,000 --> 00:08:37,000
+O 到 A、D 等距。鏡射後，A 到 O 同 O′ 到 D 係同一個向量。
+O is equidistant from A and D. Reflection gives AO and O′D the same vector.
+
+49
+00:08:37,000 --> 00:08:54,000
+DO 同 AX 反向。鏡射 AX，X′ 就落喺由 A 指向 O 嘅射線。
+DO points opposite AX. Reflecting AX puts X′ on the ray from A through O.
+
+50
+00:08:54,000 --> 00:09:13,000
+DX 乘以負 R 除 t，同 DO 嘅垂直 AD 分量相同，所以等於 DN。
+Multiply DX by −R/t to get DN. Its component perpendicular to AD matches DO.
+
+51
+00:09:13,000 --> 00:09:28,000
+M′ 係 DX′ 嘅中點。代入 AX′，比較由 A 出發嘅兩個向量。
+M′ bisects DX′. Substitute AX′ and compare the two vectors from A.
+
+52
+00:09:28,000 --> 00:09:48,000
+比例係正數。無論 X 點移動，AN 同鏡射後嘅 AM′ 都係同一條射線。
+The factor is positive. AN stays on the reflected ray AM′ as X moves.
+
+53
+00:09:48,000 --> 00:09:58,000
+鏡射將 AB 變成 AC，亦將 AM 變成 AN 嘅方向，所以兩角相等。
+Reflection sends the ray AB to AC and the direction AM to AN, so the angles agree.
+
+54
+00:09:58,000 --> 00:10:07,000
+交點 N 須唯一。若 X 同 A 重合，或 AB 等於 AC，原構造可能退化。
+N must be unique. When X=A or AB=AC, the construction can degenerate.
+
+55
+00:10:07,000 --> 00:10:22,000
+把排列視為閉環。總距離包括由最後一項返到第一項。
+Read the permutation as a cycle, including the return to the first entry.
+
+56
+00:10:22,000 --> 00:10:33,000
+在最細嘅 1 同最大嘅 n 剪開閉環，得到兩條連接相同端點嘅路。
+Cut at 1 and n to get two routes with the same endpoints.
+
+57
+00:10:33,000 --> 00:10:50,000
+將兩條路分開畫。每段嘅水平移動，就係原式嘅一個絕對值。
+Unwrap the two routes. Each horizontal move contributes one absolute difference.
+
+58
+00:10:50,000 --> 00:11:02,000
+就算有折返，每條路都至少跨過由 1 到 n 嘅全部距離。
+Even with backtracking, each route must cover the full distance from 1 to n.
+
+59
+00:11:02,000 --> 00:11:18,000
+三角不等式用喺每條路上。兩條路各至少行 n 減一，合共兩倍。
+Apply the triangle inequality to each route. Adding the two bounds gives 2(n−1).
+
+60
+00:11:18,000 --> 00:11:38,000
+順序排列時，先行 1 到 n 嘅相鄰路段，再一次返返去 1。
+In sorted order, walk the consecutive steps to n, then return directly to 1.
+
+61
+00:11:38,000 --> 00:11:47,000
+下界可以達到。當 n 等於 1 時，距離係 0，公式同樣成立。
+The lower bound is attained. For n=1 the distance is zero, as the formula says.
+
+62
+00:11:47,000 --> 00:11:59,000
+一條弦繞固定點轉動。它會揭示哪一條線經過中點？
+A chord pivots around a fixed point. Which line will pass through the midpoint?
+
+63
+00:11:59,000 --> 00:12:12,000
+H 是垂心。沿 A 的高線，外接圓的另一交點是 P。
+H is the orthocenter. The altitude from A meets the circle again at P.
+
+64
+00:12:12,000 --> 00:12:25,000
+從 B、C 作高線，分別在 AC、AB 得到垂足 E、F。
+Drop altitudes from B and C. Their feet on AC and AB are E and F.
+
+65
+00:12:25,000 --> 00:12:39,000
+沿 PE、PF 走到外接圓，分別得到 Q、R，再連起兩點。
+Follow PE and PF to the circle to obtain Q and R. Join the two points.
+
+66
+00:12:39,000 --> 00:12:53,000
+QR 與 EF 相交於 T。題目指定 A、T、Y 共線。
+QR meets EF at T. The problem makes A, T, and Y collinear.
+
+67
+00:12:53,000 --> 00:13:07,000
+令 K 為 EF 的中點。要證明 PY 通過 K。
+Let K be the midpoint of EF. We need to show that PY passes through K.
+
+68
+00:13:07,000 --> 00:13:20,000
+沿 P 把 Q、R 回投到 EF。初始的回投點是 E、F。
+Project Q and R back from P to EF. We start at E and F.
+
+69
+00:13:20,000 --> 00:13:38,000
+固定 T，只轉動弦。兩個圓上交點與回投點同步移動。
+Keep T fixed and turn the chord. Both circle points and both preimages move together.
+
+70
+00:13:38,000 --> 00:13:55,000
+弦轉至通過 A。看橙色回投點落在 K，也就是 t=0。
+The chord reaches A. Watch the orange preimage land at K, where t = 0.
+
+71
+00:13:55,000 --> 00:14:07,000
+現在換成單位圓坐標。把圓心作原點，讓 OA 指向右方。
+Now use unit-circle coordinates. Put the origin at O and turn OA to the right.
+
+72
+00:14:07,000 --> 00:14:22,000
+D 是 BC 的中點。以 D 為圓心的另一個圓，通過 B、C、E、F。
+D is the midpoint of BC. The circle centered at D passes through B, C, E, and F.
+
+73
+00:14:22,000 --> 00:14:37,000
+把 C 沿 AB 反射，C 和鏡像的中點是 F。E 的做法相同。
+Reflect C across AB. F is the midpoint of C and its image. Repeat for E.
+
+74
+00:14:37,000 --> 00:14:52,000
+反射固定弦的兩端。將 E、F 的座標平均，得到 K 相對 D 的位移。
+The reflection fixes the chord ends. Average E and F to obtain K's displacement from D.
+
+75
+00:14:52,000 --> 00:15:06,000
+DK 垂直平分 EF，所以 EF 是豎線。以 δ 表示半條 EF 的長度。
+DK perpendicularly bisects EF, so EF is vertical. Let δ be its half-length.
+
+76
+00:15:06,000 --> 00:15:20,000
+沿 P 和 Z(t) 的直線從圓上走到另一點 U(t)。
+The line through P and Z(t) meets the circle again at U(t).
+
+77
+00:15:20,000 --> 00:15:36,000
+令 Lℓ 是過 T 的直線方程。代入 U 並清分母，得到二次式 Gℓ。
+Write Lℓ for a line equation through T. Substitute U and clear the denominator.
+
+78
+00:15:36,000 --> 00:15:51,000
+過 T 的直線方程可由 EF、QR 線性組合。二次式亦跟同一組合。
+The equations of lines through T combine those of EF and QR. The quadratics follow suit.
+
+79
+00:15:51,000 --> 00:16:03,000
+PK 不是切線。記它與單位圓的第二交點為 Y₀。
+PK is a secant. Call its second intersection with the circle Y₀.
+
+80
+00:16:03,000 --> 00:16:15,000
+過 T 和 Y₀ 的弦在 K 回投，所以二次式有根 t=0。
+The chord through T and Y₀ has preimage K, so its polynomial has root t = 0.
+
+81
+00:16:15,000 --> 00:16:30,000
+用 K=D+r²A 化簡係數。另一根就是 A 回投到 EF 的座標。
+Use K = D + r²A to simplify. The other root matches the projection of A onto EF from P.
+
+82
+00:16:30,000 --> 00:16:43,000
+兩個圓上弦端是 A、Y₀。題目已指定另一端是 Y，所以 Y₀=Y。
+The two circle endpoints are A and Y₀. The specified second endpoint is Y, so Y₀ = Y.
+
+83
+00:16:43,000 --> 00:16:53,000
+這個證明以題設的交點和直線均可定義為前提。
+The proof uses configurations in which the named intersections and lines are defined.
+
+84
+00:16:53,000 --> 00:17:02,000
+所以 PY 通過 EF 的中點 K，完成證明。
+Therefore PY passes through K, the midpoint of EF.
+
+85
+00:17:02,000 --> 00:17:19,000
+若 b 最多係 6，兩個階乘加埋連 2024 都未到，所以 b 至少係 7。
+If b is at most 6, the two factorials total less than 2024. Thus b is at least 7.
+
+86
+00:17:19,000 --> 00:17:35,000
+模 16 睇四次方。偶數嘅四次方餘 0，奇數嘅四次方餘 1。
+Work modulo 16: an even fourth power is 0, and an odd one is 1.
+
+87
+00:17:35,000 --> 00:17:48,000
+因 b 至少係 7，b! 餘 0。餘數排除奇數 c，亦只剩 a 等於 4 或 5。
+Since b! is 0 modulo 16, the residues force c even and a equal to 4 or 5.
+
+88
+00:17:48,000 --> 00:18:15,000
+若 b 至少係 11，模 11 只可能得四次方餘 2 或 10。兩個都唔係平方餘數。
+For b at least 11, c⁴ would be 2 or 10 modulo 11. Neither is a square residue.
+
+89
+00:18:15,000 --> 00:18:28,000
+若 a 係 4，模 5 得 c 要畀 5 整除。咁 b! 等於 c⁴ 加 2000。
+For a=4, modulo 5 gives 5|c, and then b!=c⁴+2000.
+
+90
+00:18:28,000 --> 00:18:48,000
+但 7 到 10 嘅任何階乘，最多只含 5 同 10 嘅兩個 5 因子。
+But none of 7!, 8!, 9!, 10! contains three factors of 5.
+
+91
+00:18:48,000 --> 00:19:01,000
+所以 a 係 5。模 7 得 7 整除 c，再用 c 係偶數，得 14 整除 c。
+So a=5. Modulo 7 gives 7|c, and evenness gives 14|c.
+
+92
+00:19:01,000 --> 00:19:21,000
+於是 c⁴ 模 49 餘 0。四個 b 候選中，只有 7、8 符合。
+Then c⁴ is 0 modulo 49. Only candidates b=7 and b=8 give residue 42.
+
+93
+00:19:21,000 --> 00:19:33,000
+最細嘅正候選係 c 等於 14。b 係 7 得到嘅四次方，細過 14 嘅四次方。
+The least possible c is 14. For b=7, the required fourth power is too small.
+
+94
+00:19:33,000 --> 00:19:50,000
+b 係 8 時剛好等於 14 嘅四次方，所以只有一組正整數解。
+For b=8 the fourth power is exactly 14⁴, giving the unique positive integer solution.
+
+95
+00:19:50,000 --> 00:20:02,000
+代返原式，兩邊都係 40440。
+Substitution in the original equation gives 40440 on both sides.
+
+96
+00:20:02,000 --> 00:20:16,000
+用限制式嘅常數 2，將一次項變成四次項，等每項都可以一齊處理。
+Use the constant 2 from the constraint to turn the linear term into degree four.
+
+97
+00:20:16,000 --> 00:20:32,000
+乘以 2，將右邊嘅 2 用立方和減乘積替換。
+Multiply by 2, then substitute the cube expression for that 2 on the right.
+
+98
+00:20:32,000 --> 00:20:47,000
+展開並按 a、b、c 各自嘅四次項重組。輪流寫出相同形式嘅三項。
+Expand and regroup by fourth powers. Each variable has the same cyclic pattern.
+
+99
+00:20:47,000 --> 00:20:59,000
+三個變數地位對稱。由大排到細，先睇 a 項同 b 項。
+The variables are symmetric. Order them and focus on the a and b terms first.
+
+100
+00:20:59,000 --> 00:21:12,000
+b 項帶有反向嘅 b 減 a。抽出公因子 a 減 b，將首兩項合併。
+The b term carries b−a. Factoring a−b groups the first two terms together.
+
+101
+00:21:12,000 --> 00:21:25,000
+兩個方向上，藍色矩形都至少一樣大，所以可以包住橙色矩形。
+The blue rectangle is at least as large in both dimensions and encloses the orange one.
+
+102
+00:21:25,000 --> 00:21:45,000
+兩組都非負，所以原式成立。沿符合限制式嘅示意路徑睇等號點樣出現。
+Both groups are nonnegative. Follow a path on the constraint to see equality appear.
+
+103
+00:21:45,000 --> 00:21:55,000
+若 a 大過 b，第一組嚴格大過零。等號先要 a 等於 b。
+If a>b the first group is strictly positive. Equality requires a=b first.
+
+104
+00:21:55,000 --> 00:22:07,000
+剩餘一項只喺 c 等於零，或者三數相等時，先會消失。
+The remaining term vanishes when c is zero or all three variables are equal.
+
+105
+00:22:07,000 --> 00:22:27,000
+代返限制式，等號只喺三個 1，或者兩個 1 同一個 0 嘅排列出現。
+The constraint gives equality at (1,1,1) or a permutation of (1,1,0).
+
+106
+00:22:27,000 --> 00:22:33,000
+有理化後接起各段，中間端點互相抵消。
+Rationalize and join the gaps. Interior endpoints cancel.
+
+107
+00:22:33,000 --> 00:22:39,000
+先定實數定義域。當 x ≤ 0，距離原點是 −x。
+On the real domain x ≤ 0, the distance to zero is −x.
+
+108
+00:22:39,000 --> 00:22:45,000
+圓上兩個 u＝v 的點，令平方扣減項為零。
+At both points with u = v, the square penalty vanishes.
+
+109
+00:22:45,000 --> 00:22:51,000
+立方與一次項都遞增，只穿過目標高度一次。
+Both terms increase, so their sum crosses the target once.
+
+110
+00:22:51,000 --> 00:22:57,000
+拆成兩項增益，讓兩個等號條件同時成立。
+Split the two gains and attain both bounds together.
+
+111
+00:22:57,000 --> 00:23:03,000
+沿 AD 鏡射 AM，再用正倍數伸縮到 AN。
+Reflect AM in AD, then scale by a positive factor to AN.
+
+112
+00:23:03,000 --> 00:23:09,000
+在 1 和 n 把閉路切開。去程和回程各至少走 n−1。
+Cut at 1 and n. Each route has length at least n−1.
+
+113
+00:23:09,000 --> 00:23:15,000
+一根落在中點時，另一根落在 PA 與 EF 的交點。
+With one root at the midpoint, the other is at PA ∩ EF.
+
+114
+00:23:15,000 --> 00:23:21,000
+逐層用餘數篩選，最後驗算 8!−1904＝14⁴。
+Sieve by remainders, then check 8! − 1904 = 14⁴.
+
+115
+00:23:21,000 --> 00:23:27,000
+排序後配對，把左右差寫成非負項之和。
+Sort, then pair terms to leave a sum of nonnegative terms.
+
+116
+00:23:27,000 --> 00:23:33,000
+揀一道題，用自己嘅話講返關鍵一步。
+Choose one problem and explain its key move in your own words.

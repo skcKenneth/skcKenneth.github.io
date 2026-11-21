@@ -1,20 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import program2024 from '../data/macau-math-2024-2025-chapters.json';
 
-interface Props { locale: 'en' | 'zh-Hant'; }
-const { locale } = Astro.props;
+interface Props { locale: 'en' | 'zh-Hant'; edition?: '2024-2025' | '2025-2026'; }
+const { locale, edition = '2025-2026' } = Astro.props;
 const zh = locale === 'zh-Hant';
+const earlier = edition === '2024-2025';
 const archive = '/teaching/macau-school-math-competition/';
-const project = `${archive}2025-2026-senior/`;
-const media = '/media/macau-school-math-2025-2026-senior/';
-const fullStem = '00-full-contest-2025-2026-with-recap';
+const project = `${archive}${edition}-senior/`;
+const media = `/media/macau-school-math-${edition}-senior/`;
+const fullStem = earlier ? program2024.fullStem : '00-full-contest-2025-2026-with-recap';
 const fullVideo = `${media}${fullStem}.mp4`;
 const fullSubtitles = `${media}subtitles/${fullStem}.srt`;
-const officialPaper = 'https://portal.dsedj.gov.mo/webdsejspace/addon/upload/Upload_viewfile_page.jsp?id=711644';
-const introSeconds = 12;
-const recapSeconds = 60;
+const officialPaper = earlier
+  ? 'https://www.dsedj.gov.mo/~webdsej/www/dsejnews/ce/result/tech/2425/math2425_sen_qust.pdf'
+  : 'https://portal.dsedj.gov.mo/webdsejspace/addon/upload/Upload_viewfile_page.jsp?id=711644';
 
-const questions = [
+const questions2025 = [
   { file: '01-square-root-gaps', seconds: 80, zh: '根號之間的距離', en: 'Gaps between square roots' },
   { file: '02-difference-of-cubes', seconds: 95, zh: '兩個立方數相差 61', en: 'Two cubes that differ by 61' },
   { file: '03-counting-strings', seconds: 120, zh: '逐個字母數字串', en: 'Counting strings one letter at a time' },
@@ -26,25 +28,34 @@ const questions = [
   { file: '09-the-hidden-midpoint', seconds: 245, zh: '旁切圓、投影與中點', en: 'Excircle, projections and a midpoint' },
 ] as const;
 
-let elapsed = introSeconds;
-const chapters = questions.map((question, index) => {
-  const start = elapsed;
-  elapsed += question.seconds;
-  return { ...question, start, number: index + 1, title: zh ? question.zh : question.en };
-});
-const duration = elapsed + recapSeconds;
+let end2025 = 12;
+const questionSections = earlier
+  ? program2024.sections.flatMap(({ question, ...chapter }) => question === null ? [] : [{ ...chapter, number: question }])
+  : questions2025.map((question, index) => {
+      const start = end2025;
+      end2025 += question.seconds;
+      return { ...question, start, number: index + 1 };
+    });
+const chapters = questionSections.map(question => ({ ...question, title: zh ? question.zh : question.en }));
+const duration = earlier ? program2024.seconds : end2025 + 60;
+const recapStart = earlier ? program2024.sections.at(-1)!.start : end2025;
 const filmChapters = [
   { start: 0, label: zh ? '開場' : 'Intro', title: zh ? '從圖像到解法' : 'From pictures to solutions' },
   ...chapters.map(({ start, number, title }) => ({ start, title, label: zh ? `第 ${number} 題` : `Q${number}` })),
-  { start: elapsed, label: zh ? '回顧' : 'Recap', title: zh ? '九題解法與答案' : 'Nine methods and answers' },
+  { start: recapStart, label: zh ? '回顧' : 'Recap', title: earlier
+    ? (zh ? '十題解法與答案' : 'Ten methods and answers')
+    : (zh ? '九題解法與答案' : 'Nine methods and answers') },
 ];
 const timestamp = (seconds: number) =>
   `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
 
-const title = zh ? '2025／2026 澳門學界數學比賽（高中組）' : '2025/2026 Macau Interschool Mathematics Competition';
-const description = zh
-  ? '高中組九題動畫解答。從數線、字串計數和平方磚，到面積拼圖與旁切圓證明。'
-  : 'Animated solutions to all nine senior-division problems, from number lines and string counts to area dissection and an excircle proof.';
+const title = zh ? `${edition.replace('-', '／')} 澳門學界數學比賽（高中組）`
+  : `${edition.replace('-', '/')} Macau Interschool Mathematics Competition`;
+const description = earlier
+  ? (zh ? '高中組十題動畫解答。從根號相消、對數乘積，到旋轉弦、階乘與不等式。'
+    : 'Animated solutions to all ten senior-division problems, from telescoping radicals and logarithms to rotating chords, factorials and inequalities.')
+  : (zh ? '高中組九題動畫解答。從數線、字串計數和平方磚，到面積拼圖與旁切圓證明。'
+    : 'Animated solutions to all nine senior-division problems, from number lines and string counts to area dissection and an excircle proof.');
 const fullLabel = zh ? '觀看完整版' : 'Watch the full film';
 const clipsLabel = zh ? '按題觀看短片' : 'Watch individual solutions';
 const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual subtitles (SRT)';
