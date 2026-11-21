@@ -1,0 +1,54 @@
+1
+00:00:00,000 --> 00:00:17,000
+若 b 最多係 6，兩個階乘加埋連 2024 都未到，所以 b 至少係 7。
+If b is at most 6, the two factorials total less than 2024. Thus b is at least 7.
+
+2
+00:00:17,000 --> 00:00:33,000
+模 16 睇四次方。偶數嘅四次方餘 0，奇數嘅四次方餘 1。
+Work modulo 16: an even fourth power is 0, and an odd one is 1.
+
+3
+00:00:33,000 --> 00:00:46,000
+因 b 至少係 7，b! 餘 0。餘數排除奇數 c，亦只剩 a 等於 4 或 5。
+Since b! is 0 modulo 16, the residues force c even and a equal to 4 or 5.
+
+4
+00:00:46,000 --> 00:01:13,000
+若 b 至少係 11，模 11 只可能得四次方餘 2 或 10。兩個都唔係平方餘數。
+For b at least 11, c⁴ would be 2 or 10 modulo 11. Neither is a square residue.
+
+5
+00:01:13,000 --> 00:01:26,000
+若 a 係 4，模 5 得 c 要畀 5 整除。咁 b! 等於 c⁴ 加 2000。
+For a=4, modulo 5 gives 5|c, and then b!=c⁴+2000.
+
+6
+00:01:26,000 --> 00:01:46,000
+但 7 到 10 嘅任何階乘，最多只含 5 同 10 嘅兩個 5 因子。
+But none of 7!, 8!, 9!, 10! contains three factors of 5.
+
+7
+00:01:46,000 --> 00:01:59,000
+所以 a 係 5。模 7 得 7 整除 c，再用 c 係偶數，得 14 整除 c。
+So a=5. Modulo 7 gives 7|c, and evenness gives 14|c.
+
+8
+00:01:59,000 --> 00:02:19,000
+於是 c⁴ 模 49 餘 0。四個 b 候選中，只有 7、8 符合。
+Then c⁴ is 0 modulo 49. Only candidates b=7 and b=8 give residue 42.
+
+9
+00:02:19,000 --> 00:02:31,000
+最細嘅正候選係 c 等於 14。b 係 7 得到嘅四次方，細過 14 嘅四次方。
+The least possible c is 14. For b=7, the required fourth power is too small.
+
+10
+00:02:31,000 --> 00:02:48,000
+b 係 8 時剛好等於 14 嘅四次方，所以只有一組正整數解。
+For b=8 the fourth power is exactly 14⁴, giving the unique positive integer solution.
+
+11
+00:02:48,000 --> 00:03:00,000
+代返原式，兩邊都係 40440。
+Substitution in the original equation gives 40440 on both sides.

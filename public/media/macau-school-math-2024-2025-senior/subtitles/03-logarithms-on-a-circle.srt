@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:09,000
+對數有定義，所以 a、b 都是正數。
+The logarithms require a and b to be positive.
+
+2
+00:00:09,000 --> 00:00:20,000
+把兩個對數各記作 u、v。再對等式兩邊取對數。
+Call the logarithms u and v, then take logs of both sides.
+
+3
+00:00:20,000 --> 00:00:33,000
+固定的是 u²＋v²。所有可行點組成一個圓。
+The sum of squares is fixed. The feasible points form a circle.
+
+4
+00:00:33,000 --> 00:00:45,000
+圓上不同位置有不同乘積。怎樣比較所有位置？
+The product changes around the circle. How do we compare every point?
+
+5
+00:00:45,000 --> 00:00:57,000
+將固定的平方和減去 (u−v)²，剩下的正是 2uv。
+Subtract (u − v)² from the fixed sum of squares to get 2uv.
+
+6
+00:00:57,000 --> 00:01:07,000
+橙線量度離 u＝v 有多遠。平方項為零時，乘積最大。
+Orange measures distance to u = v. The product peaks when the square is zero.
+
+7
+00:01:07,000 --> 00:01:18,000
+圓與 u＝v 相交兩次。正對數和負對數都可達到最大值。
+There are two intersections. Positive and negative logs both attain the maximum.
+
+8
+00:01:18,000 --> 00:01:30,000
+等號時兩個對數同號且相等。最大值是 log₁₀4。
+Equality holds when the two logs are equal. The maximum is log₁₀4.

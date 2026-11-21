@@ -1,0 +1,34 @@
+1
+00:00:00,000 --> 00:00:15,000
+把排列視為閉環。總距離包括由最後一項返到第一項。
+Read the permutation as a cycle, including the return to the first entry.
+
+2
+00:00:15,000 --> 00:00:26,000
+在最細嘅 1 同最大嘅 n 剪開閉環，得到兩條連接相同端點嘅路。
+Cut at 1 and n to get two routes with the same endpoints.
+
+3
+00:00:26,000 --> 00:00:43,000
+將兩條路分開畫。每段嘅水平移動，就係原式嘅一個絕對值。
+Unwrap the two routes. Each horizontal move contributes one absolute difference.
+
+4
+00:00:43,000 --> 00:00:55,000
+就算有折返，每條路都至少跨過由 1 到 n 嘅全部距離。
+Even with backtracking, each route must cover the full distance from 1 to n.
+
+5
+00:00:55,000 --> 00:01:11,000
+三角不等式用喺每條路上。兩條路各至少行 n 減一，合共兩倍。
+Apply the triangle inequality to each route. Adding the two bounds gives 2(n−1).
+
+6
+00:01:11,000 --> 00:01:31,000
+順序排列時，先行 1 到 n 嘅相鄰路段，再一次返返去 1。
+In sorted order, walk the consecutive steps to n, then return directly to 1.
+
+7
+00:01:31,000 --> 00:01:40,000
+下界可以達到。當 n 等於 1 時，距離係 0，公式同樣成立。
+The lower bound is attained. For n=1 the distance is zero, as the formula says.

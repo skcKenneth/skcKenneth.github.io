@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:14,000
+用限制式嘅常數 2，將一次項變成四次項，等每項都可以一齊處理。
+Use the constant 2 from the constraint to turn the linear term into degree four.
+
+2
+00:00:14,000 --> 00:00:30,000
+乘以 2，將右邊嘅 2 用立方和減乘積替換。
+Multiply by 2, then substitute the cube expression for that 2 on the right.
+
+3
+00:00:30,000 --> 00:00:45,000
+展開並按 a、b、c 各自嘅四次項重組。輪流寫出相同形式嘅三項。
+Expand and regroup by fourth powers. Each variable has the same cyclic pattern.
+
+4
+00:00:45,000 --> 00:00:57,000
+三個變數地位對稱。由大排到細，先睇 a 項同 b 項。
+The variables are symmetric. Order them and focus on the a and b terms first.
+
+5
+00:00:57,000 --> 00:01:10,000
+b 項帶有反向嘅 b 減 a。抽出公因子 a 減 b，將首兩項合併。
+The b term carries b−a. Factoring a−b groups the first two terms together.
+
+6
+00:01:10,000 --> 00:01:23,000
+兩個方向上，藍色矩形都至少一樣大，所以可以包住橙色矩形。
+The blue rectangle is at least as large in both dimensions and encloses the orange one.
+
+7
+00:01:23,000 --> 00:01:43,000
+兩組都非負，所以原式成立。沿符合限制式嘅示意路徑睇等號點樣出現。
+Both groups are nonnegative. Follow a path on the constraint to see equality appear.
+
+8
+00:01:43,000 --> 00:01:53,000
+若 a 大過 b，第一組嚴格大過零。等號先要 a 等於 b。
+If a>b the first group is strictly positive. Equality requires a=b first.
+
+9
+00:01:53,000 --> 00:02:05,000
+剩餘一項只喺 c 等於零，或者三數相等時，先會消失。
+The remaining term vanishes when c is zero or all three variables are equal.
+
+10
+00:02:05,000 --> 00:02:25,000
+代返限制式，等號只喺三個 1，或者兩個 1 同一個 0 嘅排列出現。
+The constraint gives equality at (1,1,1) or a permutation of (1,1,0).
