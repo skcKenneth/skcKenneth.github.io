@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:13,000
+正整數 a、b、c 滿足這條等式。總和為何一定是完全平方數？
+Positive integers a, b and c satisfy this equation. Why must their sum be a square?
+
+2
+00:00:13,000 --> 00:00:27,000
+同乘 ab。分母 b 消掉後餘下 a，分母 a 消掉後餘下 b。
+Multiply by ab. Cancelling b leaves a, and cancelling a leaves b.
+
+3
+00:00:27,000 --> 00:00:43,000
+展開後，把立方項留在左邊，其餘項移到右邊。
+Expand. Keep the cubic terms on the left and move the other terms to the right.
+
+4
+00:00:43,000 --> 00:01:00,000
+左邊先提出 a+b。右邊前三項是和的平方，也含有這個因子。
+Factor out a+b on the left. The square of the sum on the right shares that factor.
+
+5
+00:01:00,000 --> 00:01:13,000
+a+b 大於零，兩邊除以它。差的平方就是三數的和。
+Since a+b is positive, divide both sides by it. The squared difference is the sum.
+
+6
+00:01:13,000 --> 00:01:25,000
+取一組符合原式的數：5、1、10。先把它們畫成三組方格。
+Take a valid example: 5, 1 and 10. Draw the numbers as three groups of tiles.
+
+7
+00:01:25,000 --> 00:01:41,000
+保留每一格，把三組合成正方形。這個例子的邊長是 4。
+Keep every tile and assemble the three groups into a square. Its example side length is 4.
+
+8
+00:01:41,000 --> 00:01:55,000
+一般的邊長是整數 |a−b|。它不能是零，因為 a+b+c 大於零。
+The general side length is the integer |a−b|. It is nonzero because a+b+c is positive.

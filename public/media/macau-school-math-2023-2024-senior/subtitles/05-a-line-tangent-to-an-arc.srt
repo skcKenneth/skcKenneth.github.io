@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:08,000
+要求最大可行的 k，就要找左邊根式和的最大值。
+The largest feasible k is the maximum of the sum of the two roots.
+
+2
+00:00:08,000 --> 00:00:18,000
+要令兩個根式都有定義，x 必須在 3 至 6 之間。
+Both square roots are real exactly when x is between 3 and 6.
+
+3
+00:00:18,000 --> 00:00:29,000
+x 移動時，兩段長一增一減。它們的和固定為 3。
+When x moves, one length grows as the other shrinks. Their sum is three.
+
+4
+00:00:29,000 --> 00:00:38,000
+以 u、v 表示兩個根式。它們的平方和固定為 3。
+Let u and v be the roots. Their squares add to three.
+
+5
+00:00:38,000 --> 00:00:49,000
+所有可行點都在第一象限的四分之一圓弧上，包括端點。
+The feasible points form a quarter-circle, including its endpoints.
+
+6
+00:00:49,000 --> 00:00:59,000
+沿圓弧移動黃點，看看 u＋v 的直線何時推得最遠。
+Move the point along the arc and see when its diagonal line reaches farthest.
+
+7
+00:00:59,000 --> 00:01:08,000
+回到對角線 u＝v。黃線在這裡和圓弧相切。
+At u = v, the yellow line is tangent to the arc.
+
+8
+00:01:08,000 --> 00:01:16,000
+代數亦證明了上界：平方差項非負，只有 u＝v 時取等號。
+The square term is nonnegative. Equality holds exactly when u = v.
+
+9
+00:01:16,000 --> 00:01:25,000
+因此 x＝九除以二時達到最大值，最大可行的 k 是根號 6。
+The maximum occurs at x = 9/2, so the largest feasible k is √6.

@@ -1,20 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import program2023 from '../data/macau-math-2023-2024-chapters.json';
 import program2024 from '../data/macau-math-2024-2025-chapters.json';
 
-interface Props { locale: 'en' | 'zh-Hant'; edition?: '2024-2025' | '2025-2026'; }
+interface Props { locale: 'en' | 'zh-Hant'; edition?: '2023-2024' | '2024-2025' | '2025-2026'; }
 const { locale, edition = '2025-2026' } = Astro.props;
 const zh = locale === 'zh-Hant';
-const earlier = edition === '2024-2025';
 const archive = '/teaching/macau-school-math-competition/';
 const project = `${archive}${edition}-senior/`;
 const media = `/media/macau-school-math-${edition}-senior/`;
-const fullStem = earlier ? program2024.fullStem : '00-full-contest-2025-2026-with-recap';
-const fullVideo = `${media}${fullStem}.mp4`;
-const fullSubtitles = `${media}subtitles/${fullStem}.srt`;
-const officialPaper = earlier
-  ? 'https://www.dsedj.gov.mo/~webdsej/www/dsejnews/ce/result/tech/2425/math2425_sen_qust.pdf'
-  : 'https://portal.dsedj.gov.mo/webdsejspace/addon/upload/Upload_viewfile_page.jsp?id=711644';
 
 const questions2025 = [
   { file: '01-square-root-gaps', seconds: 80, zh: '根號之間的距離', en: 'Gaps between square roots' },
@@ -29,44 +23,80 @@ const questions2025 = [
 ] as const;
 
 let end2025 = 12;
-const questionSections = earlier
-  ? program2024.sections.flatMap(({ question, ...chapter }) => question === null ? [] : [{ ...chapter, number: question }])
-  : questions2025.map((question, index) => {
-      const start = end2025;
-      end2025 += question.seconds;
-      return { ...question, start, number: index + 1 };
-    });
+const sections2025 = questions2025.map((question, index) => {
+  const start = end2025;
+  end2025 += question.seconds;
+  return { ...question, start, number: index + 1 };
+});
+
+function generatedSchedule(program: typeof program2023) {
+  return {
+    fullStem: program.fullStem,
+    duration: program.seconds,
+    recapStart: program.sections.at(-1)!.start,
+    questionSections: program.sections.flatMap(({ question, ...chapter }) =>
+      question === null ? [] : [{ ...chapter, number: question }]),
+  };
+}
+
+const editions = {
+  '2023-2024': {
+    ...generatedSchedule(program2023),
+    officialPaper: 'https://www.dsedj.gov.mo/~webdsej/www/dsejnews/ce/result/tech/2324/math2324_sen_qust.pdf',
+    description: {
+      en: 'Animated solutions to all eleven senior-division problems, from iterating a radical function to proving a ratio in a moving triangle.',
+      'zh-Hant': '高中組十一題動畫解答。由反覆套用根式函數，到在變動的三角形中證明線段比例。',
+    },
+    recapTitle: { en: 'Eleven methods and answers', 'zh-Hant': '十一題解法與答案' },
+  },
+  '2024-2025': {
+    ...generatedSchedule(program2024),
+    officialPaper: 'https://www.dsedj.gov.mo/~webdsej/www/dsejnews/ce/result/tech/2425/math2425_sen_qust.pdf',
+    description: {
+      en: 'Animated solutions to all ten senior-division problems, from telescoping radicals and logarithms to rotating chords, factorials and inequalities.',
+      'zh-Hant': '高中組十題動畫解答。從根號相消、對數乘積，到旋轉弦、階乘與不等式。',
+    },
+    recapTitle: { en: 'Ten methods and answers', 'zh-Hant': '十題解法與答案' },
+  },
+  '2025-2026': {
+    fullStem: '00-full-contest-2025-2026-with-recap',
+    duration: end2025 + 60,
+    recapStart: end2025,
+    questionSections: sections2025,
+    officialPaper: 'https://portal.dsedj.gov.mo/webdsejspace/addon/upload/Upload_viewfile_page.jsp?id=711644',
+    description: {
+      en: 'Animated solutions to all nine senior-division problems, from number lines and string counts to area dissection and an excircle proof.',
+      'zh-Hant': '高中組九題動畫解答。從數線、字串計數和平方磚，到面積拼圖與旁切圓證明。',
+    },
+    recapTitle: { en: 'Nine methods and answers', 'zh-Hant': '九題解法與答案' },
+  },
+};
+
+const { fullStem, duration, recapStart, questionSections, officialPaper, description, recapTitle } = editions[edition];
+const fullVideo = `${media}${fullStem}.mp4`;
+const fullSubtitles = `${media}subtitles/${fullStem}.srt`;
 const chapters = questionSections.map(question => ({ ...question, title: zh ? question.zh : question.en }));
-const duration = earlier ? program2024.seconds : end2025 + 60;
-const recapStart = earlier ? program2024.sections.at(-1)!.start : end2025;
 const filmChapters = [
   { start: 0, label: zh ? '開場' : 'Intro', title: zh ? '從圖像到解法' : 'From pictures to solutions' },
   ...chapters.map(({ start, number, title }) => ({ start, title, label: zh ? `第 ${number} 題` : `Q${number}` })),
-  { start: recapStart, label: zh ? '回顧' : 'Recap', title: earlier
-    ? (zh ? '十題解法與答案' : 'Ten methods and answers')
-    : (zh ? '九題解法與答案' : 'Nine methods and answers') },
+  { start: recapStart, label: zh ? '回顧' : 'Recap', title: recapTitle[locale] },
 ];
 const timestamp = (seconds: number) =>
   `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
 
 const title = zh ? `${edition.replace('-', '／')} 澳門學界數學比賽（高中組）`
   : `${edition.replace('-', '/')} Macau Interschool Mathematics Competition`;
-const description = earlier
-  ? (zh ? '高中組十題動畫解答。從根號相消、對數乘積，到旋轉弦、階乘與不等式。'
-    : 'Animated solutions to all ten senior-division problems, from telescoping radicals and logarithms to rotating chords, factorials and inequalities.')
-  : (zh ? '高中組九題動畫解答。從數線、字串計數和平方磚，到面積拼圖與旁切圓證明。'
-    : 'Animated solutions to all nine senior-division problems, from number lines and string counts to area dissection and an excircle proof.');
 const fullLabel = zh ? '觀看完整版' : 'Watch the full film';
 const clipsLabel = zh ? '按題觀看短片' : 'Watch individual solutions';
 const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual subtitles (SRT)';
 ---
 
-<BaseLayout title={title} description={description} type="Teaching" locale={locale} alternatePath={zh ? project : `/zh${project}`}>
+<BaseLayout title={title} description={description[locale]} type="Teaching" locale={locale} alternatePath={zh ? project : `/zh${project}`}>
   <header class="page-head competition-head">
     <div class="container">
       <p class="collection-link"><a href={zh ? `/zh${archive}` : archive}>{zh ? '學界數學' : 'School Mathematics Competitions'}</a></p>
       <h1>{title}</h1>
-      <p class="lead">{description}</p>
+      <p class="lead">{description[locale]}</p>
       <div class="actions">
         <a class="button" href="#full-film">{fullLabel}</a>
         <a class="button secondary" href="#individual-solutions">{clipsLabel}</a>
@@ -129,6 +159,19 @@ const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual
                 <a href={`${media}${file}.mp4`} download>{zh ? '下載短片（MP4）' : 'Download this solution (MP4)'}</a>
                 <a href={`${media}subtitles/${file}.srt`} download>{downloadCaption}</a>
               </div>
+              {edition === '2023-2024' && number === 1 && (
+                <aside class="question-source-note" aria-labelledby="question-1-source-note">
+                  <h3 id="question-1-source-note">{zh ? '第 1 題原卷選項說明' : 'Question 1 as printed'}</h3>
+                  <p>{zh
+                    ? '原卷 A 至 D 的分子都是 1。代入 x＝0，四個選項都得 1，而 fₙ(0)＝0，所以按原卷應選 E（以上皆非）。'
+                    : 'Choices A–D in the paper all have numerator 1. At x = 0 they all give 1, while fₙ(0) = 0. The answer as printed is E (none of the above).'}</p>
+                  <p><a href="/resources/macau-school-math-competition-2019-2026/solution-companion.pdf#page=165">{zh
+                    ? '獨立題解讀本第 164 頁'
+                    : 'Page 164 of the independent solution companion'}</a>{zh
+                    ? '也推導出 fₙ(x)＝x／√(1＋nx²)，並把這條公式標為 D。'
+                    : ' derives the same formula, fₙ(x) = x/√(1 + nx²), and labels it D.'}</p>
+                </aside>
+              )}
             </div>
           </details>
         ))}
@@ -214,6 +257,9 @@ const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual
   .clip[open] summary::after { content: '−'; }
   .clip summary:hover, .clip[open] summary { background: var(--surface); }
   .clip-body { max-width: 55rem; padding: .6rem .55rem 1.25rem; }
+  .question-source-note { margin-top: 1rem; padding: .7rem 1rem; border-left: 2px solid var(--accent); background: var(--surface); }
+  .question-source-note h3 { margin: 0; font-size: 1rem; }
+  .question-source-note p { margin: .35rem 0 0; }
   .credit { margin-top: 1.5rem; }
   #full-film, #individual-solutions, .clip { scroll-margin-top: var(--reader-header-offset, 6rem); }
   @media (max-width: 53rem) { .screening { grid-template-columns: minmax(0, 1fr); } }

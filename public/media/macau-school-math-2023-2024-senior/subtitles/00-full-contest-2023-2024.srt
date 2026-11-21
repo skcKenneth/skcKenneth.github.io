@@ -1,0 +1,619 @@
+1
+00:00:00,000 --> 00:00:05,000
+99 個間距。最短配置會碰到邊個刻度？
+Ninety-nine gaps. Where does the shortest packing land?
+
+2
+00:00:05,000 --> 00:00:08,800
+兩個根式可以化做圓弧上嘅一點。
+Two square roots become one point on a circular arc.
+
+3
+00:00:08,800 --> 00:00:12,000
+睇住圖像點樣變，再將觀察寫成解法。
+Watch how the picture changes, then turn the observation into a proof.
+
+4
+00:00:12,000 --> 00:00:22,000
+同一個函數套用 n 次。每一步有哪個量容易追蹤？
+Apply the same function n times. What quantity is easy to track?
+
+5
+00:00:22,000 --> 00:00:33,000
+對非零輸入取平方的倒數，每次只會加 1。
+For a nonzero input, its reciprocal square increases by one.
+
+6
+00:00:33,000 --> 00:00:43,000
+例如由 x＝1 或 x＝−1 出發，兩者的倒數平方都由 1 開始。
+For x = 1 or −1, the reciprocal square starts at one.
+
+7
+00:00:43,000 --> 00:00:55,000
+每套用一次函數，黃點就右移一格。n 次就加 n。
+Each application moves the dot one tick right. After n steps, add n.
+
+8
+00:00:55,000 --> 00:01:05,000
+分母永遠為正，函數保留輸入的符號。零則一直是零。
+The denominator is positive, so the sign stays fixed. Zero stays zero.
+
+9
+00:01:05,000 --> 00:01:14,000
+得到含分子 x 的公式。代入 x＝0 也成立。
+The numerator is x. The same formula also holds at x = 0.
+
+10
+00:01:14,000 --> 00:01:24,000
+原卷 A 至 D 的分子都印成 1。代入零，它們都給 1。
+The printed options A through D each have numerator 1 and give 1 at zero.
+
+11
+00:01:24,000 --> 00:01:33,000
+獨立題解的公式正確，但標了 D。按這份原卷應選 E。
+The companion labels the right formula D. The printed paper gives E.
+
+12
+00:01:33,000 --> 00:01:42,000
+E：以上皆非。核對選項時，記住分子是 x。
+E: none of the above. The derived formula has numerator x.
+
+13
+00:01:42,000 --> 00:01:50,000
+三個式子有同一個值，先把它叫做 t。
+The three expressions share a value. Call it t.
+
+14
+00:01:50,000 --> 00:02:00,000
+按各自的底數還原成冪，三邊的指數都是 t。
+Use each base to undo its logarithm. The exponent is always t.
+
+15
+00:02:00,000 --> 00:02:12,000
+同指數的冪相乘，可以先乘底數。3 乘 5 就是 15。
+With a common exponent, multiply the bases first: 3 times 5 is 15.
+
+16
+00:02:12,000 --> 00:02:24,000
+把三個冪換回 a、b，得到 a＋b＝1125ab。
+Substitute the three powers to obtain a + b = 1125ab.
+
+17
+00:02:24,000 --> 00:02:37,000
+a、b 都是正數，可以除以 ab。答案是 B，1125。
+Both variables are positive. Divide by ab to get B, 1125.
+
+18
+00:02:37,000 --> 00:02:46,000
+數列每次乘的因數會變。找出哪個部分令它一直變。
+The multiplier changes at each step. Which part makes it change?
+
+19
+00:02:46,000 --> 00:02:56,000
+新項和舊項分別除以 n＋2 和 n＋1，剩下固定的倍數 2。
+Divide by n + 2 and n + 1 respectively. The multiplier is now 2.
+
+20
+00:02:56,000 --> 00:03:06,000
+第一個除完是 1，之後每一步倍增。
+The first scaled term is one. Each later term doubles.
+
+21
+00:03:06,000 --> 00:03:16,000
+第 n 個除完是 2 的 n−1 次方。乘回 n＋1 就得原項。
+The nth scaled term is 2 to the n−1. Multiply back by n + 1.
+
+22
+00:03:16,000 --> 00:03:26,000
+為了求和，把每一項寫成兩個相鄰端點之差。
+To sum the terms, write each one as a difference of adjacent endpoints.
+
+23
+00:03:26,000 --> 00:03:38,000
+看首三項：前一段的右端，就是下一段的左端。
+In the first three terms, each right endpoint becomes the next left endpoint.
+
+24
+00:03:38,000 --> 00:03:49,000
+中間端點成對相消。從 0 到最後一個端點，只剩 2023·2²⁰²³。
+The shared endpoints cancel. From zero to the last endpoint, only 2023·2²⁰²³ remains.
+
+25
+00:03:49,000 --> 00:04:07,000
+分子是 2025·2²⁰²³。約去相同的冪，答案是 C。
+The numerator is 2025·2²⁰²³. Cancel the shared power and choose C.
+
+26
+00:04:07,000 --> 00:04:17,000
+100 個遞增整數之間有 99 個間距，每個至少是 1。
+The 100 increasing integers have 99 gaps, each at least one.
+
+27
+00:04:17,000 --> 00:04:28,000
+所有間距相加等於首尾距離，最多只有 399。
+The gaps add to the distance between the endpoints, at most 399.
+
+28
+00:04:28,000 --> 00:04:48,000
+反過來假設每種間距最多用 14 次。把最短的放在前面。
+Assume every size occurs at most 14 times. Put the smallest sizes first.
+
+29
+00:04:48,000 --> 00:05:00,000
+最短的七種各用 14 次，已經有 98 個。還欠一個。
+Fourteen copies of each of the seven smallest sizes fill 98 slots. One remains.
+
+30
+00:05:00,000 --> 00:05:11,000
+再短也得用 8。若第 j 個更短，就會超過某個大小的次數上限。
+The last gap must be at least 8. Any shorter sorted gap would break a cap.
+
+31
+00:05:11,000 --> 00:05:21,000
+即使用最省的排法，總長仍要 14 乘 28，再加 8，等於 400。
+Even this cheapest arrangement requires 14 times 28, plus 8, or 400.
+
+32
+00:05:21,000 --> 00:05:35,000
+原來只能容納 399。把末端放大，就看到多出的 1。
+The span allows only 399. Zoom in on the extra one unit.
+
+33
+00:05:35,000 --> 00:05:52,000
+假設行不通。所以至少一種間距出現了 15 次。
+The assumption fails. At least one gap size occurs 15 or more times.
+
+34
+00:05:52,000 --> 00:06:00,000
+要求最大可行的 k，就要找左邊根式和的最大值。
+The largest feasible k is the maximum of the sum of the two roots.
+
+35
+00:06:00,000 --> 00:06:10,000
+要令兩個根式都有定義，x 必須在 3 至 6 之間。
+Both square roots are real exactly when x is between 3 and 6.
+
+36
+00:06:10,000 --> 00:06:21,000
+x 移動時，兩段長一增一減。它們的和固定為 3。
+When x moves, one length grows as the other shrinks. Their sum is three.
+
+37
+00:06:21,000 --> 00:06:30,000
+以 u、v 表示兩個根式。它們的平方和固定為 3。
+Let u and v be the roots. Their squares add to three.
+
+38
+00:06:30,000 --> 00:06:41,000
+所有可行點都在第一象限的四分之一圓弧上，包括端點。
+The feasible points form a quarter-circle, including its endpoints.
+
+39
+00:06:41,000 --> 00:06:51,000
+沿圓弧移動黃點，看看 u＋v 的直線何時推得最遠。
+Move the point along the arc and see when its diagonal line reaches farthest.
+
+40
+00:06:51,000 --> 00:07:00,000
+回到對角線 u＝v。黃線在這裡和圓弧相切。
+At u = v, the yellow line is tangent to the arc.
+
+41
+00:07:00,000 --> 00:07:08,000
+代數亦證明了上界：平方差項非負，只有 u＝v 時取等號。
+The square term is nonnegative. Equality holds exactly when u = v.
+
+42
+00:07:08,000 --> 00:07:17,000
+因此 x＝九除以二時達到最大值，最大可行的 k 是根號 6。
+The maximum occurs at x = 9/2, so the largest feasible k is √6.
+
+43
+00:07:17,000 --> 00:07:30,000
+正整數 a、b、c 滿足這條等式。總和為何一定是完全平方數？
+Positive integers a, b and c satisfy this equation. Why must their sum be a square?
+
+44
+00:07:30,000 --> 00:07:44,000
+同乘 ab。分母 b 消掉後餘下 a，分母 a 消掉後餘下 b。
+Multiply by ab. Cancelling b leaves a, and cancelling a leaves b.
+
+45
+00:07:44,000 --> 00:08:00,000
+展開後，把立方項留在左邊，其餘項移到右邊。
+Expand. Keep the cubic terms on the left and move the other terms to the right.
+
+46
+00:08:00,000 --> 00:08:17,000
+左邊先提出 a+b。右邊前三項是和的平方，也含有這個因子。
+Factor out a+b on the left. The square of the sum on the right shares that factor.
+
+47
+00:08:17,000 --> 00:08:30,000
+a+b 大於零，兩邊除以它。差的平方就是三數的和。
+Since a+b is positive, divide both sides by it. The squared difference is the sum.
+
+48
+00:08:30,000 --> 00:08:42,000
+取一組符合原式的數：5、1、10。先把它們畫成三組方格。
+Take a valid example: 5, 1 and 10. Draw the numbers as three groups of tiles.
+
+49
+00:08:42,000 --> 00:08:58,000
+保留每一格，把三組合成正方形。這個例子的邊長是 4。
+Keep every tile and assemble the three groups into a square. Its example side length is 4.
+
+50
+00:08:58,000 --> 00:09:12,000
+一般的邊長是整數 |a−b|。它不能是零，因為 a+b+c 大於零。
+The general side length is the integer |a−b|. It is nonzero because a+b+c is positive.
+
+51
+00:09:12,000 --> 00:09:25,000
+兩組平方和都被 p 整除。證明下面兩式恰有一式被 p 整除。
+Both sums of squares are multiples of p. Show that exactly one expression below is too.
+
+52
+00:09:25,000 --> 00:09:41,000
+b 和 d 在模 p 下有乘法逆元，所以可用 r 和 s 表示兩個比值。
+b and d have inverses modulo p. Use r and s for the two ratios.
+
+53
+00:09:41,000 --> 00:09:45,000
+兩個平方相等。相減後把平方差分解成兩個因子。
+Subtract the equal squares and factor the difference of squares.
+
+54
+00:09:45,000 --> 00:09:57,000
+模素數下，乘積為零就有一個因子為零，所以兩根相同或相反。
+Modulo a prime, a zero product has a zero factor. The roots are equal or opposite.
+
+55
+00:09:57,000 --> 00:10:10,000
+模 5 做例子。2 和 −2 的平方都餘 4，也就是 −1。
+Modulo 5, both 2 and −2 square to 4, the same residue as −1.
+
+56
+00:10:10,000 --> 00:10:25,000
+先把 s 放在同一個根。兩根相乘再加 1 得 0，兩根相加仍非零。
+Put s at the same root. Multiply the roots and add 1 to get 0. Their sum stays nonzero.
+
+57
+00:10:25,000 --> 00:10:39,000
+再把 s 放到另一個根。這次兩根相加得 0，乘積加 1 得 2。
+Put s at the opposite root. Now their sum is 0, while their product plus 1 is 2.
+
+58
+00:10:39,000 --> 00:10:48,000
+一般來說，把 s=r 和 s=−r 代入，再用 r 的平方等於 −1。
+In general, substitute s=r or s=−r and use that r squared is −1.
+
+59
+00:10:48,000 --> 00:10:56,000
+p 是奇素數，r 也非零，所以模 p 下，2 和 2r 都非零。
+p is odd and r is nonzero, so 2 and 2r are nonzero modulo p.
+
+60
+00:10:56,000 --> 00:11:06,000
+兩式都乘以可逆的 bd，每一行仍只有一個零。
+Multiply by the invertible factor bd. Each row still has one zero.
+
+61
+00:11:06,000 --> 00:11:17,000
+無論是哪一行，都恰有一個原式被 p 整除。
+In either case, exactly one original expression is divisible by p.
+
+62
+00:11:17,000 --> 00:11:31,000
+若每段長 n 的連續項之和可被 n+1 整除，是否有這樣的正整數數列？
+Could a positive integer sequence have every n-term sum divisible by n+1?
+
+63
+00:11:31,000 --> 00:11:48,000
+任意取整數 m 大於或等於 2。先看由首項開始、長度為 2m−1 的區段。
+Choose any integer m at least 2. Start with a block of 2m−1 terms from the first term.
+
+64
+00:11:48,000 --> 00:12:02,000
+長區段的和 S 可被 2m 整除，所以也可被 m 整除。
+The long sum S is divisible by 2m, so it is also divisible by m.
+
+65
+00:12:02,000 --> 00:12:18,000
+首項之後，剛好餘下兩段各 m−1 項。把兩段和分別叫作 U 和 V。
+After the first term come two blocks of m−1 terms. Call their sums U and V.
+
+66
+00:12:18,000 --> 00:12:35,000
+每段長 m−1，因此 U 和 V 都可被 m 整除。將兩段從 S 移開。
+Each small block has length m−1, so m divides U and V. Remove both blocks from S.
+
+67
+00:12:35,000 --> 00:12:53,000
+把 S 減去兩個 m 的倍數，剩下的首項 a₁ 也必定是 m 的倍數。
+Subtract two multiples of m from S. The first term left over must also be a multiple of m.
+
+68
+00:12:53,000 --> 00:13:10,000
+m 原本可任意選。取 m=a₁+1，它比正整數 a₁ 大。
+m was arbitrary. Choose m=a₁+1, which is larger than the positive integer a₁.
+
+69
+00:13:10,000 --> 00:13:32,000
+較大的正整數不能整除較小的正整數，因此數列不存在。
+A larger positive integer cannot divide a smaller one. No such sequence exists.
+
+70
+00:13:32,000 --> 00:13:46,000
+四個正數共用一個比值，總和等於 48。
+Four positive numbers share one ratio and sum to 48.
+
+71
+00:13:46,000 --> 00:14:02,000
+把四個數相乘設為 P。第一個分子缺少 w。
+Set P = xyzw. The first numerator omits w.
+
+72
+00:14:02,000 --> 00:14:18,000
+每條箭嘴都用同一個函數。輸入越大，輸出越細。
+Each arrow uses the same function. Larger input gives smaller output.
+
+73
+00:14:18,000 --> 00:14:36,000
+假設 x 大過 z。兩個輸出 y、w 嘅大小順序就調轉。
+Suppose x > z. Their outputs y and w have the reverse order.
+
+74
+00:14:36,000 --> 00:14:53,000
+再行一步，次序又反轉一次，得到 z 大過 x。
+One more step reverses the order again and gives z > x.
+
+75
+00:14:53,000 --> 00:15:10,000
+大過或者細過都會矛盾，所以 x 等於 z，y 等於 w。
+Either strict order leads to a contradiction, so x = z and y = w.
+
+76
+00:15:10,000 --> 00:15:28,000
+代入兩個相等關係，再交叉相乘。
+Substitute the equalities and cross-multiply.
+
+77
+00:15:28,000 --> 00:15:46,000
+在 x＋y＝24 上找交點。先看 x＝y 呢一支。
+On x + y = 24, first intersect the branch x = y.
+
+78
+00:15:46,000 --> 00:15:57,000
+再畫 xy＝1。兩個交點好近座標軸。
+Now plot xy = 1. Two intersections lie close to the axes.
+
+79
+00:15:57,000 --> 00:16:12,000
+將靠近 y 軸嘅交點放大。另一個交點由交換 x、y 得到。
+Zoom in near the y-axis. Swapping x and y gives the other point.
+
+80
+00:16:12,000 --> 00:16:27,000
+兩數和係 24，積係 1。用同一條二次式一次過求兩個根。
+The sum is 24 and the product is 1. One quadratic gives both roots.
+
+81
+00:16:27,000 --> 00:16:42,000
+所以有一組四個 12，同兩組大小數交替排列嘅解。
+One solution has four 12s. The other two alternate the roots.
+
+82
+00:16:42,000 --> 00:16:57,000
+三組都係正數，亦滿足兩支之一。代回四個比值都成立。
+All three are positive, and each branch gives the original equal ratios.
+
+83
+00:16:57,000 --> 00:17:07,000
+從一個銳角三角形開始，令 AB 長於 AC。
+Start with an acute triangle where AB is longer than AC.
+
+84
+00:17:07,000 --> 00:17:19,000
+I 是內心。從 B 作角平分線，再標出 BC 的中點 M。
+Bisect angle B to reach incenter I. Mark M, the midpoint of BC.
+
+85
+00:17:19,000 --> 00:17:31,000
+延長 MI 至 AC 得到 D。延長 BI 至外接圓得到 E。
+Extend MI to AC at D, and BI to the circumcircle at E.
+
+86
+00:17:31,000 --> 00:17:43,000
+比較橙色的 ED 除以 EI，以及藍色的 IC 除以 IB。
+Compare orange ED over EI with blue IC over IB.
+
+87
+00:17:43,000 --> 00:17:57,000
+讓 A 水平移動。每一幀都用新三角形重算交點和比值。
+Slide A horizontally. The intersections and ratios recompute from each new triangle.
+
+88
+00:17:57,000 --> 00:18:15,000
+兩個比值一路變小，但始終重合。停下來找原因。
+Both ratios decrease together. Freeze the triangle to explain why they agree.
+
+89
+00:18:15,000 --> 00:18:29,000
+先看靠近底邊的三角形 MCD。設 b 為 CA，s 為半周長，r 為內切圓半徑。
+Focus on triangle MCD. Let b be CA, s the semiperimeter, and r the inradius.
+
+90
+00:18:29,000 --> 00:18:43,000
+M 到 AC 的高是 B 到 AC 的一半，等於 sr 除以 b。
+M is half as far from AC as B is. Its height above AC is sr over b.
+
+91
+00:18:43,000 --> 00:18:57,000
+半周長大於 b，所以 M 離 AC 比 I 遠。I 正好在 M 與 D 之間。
+Since s exceeds b, M is farther from AC than I is. So I lies between M and D.
+
+92
+00:18:57,000 --> 00:19:11,000
+沿 IC 分成兩塊。用 MC 和 CD 做底，兩塊的高同樣是 r。
+Split along IC. Using MC and CD as bases, both pieces have height r.
+
+93
+00:19:11,000 --> 00:19:25,000
+同一個面積用兩種方法計算。約去 r，就找到 CD 與 BC 的比。
+The same area has two expressions. Cancel r to find the ratio CD to BC.
+
+94
+00:19:25,000 --> 00:19:39,000
+回到外接圓。B 的角平分線截出兩段等弧，所以 EA 等於 EC。
+Return to the circumcircle. The bisector at B cuts off equal arcs, so EA equals EC.
+
+95
+00:19:39,000 --> 00:19:54,000
+在 I 用外角，在 C 加兩個角。兩處都得到 β 加 γ，所以 EI 也等於 EC。
+Use the exterior angle at I and add angles at C. Both give beta plus gamma.
+
+96
+00:19:54,000 --> 00:20:07,000
+將 E 投影到 AC，把 I 投影到 BC。兩個直角三角形都用同一個 β。
+Project E onto AC and I onto BC. Both right triangles use the same angle beta.
+
+97
+00:20:07,000 --> 00:20:21,000
+G 是內切圓的切點。用每個頂點的兩條切線等長，得到 BG 等於 s 減 b。
+G is the incircle’s contact point. Equal tangents give BG = s − b.
+
+98
+00:20:21,000 --> 00:20:36,000
+兩組夾邊成比例，夾角都是 β，所以這兩個三角形相似。
+The sides around angle beta are proportional. The triangles are similar by SAS.
+
+99
+00:20:36,000 --> 00:20:49,000
+把橙色三角形反轉，再按同一比例放大，三個對應頂點就會重合。
+Flip the orange triangle and enlarge it uniformly until corresponding vertices coincide.
+
+100
+00:20:49,000 --> 00:21:00,000
+對應邊給出 ED 比 IC 等於 EC 比 IB。以 EI 代替 EC，再整理。
+Similarity gives ED/IC = EC/IB. Replace EC with EI and rearrange.
+
+101
+00:21:00,000 --> 00:21:07,000
+面積定出比例，弧中點補上等長線段，最後用相似把兩者連起來。
+Area gives a ratio, the arc midpoint gives equal lengths, and similarity joins them.
+
+102
+00:21:07,000 --> 00:21:20,000
+每三個相鄰項都受同一條不等式限制。
+The same inequality constrains every three consecutive terms.
+
+103
+00:21:20,000 --> 00:21:35,000
+令 b 等於 a 減 1。正數條件變成每一項 b 都大過 −1。
+Set b = a − 1. Positivity gives b > −1 at every index.
+
+104
+00:21:35,000 --> 00:21:50,000
+如果中間項 b_k 大過零，左右兩項嘅乘積一定係負數。
+If bₖ is positive, the product of its neighbours is negative.
+
+105
+00:21:50,000 --> 00:22:05,000
+因此一邊要正，另一邊要負。左右兩個情況都要計。
+Exactly one neighbour is positive. Either side can be the positive one.
+
+106
+00:22:05,000 --> 00:22:22,000
+若 k 至少係 3，相鄰嘅正項同 k 都至少係第 2 項。
+For k ≥ 3, both positive terms have indices at least 2.
+
+107
+00:22:22,000 --> 00:22:34,000
+左右外側都要負。因為 b 大過 −1，兩個下降量都細過 1。
+The outer terms are negative. Both deficits are less than 1.
+
+108
+00:22:34,000 --> 00:22:51,000
+對 u 套不等式。左跌幅少過 1，所以 v 必須大過 2u。
+Apply the inequality at u. The left deficit is below 1, so v > 2u.
+
+109
+00:22:51,000 --> 00:23:07,000
+換到 v 套同一條不等式，得到 u 亦必須大過 2v。
+At v, the same inequality also requires u > 2v.
+
+110
+00:23:07,000 --> 00:23:23,000
+合併兩式，u 要大過自己嘅四倍。正數 u 做唔到。
+Together they require u > 4u, which is impossible for positive u.
+
+111
+00:23:23,000 --> 00:23:37,000
+第 3 項起都唔可以高過 1，所以第 2023 項亦至多係 1。
+No term from index 3 onward can exceed 1, including a₂₀₂₃.
+
+112
+00:23:37,000 --> 00:23:47,000
+每項都等於 1 時，原不等式取等號。
+The all-ones sequence attains equality in the original inequality.
+
+113
+00:23:47,000 --> 00:23:53,000
+用倒數平方，每次加 1。代入零可排除 A 至 D。
+The reciprocal square rises by 1. Zero rules out A through D.
+
+114
+00:23:53,000 --> 00:23:59,000
+兩個等式相乘，利用 3 與 5 相乘得 15。
+Multiply the two equations and use 3 × 5 = 15.
+
+115
+00:23:59,000 --> 00:24:05,000
+先除以 n＋1 見到倍增，再寫成相鄰差相消。
+Divide by n + 1 to see doubling, then telescope the differences.
+
+116
+00:24:05,000 --> 00:24:11,000
+每種最多 14 個，最短配置都要 400，超出 399。
+With at most 14 per length, even the shortest packing needs 400.
+
+117
+00:24:11,000 --> 00:24:17,000
+兩個根式相等時，和到達最大。
+The sum is largest when the two square roots are equal.
+
+118
+00:24:17,000 --> 00:24:23,000
+通分並抽出公因式，剩下邊長係 |a−b| 嘅正方形。
+Clear the denominators to reveal a square of side |a − b|.
+
+119
+00:24:23,000 --> 00:24:29,000
+比較兩個平方根係相同定相反，決定邊一式為零。
+Equal or opposite roots determine which expression is zero.
+
+120
+00:24:29,000 --> 00:24:35,000
+抽走兩個短窗口，迫使任意 m≥2 都整除首項。
+Remove two short windows to force every m ≥ 2 to divide the first term.
+
+121
+00:24:35,000 --> 00:24:41,000
+遞減函數迫出相對兩項相等，再解兩條分支。
+The decreasing function matches opposite terms. Solve both branches.
+
+122
+00:24:41,000 --> 00:24:47,000
+拆面積求邊比，配合弧中點同夾角證相似。
+Split the area, then use the arc midpoint and the included angle.
+
+123
+00:24:47,000 --> 00:24:53,000
+相鄰兩項一旦高過 1，兩個高度限制互相矛盾。
+A positive pair above 1 would impose contradictory height bounds.
+
+124
+00:24:53,000 --> 00:24:59,000
+揀一道題，用自己嘅話講返關鍵一步。
+Choose one problem and explain its key move in your own words.

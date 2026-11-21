@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:14,000
+若每段長 n 的連續項之和可被 n+1 整除，是否有這樣的正整數數列？
+Could a positive integer sequence have every n-term sum divisible by n+1?
+
+2
+00:00:14,000 --> 00:00:31,000
+任意取整數 m 大於或等於 2。先看由首項開始、長度為 2m−1 的區段。
+Choose any integer m at least 2. Start with a block of 2m−1 terms from the first term.
+
+3
+00:00:31,000 --> 00:00:45,000
+長區段的和 S 可被 2m 整除，所以也可被 m 整除。
+The long sum S is divisible by 2m, so it is also divisible by m.
+
+4
+00:00:45,000 --> 00:01:01,000
+首項之後，剛好餘下兩段各 m−1 項。把兩段和分別叫作 U 和 V。
+After the first term come two blocks of m−1 terms. Call their sums U and V.
+
+5
+00:01:01,000 --> 00:01:18,000
+每段長 m−1，因此 U 和 V 都可被 m 整除。將兩段從 S 移開。
+Each small block has length m−1, so m divides U and V. Remove both blocks from S.
+
+6
+00:01:18,000 --> 00:01:36,000
+把 S 減去兩個 m 的倍數，剩下的首項 a₁ 也必定是 m 的倍數。
+Subtract two multiples of m from S. The first term left over must also be a multiple of m.
+
+7
+00:01:36,000 --> 00:01:53,000
+m 原本可任意選。取 m=a₁+1，它比正整數 a₁ 大。
+m was arbitrary. Choose m=a₁+1, which is larger than the positive integer a₁.
+
+8
+00:01:53,000 --> 00:02:15,000
+較大的正整數不能整除較小的正整數，因此數列不存在。
+A larger positive integer cannot divide a smaller one. No such sequence exists.

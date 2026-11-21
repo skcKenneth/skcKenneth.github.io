@@ -1,0 +1,54 @@
+1
+00:00:00,000 --> 00:00:13,000
+每三個相鄰項都受同一條不等式限制。
+The same inequality constrains every three consecutive terms.
+
+2
+00:00:13,000 --> 00:00:28,000
+令 b 等於 a 減 1。正數條件變成每一項 b 都大過 −1。
+Set b = a − 1. Positivity gives b > −1 at every index.
+
+3
+00:00:28,000 --> 00:00:43,000
+如果中間項 b_k 大過零，左右兩項嘅乘積一定係負數。
+If bₖ is positive, the product of its neighbours is negative.
+
+4
+00:00:43,000 --> 00:00:58,000
+因此一邊要正，另一邊要負。左右兩個情況都要計。
+Exactly one neighbour is positive. Either side can be the positive one.
+
+5
+00:00:58,000 --> 00:01:15,000
+若 k 至少係 3，相鄰嘅正項同 k 都至少係第 2 項。
+For k ≥ 3, both positive terms have indices at least 2.
+
+6
+00:01:15,000 --> 00:01:27,000
+左右外側都要負。因為 b 大過 −1，兩個下降量都細過 1。
+The outer terms are negative. Both deficits are less than 1.
+
+7
+00:01:27,000 --> 00:01:44,000
+對 u 套不等式。左跌幅少過 1，所以 v 必須大過 2u。
+Apply the inequality at u. The left deficit is below 1, so v > 2u.
+
+8
+00:01:44,000 --> 00:02:00,000
+換到 v 套同一條不等式，得到 u 亦必須大過 2v。
+At v, the same inequality also requires u > 2v.
+
+9
+00:02:00,000 --> 00:02:16,000
+合併兩式，u 要大過自己嘅四倍。正數 u 做唔到。
+Together they require u > 4u, which is impossible for positive u.
+
+10
+00:02:16,000 --> 00:02:30,000
+第 3 項起都唔可以高過 1，所以第 2023 項亦至多係 1。
+No term from index 3 onward can exceed 1, including a₂₀₂₃.
+
+11
+00:02:30,000 --> 00:02:40,000
+每項都等於 1 時，原不等式取等號。
+The all-ones sequence attains equality in the original inequality.
