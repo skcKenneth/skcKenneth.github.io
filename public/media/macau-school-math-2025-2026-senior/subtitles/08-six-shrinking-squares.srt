@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:11,000
+四個數非負，總和固定為 1。怎樣分配能令六項之和最大？
+Four nonnegative numbers sum to 1. Which split maximizes the six terms?
+
+2
+00:00:11,000 --> 00:00:22,000
+先取一對，例如 x₁ 和 x₄。每一對都可以用同一個圖形關係處理。
+Take one pair, for example x₁ and x₄. The same area relation will apply to every pair.
+
+3
+00:00:22,000 --> 00:00:35,000
+令 u 為兩數之和，v 為幾何平均的兩倍。u 減 v 是一個非負的平方。
+Let u be their sum and v twice their geometric mean. Then u − v is a square.
+
+4
+00:00:35,000 --> 00:00:48,000
+沿邊長 v 切開大正方形，得到一個小正方形、兩條長方形和一個角落。
+Cut the big square at length v: there is a small square, two strips and a corner.
+
+5
+00:00:48,000 --> 00:01:03,000
+小正方形各接上一條長方形，剛好拼成兩塊 u 乘 v。
+Join a small square to each strip to make two u-by-v rectangles.
+
+6
+00:01:03,000 --> 00:01:16,000
+面積總和保持不變。兩塊長方形之外，剩下一個邊長 u−v 的正方形。
+Total area is preserved. After the two rectangles, a square of side u − v remains.
+
+7
+00:01:16,000 --> 00:01:30,000
+兩塊長方形的面積正好是原式這一項的四倍。再展開兩個原正方形的面積。
+The two rectangles total four times the summand. Expand the two square areas.
+
+8
+00:01:30,000 --> 00:01:43,000
+四個數兩兩配對。每個 xᵢ² 在三對出現一次，每個乘積 xᵢxⱼ 只屬於一對。
+Each square xᵢ² occurs in three pairs. Each product xᵢxⱼ occurs once.
+
+9
+00:01:43,000 --> 00:01:53,000
+把六組面積關係相加，四倍總和就等於固定面積 3 減去六個小方塊。
+Add the six area identities. Four times the sum is 3 minus the six leftover squares.
+
+10
+00:01:53,000 --> 00:02:12,000
+每對的方塊邊長等於對應的根號差的平方。試把四條柱向等分位置移動。
+Each side squares a root difference. Move the bars toward equality.
+
+11
+00:02:12,000 --> 00:02:31,000
+方塊面積永遠非負，所以總和最多為 3/4。等號要求六個方塊同時消失。
+Areas are nonnegative. The sum reaches 3/4 when all six vanish.
+
+12
+00:02:31,000 --> 00:02:50,000
+六個方塊消失等價於四個數相等。總和為 1，所以四個都必須是 1/4。
+All six vanish precisely when the four numbers equal 1/4.

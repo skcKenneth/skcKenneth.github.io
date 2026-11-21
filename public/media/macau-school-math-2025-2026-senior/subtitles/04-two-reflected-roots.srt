@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:06,000
+找整數 a、b，使首項係數為 1 的二次多項式在指定根處等於零。
+Find integers a and b so the monic quadratic vanishes at the stated root.
+
+2
+00:00:06,000 --> 00:00:13,000
+2025 是 45 的平方。兩直角邊長 45 和 1，斜邊長 √2026。
+2025 is 45 squared. Legs 45 and 1 give a hypotenuse of √2026.
+
+3
+00:00:13,000 --> 00:00:21,000
+把 45 移到等式左邊，只剩下這條斜邊的長度。
+Move 45 to the left-hand side, leaving the length of the hypotenuse.
+
+4
+00:00:21,000 --> 00:00:36,000
+從最簡單的圖像開始。函數 x²−2026 的兩個零點是 ±√2026。
+Start from the simple graph. The zeros of x² − 2026 are ±√2026.
+
+5
+00:00:36,000 --> 00:00:56,000
+沿 x 軸把整條曲線右移 h。頂點和兩個零點保持同樣的距離。
+Shift the entire curve right by h. The vertex and both roots keep their relative spacing.
+
+6
+00:00:56,000 --> 00:00:59,000
+右移 45 後，橙色零點正是所求的 45＋√2026。
+After shifting by 45, the orange zero is exactly the required 45 + √2026.
+
+7
+00:00:59,000 --> 00:01:05,000
+放大零附近的數線，便看出左邊的根略小於零。
+Zoom in around zero to see that the left root is slightly negative.
+
+8
+00:01:05,000 --> 00:01:20,000
+展開平方，常數項是 2025 減 2026。答案是 D。
+Expand the square. The constant term is 2025 minus 2026. The answer is D.

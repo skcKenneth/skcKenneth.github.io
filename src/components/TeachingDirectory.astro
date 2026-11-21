@@ -8,6 +8,8 @@ const { locale = 'en' } = Astro.props;
 const zh = locale === 'zh-Hant';
 const t = (en: string, ch: string) => zh ? ch : en;
 const label = (items: any[], id: string) => items.find(item => item.id === id)?.label[locale] || id;
+const schoolCompetitionResources = TEACHING_RESOURCES.filter(resource =>
+  resource.id === 'macau-competition-senior-videos' || resource.id === 'macau-competition');
 ---
 <div data-teaching-directory data-locale={locale}>
   <header class="page-head teaching-directory-head"><div class="container">
@@ -19,6 +21,18 @@ const label = (items: any[], id: string) => items.find(item => item.id === id)?.
   <section class="container teaching-directory-section" aria-labelledby="teaching-audience-heading">
     <h2 id="teaching-audience-heading">{t('Who is learning?', '按學習對象開始')}</h2>
     <div class="teaching-audience-grid">{TEACHING_AUDIENCES.map(audience => <a href={`?audience=${audience.id}#teaching-resources`} data-audience-link={audience.id}><strong>{audience.label[locale]}</strong><span>{audience.description[locale]}</span><b aria-hidden="true">→</b></a>)}</div>
+  </section>
+  <section class="container teaching-directory-section" aria-labelledby="school-mathematics-competitions">
+    <h2 id="school-mathematics-competitions">{t('School Mathematics Competitions', '學界數學')}</h2>
+    <div class="teaching-audience-grid">
+      {schoolCompetitionResources.map(resource => (
+        <a href={teachingHref(resource, locale)}>
+          <strong>{resource.title[locale]}</strong>
+          <span>{resource.purpose[locale]}</span>
+          <b aria-hidden="true">→</b>
+        </a>
+      ))}
+    </div>
   </section>
   <section class="container teaching-directory-section classroom-directory" aria-labelledby="teaching-classroom-heading">
     <div class="section-head"><div><p class="eyebrow">{t('Ready for one class','一節課就開始')}</p><h2 id="teaching-classroom-heading">{t('One-class activities and guided practice','一節課活動與分步練習')}</h2></div><p>{t('Forty-minute paper-practice lessons, investigations, student worksheets and separate teacher references.','40 分鐘紙筆練習、探究、學生工作紙及獨立教師參考。')}</p></div>

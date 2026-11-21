@@ -1,0 +1,509 @@
+1
+00:00:00,000 --> 00:00:04,000
+九道題，由觀察圖像開始。
+Nine problems, starting with what we can see.
+
+2
+00:00:04,000 --> 00:00:08,000
+用數線比較間距，把硬幣排列變成路徑。
+Compare gaps on a number line and turn a row of coins into a path.
+
+3
+00:00:08,000 --> 00:00:12,000
+由移動中的圖形，找出可以證明的關係。
+Follow a moving figure to find a relationship you can prove.
+
+4
+00:00:12,000 --> 00:00:21,000
+求這個和。每一項先取不大於它的最大整數。
+Find the sum. First round each difference down to an integer.
+
+5
+00:00:21,000 --> 00:00:26,000
+藍線是相鄰兩個根號的差。黃尺長一個單位。
+Blue shows the gap between adjacent roots. The yellow ruler is one unit long.
+
+6
+00:00:26,000 --> 00:00:32,000
+因為 2＜√6＜3，第一個間距在 1 和 2 之間。
+Since 2 < √6 < 3, the first gap lies between 1 and 2.
+
+7
+00:00:32,000 --> 00:00:43,000
+因為 25＜26＜36，第二個間距亦大過 1、細過 2。
+Since 25 < 26 < 36, the second gap is also between 1 and 2.
+
+8
+00:00:43,000 --> 00:00:56,000
+到第三個間距，藍線比一個單位短。
+By the third gap, the blue segment is shorter than one unit.
+
+9
+00:00:56,000 --> 00:01:14,000
+乘以共軛式。分子固定為 10，分母越來越大。
+Multiply by the conjugate. The numerator stays at 10 as the denominator grows.
+
+10
+00:01:14,000 --> 00:01:23,000
+間距一路縮小，所以從第三項起，每一項取整都等於零。
+The gaps keep shrinking, so every floor from the third term onward is zero.
+
+11
+00:01:23,000 --> 00:01:32,000
+只有頭兩項各貢獻 1。答案是 A，2。
+Only the first two terms contribute 1 each. The answer is A, 2.
+
+12
+00:01:32,000 --> 00:01:42,000
+有幾多對整數 (a, b)，滿足 b 的立方比 a 的立方大 61？
+How many integer pairs (a, b) have cubes differing by b³ − a³ = 61?
+
+13
+00:01:42,000 --> 00:01:55,000
+立方函數嚴格遞增，所以 d＝b−a＞0。61 是質數。
+The cube function is increasing, so d = b − a > 0. The number 61 is prime.
+
+14
+00:01:55,000 --> 00:02:11,000
+用 d 表示兩數之間的距離，用 s 表示兩數的和。比較 4Q 和距離的平方。
+Use d for the gap and s for the sum. Compare 4Q with the square of the gap.
+
+15
+00:02:11,000 --> 00:02:20,000
+若距離是 61，第一個平方已經大過 4，故第二個因數無法等於 1。
+With a gap of 61, its square alone exceeds 4, so the second factor cannot be 1.
+
+16
+00:02:20,000 --> 00:02:31,000
+唯一剩下的距離是 1。代入便知和是 9 或 −9，所以中點是 ±4.5。
+The only gap left is 1. Substitution gives sums 9 and −9, so the midpoints are ±4.5.
+
+17
+00:02:31,000 --> 00:02:44,000
+在數線上標出中點及相距一個單位的端點，先讀出 (4, 5)。
+Mark the midpoint and endpoints one unit apart on the number line to read (4, 5).
+
+18
+00:02:44,000 --> 00:02:55,000
+以 0 為中心反射，端點變成 −5 和 −4。按 a＜b 的次序讀出第二對。
+Reflect across zero to get endpoints −5 and −4. Read the second pair in the order a < b.
+
+19
+00:02:55,000 --> 00:03:07,000
+兩對都滿足原式。答案是 C，共兩對。
+Both pairs satisfy the equation. The answer is C, two pairs.
+
+20
+00:03:07,000 --> 00:03:19,000
+用 A、B 排出九個字母。相鄰的 AA 和連續三個 B 都不准出現。
+Build a nine-letter string from A and B. Neither AA nor BBB may occur.
+
+21
+00:03:19,000 --> 00:03:28,000
+只需記住右邊的結尾。三種狀態是 A、一個 B、兩個 B。
+Only the final run matters. The three states end in A, a single B, or two Bs.
+
+22
+00:03:28,000 --> 00:03:39,000
+每條箭嘴表示加一個合法字母。從 A 只可加 B，從 BB 只可加 A。
+Each arrow appends one legal letter. After A only B fits, and after BB only A fits.
+
+23
+00:03:39,000 --> 00:03:41,450
+把到達同一狀態的數量相加。每個新字串有唯一的上一個字串。
+Add the counts arriving at each state. Every new string has a unique predecessor.
+
+24
+00:03:41,450 --> 00:03:52,000
+長度為 1 時，只有 A 和 B，所以從 (1,1,0) 開始。
+At length 1 only A and B exist, so the counts start at (1,1,0).
+
+25
+00:03:52,000 --> 00:04:05,000
+加入第二個字母，有 BA、AB、BB，各落在一種不同狀態。
+The second letter gives BA, AB, and BB, one in each state.
+
+26
+00:04:05,000 --> 00:04:15,000
+從 B 或 BB 都可加 A，所以新的 u 等於原先的 v 加 w。
+Either B state can append A, so the new u equals the old v plus w.
+
+27
+00:04:15,000 --> 00:04:36,000
+依同一個遞推式填表。每一行都把上一行的計數沿箭嘴送往下一行。
+Use the same recurrence in every row. Each row sends its counts along these arrows.
+
+28
+00:04:36,000 --> 00:04:52,000
+繼續數到長度 9。三種結尾分別有 9、7、5 個。
+Continue to length 9. The three endings have counts 9, 7, and 5.
+
+29
+00:04:52,000 --> 00:05:07,000
+三種結尾加起來一共 21 個。所列的數值都不等於 21，選 E。
+The three counts total 21. None of the listed numbers is 21, so choose E.
+
+30
+00:05:07,000 --> 00:05:13,000
+找整數 a、b，使首項係數為 1 的二次多項式在指定根處等於零。
+Find integers a and b so the monic quadratic vanishes at the stated root.
+
+31
+00:05:13,000 --> 00:05:20,000
+2025 是 45 的平方。兩直角邊長 45 和 1，斜邊長 √2026。
+2025 is 45 squared. Legs 45 and 1 give a hypotenuse of √2026.
+
+32
+00:05:20,000 --> 00:05:28,000
+把 45 移到等式左邊，只剩下這條斜邊的長度。
+Move 45 to the left-hand side, leaving the length of the hypotenuse.
+
+33
+00:05:28,000 --> 00:05:43,000
+從最簡單的圖像開始。函數 x²−2026 的兩個零點是 ±√2026。
+Start from the simple graph. The zeros of x² − 2026 are ±√2026.
+
+34
+00:05:43,000 --> 00:06:03,000
+沿 x 軸把整條曲線右移 h。頂點和兩個零點保持同樣的距離。
+Shift the entire curve right by h. The vertex and both roots keep their relative spacing.
+
+35
+00:06:03,000 --> 00:06:06,000
+右移 45 後，橙色零點正是所求的 45＋√2026。
+After shifting by 45, the orange zero is exactly the required 45 + √2026.
+
+36
+00:06:06,000 --> 00:06:12,000
+放大零附近的數線，便看出左邊的根略小於零。
+Zoom in around zero to see that the left root is slightly negative.
+
+37
+00:06:12,000 --> 00:06:27,000
+展開平方，常數項是 2025 減 2026。答案是 D。
+Expand the square. The constant term is 2025 minus 2026. The answer is D.
+
+38
+00:06:27,000 --> 00:06:45,000
+設 U 為 A 同 B 嘅併集。U 入面每個 k 至少可以行一步。
+Let U be the union of A and B. Every k in U has at least one legal move.
+
+39
+00:06:45,000 --> 00:07:01,000
+4 加 17 入 A，35 減 31 入 B。依家由落點反推起點。
+4 plus 17 lands in A, and 35 minus 31 lands in B. Now reverse each move.
+
+40
+00:07:01,000 --> 00:07:21,000
+A 向左移 17，B 向右移 31。平移後得到所有可能起點。
+Shift A left by 17 and B right by 31 to find every possible starting point.
+
+41
+00:07:21,000 --> 00:07:33,000
+每個 k 至少有一條路，所以兩組反向平移覆蓋 U。
+Every k has a legal move, so the two inverse shifts cover U.
+
+42
+00:07:33,000 --> 00:07:49,000
+平移保持元素數目。兩組共有 n+m 個位置，同 U 一樣多。
+Shifts preserve size. The two sets have n+m places in total, just like U.
+
+43
+00:07:49,000 --> 00:08:03,000
+上下界相同，兩組平移集合無重疊，併集就係 U。
+The bounds coincide. The shifted sets are disjoint and their union is U.
+
+44
+00:08:03,000 --> 00:08:20,000
+原集合同兩組平移後都將 U 每個元素加一次，所以兩個總和相等。
+Each side sums every element of U once, so the original and shifted sums are equal.
+
+45
+00:08:20,000 --> 00:08:33,000
+A 每項減 17，總共減 17n。B 每項加 31，總共加 31m。
+Each A term drops by 17, each B term rises by 31. The totals are −17n and 31m.
+
+46
+00:08:33,000 --> 00:08:52,000
+消去兩邊原本嘅總和，總位移係零。得出 17n 等於 31m。
+Cancel the original sum. Zero net change gives 17n equal to 31m.
+
+47
+00:08:52,000 --> 00:08:58,500
+甲先寫一個正整數，然後乙先行。乙每次減一個正平方。
+Amy writes a positive integer. Bob moves first and subtracts a positive square.
+
+48
+00:08:58,500 --> 00:09:05,000
+輪到甲時，佢可以揀任意正整數做指數。
+On Amy's turn, she raises the number to any positive integer power.
+
+49
+00:09:05,000 --> 00:09:18,000
+乙要將黑板變做零。由 7 開始，乙先將 7 拆成四塊平方磚。
+Bob aims for zero. He starts by splitting 7 into four positive square tiles.
+
+50
+00:09:18,000 --> 00:09:31,000
+乙減走一塊面積 4 嘅磚，剩返三塊面積 1 嘅磚。
+Bob subtracts the tile of area four, leaving three tiles of area one.
+
+51
+00:09:31,000 --> 00:09:49,000
+甲將 3 立方，即係將總面積乘 9。每塊磚嘅邊長一齊乘 3。
+Amy cubes 3, multiplying the total area by nine. Scale every side length by three.
+
+52
+00:09:49,000 --> 00:10:05,000
+面積變大，平方磚仍有三塊。乙再減一塊面積 9 嘅磚。
+The area grows and three tiles remain. Bob removes a tile of area nine.
+
+53
+00:10:05,000 --> 00:10:19,000
+今次甲將 18 平方。結果可以直接睇成一塊邊長 18 嘅平方磚。
+This time Amy squares 18. The result is one square tile of side length 18.
+
+54
+00:10:19,000 --> 00:10:31,000
+乙減走最後一塊就歸零。依家將策略推廣到任意初值。
+Bob subtracts the last tile and reaches zero. Now generalize the strategy.
+
+55
+00:10:31,000 --> 00:10:44,000
+正整數 N 可寫成 N 個 1 平方之和。乙每次減走一個正平方。
+Start with N copies of one squared. Bob always removes one positive square.
+
+56
+00:10:44,000 --> 00:11:01,000
+假設仲有 j 項。奇數次方將每項邊長同乘 m 嘅 r 次方。
+If j terms remain, an odd power scales all sides by the same factor, m to the r.
+
+57
+00:11:01,000 --> 00:11:14,000
+偶數次方只剩一個平方。甲揀任何次方，項數都唔會增加。
+An even power gives one square. Amy's move never increases the count.
+
+58
+00:11:14,000 --> 00:11:37,000
+乙每次至少少一項。最多 N 次乙嘅回合，黑板就歸零。
+Each Bob move removes a term. The board reaches zero within N Bob moves.
+
+59
+00:11:37,000 --> 00:11:48,000
+一排有 2n+1 枚硬幣。每枚硬幣數左白同右黑，加埋啱啱係 n 就叫好。
+Of 2n+1 coins, a coin is good when whites to its left plus blacks to its right total n.
+
+60
+00:11:48,000 --> 00:12:01,000
+睇硬幣之間嘅分界。高度等於左邊白幣加右邊黑幣。
+At each boundary, height counts white coins to the left and black coins to the right.
+
+61
+00:12:01,000 --> 00:12:14,000
+由左掃到右。過一枚黑幣，右邊少一黑，高度跌一格。
+Sweep right. Passing a black coin removes one black from the right, so height drops.
+
+62
+00:12:14,000 --> 00:12:29,000
+黑幣由 4 跌到 3，跨過門檻。呢枚黑幣嘅分數係 3。
+Here the black coin is good when the walk crosses the threshold from 4 to 3.
+
+63
+00:12:29,000 --> 00:12:43,000
+過白幣就升一格。由 3 升到 4 時，呢枚白幣都係好硬幣。
+Passing a white coin raises the height. A rise from 3 to 4 also marks a good coin.
+
+64
+00:12:43,000 --> 00:13:10,000
+每次穿過門檻，計數就加一。
+Every crossing increases the good-coin count by one.
+
+65
+00:13:10,000 --> 00:13:21,000
+最後再跌一格，今次無穿過門檻，計數維持 5。
+The final drop stays below the threshold, so the good-coin count remains five.
+
+66
+00:13:21,000 --> 00:13:28,000
+一般情況都一樣。排除硬幣自己，揀兩個相鄰高度較細嗰個。
+In general, exclude the coin itself by taking the lower of its two heights.
+
+67
+00:13:28,000 --> 00:13:36,000
+相鄰高度相差一。較細嗰個係 n，即係一步穿過門檻。
+Heights differ by one. The lower height is n exactly when the walk crosses.
+
+68
+00:13:36,000 --> 00:13:50,000
+起點係黑幣總數，終點係白幣總數。兩個高度加埋係 2n+1。
+Start at the black count. End at the white count. Together they make 2n+1.
+
+69
+00:13:50,000 --> 00:14:03,000
+兩個整數高度嘅平均係 n 加二分一，所以必定喺門檻嘅兩側。
+The endpoints average n plus one half, so they straddle the threshold.
+
+70
+00:14:03,000 --> 00:14:17,000
+每次穿越轉一邊。起點終點異側，所以穿越次數係奇數。
+Every crossing switches sides. Opposite endpoints require an odd count.
+
+71
+00:14:17,000 --> 00:14:28,000
+四個數非負，總和固定為 1。怎樣分配能令六項之和最大？
+Four nonnegative numbers sum to 1. Which split maximizes the six terms?
+
+72
+00:14:28,000 --> 00:14:39,000
+先取一對，例如 x₁ 和 x₄。每一對都可以用同一個圖形關係處理。
+Take one pair, for example x₁ and x₄. The same area relation will apply to every pair.
+
+73
+00:14:39,000 --> 00:14:52,000
+令 u 為兩數之和，v 為幾何平均的兩倍。u 減 v 是一個非負的平方。
+Let u be their sum and v twice their geometric mean. Then u − v is a square.
+
+74
+00:14:52,000 --> 00:15:05,000
+沿邊長 v 切開大正方形，得到一個小正方形、兩條長方形和一個角落。
+Cut the big square at length v: there is a small square, two strips and a corner.
+
+75
+00:15:05,000 --> 00:15:20,000
+小正方形各接上一條長方形，剛好拼成兩塊 u 乘 v。
+Join a small square to each strip to make two u-by-v rectangles.
+
+76
+00:15:20,000 --> 00:15:33,000
+面積總和保持不變。兩塊長方形之外，剩下一個邊長 u−v 的正方形。
+Total area is preserved. After the two rectangles, a square of side u − v remains.
+
+77
+00:15:33,000 --> 00:15:47,000
+兩塊長方形的面積正好是原式這一項的四倍。再展開兩個原正方形的面積。
+The two rectangles total four times the summand. Expand the two square areas.
+
+78
+00:15:47,000 --> 00:16:00,000
+四個數兩兩配對。每個 xᵢ² 在三對出現一次，每個乘積 xᵢxⱼ 只屬於一對。
+Each square xᵢ² occurs in three pairs. Each product xᵢxⱼ occurs once.
+
+79
+00:16:00,000 --> 00:16:10,000
+把六組面積關係相加，四倍總和就等於固定面積 3 減去六個小方塊。
+Add the six area identities. Four times the sum is 3 minus the six leftover squares.
+
+80
+00:16:10,000 --> 00:16:29,000
+每對的方塊邊長等於對應的根號差的平方。試把四條柱向等分位置移動。
+Each side squares a root difference. Move the bars toward equality.
+
+81
+00:16:29,000 --> 00:16:48,000
+方塊面積永遠非負，所以總和最多為 3/4。等號要求六個方塊同時消失。
+Areas are nonnegative. The sum reaches 3/4 when all six vanish.
+
+82
+00:16:48,000 --> 00:17:07,000
+六個方塊消失等價於四個數相等。總和為 1，所以四個都必須是 1/4。
+All six vanish precisely when the four numbers equal 1/4.
+
+83
+00:17:07,000 --> 00:17:17,000
+已知旁切圓的兩個切點連成 KL，其中點 S 在外接圓上。
+The midpoint S of the excircle contact chord KL lies on the circumcircle.
+
+84
+00:17:17,000 --> 00:17:27,000
+旁切圓切 AB、AC 的延長線於 K、L，亦切 BC 於 M。
+The excircle meets the extensions of AB, AC at K, L and side BC at M.
+
+85
+00:17:27,000 --> 00:17:38,000
+標出中點 S 和三個要證明共線的點 I、M、O。
+Mark S and the three points I, M and O whose collinearity is at stake.
+
+86
+00:17:38,000 --> 00:17:50,000
+由同一外點引出的兩條切線等長。先比較 B、C 出發的切線。
+Tangents from one exterior point have equal lengths. Start at B and C.
+
+87
+00:17:50,000 --> 00:18:02,000
+將 BK、CL 轉到 BC。由 AK＝AL 得兩段各長 s。
+Transfer BK and CL onto BC. Since AK = AL, each equals s.
+
+88
+00:18:02,000 --> 00:18:14,000
+等腰三角形 AKL 的中線 AS 同時是角平分線和高。
+In isosceles triangle AKL, AS is both an angle bisector and an altitude.
+
+89
+00:18:14,000 --> 00:18:25,000
+在外接圓上構造 A 的對徑點 H。直徑 AH 給出三個直角。
+Construct H opposite A on the circumcircle. Diameter AH gives three right angles.
+
+90
+00:18:25,000 --> 00:18:39,000
+B、C、S 在直徑 AH 的圓周上，分別是 H 到三條射線的垂足。
+B, C and S lie on the circle with diameter AH, so they are the three projection feet.
+
+91
+00:18:39,000 --> 00:18:54,000
+兩個方向與 AS 夾同樣的角。把第二支箭嘴平移，垂直分量剛好抵消。
+The directions share an angle with AS. Slide one to cancel the vertical parts.
+
+92
+00:18:54,000 --> 00:19:05,000
+用同一個 AH 向量做內積，兩條斜向投影之和就是 AS 的兩倍乘 cos θ。
+Dot with the same AH vector: the two projections sum to twice AS times cos θ.
+
+93
+00:19:05,000 --> 00:19:17,000
+代入 AS＝s cos θ，外接圓的條件就變成邊長和半角的關係。
+Substitute AS = s cos θ to link the sides and the half angle.
+
+94
+00:19:17,000 --> 00:19:27,000
+再用倍角公式。因為 s 大於 a，A 必定是銳角。
+Now use the double-angle formula. Since s is greater than a, A must be acute.
+
+95
+00:19:27,000 --> 00:19:42,000
+保留同一個三角形，旋轉到 BC 水平。接下來比較切點位置和高度。
+Rotate BC level and compare the contact positions and heights.
+
+96
+00:19:42,000 --> 00:19:54,000
+令 U 為內切圓在 AB 的切點。由直角三角形 AUI 求 r。
+Let U be the incircle contact on AB. Use right triangle AUI to obtain r.
+
+97
+00:19:54,000 --> 00:20:07,000
+N 為 BC 中點。A 是銳角，截到的是小弧，因此 O 和 A 位於 BC 同側。
+N is the BC midpoint. A sees the minor arc, so O is on A's side of BC.
+
+98
+00:20:07,000 --> 00:20:20,000
+用 a＝2s sin² θ 與 sin A＝2 sin θ cos θ 化簡，外心高度正好是 r 的一半。
+Simplify with a = 2s sin² θ and sin A = 2 sin θ cos θ: the circumcenter is at height r/2.
+
+99
+00:20:20,000 --> 00:20:34,000
+T 為內切圓在 BC 的切點。BT 和 CM 都等於 s−b，兩個切點互為鏡射。
+T is the incircle contact on BC. BT and CM both equal s−b, so the feet are mirror images.
+
+100
+00:20:34,000 --> 00:20:44,000
+T 和 M 的水平中點正是 N，因此 IM 的中點在過 N 的垂線上。
+N is halfway from T to M, so the midpoint of IM lies directly above N.
+
+101
+00:20:44,000 --> 00:20:57,000
+I 的高度是 r，M 的高度是零。沿 IM 走到一半，高度就是 r/2。
+I is at height r and M at height zero. Halfway along IM, the height is r/2.
+
+102
+00:20:57,000 --> 00:21:12,000
+同一條垂線，同一個高度，兩個點重合。所以 O 是 IM 中點，三點共線。
+The same perpendicular and height locate O at the midpoint of IM.

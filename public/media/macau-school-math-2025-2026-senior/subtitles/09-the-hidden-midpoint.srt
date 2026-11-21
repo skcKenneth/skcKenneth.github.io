@@ -1,0 +1,99 @@
+1
+00:00:00,000 --> 00:00:10,000
+已知旁切圓的兩個切點連成 KL，其中點 S 在外接圓上。
+The midpoint S of the excircle contact chord KL lies on the circumcircle.
+
+2
+00:00:10,000 --> 00:00:20,000
+旁切圓切 AB、AC 的延長線於 K、L，亦切 BC 於 M。
+The excircle meets the extensions of AB, AC at K, L and side BC at M.
+
+3
+00:00:20,000 --> 00:00:31,000
+標出中點 S 和三個要證明共線的點 I、M、O。
+Mark S and the three points I, M and O whose collinearity is at stake.
+
+4
+00:00:31,000 --> 00:00:43,000
+由同一外點引出的兩條切線等長。先比較 B、C 出發的切線。
+Tangents from one exterior point have equal lengths. Start at B and C.
+
+5
+00:00:43,000 --> 00:00:55,000
+將 BK、CL 轉到 BC。由 AK＝AL 得兩段各長 s。
+Transfer BK and CL onto BC. Since AK = AL, each equals s.
+
+6
+00:00:55,000 --> 00:01:07,000
+等腰三角形 AKL 的中線 AS 同時是角平分線和高。
+In isosceles triangle AKL, AS is both an angle bisector and an altitude.
+
+7
+00:01:07,000 --> 00:01:18,000
+在外接圓上構造 A 的對徑點 H。直徑 AH 給出三個直角。
+Construct H opposite A on the circumcircle. Diameter AH gives three right angles.
+
+8
+00:01:18,000 --> 00:01:32,000
+B、C、S 在直徑 AH 的圓周上，分別是 H 到三條射線的垂足。
+B, C and S lie on the circle with diameter AH, so they are the three projection feet.
+
+9
+00:01:32,000 --> 00:01:47,000
+兩個方向與 AS 夾同樣的角。把第二支箭嘴平移，垂直分量剛好抵消。
+The directions share an angle with AS. Slide one to cancel the vertical parts.
+
+10
+00:01:47,000 --> 00:01:58,000
+用同一個 AH 向量做內積，兩條斜向投影之和就是 AS 的兩倍乘 cos θ。
+Dot with the same AH vector: the two projections sum to twice AS times cos θ.
+
+11
+00:01:58,000 --> 00:02:10,000
+代入 AS＝s cos θ，外接圓的條件就變成邊長和半角的關係。
+Substitute AS = s cos θ to link the sides and the half angle.
+
+12
+00:02:10,000 --> 00:02:20,000
+再用倍角公式。因為 s 大於 a，A 必定是銳角。
+Now use the double-angle formula. Since s is greater than a, A must be acute.
+
+13
+00:02:20,000 --> 00:02:35,000
+保留同一個三角形，旋轉到 BC 水平。接下來比較切點位置和高度。
+Rotate BC level and compare the contact positions and heights.
+
+14
+00:02:35,000 --> 00:02:47,000
+令 U 為內切圓在 AB 的切點。由直角三角形 AUI 求 r。
+Let U be the incircle contact on AB. Use right triangle AUI to obtain r.
+
+15
+00:02:47,000 --> 00:03:00,000
+N 為 BC 中點。A 是銳角，截到的是小弧，因此 O 和 A 位於 BC 同側。
+N is the BC midpoint. A sees the minor arc, so O is on A's side of BC.
+
+16
+00:03:00,000 --> 00:03:13,000
+用 a＝2s sin² θ 與 sin A＝2 sin θ cos θ 化簡，外心高度正好是 r 的一半。
+Simplify with a = 2s sin² θ and sin A = 2 sin θ cos θ: the circumcenter is at height r/2.
+
+17
+00:03:13,000 --> 00:03:27,000
+T 為內切圓在 BC 的切點。BT 和 CM 都等於 s−b，兩個切點互為鏡射。
+T is the incircle contact on BC. BT and CM both equal s−b, so the feet are mirror images.
+
+18
+00:03:27,000 --> 00:03:37,000
+T 和 M 的水平中點正是 N，因此 IM 的中點在過 N 的垂線上。
+N is halfway from T to M, so the midpoint of IM lies directly above N.
+
+19
+00:03:37,000 --> 00:03:50,000
+I 的高度是 r，M 的高度是零。沿 IM 走到一半，高度就是 r/2。
+I is at height r and M at height zero. Halfway along IM, the height is r/2.
+
+20
+00:03:50,000 --> 00:04:05,000
+同一條垂線，同一個高度，兩個點重合。所以 O 是 IM 中點，三點共線。
+The same perpendicular and height locate O at the midpoint of IM.

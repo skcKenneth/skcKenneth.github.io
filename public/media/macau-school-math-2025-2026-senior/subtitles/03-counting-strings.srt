@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:12,000
+用 A、B 排出九個字母。相鄰的 AA 和連續三個 B 都不准出現。
+Build a nine-letter string from A and B. Neither AA nor BBB may occur.
+
+2
+00:00:12,000 --> 00:00:21,000
+只需記住右邊的結尾。三種狀態是 A、一個 B、兩個 B。
+Only the final run matters. The three states end in A, a single B, or two Bs.
+
+3
+00:00:21,000 --> 00:00:32,000
+每條箭嘴表示加一個合法字母。從 A 只可加 B，從 BB 只可加 A。
+Each arrow appends one legal letter. After A only B fits, and after BB only A fits.
+
+4
+00:00:32,000 --> 00:00:34,450
+把到達同一狀態的數量相加。每個新字串有唯一的上一個字串。
+Add the counts arriving at each state. Every new string has a unique predecessor.
+
+5
+00:00:34,450 --> 00:00:45,000
+長度為 1 時，只有 A 和 B，所以從 (1,1,0) 開始。
+At length 1 only A and B exist, so the counts start at (1,1,0).
+
+6
+00:00:45,000 --> 00:00:58,000
+加入第二個字母，有 BA、AB、BB，各落在一種不同狀態。
+The second letter gives BA, AB, and BB, one in each state.
+
+7
+00:00:58,000 --> 00:01:08,000
+從 B 或 BB 都可加 A，所以新的 u 等於原先的 v 加 w。
+Either B state can append A, so the new u equals the old v plus w.
+
+8
+00:01:08,000 --> 00:01:29,000
+依同一個遞推式填表。每一行都把上一行的計數沿箭嘴送往下一行。
+Use the same recurrence in every row. Each row sends its counts along these arrows.
+
+9
+00:01:29,000 --> 00:01:45,000
+繼續數到長度 9。三種結尾分別有 9、7、5 個。
+Continue to length 9. The three endings have counts 9, 7, and 5.
+
+10
+00:01:45,000 --> 00:02:00,000
+三種結尾加起來一共 21 個。所列的數值都不等於 21，選 E。
+The three counts total 21. None of the listed numbers is 21, so choose E.

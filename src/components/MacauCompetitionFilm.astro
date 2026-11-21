@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props { locale: 'en' | 'zh-Hant'; }
+const { locale } = Astro.props;
+const zh = locale === 'zh-Hant';
+const archive = '/teaching/macau-school-math-competition/';
+const project = `${archive}2025-2026-senior/`;
+const media = '/media/macau-school-math-2025-2026-senior/';
+const fullStem = '00-full-contest-2025-2026';
+const fullVideo = `${media}${fullStem}.mp4`;
+const officialPaper = 'https://portal.dsedj.gov.mo/webdsejspace/addon/upload/Upload_viewfile_page.jsp?id=711644';
+const introSeconds = 12;
+
+const questions = [
+  { file: '01-square-root-gaps', seconds: 80, zh: '根號之間的距離', en: 'Gaps between square roots' },
+  { file: '02-difference-of-cubes', seconds: 95, zh: '兩個立方數相差 61', en: 'Two cubes that differ by 61' },
+  { file: '03-counting-strings', seconds: 120, zh: '逐個字母數字串', en: 'Counting strings one letter at a time' },
+  { file: '04-two-reflected-roots', seconds: 80, zh: '平移拋物線，找出指定根', en: 'Shifting a parabola to find the required root' },
+  { file: '05-balancing-translations', seconds: 145, zh: '兩次平移，剛好覆蓋', en: 'Two shifts, one exact cover' },
+  { file: '06-square-tile-game', seconds: 165, zh: '用平方磚拆解遊戲', en: 'A strategy built from squares' },
+  { file: '07-crossing-the-threshold', seconds: 160, zh: '穿過門檻的硬幣', en: 'Coins that cross the threshold' },
+  { file: '08-six-shrinking-squares', seconds: 170, zh: '四個數怎樣分才最大？', en: 'Which split maximizes the sum?' },
+  { file: '09-the-hidden-midpoint', seconds: 245, zh: '旁切圓、投影與中點', en: 'Excircle, projections and a midpoint' },
+] as const;
+
+let elapsed = introSeconds;
+const chapters = questions.map((question, index) => {
+  const start = elapsed;
+  elapsed += question.seconds;
+  return { ...question, start, number: index + 1, title: zh ? question.zh : question.en };
+});
+const timestamp = (seconds: number) =>
+  `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+
+const title = zh ? '2025／2026 澳門學界數學比賽（高中組）' : '2025/2026 Macau Interschool Mathematics Competition';
+const description = zh
+  ? '高中組九題動畫解答。從數線、字串計數和平方磚，到面積拼圖與旁切圓證明。'
+  : 'Animated solutions to all nine senior-division problems, from number lines and string counts to area dissection and an excircle proof.';
+const fullLabel = zh ? '觀看完整版' : 'Watch the full film';
+const clipsLabel = zh ? '按題觀看短片' : 'Watch individual solutions';
+const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual subtitles (SRT)';
+---
+
+<BaseLayout title={title} description={description} type="Teaching" locale={locale} alternatePath={zh ? project : `/zh${project}`}>
+  <header class="page-head competition-head">
+    <div class="container">
+      <p class="collection-link"><a href={zh ? `/zh${archive}` : archive}>{zh ? '學界數學' : 'School Mathematics Competitions'}</a></p>
+      <h1>{title}</h1>
+      <p class="lead">{description}</p>
+      <div class="actions">
+        <a class="button" href="#full-film">{fullLabel}</a>
+        <a class="button secondary" href="#individual-solutions">{clipsLabel}</a>
+        <a class="paper-link" href={officialPaper}>{zh ? '官方原卷（PDF）' : 'Official senior-division paper (PDF)'}</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container competition-films" data-competition-films>
+    <section id="full-film" aria-labelledby="full-film-heading">
+      <div class="section-title">
+        <h2 id="full-film-heading">{zh ? '完整版' : 'Full film'}</h2>
+        <p>{zh ? `${timestamp(elapsed)} · 繁體中文及英文字幕` : `${timestamp(elapsed)} · Traditional Chinese and English captions`}</p>
+      </div>
+      <div class="screening">
+        <div class="screening-player">
+          <video id="competition-full-player" aria-labelledby="full-film-heading" controls playsinline preload="none" poster={`${media}poster.webp`} width="1920" height="1080">
+            <source src={fullVideo} type="video/mp4" />
+            <a href={fullVideo}>{zh ? '開啟完整版 MP4' : 'Open the full MP4'}</a>
+          </video>
+          <div class="asset-links">
+            <a href={fullVideo} download>{zh ? '下載完整版（MP4）' : 'Download the full film (MP4)'}</a>
+            <a href={`${media}subtitles/${fullStem}.srt`} download>{downloadCaption}</a>
+          </div>
+        </div>
+        <nav class="chapter-nav" aria-labelledby="chapter-heading">
+          <h3 id="chapter-heading">{zh ? '影片章節' : 'Film chapters'}</h3>
+          <ol>
+            <li>
+              <a data-competition-start="0" href={`${fullVideo}#t=0`} aria-controls="competition-full-player">
+                <span class="question-number">{zh ? '開場' : 'Intro'}</span>
+                <span>{zh ? '從圖像到解法' : 'From pictures to solutions'}</span><time datetime="PT0S">00:00</time>
+              </a>
+            </li>
+            {chapters.map(({ start, number, title: label }) => (
+              <li>
+                <a data-competition-start={start} href={`${fullVideo}#t=${start}`} aria-controls="competition-full-player">
+                  <span class="question-number">{zh ? `第 ${number} 題` : `Q${number}`}</span>
+                  <span>{label}</span><time datetime={`PT${start}S`}>{timestamp(start)}</time>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    <section id="individual-solutions" class="clip-section" aria-labelledby="clip-heading">
+      <div class="section-title">
+        <h2 id="clip-heading">{clipsLabel}</h2>
+        <p>{zh ? '先試做，再打開想看的題目。' : 'Try the problem, then open its solution.'}</p>
+      </div>
+      <div class="clip-list">
+        {chapters.map(({ file, number, seconds, title: label }) => (
+          <details id={`question-${number}`} class="clip">
+            <summary id={`question-${number}-label`}>
+              <span class="question-number">{zh ? `第 ${number} 題` : `Q${number}`}</span>
+              <span>{label}</span><time datetime={`PT${seconds}S`}>{timestamp(seconds)}</time>
+            </summary>
+            <div class="clip-body">
+              <video aria-labelledby={`question-${number}-label`} controls playsinline preload="none" width="1920" height="1080">
+                <source src={`${media}${file}.mp4`} type="video/mp4" />
+                <a href={`${media}${file}.mp4`}>{zh ? '開啟短片 MP4' : 'Open this MP4'}</a>
+              </video>
+              <div class="asset-links">
+                <a href={`${media}${file}.mp4`} download>{zh ? '下載短片（MP4）' : 'Download this solution (MP4)'}</a>
+                <a href={`${media}subtitles/${file}.srt`} download>{downloadCaption}</a>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+      <p class="credit">{zh ? '影片按原卷題號編排，解答為獨立推導。原創純音樂以 CC0 釋出。' : 'The solutions are independently derived and follow the numbering of the official paper. The original instrumental score is released under CC0.'}</p>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  const films = document.querySelector<HTMLElement>('[data-competition-films]');
+  const full = films?.querySelector<HTMLVideoElement>('#competition-full-player');
+  if (films && full) {
+    const players = [...films.querySelectorAll('video')];
+    const chapters = [...films.querySelectorAll<HTMLAnchorElement>('[data-competition-start]')];
+    let pendingTime: number | undefined;
+
+    const seekWhenReady = () => {
+      if (pendingTime === undefined || full.readyState < HTMLMediaElement.HAVE_METADATA) return;
+      full.currentTime = pendingTime;
+      pendingTime = undefined;
+    };
+    full.addEventListener('loadedmetadata', seekWhenReady);
+
+    for (const chapter of chapters) {
+      chapter.addEventListener('click', (event) => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+        event.preventDefault();
+        pendingTime = Number(chapter.dataset.competitionStart);
+        seekWhenReady();
+        void full.play().catch(() => { seekWhenReady(); });
+        full.scrollIntoView({ block: 'nearest' });
+      });
+    }
+
+    full.addEventListener('timeupdate', () => {
+      const current = chapters.findLast((chapter) => Number(chapter.dataset.competitionStart) <= full.currentTime);
+      for (const chapter of chapters) {
+        if (chapter === current) chapter.setAttribute('aria-current', 'location');
+        else chapter.removeAttribute('aria-current');
+      }
+    });
+
+    for (const player of players) {
+      player.addEventListener('play', () => {
+        for (const other of players) if (other !== player) other.pause();
+      });
+    }
+    for (const clip of films.querySelectorAll<HTMLDetailsElement>('details.clip')) {
+      clip.addEventListener('toggle', () => {
+        if (!clip.open) clip.querySelector('video')?.pause();
+      });
+    }
+  }
+</script>
+
+<style>
+  .competition-head { padding-block: clamp(2rem, 5vw, 4.25rem) 2.5rem; }
+  .competition-head h1 { max-width: 21em; font-size: clamp(2rem, 4.9vw, 4.35rem); text-wrap: balance; }
+  .collection-link { font-size: .96rem; margin-block: 0 .8rem; }
+  .collection-link a { font-weight: 700; }
+  .paper-link { padding-block: .6rem; }
+  .competition-films { padding-block: 2rem 4rem; }
+  .section-title { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: space-between; gap: .35rem 1.5rem; margin-bottom: 1rem; }
+  .section-title h2, .section-title p { margin: 0; }
+  .section-title p, .credit { color: var(--muted); }
+  .screening { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(16rem, 1fr); align-items: start; gap: clamp(1.15rem, 3vw, 2.1rem); }
+  video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #0d1523; border-radius: .65rem; }
+  .asset-links { display: flex; flex-wrap: wrap; gap: .5rem 1.3rem; margin-top: .7rem; font-size: .93rem; }
+  .chapter-nav h3 { font-size: 1.15rem; margin: 0 0 .45rem; }
+  .chapter-nav ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .chapter-nav a, .clip summary { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: baseline; gap: .65rem; }
+  .chapter-nav a { color: var(--ink); border-bottom: 1px solid var(--line); border-left: 2px solid transparent; line-height: 1.3; padding: .58rem .55rem; text-decoration: none; }
+  .chapter-nav a:hover, .chapter-nav a[aria-current] { background: var(--surface); border-left-color: var(--accent); }
+  .question-number { font-weight: 750; color: var(--accent-dark); white-space: nowrap; }
+  time { font: .875rem var(--mono); color: var(--muted); white-space: nowrap; }
+  .clip-section { margin-top: 3rem; }
+  .clip-list { border-top: 2px solid var(--ink); }
+  .clip { border-bottom: 1px solid var(--line); }
+  .clip summary { grid-template-columns: auto minmax(0, 1fr) auto auto; gap: .65rem 1rem; padding: .85rem .55rem; cursor: pointer; list-style: none; }
+  .clip summary::-webkit-details-marker { display: none; }
+  .clip summary::after { content: '+'; justify-self: center; width: 1rem; color: var(--accent); }
+  .clip[open] summary::after { content: '−'; }
+  .clip summary:hover, .clip[open] summary { background: var(--surface); }
+  .clip-body { max-width: 55rem; padding: .6rem .55rem 1.25rem; }
+  .credit { margin-top: 1.5rem; }
+  #full-film, #individual-solutions, .clip { scroll-margin-top: var(--reader-header-offset, 6rem); }
+  @media (max-width: 53rem) { .screening { grid-template-columns: minmax(0, 1fr); } }
+</style>

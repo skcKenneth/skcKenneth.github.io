@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:18,000
+設 U 為 A 同 B 嘅併集。U 入面每個 k 至少可以行一步。
+Let U be the union of A and B. Every k in U has at least one legal move.
+
+2
+00:00:18,000 --> 00:00:34,000
+4 加 17 入 A，35 減 31 入 B。依家由落點反推起點。
+4 plus 17 lands in A, and 35 minus 31 lands in B. Now reverse each move.
+
+3
+00:00:34,000 --> 00:00:54,000
+A 向左移 17，B 向右移 31。平移後得到所有可能起點。
+Shift A left by 17 and B right by 31 to find every possible starting point.
+
+4
+00:00:54,000 --> 00:01:06,000
+每個 k 至少有一條路，所以兩組反向平移覆蓋 U。
+Every k has a legal move, so the two inverse shifts cover U.
+
+5
+00:01:06,000 --> 00:01:22,000
+平移保持元素數目。兩組共有 n+m 個位置，同 U 一樣多。
+Shifts preserve size. The two sets have n+m places in total, just like U.
+
+6
+00:01:22,000 --> 00:01:36,000
+上下界相同，兩組平移集合無重疊，併集就係 U。
+The bounds coincide. The shifted sets are disjoint and their union is U.
+
+7
+00:01:36,000 --> 00:01:53,000
+原集合同兩組平移後都將 U 每個元素加一次，所以兩個總和相等。
+Each side sums every element of U once, so the original and shifted sums are equal.
+
+8
+00:01:53,000 --> 00:02:06,000
+A 每項減 17，總共減 17n。B 每項加 31，總共加 31m。
+Each A term drops by 17, each B term rises by 31. The totals are −17n and 31m.
+
+9
+00:02:06,000 --> 00:02:25,000
+消去兩邊原本嘅總和，總位移係零。得出 17n 等於 31m。
+Cancel the original sum. Zero net change gives 17n equal to 31m.
