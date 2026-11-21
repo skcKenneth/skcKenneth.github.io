@@ -8,7 +8,7 @@ import {pathToFileURL} from 'node:url';
 const root=new URL('../',import.meta.url);
 const astroRequire=createRequire(import.meta.resolve('astro/package.json'));
 const dependency=async name=>import(pathToFileURL(astroRequire.resolve(name)).href);
-const minima={astro:'7.3.3',vite:'8.1.6',undici:'8.12.2',zod:'4.6.6',sharp:'0.35.5','js-yaml':'4.3.2',svgo:'4.1.0','smol-toml':'1.9.0',devalue:'5.9.4','fast-uri':'3.1.9',katex:'0.18.2','source-map-js':'1.2.2'};
+const minima={astro:'7.4.7',vite:'8.1.6',undici:'8.12.2',zod:'4.6.6',sharp:'0.35.5','js-yaml':'4.3.2',svgo:'4.1.0','smol-toml':'1.9.0',devalue:'5.9.4','fast-uri':'3.1.9',katex:'0.18.2','source-map-js':'1.2.2'};
 const atLeast=(version,min)=>{const a=version.split('.').map(Number),b=min.split('.').map(Number);for(let i=0;i<3;i++){if(a[i]!==b[i])return a[i]>b[i];}return true;};
 
 test('every locked copy meets the verified advisory patch floor',()=>{

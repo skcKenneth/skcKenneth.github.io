@@ -1,0 +1,68 @@
+diff --git a/dist/assets/build/remote.js b/dist/assets/build/remote.js
+index 97f438e81bf52bd2dc1c6356c4f8507fa7bc3164..b44840d3fb363f3878f42e99851101fac12858f1 100644
+--- a/dist/assets/build/remote.js
++++ b/dist/assets/build/remote.js
+@@ -1,4 +1,3 @@
+-import CachePolicy from "http-cache-semantics";
+ import { fetchWithRedirects } from "../utils/redirectValidation.js";
+ export async function loadRemoteImage(src, fetchFn = globalThis.fetch, imageConfig = {
+ 	remotePatterns: [],
+@@ -12,13 +11,10 @@
+ 	if (!res.ok) {
+ 		throw new Error(`Failed to load remote image ${src}. The request did not return a 200 OK response. (received ${res.status}))`);
+ 	}
+-	// calculate an expiration date based on the response's TTL
+-	const req = new Request(src);
+-	const policy = new CachePolicy(webToCachePolicyRequest(req), webToCachePolicyResponse(res));
+-	const expires = policy.storable() ? policy.timeToLive() : 0;
+ 	return {
+ 		data: Buffer.from(await res.arrayBuffer()),
+-		expires: Date.now() + expires,
++		// Revalidate remote images on the next build using the origin validators.
++		expires: Date.now(),
+ 		etag: res.headers.get("Etag") ?? undefined,
+ 		lastModified: res.headers.get("Last-Modified") ?? undefined
+ 	};
+@@ -40,10 +36,6 @@
+ 		...revalidationData.etag && { "If-None-Match": revalidationData.etag },
+ 		...revalidationData.lastModified && { "If-Modified-Since": revalidationData.lastModified }
+ 	};
+-	const req = new Request(src, {
+-		headers,
+-		cache: "no-cache"
+-	});
+ 	const res = await fetchWithRedirects({
+ 		url: src,
+ 		headers: new Headers(headers),
+@@ -62,30 +54,11 @@
+ 		// Server did not include body but indicated cache was stale
+ 		return await loadRemoteImage(src, fetchFn, imageConfig);
+ 	}
+-	// calculate an expiration date based on the response's TTL
+-	const policy = new CachePolicy(webToCachePolicyRequest(req), webToCachePolicyResponse(res.ok ? res : new Response(null, {
+-		status: 200,
+-		headers: res.headers
+-	})));
+-	const expires = policy.storable() ? policy.timeToLive() : 0;
+ 	return {
+ 		data: res.ok ? data : null,
+-		expires: Date.now() + expires,
++		expires: Date.now(),
+ 		// While servers should respond with the same headers as a 200 response, if they don't we should reuse the stored value
+ 		etag: res.headers.get("Etag") ?? (res.ok ? undefined : revalidationData.etag),
+ 		lastModified: res.headers.get("Last-Modified") ?? (res.ok ? undefined : revalidationData.lastModified)
+ 	};
+ }
+-function webToCachePolicyRequest({ url, method, headers }) {
+-	return {
+-		method,
+-		url,
+-		headers: Object.fromEntries(headers.entries())
+-	};
+-}
+-function webToCachePolicyResponse({ status, headers }) {
+-	return {
+-		status,
+-		headers: Object.fromEntries(headers.entries())
+-	};
+-}
