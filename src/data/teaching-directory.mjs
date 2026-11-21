@@ -26,7 +26,7 @@ export const TEACHING_RESOURCES = [
     ['senior', 'teacher'], ['video', 'past-papers'],
     bi('2025/2026 Macau competition: Senior Division animations', '2025／2026 澳門學界數學比賽高中組動畫'),
     bi('Work through nine questions with diagrams, step-by-step reasoning and bilingual captions.', '透過動態圖解、逐步推導及雙語字幕，一起解開九道題。'),
-    bi('21-minute full film · nine question clips', '21 分鐘完整版・九條逐題短片'),
+    bi('22:12 full film with recap · nine question clips', '22 分 12 秒完整版連總結・九條逐題短片'),
     { aliases: ['學界數學', '逐題解說', '2025/2026', '2025-2026', 'school mathematics competitions', 'interschool maths'] },
   ),
   resource('macau-competition', '/teaching/macau-school-math-competition/', ['junior', 'senior', 'teacher'], ['past-papers', 'practice', 'notes'], bi('Macau competition solution archive', '澳門校際／學界數學比賽題解資源庫'), bi('Compare an independent solution with the official question and record your reasoning.', '對照官方原題與獨立題解，記錄解題轉化。'), bi('Suggested: 10–20 min before reading a solution', '建議先獨立嘗試 10–20 分鐘')),
