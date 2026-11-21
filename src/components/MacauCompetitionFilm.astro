@@ -10,6 +10,7 @@ const media = '/media/macau-school-math-2025-2026-senior/';
 const fullStem = '00-full-contest-2025-2026';
 const fullVideo = `${media}${fullStem}.mp4`;
 const officialPaper = 'https://portal.dsedj.gov.mo/webdsejspace/addon/upload/Upload_viewfile_page.jsp?id=711644';
+const introSeconds = 12;
 
 const questions = [
   { file: '01-square-root-gaps', seconds: 80, zh: '根號之間的距離', en: 'Gaps between square roots' },
@@ -23,7 +24,7 @@ const questions = [
   { file: '09-the-hidden-midpoint', seconds: 245, zh: '旁切圓、投影與中點', en: 'Excircle, projections and a midpoint' },
 ] as const;
 
-let elapsed = 0;
+let elapsed = introSeconds;
 const chapters = questions.map((question, index) => {
   const start = elapsed;
   elapsed += question.seconds;
@@ -73,8 +74,14 @@ const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual
           </div>
         </div>
         <nav class="chapter-nav" aria-labelledby="chapter-heading">
-          <h3 id="chapter-heading">{zh ? '跳到指定題目' : 'Jump to a question'}</h3>
+          <h3 id="chapter-heading">{zh ? '影片章節' : 'Film chapters'}</h3>
           <ol>
+            <li>
+              <a data-competition-start="0" href={`${fullVideo}#t=0`} aria-controls="competition-full-player">
+                <span class="question-number">{zh ? '開場' : 'Intro'}</span>
+                <span>{zh ? '從圖像到解法' : 'From pictures to solutions'}</span><time datetime="PT0S">00:00</time>
+              </a>
+            </li>
             {chapters.map(({ start, number, title: label }) => (
               <li>
                 <a data-competition-start={start} href={`${fullVideo}#t=${start}`} aria-controls="competition-full-player">
