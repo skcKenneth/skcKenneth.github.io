@@ -1,0 +1,64 @@
+1
+00:00:00,000 --> 00:00:14,000
+四個正數共用一個比值，總和等於 48。
+Four positive numbers share one ratio and sum to 48.
+
+2
+00:00:14,000 --> 00:00:30,000
+把四個數相乘設為 P。第一個分子缺少 w。
+Set P = xyzw. The first numerator omits w.
+
+3
+00:00:30,000 --> 00:00:46,000
+每條箭嘴都用同一個函數。輸入越大，輸出越細。
+Each arrow uses the same function. Larger input gives smaller output.
+
+4
+00:00:46,000 --> 00:01:04,000
+假設 x 大過 z。兩個輸出 y、w 嘅大小順序就調轉。
+Suppose x > z. Their outputs y and w have the reverse order.
+
+5
+00:01:04,000 --> 00:01:21,000
+再行一步，次序又反轉一次，得到 z 大過 x。
+One more step reverses the order again and gives z > x.
+
+6
+00:01:21,000 --> 00:01:38,000
+大過或者細過都會矛盾，所以 x 等於 z，y 等於 w。
+Either strict order leads to a contradiction, so x = z and y = w.
+
+7
+00:01:38,000 --> 00:01:56,000
+代入兩個相等關係，再交叉相乘。
+Substitute the equalities and cross-multiply.
+
+8
+00:01:56,000 --> 00:02:14,000
+在 x＋y＝24 上找交點。先看 x＝y 呢一支。
+On x + y = 24, first intersect the branch x = y.
+
+9
+00:02:14,000 --> 00:02:25,000
+再畫 xy＝1。兩個交點好近座標軸。
+Now plot xy = 1. Two intersections lie close to the axes.
+
+10
+00:02:25,000 --> 00:02:40,000
+將靠近 y 軸嘅交點放大。另一個交點由交換 x、y 得到。
+Zoom in near the y-axis. Swapping x and y gives the other point.
+
+11
+00:02:40,000 --> 00:02:55,000
+兩數和係 24，積係 1。用同一條二次式一次過求兩個根。
+The sum is 24 and the product is 1. One quadratic gives both roots.
+
+12
+00:02:55,000 --> 00:03:10,000
+所以有一組四個 12，同兩組大小數交替排列嘅解。
+One solution has four 12s. The other two alternate the roots.
+
+13
+00:03:10,000 --> 00:03:25,000
+三組都係正數，亦滿足兩支之一。代回四個比值都成立。
+All three are positive, and each branch gives the original equal ratios.

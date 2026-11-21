@@ -1,0 +1,94 @@
+1
+00:00:00,000 --> 00:00:10,000
+從一個銳角三角形開始，令 AB 長於 AC。
+Start with an acute triangle where AB is longer than AC.
+
+2
+00:00:10,000 --> 00:00:22,000
+I 是內心。從 B 作角平分線，再標出 BC 的中點 M。
+Bisect angle B to reach incenter I. Mark M, the midpoint of BC.
+
+3
+00:00:22,000 --> 00:00:34,000
+延長 MI 至 AC 得到 D。延長 BI 至外接圓得到 E。
+Extend MI to AC at D, and BI to the circumcircle at E.
+
+4
+00:00:34,000 --> 00:00:46,000
+比較橙色的 ED 除以 EI，以及藍色的 IC 除以 IB。
+Compare orange ED over EI with blue IC over IB.
+
+5
+00:00:46,000 --> 00:01:00,000
+讓 A 水平移動。每一幀都用新三角形重算交點和比值。
+Slide A horizontally. The intersections and ratios recompute from each new triangle.
+
+6
+00:01:00,000 --> 00:01:18,000
+兩個比值一路變小，但始終重合。停下來找原因。
+Both ratios decrease together. Freeze the triangle to explain why they agree.
+
+7
+00:01:18,000 --> 00:01:32,000
+先看靠近底邊的三角形 MCD。設 b 為 CA，s 為半周長，r 為內切圓半徑。
+Focus on triangle MCD. Let b be CA, s the semiperimeter, and r the inradius.
+
+8
+00:01:32,000 --> 00:01:46,000
+M 到 AC 的高是 B 到 AC 的一半，等於 sr 除以 b。
+M is half as far from AC as B is. Its height above AC is sr over b.
+
+9
+00:01:46,000 --> 00:02:00,000
+半周長大於 b，所以 M 離 AC 比 I 遠。I 正好在 M 與 D 之間。
+Since s exceeds b, M is farther from AC than I is. So I lies between M and D.
+
+10
+00:02:00,000 --> 00:02:14,000
+沿 IC 分成兩塊。用 MC 和 CD 做底，兩塊的高同樣是 r。
+Split along IC. Using MC and CD as bases, both pieces have height r.
+
+11
+00:02:14,000 --> 00:02:28,000
+同一個面積用兩種方法計算。約去 r，就找到 CD 與 BC 的比。
+The same area has two expressions. Cancel r to find the ratio CD to BC.
+
+12
+00:02:28,000 --> 00:02:42,000
+回到外接圓。B 的角平分線截出兩段等弧，所以 EA 等於 EC。
+Return to the circumcircle. The bisector at B cuts off equal arcs, so EA equals EC.
+
+13
+00:02:42,000 --> 00:02:57,000
+在 I 用外角，在 C 加兩個角。兩處都得到 β 加 γ，所以 EI 也等於 EC。
+Use the exterior angle at I and add angles at C. Both give beta plus gamma.
+
+14
+00:02:57,000 --> 00:03:10,000
+將 E 投影到 AC，把 I 投影到 BC。兩個直角三角形都用同一個 β。
+Project E onto AC and I onto BC. Both right triangles use the same angle beta.
+
+15
+00:03:10,000 --> 00:03:24,000
+G 是內切圓的切點。用每個頂點的兩條切線等長，得到 BG 等於 s 減 b。
+G is the incircle’s contact point. Equal tangents give BG = s − b.
+
+16
+00:03:24,000 --> 00:03:39,000
+兩組夾邊成比例，夾角都是 β，所以這兩個三角形相似。
+The sides around angle beta are proportional. The triangles are similar by SAS.
+
+17
+00:03:39,000 --> 00:03:52,000
+把橙色三角形反轉，再按同一比例放大，三個對應頂點就會重合。
+Flip the orange triangle and enlarge it uniformly until corresponding vertices coincide.
+
+18
+00:03:52,000 --> 00:04:03,000
+對應邊給出 ED 比 IC 等於 EC 比 IB。以 EI 代替 EC，再整理。
+Similarity gives ED/IC = EC/IB. Replace EC with EI and rearrange.
+
+19
+00:04:03,000 --> 00:04:10,000
+面積定出比例，弧中點補上等長線段，最後用相似把兩者連起來。
+Area gives a ratio, the arc midpoint gives equal lengths, and similarity joins them.

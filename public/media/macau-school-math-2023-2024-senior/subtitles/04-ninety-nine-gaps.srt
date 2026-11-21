@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:10,000
+100 個遞增整數之間有 99 個間距，每個至少是 1。
+The 100 increasing integers have 99 gaps, each at least one.
+
+2
+00:00:10,000 --> 00:00:21,000
+所有間距相加等於首尾距離，最多只有 399。
+The gaps add to the distance between the endpoints, at most 399.
+
+3
+00:00:21,000 --> 00:00:41,000
+反過來假設每種間距最多用 14 次。把最短的放在前面。
+Assume every size occurs at most 14 times. Put the smallest sizes first.
+
+4
+00:00:41,000 --> 00:00:53,000
+最短的七種各用 14 次，已經有 98 個。還欠一個。
+Fourteen copies of each of the seven smallest sizes fill 98 slots. One remains.
+
+5
+00:00:53,000 --> 00:01:04,000
+再短也得用 8。若第 j 個更短，就會超過某個大小的次數上限。
+The last gap must be at least 8. Any shorter sorted gap would break a cap.
+
+6
+00:01:04,000 --> 00:01:14,000
+即使用最省的排法，總長仍要 14 乘 28，再加 8，等於 400。
+Even this cheapest arrangement requires 14 times 28, plus 8, or 400.
+
+7
+00:01:14,000 --> 00:01:28,000
+原來只能容納 399。把末端放大，就看到多出的 1。
+The span allows only 399. Zoom in on the extra one unit.
+
+8
+00:01:28,000 --> 00:01:45,000
+假設行不通。所以至少一種間距出現了 15 次。
+The assumption fails. At least one gap size occurs 15 or more times.

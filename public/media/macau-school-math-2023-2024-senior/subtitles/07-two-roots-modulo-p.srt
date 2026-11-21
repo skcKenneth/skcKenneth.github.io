@@ -1,0 +1,54 @@
+1
+00:00:00,000 --> 00:00:13,000
+兩組平方和都被 p 整除。證明下面兩式恰有一式被 p 整除。
+Both sums of squares are multiples of p. Show that exactly one expression below is too.
+
+2
+00:00:13,000 --> 00:00:29,000
+b 和 d 在模 p 下有乘法逆元，所以可用 r 和 s 表示兩個比值。
+b and d have inverses modulo p. Use r and s for the two ratios.
+
+3
+00:00:29,000 --> 00:00:33,000
+兩個平方相等。相減後把平方差分解成兩個因子。
+Subtract the equal squares and factor the difference of squares.
+
+4
+00:00:33,000 --> 00:00:45,000
+模素數下，乘積為零就有一個因子為零，所以兩根相同或相反。
+Modulo a prime, a zero product has a zero factor. The roots are equal or opposite.
+
+5
+00:00:45,000 --> 00:00:58,000
+模 5 做例子。2 和 −2 的平方都餘 4，也就是 −1。
+Modulo 5, both 2 and −2 square to 4, the same residue as −1.
+
+6
+00:00:58,000 --> 00:01:13,000
+先把 s 放在同一個根。兩根相乘再加 1 得 0，兩根相加仍非零。
+Put s at the same root. Multiply the roots and add 1 to get 0. Their sum stays nonzero.
+
+7
+00:01:13,000 --> 00:01:27,000
+再把 s 放到另一個根。這次兩根相加得 0，乘積加 1 得 2。
+Put s at the opposite root. Now their sum is 0, while their product plus 1 is 2.
+
+8
+00:01:27,000 --> 00:01:36,000
+一般來說，把 s=r 和 s=−r 代入，再用 r 的平方等於 −1。
+In general, substitute s=r or s=−r and use that r squared is −1.
+
+9
+00:01:36,000 --> 00:01:44,000
+p 是奇素數，r 也非零，所以模 p 下，2 和 2r 都非零。
+p is odd and r is nonzero, so 2 and 2r are nonzero modulo p.
+
+10
+00:01:44,000 --> 00:01:54,000
+兩式都乘以可逆的 bd，每一行仍只有一個零。
+Multiply by the invertible factor bd. Each row still has one zero.
+
+11
+00:01:54,000 --> 00:02:05,000
+無論是哪一行，都恰有一個原式被 p 整除。
+In either case, exactly one original expression is divisible by p.

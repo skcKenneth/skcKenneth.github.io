@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:09,000
+數列每次乘的因數會變。找出哪個部分令它一直變。
+The multiplier changes at each step. Which part makes it change?
+
+2
+00:00:09,000 --> 00:00:19,000
+新項和舊項分別除以 n＋2 和 n＋1，剩下固定的倍數 2。
+Divide by n + 2 and n + 1 respectively. The multiplier is now 2.
+
+3
+00:00:19,000 --> 00:00:29,000
+第一個除完是 1，之後每一步倍增。
+The first scaled term is one. Each later term doubles.
+
+4
+00:00:29,000 --> 00:00:39,000
+第 n 個除完是 2 的 n−1 次方。乘回 n＋1 就得原項。
+The nth scaled term is 2 to the n−1. Multiply back by n + 1.
+
+5
+00:00:39,000 --> 00:00:49,000
+為了求和，把每一項寫成兩個相鄰端點之差。
+To sum the terms, write each one as a difference of adjacent endpoints.
+
+6
+00:00:49,000 --> 00:01:01,000
+看首三項：前一段的右端，就是下一段的左端。
+In the first three terms, each right endpoint becomes the next left endpoint.
+
+7
+00:01:01,000 --> 00:01:12,000
+中間端點成對相消。從 0 到最後一個端點，只剩 2023·2²⁰²³。
+The shared endpoints cancel. From zero to the last endpoint, only 2023·2²⁰²³ remains.
+
+8
+00:01:12,000 --> 00:01:30,000
+分子是 2025·2²⁰²³。約去相同的冪，答案是 C。
+The numerator is 2025·2²⁰²³. Cancel the shared power and choose C.
