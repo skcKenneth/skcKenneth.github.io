@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:12,000
+把歐拉函數和向下取整放在一起，會數出甚麼？
+What do the totient and the floor count together?
+
+2
+00:00:12,000 --> 00:00:25,000
+用 n＝6 做例子。畫出所有滿足 1 ≤ p ≤ q ≤ n 的整數點。
+For n = 6, plot every integer pair with 1 ≤ p ≤ q ≤ n.
+
+3
+00:00:25,000 --> 00:00:38,000
+先按行數。第 q 行有 q 點，所以總數是 1＋2＋⋯＋n。
+Count by rows first. Row q has q dots, giving 1 + 2 + ⋯ + n.
+
+4
+00:00:38,000 --> 00:00:53,000
+再按射線數。同一條射線上，每點的比 p／q 都相同。
+Now count by rays. Every point on one ray has the same ratio p/q.
+
+5
+00:00:53,000 --> 00:01:08,000
+分母 3 有兩個最簡分數。每條射線各有兩個整數點。
+Denominator 3 has two reduced fractions, each with two points.
+
+6
+00:01:08,000 --> 00:01:22,000
+分母 1 也算：1／1 是對角線，總共有 n 點。
+Denominator 1 counts too: 1/1 gives the diagonal with all n points.
+
+7
+00:01:22,000 --> 00:01:37,000
+一般而言，每點約分成唯一的 a／k。放大 t 倍就得回原來的點。
+Each point reduces to a unique a/k. Scale by t to recover the point.
+
+8
+00:01:37,000 --> 00:01:50,000
+分母 k 有 φ(k) 條射線，每條各有 ⌊n／k⌋ 個點。
+Denominator k has φ(k) rays, each with ⌊n/k⌋ points.
+
+9
+00:01:50,000 --> 00:02:05,000
+兩種數法數的是同一批點，所以原式等於 n(n＋1)／2。
+The two methods count the same points, giving n(n + 1)/2.

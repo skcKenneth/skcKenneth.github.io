@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:13,000
+兩條對角線的長度和，比兩組對邊的和都大，但比周界細。
+The sum of the diagonals exceeds both opposite-side sums and is below the perimeter.
+
+2
+00:00:13,000 --> 00:00:26,000
+移動頂點 D 時，兩條對角線的交點 H 仍留在凸四邊形內。
+As D moves, the diagonal intersection H stays inside the convex quadrilateral.
+
+3
+00:00:26,000 --> 00:00:48,000
+由 A 經 H 到 B，要比直行更長。同樣，由 C 經 H 到 D 也是較長的路。
+The detours from A to B and from C to D through H are longer than the straight sides.
+
+4
+00:00:48,000 --> 00:01:09,000
+交換對邊配對。兩條折路仍剛好用完四段對角線，得到另一個下界。
+Swap the side pairing. The four diagonal pieces give the other lower bound.
+
+5
+00:01:09,000 --> 00:01:20,000
+H 在四邊形內。每條折路都走三角形的兩邊，所以下界都是嚴格的。
+H lies inside. Each detour uses two sides of a triangle, so the bounds are strict.
+
+6
+00:01:20,000 --> 00:01:40,000
+要找上界，先由 A 走到 C。沿邊界有兩條路，每一條都比 AC 長。
+For the upper bound, take the two boundary routes from A to C. Both are longer than AC.
+
+7
+00:01:40,000 --> 00:02:00,000
+把同一方法用在 BD。兩條邊界路線再次合成一個完整周界。
+Repeat for BD. Its two boundary routes again add up to the perimeter.
+
+8
+00:02:00,000 --> 00:02:14,000
+將 2AC 小於 P 和 2BD 小於 P 相加，再除以 2，就得到嚴格上界。
+Add 2AC<P and 2BD<P, then divide by 2 to obtain the strict upper bound.
+
+9
+00:02:14,000 --> 00:02:30,000
+用交點處的折路證下界，用兩條邊界路線證上界。
+Crossing detours give the lower bound. Boundary paths give the upper bound.

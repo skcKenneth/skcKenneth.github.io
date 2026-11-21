@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:13,000
+這條不等式要對所有正數 a、b 成立。k 最大可以是多少？
+The inequality must hold for all positive a and b. How large can k be?
+
+2
+00:00:13,000 --> 00:00:28,000
+除以正數 ab²，把右邊界變成 k。左邊可以整理成倒數對。
+Divide by the positive ab². The left side rearranges into reciprocal pairs.
+
+3
+00:00:28,000 --> 00:00:47,000
+固定 b，只移動 a。a 和 1/a 的乘積固定為 1，總和最少是 2。
+Fix b and vary a. Because a times 1/a stays at 1, their sum is at least 2.
+
+4
+00:00:47,000 --> 00:01:07,000
+兩條柱同高時 a=1。代入 R，餘下的式子只含 b。
+The bars match at a=1. Substitute that value to leave an expression in b alone.
+
+5
+00:01:07,000 --> 00:01:22,000
+將 b 拆成兩份 b/2。加上 1，就有總和 b+1 的三項。
+Split b into two halves and add 1. The three terms sum to b+1.
+
+6
+00:01:22,000 --> 00:01:39,000
+再用三項 AM–GM。三項同高就取等號，也就是 b/2=1。
+Apply AM–GM to the three terms. Equality means all three match, so b/2=1.
+
+7
+00:01:39,000 --> 00:01:55,000
+兩邊立方後除以 b²。連同第一個界限，可知 R 至少是 27/4。
+Cube both sides and divide by b². With the first bound, R is at least 27/4.
+
+8
+00:01:55,000 --> 00:02:15,000
+a=1、b=2 令兩次同時取等號。因此 27/4 是最大可行常數。
+At a=1 and b=2, both bounds are equalities. Thus 27/4 is the largest possible k.

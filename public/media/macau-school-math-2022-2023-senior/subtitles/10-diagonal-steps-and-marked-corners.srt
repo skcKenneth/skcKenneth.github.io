@@ -1,0 +1,54 @@
+1
+00:00:00,000 --> 00:00:14,000
+用格路解讀原卷兩邊嘅和。每條路都由左下去右上。
+Read both sums as paths from the bottom left to the top right.
+
+2
+00:00:14,000 --> 00:00:29,000
+如果有 n−j 個斜步，向右同向上各要 j 步。
+With n − j diagonals, there are j east steps and j north steps.
+
+3
+00:00:29,000 --> 00:00:47,000
+先揀向右嘅位置，再喺剩低 n 格揀向上嘅位置。
+Choose positions for E, then place N in j of the n remaining slots.
+
+4
+00:00:47,000 --> 00:01:06,000
+將每個斜步拆成先向右、後向上，標記中間嘅拐角。
+Expand a diagonal into east then north, and mark the corner.
+
+5
+00:01:06,000 --> 00:01:24,000
+展開後只剩向右同向上嘅步。拐角可以各自標記。
+The expanded path uses only E and N. Each corner can be marked.
+
+6
+00:01:24,000 --> 00:01:42,000
+反過來，將畫咗記號嘅 EN 壓回斜步，就還原原路。
+Compress each marked EN back to a diagonal to recover the path.
+
+7
+00:01:42,000 --> 00:02:03,000
+比較拐角位置。每行向右再向上，令兩組座標嚴格遞增。
+At successive EN corners both coordinates strictly increase.
+
+8
+00:02:03,000 --> 00:02:21,000
+反過來，按座標順序先向上再向右，逐個接返拐角。
+Given the ordered coordinates, go north then east to each corner.
+
+9
+00:02:21,000 --> 00:02:31,000
+最後先上到頂，有餘下路程先向右，所以冇新增 EN 拐角。
+Go north to the top, then east as needed. No extra EN corner is added.
+
+10
+00:02:31,000 --> 00:02:49,000
+k 個拐角各自可以標記或唔標記，共有 2ᵏ 種。
+Each of the k corners can be marked or unmarked, giving 2ᵏ choices.
+
+11
+00:02:49,000 --> 00:03:10,000
+兩種點法數嘅係同一批格路，所以兩邊相等。
+The two counts describe the same paths, so the sums are equal.

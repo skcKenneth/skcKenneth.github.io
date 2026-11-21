@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:13,000
+S 收集三次式 F 的所有整數取值。兩個取值相乘，還能寫成同一形式嗎？
+S contains all integer values of F. Can the product of two values have the same form?
+
+2
+00:00:13,000 --> 00:00:27,000
+把三次式分成一次因子 L 和二次因子 Q，再分別看它們除以 3 的餘數。
+Factor the cubic as L times Q, then track their residues modulo 3.
+
+3
+00:00:27,000 --> 00:00:40,000
+整數的立方和本身同餘，所以原式 F 與 L 同餘。
+An integer and its cube have the same residue modulo 3, so F and L agree.
+
+4
+00:00:40,000 --> 00:00:53,000
+Q 與 L 的平方只差 3 的倍數，所以模 3 同餘。
+Q and L squared differ by a multiple of 3, so they agree modulo 3.
+
+5
+00:00:53,000 --> 00:01:07,000
+如果 3 整除 F，就整除 L 和 Q。F 是兩個 3 的倍數相乘，所以 9 也整除 F。
+If 3 divides F, it divides L and Q. Their product is therefore divisible by 9.
+
+6
+00:01:07,000 --> 00:01:20,000
+看模 9 的九個餘數。3 和 6 被排除，0 和六個非 3 倍數仍有可能。
+Among the nine residues modulo 9, eliminate 3 and 6. Seven possible residues remain.
+
+7
+00:01:20,000 --> 00:01:33,000
+選 t 為任意整數。令兩個輸入等於 t，第三個差 1，便得到所有 3t±1。
+Let t be any integer. Shift the third input by one to obtain all 3t±1.
+
+8
+00:01:33,000 --> 00:01:47,000
+讓另外兩個輸入在 t 的兩側，就有 L=3t、Q=3，得到每個 9 的倍數。
+Put two inputs on opposite sides of t. Then L=3t and Q=3, giving all multiples of 9.
+
+9
+00:01:47,000 --> 00:02:06,000
+沿整數刻度選 t，三個公式各自構造一個取值，也能得到負數與零。
+Select integer values of t to construct values, including negatives and zero.
+
+10
+00:02:06,000 --> 00:02:16,000
+至此已構造所有非 3 倍數與所有 9 倍數。這兩類就是完整的 S。
+The nonmultiples of 3 and the multiples of 9 make up the entire set S.
+
+11
+00:02:16,000 --> 00:02:31,000
+其中一個因數被 9 整除，乘積也被 9 整除。兩個都不被 3 整除，乘積亦然。
+One multiple of 9 gives a multiple of 9. Two nonmultiples of 3 stay so.
+
+12
+00:02:31,000 --> 00:02:50,000
+兩個示例的積仍是 F 的取值。一般證明顯示 S 乘法封閉。
+Both products are values of F, as the closure proof predicts.

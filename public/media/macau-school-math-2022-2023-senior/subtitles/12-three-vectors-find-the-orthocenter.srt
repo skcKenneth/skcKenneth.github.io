@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:14,000
+以外心 O 做原點。A、B、C 到 O 都係同一個半徑。
+Take the circumcenter O as origin. All three vertices have the same radius.
+
+2
+00:00:14,000 --> 00:00:29,000
+先將三個位置向量相加，暫時叫所得嘅點做 P。
+Add the three position vectors and call the resulting point P.
+
+3
+00:00:29,000 --> 00:00:45,000
+B 同 C 嘅向量和指向弦嘅中點。將呢條箭嘴平移到 A。
+The sum of B and C points through their chord midpoint. Move it to A.
+
+4
+00:00:45,000 --> 00:01:01,000
+用內積確認 AP 垂直 BC。交叉項相消，只剩兩個相同半徑。
+The dot product checks AP perpendicular to BC. The equal radii cancel.
+
+5
+00:01:01,000 --> 00:01:16,000
+同樣由 B 出發得另一條高。兩條高交於 P，所以 P 就係垂心。
+The same argument gives the altitude from B. The two meet at P, the orthocenter.
+
+6
+00:01:16,000 --> 00:01:36,000
+沿圓周拖動 A。每幀都由三個半徑向量重算垂心。
+Slide A on the circle. Recompute the orthocenter from the three radii.
+
+7
+00:01:36,000 --> 00:01:53,000
+A 同 C 成一直徑時，佢哋嘅向量相消，垂心就落喺 B。
+When AC is a diameter, those two vectors cancel and H lands at B.
+
+8
+00:01:53,000 --> 00:02:12,000
+再轉過直角，垂心移到三角形外。相同嘅向量式繼續成立。
+Continue into the obtuse case. H moves outside, with the same vector rule.
+
+9
+00:02:12,000 --> 00:02:27,000
+由三個向量和減去垂心嘅位置向量，答案係零向量。
+Subtract the orthocenter vector from the three-vector sum to get zero.
+
+10
+00:02:27,000 --> 00:02:35,000
+理由一直一樣：三個頂點到外心嘅距離相等。
+The reason stays the same. All three radii are equal.
