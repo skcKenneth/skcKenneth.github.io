@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import { test } from "node:test";
 import { checkResearchArticles } from "../scripts/check-research-articles.mjs";
 const root=new URL("../",import.meta.url);
@@ -75,8 +75,17 @@ test("personal study links projects without private reproduction instructions",(
 });
 
 if(process.argv.includes("--built"))test("built articles, projects, persistent lists and sitemap expose the study",()=>{
+  const film="/media/hotspot-move-or-grow";
+  for(const ext of [".mp4",".jpg",".srt"])
+    assert.ok(statSync(new URL("dist"+film+ext,root)).size>0);
   for(const prefix of ["","zh/"]){
     const article=read("dist/"+prefix+"writing/"+slug+"/index.html");
+    const players=article.match(/<video\b[^>]*>[\s\S]*?<\/video>/g)||[];
+    assert.equal(players.length,1,prefix+slug);
+    assert.match(players[0],/\bcontrols\b/);
+    assert.ok(players[0].includes('poster="'+film+'.jpg"'));
+    assert.ok(players[0].includes('src="'+film+'.mp4"'));
+    assert.ok(article.includes('href="'+film+'.srt"'));
     assert.equal((article.match(/<figcaption>/g)||[]).length,8);
     assert.equal((article.match(/class="katex-display"/g)||[]).length,10);
     assert.doesNotMatch(article,/katex-error|Draft preview|草稿預覽/);

@@ -1,0 +1,264 @@
+1
+00:00:00,000 --> 00:00:07,000
+先看第一張快照。左邊的峰比右邊高。
+In the first snapshot, the left peak is taller.
+
+2
+00:00:07,000 --> 00:00:14,000
+再看第二張。現在，較高的峰在哪一邊？
+Now look at the second. Which side has the taller peak?
+
+3
+00:00:14,000 --> 00:00:19,000
+對準同樣的兩個位置。左邊變矮了，右邊變高了。
+Compare the same two positions. The left peak shrank and the right one grew.
+
+4
+00:00:19,000 --> 00:00:30,000
+曲線的高度是密度。掃過曲線下方，就能把質量累加起來。
+Height gives density. Sweeping out the area adds up the mass.
+
+5
+00:00:30,000 --> 00:00:35,000
+兩張快照的總質量都是 1。
+Both snapshots have a total mass of one.
+
+6
+00:00:35,000 --> 00:00:45,000
+只憑這兩張圖，你會說熱點移動了嗎？
+With just these two snapshots, would you say the hotspot moved?
+
+7
+00:00:45,000 --> 00:00:58,000
+這個空間是一個圓環。把它攤開，看看接縫去了哪裡。
+Unroll the circle and keep your eye on the seam.
+
+8
+00:00:58,000 --> 00:01:07,000
+直線的 0 和 1 是同一個位置。現在把其中一格放大。
+Zero and one mark the same place. Now zoom in on one cell.
+
+9
+00:01:07,000 --> 00:01:20,000
+左邊流入的質量比右邊流出的多，格內存量就會上升。
+More mass enters on the left than leaves on the right, so the cell fills.
+
+10
+00:01:20,000 --> 00:01:34,000
+格內也可以在原位產生質量。橙色箭頭標出這個來源。
+Mass can also appear inside the cell. The orange arrow marks this source.
+
+11
+00:01:34,000 --> 00:01:42,000
+把這個收支關係寫在每個位置，就得到連續方程。
+Write this mass balance at each position to obtain the continuity equation.
+
+12
+00:01:42,000 --> 00:01:55,000
+通量取決於速度。局部源項取決於原位增減的速率。
+Flux depends on velocity. The local source depends on the growth or decay rate.
+
+13
+00:01:55,000 --> 00:02:01,000
+先試一個只靠搬運的解釋。把起始密度拆成兩個峰。
+Try a history driven by transport alone. Split the starting profile into two peaks.
+
+14
+00:02:01,000 --> 00:02:09,000
+在每個位置加起兩個峰的高度，白線就是總密度。
+Add their heights at each position. The white curve is the total density.
+
+15
+00:02:09,000 --> 00:02:27,000
+較大的峰從 0.28 向右，較小的峰從 0.58 向左。
+The larger peak moves right from 0.28. The smaller moves left from 0.58.
+
+16
+00:02:27,000 --> 00:02:35,000
+時間過半，兩個中心在 0.43 相遇。兩份密度疊成一個高峰。
+Halfway through, the centres meet at 0.43 and their densities form one tall peak.
+
+17
+00:02:35,000 --> 00:02:54,000
+兩個中心穿過彼此，沿原來的方向繼續前進。
+The centres pass each other and continue in their original directions.
+
+18
+00:02:54,000 --> 00:03:05,000
+峰交換了位置。從頭到尾，圈內的質量都等於 1。
+The peaks have exchanged places. Total mass stayed at one throughout.
+
+19
+00:03:05,000 --> 00:03:17,000
+回到同一起點。這次，把兩支探針固定在原位。
+Return to the same start. This time, keep both probes still.
+
+20
+00:03:17,000 --> 00:03:25,000
+每個位置都有起始密度 a 和終點密度 b。
+At each position, call the starting density a and the final density b.
+
+21
+00:03:25,000 --> 00:03:35,000
+對數密度沿直線變化。兩支探針的讀數一降一升。
+Log density changes along straight lines. One probe falls while the other rises.
+
+22
+00:03:35,000 --> 00:03:46,000
+回到原來的密度刻度，每個位置都按自己的固定相對速率增減。
+On the density scale, each position grows or decays at its own constant relative rate.
+
+23
+00:03:46,000 --> 00:04:09,000
+看下方的總質量。雖然首尾都是 1，這條歷程的中途總量較小。
+Watch total mass below. It dips between the two unit-mass endpoints.
+
+24
+00:04:09,000 --> 00:04:20,000
+速度處處為零，終點仍然和搬運歷程逐格吻合。
+Velocity is zero everywhere, yet every final cell matches the transport history.
+
+25
+00:04:20,000 --> 00:04:31,000
+把每一刻的密度畫成一行顏色。兩幅圖共用同一個色標。
+Encode each density profile as a row of colour. Both panels use the same scale.
+
+26
+00:04:31,000 --> 00:04:40,000
+一行一行疊上去。向上是時間，向右是位置。
+Stack the rows. Time runs upward and position runs to the right.
+
+27
+00:04:40,000 --> 00:04:53,000
+左圖的亮帶斜著交會。右圖的亮度在兩個固定位置改變。
+Bright ridges cross on the left. On the right, brightness changes at two fixed sites.
+
+28
+00:04:53,000 --> 00:05:12,000
+沿時間軸回看中段。同一時刻，兩條歷程給出的密度形狀不同。
+Revisit the middle. At the same time, the two histories give different profiles.
+
+29
+00:05:12,000 --> 00:05:19,000
+如果相機只拍到首尾，會留下多少分辨兩者的線索？
+If the camera records only the start and finish, what evidence survives?
+
+30
+00:05:19,000 --> 00:05:30,000
+比較留下來的曲線。起點對起點、終點對終點，全部重合。
+Compare the surviving curves. Both starts coincide, and so do both finishes.
+
+31
+00:05:30,000 --> 00:05:40,000
+非平衡最優傳輸容許邊際質量偏離輸入。先看一個起點格的配對。
+Unbalanced optimal transport relaxes the marginal constraints. Follow one source cell.
+
+32
+00:05:40,000 --> 00:05:53,000
+起點格一換，配對也跟著換。每條線代表該橫列的十二分之一質量。
+Change the source cell and its matches change. Each line represents one twelfth of its row mass.
+
+33
+00:05:53,000 --> 00:06:07,000
+展開整個矩陣。每一橫列都對應一個起點格。
+Open the full matrix. Each row corresponds to one source cell.
+
+34
+00:06:07,000 --> 00:06:20,000
+橫列和直欄的總和給出配對後的邊際質量。和灰色輸入比較一下。
+Row and column sums give the paired marginals. Compare them with the grey inputs.
+
+35
+00:06:20,000 --> 00:06:30,000
+T 按圓環最短距離的平方計價。G 用 KL 散度計算兩端的邊際偏差。
+T charges squared distance around the circle. G uses KL divergence for both marginal errors.
+
+36
+00:06:30,000 --> 00:06:38,000
+熵正則項 E 也會改變配對。三項相加，才是求解器要最小化的成本。
+The entropy term E also shapes the coupling. The solver minimizes the sum of all three costs.
+
+37
+00:06:38,000 --> 00:06:53,000
+現在只取 T 和 G，看看搬運佔這兩項成本多少。
+Now take T and G and ask what fraction of these two costs comes from transport.
+
+38
+00:06:53,000 --> 00:07:10,000
+在這組價格下，搬運佔 50.03%。E 仍然影響所選的配對。
+At these prices, transport takes 50.03% of the two costs. E still shapes the fitted coupling.
+
+39
+00:07:10,000 --> 00:07:22,000
+歷程的搬運佔比是 K/(K+λ²R)。K 量度搬運作用量，R 量度原位增減作用量。
+The history's transport share is K/(K+λ²R). K and R measure transport and local-change action.
+
+40
+00:07:22,000 --> 00:07:35,000
+兩段歷程的真值是 0 和 1。相同端點只給一個估計 f，它離兩端有多遠？
+The true shares are zero and one. Identical endpoints give one estimate f. How far is it from each?
+
+41
+00:07:35,000 --> 00:07:50,000
+試著移動估計值，令較長的一段盡量短。你會停在哪裡？
+Move the estimate to shorten the longer segment. Where would you stop?
+
+42
+00:07:50,000 --> 00:07:57,000
+兩段距離的總和永遠是 1。
+The two distances always add up to one.
+
+43
+00:07:57,000 --> 00:08:03,000
+所以較長的一段至少有一半。這條下限適用於同時容許兩段歷程的端點問題。
+The longer distance is at least one half whenever both histories are admissible.
+
+44
+00:08:03,000 --> 00:08:20,000
+15 組端點各配 24 個成本設定。每一點代表一個設定。
+Each of 15 endpoint cases has 24 cost settings. One dot represents one setting.
+
+45
+00:08:20,000 --> 00:08:27,000
+按最壞差距排列，360 個設定之中最小的是 0.500273。
+Order the 360 settings by worst discrepancy. The smallest value is 0.500273.
+
+46
+00:08:27,000 --> 00:08:45,000
+把刻度放大。最接近界線的結果，仍然在理論下限上方。
+Magnify the scale. Even the closest result sits just above the theoretical bound.
+
+47
+00:08:45,000 --> 00:09:01,000
+如果只可以再看一眼，你會選哪個位置、哪個時刻？
+If you could take one more reading, where and when would you look?
+
+48
+00:09:01,000 --> 00:09:09,000
+回到兩個移動峰相遇的一刻，把時鐘停在一半。
+Return to the instant when the moving peaks would meet. Stop halfway.
+
+49
+00:09:09,000 --> 00:09:21,000
+在位置 110/256 放一支理想探針。讓兩條歷程預測同一個讀數。
+Place an ideal probe at position 110/256. Ask both histories to predict its reading.
+
+50
+00:09:21,000 --> 00:09:35,000
+逐步揭開周圍。搬運把密度集中在中間，原位增減保留了兩個峰。
+Reveal the surroundings. Transport piles density in the middle. Local change retains two peaks.
+
+51
+00:09:35,000 --> 00:09:44,000
+同一位置、同一時刻，搬運預測 8.773，原位增減預測 0.051。
+One place, one time. Transport predicts 8.773. Local change predicts 0.051.
+
+52
+00:09:44,000 --> 00:09:51,000
+這一個理想讀數已能分開這對合成歷程。
+One ideal reading separates this pair of synthetic histories.
+
+53
+00:09:51,000 --> 00:10:00,000
+實際觀測能否分辨，還要看感測器的空間解像度和噪聲。
+For a real observation, the distinction depends on the sensor’s spatial resolution and noise.

@@ -5,7 +5,7 @@ topicIds: [data-ai, risk-decisions, cities-engineering]
 sourceSlug: did-the-hotspot-move-or-did-it-grow
 summary: 兩張空間分布圖可以得到漂亮而精確的最低成本解釋，卻仍然無法辨認真正的生成歷史。這個非平衡最優傳輸合成研究，分開檢查端點擬合、數值收斂，以及搬移與局部生長的機制解讀。
 date: 2026-09-19
-lastUpdated: 2026-09-19
+lastUpdated: 2026-11-21
 featured: false
 draft: false
 topics: [Optimal transport, Inverse problems, Identifiability, Uncertainty, Mathematical modeling]
@@ -23,6 +23,17 @@ archived: false
 這樣安排的好處是，可以把「方法找到了甚麼」與「實際生成了甚麼」分開比較。方法會按照指定成本，選出一個折衷解。在某些設定中，運輸成本與邊際變化懲罰的分配，接近我們已知歷史的活動預算；在另一些設定中，兩者相差很遠。最重要的是，兩段完全不同的歷史，可以有相同的開始與結束。這時候，即使把最佳化問題解得再準確，也不會憑空得知哪段歷史曾經發生。
 
 這不是否定最優傳輸的用途，而是替它的輸出找回適當的解釋範圍。[項目簡介](/zh/projects/did-the-hotspot-move-or-did-it-grow/)提供較短的版本；以下會從模型、八幅研究圖及反例，逐步討論甚麼額外資訊才真正有助分辨機制。
+
+## 觀看研究動畫
+
+先看兩個峰迎面相遇、交換位置，再倒帶回到起點，讓左峰在原位減弱、右峰在原位增強。兩段歷程的最後一張圖完全相同。如果只可以多量一次，你會選哪個位置、哪個時刻？
+
+<video id="hotspot-film" controls playsinline preload="metadata" width="960" height="540" style="width: 100%; height: auto;" poster="/media/hotspot-move-or-grow.jpg" aria-label="《熱點移動了，還是在原地長大？》中英雙語研究動畫">
+  <source src="/media/hotspot-move-or-grow.mp4" type="video/mp4" />
+  <a href="/media/hotspot-move-or-grow.mp4">開啟 MP4 影片</a>。
+</video>
+
+片長 10 分鐘，附繁體中文與英文字幕，以及原創鋼琴與弦樂配樂。[下載雙語字幕（SRT）](/media/hotspot-move-or-grow.srt)。
 
 ## 這個比較發現了甚麼
 

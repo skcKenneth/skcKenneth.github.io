@@ -4,7 +4,7 @@ slug: did-the-hotspot-move-or-did-it-grow
 topicIds: [data-ai, risk-decisions, cities-engineering]
 summary: Two spatial maps can share a convincing least-cost explanation without revealing the history that produced them. A controlled unbalanced optimal transport study separates endpoint fit, numerical convergence and evidence for movement versus local growth.
 date: 2026-09-19
-lastUpdated: 2026-09-19
+lastUpdated: 2026-11-21
 featured: false
 draft: false
 topics: [Optimal transport, Inverse problems, Identifiability, Uncertainty, Mathematical modeling]
@@ -22,6 +22,17 @@ This article studies that distinction in a deliberately small synthetic world. T
 The answer is useful but narrower than a reconstructed history. The method finds a compromise under a specified cost model. Sometimes its allocation between transport and marginal change agrees with the action budget of our chosen history. Sometimes it does not. Most importantly, two very different histories can have exactly the same starting and finishing maps. In that situation, solving the optimization problem more accurately cannot tell us which history occurred.
 
 The [project overview](/projects/did-the-hotspot-move-or-did-it-grow/) gives a shorter account. Here we develop the model, inspect eight figures, and work out which additional observations would change the question.
+
+## Watch the animation
+
+Watch the two peaks trade places, then rewind and let one fade while the other grows in place. Both histories end on the same image. If you could take one more measurement, where and when would you look?
+
+<video id="hotspot-film" controls playsinline preload="metadata" width="960" height="540" style="width: 100%; height: auto;" poster="/media/hotspot-move-or-grow.jpg" aria-label="Did the Hotspot Move, or Did It Grow? Bilingual research animation">
+  <source src="/media/hotspot-move-or-grow.mp4" type="video/mp4" />
+  <a href="/media/hotspot-move-or-grow.mp4">Open the animation as an MP4</a>.
+</video>
+
+10 minutes · English and Traditional Chinese captions · Original piano and strings. [Download the bilingual subtitles (SRT)](/media/hotspot-move-or-grow.srt).
 
 ## What the comparison found
 
