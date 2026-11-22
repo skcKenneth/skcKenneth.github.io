@@ -19,8 +19,8 @@ export const selahLesson = {
       ),
       formulas: [String.raw`\sqrt{x-3}+\sqrt{6-x}\ge k`],
       tutorNotes: bilingual(
-        'The two radicands require x ≥ 3 and x ≤ 6, so the domain is [3,6]. A single x with the sum at least k is enough. Give a hint about the radicands and the meaning of “there is”. Ask for a prediction and leave the actual maximum for a later step.',
-        '兩個被開方數都須非負，因此 x ≥ 3 且 x ≤ 6，取值範圍是 [3,6]。只要有一個 x 令根式和不少於 k 即可。可提示學生檢查兩個被開方數，並理解「存在」的意思。請學生先猜想，留待稍後證明最大值。',
+        'In √(x − 3) + √(6 − x) ≥ k, the two radicands require x ≥ 3 and x ≤ 6, so the domain is [3,6]. A single x with the sum at least k is enough. Give a hint about the radicands and the meaning of “there is”. Ask for a prediction and leave the actual maximum for a later step.',
+        '在 √(x − 3) + √(6 − x) ≥ k 中，兩個被開方數都須非負，因此 x ≥ 3 且 x ≤ 6，取值範圍是 [3,6]。只要有一個 x 令根式和不少於 k 即可。可提示學生檢查兩個被開方數，並理解「存在」的意思。請學生先猜想，留待稍後證明最大值。',
       ),
     },
     {
@@ -78,6 +78,24 @@ export const selahLesson = {
         'The identity follows from (u+v)²+(u−v)²=2(u²+v²)=6. Since (u−v)²≥0 everywhere, equality holds exactly at u=v, where x=9/2. The bound 6 applies to the square. Since u+v≥0, the bound on u+v is √6. Lead with the squared term as a hint when the learner is working on equality.',
         '恆等式來自 (u+v)²+(u−v)²=2(u²+v²)=6。由於 (u−v)² 永遠非負，只有 u=v 取到等號，此時 x=9/2。6 是和的平方的上界。由 u+v≥0，和的上界是 √6。學生仍在思考等號時，先提示看看被減去的平方。',
       ),
+      tutorAnswers: {
+        bound: bilingual(
+          'Which expression is being squared? The bound 6 applies to (u + v)². Because u + v ≥ 0, taking the square root gives u + v ≤ √6, so the sum cannot equal 6.',
+          '先看哪個式子被平方。6 是 (u + v)² 的上界。由於 u + v ≥ 0，兩邊取平方根可得 u + v ≤ √6，所以兩根式的和不能等於 6。',
+        ),
+        equality: bilingual(
+          'What is the smallest possible value of (u − v)²? In (u + v)² = 6 − (u − v)², the left side is largest when the term subtracted is zero. That happens exactly when u = v.',
+          '想想 (u − v)² 的最小值是多少。在 (u + v)² = 6 − (u − v)² 中，減去的量等於零時，左方才達到最大值。這恰好在 u = v 時發生。',
+        ),
+        identity: bilingual(
+          'Compare the middle terms when you expand the two squares. They are +2uv and −2uv, so they cancel in the sum. What is left is 2(u² + v²), which equals 6 because u² + v² = 3.',
+          '比較展開兩個平方後的中間項。它們分別是 +2uv 和 −2uv，相加時互相抵消，剩下 2(u² + v²)。由於 u² + v² = 3，結果是 6。',
+        ),
+        clarify: bilingual(
+          'Which part of this board would you like to check: the identity, the bound on the sum, or the condition for equality?',
+          '你想核對板書的哪一部分？是恆等式、根式和的上界，還是取等號的條件？',
+        ),
+      },
     },
     {
       id: 'review',
