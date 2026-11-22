@@ -27,10 +27,13 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Dependency security gate
         run: pnpm run check:security
+      - name: Test Selah lesson and tutor
+        run: node --test tests/selah-lesson.test.mjs workers/selah/worker.test.mjs
       - name: Build, index, and validate
         run: pnpm run build
         env:
           ASTRO_TELEMETRY_DISABLED: "1"
+          PUBLIC_SELAH_API_URL: ${{ vars.PUBLIC_SELAH_API_URL }}
       - uses: actions/configure-pages@v5
         if: github.event_name != 'pull_request'
       - uses: actions/upload-pages-artifact@v3

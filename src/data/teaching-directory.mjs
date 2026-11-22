@@ -22,6 +22,13 @@ export const TEACHING_RESOURCES = [
   resource('senior-math', '/teaching/senior-math/', ['senior', 'teacher'], ['interactive', 'practice', 'notes', 'past-papers'], bi('Senior Mathematics Studio', '高中數學研習室'), bi('A textbook course, school routes, the complete JAE foundations studio and JM01/JM02 explanations.', '教材主線、校本路徑、完整四校聯考基礎研習室及 JM01／JM02 舊卷詳解。'), selfPaced, { anchorAliases: ['jae-math'] }),
   resource('math-inquiry-lab', '/math-labs/inquiry/index.html', ['junior', 'senior', 'teacher'], ['interactive', 'practice'], bi('Math Inquiry Lab', '數學探究室 · Math Inquiry Lab'), bi('Predict, experiment and explain quadratic functions, probability and regression.', '透過預測、操作與解釋，探究二次函數、概率及迴歸。'), selfPaced, { localizedPaths:bi('/math-labs/inquiry/index.html?lang=en','/math-labs/inquiry/index.html?lang=zh-Hant') }),
   resource(
+    'selah', '/teaching/selah/', ['senior', 'teacher'], ['interactive', 'practice'],
+    bi('Selah · Interactive maths whiteboard', 'Selah｜互動數學白板'),
+    bi('Move a point, check two steps, and build a proof for 2023/2024 Macau Senior Division Question 5.', '拖動圖上的點，完成兩個小測，逐步證明 2023／2024 澳門學界數學比賽高中組第 5 題。'),
+    bi('About 8 minutes', '約 8 分鐘'),
+    { aliases: ['Selah', 'AI tutor', 'square roots', 'competition mathematics', '學界數學', '根式', '白板', 'AI 答疑'] },
+  ),
+  resource(
     'macau-competition-films', '/teaching/macau-school-math-competition/films/',
     ['senior', 'teacher'], ['video', 'past-papers'],
     bi('Macau competition films', '澳門學界數學動畫題解'),

@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SelahLesson from '../../../components/SelahLesson.astro';
+---
+
+<BaseLayout
+  title="Selah｜互動數學白板"
+  description="在互動白板逐步解開澳門學界數學比賽第 5 題。拖動圖形、檢查推理，並在獲邀試用期間就個別步驟向 AI 提問。"
+  type="教學"
+  locale="zh-Hant"
+  alternatePath="/teaching/selah/"
+>
+  <SelahLesson locale="zh-Hant" apiUrl={import.meta.env.PUBLIC_SELAH_API_URL ?? ''} />
+</BaseLayout>
