@@ -1,0 +1,86 @@
+---
+import { q5Cues } from '../data/selah-classroom.mjs';
+import { selahLesson } from '../data/selah-lesson.mjs';
+import '../styles/selah-studio.css';
+interface Props { locale: 'en' | 'zh-Hant'; apiUrl?: string; }
+const { locale, apiUrl = '' } = Astro.props;
+const z = locale === 'zh-Hant';
+const t = (en: string, zh: string) => z ? zh : en;
+---
+<section id="selah-classroom" class="container selah-studio" data-studio data-locale={locale} data-endpoint={apiUrl} aria-labelledby="studio-title" hidden>
+  <header class="ss-head">
+    <div>
+      <p class="ss-meta" data-meta>{t('2023/24 · Macau · Senior Q5', '2023/24 · 澳門學界數學比賽 · 高中組 Q5')}</p>
+      <h2 id="studio-title" data-title>{selahLesson.title[locale]}</h2>
+    </div>
+    <label class="ss-sections">{t('Go to a passage', '選擇講解段落')}
+      <select data-chapters>{q5Cues.map(cue => <option value={cue.id}>{cue.title[locale]}</option>)}</select>
+    </label>
+  </header>
+  <article class="ss-stage" aria-label={t('Interactive whiteboard', '互動白板')}>
+    <div class="ss-boardtop"><span data-board-title>{t('Read the roots', '睇清兩個根式')}</span><span data-count>1 / 7</span></div>
+    <div class="ss-q5" data-q5>
+      <div class="ss-work">
+        <button class="ss-formula" type="button" data-object="domain" aria-label={t('Ask about the original inequality', '指住原題不等式提問')}>
+          <span>√<span class="ss-root">x − 3</span> + √<span class="ss-root">6 − x</span> ≥ k</span>
+        </button>
+        <div class="ss-sub" data-layer="1"><i>u</i> = √<span class="ss-root">x − 3</span><br/><i>v</i> = √<span class="ss-root">6 − x</span></div>
+        <div class="ss-sub" data-layer="2"><i>u</i>² + <i>v</i>² = 3</div>
+        <button class="ss-formula ss-mid" type="button" data-object="identity" data-layer="5"><span>(u + v)²</span><span data-write> = 6 − (u − v)²</span></button>
+        <button class="ss-formula ss-result" type="button" data-object="result" data-layer="6"><i>k</i> = √<span class="ss-root">6</span></button>
+        <p class="ss-annotation" data-annotation hidden><small>{t('Tutor’s note', '導師補充')}</small>(u + v)² ≤ 6<br/>⇒ u + v ≤ √6</p>
+      </div>
+      <div class="ss-graphwrap">
+        <svg class="ss-graph" viewBox="0 0 268 227" aria-label={t('Selectable diagram of the current board', '可點選嘅板書圖形')}>
+          <g data-numberline aria-hidden="true" class="ss-num">
+            <path d="M31 122H240" stroke-width="1.6" stroke="currentColor"/>
+            <path data-interval pathLength="1" d="M63 122H210" stroke="#ecbf72" stroke-width="3"/><circle cx="63" cy="122" r="4.5" fill="#ecbf72"/><circle cx="210" cy="122" r="4.5" fill="#ecbf72"/>
+            <text x="59" y="147">3</text><text x="206" y="147">6</text><text x="111" y="98">3 ≤ x ≤ 6</text>
+          </g>
+          <g data-layer="1" class="ss-svgobj" data-object="axes" role="button" tabindex="0" aria-label={t('Coordinate axes', '坐標軸')}>
+            <path data-ink pathLength="1" d="M28 192H235 M40 204V20 M230 188L235 192L230 196 M36 25L40 20L44 25" fill="none" stroke="#c7daca" stroke-width="1.7"/>
+            <path class="ss-hit" d="M28 192H235 M40 204V20"/><text x="238" y="197">u</text><text x="34" y="14">v</text><text x="23" y="208">0</text>
+          </g>
+          <g data-layer="2" class="ss-svgobj" data-object="arc" role="button" tabindex="0" aria-label={t('Quarter circle', '四分一圓弧')}>
+            <path class="ss-hit" d="M40 74.22 A117.78 117.78 0 0 1 157.78 192"/>
+            <path data-ink pathLength="1" d="M40 74.22 A117.78 117.78 0 0 1 157.78 192" fill="none" stroke="#9ee2bd" stroke-width="3"/>
+          </g>
+          <g data-layer="4" class="ss-svgobj" data-object="diagonal" role="button" tabindex="0" aria-label={t('Diagonal u equals v', '對角線 u 等於 v')}>
+            <path d="M40 192L182 50" data-ink pathLength="1" fill="none" stroke="#b8ccda"/><path class="ss-hit" d="M40 192L182 50"/><text x="180" y="46" class="ss-small">u = v</text>
+          </g>
+          <g data-layer="3" class="ss-svgobj" data-object="line" role="button" tabindex="0" aria-label={t('Gold line of equal sums', '金色等和斜線')}>
+            <path class="ss-hit" data-contour/><path data-contour data-ink pathLength="1" fill="none" stroke="#f2c777" stroke-width="2.5"/>
+          </g>
+          <g data-layer="2" class="ss-svgobj" data-object="point" role="button" tabindex="0" aria-label={t('Moving point', '移動點')}>
+            <circle r="11" fill="transparent"/><circle r="5.7" fill="#f6f1d9" stroke="#1c3930" stroke-width="2"/><text x="9" y="-9" class="ss-small">(u, v)</text>
+          </g>
+        </svg>
+        <label class="ss-slider" data-layer="2"><span><i>x</i> = <output data-x-out>3.50</output></span><input type="range" min="3" max="6" value="3.5" step=".05" data-x aria-label={t('Change x', '拖動 x')}/></label>
+      </div>
+    </div>
+    <div class="ss-extra" data-extra hidden><p data-problem></p><button type="button" class="ss-formula ss-extra-equation" data-equation></button><svg data-extra-diagram role="button" tabindex="0" viewBox="0 0 320 230" aria-label={t('Ask about this diagram', '指住呢幅圖提問')}></svg></div>
+    <div class="ss-caption"><span class="ss-voice" data-voice>{t('English', '粵語')}</span><p data-caption aria-live="off">{q5Cues[0].caption[locale]}</p></div>
+  </article>
+  <div class="ss-transport">
+    <button class="ss-primary" type="button" data-play>{t('Start lesson', '開始上堂')}</button>
+    <button type="button" data-replay>{t('Replay sentence', '重播呢句')}</button>
+    <button type="button" data-mute aria-pressed="false">{t('Mute', '靜音')}</button>
+    <button type="button" class="ss-hand" data-hand aria-controls="ss-questions" aria-expanded="false">{t('Raise hand', '舉手提問')}</button>
+  </div>
+  <p class="ss-notice" data-notice role="status"></p>
+  <a class="ss-practice" data-practice href="#selah-practice" hidden>{t('Try the practice problem', '自己試做變式題')} →</a>
+  <aside class="ss-questions" id="ss-questions" data-panel hidden aria-labelledby="ss-ask-title">
+    <div class="ss-ask-heading"><div><h3 id="ss-ask-title">{t('Ask about the board', '指住白板問')}</h3><p data-selection></p></div><button type="button" data-back>{t('Resume lesson', '接住講')}</button></div>
+    <div data-thread role="log" aria-live="polite"></div>
+    <button type="button" class="ss-view" data-view-mark hidden>{t('Show the tutor’s mark on the board', '睇導師指住白板邊度')} ↑</button>
+    <form data-form>
+      <label>{t('Invite code', '試用碼')}<input type="password" autocomplete="off" maxlength="128" data-code required /></label>
+      <label>{t('Your question', '你想問乜？')}<textarea rows="2" maxlength="600" data-question required></textarea></label>
+      <small>{t('Your question, selected object and recent turns go to the AI tutor.', '你嘅問題、所選板書同最近幾輪對話會送畀 AI 導師。')}</small>
+      <button type="submit" class="ss-primary" data-submit>{t('Ask tutor', '問導師')}</button>
+    </form>
+    <p data-answer-status role="status"></p>
+  </aside>
+  <audio data-audio preload="none"></audio>
+</section>
+<script>import '../scripts/selah-studio';</script>

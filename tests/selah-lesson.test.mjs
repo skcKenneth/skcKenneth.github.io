@@ -2,6 +2,34 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { evaluateSelah, selahLesson } from '../src/data/selah-lesson.mjs';
 import { filterTeachingResources, teachingHref } from '../src/data/teaching-directory.mjs';
+import { gradeTransfer, practiceState, transferProblem } from '../src/data/selah-practice.mjs';
+import { q5Cues } from '../src/data/selah-classroom.mjs';
+import { generatedCues, reviewedBoards } from '../src/data/selah-intake.mjs';
+import { statSync } from 'node:fs';
+
+test('each reviewed cue has both playable recordings in the release', () => {
+  for (const cue of [...q5Cues, ...reviewedBoards.flatMap(board => board.cues), ...generatedCues]) {
+    for (const locale of ['en','yue']) {
+      const file = new URL(`../public/audio/selah/${locale}/${cue.audioId || cue.id}.mp3`, import.meta.url);
+      assert.ok(statSync(file).size > 10000, file.href);
+    }
+  }
+});
+
+test('practice intervals attain their upper bounds and check the equality argument', () => {
+  assert.deepEqual(transferProblem(0), {low:2, high:10, midpoint:6, maximum:4});
+  for (let i=0; i<28; i++) {
+    const p = transferProblem(i);
+    assert.equal(2*(p.high-p.low), p.maximum**2);
+    assert.ok(Math.abs(Math.sqrt(p.midpoint-p.low)+Math.sqrt(p.high-p.midpoint)-p.maximum)<1e-9);
+    assert.equal(gradeTransfer(p, String(p.midpoint), String(p.maximum), 'equal'), 'correct');
+    assert.equal(gradeTransfer(p, String(p.midpoint), String(p.maximum), 'constant'), 'square');
+    assert.equal(gradeTransfer(p, String(p.low), String(p.maximum), 'equal'), 'balance');
+  }
+  assert.equal(practiceState({resolved:['explore']}).invariant, 'open');
+  assert.equal(practiceState({transfer:'viewed'}).transfer, 'viewed');
+  assert.equal(practiceState({transfer:'independent'}).transfer, 'independent');
+});
 
 test('the square-root sum has the stated bound, equality case and endpoint values', () => {
   const tolerance = 1e-12;

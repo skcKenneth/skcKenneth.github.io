@@ -1,0 +1,43 @@
+---
+import { catalogue } from '../data/selah-intake.mjs';
+import '../styles/selah-intake.css';
+
+interface Props { locale: 'en' | 'zh-Hant' }
+const { locale } = Astro.props;
+const zh = locale === 'zh-Hant';
+---
+<section class="selah-intake" data-selah-intake data-locale={locale} aria-labelledby="selah-intake-heading">
+  <div class="si-heading">
+    <h2 id="selah-intake-heading">{zh ? '揀一堂課' : 'Choose a lesson'}</h2>
+    <a href="#selah-bring">{zh ? '帶自己嘅題目' : 'Bring your own problem'} <span aria-hidden="true">↓</span></a>
+  </div>
+  <div class="si-library">
+    {catalogue.map(entry => (
+      <article>
+        <small>{entry.edition} · {zh ? '澳門高中組' : 'Macau Senior'} · Q{entry.number}</small>
+        <h3>{entry.title[locale]}</h3>
+        <div><button type="button" data-si-open={entry.id}>{zh ? '開啟白板' : 'Open board'} <span aria-hidden="true">↗</span></button>
+        <a href={entry.source.url}>{zh ? '原卷' : 'Paper'}</a></div>
+      </article>
+    ))}
+  </div>
+  <details id="selah-bring">
+    <summary>{zh ? '貼題目、相片或單頁 PDF' : 'Paste a problem or import a photo or one-page PDF'}</summary>
+    <div class="si-form">
+      <p>{zh ? '可以搵以上三堂競賽課，亦可以用兩個平方根之和嘅最大值題開新課。' : 'Find one of the three contest lessons or build a new board for a maximum of two square roots.'}</p>
+      <label class="si-file">{zh ? '揀相片或單頁 PDF' : 'Choose a photo or one-page PDF'}<input data-si-file type="file" accept="image/png,image/jpeg,image/webp,application/pdf,.pdf" /></label>
+      <small>{zh ? '檔案留喺呢部裝置，支援 JPG、PNG、WebP 及 PDF（最多 12 MB）。' : 'Files stay on this device. JPG, PNG, WebP and PDF up to 12 MB.'}</small>
+      <figure data-si-preview hidden><canvas></canvas><figcaption>{zh ? '對住原圖校對下方文字，特別留意根號、指數、分母同附圖標記。' : 'Check the extracted text against the page, especially radicals, exponents, denominators and diagram labels.'}</figcaption></figure>
+      <label for="selah-own-problem">{zh ? '題目文字' : 'Problem text'}</label>
+      <textarea id="selah-own-problem" data-si-input maxlength="6000" rows="3" placeholder={zh ? '例：求 √(x − 2) + √(10 − x) 的最大值' : 'Example: Find the maximum of √(x − 2) + √(10 − x)'}></textarea>
+      <div class="si-actions"><button type="button" data-si-review>{zh ? '核對題目' : 'Check problem'}</button>
+        <button type="button" class="si-secondary" data-si-example>{zh ? '試一條例題' : 'Try an example'}</button></div>
+      <p role="status" aria-live="polite" data-si-status></p>
+      <div data-si-result hidden>
+        <h3 data-si-label></h3><p data-si-question></p><a data-si-source hidden></a>
+        <button type="button" data-si-confirm>{zh ? '題目正確，開啟白板' : 'Confirm and open the board'}</button>
+      </div>
+    </div>
+  </details>
+</section>
+<script>import '../scripts/selah-intake';</script>

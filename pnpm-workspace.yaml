@@ -2,6 +2,7 @@ packages:
   - .
 allowBuilds:
   esbuild: true
+  tesseract.js: false
 confirmModulesPurge: false
 nodeLinker: isolated
 packageImportMethod: copy

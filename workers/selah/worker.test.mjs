@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { DatabaseSync } from "node:sqlite";
 import { test } from "node:test";
 import { selahLesson } from "../../src/data/selah-lesson.mjs";
+import { q5Cues } from "../../src/data/selah-classroom.mjs";
 import { handleAsk } from "./ask.mjs";
 import { createQuotaTable, reserveQuestion } from "./quota.mjs";
 
@@ -164,6 +165,97 @@ test("a full daily quota responds with Retry-After and skips inference", async (
   assert.equal(response.headers.get("Retry-After"), "600");
   assert.deepEqual(await response.json(), { error: "rate_limited" });
   assert.equal(calls.model.length, 0);
+});
+
+const classroom = {
+  ...QUESTION, stepId: "explore", question: "點解呢度最大？", locale: "zh-Hant",
+  board: { cueId: "line", objectId: "line", x: 4.5 },
+};
+const modelReturning = content => fixture({
+  run: () => ({ choices: [{ finish_reason: "stop", message: { content } }] }),
+});
+
+test("the narrated board resolves 'here' against the current coordinates and returns a visible highlight", async () => {
+  for (const [x, expected] of [[4.5, /u = v/], [3, /u = 0/], [6, /v = 0/], [3.75, /0.8660/]]) {
+    const { env, calls } = modelReturning("position");
+    const result = await handleAsk(request({ ...classroom, board: { ...classroom.board, x } }), env);
+    assert.equal(result.status, 200);
+    const body = await result.json();
+    assert.deepEqual([body.highlight, body.referenceStepId], ["point", "explore"]);
+    assert.match(body.answer, expected);
+    const instructions = calls.model[0].input.messages[0].content;
+    assert.ok(instructions.includes('"selectedObject":"line"'));
+    assert.ok(instructions.includes(`"x":${x}`));
+    assert.ok(instructions.includes(q5Cues.find(cue => cue.id === "line").caption["zh-Hant"]));
+  }
+});
+
+test("follow-up preserves recent turns as student data and uses the current cue for highlighting", async () => {
+  const history = [{ question: "點解呢度最大？", answer: "而家 u = v。" }];
+  for (const [cueId, stepId, highlight] of [["line", "explore", "line"], ["square", "prove", "identity"]]) {
+    const { env, calls } = modelReturning("bound");
+    const result = await handleAsk(request({
+      ...classroom, stepId, question: "咁點解唔係 6？", history, board: { ...classroom.board, cueId },
+    }), env);
+    const body = await result.json();
+    assert.equal(body.highlight, highlight);
+    assert.equal(body.annotation, "bound");
+    assert.match(body.answer, /u \+ v ≤ √6/);
+    const messages = calls.model[0].input.messages;
+    assert.ok(!messages[0].content.includes(history[0].answer));
+    assert.deepEqual(JSON.parse(messages[1].content), { recentDialogue: history, latestQuestion: "咁點解唔係 6？" });
+  }
+});
+
+test("an additional reviewed board is resolved server-side and may use its own cue ID", async () => {
+  const { env, calls } = modelReturning("product");
+  const result = await handleAsk(request({
+    ...QUESTION, lessonId: "macau-2022-2023-senior-q2", stepId: "product",
+    board: { cueId: "product", objectId: "product" }, question: "Why does each factor occur twice?",
+  }), env);
+  assert.equal(result.status, 200);
+  const body = await result.json();
+  assert.equal(body.highlight, "product");
+  assert.match(body.answer, /\(xy\)\(yz\)\(zx\) = \(xyz\)²/);
+  assert.ok(calls.model[0].input.messages[0].content.includes("(xy)(yz)(zx) = (xyz)²"));
+});
+
+test("bad board snapshots, out-of-range positions, and unbounded histories are rejected before quota", async () => {
+  const { env, calls } = fixture();
+  const turn = { question: "Why?", answer: "Use the equality case." };
+  for (const payload of [
+    { ...classroom, board: { ...classroom.board, x: "3" } },
+    { ...classroom, board: { ...classroom.board, x: 7 } },
+    { ...classroom, board: { ...classroom.board, objectId: "result" } },
+    { ...classroom, board: { ...classroom.board, cueId: "square" } },
+    { ...classroom, board: { ...classroom.board, objectId: "unknown" } },
+    { ...classroom, history: Array(4).fill(turn) },
+    { ...classroom, history: [{ question: "Why?", answer: "x".repeat(1001) }] },
+    { ...classroom, board: null },
+  ]) assert.equal((await handleAsk(request(payload), env)).status, 400);
+  assert.equal(calls.model.length, 0);
+  assert.equal(calls.quota, 0);
+});
+
+test("additional boards only use verified proof or generated cue text, even if the model confuses diagonal lengths", async () => {
+  const question = {
+    ...QUESTION, lessonId: "macau-2022-2023-senior-q6", stepId: "detour",
+    board: { cueId: "detour", objectId: "detour" }, question: "Why is the detour longer?",
+  };
+  for (const [modelText, expected] of [["detour", /AH \+ HB > AB/], ["AC + BD < AB + CD", /Which part/]]) {
+    const { env } = modelReturning(modelText);
+    const reply = await handleAsk(request(question), env);
+    assert.match((await reply.json()).answer, expected);
+  }
+  const generated = {
+    ...question, lessonId: "root-sum:2:10", question: "What is the maximum?",
+    stepId: "witness", board: { objectId: "witness", cueId: "witness" },
+  };
+  const { env } = modelReturning("witness");
+  const result = await handleAsk(request(generated), env);
+  const { answer } = await result.json();
+  assert.match(answer, /6/);
+  assert.match(answer, /4/);
 });
 
 test("upstream errors and incomplete results return an unavailable status", async () => {

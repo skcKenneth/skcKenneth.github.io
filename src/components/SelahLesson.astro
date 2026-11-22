@@ -20,8 +20,7 @@ const measures = [
 <section class="container selah" data-selah data-lesson-id={selahLesson.id} data-locale={locale} data-api-url={apiUrl}>
   <header class="selah-heading">
     <div>
-      <h1>Selah</h1>
-      <p class="selah-lesson-title">{selahLesson.title[locale]}</p>
+      <h2 class="selah-lesson-title">{selahLesson.title[locale]}</h2>
     </div>
     <ul class="selah-sources" aria-label={zh ? '原題及解說' : 'Problem and solution sources'}>
       <li><a href={selahLesson.source.paper}>{zh ? '教青局原卷' : 'Official problem paper'}</a></li>

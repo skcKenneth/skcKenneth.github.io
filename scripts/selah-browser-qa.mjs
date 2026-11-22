@@ -34,6 +34,12 @@ const screenshot = (page, name) => page.screenshot({
 async function open(page, path) {
   const response = await page.goto(origin + path, { waitUntil: 'domcontentloaded' });
   assert.equal(response?.status(), 200, path);
+  if (new URL(path, origin).pathname.endsWith(lessonPath)) await openWritten(page);
+}
+
+async function openWritten(page) {
+  const details = page.locator('#selah-written');
+  if (!(await details.getAttribute('open') === '')) await details.locator('summary').click();
 }
 
 async function localRequest(route) {
@@ -141,6 +147,7 @@ try {
     await step(page, 'prove');
     await page.locator('[data-language-switch]').click();
     await page.waitForURL(url => url.pathname === '/zh' + lessonPath);
+    await openWritten(page);
     await step(page, 'prove');
     assert.equal(await page.locator('html').getAttribute('lang'), 'zh-Hant');
     await check(page, 'prove', true);
