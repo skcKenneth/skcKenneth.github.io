@@ -99,6 +99,9 @@ const downloadCaption = zh ? '下載雙語字幕（SRT）' : 'Download bilingual
               <div class="asset-links">
                 <a href={`${media}${file}.mp4`} download>{zh ? '下載短片（MP4）' : 'Download this solution (MP4)'}</a>
                 <a href={`${media}subtitles/${file}.srt`} download>{downloadCaption}</a>
+                {edition === '2023-2024' && number === 5 && (
+                  <a href={`${prefix}/teaching/selah/`}>{zh ? '在 Selah 試做互動白板' : 'Try the interactive whiteboard in Selah'}</a>
+                )}
               </div>
               {edition === '2023-2024' && number === 1 && (
                 <aside class="question-source-note" aria-labelledby="question-1-source-note">

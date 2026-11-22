@@ -1,0 +1,144 @@
+---
+import MathExpression from './MathExpression.astro';
+import { evaluateSelah, selahLesson } from '../data/selah-lesson.mjs';
+import '../styles/selah.css';
+
+interface Props {
+  locale: 'en' | 'zh-Hant';
+  apiUrl?: string;
+}
+
+const { locale, apiUrl = '' } = Astro.props;
+const zh = locale === 'zh-Hant';
+const initial = evaluateSelah(3.5);
+const measures = [
+  { id: 'x', label: 'x' }, { id: 'u', label: 'u' },
+  { id: 'v', label: 'v' }, { id: 'sum', label: 'u + v' },
+] as const;
+---
+
+<section class="container selah" data-selah data-lesson-id={selahLesson.id} data-locale={locale} data-api-url={apiUrl}>
+  <header class="selah-heading">
+    <div>
+      <h1>Selah</h1>
+      <p class="selah-lesson-title">{selahLesson.title[locale]}</p>
+    </div>
+    <ul class="selah-sources" aria-label={zh ? '原題及解說' : 'Problem and solution sources'}>
+      <li><a href={selahLesson.source.paper}>{zh ? '教青局原卷' : 'Official problem paper'}</a></li>
+      <li><a href={selahLesson.source.film[locale]}>{zh ? '第 5 題動畫' : 'Question 5 animation'}</a></li>
+    </ul>
+  </header>
+
+  <nav class="selah-toc" aria-label={zh ? '解題步驟' : 'Lesson steps'} data-selah-enhanced hidden>
+    <ol>
+      {selahLesson.steps.map((step, index) => (
+        <li><button type="button" data-selah-step-link={step.id} aria-controls={`selah-step-${step.id}`}>
+          <span aria-hidden="true">{index + 1}</span>{step.title[locale]}
+        </button></li>
+      ))}
+    </ol>
+  </nav>
+
+  <noscript><p class="selah-script-note">{zh ? '以下是完整題解。啟用 JavaScript 可操作圖形及回答小測。' : 'The full solution is below. Enable JavaScript to use the graph and answer the checkpoints.'}</p></noscript>
+
+  <div class="selah-workspace">
+    <div class="selah-board">
+      {selahLesson.steps.map((step) => (
+        <section class="selah-step" id={`selah-step-${step.id}`} data-selah-step={step.id} aria-labelledby={`selah-heading-${step.id}`}>
+          <h2 id={`selah-heading-${step.id}`} data-selah-step-heading tabindex="-1">{step.title[locale]}</h2>
+          <p class="selah-step-copy">{step.text[locale]}</p>
+
+          {step.formulas.map((formula, index) => (
+            <div class="selah-equation" data-selah-reveal={step.quiz && index >= (step.quiz.revealFrom ?? Infinity) ? '' : undefined}>
+              <MathExpression expression={formula} display />
+            </div>
+          ))}
+
+          {step.id === 'explore' && (
+            <div class="selah-experiment" data-selah-enhanced hidden>
+              <figure class="selah-graph">
+                <canvas width="408" height="292" data-selah-canvas aria-hidden="true"></canvas>
+                <figcaption>
+                  <span class="selah-arc-key">{zh ? '點的路徑' : 'Path of the point'}</span>
+                  <span class="selah-sum-key">{zh ? '目前的 u + v' : 'Current sum u + v'}</span>
+                </figcaption>
+              </figure>
+              <div class="selah-measure-panel">
+                <label for="selah-x">{zh ? '調整 x' : 'Change x'}</label>
+                <input id="selah-x" data-selah-slider type="range" min="3" max="6" step="0.05" value={initial.x} />
+                <div class="selah-endpoints" aria-hidden="true"><span>3</span><span>6</span></div>
+                <dl class="selah-measures">
+                  {measures.map(({ id, label }) => (
+                    <div><dt>{label}</dt><dd data-selah-value={id}>{initial[id].toFixed(id === 'x' ? 2 : 3)}</dd></div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          )}
+
+          {step.quiz && (
+            <section class="selah-checkpoint" aria-labelledby={`selah-prompt-${step.id}`}>
+              <h3 id={`selah-prompt-${step.id}`}>{step.quiz.prompt[locale]}</h3>
+              <form data-selah-quiz data-answer-id={step.quiz.answerId} aria-labelledby={`selah-prompt-${step.id}`} data-selah-enhanced hidden>
+                <div class="selah-options" role="group" aria-labelledby={`selah-prompt-${step.id}`}>
+                  {step.quiz.options.map(option => (
+                    <label><input name="choice" type="radio" value={option.id} required />{option.label[locale]}</label>
+                  ))}
+                </div>
+                <div class="selah-quiz-actions">
+                  <button class="selah-button" type="submit" data-selah-check>{zh ? '檢查答案' : 'Check answer'}</button>
+                  <button class="selah-text-button" type="button" data-selah-show-answer hidden>{zh ? '查看解釋' : 'See explanation'}</button>
+                </div>
+              </form>
+              <p class="selah-quiz-feedback" role="status" data-selah-quiz-feedback></p>
+              <p class="selah-quiz-explanation" data-selah-quiz-explanation data-selah-reveal tabindex="-1">{step.quiz.explanation[locale]}</p>
+              <template data-selah-hint>{step.quiz.hint[locale]}</template>
+            </section>
+          )}
+
+          {step.extension && (
+            <details class="selah-extension">
+              <summary>{step.extension.label[locale]}</summary>
+              <p>{step.extension.explanation[locale]}</p>
+            </details>
+          )}
+        </section>
+      ))}
+
+      <nav class="selah-controls" aria-label={zh ? '課堂進度' : 'Lesson progress'} data-selah-enhanced hidden>
+        <button class="selah-button selah-secondary" type="button" data-selah-prev><span aria-hidden="true">←</span> {zh ? '上一步' : 'Previous'}</button>
+        <small data-selah-progress></small>
+        <button class="selah-button" type="button" data-selah-next>{zh ? '下一步' : 'Next'} <span aria-hidden="true">→</span></button>
+      </nav>
+    </div>
+
+    <aside class="selah-tutor" aria-labelledby="selah-tutor-heading" data-pagefind-ignore>
+      <h2 id="selah-tutor-heading">{zh ? 'AI 答疑' : 'Ask the AI tutor'}</h2>
+      {apiUrl ? (
+        <div data-selah-enhanced hidden>
+          <p class="selah-asking-step" data-selah-asking-step></p>
+          <form data-selah-ask-form>
+            <label for="selah-code">{zh ? '試用碼' : 'Invite code'}</label>
+            <input id="selah-code" data-selah-invite-code type="password" autocomplete="off" spellcheck="false" maxlength="200" required />
+            <label for="selah-question">{zh ? '你的問題' : 'Your question'}</label>
+            <textarea id="selah-question" data-selah-question rows="3" maxlength="600" aria-describedby="selah-privacy" required></textarea>
+            <p id="selah-privacy">{zh ? '問題會傳送至 AI 服務。請避免輸入姓名等個人資料。' : 'Your question is sent to an AI service. Leave out names and other personal details.'}</p>
+            <button class="selah-button" type="submit" data-selah-ask-submit>{zh ? '送出問題' : 'Ask'}</button>
+          </form>
+          <p class="selah-ask-status" role="status" data-selah-ask-status></p>
+          <div class="selah-reply" data-selah-answer hidden>
+            <p data-selah-answer-text></p>
+            <a data-selah-answer-reference></a>
+          </div>
+        </div>
+      ) : (
+        <p>{zh ? '這個版本暫未開放 AI 答疑。你仍可用白板提示及題解完成課堂。' : 'AI answers are currently unavailable. The whiteboard hints and worked solution are available throughout the lesson.'}</p>
+      )}
+      {apiUrl && <noscript><p>{zh ? '啟用 JavaScript 後可使用試用碼提問。' : 'Enable JavaScript to ask with an invite code.'}</p></noscript>}
+    </aside>
+  </div>
+</section>
+
+<script>
+  import '../scripts/selah-lesson.ts';
+</script>
