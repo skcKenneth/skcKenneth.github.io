@@ -2,6 +2,8 @@
 
 Selah’s Astro lesson is usable on its own. The Cloudflare Worker adds invitation-only questions about the active step, using the same reviewed lesson source as the site. The Worker uses Gemma 4 through a Workers AI binding. The documented response shape is `choices[0].message.content`. [Cloudflare setup guide](https://developers.cloudflare.com/workers-ai/get-started/workers-wrangler/) · [Model parameters](https://developers.cloudflare.com/workers-ai/models/gemma-4-26b-a4b-it/)
 
+For the proof step, the model selects among reviewed explanations of the identity, the bound, and equality. Questions that cannot be classified receive a short clarification prompt.
+
 ## Local checks
 
 Run from the site repository root. The tests use a mock inference binding and a real, in-memory SQLite quota table.

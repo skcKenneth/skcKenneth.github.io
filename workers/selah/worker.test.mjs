@@ -117,14 +117,14 @@ test("a question uses only the requested step and locale, with a server-selected
   assert.equal(response.headers.get("Cache-Control"), "no-store");
   assert.deepEqual(await response.json(), { answer: ANSWER, referenceStepId: "domain" });
 
-  const zhQuestion = "點解兩個平方根的和是 √6？";
-  const zhResponse = await handleAsk(request({ ...QUESTION, locale: "zh-Hant", stepId: "prove", question: zhQuestion }), env);
-  assert.deepEqual(await zhResponse.json(), { answer: ANSWER, referenceStepId: "prove" });
+  const zhQuestion = "為甚麼點沿四分一圓移動？";
+  const zhResponse = await handleAsk(request({ ...QUESTION, locale: "zh-Hant", stepId: "explore", question: zhQuestion }), env);
+  assert.deepEqual(await zhResponse.json(), { answer: ANSWER, referenceStepId: "explore" });
   assert.equal(calls.quota, 2);
   const [english, chinese] = calls.model;
   assert.equal(english.model, "@cf/google/gemma-4-26b-a4b-it");
   assert.deepEqual(english.input.messages[1], { role: "user", content: QUESTION.question });
-  const [domain, , prove, review] = selahLesson.steps;
+  const [domain, explore, , review] = selahLesson.steps;
   assert.ok(english.input.messages[0].content.includes(JSON.stringify(domain.tutorNotes.en)));
   assert.ok(english.input.messages[0].content.includes("√(a − b)"));
   assert.ok(!english.input.messages[0].content.includes(JSON.stringify(domain.formulas)));
@@ -137,7 +137,24 @@ test("a question uses only the requested step and locale, with a server-selected
   assert.equal(english.input.tools, undefined);
   assert.deepEqual(chinese.input.messages[1], { role: "user", content: zhQuestion });
   assert.ok(chinese.input.messages[0].content.includes("Traditional Chinese"));
-  assert.ok(chinese.input.messages[0].content.includes(JSON.stringify(prove.tutorNotes["zh-Hant"])));
+  assert.ok(chinese.input.messages[0].content.includes(JSON.stringify(explore.tutorNotes["zh-Hant"])));
+});
+
+test("the proof step uses only an approved answer even when the model returns an unexpected label", async () => {
+  const proof = selahLesson.steps.find(({ id }) => id === "prove");
+  for (const [label, locale, expected] of [
+    ["BOUND", "en", "bound"],
+    ["equality", "zh-Hant", "equality"],
+    ["identity", "en", "identity"],
+    ["The unsquared sum is 6.", "zh-Hant", "clarify"],
+    ["constructor", "en", "clarify"],
+  ]) {
+    const { env, calls } = fixture({ run: () => ({ choices: [{ finish_reason: "stop", message: { content: label } }] }) });
+    const response = await handleAsk(request({ ...QUESTION, stepId: "prove", locale }), env);
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), { answer: proof.tutorAnswers[expected][locale], referenceStepId: "prove" });
+    assert.equal(calls.model[0].input.max_completion_tokens, 32);
+  }
 });
 
 test("a full daily quota responds with Retry-After and skips inference", async () => {
