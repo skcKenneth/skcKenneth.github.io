@@ -68,7 +68,9 @@ function initialize(root: HTMLElement) {
     const entry = catalogue.find(item => item.id === match.id) ?? resolveBoard(match.id);
     if (!entry) return;
     selected = entry.id;
-    get('label').textContent = match.kind === 'reviewed'
+    get('label').textContent = match.kind === 'candidate'
+      ? t('Possibly related contest lesson · compare the conditions', '搵到相關競賽課堂 · 請先比較題目條件')
+      : match.kind === 'reviewed'
       ? t('Matched a reviewed contest lesson', '已配對到核對過嘅競賽課堂')
       : t('New board · domain and maximum checked', '新白板 · 已驗算定義域及最大值');
     get('question').textContent = entry.question[locale];

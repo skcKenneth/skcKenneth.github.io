@@ -107,9 +107,20 @@ export function identifyProblem(input) {
     if (ref.test(s) || [entry.title, entry.question].some(label => Object.values(label).some(value => simplify(value) === s))) return { kind: 'reviewed', id: entry.id };
   }
   if (/(?:如圖|附圖|下圖|圖中|圖示|shown|diagram|asillustrated|inthefigure)/.test(s)) return { kind: 'diagram' };
+  // A paraphrase offers the archived statement for comparison. It never silently
+  // substitutes that solution for a student's differently constrained problem.
+  if (['xy', 'yz', 'zx', 'xyz'].every(term => s.includes(term)) && /log|對數/.test(s) && /reciprocal|倒數|1\/log/.test(s)) {
+    return { kind: 'candidate', id: 'macau-2022-2023-senior-q2' };
+  }
+  if (/convexquadrilateral|凸四邊形/.test(s) && /diagonal|對角線/.test(s) && /perimeter|周長|周界/.test(s) && /oppositeside|對邊/.test(s)) {
+    return { kind: 'candidate', id: 'macau-2022-2023-senior-q6' };
+  }
   // Refuse unrecognised multipliers, extra terms, restricted domains and different objectives.
   const roots = /√\(x(?:([+-])(\d{1,5}))?\)\+√\((-?\d{1,5})-x\)/.exec(s);
   if (!roots) return { kind: 'unsupported' };
+  if (roots[0] === '√(x-3)+√(6-x)' && /(?:≥|>=)k/.test(s) && /exists|somerealx|至少|存在/.test(s)) {
+    return { kind: 'candidate', id: q5Id };
+  }
   const words = (s.slice(0, roots.index) + s.slice(roots.index + roots[0].length)).replace(/[,:]/g, '');
   objectiveWord.lastIndex = 0;
   let consumed = 0;

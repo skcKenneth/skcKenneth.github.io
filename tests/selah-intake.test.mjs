@@ -9,6 +9,8 @@ test('identifies the three reviewed contest boards by reference or full bilingua
     }
   }
   assert.equal(identifyProblem('求 √(x − 3) + √(6 − x) 的最大值。').id, q5Id);
+  assert.deepEqual(identifyProblem('How do the diagonals in a convex quadrilateral compare with its perimeter and opposite sides?'), {kind: 'candidate', id: 'macau-2022-2023-senior-q6'});
+  assert.deepEqual(identifyProblem('If the logarithms have argument xyz and bases xy, yz and zx, what is the sum of the reciprocals?'), {kind: 'candidate', id: 'macau-2022-2023-senior-q2'});
 });
 
 test('checks the domain, upper bound and feasible witness before offering an original board', () => {
