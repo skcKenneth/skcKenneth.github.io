@@ -19,8 +19,8 @@ export const selahLesson = {
       ),
       formulas: [String.raw`\sqrt{x-3}+\sqrt{6-x}\ge k`],
       tutorNotes: bilingual(
-        'The two radicands require x ≥ 3 and x ≤ 6, so the domain is [3,6]. A single x with the sum at least k is enough. Give a hint about the radicands and the meaning of “there is”. Ask for a prediction and leave the actual maximum for a later step.',
-        '兩個被開方數都須非負，因此 x ≥ 3 且 x ≤ 6，取值範圍是 [3,6]。只要有一個 x 令根式和不少於 k 即可。可提示學生檢查兩個被開方數，並理解「存在」的意思。請學生先猜想，留待稍後證明最大值。',
+        'In √(x − 3) + √(6 − x) ≥ k, the two radicands require x ≥ 3 and x ≤ 6, so the domain is [3,6]. A single x with the sum at least k is enough. Give a hint about the radicands and the meaning of “there is”. Ask for a prediction and leave the actual maximum for a later step.',
+        '在 √(x − 3) + √(6 − x) ≥ k 中，兩個被開方數都須非負，因此 x ≥ 3 且 x ≤ 6，取值範圍是 [3,6]。只要有一個 x 令根式和不少於 k 即可。可提示學生檢查兩個被開方數，並理解「存在」的意思。請學生先猜想，留待稍後證明最大值。',
       ),
     },
     {

@@ -126,6 +126,8 @@ test("a question uses only the requested step and locale, with a server-selected
   assert.deepEqual(english.input.messages[1], { role: "user", content: QUESTION.question });
   const [domain, , prove, review] = selahLesson.steps;
   assert.ok(english.input.messages[0].content.includes(JSON.stringify(domain.tutorNotes.en)));
+  assert.ok(english.input.messages[0].content.includes("√(a − b)"));
+  assert.ok(!english.input.messages[0].content.includes(JSON.stringify(domain.formulas)));
   assert.ok(!english.input.messages[0].content.includes(JSON.stringify(review.tutorNotes.en)));
   assert.ok(!english.input.messages[0].content.includes(TEST_CODE));
   assert.deepEqual(english.input.chat_template_kwargs, { enable_thinking: false });
