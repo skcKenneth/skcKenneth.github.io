@@ -92,11 +92,16 @@
     "@codemirror/language": "^6.12.4",
     "@codemirror/state": "^6.7.4",
     "@codemirror/view": "^6.43.11",
+    "@tesseract.js-data/chi_tra": "1.0.0",
+    "@tesseract.js-data/eng": "1.0.0",
     "astro": "7.4.7",
     "katex": "0.18.2",
+    "pdfjs-dist": "^6.5.438",
     "reading-time": "1.5.0",
     "rehype-katex": "7.0.1",
-    "remark-math": "6.0.0"
+    "remark-math": "6.0.0",
+    "tesseract.js": "^7.0.0",
+    "tesseract.js-core": "7.0.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",

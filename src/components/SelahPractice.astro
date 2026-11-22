@@ -1,0 +1,70 @@
+---
+interface Props { locale: 'en' | 'zh-Hant' }
+const {locale} = Astro.props;
+const t = (en: string, zh: string) => locale === 'en' ? en : zh;
+---
+<section id="selah-practice" class="practice container" data-selah-practice data-locale={locale} data-q5-only hidden>
+  <h2>{t('Try it on your own', '自己試一題')}</h2>
+  <div class="practice-layout">
+    <div class="problems">
+      <form data-invariant>
+        <fieldset><legend>{t('As the point moves, what stays fixed?', '拖動圓弧上嘅點，邊個量保持不變？')}</legend>
+        <div class="choices">{[['sum','u + v'],['squares','u² + v²'],['difference','u − v']].map(([id,label]) =>
+          <label><input type="radio" name="invariant" value={id} required /> {label}</label>)}</div></fieldset>
+        <button>{t('Check my prediction', '核對猜想')}</button>
+        <p data-invariant-feedback role="status"></p>
+        <div data-remedy hidden>
+          <table><caption>{t('Compare two positions on the arc', '比較圓弧上兩個位置')}</caption>
+            <thead><tr>{['x','u + v','u − v','u² + v²'].map(col => <th>{col}</th>)}</tr></thead>
+            <tbody><tr><th>3</th><td>√3</td><td>−√3</td><td>3</td></tr><tr><th>4.5</th><td>√6</td><td>0</td><td>3</td></tr></tbody>
+          </table>
+          <button type="button" data-reveal-invariant>{t('Read the reasoning', '睇返推理')}</button>
+        </div>
+      </form>
+      <form data-transfer>
+        <fieldset><legend>{t('Find the largest sum in a new interval', '換一個區間，搵出最大嘅和')}</legend>
+          <p class="formula" data-transfer-formula></p>
+          <div class="values">
+            <label>{t('Value of x', 'x 嘅值')} <input name="x" type="number" step="any" required /></label>
+            <label>{t('Largest sum', '最大嘅和')} <input name="sum" type="number" step="any" required /></label>
+          </div>
+          <label>{t('Why is this the maximum?', '點解呢度會取得最大值？')}
+            <select name="reason" required><option value="">{t('Choose a reason', '揀一個理由')}</option>
+              <option value="ends">{t('One root vanishes at an endpoint.', '端點有一個根式等於零。')}</option>
+              <option value="equal">{t('The roots are equal, so their squared difference vanishes.', '兩個根式相等，兩者之差嘅平方等於零。')}</option>
+              <option value="constant">{t('Their sum stays fixed throughout the interval.', '兩個根式嘅和喺成個區間都係定值。')}</option>
+            </select>
+          </label>
+        </fieldset>
+        <div class="actions"><button>{t('Check my proof', '核對答案同理由')}</button>
+          <button type="button" data-hint>{t('Give me a hint', '俾個提示')}</button>
+          <button type="button" data-reveal-transfer>{t('See the solution', '睇解法')}</button>
+          <button type="button" data-another hidden>{t('Try a fresh question', '再做一條新題')}</button></div>
+        <p data-transfer-feedback role="status"></p>
+      </form>
+    </div>
+    <aside aria-labelledby="selah-card-title">
+      <h3 id="selah-card-title">{t('Your review card', '我嘅溫習卡')}</h3>
+      <p>{t('Q5 · Key board line', '第 5 題 · 關鍵板書')}<br/><strong>(u + v)² = 6 − (u − v)²</strong></p>
+      <p data-card-summary></p><p data-card-next></p>
+      <a href="#selah-classroom" data-review>{t('Revisit the board', '重溫呢段板書')}</a>
+      <small>{t('Progress is saved in this browser.', '進度會儲喺呢個瀏覽器。')}</small>
+    </aside>
+  </div>
+</section>
+<script>
+  import '../scripts/selah-practice';
+</script>
+<style>
+  .practice {padding-block:2rem;scroll-margin-top:5rem}
+  .practice h2 {font: 600 clamp(1.6rem,4vw,2.4rem)/1.2 var(--serif);margin:0 0 1rem}
+  .practice-layout {display:grid;grid-template-columns:minmax(0,1.7fr) minmax(12rem,1fr);gap:clamp(1rem,4vw,3.5rem);align-items:start}
+  form {border-top:1px solid var(--line);padding:1.1rem 0} fieldset{border:0;padding:0;margin:0;min-width:0}
+  legend, h3{font-weight:700;font-size:1.15rem;margin:0 0 .75rem} .choices,.values,.actions{display:flex;flex-wrap:wrap;gap:.55rem .85rem}
+  .choices label{border:1px solid var(--line);padding:.45rem .75rem;border-radius:.3rem}.choices,.values,select{margin-bottom:.8rem}
+  input[type=number],select{border:1px solid #99a79d;background:var(--surface);border-radius:.3rem;padding:.43rem;font:inherit;max-width:100%;color:var(--ink)}
+  input[type=number]{width:6rem;display:block} select{display:block;width:100%}button{border:1px solid var(--accent);color:var(--accent-dark);background:var(--surface);padding:.5rem .85rem;border-radius:.35rem;font:inherit;cursor:pointer}button[type=submit],button:not([type]){background:var(--accent-dark);color:white}
+  .formula{font:1.35rem var(--serif);margin:.25rem 0 .8rem} aside{border-left:4px solid var(--accent);padding:1.1rem 1.3rem;background:var(--surface)} aside small{display:block;margin-top:.8rem;color:var(--muted)}
+  table{border-collapse:collapse;width:100%;max-width:30rem;margin:.75rem 0}caption{text-align:left}td,th{text-align:left;padding:.3rem;border-bottom:1px solid var(--line)}
+  p:empty{display:none}@media(max-width:720px){.practice-layout{grid-template-columns:minmax(0,1fr)}}
+</style>

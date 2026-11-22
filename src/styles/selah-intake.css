@@ -1,0 +1,28 @@
+.selah-intake {max-width: 74rem; margin: 2rem auto; padding: 0 clamp(1rem, 4vw, 3rem); color: var(--text, #172c35);}
+.si-heading,.si-library article>div,.si-actions {display:flex; align-items:center; justify-content:space-between; gap:.8rem; flex-wrap:wrap;}
+.si-heading h2 {margin:0; font-size:clamp(1.6rem,3.7vw,2.35rem);}
+.si-heading a,.si-library a,.si-form a {color:#185553; text-underline-offset:.2em;}
+.si-library {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:1rem 0; border-block:1px solid #ced9d3;}
+.si-library article {padding:1.15rem 1.3rem; display:flex; flex-direction:column; justify-content:space-between; gap:.4rem; min-width:0;}
+.si-library article+article {border-inline-start:1px solid #ced9d3;}
+.si-library article h3,.si-form h3 {margin:.2rem 0 .65rem; font-size:1.12rem; line-height:1.4;}
+.si-library small,.si-form small,.si-form figcaption {font-size:.85rem; color:#48605b;}
+.selah-intake button, .selah-intake summary {cursor:pointer; font:inherit;}
+.selah-intake button {border:1px solid #215e58; background:#205d57; color:white; border-radius:.45rem; padding:.45rem .85rem; min-height:2.65rem; font-weight:600;}
+.selah-intake button:disabled {opacity:.65; cursor:wait;}
+.selah-intake .si-secondary {color:#205d57;background:white;}
+.si-library article button {border:0; padding:0; background:transparent; color:#185553;}
+.selah-intake details {border:1px solid #cad8cf; border-radius:.65rem; background:#f8faf6; color:#172c35;}
+.selah-intake summary {padding:1rem 1.2rem; font-weight:650;}
+.si-form {max-width:48rem; padding:.15rem 1.2rem 1.2rem; display:grid; gap:.65rem;}
+.si-form p {margin:0; line-height:1.55;}
+.si-form [hidden],.si-form [data-si-status]:empty {display:none;}
+.si-file {display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;}
+.si-form label {font-weight:600;}
+.si-form textarea {width:100%; font:inherit; border:1px solid #9eb3a7; border-radius:.35rem; padding:.5rem; color:#122d26; background:white; resize:vertical;}
+.si-form figure {margin:0;}
+.si-form canvas {display:block; max-width:100%; max-height:16rem; border:1px solid #c1ccca;}
+.si-actions {justify-content:flex-start;}
+.si-form [data-si-result] {border-inline-start:3px solid #548775; padding:.6rem 1rem; display:grid; justify-items:start; gap:.6rem; background:#eef4ec;}
+.si-form [data-si-result][hidden] {display:none;}
+@media(max-width:650px){.si-library{grid-template-columns:1fr;}.si-library article{padding:1rem .2rem;}.si-library article+article{border-inline-start:0;border-top:1px solid #ced9d3;}}

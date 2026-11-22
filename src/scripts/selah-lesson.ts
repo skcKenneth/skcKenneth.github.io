@@ -172,9 +172,14 @@ function initialiseLesson(root: HTMLElement) {
     const explanation = step?.querySelector<HTMLElement>('[data-selah-quiz-explanation]');
     const hint = step?.querySelector<HTMLTemplateElement>('[data-selah-hint]');
     if (!step || !feedback || !showAnswer || !explanation || !hint) continue;
+    let neededHint = false;
+    const record = (outcome: string, choice = '') => window.dispatchEvent(new CustomEvent('selah:written-progress', {
+      detail: {stepId: stepId(step), outcome, choice},
+    }));
 
     const resolve = (correct: boolean) => {
       resolved.add(stepId(step));
+      record(correct ? neededHint ? 'assisted' : 'independent' : 'viewed');
       feedback.textContent = correct ? (zh ? '答對了。' : 'Correct.') : '';
       render();
       saveProgress();
@@ -189,6 +194,8 @@ function initialiseLesson(root: HTMLElement) {
         return;
       }
       feedback.textContent = hint.content.textContent?.trim() ?? '';
+      neededHint = true;
+      record('hint', String(answer));
       showAnswer.hidden = false;
     });
     showAnswer.addEventListener('click', () => resolve(false));

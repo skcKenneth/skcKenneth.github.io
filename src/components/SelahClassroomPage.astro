@@ -1,0 +1,49 @@
+---
+import SelahStudio from './SelahStudio.astro';
+import SelahIntake from './SelahIntake.astro';
+import SelahLesson from './SelahLesson.astro';
+import SelahPractice from './SelahPractice.astro';
+interface Props {locale: 'en'|'zh-Hant'}
+const {locale} = Astro.props;
+const zh = locale === 'zh-Hant';
+const apiUrl = import.meta.env.PUBLIC_SELAH_API_URL ?? '';
+---
+<header class="container classroom-header">
+  <h1>Selah</h1>
+  <nav aria-label={zh?'課堂選單':'Lesson menu'}>
+    <a href="#selah-library">{zh?'揀課或帶題入課':'Choose or bring a problem'}</a>
+    <a href="#selah-written" data-q5-only>{zh?'閱讀 Q5 題解':'Read the Q5 solution'}</a>
+  </nav>
+</header>
+<SelahStudio locale={locale} apiUrl={apiUrl} />
+<SelahPractice locale={locale} />
+<div id="selah-library"><SelahIntake locale={locale} /></div>
+<div class="container written-wrap" data-q5-only>
+  <details id="selah-written" open>
+    <summary>{zh?'澳門競賽 Q5 · 完整題解同分步練習':'Macau Q5 · Full solution and guided practice'}</summary>
+    <SelahLesson locale={locale} apiUrl={apiUrl} />
+  </details>
+</div>
+<script>
+  import {selahLesson} from '../data/selah-lesson.mjs';
+  const written = document.querySelector<HTMLDetailsElement>('#selah-written');
+  if (written) written.open = false;
+  document.querySelector('a[href="#selah-written"]')?.addEventListener('click', () => {
+    if (written) written.open = true;
+  });
+  function openWritten() {
+    if (written && (location.hash === '#selah-written' || location.hash.startsWith('#selah-step-'))) written.open = true;
+  }
+  openWritten(); window.addEventListener('hashchange', openWritten);
+  window.addEventListener('selah:active-lesson', (e) => {
+    const q5 = (e as CustomEvent).detail?.id === selahLesson.id;
+    document.querySelectorAll<HTMLElement>('[data-q5-only]').forEach(el => {el.hidden = !q5;});
+  });
+</script>
+<style>
+  .classroom-header{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem 1.5rem;flex-wrap:wrap;padding-block:.8rem}
+  h1{margin:0;font:500 clamp(2.2rem,4.8vw,3.65rem)/1.08 var(--serif);letter-spacing:-.05em}
+  nav{display:flex;flex-wrap:wrap;gap:.55rem 1.25rem;font-size:.9rem}
+  .written-wrap{margin-block:2rem 4rem}summary{cursor:pointer;font-weight:650;padding:.8rem 0;border-top:1px solid var(--line)}
+  #selah-library,#selah-written{scroll-margin-top:5rem}
+</style>

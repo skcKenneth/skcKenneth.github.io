@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SelahLesson from '../../components/SelahLesson.astro';
+import SelahClassroomPage from '../../components/SelahClassroomPage.astro';
 ---
 
 <BaseLayout
   title="Selah | Interactive maths whiteboard"
-  description="Work through Macau Interschool Mathematics Competition Question 5 on an interactive whiteboard. Move the diagram, test your reasoning, and ask about individual steps during the invited AI pilot."
+  description="Follow narrated Macau competition maths lessons, point to the board to ask a question, resume the explanation, and try a new problem of your own."
   type="Teaching"
   alternatePath="/zh/teaching/selah/"
 >
-  <SelahLesson locale="en" apiUrl={import.meta.env.PUBLIC_SELAH_API_URL ?? ''} />
+  <SelahClassroomPage locale="en" />
 </BaseLayout>

@@ -24,7 +24,7 @@ export const TEACHING_RESOURCES = [
   resource(
     'selah', '/teaching/selah/', ['senior', 'teacher'], ['interactive', 'practice'],
     bi('Selah · Interactive maths whiteboard', 'Selah｜互動數學白板'),
-    bi('Move a point, check two steps, and build a proof for 2023/2024 Macau Senior Division Question 5.', '拖動圖上的點，完成兩個小測，逐步證明 2023／2024 澳門學界數學比賽高中組第 5 題。'),
+    bi('Play narrated competition lessons, point to a diagram to ask a question, and practise with a new problem.', '跟粵語旁白學澳門競賽數學，點住圖形追問，試做變式題，或帶自己的題目入課。'),
     bi('About 8 minutes', '約 8 分鐘'),
     { aliases: ['Selah', 'AI tutor', 'square roots', 'competition mathematics', '學界數學', '根式', '白板', 'AI 答疑'] },
   ),
