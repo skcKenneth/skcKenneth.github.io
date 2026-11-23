@@ -35,6 +35,19 @@ import MeltPondTopologyLab from "../../components/MeltPondTopologyLab.astro";
   <figcaption><strong>圖一。</strong> 各欄是同一潛在場的平行版本，不是連續 pipeline snapshots。圖中只展示 latent、mild $2\times$、配對 segmentation $+1$ pixel 及 coarse-plus-crop；其他預定壓力在別處評估。</figcaption>
 </figure>
 
+## 觀看研究動畫
+
+追蹤水面像素如何連成橫跨影像的路徑，再比較同一批合成影像的分割邊界擴張一格後，跨域門檻的估計如何改變。
+
+<video id="research-film" controls playsinline preload="none" width="960" height="540" style="width: 100%; height: auto;" poster="/media/melt-pond-topology.jpg" aria-label="一格像素，如何接通兩個融池？">
+  <source src="/media/melt-pond-topology.mp4" type="video/mp4" />
+  <track kind="captions" src="/media/melt-pond-topology.zh-Hant.vtt" srclang="zh-Hant" label="繁體中文" />
+  <track kind="captions" src="/media/melt-pond-topology.en.vtt" srclang="en" label="English" />
+  <a href="/media/melt-pond-topology.mp4">開啟 MP4 影片</a>
+</video>
+
+靜音影片，附繁體中文及英文字幕。 [完整雙語文字稿](/media/melt-pond-topology.transcript.txt) · [開啟 MP4 影片](/media/melt-pond-topology.mp4)
+
 ## 先親手改變一次觀測
 
 以下精簡實驗室並非研究證據引擎，而是一個教學尺度模型，用來呈現連通判定的不連續性。選擇一種合成形態、改變水位，再降低有效解析度或加入邊界錯誤。你會看到融池覆蓋率通常平滑變化，但連通分支數、環洞數及跨域狀態可能在一步之間翻轉。
