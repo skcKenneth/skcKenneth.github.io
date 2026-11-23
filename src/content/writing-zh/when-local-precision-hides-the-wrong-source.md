@@ -22,6 +22,19 @@ archived: false
 
 這個有限研究的答案有條件。中心測點的反例是精確的，卻不代表普通設計方法一遇到非線性就會失敗。零延遲下，六種雙測點設計都沒有出現預先定義的大幅位置錯誤，等間距設計的中位誤差甚至低於 maximin。延遲量測才明顯增加困難，而較複雜的目標函數亦沒有消除困難。重點是按任務選擇實驗，而不是以一個新的通用分數，取代另一個通用分數。
 
+## 觀看研究動畫
+
+兩個鏡像熱脈衝令中央溫度計畫出同一條曲線。移動探頭後，兩條曲線逐漸分開。把同樣八次量測延後，分辨來源的訊號也逐漸減弱。
+
+<video id="research-film" controls playsinline preload="none" width="960" height="540" style="width: 100%; height: auto;" poster="/media/heat-source-aliasing.jpg" aria-label="兩個熱源，一條溫度曲線">
+  <source src="/media/heat-source-aliasing.mp4" type="video/mp4" />
+  <track kind="captions" src="/media/heat-source-aliasing.zh-Hant.vtt" srclang="zh-Hant" label="繁體中文" />
+  <track kind="captions" src="/media/heat-source-aliasing.en.vtt" srclang="en" label="English" />
+  <a href="/media/heat-source-aliasing.mp4">開啟 MP4 影片</a>
+</video>
+
+靜音影片，附繁體中文及英文字幕。 [完整雙語文字稿](/media/heat-source-aliasing.transcript.txt) · [開啟 MP4 影片](/media/heat-source-aliasing.mp4)
+
 ## 溫度計究竟觀察了甚麼？
 
 熱棒以無量綱區間 $0<x<1$ 表示，溫度遵從擴散係數為 $D>0$ 的熱方程。兩端不讓熱量流出；脈衝發生時間已知。正的熱源強度記作 $A$，位置記作 $a$，模型為

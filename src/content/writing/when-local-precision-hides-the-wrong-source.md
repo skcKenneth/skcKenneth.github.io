@@ -21,6 +21,19 @@ This is a hypothetical sensing problem, not a fire experiment or an engineering 
 
 The answer from this finite study is conditional. The midpoint counterexample is exact, but it does not mean that ordinary design methods fail whenever a problem is nonlinear. At zero delay, all six tested two-sensor layouts avoided the declared large location error; equal spacing even had a smaller median error than the maximin layout. Delayed measurements were more difficult, and the more elaborate objectives did not remove that difficulty. The useful lesson is to choose an experiment for the question it must answer—not to replace one universal score with another.
 
+## Watch the research animation
+
+A midpoint thermometer draws the same trace for two reflected heat pulses. Watch what changes when the sensor moves, and how delaying the same eight measurements weakens the signal.
+
+<video id="research-film" controls playsinline preload="none" width="960" height="540" style="width: 100%; height: auto;" poster="/media/heat-source-aliasing.jpg" aria-label="Two Heat Sources, One Temperature Trace">
+  <source src="/media/heat-source-aliasing.mp4" type="video/mp4" />
+  <track kind="captions" src="/media/heat-source-aliasing.zh-Hant.vtt" srclang="zh-Hant" label="繁體中文" />
+  <track kind="captions" src="/media/heat-source-aliasing.en.vtt" srclang="en" label="English" />
+  <a href="/media/heat-source-aliasing.mp4">Open the MP4</a>
+</video>
+
+Silent film with Traditional Chinese and English captions. [Full bilingual transcript](/media/heat-source-aliasing.transcript.txt) · [Open the MP4](/media/heat-source-aliasing.mp4)
+
 ## What does the thermometer actually observe?
 
 The rod is represented by the dimensionless interval $0<x<1$. Temperature evolves according to a heat equation with diffusion coefficient $D>0$. The boundaries reflect heat rather than letting it escape, and the pulse time is known. If the pulse has positive strength $A$ and location $a$, the mathematical model is

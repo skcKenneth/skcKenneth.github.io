@@ -1,0 +1,127 @@
+一格像素，如何接通兩個融池？
+One Pixel Can Connect Two Melt Ponds
+雙語文字稿 / Bilingual transcript
+
+00:00:00.000–00:00:08.000
+一個像素，能讓兩條貫穿路徑同時出現嗎？
+Can one pixel create crossings in both directions?
+
+00:00:08.000–00:00:18.000
+中間一格變成水，四個分支立刻連成一個群集。
+One wet cell joins four branches immediately.
+
+00:00:18.000–00:00:29.000
+給每格一個分數。達到門檻的像素才進入水面集合。
+Assign each pixel a score. Add it to the pond mask when its score reaches the cutoff.
+
+00:00:29.000–00:00:47.000
+門檻越低，濕格只增不減；同分像素一次加入。
+Lowering the cutoff adds wet pixels. Equal scores enter in a single batch.
+
+00:00:47.000–00:00:59.000
+覆蓋率增加一格，連通性卻跳了一步。
+The occupied fraction gains one cell. Connectivity jumps.
+
+00:00:59.000–00:01:13.000
+相機改變的是像素分數與格網，兩者都能改變首次貫穿。
+A camera can change both pixel scores and the grid, shifting the first crossing.
+
+00:01:13.000–00:01:24.000
+固定同一個合成場，兩個觀測版本各自從潛在場產生。
+Hold one synthetic field fixed. Each observation starts from that same field.
+
+00:01:24.000–00:01:54.000
+同步降低分數門檻。每格顏色與判定都由該格點陣列重新計算。
+Lower the score cutoff together. Each view recomputes its mask and spanning flags.
+
+00:01:54.000–00:02:05.000
+回看同一分數：潛在參照還未雙向貫穿，粗解析度觀測已經貫穿。
+At this fixed score, the coarse view spans in both directions while the latent reference does not.
+
+00:02:05.000–00:02:16.000
+黃線與粉線各沿相鄰水像素連接一對邊界。
+The yellow and pink routes follow adjacent pond pixels between opposite edges.
+
+00:02:16.000–00:02:28.000
+在另一個分數，改看邊界紋理版本，雙向判定反過來。
+At another score, the boundary-texture observation reverses the verdict in the other direction.
+
+00:02:28.000–00:02:38.000
+觀測覆蓋率由約 0.634 升到 0.650，卻失去貫穿。
+The observed pond fraction rises from about 0.634 to 0.650 while spanning is lost.
+
+00:02:38.000–00:02:49.000
+研究的目標是第一次雙向貫穿時的覆蓋率。
+The study targets the occupied fraction at the first span in both directions.
+
+00:02:49.000–00:03:04.000
+以精確的像素排序求臨界覆蓋率，再與潛在參照比較。
+Find the threshold by exact pixel ranking, then compare each estimate with the latent reference.
+
+00:03:04.000–00:03:19.000
+固定分數的反例解釋機制；這些標記才是同一場的臨界覆蓋率。
+The fixed-score examples expose the mechanisms. These markers quantify first-spanning fractions.
+
+00:03:19.000–00:03:28.000
+研究先處理連續分數，最後才以門檻分出水與冰。
+The study operates on scalar scores before thresholding them into pond and ice.
+
+00:03:28.000–00:03:41.000
+每個像素改取周圍九格的最高分；再使用同一門檻。
+Replace each score with the local maximum over nine cells, then apply the same cutoff.
+
+00:03:41.000–00:03:58.000
+比較方框內的最大值。只有被水格鄰接的冰格會被加進來。
+Follow the window maximum. An ice pixel is added when its window contains a pond pixel.
+
+00:03:58.000–00:04:10.000
+現在換到預留資料中的實際配對，兩個格網都是 256 × 256。
+Now replay a real pair from the synthetic holdout. Both observed grids are 256 × 256.
+
+00:04:10.000–00:04:24.000
+唯一差別是邊界向外一個觀測像素，綠色標出新增的水。
+Only the one-pixel dilation changes. Pale green identifies newly labelled water.
+
+00:04:24.000–00:04:38.000
+這個例子揭示機制。接下來把同一對設定施加到全部 48 個場。
+This example shows the mechanism. Next, apply the same two settings to all 48 fields.
+
+00:04:38.000–00:04:49.000
+預留測試涵蓋三種合成形態，每類 48 個潛在場。
+The holdout has 48 latent fields in each of three synthetic morphology families.
+
+00:04:49.000–00:05:03.000
+每場有六種配對觀測；共 864 筆，但仍只有 144 個潛在場。
+Six paired observations per field make 864 stacks from 144 latent fields.
+
+00:05:03.000–00:05:20.000
+直接貫穿的合併中位誤差最低，但尾部誤差超過 0.05。
+Raw spanning has the lowest pooled median error, while its 90th percentile exceeds 0.05.
+
+00:05:20.000–00:05:34.000
+把 48 個 Matérn 場逐一排開。橫軸是臨界覆蓋率的絕對誤差。
+Lay out the 48 Matérn fields. Horizontal position measures absolute error in the threshold.
+
+00:05:34.000–00:05:48.000
+連線配對同一個場。只有正向一像素邊界偏移有所改變。
+Each line pairs the same field. Only the outward one-pixel boundary displacement changes.
+
+00:05:48.000–00:06:03.000
+在相同 48 個場，誤差不超過 0.05 的個案由 46 個降到 5 個。
+Among the same 48 fields, the count with error at most 0.05 falls from 46 to 5.
+
+00:06:03.000–00:06:18.000
+每個分層要同時滿足中位誤差 ≤0.02、尾部 ≤0.05、失敗率 ≤5%。
+Each stratum requires median error ≤0.02, 90th-percentile error ≤0.05, and failures ≤5%.
+
+00:06:18.000–00:06:31.000
+直接貫穿通過 9 個分層；六種方法沒有一種能通過全部 18 個。
+Raw spanning passes nine strata. None of the six methods passes all 18.
+
+00:06:31.000–00:06:45.000
+即使格點貫穿算得精確，觀測誤差仍然可以改寫結論。
+Even an exact grid-spanning calculation can give a different verdict after observation.
+
+00:06:45.000–00:07:00.000
+這裏的臨界值屬於影像格網，也取決於我們怎樣觀測。
+This threshold belongs to the image grid and depends on how that grid was observed.
