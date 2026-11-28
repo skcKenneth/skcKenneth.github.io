@@ -133,7 +133,7 @@ if (process.argv.includes("--built")) {
         assert.ok(about.includes(`data-milestone="${milestone.id}"`));
         assert.ok(about.includes(`data-status="${milestone.status}"`));
         assert.ok(about.includes(`datetime="${milestone.date}"`));
-        assert.ok(about.includes(`href="${milestone.source}"`));
+        assert.ok(about.includes(`href="${milestone.source.replaceAll("&", "&amp;")}"`));
         assert.ok(about.includes(milestone.description[prefix ? 'zh-Hant' : 'en']));
       }
     }
