@@ -79,7 +79,7 @@ test("Accepted is a distinct schema value with a Traditional Chinese badge", () 
   for (const status of ["Submitted","Accepted","Published","Teaching case"]) assert.ok(values.includes(status));
   assert.equal(values.filter(s=>s==="Accepted").length,1);
   assert.match(read("src/components/StatusBadge.astro"),/"Accepted": "已接納"/);
-  for (const text of projects) assert.match(text,/^status: Accepted$/m);
+  for (const text of projects) { assert.match(text,/^status: Published$/m); assert.ok(text.includes('10.1007/978-981-92-7741-4_26')); }
 });
 
 test("author order, acceptance scope and reciprocal links survive integration", () => {
@@ -120,8 +120,8 @@ if (process.argv.includes("--built")) {
       assert.equal((article.match(/class="katex-display"/g)||[]).length,9);
       assert.doesNotMatch(article,/katex-error|Draft preview|草稿預覽/);
       const project=read(`dist/${prefix}projects/${slug}/index.html`);
-      assert.match(project,/data-status="Accepted"/);
-      assert.ok(project.includes(prefix ? "已接納" : "Accepted"));
+      assert.match(project,/data-status="Published"/);
+      assert.ok(project.includes(prefix ? "已發表" : "Published"));
       assert.ok(read(`dist/${prefix}teaching/student-research-studio/index.html`).includes(slug));
       assert.ok(read(`dist/${prefix}writing/index.html`).includes(slug));
       assert.ok(read(`dist/${prefix}projects/index.html`).includes(slug));

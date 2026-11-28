@@ -5,7 +5,7 @@ topicIds: [cities-engineering, risk-decisions, teaching-research-practice]
 sourceSlug: when-solar-power-changes-fast
 summary: 以五個太陽能站點的公開數據，檢查快速功率變化與感測輸入缺失時的預測區間。校準令每個站點都改善，但最困難群組的覆蓋率仍遠低於原來的目標。
 date: 2026-09-09
-lastUpdated: 2026-09-09
+lastUpdated: 2026-11-28
 featured: false
 draft: false
 topics: [太陽能預測, 不確定性量化, 共形預測, 條件可靠性, 學生研究]
@@ -20,7 +20,7 @@ archived: false
 
 改善這條不確定性帶，有兩種不同的意思。一種是令它比現有方法表現更好；另一種是令它可靠到足以滿足一個明確要求。方法完全可能做到前者，卻仍然做不到後者。我們的太陽能預測結果就提供了一個具體例子：校準令五個確認站點全部改善，但最弱的可評估群組，距離原定覆蓋目標仍然很遠。
 
-本文以這個區別解說我們獲 ADMA 2026 接納的短論文。它是一項使用公開能源數據的實證研究，不是一條保證所有條件覆蓋率的新定理。[專案簡介](/zh/projects/when-solar-power-changes-fast/)整理研究與作者資料；[學生研究工作室](/zh/teaching/student-research-studio/)則記錄這項工作的研究指導背景。下面先看結果，再逐步拆解模型、分母、比較方法，以及那些沒有被改善數字解決的問題。
+本文以這個區別解說我們已於 ADMA 2026 論文集出版的短論文。它是一項使用公開能源數據的實證研究，不是一條保證所有條件覆蓋率的新定理。[專案簡介](/zh/projects/when-solar-power-changes-fast/)整理研究與作者資料；[學生研究工作室](/zh/teaching/student-research-studio/)則記錄這項工作的研究指導背景。下面先看結果，再逐步拆解模型、分母、比較方法，以及那些沒有被改善數字解決的問題。
 
 ## 海報報告動畫
 
@@ -333,7 +333,7 @@ Descriptor 的最差合資格群組短缺，在三個 15 分鐘門檻下依次�
 
 本文解說的論文是 *When Solar Power Changes Fast: A Multi-Site Audit of Prediction-Interval Reliability under Ramp Events and Sensor Degradation*。按正式作者次序，作者為 **Hong U Lo、Zibo Gao、Peng Chi Lam、Sok Kin Cheng**；所屬機構為 St. Joseph Diocesan College (The Fifth School), Macao SAR, China。Sok Kin Cheng 為通訊作者及學生研究指導老師。
 
-研究於 **2026 年 9 月 3 日，由 ADMA 2026 Research Track 接納為 Short Paper**，並於 **2026 年 9 月 9 日完成 camera-ready 提交**。[會議預定於 2026 年 11 月 13–15 日在香港舉行](https://adma2026.github.io/)。目前記錄的是接納與提交兩個里程碑；本頁不聲稱已完成報告、已有正式論文集條目、已獲索引，或已有論文 DOI。
+研究於 **2026 年 9 月 3 日獲 ADMA 2026 Research Track 接納為 Short Paper**，並於 **2026 年 9 月 9 日完成 camera-ready 提交**。學生於 2026 年 11 月 13 日在香港[會議](https://adma2026.github.io/)完成海報報告（[校方報道](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1986&pa=1)）。論文已由 Springer 正式出版，收錄於 ADMA 2026 會議論文集 Part III 的 Lecture Notes in Artificial Intelligence（LNAI）系列：[DOI 10.1007/978-981-92-7741-4_26](https://doi.org/10.1007/978-981-92-7741-4_26)。本頁不聲稱資料庫索引已完成。
 
 數值解說依據已提交的八頁署名正式稿及其[公開研究版本](https://github.com/skcKenneth/solar-ramp-reliability/tree/19f6075edf642160be27e06692f4b78201d9ff57)。本文圖像由已保存結果重新繪製，不是重新訓練模型所得的新實驗。[專案頁](/zh/projects/when-solar-power-changes-fast/)提供精簡介紹；[研究指導紀錄](/zh/teaching/student-research-studio/)提供教育背景。
 

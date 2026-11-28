@@ -3,11 +3,12 @@ title: 當太陽能發電急升急跌
 slug: when-solar-power-changes-fast
 topicIds: [cities-engineering, risk-decisions, teaching-research-practice]
 sourceSlug: when-solar-power-changes-fast
-summary: 獲 ADMA 2026 接納的短論文，研究太陽能預測區間的條件可靠性。五站比較分開一致的校準改善，以及困難事件下仍未達到的絕對可靠性。
+summary: 已於 ADMA 2026 論文集出版的短論文，研究太陽能預測區間的條件可靠性。五站比較分開一致的校準改善，以及困難事件下仍未達到的絕對可靠性。
 year: 2026
 date: 2026-09-09
-lastUpdated: 2026-09-09
-status: Accepted
+lastUpdated: 2026-11-28
+status: Published
+paperUrl: https://doi.org/10.1007/978-981-92-7741-4_26
 featured: false
 draft: false
 topics: [太陽能預測, 不確定性量化, 學生研究]
@@ -31,7 +32,7 @@ limitations:
   - 同一數據集的五個外部站點，不能建立地理、氣候或操作泛化；時間折會重用歷史。
   - 感測特徵移除不是完整現場停機。自然缺失分析排除當前功率缺失，且只有 CSGS5 有合資格群組。
   - 未來標籤參考不可部署，只是描述性診斷，不是因果分解或性能上界。
-  - 2026-09-03 獲接納為 Short Paper，2026-09-09 已提交 camera-ready；不聲稱已完成報告、已有正式論文集條目、索引或論文 DOI。
+  - 論文已完成報告及正式出版；資料庫索引尚未核實。
 ---
 
 ## 有價值的改善，但仍然未夠
@@ -48,10 +49,10 @@ limitations:
 
 15／60 分鐘下，Descriptor 的平均最差群組短缺改善為 0.110／0.080，剩餘最差短缺仍為 0.430／0.363。不重新擬合的事件門檻敏感度與未來標籤診斷，有助提出下一個問題；自然缺失分析則只適用於樣本足夠、當前功率與未來目標均已觀測的 CSGS5 子集。
 
-## 作者與接納紀錄
+## 作者與出版紀錄
 
 正式論文題目：*When Solar Power Changes Fast: A Multi-Site Audit of Prediction-Interval Reliability under Ramp Events and Sensor Degradation*。
 
 正式作者次序：**Hong U Lo、Zibo Gao、Peng Chi Lam、Sok Kin Cheng**。所屬機構：St. Joseph Diocesan College (The Fifth School), Macao SAR, China。Sok Kin Cheng 為通訊作者及研究指導老師，教育背景可見[學生研究紀錄](/zh/teaching/student-research-studio/)。
 
-研究於 **2026 年 9 月 3 日獲 ADMA 2026 Research Track 接納為 Short Paper**，並於 **2026 年 9 月 9 日完成 camera-ready 提交**。[會議預定於 2026 年 11 月 13–15 日在香港舉行](https://adma2026.github.io/)。這是一項接納紀錄，不是已完成報告或正式出版的聲稱；論文集及索引狀態，須以各自的實際紀錄為準。
+研究於 **2026 年 9 月 3 日獲 ADMA 2026 Research Track 接納為 Short Paper**，並於 **2026 年 9 月 9 日完成 camera-ready 提交**。學生於 2026 年 11 月 13 日在香港[會議](https://adma2026.github.io/)完成海報報告（[校方報道](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1986&pa=1)）。論文已由 Springer 正式出版，收錄於 ADMA 2026 會議論文集 Part III 的 Lecture Notes in Artificial Intelligence（LNAI）系列：[DOI 10.1007/978-981-92-7741-4_26](https://doi.org/10.1007/978-981-92-7741-4_26)。本頁不聲稱資料庫索引已完成。

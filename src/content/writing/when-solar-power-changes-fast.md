@@ -4,7 +4,7 @@ slug: when-solar-power-changes-fast
 topicIds: [cities-engineering, risk-decisions, teaching-research-practice]
 summary: A five-station study asks whether solar prediction intervals remain trustworthy during rapid power changes and missing sensor inputs. Better calibration improves every station, yet the hardest groups still fall far below the intended coverage.
 date: 2026-09-09
-lastUpdated: 2026-09-09
+lastUpdated: 2026-11-28
 featured: false
 draft: false
 topics: [Solar forecasting, Uncertainty quantification, Conformal prediction, Conditional reliability, Student research]
@@ -19,7 +19,7 @@ This is a hypothetical operating scene, not a deployment evaluated in our study.
 
 There are two different ways to improve that band. One is to make it perform better than an existing method. The other is to make it sufficiently reliable for a stated purpose. A method can succeed at the first and fail at the second. Our solar forecasting results provide a concrete example: calibration improved all five confirmation stations, while the weakest evaluated groups remained a long way from the intended coverage.
 
-This article explains our accepted ADMA 2026 short paper through that distinction. It is an empirical study of public energy data, not a new theorem guaranteeing conditional coverage. The [project overview](/projects/when-solar-power-changes-fast/) records the research and author information; the [student research studio](/teaching/student-research-studio/) places it within the mentoring programme.
+This article explains our published ADMA 2026 short paper through that distinction. It is an empirical study of public energy data, not a new theorem guaranteeing conditional coverage. The [project overview](/projects/when-solar-power-changes-fast/) records the research and author information; the [student research studio](/teaching/student-research-studio/) places it within the mentoring programme.
 
 ## Poster presentation animation
 
@@ -330,7 +330,7 @@ When the next forecast arrives with a reassuring shaded band, the productive que
 
 This article explains *When Solar Power Changes Fast: A Multi-Site Audit of Prediction-Interval Reliability under Ramp Events and Sensor Degradation*, by **Hong U Lo, Zibo Gao, Peng Chi Lam, and Sok Kin Cheng**, in the paper's formal author order. The affiliation is St. Joseph Diocesan College (The Fifth School), Macao SAR, China. Sok Kin Cheng is the corresponding author and student research mentor.
 
-The work was accepted from the ADMA 2026 Research Track as a **Short Paper on 3 September 2026**. The camera-ready submission was completed on **9 September 2026**. The [conference is scheduled for 13–15 November 2026 in Hong Kong](https://adma2026.github.io/). Acceptance and submission are the recorded milestones; this page does not claim a completed presentation, published proceedings entry, indexing or an assigned paper DOI.
+The ADMA 2026 Research Track accepted the work as a **Short Paper on 3 September 2026**. The **camera-ready was submitted on 9 September 2026**. The students completed a poster presentation at the [conference](https://adma2026.github.io/) in Hong Kong on 13 November 2026, as documented in the [school report](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1986&pa=1). The paper is published in Springer’s ADMA 2026 proceedings, Part III, in the Lecture Notes in Artificial Intelligence (LNAI) series: [DOI 10.1007/978-981-92-7741-4_26](https://doi.org/10.1007/978-981-92-7741-4_26). Database indexing is not claimed here.
 
 The numerical discussion follows the submitted eight-page camera-ready paper and its [public research version](https://github.com/skcKenneth/solar-ramp-reliability/tree/19f6075edf642160be27e06692f4b78201d9ff57). Figures here are newly drawn from its saved results, not newly trained models. See the [project page](/projects/when-solar-power-changes-fast/) for a concise overview and the [mentoring record](/teaching/student-research-studio/) for the educational context.
 

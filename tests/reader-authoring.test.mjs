@@ -71,7 +71,7 @@ test('publication gate detects missing editions, classification drift, dates and
   await writeFile(zh, fixtureSource({ locale: 'zh-Hant', topic: 'wrong', date: '2026-10-12', body: '![Figure](/images/not-present.png)' }));
   report = await checkPublication(dir, { today: '2026-10-11' });
   for (const expected of ['bilingual topicIds differ', 'future date', 'require one primary topicId', 'missing local asset']) assert(report.errors.some(item => item.includes(expected)), expected);
-  assert(report.warnings.some(item => item.includes('retained status programme-listed')));
+  assert(report.warnings.some(item => item.includes('retained status presented-publication-pending')));
 }));
 test('learning toolbar forwards existing exports, mirrors status and resumes only known question IDs', async () => {
   const bundled = await build({ entryPoints: [join(root, 'src/scripts/teaching-toolbar.ts')], bundle: true, write: false, format: 'esm', platform: 'node' });

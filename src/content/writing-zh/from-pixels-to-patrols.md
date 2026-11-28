@@ -5,7 +5,7 @@ topicIds: [mathematical-thinking]
 sourceSlug: from-pixels-to-patrols
 summary: 以技術角度閱讀一項 AI4Nature@AVSS 2026 camera-trap 研究，追蹤機率校準如何進入合成巡邏配置，同時分開議程、證據與出版狀態。
 date: 2026-08-29
-lastUpdated: 2026-08-30
+lastUpdated: 2026-11-28
 featured: false
 topics: [camera trap, 機率校準, 保育科技, 資源配置, 合成實驗]
 heroImage: /images/writing/from-pixels-to-patrols/calibration-to-allocation-pipeline.svg
@@ -15,7 +15,7 @@ archived: false
 redirectFrom: []
 ---
 
-> **議程狀態——2026 年 8 月 30 日。** [AI4Nature@AVSS 2026 官方議程](https://www.ai4nature.tech/program.html)把 *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation* 列為 Paper ID 7，安排於明日（2026 年 8 月 31 日）Oral Session 1A。口頭報告仍未舉行；proceedings 出版、IEEE Xplore 紀錄與 DOI 均尚待確認。
+> **報告狀態（2026 年 11 月 28 日）。** [AI4Nature@AVSS 2026 官方議程](https://www.ai4nature.tech/program.html)把 *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation* 列為 Paper ID 7，安排於 2026 年 8 月 31 日 Oral Session 1A。學生已於當日完成英文口頭報告（[校方報道](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1902&pa=1)）；proceedings 出版、IEEE Xplore 紀錄與 DOI 均尚待確認。
 
 > **證據界線。** 下文所有數值均屬 **manuscript-reported**：它們來自二十個不同 seed、每個包含 400 個網格的受控合成實驗。我沒有為本篇 Blog 獨立重跑程式或重現這些數值。研究沒有使用真實 camera-trap 影像、巡邏紀錄、保護區部署或 field-effectiveness validation。
 
@@ -156,7 +156,7 @@ $$
 - interval 有 distribution-free coverage；
 - upper-bound planning 普遍 robust；
 - manuscript-reported values 已獨立重現；
-- 論文已完成口頭報告、已收入 proceedings、已在 IEEE Xplore 上線或已有 DOI。
+- 論文已收入 proceedings、已在 IEEE Xplore 上線或已有 DOI。
 
 真實部署還需要合法及合乎倫理地治理涉及人的影像、核對 authorised-person records、接受在地審查、安全處理敏感保育位置、加入 route-aware planning、監察季節與 hardware shift，並反覆檢查 calibration。公開材料不應洩露巡邏路線或脆弱物種座標。
 
@@ -166,7 +166,7 @@ Supplied six-page PDF 寫明 implementation 可在 project repository 取得，�
 
 PDF metadata 表示檔案通過 IEEE PDF eXpress certification。[IEEE conference guidance](https://events.ieee.org/planning-basics/ieee-conference-publications/publishing-information-for-ieee-conference-authors/)說明 PDF eXpress 用來檢查或轉換符合 IEEE Xplore 相容格式的檔案；這項 metadata 並不是 IEEE Xplore publication record。
 
-不過，官方所列的出版路徑不只是模糊可能性。[AI4Nature call for papers](https://www.ai4nature.tech/cfp.html)寫明 accepted papers 將收入 AVSS 2026 proceedings 並在 IEEE Xplore 出版，而且每篇 accepted paper 至少要由一個 full registration 覆蓋。[AVSS call for papers](https://www.avss2026.org/call-for-papers/)則寫明 accepted 且已 **presented** 的 papers 會收入 proceedings；camera-ready 流程另要求 PDF eXpress-compatible file、CMT upload 及 IEEE electronic copyright transfer。公開網頁無法核實用戶的付款收據、實際 registration category、CMT final state 或 eCF 是否完成，因此本篇只把它寫成：**若作者端條件完成，而且明日按議程完成報告，則有明確官方出版安排**；不能提前寫成已出版。
+不過，官方所列的出版路徑不只是模糊可能性。[AI4Nature call for papers](https://www.ai4nature.tech/cfp.html)寫明 accepted papers 將收入 AVSS 2026 proceedings 並在 IEEE Xplore 出版，而且每篇 accepted paper 至少要由一個 full registration 覆蓋。[AVSS call for papers](https://www.avss2026.org/call-for-papers/)則寫明 accepted 且已 **presented** 的 papers 會收入 proceedings；camera-ready 流程另要求 PDF eXpress-compatible file、CMT upload 及 IEEE electronic copyright transfer。公開網頁無法核實用戶的付款收據、實際 registration category、CMT final state 或 eCF 是否完成，因此本篇只把它寫成：**若作者端條件完成，則有明確官方出版安排**；不能提前寫成已出版。
 
 官方頁面沒有給出 AVSS-specific Xplore date。IEEE 的 [Xplore conference FAQ](https://xplorestaging.ieee.org/Xplorehelp/administrators-and-librarians/administrator-faqs)表示，proceedings 通常在 IEEE **收到完整內容後**約 30–60 日出現在 Xplore，同時提醒 organizers 可能在 conference 後數星期才送交。合理監察窗口因此是會後數星期至數月，而不是由 8 月 31 日起計的一個保證倒數。
 
@@ -174,7 +174,7 @@ PDF metadata 表示檔案通過 IEEE PDF eXpress certification。[IEEE conferenc
 
 ## 下一次可以更新甚麼
 
-8 月 31 日後，第一項更新應核實已安排的 oral presentation 是否實際舉行。只有經核實後，措辭才可由「scheduled」改為「presented」；這仍不等於 proceedings 已出版。
+校方報道已確認口頭報告完成；論文集出版仍未核實。
 
 IEEE Xplore record 出現後，才加入 DOI、完整 citation 與 official abstract link。技術重現亦應另作更新：鎖定 stable code revision、重建 environment、運行已聲明 seeds 或有紀錄的 subset、把 regenerated tables 與手稿逐項比較，並保留相符與不相符之處。
 
@@ -182,7 +182,7 @@ IEEE Xplore record 出現後，才加入 DOI、完整 citation 與 official abst
 
 ## 來源與狀態紀錄
 
-1. Chan, K. H., Ao, L. N., Loi, W. K., Tse, L. T., & Cheng, S. K. (2026). *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation*. Author-provided camera-ready manuscript；截至 2026 年 8 月 30 日，proceedings record 與 DOI pending。
+1. Chan, K. H., Ao, L. N., Loi, W. K., Tse, L. T., & Cheng, S. K. (2026). *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation*. Author-provided camera-ready manuscript；截至 2026 年 11 月 28 日，proceedings record 與 DOI pending。
 2. [AI4Nature@AVSS 2026 官方議程](https://www.ai4nature.tech/program.html)——Paper ID 7、作者、session 與 scheduled date。
 3. [AI4Nature call for papers](https://www.ai4nature.tech/cfp.html)——workshop publication plan 與日期。
 4. [AVSS 2026 programme](https://www.avss2026.org/programme/)及 [camera-ready instructions](https://www.avss2026.org/call-for-papers/)——workshop day 與 conference publication process。

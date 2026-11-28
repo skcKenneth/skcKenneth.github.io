@@ -149,6 +149,6 @@ test('Current public registry has all explicit note/dependent/managed edges and 
   for(const kind of ['guide','path','concept','manifest','teaching-interface','classroom-pack','teaching-source'])assert(observed.nodes.some(node=>node.kind===kind));
   const sampling=observed.nodes.find(node=>node.key==='classroom-pack:sampling-bias:en');assert(sampling.dependencies.includes('teaching-source:math-studio-sampling:shared'));
   const mixing=observed.nodes.find(node=>node.key==='classroom-pack:mixing-tank:zh-Hant');assert(mixing.dependencies.includes('concept:validation:zh-Hant'));
-  const event=report.observations.find(item=>item.key==='milestone:ai4nature-2026:shared');assert.equal(event.retainedStatus,'programme-listed');assert.equal(event.status,'pending');
+  const event=report.observations.find(item=>item.key==='milestone:ai4nature-2026:shared');assert.equal(event.retainedStatus,'presented-publication-pending');assert.equal(event.status,'pending');
   assert.equal(CONTENT_REVIEW_REGISTRY.version,1);
 });
