@@ -4,8 +4,8 @@ slug: from-pixels-to-patrols
 topicIds: [mathematical-thinking]
 summary: An evidence-bounded editorial record of a calibration-aware synthetic camera-trap pipeline that connects class probabilities to cell-level uncertainty and constrained patrol allocation.
 year: 2026
-lastUpdated: 2026-08-30
-status: Submitted
+lastUpdated: 2026-11-28
+status: Accepted
 featured: false
 topics: [Conservation Technology, Probability Calibration]
 methods: [Temperature scaling, Monotone Platt calibration, Poisson-binomial intervals, Constrained resource allocation]
@@ -23,7 +23,7 @@ limitations:
   - The study uses synthetic classifier outputs and landscapes; it includes no real images, patrol logs, named protected area, or field validation.
   - Human presence is a risk proxy rather than a poacher label, and the allocation model omits routes, authorised-person context, terrain, safety, and behavioural adaptation.
   - The code, environment, complete seeds, and numerical outputs were not independently verified for the public note.
-  - As of 2026-08-30 the oral presentation was scheduled for 2026-08-31; payment, CMT/eCF completion, proceedings publication, IEEE Xplore indexing, and a DOI were not publicly verifiable.
+  - The oral presentation is confirmed; proceedings publication, IEEE Xplore indexing and DOI remain unverified.
 redirectFrom: []
 ---
 
@@ -31,7 +31,7 @@ redirectFrom: []
 
 Read [From Pixels to Patrols: Why Calibration Changes a Synthetic Patrol Plan](/writing/from-pixels-to-patrols/) for the full probability-to-decision chain, newly drawn explanatory diagrams, manuscript-reported results, and explicit claim boundaries.
 
-The [official AI4Nature@AVSS 2026 programme](https://www.ai4nature.tech/program.html) lists the work as Paper ID 7 in Oral Session 1A on 31 August 2026. This page records that scheduled status; it does not claim that the presentation, proceedings publication, IEEE Xplore indexing, or DOI assignment has occurred.
+The [official AI4Nature@AVSS 2026 programme](https://www.ai4nature.tech/program.html) lists the work as Paper ID 7 in Oral Session 1A on 31 August 2026. The students completed the English oral presentation on 31 August 2026, as confirmed by the [school report](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1902&pa=1). Proceedings publication, IEEE Xplore indexing and DOI assignment remain pending confirmation.
 
 The official call states that accepted papers are intended for the AVSS proceedings and IEEE Xplore, conditional on the required full paper registration and conference process. IEEE's general guidance is approximately 30–60 days after it receives proceedings, which may itself be weeks after the event; this is a monitoring range, not a promised AVSS publication date.
 

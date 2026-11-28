@@ -4,7 +4,7 @@ slug: from-pixels-to-patrols
 topicIds: [mathematical-thinking]
 summary: A technical reading of an AI4Nature@AVSS 2026 camera-trap study, tracing how probability calibration reaches a synthetic patrol allocator while keeping programme, evidence, and publication status separate.
 date: 2026-08-29
-lastUpdated: 2026-08-30
+lastUpdated: 2026-11-28
 featured: false
 topics: [camera traps, probability calibration, conservation technology, resource allocation, synthetic experiments]
 heroImage: /images/writing/from-pixels-to-patrols/calibration-to-allocation-pipeline.svg
@@ -14,7 +14,7 @@ archived: false
 redirectFrom: []
 ---
 
-> **Programme status — 30 August 2026.** The [official AI4Nature@AVSS 2026 programme](https://www.ai4nature.tech/program.html) lists *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation* as Paper ID 7 in Oral Session 1A on 31 August 2026. The presentation is scheduled for tomorrow; it has not yet occurred. Proceedings publication, an IEEE Xplore record, and a DOI are pending.
+> **Presentation status (28 November 2026).** The [official AI4Nature@AVSS 2026 programme](https://www.ai4nature.tech/program.html) lists *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation* as Paper ID 7 in Oral Session 1A on 31 August 2026. The team completed the English oral presentation on that date, as documented by the [school report](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1902&pa=1). Proceedings publication, an IEEE Xplore record, and a DOI are pending.
 
 > **Evidence boundary.** Every numerical value below is **manuscript-reported** from controlled synthetic experiments over twenty separately seeded networks with 400 cells each. I did not independently rerun the code or reproduce those values for this Blog note. The study contains no real camera-trap images, patrol logs, protected-area deployment, or field-effectiveness validation.
 
@@ -155,7 +155,7 @@ The manuscript itself identifies synthetic evaluation as the main limitation. Th
 - that the interval has distribution-free coverage;
 - that upper-bound planning is universally robust;
 - that the reported values have been independently reproduced;
-- that the paper has already been presented, published in proceedings, indexed by IEEE Xplore, or assigned a DOI.
+- that the paper has already been published in proceedings, indexed by IEEE Xplore, or assigned a DOI.
 
 Real deployment would require lawful and ethical governance of imagery involving people, records of authorised presence, local review, secure handling of sensitive conservation locations, route-aware planning, monitoring for seasonal and hardware shift, and repeated calibration checks. Public communication should never expose patrol routes or vulnerable-species coordinates.
 
@@ -165,7 +165,7 @@ The supplied six-page PDF says that the implementation is available in a project
 
 The PDF metadata states that it was certified by IEEE PDF eXpress. [IEEE's conference guidance](https://events.ieee.org/planning-basics/ieee-conference-publications/publishing-information-for-ieee-conference-authors/) explains that PDF eXpress checks or converts files for IEEE Xplore compatibility; that metadata is not an IEEE Xplore publication record.
 
-The publication pathway is nevertheless stronger than a vague possibility. The [AI4Nature call for papers](https://www.ai4nature.tech/cfp.html) says accepted papers will be included in the AVSS 2026 proceedings and published in IEEE Xplore, with at least one full registration covering each accepted paper. The [AVSS call for papers](https://www.avss2026.org/call-for-papers/) states that accepted papers **presented** at AVSS 2026 will be included, and its camera-ready process also requires a PDF eXpress-compatible file, CMT upload, and IEEE electronic copyright transfer. Public pages cannot verify the user's payment receipt, the paper-registration category, the final CMT state, or the completed eCF, so this Blog records the route as **expected if all author-side conditions and the scheduled presentation are completed**, not as already published.
+The publication pathway is nevertheless stronger than a vague possibility. The [AI4Nature call for papers](https://www.ai4nature.tech/cfp.html) says accepted papers will be included in the AVSS 2026 proceedings and published in IEEE Xplore, with at least one full registration covering each accepted paper. The [AVSS call for papers](https://www.avss2026.org/call-for-papers/) states that accepted papers **presented** at AVSS 2026 will be included, and its camera-ready process also requires a PDF eXpress-compatible file, CMT upload, and IEEE electronic copyright transfer. Public pages cannot verify the user's payment receipt, the paper-registration category, the final CMT state, or the completed eCF, so this Blog records the route as **expected if all author-side conditions are satisfied**, not as already published.
 
 There is no conference-specific Xplore date on the official pages. IEEE's [Xplore conference FAQ](https://xplorestaging.ieee.org/Xplorehelp/administrators-and-librarians/administrator-faqs) says proceedings generally appear about 30–60 days **after IEEE receives the content**, while also warning that organizers may send the proceedings several weeks after the event. A reasonable monitoring window is therefore several weeks to a few months after the conference, not a guaranteed countdown from 31 August.
 
@@ -173,7 +173,7 @@ This page neither uploads the supplied PDF nor extracts its figures. The two dia
 
 ## What can be updated next
 
-After 31 August, the first update should verify whether the scheduled oral presentation occurred. That permits the wording to change from “scheduled” to “presented”; it still would not establish proceedings publication.
+The oral presentation is now confirmed by the school report; proceedings publication is not yet verified.
 
 When an IEEE Xplore record appears, a later update can add the DOI, full citation, and official abstract link. A technical reproducibility update should be separate: identify a stable code revision, reconstruct the environment, run the declared seeds or a documented subset, compare regenerated tables with the manuscript, and preserve both matches and discrepancies.
 
@@ -181,7 +181,7 @@ The durable lesson does not require pretending that the simulator is a park. A p
 
 ## Sources and status record
 
-1. Chan, K. H., Ao, L. N., Loi, W. K., Tse, L. T., & Cheng, S. K. (2026). *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation*. Author-provided camera-ready manuscript; proceedings record and DOI pending as of 30 August 2026.
+1. Chan, K. H., Ao, L. N., Loi, W. K., Tse, L. T., & Cheng, S. K. (2026). *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation*. Author-provided camera-ready manuscript; proceedings record and DOI pending as of 28 November 2026.
 2. [AI4Nature@AVSS 2026 official programme](https://www.ai4nature.tech/program.html) — Paper ID 7, authors, session, and scheduled date.
 3. [AI4Nature call for papers](https://www.ai4nature.tech/cfp.html) — workshop publication plan and dates.
 4. [AVSS 2026 programme](https://www.avss2026.org/programme/) and [camera-ready instructions](https://www.avss2026.org/call-for-papers/) — workshop day and conference publication process.

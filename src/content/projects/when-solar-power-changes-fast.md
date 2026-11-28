@@ -2,11 +2,12 @@
 title: When Solar Power Changes Fast
 slug: when-solar-power-changes-fast
 topicIds: [cities-engineering, risk-decisions, teaching-research-practice]
-summary: An accepted ADMA 2026 short paper on conditional solar prediction-interval reliability. Five-station comparisons distinguish consistent calibration improvement from the absolute reliability that difficult events still lack.
+summary: A published ADMA 2026 short paper on conditional solar prediction-interval reliability. Five-station comparisons distinguish consistent calibration improvement from the absolute reliability that difficult events still lack.
 year: 2026
 date: 2026-09-09
-lastUpdated: 2026-09-09
-status: Accepted
+lastUpdated: 2026-11-28
+status: Published
+paperUrl: https://doi.org/10.1007/978-981-92-7741-4_26
 featured: false
 draft: false
 topics: [Solar forecasting, Uncertainty quantification, Student research]
@@ -30,7 +31,7 @@ limitations:
   - Five external stations from one dataset do not establish geographic, climatic or operational generalization; folds reuse history.
   - Sensor-feature ablations are not complete field outages. Natural-missingness evaluation excludes missing current power and has eligible groups only at CSGS5.
   - The future-label reference is non-deployable and descriptive, not a causal decomposition or performance bound.
-  - Accepted as a Short Paper on 2026-09-03 and camera-ready submitted on 2026-09-09; a completed presentation, proceedings entry, indexing and paper DOI are not claimed.
+  - The paper has been presented and published; database indexing remains unverified.
 ---
 
 ## A useful improvement that is not yet enough
@@ -53,4 +54,4 @@ Formal paper title: *When Solar Power Changes Fast: A Multi-Site Audit of Predic
 
 Authors, in formal order: **Hong U Lo, Zibo Gao, Peng Chi Lam, and Sok Kin Cheng**. Affiliation: St. Joseph Diocesan College (The Fifth School), Macao SAR, China. Sok Kin Cheng is corresponding author and research mentor. See the [student research record](/teaching/student-research-studio/).
 
-The ADMA 2026 Research Track accepted the work as a **Short Paper on 3 September 2026**. The **camera-ready was submitted on 9 September 2026**. The [conference is scheduled for 13–15 November 2026 in Hong Kong](https://adma2026.github.io/). This is an acceptance record, not a claim of completed presentation or formal publication. Proceedings and indexing status will require their own actual records.
+The ADMA 2026 Research Track accepted the work as a **Short Paper on 3 September 2026**. The **camera-ready was submitted on 9 September 2026**. The students completed a poster presentation at the [conference](https://adma2026.github.io/) in Hong Kong on 13 November 2026, as documented in the [school report](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1986&pa=1). The paper is published in Springer’s ADMA 2026 proceedings, Part III, in the Lecture Notes in Artificial Intelligence (LNAI) series: [DOI 10.1007/978-981-92-7741-4_26](https://doi.org/10.1007/978-981-92-7741-4_26). Database indexing is not claimed here.

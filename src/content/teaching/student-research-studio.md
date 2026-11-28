@@ -3,7 +3,7 @@ title: Student Research Studio
 slug: student-research-studio
 topicIds: [teaching-research-practice]
 summary: A supervised pathway from reproducing one result to formulating, testing, and communicating an independent mathematical-modeling question.
-lastUpdated: 2026-09-09
+lastUpdated: 2026-11-28
 featured: true
 topics: [research mentoring, validation, communication]
 level: Advanced
@@ -14,11 +14,11 @@ The studio is designed for learners ready to move beyond a closed assignment. In
 
 > **Mentored research in practice — AI4Nature@AVSS 2026**
 >
-> I mentored the student team behind *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation*. The official workshop programme lists the work as Paper ID 7 in Oral Session 1A on 31 August 2026; I am also listed as a co-author. [View the official programme →](https://www.ai4nature.tech/program.html)
+> I mentored the student team behind *From Pixels to Patrols: A Calibration-Aware Sensor Fusion Pipeline for Camera-Trap-Driven Anti-Poaching Resource Allocation*. The team completed its English oral presentation on 31 August 2026 (Paper ID 7, Oral Session 1A); I am a co-author. Proceedings publication remains pending confirmation. [School report →](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1902&pa=1) [View the official programme →](https://www.ai4nature.tech/program.html)
 
 > **Mentored research in practice — ADMA 2026**
 >
-> I mentored the student research behind *When Solar Power Changes Fast: A Multi-Site Audit of Prediction-Interval Reliability under Ramp Events and Sensor Degradation*. The authors, in formal order, are Hong U Lo, Zibo Gao, Peng Chi Lam, and Sok Kin Cheng, all affiliated with St. Joseph Diocesan College (The Fifth School), Macao SAR, China. I am also the corresponding author. The work was accepted from the Research Track as a Short Paper on 3 September 2026; the camera-ready was submitted on 9 September 2026. The conference is scheduled for 13–15 November 2026 in Hong Kong; proceedings details remain to be confirmed. [Research article →](/writing/when-solar-power-changes-fast/) · [Project and results →](/projects/when-solar-power-changes-fast/) · [Official conference →](https://adma2026.github.io/)
+> I mentored the student research behind *When Solar Power Changes Fast: A Multi-Site Audit of Prediction-Interval Reliability under Ramp Events and Sensor Degradation*. The authors, in formal order, are Hong U Lo, Zibo Gao, Peng Chi Lam, and Sok Kin Cheng, all affiliated with St. Joseph Diocesan College (The Fifth School), Macao SAR, China. I am also the corresponding author. The work was accepted from the Research Track as a Short Paper on 3 September 2026; the camera-ready was submitted on 9 September 2026. The team completed a poster presentation in Hong Kong on 13 November 2026, and the short paper is published in Springer’s ADMA proceedings (LNAI). [School report →](https://www.cdsj5.edu.mo/cht/apps/detail/?id=1986&pa=1) · [Published paper →](https://doi.org/10.1007/978-981-92-7741-4_26) [Research article →](/writing/when-solar-power-changes-fast/) · [Project and results →](/projects/when-solar-power-changes-fast/) · [Official conference →](https://adma2026.github.io/)
 
 ## Entry evidence
 

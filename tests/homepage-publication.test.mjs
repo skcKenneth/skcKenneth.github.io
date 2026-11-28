@@ -55,7 +55,7 @@ test("homepage shows latest writing once, with separate editorial starting point
 });
 
 const names = ["Hong U Lo", "Zibo Gao", "Peng Chi Lam", "Sok Kin Cheng"];
-test("About records the ADMA mentoring role, author order and accepted-paper milestones in both languages", () => {
+test("About records the ADMA mentoring role, author order and published-paper milestones in both languages", () => {
   for (const prefix of ["", "zh/"]) {
     const about = read(`src/pages/${prefix}about.astro`);
     const positions = names.map(name => about.indexOf(name));
@@ -68,10 +68,11 @@ test("About records the ADMA mentoring role, author order and accepted-paper mil
     assert.ok(about.indexOf('<EditorialMilestones') < about.indexOf('id="cv"'));
     assert.ok(about.includes(prefix ? "研究指導老師及通訊作者" : "research mentor and corresponding author"));
     for (const section of ["writing", "projects"]) assert.ok(about.includes(`/${prefix}${section}/when-solar-power-changes-fast/`));
-    assert.doesNotMatch(about, /Full Paper|award-winning|已正式出版/);
+    assert.doesNotMatch(about, /Full Paper|award-winning/);
   }
   const adma = MILESTONES.find(milestone => milestone.id === 'adma-2026');
-  assert.equal(adma.status, 'accepted-camera-ready-submitted');
+  assert.equal(adma.status, 'presented-published');
+  assert.equal(adma.source, 'https://doi.org/10.1007/978-981-92-7741-4_26');
   assert.equal(adma.acceptedOn, '2026-09-03');
   assert.equal(adma.cameraReadySubmittedOn, '2026-09-09');
   assert.equal(adma.date, '2026-11-13');
@@ -80,12 +81,12 @@ test("About records the ADMA mentoring role, author order and accepted-paper mil
     assert.match(adma.description[locale], /Research Track/);
     assert.match(adma.description[locale], /Short Paper/);
     assert.match(adma.description[locale], /camera-ready/);
-    assert.doesNotMatch(adma.description[locale], /Full Paper|award-winning|已正式出版/);
+    assert.doesNotMatch(adma.description[locale], /Full Paper|award-winning/);
   }
   const nature = MILESTONES.find(milestone => milestone.id === 'ai4nature-2026');
-  assert.equal(nature.status, 'programme-listed');
+  assert.equal(nature.status, 'presented-publication-pending');
   assert.equal(nature.date, '2026-08-31');
-  assert.equal(nature.source, 'https://www.ai4nature.tech/program.html');
+  assert.equal(nature.source, 'https://www.cdsj5.edu.mo/cht/apps/detail/?id=1902&pa=1');
 });
 
 function inventory(directory) {
@@ -132,7 +133,7 @@ if (process.argv.includes("--built")) {
         assert.ok(about.includes(`data-milestone="${milestone.id}"`));
         assert.ok(about.includes(`data-status="${milestone.status}"`));
         assert.ok(about.includes(`datetime="${milestone.date}"`));
-        assert.ok(about.includes(`href="${milestone.source}"`));
+        assert.ok(about.includes(`href="${milestone.source.replaceAll("&", "&amp;")}"`));
         assert.ok(about.includes(milestone.description[prefix ? 'zh-Hant' : 'en']));
       }
     }
