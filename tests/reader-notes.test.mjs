@@ -110,7 +110,7 @@ test('the score note preserves event-specific and absolute-reliability failures 
 test('About adds a paired writing rationale and actual update date while preserving verified biography and milestones', () => {
   for (const { prefix } of locales) {
     const about = read(`src/pages/${prefix}about.astro`);
-    assert.ok(about.includes('<time datetime="2026-10-11">'));
+    assert.ok(about.includes('<time datetime="2026-11-28">'));
     assert.equal((about.match(/id="writing-approach"/g) || []).length, 1);
     assert.equal((about.match(/data-about-editorial/g) || []).length, 1);
     assert.ok(about.includes(`href="/${prefix}topics/routes/model-trust/"`));
