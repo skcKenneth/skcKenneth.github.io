@@ -187,7 +187,7 @@ if (process.argv.includes('--built')) {
   test('both built About pages expose the writing approach, actual date and original mentoring record', () => {
     for (const { prefix } of locales) {
       const html = built(`${prefix}about/index.html`);
-      assert.ok(html.includes('<time datetime="2026-10-11">'));
+      assert.ok(html.includes('<time datetime="2026-11-28">'));
       assert.ok(html.includes('id="writing-approach"'));
       assert.ok(html.includes('data-about-editorial'));
       assert.ok(html.includes(`href="/${prefix}topics/routes/model-trust/"`));
